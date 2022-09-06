@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:07:56
- * @sign F1687084DEFDEB57D033DEA1E076FFB8
+ * @since 2022-09-06 15:22:06
+ * @sign 16D4C13E23C3C3232246E6E448EF551F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,7 +59,13 @@ public class Address extends Entity {
 	 * 类型：A:国内；B:国外
 	*/
 	@ApiModelProperty(required = true,value="类型" , notes = "A:国内；B:国外")
-	private String type;
+	private String regionType;
+	
+	/**
+	 * 地区位置：东北、华北等
+	*/
+	@ApiModelProperty(required = false,value="地区位置" , notes = "东北、华北等")
+	private String regionLocation;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -191,17 +198,36 @@ public class Address extends Entity {
 	 * A:国内；B:国外
 	 * @return 类型
 	*/
-	public String getType() {
-		return type;
+	public String getRegionType() {
+		return regionType;
 	}
 	
 	/**
 	 * 设置 类型
-	 * @param type 类型
+	 * @param regionType 类型
 	 * @return 当前对象
 	*/
-	public Address setType(String type) {
-		this.type=type;
+	public Address setRegionType(String regionType) {
+		this.regionType=regionType;
+		return this;
+	}
+	
+	/**
+	 * 获得 地区位置<br>
+	 * 东北、华北等
+	 * @return 地区位置
+	*/
+	public String getRegionLocation() {
+		return regionLocation;
+	}
+	
+	/**
+	 * 设置 地区位置
+	 * @param regionLocation 地区位置
+	 * @return 当前对象
+	*/
+	public Address setRegionLocation(String regionLocation) {
+		this.regionLocation=regionLocation;
 		return this;
 	}
 	
@@ -308,6 +334,7 @@ public class Address extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public Address setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -417,6 +444,47 @@ public class Address extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Address clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Address duplicate(boolean all) {
+		org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$();
+		inst.setAddress(this.getAddress());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setRegionLocation(this.getRegionLocation());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setPhoneNumber(this.getPhoneNumber());
+		inst.setDeleted(this.getDeleted());
+		inst.setRegionType(this.getRegionType());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Address clone(boolean deep) {
+		return EntityContext.clone(Address.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 Address
 	 * @param addressMap 包含实体信息的 Map 对象
 	 * @return Address , 转换好的的 Address 对象
@@ -424,7 +492,9 @@ public class Address extends Entity {
 	@Transient
 	public static Address createFrom(Map<String,Object> addressMap) {
 		if(addressMap==null) return null;
-		Address po = EntityContext.create(Address.class, addressMap);
+		Address po = create();
+		EntityContext.copyProperties(po,addressMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -436,7 +506,9 @@ public class Address extends Entity {
 	@Transient
 	public static Address createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Address po = EntityContext.create(Address.class,pojo);
+		Address po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -446,6 +518,6 @@ public class Address extends Entity {
 	*/
 	@Transient
 	public static Address create() {
-		return EntityContext.create(Address.class);
+		return new org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$();
 	}
 }

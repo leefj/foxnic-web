@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.example.AddressVO;
 import java.util.List;
 import org.github.foxnic.web.domain.example.Address;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:07:56
+ * @since 2022-09-06 15:22:06
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -150,12 +151,22 @@ public class AddressVOMeta extends AddressMeta {
 	/**
 	 * 类型 , A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final String TYPE="type";
+	public static final String REGION_TYPE="regionType";
 	
 	/**
 	 * 类型 , A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,TYPE, java.lang.String.class, "类型", "A:国内；B:国外", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> REGION_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,REGION_TYPE, java.lang.String.class, "类型", "A:国内；B:国外", java.lang.String.class, null);
+	
+	/**
+	 * 地区位置 , 东北、华北等 , 类型: java.lang.String
+	*/
+	public static final String REGION_LOCATION="regionLocation";
+	
+	/**
+	 * 地区位置 , 东北、华北等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "东北、华北等", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -240,7 +251,7 @@ public class AddressVOMeta extends AddressMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -395,12 +406,23 @@ public class AddressVOMeta extends AddressMeta {
 		
 		/**
 		 * 设置 类型
-		 * @param type 类型
+		 * @param regionType 类型
 		 * @return 当前对象
 		*/
-		public Address setType(String type) {
-			super.change(TYPE,super.getType(),type);
-			super.setType(type);
+		public Address setRegionType(String regionType) {
+			super.change(REGION_TYPE,super.getRegionType(),regionType);
+			super.setRegionType(regionType);
+			return this;
+		}
+		
+		/**
+		 * 设置 地区位置
+		 * @param regionLocation 地区位置
+		 * @return 当前对象
+		*/
+		public Address setRegionLocation(String regionLocation) {
+			super.change(REGION_LOCATION,super.getRegionLocation(),regionLocation);
+			super.setRegionLocation(regionLocation);
 			return this;
 		}
 		
@@ -491,5 +513,50 @@ public class AddressVOMeta extends AddressMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public AddressVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public AddressVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setAddress(this.getAddress());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setRegionLocation(this.getRegionLocation());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setPhoneNumber(this.getPhoneNumber());
+			inst.setDeleted(this.getDeleted());
+			inst.setRegionType(this.getRegionType());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

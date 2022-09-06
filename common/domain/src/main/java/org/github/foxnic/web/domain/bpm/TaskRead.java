@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务已阅
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 13:30:21
- * @sign EC3FDB9324210215D94E5EDC3E9B402B
+ * @since 2022-09-02 16:42:57
+ * @sign ED84B4ED27B2DE0E7BE5CCE2F2062994
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -357,6 +357,47 @@ public class TaskRead extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskRead clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TaskRead duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.TaskReadMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskReadMeta.$$proxy$$();
+		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setConfirmTime(this.getConfirmTime());
+		inst.setComment(this.getComment());
+		inst.setId(this.getId());
+		inst.setLatestTime(this.getLatestTime());
+		inst.setVersion(this.getVersion());
+		inst.setTaskId(this.getTaskId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setReader(this.getReader());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskRead clone(boolean deep) {
+		return EntityContext.clone(TaskRead.class,this,deep);
 	}
 
 	/**

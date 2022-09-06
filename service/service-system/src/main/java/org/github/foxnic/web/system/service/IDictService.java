@@ -23,7 +23,7 @@ import java.util.Map;
  * 数据字典 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 09:58:48
+ * @since 2022-09-02 16:18:40
 */
 
 public interface IDictService extends  ISimpleIdService<Dict,String> {

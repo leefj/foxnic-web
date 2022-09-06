@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程任务已阅表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 13:30:22
+ * @since 2022-09-02 16:42:57
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = TaskReadServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface TaskReadServiceProxy {

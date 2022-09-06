@@ -147,7 +147,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		Config config = new Config();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		config.setId(id);
-		config.setDeleted(dao.getDBTreaty().getTrueValue());
+		config.setDeleted(true);
 		config.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		config.setDeleteTime(new Date());
 		try {

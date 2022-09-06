@@ -9,13 +9,14 @@ import org.github.foxnic.web.domain.hrm.Position;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.system.BusiRole;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 16:36:49
- * @sign F0B5B72CD6B6ADD13675EEE90EA1419B
+ * @since 2022-09-02 16:24:56
+ * @sign 361D2893BFB110ABFAEB8B961A725C31
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -663,5 +664,57 @@ public class EmployeeMeta {
 			super.setIdentity(identity);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Employee clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Employee duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setBadge(this.getBadge());
+			inst.setCompanyId(this.getCompanyId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setPhone(this.getPhone());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setPersonId(this.getPersonId());
+			inst.setId(this.getId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setSex(this.getSex());
+				inst.setPrimaryPositionId(this.getPrimaryPositionId());
+				inst.setPositions(this.getPositions());
+				inst.setVicePositions(this.getVicePositions());
+				inst.setSource(this.getSource());
+				inst.setVicePositionIds(this.getVicePositionIds());
+				inst.setPrimaryPosition(this.getPrimaryPosition());
+				inst.setPerson(this.getPerson());
+				inst.setIdentity(this.getIdentity());
+				inst.setNameAndBadge(this.getNameAndBadge());
+				inst.setOrganizations(this.getOrganizations());
+				inst.setName(this.getName());
+				inst.setBusiRoles(this.getBusiRoles());
+				inst.setCompany(this.getCompany());
+				inst.setPrimaryOrganization(this.getPrimaryOrganization());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

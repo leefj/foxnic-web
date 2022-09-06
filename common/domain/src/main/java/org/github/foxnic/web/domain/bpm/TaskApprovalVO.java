@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程任务审批结果
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 05:58:32
- * @sign 745EC38BBD5424AD7AD465F3C225B806
+ * @since 2022-09-02 16:42:57
+ * @sign 8AADFC2034A1D7FE4953FB4DB8BCD27E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +263,7 @@ public class TaskApprovalVO extends TaskApproval {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +272,116 @@ public class TaskApprovalVO extends TaskApproval {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return TaskApprovalVO , 转换好的 TaskApprovalVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskApprovalVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskApprovalVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TaskApprovalVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.TaskApprovalVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskApprovalVOMeta.$$proxy$$();
+		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setVariables(this.getVariables());
+		inst.setCamundaSuccess(this.getCamundaSuccess());
+		inst.setApprovalTime(this.getApprovalTime());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setAssigneeId(this.getAssigneeId());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setApprovalResult(this.getApprovalResult());
+		inst.setApprovalComment(this.getApprovalComment());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setCamundaResult(this.getCamundaResult());
+		inst.setId(this.getId());
+		inst.setApprovalUserId(this.getApprovalUserId());
+		inst.setAssigneeType(this.getAssigneeType());
+		inst.setTaskId(this.getTaskId());
+		if(all) {
+			inst.setApprover(this.getApprover());
+			inst.setApprovalUser(this.getApprovalUser());
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskApprovalVO clone(boolean deep) {
+		return EntityContext.clone(TaskApprovalVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskApprovalVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskApprovalVO , 转换好的的 TaskApproval 对象
+	*/
+	@Transient
+	public static TaskApprovalVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskApprovalVO po = EntityContext.create(TaskApprovalVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 TaskApprovalVO，等同于 new
+	 * @return TaskApprovalVO 对象
+	*/
+	@Transient
+	public static TaskApprovalVO create() {
+		return EntityContext.create(TaskApprovalVO.class);
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-20 16:30:40
+ * @since 2022-09-06 13:48:55
  */
 
 
@@ -100,8 +100,9 @@ function ListPage() {
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
+				refreshRowData(data,true);
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
@@ -160,8 +161,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {

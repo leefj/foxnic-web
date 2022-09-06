@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 系统文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 09:30:38
- * @sign 114691D292021561C7CFCA2A790074AD
+ * @since 2022-09-02 16:18:43
+ * @sign F22F5F27BB2009D7E68DEC527FE71CCE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -270,5 +272,111 @@ public class FileVO extends File {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return FileVO , 转换好的 FileVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return FileVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FileVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public FileVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.storage.meta.FileVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.storage.meta.FileVOMeta.$$proxy$$();
+		inst.setFileName(this.getFileName());
+		inst.setDownloadUrl(this.getDownloadUrl());
+		inst.setMediaType(this.getMediaType());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setSize(this.getSize());
+		inst.setDownloads(this.getDownloads());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setLocation(this.getLocation());
+		inst.setId(this.getId());
+		inst.setFileType(this.getFileType());
+		inst.setLatestVisitTime(this.getLatestVisitTime());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setExists(this.isExists());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FileVO clone(boolean deep) {
+		return EntityContext.clone(FileVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 FileVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return FileVO , 转换好的的 File 对象
+	*/
+	@Transient
+	public static FileVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		FileVO po = EntityContext.create(FileVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 FileVO，等同于 new
+	 * @return FileVO 对象
+	*/
+	@Transient
+	public static FileVO create() {
+		return EntityContext.create(FileVO.class);
 	}
 }

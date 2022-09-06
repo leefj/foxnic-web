@@ -126,7 +126,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		DbCache dbCache = new DbCache();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		dbCache.setId(id);
-		dbCache.setDeleted(dao.getDBTreaty().getTrueValue());
+		dbCache.setDeleted(true);
 		dbCache.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		dbCache.setDeleteTime(new Date());
 		boolean suc= dao.updateEntity(dbCache,SaveMode.NOT_NULL_FIELDS);

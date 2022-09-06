@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-14 11:45:51
- * @sign 7B7908A9FB5EFF31C330528541B4DD12
+ * @since 2022-08-25 13:21:35
+ * @sign 03DF11D6137819BF41A157DD0A8000EC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -713,6 +713,22 @@ public class Job extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Job clone() {
+		return EntityContext.clone(Job.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Job clone(boolean deep) {
+		return EntityContext.clone(Job.class,this,deep);
 	}
 
 	/**

@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.TaskRead;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 13:30:21
- * @sign EC3FDB9324210215D94E5EDC3E9B402B
+ * @since 2022-09-02 16:42:57
+ * @sign ED84B4ED27B2DE0E7BE5CCE2F2062994
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -280,5 +281,39 @@ public class TaskReadMeta {
 			super.setReader(reader);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public TaskRead clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public TaskRead duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setConfirmTime(this.getConfirmTime());
+			inst.setComment(this.getComment());
+			inst.setId(this.getId());
+			inst.setLatestTime(this.getLatestTime());
+			inst.setVersion(this.getVersion());
+			inst.setTaskId(this.getTaskId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setReader(this.getReader());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

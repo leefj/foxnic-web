@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.system.DictItemVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.DictItem;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:25
- * @sign F2BC3454DCCC9CB20B34954670740B94
+ * @since 2022-09-02 16:18:43
+ * @sign 867DAA5E7A653819A33CFDA22933DDEC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -258,9 +259,19 @@ public class DictItemVOMeta extends DictItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItemVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItemVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 有效 , 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String VALID="valid";
+	
+	/**
+	 * 有效 , 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItemVO,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItemVO.class ,VALID, java.lang.Integer.class, "有效", "是否有效", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID };
 	
 	/**
 	 * 代理类
@@ -533,5 +544,63 @@ public class DictItemVOMeta extends DictItemMeta {
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 有效
+		 * @param valid 有效
+		 * @return 当前对象
+		*/
+		public DictItem setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
+			super.setValid(valid);
+			return this;
+		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public DictItemVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public DictItemVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setDictId(this.getDictId());
+			inst.setLabel(this.getLabel());
+			inst.setSort(this.getSort());
+			inst.setVersion(this.getVersion());
+			inst.setParentId(this.getParentId());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setDictCode(this.getDictCode());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

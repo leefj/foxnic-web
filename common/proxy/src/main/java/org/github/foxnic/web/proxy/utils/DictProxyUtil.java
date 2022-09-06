@@ -29,6 +29,7 @@ public class DictProxyUtil {
         init();
         DictItemVO sample=new DictItemVO();
         sample.setDictCode(dictCode);
+        sample.setValid(1);
         if(StringUtil.isBlank(sample.getSortField())) {
             sample.setSortField(DictItemMeta.SORT);
             sample.setSortType("ASC");
@@ -44,7 +45,8 @@ public class DictProxyUtil {
         DictItemVO sample=new DictItemVO();
         sample.setDictCode(dictCode);
         sample.setCode(itemCode);
-        Result<List<DictItem>> result=proxy.queryList(sample);
+        sample.setValid(1);
+            Result<List<DictItem>> result=proxy.queryList(sample);
         if(result==null) return null;
         if(result.failure()) return null;
         if( result.data().isEmpty()) return null;

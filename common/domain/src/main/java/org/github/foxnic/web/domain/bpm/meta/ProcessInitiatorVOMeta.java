@@ -6,13 +6,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessInitiator;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:43
- * @sign B2F04747F9C976256475E89AE54DCB86
+ * @since 2022-09-02 16:42:52
+ * @sign 00DAEB59D6AAFC93F95C4472C678FDB5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -513,5 +514,50 @@ public class ProcessInitiatorVOMeta extends ProcessInitiatorMeta {
 			super.setLastUpdateUser(lastUpdateUser);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessInitiatorVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessInitiatorVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setInitiatorId(this.getInitiatorId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setDefinitionId(this.getDefinitionId());
+			inst.setInitiatorType(this.getInitiatorType());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setLastUpdateUser(this.getLastUpdateUser());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

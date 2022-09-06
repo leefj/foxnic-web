@@ -349,7 +349,9 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var tps=[
 			"<div style='height:36px;margin-top:6px'>",
 			'   <a id="{{d.id}}-a" index="{{d.index}}" pear-id="{{d.id}}" title="{{d.title}}" style="font-size: 15px;display: flex;{{d.style}}">',
-			'       <div style="width: 20px;text-align:center;"><i class="{{d.item.icon}}" style="font-size: 17px;"></i></div>',
+			'       <div style="width: 20px;text-align:center;">' +
+			'<i class="{{d.item.icon}}" style="font-size: 17px;"></i>' +
+			'</div>',
 			'&nbsp;&nbsp;{{d.title}}',
 			'   </a>',
 			"<div>",
@@ -394,6 +396,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			} else if(navIcon.indexOf("fa-")>=0) {
 				navIcon+=" fa-top-nav";
 			}
+
+			navIcon="";
 
 			if (item.id === menuId) {
 
@@ -481,8 +485,9 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 					// debugger
 					content += '<a level="p2-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id +
-						'" menu-title="' + note.title + '" href="' + href + '" style="'+marginLeft+'"><i class="' + note.icon +
-						'" style="'+item.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
+						'" menu-title="' + note.title + '" href="' + href + '" style="'+marginLeft+'">' +
+						'<i class="' + note.icon +'" style="'+item.sideMenuIconStyle+'"></i>' +
+						'<span>' + note.title + '</span></a>';
 				}
 				content += loadchild(note);
 				content += '</li>';

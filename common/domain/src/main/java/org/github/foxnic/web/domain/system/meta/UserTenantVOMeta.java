@@ -7,13 +7,14 @@ import org.github.foxnic.web.domain.system.UserTenant;
 import java.util.Date;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.hrm.Employee;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 15:56:15
- * @sign 8CA490A5122A70352BFEA50988BB52B9
+ * @since 2022-09-02 16:18:43
+ * @sign E060027581D66BFE10FB6BAB0EA48579
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -577,5 +578,53 @@ public class UserTenantVOMeta extends UserTenantMeta {
 			super.setEmployee(employee);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public UserTenantVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public UserTenantVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setEmployeeId(this.getEmployeeId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setOwnerTenantId(this.getOwnerTenantId());
+			inst.setSort(this.getSort());
+			inst.setUserId(this.getUserId());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setActivated(this.getActivated());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setEmployee(this.getEmployee());
+				inst.setSearchValue(this.getSearchValue());
+				inst.setTenant(this.getTenant());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

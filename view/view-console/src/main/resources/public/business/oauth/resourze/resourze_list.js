@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-10 16:43:04
+ * @since 2022-09-02 15:48:40
  */
 
 
@@ -45,6 +45,9 @@ function ListPage() {
 		});
 		fox.adjustSearchElement();
 		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
+		//
 		function renderTableInternal() {
 
 			var ps={searchField: "$composite"};
@@ -76,10 +79,10 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type),d);}}
-					,{ field: 'accessType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('访问控制'), templet:function (d){ return templet('accessType',fox.getEnumText(RADIO_ACCESSTYPE_DATA,d.accessType),d);}}
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type,'','type'),d);}}
+					,{ field: 'accessType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('访问控制'), templet:function (d){ return templet('accessType',fox.getEnumText(RADIO_ACCESSTYPE_DATA,d.accessType,'','accessType'),d);}}
 					,{ field: 'url', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地址') , templet: function (d) { return templet('url',d.url,d);}  }
-					,{ field: 'method', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('Method'), templet:function (d){ return templet('method',fox.getEnumText(RADIO_METHOD_DATA,d.method),d);}}
+					,{ field: 'method', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('Method'), templet:function (d){ return templet('method',fox.getEnumText(RADIO_METHOD_DATA,d.method,'','method'),d);}}
 					,{ field: 'batchId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('批次号') , templet: function (d) { return templet('batchId',d.batchId,d);}  }
 					,{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('数据表') , templet: function (d) { return templet('tableName',d.tableName,d);}  }
 					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('模块') , templet: function (d) { return templet('module',d.module,d);}  }
@@ -89,19 +92,8 @@ function ListPage() {
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-							// 是否执行后续逻辑：错误提示
-							return false;
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
@@ -126,12 +118,14 @@ function ListPage() {
 				if (r.success) {
 					data = r.data;
 					context.update(data);
+					fox.renderFormInputs(form);
 				} else {
-					top.layer.msg(data.message, {icon: 1, time: 1500});
+					fox.showMessage(data);
 				}
 			});
 		} else {
 			context.update(data);
+			fox.renderFormInputs(form);
 		}
 	}
 
@@ -141,15 +135,11 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.type={ inputType:"radio_box", value: getSelectedValue("#type","value"), label:getSelectedValue("#type","nameStr") };
 		value.accessType={ inputType:"radio_box", value: getSelectedValue("#accessType","value"), label:getSelectedValue("#accessType","nameStr") };
-		value.url={ inputType:"button",value: $("#url").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.method={ inputType:"radio_box", value: getSelectedValue("#method","value"), label:getSelectedValue("#method","nameStr") };
-		value.batchId={ inputType:"button",value: $("#batchId").val()};
-		value.tableName={ inputType:"button",value: $("#tableName").val()};
-		value.module={ inputType:"button",value: $("#module").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.url={ inputType:"button",value: $("#url").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.module={ inputType:"button",value: $("#module").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -164,8 +154,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {
@@ -287,6 +276,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('sys-resourze-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -324,18 +314,19 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统资源')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -361,7 +352,7 @@ function ListPage() {
 						admin.putTempData('sys-resourze-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -370,7 +361,7 @@ function ListPage() {
 						admin.putTempData('sys-resourze-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -380,23 +371,22 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
+
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('系统资源')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			
@@ -449,7 +439,8 @@ function ListPage() {
 	window.module={
 		refreshTableData: refreshTableData,
 		refreshRowData: refreshRowData,
-		getCheckedList: getCheckedList
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

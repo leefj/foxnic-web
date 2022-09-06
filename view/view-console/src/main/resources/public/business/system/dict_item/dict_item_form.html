@@ -2,7 +2,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:26
+ * @since 2022-08-22 11:28:06
  */
  -->
  <!DOCTYPE html>
@@ -85,13 +85,22 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('排序')}">排序</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="sort" id="sort" name="sort" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('排序') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
                         </div>
                     </div>
+
+
+
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" checkedid="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
+                    </div>
+                </div>
 
 
                 <!--结束：栏次内字段循环-->
@@ -118,7 +127,7 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"code":{"labelInForm":"代码","inputType":"text_input","required":true},"label":{"labelInForm":"标签","inputType":"text_input","required":true},"sort":{"labelInForm":"排序","inputType":"number_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"生效","inputType":"logic_switch","required":true},"code":{"labelInForm":"代码","inputType":"text_input","required":true},"label":{"labelInForm":"标签","inputType":"text_input","required":true},"sort":{"labelInForm":"排序","inputType":"number_input","required":true}};
     var AUTH_PREFIX="sys_dict_item";
 
 

@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.oauth.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-10 16:43:00
- * @sign 583BBDA673F96561C0B687C0773621D5
+ * @since 2022-09-02 15:48:40
+ * @sign E4CF522624992BAEA759A534EC0F107D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -384,5 +385,42 @@ public class ResourzeMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Resourze clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Resourze duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setMethod(this.getMethod());
+			inst.setModule(this.getModule());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setType(this.getType());
+			inst.setBatchId(this.getBatchId());
+			inst.setVersion(this.getVersion());
+			inst.setUrl(this.getUrl());
+			inst.setTableName(this.getTableName());
+			inst.setAccessType(this.getAccessType());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

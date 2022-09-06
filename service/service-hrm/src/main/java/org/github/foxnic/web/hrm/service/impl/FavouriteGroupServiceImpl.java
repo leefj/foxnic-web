@@ -1,9 +1,11 @@
 package org.github.foxnic.web.hrm.service.impl;
 
-
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
 
 
 import org.github.foxnic.web.domain.hrm.FavouriteGroup;
@@ -29,13 +31,14 @@ import java.util.ArrayList;
 import org.github.foxnic.web.hrm.service.IFavouriteGroupService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * <p>
  * 常用人员分组表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:31
+ * @since 2022-09-02 16:24:59
 */
 
 
@@ -125,7 +128,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 		FavouriteGroup favouriteGroup = new FavouriteGroup();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		favouriteGroup.setId(id);
-		favouriteGroup.setDeleted(dao.getDBTreaty().getTrueValue());
+		favouriteGroup.setDeleted(true);
 		favouriteGroup.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		favouriteGroup.setDeleteTime(new Date());
 		try {
@@ -202,9 +205,22 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 		return dao.queryEntity(sample);
 	}
 
+	/**
+	 * 等价于 queryListByIds
+	 * */
 	@Override
 	public List<FavouriteGroup> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<FavouriteGroup> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, FavouriteGroup> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, FavouriteGroup::getId);
 	}
 
 
@@ -216,7 +232,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<FavouriteGroup> queryList(FavouriteGroup sample) {
+	public List<FavouriteGroup> queryList(FavouriteGroupVO sample) {
 		return super.queryList(sample);
 	}
 
@@ -230,7 +246,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<FavouriteGroup> queryPagedList(FavouriteGroup sample, int pageSize, int pageIndex) {
+	public PagedList<FavouriteGroup> queryPagedList(FavouriteGroupVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -249,37 +265,45 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param favouriteGroup 数据对象
 	 * @return 判断结果
 	 */
-	public Result<FavouriteGroup> checkExists(FavouriteGroup favouriteGroup) {
+	public Boolean checkExists(FavouriteGroup favouriteGroup) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(favouriteGroup, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(favouriteGroup, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcel(FavouriteGroup sample) {
-		return super.exportExcel(sample);
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
 	}
 
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcelTemplate() {
-		return super.exportExcelTemplate();
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
-	@Override
-	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
-		return super.importExcel(input,sheetIndex,batch);
-	}
 
-	@Override
-	public ExcelStructure buildExcelStructure(boolean isForExport) {
-		return super.buildExcelStructure(isForExport);
-	}
+
+
 
 
 }

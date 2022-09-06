@@ -16,10 +16,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 调用统计日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 14:12:29
- * @sign 259073DE4AB7614135E63D1932FCB4BE
+ * @since 2022-08-25 11:42:23
+ * @sign 1001880D3A20913EBC4BB6DA9DB43CF2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -462,6 +462,22 @@ public class InvokeLog extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public InvokeLog clone() {
+		return EntityContext.clone(InvokeLog.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public InvokeLog clone(boolean deep) {
+		return EntityContext.clone(InvokeLog.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 InvokeLog
 	 * @param invokeLogMap 包含实体信息的 Map 对象
 	 * @return InvokeLog , 转换好的的 InvokeLog 对象
@@ -491,6 +507,6 @@ public class InvokeLog extends Entity {
 	*/
 	@Transient
 	public static InvokeLog create() {
-		return new InvokeLog();
+		return EntityContext.create(InvokeLog.class);
 	}
 }

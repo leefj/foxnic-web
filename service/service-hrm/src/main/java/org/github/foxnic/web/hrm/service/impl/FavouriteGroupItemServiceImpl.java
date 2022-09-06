@@ -129,7 +129,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 		FavouriteGroupItem favouriteGroupItem = new FavouriteGroupItem();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		favouriteGroupItem.setId(id);
-		favouriteGroupItem.setDeleted(dao.getDBTreaty().getTrueValue());
+		favouriteGroupItem.setDeleted(true);
 		favouriteGroupItem.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		favouriteGroupItem.setDeleteTime(new Date());
 		try {

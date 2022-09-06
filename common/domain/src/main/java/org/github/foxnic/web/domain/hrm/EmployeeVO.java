@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 16:36:49
- * @sign CD6F210B59AF577A68702D75A5200D48
+ * @since 2022-09-02 16:24:56
+ * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -318,5 +320,134 @@ public class EmployeeVO extends Employee {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return EmployeeVO , 转换好的 EmployeeVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return EmployeeVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public EmployeeVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public EmployeeVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$();
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setBadge(this.getBadge());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setPhone(this.getPhone());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setPersonId(this.getPersonId());
+		inst.setId(this.getId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setVicePositions(this.getVicePositions());
+			inst.setSource(this.getSource());
+			inst.setOrgId(this.getOrgId());
+			inst.setPrimaryPosition(this.getPrimaryPosition());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setIdentity(this.getIdentity());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setCompany(this.getCompany());
+			inst.setId(this.getId());
+			inst.setSex(this.getSex());
+			inst.setPrimaryPositionId(this.getPrimaryPositionId());
+			inst.setPositions(this.getPositions());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setVicePositionIds(this.getVicePositionIds());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setPositionId(this.getPositionId());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setPerson(this.getPerson());
+			inst.setNameAndBadge(this.getNameAndBadge());
+			inst.setOrganizations(this.getOrganizations());
+			inst.setName(this.getName());
+			inst.setBusiRoles(this.getBusiRoles());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setIds(this.getIds());
+			inst.setPrimaryOrganization(this.getPrimaryOrganization());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public EmployeeVO clone(boolean deep) {
+		return EntityContext.clone(EmployeeVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 EmployeeVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return EmployeeVO , 转换好的的 Employee 对象
+	*/
+	@Transient
+	public static EmployeeVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		EmployeeVO po = EntityContext.create(EmployeeVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 EmployeeVO，等同于 new
+	 * @return EmployeeVO 对象
+	*/
+	@Transient
+	public static EmployeeVO create() {
+		return EntityContext.create(EmployeeVO.class);
 	}
 }

@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 09:30:38
- * @sign 88EC80CF134478D97E800B93CA9F6A57
+ * @since 2022-09-02 16:18:43
+ * @sign 4187DD794E7BA4CB4DCB50CF5712D9D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -547,6 +547,53 @@ public class File extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public File clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public File duplicate(boolean all) {
+		org.github.foxnic.web.domain.storage.meta.FileMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.storage.meta.FileMeta.$$proxy$$();
+		inst.setFileName(this.getFileName());
+		inst.setDownloadUrl(this.getDownloadUrl());
+		inst.setMediaType(this.getMediaType());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setSize(this.getSize());
+		inst.setDownloads(this.getDownloads());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setLocation(this.getLocation());
+		inst.setId(this.getId());
+		inst.setFileType(this.getFileType());
+		inst.setLatestVisitTime(this.getLatestVisitTime());
+		if(all) {
+			inst.setExists(this.isExists());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public File clone(boolean deep) {
+		return EntityContext.clone(File.class,this,deep);
 	}
 
 	/**

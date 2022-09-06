@@ -1,7 +1,7 @@
 /**
  * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:13:08
+ * @since 2022-09-02 16:18:42
  */
 
 
@@ -143,8 +143,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {

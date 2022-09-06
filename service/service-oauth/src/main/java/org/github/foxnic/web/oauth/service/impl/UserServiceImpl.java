@@ -3,12 +3,14 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.entity.SuperService;
@@ -23,6 +25,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
@@ -31,6 +34,7 @@ import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -44,6 +48,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
@@ -61,6 +66,30 @@ import java.util.*;
 
 @Service("SysUserService")
 public class UserServiceImpl extends SuperService<User> implements IUserService {
+
+	/**
+	 * 预热
+	 * */
+	@PostConstruct
+	private void startup() {
+		new Thread() {
+			@Override
+			public void run() {
+				dao().pausePrintThreadSQL();
+				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=?",10,1,"super_admin").getValueList("account",String.class);
+				for (String account : accounts) {
+					try {
+						User user = UserServiceImpl.this.getUserByIdentity(account);
+						if(user!=null) {
+							break;
+						}
+					} catch (Exception e) { }
+				}
+				dao().resumePrintThreadSQL();
+			}
+		} .start();
+
+	}
 
 	@Value("${develop.language:}")
 	private String devLang;
@@ -358,7 +387,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
 				.addAll().
 				removeDBTreatyFields()
-				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY,FoxnicWeb.SYS_MENU.SORT);
+				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY);
 
  		//填充账户模型
  		dao.fill(user).tag("login")
@@ -372,33 +401,62 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.fields(sysRoleFields,busiRoleFields,menuFields,resourzeFields)
 			.execute();
 
-
 //		int size2= ObjectUtil.sizeOf(user);
 
-		List<Menu> remMenus=new ArrayList<>();
-		if(user.getMenus()!=null) {
+		List<Menu> userMenus=new ArrayList<>();
 
-			for (Menu menu : user.getMenus()) {
-				if (!StringUtil.isBlank(menu.getDynamicHandler())) {
-					DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-					boolean has = dy.hasPermission(menu, user);
-					if (!has) {
-						remMenus.add(menu);
-					}
-					String title = dy.getLabel(menu, user);
-					menu.setLabel(title);
+		if(user.getRoles()!=null) {
+			for (Role role : user.getRoles()) {
+				if(role.getMenus()!=null) {
+					userMenus.addAll(role.getMenus());
 				}
 			}
+			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
+		}
 
-			for (Menu remMenu : remMenus) {
-				user.getMenus().remove(remMenu);
+		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
+		List<Menu> remMenus=new ArrayList<>();
+		for (Menu menu : userMenus) {
+			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
+				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+				boolean has = dy.hasPermission(menu, user);
+				if (!has) {
+					remMenus.add(menu);
+				}
+				String title = dy.getLabel(menu, user);
+				menu.setLabel(title);
+			}
+
+			if(excludedMenuIds.contains(menu.getId())) {
+				remMenus.add(menu);
 			}
 
 		}
 
+		for (Menu remMenu : remMenus) {
+			userMenus.remove(remMenu);
+		}
+
+		// 按 ID distinct
+		userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
+			return menu.getId();
+		});
+		// 排序
+		CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
+		// 设置用户菜单
+		user.setMenus(userMenus);
+
+		//
  		if(user.getActivatedTenant()!=null){
+			EntityContext.clonePropertyChain(user,false,UserMeta.ACTIVATED_TENANT_PROP,UserTenantMeta.EMPLOYEE_PROP);
  			Employee employee=user.getActivatedTenant().getEmployee();
  			if(employee!=null) {
+
+				EntityContext.cloneProperty(employee,EmployeeMeta.PRIMARY_ORGANIZATION_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.PRIMARY_POSITION_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.POSITIONS_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.BUSI_ROLES_PROP);
+
  				Person person=employee.getPerson();
  				if(person!=null) {
  					user.setActivatedEmployeeName(person.getName());
@@ -421,6 +479,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(StringUtil.isBlank(user.getLanguage())) {
 			user.setLanguage(Language.defaults.name());
 		}
+
 
         return user;
     }

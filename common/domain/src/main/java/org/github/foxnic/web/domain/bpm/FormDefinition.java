@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 16:12:04
- * @sign A15DEEDD4B46D7BDC09812C2331E1A0F
+ * @since 2022-09-02 16:42:56
+ * @sign 6104A255338359211BFF78649DEF6F47
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,7 +144,7 @@ public class FormDefinition extends Entity {
 	/**
 	 * 是否可关联多个流程：是否可关联多个流程
 	*/
-	@ApiModelProperty(required = false,value="是否可关联多个流程" , notes = "是否可关联多个流程")
+	@ApiModelProperty(required = true,value="是否可关联多个流程" , notes = "是否可关联多个流程")
 	private Integer mulitiProcess;
 	
 	/**
@@ -590,6 +590,55 @@ public class FormDefinition extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FormDefinition clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public FormDefinition duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta.$$proxy$$();
+		inst.setApprovalPageUrl(this.getApprovalPageUrl());
+		inst.setFormType(this.getFormType());
+		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
+		inst.setCallbackController(this.getCallbackController());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setMulitiProcess(this.getMulitiProcess());
+		inst.setDraftPageUrl(this.getDraftPageUrl());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setLastUpdateUser(this.getLastUpdateUser());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FormDefinition clone(boolean deep) {
+		return EntityContext.clone(FormDefinition.class,this,deep);
 	}
 
 	/**

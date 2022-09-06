@@ -16,8 +16,10 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.UserTenant;
+import org.github.foxnic.web.domain.system.UserTenantVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IUserTenantService;
 import org.springframework.stereotype.Service;
@@ -25,9 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -41,13 +41,13 @@ import java.util.List;
 
 @Service("SysUserTenantService")
 public class UserTenantServiceImpl extends SuperService<UserTenant> implements IUserTenantService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -56,12 +56,12 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 
 
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param userTenant 实体数据
@@ -75,7 +75,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		}
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param userTenantList 实体数据清单
@@ -85,8 +85,8 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	public Result insertList(List<UserTenant> userTenantList) {
 		return super.insertList(userTenantList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 账户租户关系
 	 *
@@ -107,7 +107,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 账户租户关系
 	 *
@@ -118,7 +118,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		UserTenant userTenant = new UserTenant();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		userTenant.setId(id);
-		userTenant.setDeleted(dao.getDBTreaty().getTrueValue());
+		userTenant.setDeleted(true);
 		userTenant.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		userTenant.setDeleteTime(new Date());
 		try {
@@ -131,7 +131,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param userTenant 数据对象
@@ -146,7 +146,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		}
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param userTenantList 数据对象列表
@@ -157,8 +157,8 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	public Result updateList(List<UserTenant> userTenantList , SaveMode mode) {
 		return super.updateList(userTenantList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 账户租户关系
 	 *
@@ -170,9 +170,9 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 账户租户关系
 	 *
@@ -187,15 +187,39 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	}
 
 	@Override
+	public Boolean hasRefers(String id) {
+		return false;
+	}
+
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		Map<String, Boolean> map=new HashMap<>();
+		return map;
+	}
+
+	/**
+	 * 等价于 queryListByIds
+	 * */
+	@Override
 	public List<UserTenant> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<UserTenant> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, UserTenant> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, UserTenant::getId);
 	}
 
 
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -203,24 +227,24 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	public List<UserTenant> queryList(UserTenant sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<UserTenant> queryPagedList(UserTenant sample, int pageSize, int pageIndex) {
+	public PagedList<UserTenant> queryPagedList(UserTenantVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -231,21 +255,28 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	public PagedList<UserTenant> queryPagedList(UserTenant sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
 	 * @param userTenant 数据对象
 	 * @return 判断结果
 	 */
-	public Result<UserTenant> checkExists(UserTenant userTenant) {
+	public Boolean checkExists(UserTenant userTenant) {
 		boolean exists=this.checkExists(userTenant, SYS_USER_TENANT.USER_ID,SYS_USER_TENANT.OWNER_TENANT_ID);
 		if(exists) {
-			return ErrorDesc.failure(CommonError.DATA_REPETITION);
+			return true;
 		} else {
-			return ErrorDesc.success();
+			return false;
 		}
 	}
+
+	@Override
+	public List<UserTenant> queryList(UserTenantVO sample) {
+		return null;
+	}
+
+
 
 	private void deactiveOthers(UserTenant userTenant) {
 		userTenant=this.getById(userTenant.getId());

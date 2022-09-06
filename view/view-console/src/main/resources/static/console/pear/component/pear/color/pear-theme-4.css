@@ -1,11 +1,19 @@
 .layui-btn { background-color:#f56c6c }
 .batch-delete-button { border: solid 1px #f6ad55;background-color: #f6ad55; }
-.ops-delete-button { border: #f6ad55;background-color: #f6ad55; }
-.ops-view-button {background-color: #f0f9eb !important}
-.ops-edit-button {background-color: #fef0f0 !important}
+.ops-delete-button:not(.layui-btn-disabled) { border: #f6ad55;background-color: #f6ad55; }
+.ops-view-button:not(.layui-btn-disabled) {
+    background-color: #fff !important;
+    color: #666 !important;
+}
+.ops-edit-button:not(.layui-btn-disabled) {
+    background-color: #fff !important;
+    color: #666 !important;
+}
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#f56c6c }
 
-
+.layui-btn-fluid {
+    background-color:#f56c6c
+}
 
 .search-button-advance {color:#fff;}
 
@@ -17,6 +25,12 @@
 .xm-label-block  {
     background-color: #f56c6c !important;
 }
+
+.xm-label-block-disabled {
+    background-color: #F0F0F0 !important;
+    color: #a0a0a0 !important;
+}
+
 .xm-option-icon {
     border-color: #f56c6c !important;
 }
@@ -37,11 +51,17 @@ xm-select  {
 
 #layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
     background-color: #fff;
+    color: #333;
 }
+
+#layui-table-page1-footer-download-excel-template:hover , #layui-table-page1-footer-import-excel:hover , #layui-table-page1-footer-download-excel:hover {
+    color: #333;
+}
+
 
 .layui-btn-primary:hover {
     border-color: #f56c6c;
-    color: #fff;
+    color: #ffffff;
 }
 
 .layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {
@@ -59,6 +79,13 @@ button[action-type] {
 
 .layui-tab-title .layui-this {
     color: #f56c6c;
+}
+
+.layui-table-view .layui-table th, .layui-table-view .layui-table td {
+    padding: 5px 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 .version-no {

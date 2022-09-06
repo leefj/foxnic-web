@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.oauth.Role;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Menu;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-04 14:56:01
- * @sign 9CC8E8945B49A1A958F4C3433DD2381E
+ * @since 2022-09-02 15:51:05
+ * @sign 36B23A7F642A6BB9483AEC2EB417A762
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -302,5 +303,40 @@ public class RoleMeta {
 			super.setMenuIds(menuIds);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Role clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Role duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCreateBy(this.getCreateBy());
+			inst.setCode(this.getCode());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setId(this.getId());
+			inst.setVersion(this.getVersion());
+			if(all) {
+				inst.setMenus(this.getMenus());
+				inst.setMenuIds(this.getMenuIds());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

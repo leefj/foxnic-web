@@ -7,14 +7,17 @@ import java.util.Map;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.HashMap;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-15 13:54:50
- * @sign 26F893ED5C4C9BE4E819D74A551EF02E
+ * @since 2022-09-02 16:42:57
+ * @sign DDAB7CADC05BB718E29B37B04518B42C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -292,5 +295,75 @@ public class TaskProcessVO {
 	public TaskProcessVO setJumpToNodeId(String jumpToNodeId) {
 		this.jumpToNodeId=jumpToNodeId;
 		return this;
+	}
+
+	/**
+	 * 创建一个 TaskProcessVO，等同于 new
+	 * @return TaskProcessVO 对象
+	*/
+	@Transient
+	public static TaskProcessVO create() {
+		return new TaskProcessVO();
+	}
+
+	/**
+	 * 将 Map 转换成 TaskProcessVO
+	 * @param taskMap 包含实体信息的 Map 对象
+	 * @return TaskProcessVO , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskProcessVO createFrom(Map<String,Object> taskMap) {
+		if(taskMap==null) return null;
+		TaskProcessVO po = new TaskProcessVO();
+		BeanUtil.copy(taskMap,po);
+		return po;
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskProcessVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskProcessVO , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskProcessVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskProcessVO po = new TaskProcessVO();
+		BeanUtil.copy(pojo,po,true);
+		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskProcessVO clone() {
+		return BeanUtil.clone(this,false);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskProcessVO clone(boolean deep) {
+		return BeanUtil.clone(this,deep);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskProcessVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)EntityContext.create((Class<? extends Entity>) pojoType,this);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

@@ -65,6 +65,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "F"),
 		@ApiImplicitParam(name = DictItemVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "男"),
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = DictItemVOMeta.ID)
@@ -124,6 +125,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "F"),
 		@ApiImplicitParam(name = DictItemVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "男"),
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { DictItemVOMeta.PAGE_INDEX , DictItemVOMeta.PAGE_SIZE , DictItemVOMeta.SEARCH_FIELD , DictItemVOMeta.FUZZY_FIELD , DictItemVOMeta.SEARCH_VALUE , DictItemVOMeta.SORT_FIELD , DictItemVOMeta.SORT_TYPE , DictItemVOMeta.IDS } ) 
 	@NotNull(name = DictItemVOMeta.ID)
@@ -149,6 +151,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "F"),
 		@ApiImplicitParam(name = DictItemVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "男"),
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictItemVOMeta.PAGE_INDEX , DictItemVOMeta.PAGE_SIZE , DictItemVOMeta.SEARCH_FIELD , DictItemVOMeta.FUZZY_FIELD , DictItemVOMeta.SEARCH_VALUE , DictItemVOMeta.SORT_FIELD , DictItemVOMeta.SORT_TYPE , DictItemVOMeta.IDS } )
 	@NotNull(name = DictItemVOMeta.ID)
@@ -213,6 +216,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "F"),
 		@ApiImplicitParam(name = DictItemVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "男"),
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictItemVOMeta.PAGE_INDEX , DictItemVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = DictItemServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -237,6 +241,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "F"),
 		@ApiImplicitParam(name = DictItemVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "男"),
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = DictItemServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

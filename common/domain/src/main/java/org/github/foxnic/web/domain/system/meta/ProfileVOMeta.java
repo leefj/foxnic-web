@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.ProfileVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.Profile;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:13:05
- * @sign 06D7408A07CF0D84D9554A542525BE33
+ * @since 2022-09-02 16:18:42
+ * @sign BFC7F59AF85B4575AF455EEAA67F73DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -280,5 +281,39 @@ public class ProfileVOMeta extends ProfileMeta {
 			super.setNotes(notes);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProfileVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProfileVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setNotes(this.getNotes());
+			inst.setName(this.getName());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

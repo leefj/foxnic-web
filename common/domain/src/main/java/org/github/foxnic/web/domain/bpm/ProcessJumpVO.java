@@ -3,14 +3,18 @@ package org.github.foxnic.web.domain.bpm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Map;
 import java.util.HashMap;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程跳转参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-04 15:56:25
- * @sign E3DEC1658C019F594460B8B90D5621D5
+ * @since 2022-09-02 16:42:56
+ * @sign AE731B1B6094140F17A3062CDA8E9D95
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -128,5 +132,75 @@ public class ProcessJumpVO {
 		if(this.variables==null) this.variables=new HashMap<>();
 		this.variables.put(key ,variable);
 		return this;
+	}
+
+	/**
+	 * 创建一个 ProcessJumpVO，等同于 new
+	 * @return ProcessJumpVO 对象
+	*/
+	@Transient
+	public static ProcessJumpVO create() {
+		return new ProcessJumpVO();
+	}
+
+	/**
+	 * 将 Map 转换成 ProcessJumpVO
+	 * @param processInstanceMap 包含实体信息的 Map 对象
+	 * @return ProcessJumpVO , 转换好的的 ProcessInstance 对象
+	*/
+	@Transient
+	public static ProcessJumpVO createFrom(Map<String,Object> processInstanceMap) {
+		if(processInstanceMap==null) return null;
+		ProcessJumpVO po = new ProcessJumpVO();
+		BeanUtil.copy(processInstanceMap,po);
+		return po;
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProcessJumpVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProcessJumpVO , 转换好的的 ProcessInstance 对象
+	*/
+	@Transient
+	public static ProcessJumpVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProcessJumpVO po = new ProcessJumpVO();
+		BeanUtil.copy(pojo,po,true);
+		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessJumpVO clone() {
+		return BeanUtil.clone(this,false);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessJumpVO clone(boolean deep) {
+		return BeanUtil.clone(this,deep);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProcessJumpVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)EntityContext.create((Class<? extends Entity>) pojoType,this);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

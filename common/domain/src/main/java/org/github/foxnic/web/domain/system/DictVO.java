@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 数据字典
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 09:58:48
- * @sign F8486D45EA9A5F1954A07A263FC67FA5
+ * @since 2022-09-02 16:18:40
+ * @sign F0B6CE5735F5F87F0DF1625262BF7ED1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +263,7 @@ public class DictVO extends Dict {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +272,109 @@ public class DictVO extends Dict {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return DictVO , 转换好的 DictVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return DictVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DictVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public DictVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.DictVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.DictVOMeta.$$proxy$$();
+		inst.setIsTree(this.getIsTree());
+		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
+		inst.setModule(this.getModule());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setModuleInfo(this.getModuleInfo());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setItems(this.getItems());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DictVO clone(boolean deep) {
+		return EntityContext.clone(DictVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 DictVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return DictVO , 转换好的的 Dict 对象
+	*/
+	@Transient
+	public static DictVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		DictVO po = EntityContext.create(DictVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 DictVO，等同于 new
+	 * @return DictVO 对象
+	*/
+	@Transient
+	public static DictVO create() {
+		return EntityContext.create(DictVO.class);
 	}
 }

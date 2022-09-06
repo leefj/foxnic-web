@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 代码生成示例主表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:10:31
+ * @since 2022-08-22 13:39:22
  */
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface CodeExampleServiceProxy {

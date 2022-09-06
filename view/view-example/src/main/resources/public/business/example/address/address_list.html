@@ -2,7 +2,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 16:26:21
+ * @since 2022-09-06 15:22:07
  */
  -->
  <!DOCTYPE html>
@@ -58,10 +58,20 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('收件地址')}" class="search-label address-label">收件地址</span><span class="search-colon">:</span></div>
                         <input id="address" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 类型 , type ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 类型 , regionType ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label type-label">类型</span><span class="search-colon">:</span></div>
-                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label regionType-label">类型</span><span class="search-colon">:</span></div>
+                        <input id="regionType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 地区位置 , regionLocation ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('地区位置')}" class="search-label regionLocation-label">地区位置</span><span class="search-colon">:</span></div>
+                        <input id="regionLocation" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 创建时间 , createTime ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('创建时间')}" class="search-label createTime-label">创建时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="createTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 

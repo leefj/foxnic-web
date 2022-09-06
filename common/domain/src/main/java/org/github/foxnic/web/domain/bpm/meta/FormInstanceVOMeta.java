@@ -7,13 +7,14 @@ import org.github.foxnic.web.domain.bpm.FormInstance;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
- * @sign 5B542225CA2E2CC7884EB104E6107C7A
+ * @since 2022-09-02 16:42:56
+ * @sign 62EFBD9DC1276F198D6DA1788F74D8B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -535,5 +536,51 @@ public class FormInstanceVOMeta extends FormInstanceMeta {
 			super.setBills(bills);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public FormInstanceVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public FormInstanceVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessDefinitionId(this.getProcessDefinitionId());
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setFormDefinitionId(this.getFormDefinitionId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setFormDefinition(this.getFormDefinition());
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setBills(this.getBills());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

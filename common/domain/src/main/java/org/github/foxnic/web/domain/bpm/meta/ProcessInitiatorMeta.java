@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessInitiator;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:43
- * @sign FB66C9FB0A81A48A0E4F97F899B8799D
+ * @since 2022-09-02 16:42:52
+ * @sign 409AA892F8546EDB115A7C4D5078FE39
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -322,5 +323,41 @@ public class ProcessInitiatorMeta {
 			super.setLastUpdateUser(lastUpdateUser);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessInitiator clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessInitiator duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setInitiatorId(this.getInitiatorId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setDefinitionId(this.getDefinitionId());
+			inst.setInitiatorType(this.getInitiatorType());
+			if(all) {
+				inst.setLastUpdateUser(this.getLastUpdateUser());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

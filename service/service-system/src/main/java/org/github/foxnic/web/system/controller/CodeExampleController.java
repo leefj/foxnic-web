@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.springframework.web.bind.annotation.RequestMapping;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
 
@@ -19,20 +23,27 @@ import org.github.foxnic.web.domain.system.CodeExample;
 import org.github.foxnic.web.domain.system.CodeExampleVO;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.foxnic.dao.data.PagedList;
 import java.util.Date;
-
+import java.sql.Timestamp;
 import com.github.foxnic.api.error.ErrorDesc;
-
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
-
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.system.service.ICodeExampleService;
 import com.github.foxnic.api.validate.annotations.NotNull;
 
@@ -41,7 +52,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:10:31
+ * @since 2022-08-22 13:39:22
 */
 
 @Api(tags = "代码生成示例主")
@@ -106,7 +117,7 @@ public class CodeExampleController extends SuperController {
 		// 引用校验
 		Boolean hasRefer = codeExampleService.hasRefers(id);
 		// 判断是否可以删除
-		this.validator().asserts(hasRefer).requireInList("不允许删除当前记录",false);
+		this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录",false);
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
 		}
@@ -123,7 +134,7 @@ public class CodeExampleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3)
+	@ApiOperationSupport(order=3) 
 	@NotNull(name = CodeExampleVOMeta.IDS)
 	@SentinelResource(value = CodeExampleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.DELETE_BY_IDS)
@@ -192,7 +203,6 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.DIRTY_FIELDS , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
-	@NotNull(name = CodeExampleVOMeta.ID)
 	@SentinelResource(value = CodeExampleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.UPDATE)
 	public Result update(CodeExampleVO codeExampleVO) {
@@ -267,7 +277,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3)
+		@ApiOperationSupport(order=3) 
 		@NotNull(name = CodeExampleVOMeta.IDS)
 		@SentinelResource(value = CodeExampleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.GET_BY_IDS)

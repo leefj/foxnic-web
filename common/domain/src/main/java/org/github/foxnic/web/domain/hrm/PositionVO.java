@@ -3,17 +3,20 @@ package org.github.foxnic.web.domain.hrm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 岗位
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 15:26:13
- * @sign 97C24B4D76F843C11C730D9357755FAE
+ * @since 2022-09-02 16:24:55
+ * @sign 57B4E87C769EDE2B2E63B3010FE13C38
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -188,9 +191,9 @@ public class PositionVO extends Position {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public PositionVO addDirtyField(String dirtyField) {
+	public PositionVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,13 +257,13 @@ public class PositionVO extends Position {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public PositionVO addId(String id) {
+	public PositionVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -269,5 +272,112 @@ public class PositionVO extends Position {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return PositionVO , 转换好的 PositionVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return PositionVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public PositionVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public PositionVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.PositionVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.PositionVOMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setFullName(this.getFullName());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setOrgId(this.getOrgId());
+		inst.setValid(this.getValid());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setShortName(this.getShortName());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setOrganization(this.getOrganization());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public PositionVO clone(boolean deep) {
+		return EntityContext.clone(PositionVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 PositionVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return PositionVO , 转换好的的 Position 对象
+	*/
+	@Transient
+	public static PositionVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		PositionVO po = EntityContext.create(PositionVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 PositionVO，等同于 new
+	 * @return PositionVO 对象
+	*/
+	@Transient
+	public static PositionVO create() {
+		return EntityContext.create(PositionVO.class);
 	}
 }

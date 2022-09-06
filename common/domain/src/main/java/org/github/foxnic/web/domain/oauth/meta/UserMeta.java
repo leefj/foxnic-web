@@ -8,13 +8,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.system.UserTenant;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-20 16:30:40
- * @sign C0B84399AB875C0E8BA38E27750E4DDC
+ * @since 2022-09-06 13:48:50
+ * @sign B875799D0E408516EA4096962DCFDF9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -557,5 +558,52 @@ public class UserMeta {
 			super.setActivatedEmployeeName(activatedEmployeeName);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public User clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public User duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setPortraitId(this.getPortraitId());
+			inst.setLanguage(this.getLanguage());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setRealName(this.getRealName());
+			inst.setLastLoginTime(this.getLastLoginTime());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCacheKey(this.getCacheKey());
+			inst.setPasswd(this.getPasswd());
+			inst.setPhone(this.getPhone());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setAccount(this.getAccount());
+			if(all) {
+				inst.setRoles(this.getRoles());
+				inst.setJoinedTenants(this.getJoinedTenants());
+				inst.setActivatedEmployeeId(this.getActivatedEmployeeId());
+				inst.setMenus(this.getMenus());
+				inst.setRoleMenus(this.getRoleMenus());
+				inst.setActivatedTenant(this.getActivatedTenant());
+				inst.setActivatedEmployeeName(this.getActivatedEmployeeName());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -6,13 +6,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.system.Tenant;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Company;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-22 11:16:14
- * @sign B3BA4484CFF43A1A00B6B83A71DC78FC
+ * @since 2022-09-02 16:18:43
+ * @sign 99A9A8BCBE702236665A039052CF3210
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -492,5 +493,49 @@ public class TenantVOMeta extends TenantMeta {
 			super.setCompany(company);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public TenantVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public TenantVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setValid(this.getValid());
+			inst.setCompanyId(this.getCompanyId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setAlias(this.getAlias());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setId(this.getId());
+			inst.setVersion(this.getVersion());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setCompany(this.getCompany());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

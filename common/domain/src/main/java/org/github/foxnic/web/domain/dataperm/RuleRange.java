@@ -7,9 +7,11 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_RANGE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
 import javax.persistence.Transient;
+import java.util.List;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -18,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:13
- * @sign B29D829F94A79E511ACB1E3E46DF1689
+ * @since 2022-09-02 16:45:34
+ * @sign D27FAC8770628CC1CEAB77456B7B2D86
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -84,6 +86,8 @@ public class RuleRange extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -271,12 +275,42 @@ public class RuleRange extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public RuleRange setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public RuleRange setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -361,9 +395,9 @@ public class RuleRange extends Entity {
 	 * @param condition 条件列表
 	 * @return 当前对象
 	*/
-	public RuleRange addCondition(RuleCondition condition) {
+	public RuleRange addCondition(RuleCondition... condition) {
 		if(this.conditions==null) conditions=new ArrayList<>();
-		this.conditions.add(condition);
+		this.conditions.addAll(Arrays.asList(condition));
 		return this;
 	}
 
@@ -394,6 +428,48 @@ public class RuleRange extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RuleRange clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public RuleRange duplicate(boolean all) {
+		org.github.foxnic.web.domain.dataperm.meta.RuleRangeMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.dataperm.meta.RuleRangeMeta.$$proxy$$();
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setRuleId(this.getRuleId());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setConditions(this.getConditions());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RuleRange clone(boolean deep) {
+		return EntityContext.clone(RuleRange.class,this,deep);
 	}
 
 	/**

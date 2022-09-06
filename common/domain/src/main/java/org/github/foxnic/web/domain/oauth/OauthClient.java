@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.sql.meta.DBTable;
@@ -28,140 +29,140 @@ public class OauthClient extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_OAUTH_CLIENT.$TABLE;
-	
+
 	/**
 	 * 客户端标识：客户端标识
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="客户端标识" , notes = "客户端标识")
 	private String id;
-	
+
 	/**
 	 * 名称：名称
 	*/
 	@ApiModelProperty(required = false,value="名称" , notes = "名称")
 	private String name;
-	
+
 	/**
 	 * 资源集合：用逗号隔开
 	*/
 	@ApiModelProperty(required = false,value="资源集合" , notes = "用逗号隔开")
 	private String resourceIds;
-	
+
 	/**
 	 * 访问密匙：访问密匙
 	*/
 	@ApiModelProperty(required = false,value="访问密匙" , notes = "访问密匙")
 	private String clientSecret;
-	
+
 	/**
 	 * 权限范围：权限范围
 	*/
 	@ApiModelProperty(required = false,value="权限范围" , notes = "权限范围")
 	private String scope;
-	
+
 	/**
 	 * 授权类型：授权类型
 	*/
 	@ApiModelProperty(required = false,value="授权类型" , notes = "授权类型")
 	private String authorizedGrantTypes;
-	
+
 	/**
 	 * 重定向URI：重定向URI
 	*/
 	@ApiModelProperty(required = false,value="重定向URI" , notes = "重定向URI")
 	private String webServerRedirectUri;
-	
+
 	/**
 	 * 权限值列表：权限值列表
 	*/
 	@ApiModelProperty(required = false,value="权限值列表" , notes = "权限值列表")
 	private String authorities;
-	
+
 	/**
 	 * access：token时长(秒)
 	*/
 	@ApiModelProperty(required = false,value="access" , notes = "token时长(秒)")
 	private Integer accessTokenValidity;
-	
+
 	/**
 	 * refresh：token时长(秒)
 	*/
 	@ApiModelProperty(required = false,value="refresh" , notes = "token时长(秒)")
 	private Integer refreshTokenValidity;
-	
+
 	/**
 	 * 备注信息：备注信息
 	*/
 	@ApiModelProperty(required = false,value="备注信息" , notes = "备注信息")
 	private String notes;
-	
+
 	/**
 	 * 是否有效：是否有效
 	*/
 	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
 	private Integer valid;
-	
+
 	/**
 	 * 是否自动Approval操作：是否自动Approval操作
 	*/
 	@ApiModelProperty(required = false,value="是否自动Approval操作" , notes = "是否自动Approval操作")
 	private Integer autoApprove;
-	
+
 	/**
 	 * 是否信任：是否信任
 	*/
 	@ApiModelProperty(required = false,value="是否信任" , notes = "是否信任")
 	private Integer trusted;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 获得 客户端标识<br>
 	 * 属性说明 : 客户端标识
@@ -170,7 +171,7 @@ public class OauthClient extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 客户端标识
 	 * @param id 客户端标识
@@ -180,13 +181,13 @@ public class OauthClient extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 客户端标识
 	 * @param id 客户端标识
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 名称<br>
 	 * 属性说明 : 名称
@@ -195,7 +196,7 @@ public class OauthClient extends Entity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 设置 名称
 	 * @param name 名称
@@ -205,13 +206,13 @@ public class OauthClient extends Entity {
 		this.name=name;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 名称
 	 * @param name 名称
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 资源集合<br>
 	 * 属性说明 : 用逗号隔开
@@ -220,7 +221,7 @@ public class OauthClient extends Entity {
 	public String getResourceIds() {
 		return resourceIds;
 	}
-	
+
 	/**
 	 * 设置 资源集合
 	 * @param resourceIds 资源集合
@@ -230,13 +231,13 @@ public class OauthClient extends Entity {
 		this.resourceIds=resourceIds;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 资源集合
 	 * @param resourceIds 资源集合
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 访问密匙<br>
 	 * 属性说明 : 访问密匙
@@ -245,7 +246,7 @@ public class OauthClient extends Entity {
 	public String getClientSecret() {
 		return clientSecret;
 	}
-	
+
 	/**
 	 * 设置 访问密匙
 	 * @param clientSecret 访问密匙
@@ -255,13 +256,13 @@ public class OauthClient extends Entity {
 		this.clientSecret=clientSecret;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 访问密匙
 	 * @param clientSecret 访问密匙
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 权限范围<br>
 	 * 属性说明 : 权限范围
@@ -270,7 +271,7 @@ public class OauthClient extends Entity {
 	public String getScope() {
 		return scope;
 	}
-	
+
 	/**
 	 * 设置 权限范围
 	 * @param scope 权限范围
@@ -280,13 +281,13 @@ public class OauthClient extends Entity {
 		this.scope=scope;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 权限范围
 	 * @param scope 权限范围
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 授权类型<br>
 	 * 属性说明 : 授权类型
@@ -295,7 +296,7 @@ public class OauthClient extends Entity {
 	public String getAuthorizedGrantTypes() {
 		return authorizedGrantTypes;
 	}
-	
+
 	/**
 	 * 设置 授权类型
 	 * @param authorizedGrantTypes 授权类型
@@ -305,13 +306,13 @@ public class OauthClient extends Entity {
 		this.authorizedGrantTypes=authorizedGrantTypes;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 授权类型
 	 * @param authorizedGrantTypes 授权类型
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 重定向URI<br>
 	 * 属性说明 : 重定向URI
@@ -320,7 +321,7 @@ public class OauthClient extends Entity {
 	public String getWebServerRedirectUri() {
 		return webServerRedirectUri;
 	}
-	
+
 	/**
 	 * 设置 重定向URI
 	 * @param webServerRedirectUri 重定向URI
@@ -330,13 +331,13 @@ public class OauthClient extends Entity {
 		this.webServerRedirectUri=webServerRedirectUri;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 重定向URI
 	 * @param webServerRedirectUri 重定向URI
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 权限值列表<br>
 	 * 属性说明 : 权限值列表
@@ -345,7 +346,7 @@ public class OauthClient extends Entity {
 	public String getAuthorities() {
 		return authorities;
 	}
-	
+
 	/**
 	 * 设置 权限值列表
 	 * @param authorities 权限值列表
@@ -355,13 +356,13 @@ public class OauthClient extends Entity {
 		this.authorities=authorities;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 权限值列表
 	 * @param authorities 权限值列表
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 access<br>
 	 * 属性说明 : token时长(秒)
@@ -370,7 +371,7 @@ public class OauthClient extends Entity {
 	public Integer getAccessTokenValidity() {
 		return accessTokenValidity;
 	}
-	
+
 	/**
 	 * 设置 access
 	 * @param accessTokenValidity access
@@ -380,13 +381,13 @@ public class OauthClient extends Entity {
 		this.accessTokenValidity=accessTokenValidity;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 access
 	 * @param accessTokenValidity access
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 refresh<br>
 	 * 属性说明 : token时长(秒)
@@ -395,7 +396,7 @@ public class OauthClient extends Entity {
 	public Integer getRefreshTokenValidity() {
 		return refreshTokenValidity;
 	}
-	
+
 	/**
 	 * 设置 refresh
 	 * @param refreshTokenValidity refresh
@@ -405,13 +406,13 @@ public class OauthClient extends Entity {
 		this.refreshTokenValidity=refreshTokenValidity;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 refresh
 	 * @param refreshTokenValidity refresh
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 备注信息<br>
 	 * 属性说明 : 备注信息
@@ -420,7 +421,7 @@ public class OauthClient extends Entity {
 	public String getNotes() {
 		return notes;
 	}
-	
+
 	/**
 	 * 设置 备注信息
 	 * @param notes 备注信息
@@ -430,13 +431,13 @@ public class OauthClient extends Entity {
 		this.notes=notes;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 备注信息
 	 * @param notes 备注信息
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 是否有效<br>
 	 * 属性说明 : 是否有效
@@ -445,7 +446,7 @@ public class OauthClient extends Entity {
 	public Integer getValid() {
 		return valid;
 	}
-	
+
 	/**
 	 * 设置 是否有效
 	 * @param valid 是否有效
@@ -455,13 +456,13 @@ public class OauthClient extends Entity {
 		this.valid=valid;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 是否有效
 	 * @param valid 是否有效
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 是否自动Approval操作<br>
 	 * 属性说明 : 是否自动Approval操作
@@ -470,7 +471,7 @@ public class OauthClient extends Entity {
 	public Integer getAutoApprove() {
 		return autoApprove;
 	}
-	
+
 	/**
 	 * 设置 是否自动Approval操作
 	 * @param autoApprove 是否自动Approval操作
@@ -480,13 +481,13 @@ public class OauthClient extends Entity {
 		this.autoApprove=autoApprove;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 是否自动Approval操作
 	 * @param autoApprove 是否自动Approval操作
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 是否信任<br>
 	 * 属性说明 : 是否信任
@@ -495,7 +496,7 @@ public class OauthClient extends Entity {
 	public Integer getTrusted() {
 		return trusted;
 	}
-	
+
 	/**
 	 * 设置 是否信任
 	 * @param trusted 是否信任
@@ -505,13 +506,13 @@ public class OauthClient extends Entity {
 		this.trusted=trusted;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 是否信任
 	 * @param trusted 是否信任
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 属性说明 : 创建人ID
@@ -520,7 +521,7 @@ public class OauthClient extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -530,13 +531,13 @@ public class OauthClient extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 创建人ID
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 属性说明 : 创建时间
@@ -545,7 +546,7 @@ public class OauthClient extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -555,13 +556,13 @@ public class OauthClient extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 创建时间
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 属性说明 : 修改人ID
@@ -570,7 +571,7 @@ public class OauthClient extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -580,13 +581,13 @@ public class OauthClient extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 修改人ID
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 属性说明 : 修改时间
@@ -595,7 +596,7 @@ public class OauthClient extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -605,13 +606,13 @@ public class OauthClient extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 修改时间
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 属性说明 : 是否已删除
@@ -620,23 +621,24 @@ public class OauthClient extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public OauthClient setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 属性说明 : 删除人ID
@@ -645,7 +647,7 @@ public class OauthClient extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -655,13 +657,13 @@ public class OauthClient extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 删除人ID
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 属性说明 : 删除时间
@@ -670,7 +672,7 @@ public class OauthClient extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -680,13 +682,13 @@ public class OauthClient extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 删除时间
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 属性说明 : 数据版本号
@@ -695,7 +697,7 @@ public class OauthClient extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -705,7 +707,7 @@ public class OauthClient extends Entity {
 		this.version=version;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 数据版本号
 	 * @param version 数据版本号

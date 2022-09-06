@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.hrm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.hrm.Company;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:19
- * @sign A8784D5C2B3D7255555530670E9D6726
+ * @since 2022-09-02 16:24:49
+ * @sign 1FF5FC27D26E5AE17A8941512864F8BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -279,5 +280,37 @@ public class CompanyMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Company clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Company duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setId(this.getId());
+			inst.setSocialCreditCode(this.getSocialCreditCode());
+			inst.setVersion(this.getVersion());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

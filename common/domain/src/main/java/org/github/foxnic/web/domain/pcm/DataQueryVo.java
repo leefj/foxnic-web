@@ -4,14 +4,19 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 用于PCM数据查询
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-05 15:25:29
- * @sign 6E1FEFAB3E01A0FD7D3A7A19FF673223
+ * @since 2022-09-02 16:40:33
+ * @sign 381635824706D05458C1CB34FACEC93A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -185,5 +190,75 @@ public class DataQueryVo {
 	public DataQueryVo setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
+	}
+
+	/**
+	 * 创建一个 DataQueryVo，等同于 new
+	 * @return DataQueryVo 对象
+	*/
+	@Transient
+	public static DataQueryVo create() {
+		return new DataQueryVo();
+	}
+
+	/**
+	 * 将 Map 转换成 DataQueryVo
+	 * @param catalogMap 包含实体信息的 Map 对象
+	 * @return DataQueryVo , 转换好的的 Catalog 对象
+	*/
+	@Transient
+	public static DataQueryVo createFrom(Map<String,Object> catalogMap) {
+		if(catalogMap==null) return null;
+		DataQueryVo po = new DataQueryVo();
+		BeanUtil.copy(catalogMap,po);
+		return po;
+	}
+
+	/**
+	 * 将 Pojo 转换成 DataQueryVo
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return DataQueryVo , 转换好的的 Catalog 对象
+	*/
+	@Transient
+	public static DataQueryVo createFrom(Object pojo) {
+		if(pojo==null) return null;
+		DataQueryVo po = new DataQueryVo();
+		BeanUtil.copy(pojo,po,true);
+		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DataQueryVo clone() {
+		return BeanUtil.clone(this,false);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DataQueryVo clone(boolean deep) {
+		return BeanUtil.clone(this,deep);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return DataQueryVo , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)EntityContext.create((Class<? extends Entity>) pojoType,this);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

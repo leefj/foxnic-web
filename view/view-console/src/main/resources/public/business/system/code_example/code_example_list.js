@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:10:36
+ * @since 2022-08-22 13:39:22
  */
 
 
@@ -84,14 +84,14 @@ function ListPage() {
 					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('日期') ,templet: function (d) { return templet('birthday',fox.dateFormat(d.birthday,"yyyy-MM-dd"),d); }  }
 					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('工作时间') ,templet: function (d) { return templet('workTime',fox.dateFormat(d.workTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
-					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('枚举'), templet:function (d){ return templet('radioEnum',fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum),d);}}
-					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true  , title: fox.translate('性别'), templet:function (d){ return templet('radioDict',fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict),d);}}
-					,{ field: 'checkEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('复选框(枚举)'), templet:function (d){ return templet('checkEnum',fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum),d);}}
-					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('checkDict',fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict),d);}}
-					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(枚举)'), templet:function (d){ return templet('selectEnum',fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum),d);}}
-					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(字典)'), templet:function (d){ return templet('selectDict',fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict),d);}}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
-					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.getProperty(d,["resourze","name"]),d);}}
+					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('枚举'), templet:function (d){ return templet('radioEnum',fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum,'','radioEnum'),d);}}
+					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true  , title: fox.translate('性别'), templet:function (d){ return templet('radioDict',fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict,'','radioDict'),d);}}
+					,{ field: 'checkEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('复选框(枚举)'), templet:function (d){ return templet('checkEnum',fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum,'','checkEnum'),d);}}
+					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('checkDict',fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict,'','checkDict'),d);}}
+					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(枚举)'), templet:function (d){ return templet('selectEnum',fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum,'','selectEnum'),d);}}
+					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(字典)'), templet:function (d){ return templet('selectDict',fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict,'','selectDict'),d);}}
+					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','','roleIds'),d);}}
+					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.getProperty(d,["resourze","name"],0,'','resourceId'),d);}}
 					,{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false  , title: fox.translate('角色数(Java)') , templet: function (d) { return templet('roleCountByAfter',d.roleCountByAfter,d);}  }
 					,{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('角色数(SQL)') , templet: function (d) { return templet('roleCountByJoin',d.roleCountByJoin,d);}  }
 					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true   , title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
@@ -110,8 +110,9 @@ function ListPage() {
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
+				refreshRowData(data,true);
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
@@ -177,8 +178,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {
@@ -391,9 +391,7 @@ function ListPage() {
 			trigger:"click",
 			done: function(value, date, endDate) {
 				setTimeout(function () {
-					if(data.change && data.change.length>0) {
 						refreshTableData();
-					}
 					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("birthday",value, date, endDate);
 				},1);
 			}

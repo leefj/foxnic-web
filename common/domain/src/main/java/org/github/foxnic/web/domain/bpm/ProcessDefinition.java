@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 09:43:06
- * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
+ * @since 2022-09-02 16:42:44
+ * @sign 2D409DBBBF0ABA4D8818ACDB1853AE11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -678,6 +678,57 @@ public class ProcessDefinition extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinition clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinition duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta.$$proxy$$();
+		inst.setAssigneeTypeRange(this.getAssigneeTypeRange());
+		inst.setRejectOption(this.getRejectOption());
+		inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
+		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
+		inst.setCamundaDefinitionId(this.getCamundaDefinitionId());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setFormDefinitionId(this.getFormDefinitionId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setFormDefinition(this.getFormDefinition());
+			inst.setDefinitionFile(this.getDefinitionFile());
+			inst.setLastUpdateUser(this.getLastUpdateUser());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinition clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinition.class,this,deep);
 	}
 
 	/**

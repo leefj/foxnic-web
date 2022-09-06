@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.oauth.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.RoleUser;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:56:00
- * @sign 846B1408C5BAE73F1E9E00E8B7F2BDAD
+ * @since 2022-09-02 15:51:06
+ * @sign D303306DC895E13F5CC0C901229C3176
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -258,5 +259,36 @@ public class RoleUserMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public RoleUser clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public RoleUser duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setRoleId(this.getRoleId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setId(this.getId());
+			inst.setUserId(this.getUserId());
+			inst.setVersion(this.getVersion());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

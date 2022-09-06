@@ -137,7 +137,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		Organization organization = new Organization();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		organization.setId(id);
-		organization.setDeleted(dao.getDBTreaty().getTrueValue());
+		organization.setDeleted(true);
 		organization.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		organization.setDeleteTime(new Date());
 		try {
@@ -389,13 +389,17 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 
 	@Override
 	public List<ZTreeNode> queryChildNodes(String parentId,String targetType) {
-		RcdSet menus= queryChildOrgs(parentId,targetType);
-		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		List<ZTreeNode> nodes = new ArrayList<>();
 		//如果未指定或指定岗位模式时查询岗位信息
 		if(StringUtil.isBlank(targetType) || "pos".equals(targetType)) {
 			List<ZTreeNode> positionNodes = positionService.queryGroupedPositionNodes(parentId);
 			nodes.addAll(positionNodes);
 		}
+
+		RcdSet orgs= queryChildOrgs(parentId,targetType);
+		List<ZTreeNode> orgNodes = toZTreeNodeList(orgs);
+		nodes.addAll(orgNodes);
+
 		return nodes;
 	}
 

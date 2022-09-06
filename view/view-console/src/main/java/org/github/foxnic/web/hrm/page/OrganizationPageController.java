@@ -1,19 +1,21 @@
 package org.github.foxnic.web.hrm.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  * 组织层级表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:26
-*/
+ * @since 2022-08-22 09:54:41
+ * @version
+ */
 
 @Controller("HrmOrganizationPageController")
 @RequestMapping(OrganizationPageController.prefix)
@@ -45,26 +47,27 @@ public class OrganizationPageController extends ViewController {
 	}
 
 	/**
-	 * 组织层级 功能主页面
+	 * 组织层级 表单页面
 	 */
-	@RequestMapping("/org_tree.html")
-	public String tree(Model model,HttpServletRequest request) {
-		return prefix+"/org_tree";
+	@RequestMapping("/organization_form.html")
+	public String form(Model model,HttpServletRequest request , String id) {
+		return prefix+"/organization_form";
 	}
 
+
 	/**
-	 * 组织层级 功能主页面
+	 * 组织层级 表单页面
 	 */
 	@RequestMapping("/org_dialog.html")
-	public String dialog(Model model,HttpServletRequest request) {
+	public String orgDialog(Model model,HttpServletRequest request) {
 		return prefix+"/org_dialog";
 	}
 
 	/**
 	 * 组织层级 表单页面
 	 */
-	@RequestMapping("/organization_form.html")
-	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/organization_form";
+	@RequestMapping("/org_tree.html")
+	public String orgTree(Model model,HttpServletRequest request) {
+		return prefix+"/org_tree";
 	}
 }

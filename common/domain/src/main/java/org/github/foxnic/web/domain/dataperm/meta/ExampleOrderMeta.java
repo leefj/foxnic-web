@@ -7,13 +7,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.hrm.Employee;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:57:39
- * @sign F4D68BC19FA0EA49D24E1285B74C5739
+ * @since 2022-09-02 16:45:37
+ * @sign 383E53307C814C73B5C0D1F7AF14F6BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -409,5 +410,45 @@ public class ExampleOrderMeta {
 			super.setSales(sales);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ExampleOrder clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ExampleOrder duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setAmount(this.getAmount());
+			inst.setQuantity(this.getQuantity());
+			inst.setProductId(this.getProductId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setSalesId(this.getSalesId());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setPrice(this.getPrice());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setShopId(this.getShopId());
+			if(all) {
+				inst.setProduct(this.getProduct());
+				inst.setShop(this.getShop());
+				inst.setSales(this.getSales());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

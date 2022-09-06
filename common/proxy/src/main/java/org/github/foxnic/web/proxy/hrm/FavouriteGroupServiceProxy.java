@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.hrm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.hrm.FavouriteGroup;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 常用人员分组表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:31
+ * @since 2022-09-02 16:24:59
  */
 @FeignClient(value = MicroServiceNames.HRM, contextId = FavouriteGroupServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface FavouriteGroupServiceProxy {
@@ -83,21 +85,6 @@ public interface FavouriteGroupServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出常用人员分组数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载常用人员分组导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入常用人员分组数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface FavouriteGroupServiceProxy {
     Result<FavouriteGroup> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 批量删除常用人员分组
+     * 获取多个常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.GET_BY_IDS)
     Result<List<FavouriteGroup>> getByIds(@RequestParam(name = "ids") List<String> ids);

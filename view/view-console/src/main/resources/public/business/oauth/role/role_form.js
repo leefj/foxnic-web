@@ -132,8 +132,11 @@ function FormPage() {
 			    layer.closeAll('loading');
 	            if (data.success) {
 	                layer.msg(data.message, {icon: 1, time: 500});
-					var index=admin.getTempData('sys-role-form-popup-index');
-	                admin.finishPopupCenter(index);
+					//var index=admin.getTempData('sys-role-form-popup-index');
+					//debugger
+	                //admin.finishPopupCenter(index);
+					admin.finishPopupCenterById("sys-role-form-data-win",this);
+
 	            } else {
 	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
@@ -153,18 +156,22 @@ function FormPage() {
 			openMenuDialog(function (css){});
 		});
 
-		var menuDialogIndex;
+
 		function openMenuDialog(callback) {
 			//debugger;
 			admin.putTempData("selected-role-menu-ids",null);
+			var menuDialogIndex;
+			var menuDialogId = "menuChooseDialog";
+			admin.putTempData("menuDialogId",menuDialogId);
 			menuDialogIndex=admin.popupCenter({
 				type:2,
-				id:"menuDialog",
+				id:menuDialogId,
 				title: "请选择角色菜单",
 				content: '/business/oauth/menu/menu_dialog.html'+(roleId?('?roleId='+roleId):""),
 				area:["400px","80%"]
 			});
 			admin.putTempData("menuDialogIndex",menuDialogIndex);
+
 
 		}
 

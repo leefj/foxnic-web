@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.dataperm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.dataperm.ExampleOrder;
 import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 销售订单表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-16 14:25:14
+ * @since 2022-09-02 16:45:37
  */
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = ExampleOrderServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ExampleOrderServiceProxy {
@@ -83,21 +85,6 @@ public interface ExampleOrderServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出销售订单数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载销售订单导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入销售订单数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加销售订单
      */
     @RequestMapping(ExampleOrderServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface ExampleOrderServiceProxy {
     Result<ExampleOrder> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 批量删除销售订单
+     * 获取多个销售订单
      */
     @RequestMapping(ExampleOrderServiceProxy.GET_BY_IDS)
     Result<List<ExampleOrder>> getByIds(@RequestParam(name = "ids") List<String> ids);

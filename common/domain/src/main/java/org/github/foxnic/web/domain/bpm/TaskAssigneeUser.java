@@ -8,14 +8,17 @@ import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.HashMap;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 任务审批人账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-15 13:54:50
- * @sign D59DB9EB7E94161F0AF69CE6CAFE0BBF
+ * @since 2022-09-02 16:42:57
+ * @sign AD4E2E92D5F108E3E7A0F1F7C4C487A9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -328,5 +331,75 @@ public class TaskAssigneeUser {
 	public TaskAssigneeUser setAssigneeName(String assigneeName) {
 		this.assigneeName=assigneeName;
 		return this;
+	}
+
+	/**
+	 * 创建一个 TaskAssigneeUser，等同于 new
+	 * @return TaskAssigneeUser 对象
+	*/
+	@Transient
+	public static TaskAssigneeUser create() {
+		return new TaskAssigneeUser();
+	}
+
+	/**
+	 * 将 Map 转换成 TaskAssigneeUser
+	 * @param taskMap 包含实体信息的 Map 对象
+	 * @return TaskAssigneeUser , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskAssigneeUser createFrom(Map<String,Object> taskMap) {
+		if(taskMap==null) return null;
+		TaskAssigneeUser po = new TaskAssigneeUser();
+		BeanUtil.copy(taskMap,po);
+		return po;
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskAssigneeUser
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskAssigneeUser , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskAssigneeUser createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskAssigneeUser po = new TaskAssigneeUser();
+		BeanUtil.copy(pojo,po,true);
+		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskAssigneeUser clone() {
+		return BeanUtil.clone(this,false);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskAssigneeUser clone(boolean deep) {
+		return BeanUtil.clone(this,deep);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskAssigneeUser , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)EntityContext.create((Class<? extends Entity>) pojoType,this);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

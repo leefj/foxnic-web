@@ -7,6 +7,9 @@ import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 
+/**
+ * 启动类
+ * */
 @ComponentScan(basePackages = {
 		FoxnicWebMeta.WRAPPER_SUPPORT_PACKAGE, FoxnicWebMeta.SERVICE_STORAGE_PACKAGE ,FoxnicWebMeta.SERVICE_JOB_PACKAGE,
 		FoxnicWebMeta.SERVICE_SYSTEM_PACKAGE , FoxnicWebMeta.SERVICE_OAUTH_PACKAGE,

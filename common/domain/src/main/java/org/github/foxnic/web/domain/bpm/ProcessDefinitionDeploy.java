@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程应用登记
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:29:15
- * @sign 63BDA24243F5907FFD81B52F6E3ABF94
+ * @since 2022-09-02 16:42:52
+ * @sign 6E31EE82A14316072562D8A59BBF540F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -281,6 +281,42 @@ public class ProcessDefinitionDeploy extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionDeploy clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinitionDeploy duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionDeployMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionDeployMeta.$$proxy$$();
+		inst.setResult(this.getResult());
+		inst.setException(this.getException());
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setRequest(this.getRequest());
+		inst.setSuccess(this.getSuccess());
+		inst.setTenantId(this.getTenantId());
+		inst.setId(this.getId());
+		inst.setApplyTime(this.getApplyTime());
+		inst.setFileId(this.getFileId());
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionDeploy clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinitionDeploy.class,this,deep);
 	}
 
 	/**

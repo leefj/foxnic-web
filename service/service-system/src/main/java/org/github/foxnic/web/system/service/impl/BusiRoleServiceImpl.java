@@ -124,7 +124,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		BusiRole busiRole = new BusiRole();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		busiRole.setId(id);
-		busiRole.setDeleted(dao.getDBTreaty().getTrueValue());
+		busiRole.setDeleted(true);
 		busiRole.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		busiRole.setDeleteTime(new Date());
 		try {

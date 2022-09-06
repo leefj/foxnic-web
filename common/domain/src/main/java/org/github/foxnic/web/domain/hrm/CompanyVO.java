@@ -3,17 +3,20 @@ package org.github.foxnic.web.domain.hrm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 公司
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:19
- * @sign CF013AE985C20782B40BAD0FD0AD3D3A
+ * @since 2022-09-02 16:24:49
+ * @sign 205FD5189E18D253938EAEA1CD97C380
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -188,9 +191,9 @@ public class CompanyVO extends Company {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public CompanyVO addDirtyField(String dirtyField) {
+	public CompanyVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,13 +257,13 @@ public class CompanyVO extends Company {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CompanyVO addId(String id) {
+	public CompanyVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -269,5 +272,105 @@ public class CompanyVO extends Company {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return CompanyVO , 转换好的 CompanyVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return CompanyVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CompanyVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CompanyVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.CompanyVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.CompanyVOMeta.$$proxy$$();
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setSocialCreditCode(this.getSocialCreditCode());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CompanyVO clone(boolean deep) {
+		return EntityContext.clone(CompanyVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 CompanyVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return CompanyVO , 转换好的的 Company 对象
+	*/
+	@Transient
+	public static CompanyVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		CompanyVO po = EntityContext.create(CompanyVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 CompanyVO，等同于 new
+	 * @return CompanyVO 对象
+	*/
+	@Transient
+	public static CompanyVO create() {
+		return EntityContext.create(CompanyVO.class);
 	}
 }

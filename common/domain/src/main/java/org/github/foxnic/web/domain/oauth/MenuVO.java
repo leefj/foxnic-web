@@ -3,14 +3,20 @@ package org.github.foxnic.web.domain.oauth;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
- * null
+ * 菜单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:56:00
- * @sign 4DE29B404C4C239FB2C5437339B1D8B2
+ * @since 2022-09-02 15:51:06
+ * @sign CE145BF1CA43AFFDB6E417F50CFABB46
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +53,12 @@ public class MenuVO extends Menu {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -169,6 +181,35 @@ public class MenuVO extends Menu {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public MenuVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public MenuVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -228,9 +269,9 @@ public class MenuVO extends Menu {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public MenuVO addId(String id) {
+	public MenuVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -270,5 +311,134 @@ public class MenuVO extends Menu {
 	public MenuVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
 		this.isLoadAllDescendants=isLoadAllDescendants;
 		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return MenuVO , 转换好的 MenuVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return MenuVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public MenuVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public MenuVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.MenuVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.MenuVOMeta.$$proxy$$();
+		inst.setCss(this.getCss());
+		inst.setHidden(this.getHidden());
+		inst.setHierarchy(this.getHierarchy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setLabel(this.getLabel());
+		inst.setSort(this.getSort());
+		inst.setBatchId(this.getBatchId());
+		inst.setType(this.getType());
+		inst.setParams(this.getParams());
+		inst.setVersion(this.getVersion());
+		inst.setUrl(this.getUrl());
+		inst.setParentId(this.getParentId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setAuthority(this.getAuthority());
+		inst.setDynamicHandler(this.getDynamicHandler());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setPathResourceId(this.getPathResourceId());
+		if(all) {
+			inst.setParent(this.getParent());
+			inst.setSearchField(this.getSearchField());
+			inst.setRoleId(this.getRoleId());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPathResource(this.getPathResource());
+			inst.setResources(this.getResources());
+			inst.setPageSize(this.getPageSize());
+			inst.setIsLoadAllDescendants(this.getIsLoadAllDescendants());
+			inst.setPath(this.getPath());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setAncestorsNamePath(this.getAncestorsNamePath());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+			inst.setResourceIds(this.getResourceIds());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public MenuVO clone(boolean deep) {
+		return EntityContext.clone(MenuVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 MenuVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return MenuVO , 转换好的的 Menu 对象
+	*/
+	@Transient
+	public static MenuVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		MenuVO po = EntityContext.create(MenuVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 MenuVO，等同于 new
+	 * @return MenuVO 对象
+	*/
+	@Transient
+	public static MenuVO create() {
+		return EntityContext.create(MenuVO.class);
 	}
 }

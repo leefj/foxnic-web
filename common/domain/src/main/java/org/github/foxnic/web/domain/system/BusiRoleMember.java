@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 业务角色成员关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-11 15:25:29
- * @sign 293B3392AEBA621BE52D89818B2B5BF8
+ * @since 2022-09-02 16:18:40
+ * @sign 185405A5FF2D52B26FDC100FB36DCCC0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -232,6 +232,42 @@ public class BusiRoleMember extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public BusiRoleMember clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public BusiRoleMember duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.BusiRoleMemberMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.BusiRoleMemberMeta.$$proxy$$();
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setRoleId(this.getRoleId());
+		inst.setId(this.getId());
+		inst.setMemberType(this.getMemberType());
+		inst.setMemberId(this.getMemberId());
+		if(all) {
+			inst.setEmployee(this.getEmployee());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public BusiRoleMember clone(boolean deep) {
+		return EntityContext.clone(BusiRoleMember.class,this,deep);
 	}
 
 	/**

@@ -16,13 +16,14 @@ import org.github.foxnic.web.domain.bpm.ProcessError;
 import org.github.foxnic.web.domain.bpm.TaskRead;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-04 15:56:25
- * @sign 99EF60040ABA6FDEABA02D0468A47EF5
+ * @since 2022-09-02 16:42:56
+ * @sign D3D98A46718B6A44CB5BEF086B167D5A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -1237,5 +1238,84 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 			super.setTaskApprovals(taskApprovals);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessInstanceVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessInstanceVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setSyncTime(this.getSyncTime());
+			inst.setNeedSync(this.getNeedSync());
+			inst.setFormInstanceId(this.getFormInstanceId());
+			inst.setTitle(this.getTitle());
+			inst.setDrafterUserId(this.getDrafterUserId());
+			inst.setCommitTime(this.getCommitTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDrafterId(this.getDrafterId());
+			inst.setFormDefinitionId(this.getFormDefinitionId());
+			inst.setId(this.getId());
+			inst.setApprovalStatus(this.getApprovalStatus());
+			inst.setProcessDefinitionId(this.getProcessDefinitionId());
+			inst.setAbandonTime(this.getAbandonTime());
+			inst.setDrafterType(this.getDrafterType());
+			inst.setAbandonUserId(this.getAbandonUserId());
+			inst.setProcessDefinitionFileId(this.getProcessDefinitionFileId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setPriority(this.getPriority());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setComment(this.getComment());
+			inst.setCamundaInstanceId(this.getCamundaInstanceId());
+			inst.setEndTime(this.getEndTime());
+			if(all) {
+				inst.setBillIds(this.getBillIds());
+				inst.setFormInstance(this.getFormInstance());
+				inst.setSearchField(this.getSearchField());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setApprovalStatusName(this.getApprovalStatusName());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setUserTasks(this.getUserTasks());
+				inst.setBills(this.getBills());
+				inst.setTaskApprovals(this.getTaskApprovals());
+				inst.setTasks(this.getTasks());
+				inst.setMine(this.isMine());
+				inst.setTodoTasks(this.getTodoTasks());
+				inst.setProcessDefinition(this.getProcessDefinition());
+				inst.setApprovingUserIds(this.getApprovingUserIds());
+				inst.setApprovedUserIds(this.getApprovedUserIds());
+				inst.setDrafter(this.getDrafter());
+				inst.setDrafterUser(this.getDrafterUser());
+				inst.setFormDefinition(this.getFormDefinition());
+				inst.setApprovalCatalog(this.getApprovalCatalog());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setReaders(this.getReaders());
+				inst.setIds(this.getIds());
+				inst.setProcessDefinitionFile(this.getProcessDefinitionFile());
+				inst.setSearchValue(this.getSearchValue());
+				inst.setDrafterName(this.getDrafterName());
+				inst.setErrors(this.getErrors());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

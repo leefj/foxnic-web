@@ -10,14 +10,16 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.api.model.CompositeParameter;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-04 15:56:25
- * @sign 99EF60040ABA6FDEABA02D0468A47EF5
+ * @since 2022-09-02 16:42:56
+ * @sign D3D98A46718B6A44CB5BEF086B167D5A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -440,5 +442,141 @@ public class ProcessInstanceVO extends ProcessInstance {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ProcessInstanceVO , 转换好的 ProcessInstanceVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProcessInstanceVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessInstanceVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessInstanceVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessInstanceVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessInstanceVOMeta.$$proxy$$();
+		inst.setSyncTime(this.getSyncTime());
+		inst.setNeedSync(this.getNeedSync());
+		inst.setFormInstanceId(this.getFormInstanceId());
+		inst.setTitle(this.getTitle());
+		inst.setDrafterUserId(this.getDrafterUserId());
+		inst.setCommitTime(this.getCommitTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDrafterId(this.getDrafterId());
+		inst.setFormDefinitionId(this.getFormDefinitionId());
+		inst.setId(this.getId());
+		inst.setApprovalStatus(this.getApprovalStatus());
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setAbandonTime(this.getAbandonTime());
+		inst.setDrafterType(this.getDrafterType());
+		inst.setAbandonUserId(this.getAbandonUserId());
+		inst.setProcessDefinitionFileId(this.getProcessDefinitionFileId());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setPriority(this.getPriority());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setComment(this.getComment());
+		inst.setCamundaInstanceId(this.getCamundaInstanceId());
+		inst.setEndTime(this.getEndTime());
+		if(all) {
+			inst.setBillIds(this.getBillIds());
+			inst.setFormInstance(this.getFormInstance());
+			inst.setSearchField(this.getSearchField());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setApprovalStatusName(this.getApprovalStatusName());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setUserTasks(this.getUserTasks());
+			inst.setBills(this.getBills());
+			inst.setTaskApprovals(this.getTaskApprovals());
+			inst.setTasks(this.getTasks());
+			inst.setMine(this.isMine());
+			inst.setTodoTasks(this.getTodoTasks());
+			inst.setProcessDefinition(this.getProcessDefinition());
+			inst.setApprovingUserIds(this.getApprovingUserIds());
+			inst.setDrafter(this.getDrafter());
+			inst.setApprovedUserIds(this.getApprovedUserIds());
+			inst.setDrafterUser(this.getDrafterUser());
+			inst.setFormDefinition(this.getFormDefinition());
+			inst.setApprovalCatalog(this.getApprovalCatalog());
+			inst.setReaders(this.getReaders());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setIds(this.getIds());
+			inst.setProcessDefinitionFile(this.getProcessDefinitionFile());
+			inst.setSearchValue(this.getSearchValue());
+			inst.setDrafterName(this.getDrafterName());
+			inst.setErrors(this.getErrors());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessInstanceVO clone(boolean deep) {
+		return EntityContext.clone(ProcessInstanceVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProcessInstanceVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProcessInstanceVO , 转换好的的 ProcessInstance 对象
+	*/
+	@Transient
+	public static ProcessInstanceVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProcessInstanceVO po = EntityContext.create(ProcessInstanceVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ProcessInstanceVO，等同于 new
+	 * @return ProcessInstanceVO 对象
+	*/
+	@Transient
+	public static ProcessInstanceVO create() {
+		return EntityContext.create(ProcessInstanceVO.class);
 	}
 }

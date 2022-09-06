@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessError;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-29 14:36:05
- * @sign DD3F0DD5AB1B32E06AE21D34CE6AB473
+ * @since 2022-09-02 16:42:58
+ * @sign 0E4483B44FFEFECFB5E362B358755121
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -195,5 +196,33 @@ public class ProcessErrorMeta {
 			super.setErrorType(errorType);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessError clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessError duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setErrorTime(this.getErrorTime());
+			inst.setErrorNodeId(this.getErrorNodeId());
+			inst.setErrorType(this.getErrorType());
+			inst.setApprovalNodeId(this.getApprovalNodeId());
+			inst.setErrorMessage(this.getErrorMessage());
+			inst.setCamundaIncidentId(this.getCamundaIncidentId());
+			inst.setId(this.getId());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

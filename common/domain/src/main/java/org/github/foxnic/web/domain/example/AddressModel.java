@@ -11,8 +11,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:40:57
- * @sign E2D824C5CB2F6ACE316A8F27860252DB
+ * @since 2022-09-06 15:22:06
+ * @sign 207499D04984C0BEAC80058663571E0A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,7 +48,19 @@ public class AddressModel extends Entity {
 	 * 类型：类型，A:国内；B:国外
 	*/
 	@ApiModelProperty(required = false,value="类型" , notes = "类型，A:国内；B:国外")
-	private String type;
+	private String regionType;
+	
+	/**
+	 * 地区位置：地区位置，东北、华北等
+	*/
+	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
+	private String regionLocation;
+	
+	/**
+	 * 其它：其它
+	*/
+	@ApiModelProperty(required = false,value="其它" , notes = "其它")
+	private String other;
 	
 	/**
 	 * 获得 主键<br>
@@ -131,27 +143,56 @@ public class AddressModel extends Entity {
 	 * 类型，A:国内；B:国外
 	 * @return 类型
 	*/
-	public String getType() {
-		return type;
+	public String getRegionType() {
+		return regionType;
 	}
 	
 	/**
 	 * 设置 类型
-	 * @param type 类型
+	 * @param regionType 类型
 	 * @return 当前对象
 	*/
-	public AddressModel setType(String type) {
-		this.type=type;
+	public AddressModel setRegionType(String regionType) {
+		this.regionType=regionType;
 		return this;
 	}
-
+	
 	/**
-	 * 创建一个 AddressModel，等同于 new
-	 * @return AddressModel 对象
+	 * 获得 地区位置<br>
+	 * 地区位置，东北、华北等
+	 * @return 地区位置
 	*/
-	@Transient
-	public static AddressModel create() {
-		return EntityContext.create(AddressModel.class);
+	public String getRegionLocation() {
+		return regionLocation;
+	}
+	
+	/**
+	 * 设置 地区位置
+	 * @param regionLocation 地区位置
+	 * @return 当前对象
+	*/
+	public AddressModel setRegionLocation(String regionLocation) {
+		this.regionLocation=regionLocation;
+		return this;
+	}
+	
+	/**
+	 * 获得 其它<br>
+	 * 其它
+	 * @return 其它
+	*/
+	public String getOther() {
+		return other;
+	}
+	
+	/**
+	 * 设置 其它
+	 * @param other 其它
+	 * @return 当前对象
+	*/
+	public AddressModel setOther(String other) {
+		this.other=other;
+		return this;
 	}
 
 	/**
@@ -162,7 +203,9 @@ public class AddressModel extends Entity {
 	@Transient
 	public static AddressModel createFrom(Map<String,Object> addressMap) {
 		if(addressMap==null) return null;
-		AddressModel po = EntityContext.create(AddressModel.class, addressMap);
+		AddressModel po = create();
+		EntityContext.copyProperties(po,addressMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -174,8 +217,46 @@ public class AddressModel extends Entity {
 	@Transient
 	public static AddressModel createFrom(Object pojo) {
 		if(pojo==null) return null;
-		AddressModel po = EntityContext.create(AddressModel.class,pojo);
+		AddressModel po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public AddressModel duplicate(boolean all) {
+		org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
+		inst.setPhoneNumber(this.getPhoneNumber());
+		inst.setAddress(this.getAddress());
+		inst.setRegionType(this.getRegionType());
+		inst.setName(this.getName());
+		inst.setId(this.getId());
+		inst.setRegionLocation(this.getRegionLocation());
+		if(all) {
+			inst.setOther(this.getOther());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public AddressModel clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public AddressModel clone(boolean deep) {
+		return EntityContext.clone(AddressModel.class,this,deep);
 	}
 
 	/**
@@ -195,5 +276,14 @@ public class AddressModel extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 创建一个 AddressModel，等同于 new
+	 * @return AddressModel 对象
+	*/
+	@Transient
+	public static AddressModel create() {
+		return new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
 	}
 }

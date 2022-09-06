@@ -1,6 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -57,7 +57,7 @@ public class UserTenantController extends SuperController {
 	@Autowired
 	private IUserTenantService userTenantService;
 
-	
+
 	/**
 	 * 添加账户租户关系
 	*/
@@ -80,7 +80,7 @@ public class UserTenantController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除账户租户关系
 	*/
@@ -96,8 +96,8 @@ public class UserTenantController extends SuperController {
 		Result result=userTenantService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除账户租户关系 <br>
 	 * 联合主键时，请自行调整实现
@@ -106,7 +106,7 @@ public class UserTenantController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserTenantVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = UserTenantVOMeta.IDS)
 	@SentinelResource(value = UserTenantServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(UserTenantServiceProxy.DELETE_BY_IDS)
@@ -114,7 +114,7 @@ public class UserTenantController extends SuperController {
 		Result result=userTenantService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新账户租户关系
 	*/
@@ -128,7 +128,7 @@ public class UserTenantController extends SuperController {
 		@ApiImplicitParam(name = UserTenantVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class , example = "E001"),
 		@ApiImplicitParam(name = UserTenantVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { UserTenantVOMeta.PAGE_INDEX , UserTenantVOMeta.PAGE_SIZE , UserTenantVOMeta.SEARCH_FIELD , UserTenantVOMeta.FUZZY_FIELD , UserTenantVOMeta.SEARCH_VALUE , UserTenantVOMeta.SORT_FIELD , UserTenantVOMeta.SORT_TYPE , UserTenantVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { UserTenantVOMeta.PAGE_INDEX , UserTenantVOMeta.PAGE_SIZE , UserTenantVOMeta.SEARCH_FIELD , UserTenantVOMeta.FUZZY_FIELD , UserTenantVOMeta.SEARCH_VALUE , UserTenantVOMeta.SORT_FIELD , UserTenantVOMeta.SORT_TYPE , UserTenantVOMeta.IDS } )
 	@NotNull(name = UserTenantVOMeta.ID)
 	@SentinelResource(value = UserTenantServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(UserTenantServiceProxy.UPDATE)
@@ -136,8 +136,8 @@ public class UserTenantController extends SuperController {
 		Result result=userTenantService.update(userTenantVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存账户租户关系
 	*/
@@ -160,7 +160,7 @@ public class UserTenantController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取账户租户关系
 	*/
@@ -194,7 +194,7 @@ public class UserTenantController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = UserTenantVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = UserTenantVOMeta.IDS)
 		@SentinelResource(value = UserTenantServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(UserTenantServiceProxy.GET_BY_IDS)
@@ -205,7 +205,7 @@ public class UserTenantController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询账户租户关系
 	*/
@@ -229,7 +229,7 @@ public class UserTenantController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询账户租户关系
 	*/
@@ -261,59 +261,6 @@ public class UserTenantController extends SuperController {
 		return result;
 	}
 
-
-
-	/**
-	 * 导出 Excel
-	 * */
-	@SentinelResource(value = UserTenantServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(UserTenantServiceProxy.EXPORT_EXCEL)
-	public void exportExcel(UserTenantVO  sample,HttpServletResponse response) throws Exception {
-			//生成 Excel 数据
-			ExcelWriter ew=userTenantService.exportExcel(sample);
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-	}
-
-
-	/**
-	 * 导出 Excel 模板
-	 * */
-	@SentinelResource(value = UserTenantServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(UserTenantServiceProxy.EXPORT_EXCEL_TEMPLATE)
-	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
-			//生成 Excel 模版
-			ExcelWriter ew=userTenantService.exportExcelTemplate();
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-		}
-
-
-
-
-	@SentinelResource(value = UserTenantServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(UserTenantServiceProxy.IMPORT_EXCEL)
-	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=userTenantService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
-		}
 
 
 }

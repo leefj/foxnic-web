@@ -6,13 +6,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 16:12:04
- * @sign EEE1444540F22C9ED240D3FD8F25C44E
+ * @since 2022-09-02 16:42:56
+ * @sign F381079F26C6421D0A4260CB4FDAD5D9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -660,5 +661,57 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 			super.setLastUpdateUser(lastUpdateUser);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public FormDefinitionVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public FormDefinitionVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setApprovalPageUrl(this.getApprovalPageUrl());
+			inst.setFormType(this.getFormType());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setCallbackController(this.getCallbackController());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setMulitiProcess(this.getMulitiProcess());
+			inst.setDraftPageUrl(this.getDraftPageUrl());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setLastUpdateUser(this.getLastUpdateUser());
+				inst.setIsBindProcess(this.getIsBindProcess());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

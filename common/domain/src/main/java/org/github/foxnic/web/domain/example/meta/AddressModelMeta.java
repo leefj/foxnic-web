@@ -2,13 +2,14 @@ package org.github.foxnic.web.domain.example.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.example.AddressModel;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:40:57
- * @sign E2D824C5CB2F6ACE316A8F27860252DB
+ * @since 2022-09-06 15:22:06
+ * @sign 207499D04984C0BEAC80058663571E0A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -57,17 +58,37 @@ public class AddressModelMeta {
 	/**
 	 * 类型 , 类型，A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final String TYPE="type";
+	public static final String REGION_TYPE="regionType";
 	
 	/**
 	 * 类型 , 类型，A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,TYPE, java.lang.String.class, "类型", "类型，A:国内；B:国外", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> REGION_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,REGION_TYPE, java.lang.String.class, "类型", "类型，A:国内；B:国外", java.lang.String.class, null);
+	
+	/**
+	 * 地区位置 , 地区位置，东北、华北等 , 类型: java.lang.String
+	*/
+	public static final String REGION_LOCATION="regionLocation";
+	
+	/**
+	 * 地区位置 , 地区位置，东北、华北等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "地区位置，东北、华北等", java.lang.String.class, null);
+	
+	/**
+	 * 其它 , 类型: java.lang.String
+	*/
+	public static final String OTHER="other";
+	
+	/**
+	 * 其它 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> OTHER_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,OTHER, java.lang.String.class, "其它", "其它", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , TYPE };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , OTHER };
 	
 	/**
 	 * 代理类
@@ -123,13 +144,64 @@ public class AddressModelMeta {
 		
 		/**
 		 * 设置 类型
-		 * @param type 类型
+		 * @param regionType 类型
 		 * @return 当前对象
 		*/
-		public AddressModel setType(String type) {
-			super.change(TYPE,super.getType(),type);
-			super.setType(type);
+		public AddressModel setRegionType(String regionType) {
+			super.change(REGION_TYPE,super.getRegionType(),regionType);
+			super.setRegionType(regionType);
 			return this;
 		}
+		
+		/**
+		 * 设置 地区位置
+		 * @param regionLocation 地区位置
+		 * @return 当前对象
+		*/
+		public AddressModel setRegionLocation(String regionLocation) {
+			super.change(REGION_LOCATION,super.getRegionLocation(),regionLocation);
+			super.setRegionLocation(regionLocation);
+			return this;
+		}
+		
+		/**
+		 * 设置 其它
+		 * @param other 其它
+		 * @return 当前对象
+		*/
+		public AddressModel setOther(String other) {
+			super.change(OTHER,super.getOther(),other);
+			super.setOther(other);
+			return this;
+		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public AddressModel clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public AddressModel duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setPhoneNumber(this.getPhoneNumber());
+			inst.setAddress(this.getAddress());
+			inst.setRegionType(this.getRegionType());
+			inst.setName(this.getName());
+			inst.setId(this.getId());
+			inst.setRegionLocation(this.getRegionLocation());
+			if(all) {
+				inst.setOther(this.getOther());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

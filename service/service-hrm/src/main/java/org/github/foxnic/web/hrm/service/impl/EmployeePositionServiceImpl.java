@@ -43,25 +43,25 @@ import java.util.List;
 
 @Service("HrmEmployeePositionService")
 public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> implements IEmployeePositionService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param employeePosition 实体数据
@@ -72,7 +72,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 		Result r=super.insert(employeePosition);
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param employeePositionList 实体数据清单
@@ -82,8 +82,8 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	public Result insertList(List<EmployeePosition> employeePositionList) {
 		return super.insertList(employeePositionList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 hrm_employee_position
 	 *
@@ -104,7 +104,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 hrm_employee_position
 	 *
@@ -115,7 +115,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 		EmployeePosition employeePosition = new EmployeePosition();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		employeePosition.setId(id);
-		employeePosition.setDeleted(dao.getDBTreaty().getTrueValue());
+		employeePosition.setDeleted(true);
 		employeePosition.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		employeePosition.setDeleteTime(new Date());
 		try {
@@ -128,7 +128,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param employeePosition 数据对象
@@ -140,7 +140,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 		Result r=super.update(employeePosition , mode);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param employeePositionList 数据对象列表
@@ -151,8 +151,8 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	public Result updateList(List<EmployeePosition> employeePositionList , SaveMode mode) {
 		return super.updateList(employeePositionList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 hrm_employee_position
 	 *
@@ -164,9 +164,9 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 hrm_employee_position
 	 *
@@ -189,7 +189,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -197,11 +197,11 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	public List<EmployeePosition> queryList(EmployeePosition sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -211,10 +211,10 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	public PagedList<EmployeePosition> queryPagedList(EmployeePosition sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -225,7 +225,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	public PagedList<EmployeePosition> queryPagedList(EmployeePosition sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

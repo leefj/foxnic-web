@@ -116,7 +116,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		Lang lang = new Lang();
 		if(code==null) throw new IllegalArgumentException("code 不允许为 null 。");
 		lang.setCode(code);
-		lang.setDeleted(dao.getDBTreaty().getTrueValue());
+		lang.setDeleted(true);
 		lang.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		lang.setDeleteTime(new Date());
 		return dao.updateEntity(lang,SaveMode.NOT_NULL_FIELDS);

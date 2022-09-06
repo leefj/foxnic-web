@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.job.JobWorker;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-14 11:45:51
- * @sign 7B7908A9FB5EFF31C330528541B4DD12
+ * @since 2022-08-25 13:21:35
+ * @sign 03DF11D6137819BF41A157DD0A8000EC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

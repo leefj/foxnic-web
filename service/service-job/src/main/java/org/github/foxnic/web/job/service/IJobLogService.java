@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.job.JobLog;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -314,4 +315,12 @@ public interface IJobLogService extends ISuperService<JobLog> {
 	JobLog startLog(Job job, String tid, LogType logType);
 
 	void updateLog(JobLog log);
+
+    Boolean hasRefers(String id);
+
+	Map<String, Boolean> hasRefers(List<String> ids);
+
+	List<JobLog> queryListByIds(List<String> ids);
+
+	Map<String, JobLog> queryMapByIds(List<String> ids);
 }

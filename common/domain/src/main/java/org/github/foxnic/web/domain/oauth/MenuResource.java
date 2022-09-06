@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -8,16 +9,17 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * null
+ * 菜单资源关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:55:59
- * @sign 59661CB57FB3F6F0EE9EC02B08064429
+ * @since 2022-09-02 15:51:02
+ * @sign 16DF333D0885522287E343B89154CD4A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -27,74 +29,76 @@ public class MenuResource extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_MENU_RESOURCE.$TABLE;
-	
+
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-	
+
 	/**
 	 * 菜单ID：菜单ID
 	*/
 	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
 	private String menuId;
-	
+
 	/**
 	 * 资源ID：资源ID
 	*/
 	@ApiModelProperty(required = false,value="资源ID" , notes = "资源ID")
 	private String resourceId;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
-	
+	@Transient
+	private Boolean deletedBool;
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -103,7 +107,7 @@ public class MenuResource extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -113,7 +117,7 @@ public class MenuResource extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 菜单ID<br>
 	 * 菜单ID
@@ -122,7 +126,7 @@ public class MenuResource extends Entity {
 	public String getMenuId() {
 		return menuId;
 	}
-	
+
 	/**
 	 * 设置 菜单ID
 	 * @param menuId 菜单ID
@@ -132,7 +136,7 @@ public class MenuResource extends Entity {
 		this.menuId=menuId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 资源ID<br>
 	 * 资源ID
@@ -141,7 +145,7 @@ public class MenuResource extends Entity {
 	public String getResourceId() {
 		return resourceId;
 	}
-	
+
 	/**
 	 * 设置 资源ID
 	 * @param resourceId 资源ID
@@ -151,7 +155,7 @@ public class MenuResource extends Entity {
 		this.resourceId=resourceId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -160,7 +164,7 @@ public class MenuResource extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -170,7 +174,7 @@ public class MenuResource extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -179,7 +183,7 @@ public class MenuResource extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -189,7 +193,7 @@ public class MenuResource extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -198,7 +202,7 @@ public class MenuResource extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -208,7 +212,7 @@ public class MenuResource extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -217,7 +221,7 @@ public class MenuResource extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -227,7 +231,7 @@ public class MenuResource extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -236,17 +240,48 @@ public class MenuResource extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
+	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public MenuResource setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public MenuResource setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
+		return this;
+	}
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -255,7 +290,7 @@ public class MenuResource extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -265,7 +300,7 @@ public class MenuResource extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -274,7 +309,7 @@ public class MenuResource extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -284,7 +319,7 @@ public class MenuResource extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -293,7 +328,7 @@ public class MenuResource extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -331,6 +366,44 @@ public class MenuResource extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public MenuResource clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public MenuResource duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.MenuResourceMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.MenuResourceMeta.$$proxy$$();
+		inst.setResourceId(this.getResourceId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setMenuId(this.getMenuId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public MenuResource clone(boolean deep) {
+		return EntityContext.clone(MenuResource.class,this,deep);
 	}
 
 	/**

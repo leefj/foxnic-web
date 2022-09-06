@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-08-06 06:43:56
+ * @since 2022-08-09 20:07:29
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -48,7 +48,12 @@ public class ExampleTables {
 		/**
 		 * 类型，A:国内；B:国外
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","A:国内；B:国外",false,false,false);
+		public static final DBField REGION_TYPE = new DBField(DBDataType.STRING , "region_type","regionType","类型","A:国内；B:国外",false,false,false);
+		
+		/**
+		 * 地区位置，东北、华北等
+		*/
+		public static final DBField REGION_LOCATION = new DBField(DBDataType.STRING , "region_location","regionLocation","地区位置","东北、华北等",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -91,7 +96,7 @@ public class ExampleTables {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","版本","版本",false,false,false);
 		
 		public EXAMPLE_ADDRESS() {
-			this.init($NAME,"订单地址" , ID , NAME , PHONE_NUMBER , ADDRESS , TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"订单地址" , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final EXAMPLE_ADDRESS $TABLE=new EXAMPLE_ADDRESS();
 	}

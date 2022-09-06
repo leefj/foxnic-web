@@ -15,8 +15,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 序列
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:07
- * @sign 87D899276016F546980B1D8C24B45113
+ * @since 2022-09-02 16:18:43
+ * @sign C53230327A370931738A2F89D651168E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -305,6 +305,43 @@ public class Sequence extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Sequence clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Sequence duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.SequenceMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.SequenceMeta.$$proxy$$();
+		inst.setFetchSize(this.getFetchSize());
+		inst.setCatalog(this.getCatalog());
+		inst.setName(this.getName());
+		inst.setLength(this.getLength());
+		inst.setTenantId(this.getTenantId());
+		inst.setMemo(this.getMemo());
+		inst.setPk(this.getPk());
+		inst.setId(this.getId());
+		inst.setType(this.getType());
+		inst.setValue(this.getValue());
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Sequence clone(boolean deep) {
+		return EntityContext.clone(Sequence.class,this,deep);
 	}
 
 	/**

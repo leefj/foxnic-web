@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.dataperm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-06 06:07:05
- * @sign 7A5354E3A28843E02CFA13476D252C14
+ * @since 2022-09-02 16:45:34
+ * @sign ADB68D9103630A674B14B4E05577ED71
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,16 +75,6 @@ public class RuleConditionMeta {
 	 * range , id , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> RANGE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,RANGE_ID, java.lang.String.class, "range", "id", java.lang.String.class, null);
-	
-	/**
-	 * 层级路径 , 类型: java.lang.String
-	*/
-	public static final String HIERARCHY="hierarchy";
-	
-	/**
-	 * 层级路径 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> HIERARCHY_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
 	
 	/**
 	 * 上级ID , 类型: java.lang.String
@@ -268,7 +259,7 @@ public class RuleConditionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -341,17 +332,6 @@ public class RuleConditionMeta {
 		public RuleCondition setRangeId(String rangeId) {
 			super.change(RANGE_ID,super.getRangeId(),rangeId);
 			super.setRangeId(rangeId);
-			return this;
-		}
-		
-		/**
-		 * 设置 层级路径
-		 * @param hierarchy 层级路径
-		 * @return 当前对象
-		*/
-		public RuleCondition setHierarchy(String hierarchy) {
-			super.change(HIERARCHY,super.getHierarchy(),hierarchy);
-			super.setHierarchy(hierarchy);
 			return this;
 		}
 		
@@ -552,5 +532,49 @@ public class RuleConditionMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public RuleCondition clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public RuleCondition duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setExprType(this.getExprType());
+			inst.setVariables(this.getVariables());
+			inst.setNotes(this.getNotes());
+			inst.setQueryField(this.getQueryField());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setQueryProperty(this.getQueryProperty());
+			inst.setSort(this.getSort());
+			inst.setTitle(this.getTitle());
+			inst.setType(this.getType());
+			inst.setVersion(this.getVersion());
+			inst.setParentId(this.getParentId());
+			inst.setValid(this.getValid());
+			inst.setRangeId(this.getRangeId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setConditionTestValue(this.getConditionTestValue());
+			inst.setConditionExpr(this.getConditionExpr());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setLogic(this.getLogic());
+			inst.setRuleId(this.getRuleId());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.system;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.system.BusiRoleMember;
 import org.github.foxnic.web.domain.system.BusiRoleMemberVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 业务角色成员关系表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:49:50
+ * @since 2022-09-02 16:18:40
  */
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = BusiRoleMemberServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface BusiRoleMemberServiceProxy {
@@ -88,21 +90,6 @@ public interface BusiRoleMemberServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出业务角色成员关系数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载业务角色成员关系导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入业务角色成员关系数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.INSERT)
@@ -139,7 +126,7 @@ public interface BusiRoleMemberServiceProxy {
     Result<BusiRoleMember> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 批量删除业务角色成员关系
+     * 获取多个业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.GET_BY_IDS)
     Result<List<BusiRoleMember>> getByIds(@RequestParam(name = "ids") List<String> ids);

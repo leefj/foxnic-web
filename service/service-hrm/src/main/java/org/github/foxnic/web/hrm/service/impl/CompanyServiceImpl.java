@@ -1,35 +1,44 @@
 package org.github.foxnic.web.hrm.service.impl;
 
-
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.hrm.Company;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.hrm.service.ICompanyService;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Date;
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
+
+
+import org.github.foxnic.web.domain.hrm.Company;
+import org.github.foxnic.web.domain.hrm.CompanyVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.hrm.service.ICompanyService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * <p>
  * 公司表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:19
+ * @since 2022-09-02 16:24:50
 */
 
 
@@ -39,7 +48,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -87,7 +96,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return super.insertList(companyList);
 	}
 
-
+	
 	/**
 	 * 按主键删除 公司
 	 *
@@ -108,7 +117,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 			return r;
 		}
 	}
-
+	
 	/**
 	 * 按主键删除 公司
 	 *
@@ -119,7 +128,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		Company company = new Company();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		company.setId(id);
-		company.setDeleted(dao.getDBTreaty().getTrueValue());
+		company.setDeleted(true);
 		company.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		company.setDeleteTime(new Date());
 		try {
@@ -168,7 +177,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return super.updateList(companyList , mode);
 	}
 
-
+	
 	/**
 	 * 按主键更新字段 公司
 	 *
@@ -182,7 +191,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return suc>0;
 	}
 
-
+	
 	/**
 	 * 按主键获取 公司
 	 *
@@ -196,9 +205,22 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return dao.queryEntity(sample);
 	}
 
+	/**
+	 * 等价于 queryListByIds
+	 * */
 	@Override
 	public List<Company> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<Company> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, Company> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, Company::getId);
 	}
 
 
@@ -210,7 +232,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<Company> queryList(Company sample) {
+	public List<Company> queryList(CompanyVO sample) {
 		return super.queryList(sample);
 	}
 
@@ -224,7 +246,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<Company> queryPagedList(Company sample, int pageSize, int pageIndex) {
+	public PagedList<Company> queryPagedList(CompanyVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -243,37 +265,45 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param company 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Company> checkExists(Company company) {
+	public Boolean checkExists(Company company) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(company, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(company, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcel(Company sample) {
-		return super.exportExcel(sample);
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
 	}
 
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcelTemplate() {
-		return super.exportExcelTemplate();
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
-	@Override
-	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
-		return super.importExcel(input,sheetIndex,batch);
-	}
 
-	@Override
-	public ExcelStructure buildExcelStructure(boolean isForExport) {
-		return super.buildExcelStructure(isForExport);
-	}
+
+
 
 
 }

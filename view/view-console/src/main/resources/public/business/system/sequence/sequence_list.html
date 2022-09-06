@@ -2,7 +2,7 @@
 /**
  * 序列 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:09
+ * @since 2022-09-02 16:18:43
  */
  -->
  <!DOCTYPE html>
@@ -24,7 +24,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
@@ -62,12 +62,12 @@
 
 
             <!-- 按钮区域 -->
-            <div class="layui-form toolbar search-buttons" style="opacity: 0">
+            <div id="search-area" class="layui-form toolbar search-buttons" style="opacity: 0">
                 <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
             </div>
         </div>
 
-        <div style="margin-top: 42px ">
+        <div id="table-area" style="margin-top: 42px ">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 
@@ -79,21 +79,20 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('sys_sequence:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+        <button th:if="${perm.checkAuth('sys_sequence:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button " lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <button th:if="${perm.checkAuth('sys_sequence:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
+    <button th:if="${perm.checkAuth('sys_sequence:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate('查看')}">查看</span></button>
 
 
-    <button th:if="${perm.checkAuth('sys_sequence:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
+    <button th:if="${perm.checkAuth('sys_sequence:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('删除')}">删除</span></button>
 
 
 </script>

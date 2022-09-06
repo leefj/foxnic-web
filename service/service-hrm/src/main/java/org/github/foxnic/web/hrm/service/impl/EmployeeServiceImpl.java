@@ -1,6 +1,7 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -92,6 +93,21 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Transactional
 	public Result insert(Employee employee) {
 
+		/**
+		 * 数据校验
+		 * */
+		if(employee instanceof EmployeeVO) {
+			EmployeeVO vo = (EmployeeVO) employee;
+			if(StringUtil.isBlank(vo.getPrimaryPositionId())) {
+				return ErrorDesc.failure(CommonError.PARAM_IS_REQUIRED).message("请选择主岗");
+			}
+			if(vo.getVicePositionIds()!=null && !vo.getVicePositionIds().isEmpty()) {
+				if(vo.getVicePositionIds().contains(vo.getPrimaryPositionId())) {
+					return ErrorDesc.failure(CommonError.VALUE_CAN_NOT_IN_LIST).message("兼岗中不允许包含主岗");
+				}
+			}
+		}
+
 		User user = null;
 		//如果系统配置是在创建员工是创建账户
 		if(SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_EMPLOYEE_CREATEUSER, YesNo.class)==YesNo.yes) {
@@ -141,7 +157,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 					//保存主岗关系
 					if(!StringUtil.isBlank(vo.getPrimaryPositionId())) {
 						EmployeePosition ep=new EmployeePosition();
-						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPrimaryPositionId());
+						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPrimaryPositionId()).setIsPrimary(1);
 						employeePositionService.insert(ep);
 						//激活主岗
 						employeePositionService.activePrimaryPosition(employee.getId());

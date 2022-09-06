@@ -6,13 +6,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.system.DictItem;
 import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 09:58:48
- * @sign 3227F46C57043EA80C95594DE77C9F65
+ * @since 2022-09-02 16:18:40
+ * @sign 5D7BBBCC1F54C8563F918409E82934F5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -366,5 +367,43 @@ public class DictMeta {
 			super.setModuleInfo(moduleInfo);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Dict clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Dict duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setIsTree(this.getIsTree());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setModule(this.getModule());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setModuleInfo(this.getModuleInfo());
+				inst.setItems(this.getItems());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

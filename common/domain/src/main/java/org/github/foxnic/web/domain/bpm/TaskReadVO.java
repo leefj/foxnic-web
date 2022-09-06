@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程任务已阅
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 13:30:21
- * @sign 377A77ECB79874031B3FC42E99DB39DF
+ * @since 2022-09-02 16:42:57
+ * @sign 86D0D052DFF62226053D46E1481ACD41
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +263,7 @@ public class TaskReadVO extends TaskRead {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +272,105 @@ public class TaskReadVO extends TaskRead {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return TaskReadVO , 转换好的 TaskReadVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskReadVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskReadVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TaskReadVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.TaskReadVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskReadVOMeta.$$proxy$$();
+		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setConfirmTime(this.getConfirmTime());
+		inst.setComment(this.getComment());
+		inst.setId(this.getId());
+		inst.setLatestTime(this.getLatestTime());
+		inst.setVersion(this.getVersion());
+		inst.setTaskId(this.getTaskId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setReader(this.getReader());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskReadVO clone(boolean deep) {
+		return EntityContext.clone(TaskReadVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskReadVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskReadVO , 转换好的的 TaskRead 对象
+	*/
+	@Transient
+	public static TaskReadVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskReadVO po = EntityContext.create(TaskReadVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 TaskReadVO，等同于 new
+	 * @return TaskReadVO 对象
+	*/
+	@Transient
+	public static TaskReadVO create() {
+		return EntityContext.create(TaskReadVO.class);
 	}
 }

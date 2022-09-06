@@ -32,6 +32,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 		FieldsBuilder fields=this.createFieldsBuilder();
 		fields.addAll().removeDBTreatyFields();
 		addressModel.addSimpleProperties(fields);
+		addressModel.addSimpleProperty(String.class,"other","其它","其它");
 
 
 		PojoClassFile addressSubModel=context.createPojo("AddressSubModel");
@@ -55,6 +56,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	 * */
 	@Override
 	public void configFields(ViewOptions view) {
+
+		view.field(EXAMPLE_ADDRESS.CREATE_TIME).search().hidden(false);
 
 	}
 
