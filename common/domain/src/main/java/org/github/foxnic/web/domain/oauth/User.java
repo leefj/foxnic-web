@@ -21,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:10:19
+ * @since 2022-09-06 13:48:50
  * @sign B875799D0E408516EA4096962DCFDF9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -826,7 +826,9 @@ public class User extends Entity {
 	@Transient
 	public static User createFrom(Map<String,Object> userMap) {
 		if(userMap==null) return null;
-		User po = EntityContext.create(User.class, userMap);
+		User po = create();
+		EntityContext.copyProperties(po,userMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -838,7 +840,9 @@ public class User extends Entity {
 	@Transient
 	public static User createFrom(Object pojo) {
 		if(pojo==null) return null;
-		User po = EntityContext.create(User.class,pojo);
+		User po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -848,6 +852,6 @@ public class User extends Entity {
 	*/
 	@Transient
 	public static User create() {
-		return EntityContext.create(User.class);
+		return new org.github.foxnic.web.domain.oauth.meta.UserMeta.$$proxy$$();
 	}
 }

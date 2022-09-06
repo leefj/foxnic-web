@@ -11,8 +11,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:44:49
- * @sign 775814E7005D731A51D1DB9FFDD06C7A
+ * @since 2022-09-06 14:48:45
+ * @sign 207499D04984C0BEAC80058663571E0A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -55,6 +55,12 @@ public class AddressModel extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
 	private String regionLocation;
+	
+	/**
+	 * 其它：其它
+	*/
+	@ApiModelProperty(required = false,value="其它" , notes = "其它")
+	private String other;
 	
 	/**
 	 * 获得 主键<br>
@@ -169,14 +175,24 @@ public class AddressModel extends Entity {
 		this.regionLocation=regionLocation;
 		return this;
 	}
-
+	
 	/**
-	 * 创建一个 AddressModel，等同于 new
-	 * @return AddressModel 对象
+	 * 获得 其它<br>
+	 * 其它
+	 * @return 其它
 	*/
-	@Transient
-	public static AddressModel create() {
-		return EntityContext.create(AddressModel.class);
+	public String getOther() {
+		return other;
+	}
+	
+	/**
+	 * 设置 其它
+	 * @param other 其它
+	 * @return 当前对象
+	*/
+	public AddressModel setOther(String other) {
+		this.other=other;
+		return this;
 	}
 
 	/**
@@ -187,7 +203,9 @@ public class AddressModel extends Entity {
 	@Transient
 	public static AddressModel createFrom(Map<String,Object> addressMap) {
 		if(addressMap==null) return null;
-		AddressModel po = EntityContext.create(AddressModel.class, addressMap);
+		AddressModel po = create();
+		EntityContext.copyProperties(po,addressMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -199,8 +217,30 @@ public class AddressModel extends Entity {
 	@Transient
 	public static AddressModel createFrom(Object pojo) {
 		if(pojo==null) return null;
-		AddressModel po = EntityContext.create(AddressModel.class,pojo);
+		AddressModel po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public AddressModel duplicate(boolean all) {
+		org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
+		inst.setPhoneNumber(this.getPhoneNumber());
+		inst.setAddress(this.getAddress());
+		inst.setRegionType(this.getRegionType());
+		inst.setName(this.getName());
+		inst.setId(this.getId());
+		inst.setRegionLocation(this.getRegionLocation());
+		if(all) {
+			inst.setOther(this.getOther());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
@@ -208,7 +248,7 @@ public class AddressModel extends Entity {
 	*/
 	@Transient
 	public AddressModel clone() {
-		return EntityContext.clone(AddressModel.class,this);
+		return duplicate(true);
 	}
 
 	/**
@@ -236,5 +276,14 @@ public class AddressModel extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 创建一个 AddressModel，等同于 new
+	 * @return AddressModel 对象
+	*/
+	@Transient
+	public static AddressModel create() {
+		return new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
 	}
 }

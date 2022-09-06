@@ -8,6 +8,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
@@ -165,6 +166,8 @@ public class UnitTestController {
     @PostMapping("/service-system/unit-test/bean")
     public Result beanTest(UserVO userParam, LoginIdentityVO loginIdentityParam) {
 
+        PerformanceLogger logger=new PerformanceLogger();
+
         Validator validator=new Validator();
 
         validator.asserts(EntityContext.isManaged(userParam)).requireEqual("userParam 需要被 Manage",true);
@@ -175,6 +178,27 @@ public class UnitTestController {
 
         UserVO userVO=user.toPojo(UserVO.class);
         validator.asserts(EntityContext.isManaged(userVO)).requireEqual("userVO 需要被 Manage",true);
+
+        logger.collect("start");
+        List<User> userList=new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            userList.add(User.create());
+        }
+        logger.collect("create");
+
+        userList.clear();
+        for (int i = 0; i < 10000; i++) {
+            userList.add(User.createFrom(user));
+        }
+        logger.collect("createFrom");
+
+        userList.clear();
+        for (int i = 0; i < 10000; i++) {
+            userList.add(user.clone());
+        }
+        logger.collect("Clone");
+
+        logger.info("beanTest");
 
         return validator.getMergedResult();
 

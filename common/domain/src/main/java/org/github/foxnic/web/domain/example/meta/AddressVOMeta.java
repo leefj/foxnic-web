@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.example.AddressVO;
 import java.util.List;
 import org.github.foxnic.web.domain.example.Address;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:45:50
+ * @since 2022-09-06 14:48:45
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -512,5 +513,50 @@ public class AddressVOMeta extends AddressMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public AddressVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public AddressVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setAddress(this.getAddress());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setRegionLocation(this.getRegionLocation());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setPhoneNumber(this.getPhoneNumber());
+			inst.setDeleted(this.getDeleted());
+			inst.setRegionType(this.getRegionType());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

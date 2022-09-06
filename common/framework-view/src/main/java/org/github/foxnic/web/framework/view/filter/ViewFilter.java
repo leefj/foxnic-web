@@ -13,6 +13,9 @@ import java.io.IOException;
 
 public class ViewFilter implements Filter {
 
+    /**
+     * 初始化
+     * */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
