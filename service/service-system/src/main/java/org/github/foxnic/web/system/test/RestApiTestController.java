@@ -6,13 +6,25 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.springboot.web.WebContext;
 import org.github.foxnic.web.domain.bpm.ProcessStartVO;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.PathVariableMethodArgumentResolver;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -35,6 +47,24 @@ public class RestApiTestController {
         Map<String,Object> data=new HashMap<>();
         data.put("id",id);
         data.put("name",name);
+        Logger.info("这是日志");
+        result.data(data);
+        return result;
+    }
+
+
+    @PostMapping("/service-system/unit-test/rest/io/simple/{id},{name}")
+    public Result simple4Path(@PathVariable Integer id, @PathVariable String name) {
+        RequestParameter ps=RequestParameter.get();
+
+        Result result=ErrorDesc.success();
+        Map<String,Object> data=new HashMap<>();
+        data.put("id",id);
+        data.put("name",name);
+
+        data.put("id2",ps.get("id"));
+        data.put("name2",ps.get("name"));
+
         Logger.info("这是日志");
         result.data(data);
         return result;

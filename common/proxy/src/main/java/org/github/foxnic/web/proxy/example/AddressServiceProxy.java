@@ -13,13 +13,15 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.github.foxnic.web.domain.example.AddressModel;
 
 /**
  * <p>
  * 订单地址  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-06 15:22:06
+ * @since 2022-09-08 16:38:12
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = AddressServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface AddressServiceProxy {
@@ -85,6 +87,18 @@ public interface AddressServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
+     * 方法抬头
+     * <p>方法描述</p>
+     */
+    public static final String NEW_API_NAME_1 = API_PREFIX + "new-api-name-1";
+
+    /**
+     * 方法抬头
+     * <p>方法描述</p>
+     */
+    public static final String NEW_API_NAME_2 = API_PREFIX + "new-api-name-2";
+
+    /**
      * 添加订单地址
      */
     @RequestMapping(AddressServiceProxy.INSERT)
@@ -137,6 +151,27 @@ public interface AddressServiceProxy {
      */
     @RequestMapping(AddressServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<Address>> queryPagedList(@RequestParam(name = "sample") AddressVO sample);
+
+    /**
+     * 方法抬头
+     * <p>方法描述</p>
+     * @param name 姓名 , 所有者的姓名
+     * @param memberIds 成员ID集合 , 指定成员的ID清单
+     * @param ageMap 年龄表 , 成员年龄表
+     * @return  Result&lt;String&gt; 结果
+     */
+    @RequestMapping(NEW_API_NAME_1)
+    Result<String> newApiName1(@RequestParam(name = "name") String name, @RequestParam(name = "memberIds") String memberIds, @RequestParam(name = "ageMap") Integer ageMap);
+
+    /**
+     * 方法抬头
+     * <p>方法描述</p>
+     * @param address 地址对象 , 地址基本信息
+     * @param model 地址模型 , 地址的扩展信息
+     * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
+     */
+    @RequestMapping(NEW_API_NAME_2)
+    Result<List<Address>> newApiName2(@RequestParam(name = "address") AddressVO address, @RequestParam(name = "model") AddressModel model);
 
     /**
      * 控制器类名

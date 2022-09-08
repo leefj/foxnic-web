@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.module.example;
 
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
@@ -9,7 +10,11 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
+import org.github.foxnic.web.domain.example.Address;
+import org.github.foxnic.web.domain.example.AddressModel;
+import org.github.foxnic.web.domain.example.AddressVO;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
@@ -76,6 +81,36 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 			.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
 			.setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
 			.setExtendJsFile(WriteMode.CREATE_IF_NOT_EXISTS);
+	}
+
+
+	@Override
+	public void configController(ControllerOptions controller) {
+
+		controller
+				// 方法头
+				.restApi("方法抬头","newApiName1","new-api-name-1", RequestMethod.POST,"方法描述")
+				// 参数
+				.addSimpleParameter(String.class,"name","姓名",true,"LeeFJ","所有者的姓名")
+				.addListParameter(String.class,"memberIds","成员ID集合",false,"[1,2,3]","指定成员的ID清单")
+				.addMapParameter(String.class,Integer.class,"ageMap","年龄表",false,"{\"LeeFJ\":28}","成员年龄表")
+				// 返回值
+				.simpleResult(String.class,"结果")
+		;
+
+
+		controller
+				// 方法头
+				.restApi("方法抬头","newApiName2","new-api-name-2", RequestMethod.POST,"方法描述")
+				// 参数
+				.addSimpleParameter(AddressVO.class,"address","地址对象",true,"{}","地址基本信息")
+				.addListParameter(AddressModel.class,"model","地址模型",false,"{}","地址的扩展信息")
+				// 返回值
+				.listResult(Address.class,"地址列表")
+		;
+
+
+
 	}
 
 	/**

@@ -11,6 +11,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 
 import java.io.InputStream;
@@ -288,4 +289,8 @@ public interface IRoleService extends ISimpleIdService<Role,String> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
+	/**
+	 * 获得菜单关联的角色
+	 * */
+	List<Role> getRelatedRoles(List<String> menuIds);
 }

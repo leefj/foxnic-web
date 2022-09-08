@@ -2157,12 +2157,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 for (var i=0;i<result.errors.length;i++) {
                     var e=result.errors[i];
                     if(e.subject && e.message) {
-                        errs.push((errs.length+1)+"."+e.subject +" : "+ e.message);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.subject +" : "+ e.message);
                     } else  if(!e.subject && e.message) {
-                        errs.push((errs.length+1)+"."+e.message);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.message);
                     } else  if(e.subject && !e.message) {
-                        errs.push((errs.length+1)+"."+e.subject);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.subject);
                     }
+                }
+                if(errs.length>0) {
+                    message+=" : <br>"+errs.join("<br>");
+                }
+            }
+
+            if(result.solutions!=null && result.solutions.length>0) {
+                var errs=[];
+                for (var i=0;i<result.solutions.length;i++) {
+                    errs.push("&nbsp;&nbsp;"+(i+1)+"."+result.solutions[i]);
                 }
                 if(errs.length>0) {
                     message+=" : <br>"+errs.join("<br>");

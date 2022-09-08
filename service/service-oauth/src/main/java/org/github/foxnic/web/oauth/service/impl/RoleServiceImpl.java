@@ -12,6 +12,8 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
@@ -36,6 +38,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-06 16:53:31
+ * @version
 */
 
 
@@ -266,6 +269,15 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public List<Role> getRelatedRoles(List<String> menuIds) {
+		if(menuIds==null || menuIds.isEmpty()) return new ArrayList<>();
+		In in = new In("c.id",menuIds);
+		Expr select=new Expr("select distinct a.* from sys_role a join sys_role_menu b on a.id=b.role_id and b.deleted=0 join sys_menu c on b.menu_id=c.id and c.deleted=0 where a.deleted=0");
+		select.append(in.toConditionExpr().startWithAnd());
+		return dao().queryEntities(Role.class,select);
 	}
 
 	@Override

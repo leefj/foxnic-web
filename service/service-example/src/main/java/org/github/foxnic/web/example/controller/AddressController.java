@@ -43,13 +43,16 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
+import org.github.foxnic.web.domain.example.AddressModel;
 
 /**
  * <p>
  * 订单地址 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-06 15:22:06
+ * @since 2022-09-08 16:38:15
 */
 
 @Api(tags = "订单地址")
@@ -294,6 +297,50 @@ public class AddressController extends SuperController {
 
 
 
+
+	/**
+	  * 方法抬头
+	  * <p>方法描述</p>
+      * @param name 姓名 , 所有者的姓名
+      * @param memberIds 成员ID集合 , 指定成员的ID清单
+      * @param ageMap 年龄表 , 成员年龄表
+      * @return  Result&lt;String&gt; 结果
+	  */
+	@ApiOperation(value = "方法描述")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "name" , value = "姓名" , required = true , dataTypeClass=String.class , example = "LeeFJ"),
+        @ApiImplicitParam(name = "memberIds" , value = "成员ID集合" , required = false , dataTypeClass=String.class , example = "[1,2,3]"),
+        @ApiImplicitParam(name = "ageMap" , value = "年龄表" , required = false , dataTypeClass=Integer.class , example = "{\"LeeFJ\":28}"),
+    })
+	@ApiOperationSupport(order=8)
+	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_1 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(AddressServiceProxy.NEW_API_NAME_1)
+	public Result<String> newApiName1(String name , String memberIds , Integer ageMap) {
+		Result<String> result = new Result<>();
+		// TODO 实现 方法描述 逻辑
+		return result;
+	}
+
+	/**
+	  * 方法抬头
+	  * <p>方法描述</p>
+      * @param address 地址对象 , 地址基本信息
+      * @param model 地址模型 , 地址的扩展信息
+      * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
+	  */
+	@ApiOperation(value = "方法描述")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "address" , value = "地址对象" , required = true , dataTypeClass=AddressVO.class , example = "{}"),
+        @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=AddressModel.class , example = "{}"),
+    })
+	@ApiOperationSupport(order=8)
+	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
+	public Result<List<Address>> newApiName2(AddressVO address , AddressModel model) {
+		Result<List<Address>> result = new Result<>();
+		// TODO 实现 方法描述 逻辑
+		return result;
+	}
 
 
 }

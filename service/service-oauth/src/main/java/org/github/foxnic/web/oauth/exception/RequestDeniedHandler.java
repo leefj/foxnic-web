@@ -6,8 +6,11 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IResourzeService;
+import org.github.foxnic.web.oauth.service.IRoleService;
+import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -35,6 +38,9 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
     @Autowired
     private IMenuService menuService;
 
+    @Autowired
+    private IRoleService roleService;
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
@@ -53,12 +59,16 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
                 result.addSolution("需要开发人员将资源与菜单关联");
             } else {
                 result.message("资源 "+method+" , "+uri+" 未授权，需要为角色勾选相关菜单");
+                List<Role> roles=roleService.getRelatedRoles(CollectorUtil.collectList(menus,Menu::getId));
+                for (Role role : roles) {
+                    result.addSolution("请为当前账户勾选角色 : "+ role.getName());
+                }
                 for (Menu menu : menus) {
                     result.addSolution("请为角色勾选菜单 : "+ menu.getAncestorsNamePath());
                 }
-
             }
         }
+        result.messageLevel4Confirm();
 		ResponseUtil.writeOK(response, result);
     }
 

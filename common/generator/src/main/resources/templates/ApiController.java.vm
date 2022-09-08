@@ -43,7 +43,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 添加#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4Insert)
+	#(swagger4Insert)
 	@ApiOperationSupport(order=1)
 	#end
 	#(validation4Insert)
@@ -61,7 +61,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 批量添加#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4Insert)
+	#(swagger4Insert)
 	@ApiOperationSupport(order=1)
 	#end
 	#if(isEnableMicroService)
@@ -79,7 +79,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 删除#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4DeleteById)
+	#(swagger4DeleteById)
 	@ApiOperationSupport(order=2)
 	#end
 	#(validation4DeleteById)
@@ -167,7 +167,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 更新#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4Update)
+	#(swagger4Update)
 	@ApiOperationSupport( order=4 , ignoreParameters = { #(ignoreParameters4Update) } )
 	#end
 	#(validation4Update)
@@ -185,7 +185,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 保存#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4Save)
+	#(swagger4Save)
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { #(ignoreParameters4Update) } )
 	#end
 	#(validation4Save)
@@ -275,7 +275,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 查询#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4QueryList)
+	#(swagger4QueryList)
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { #(voMetaSimpleName).PAGE_INDEX , #(voMetaSimpleName).PAGE_SIZE } )
 	#end
 	#if(isEnableMicroService)
@@ -302,7 +302,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	 * 分页查询#(topic)
 	*/
 	#if(isEnableSwagger)
-	#(swager4QueryPagedList)
+	#(swagger4QueryPagedList)
 	@ApiOperationSupport(order=8)
 	#end
 	#if(isEnableMicroService)
@@ -391,8 +391,6 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 		}
 	}
 
-
-
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
@@ -418,6 +416,29 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 			return ErrorDesc.failure().message("导入失败").data(errors);
 		}
 	}
+	#end
+	#for(api:restAPIList)
+	/**
+	  * #(api.title)
+	  * #if(api.comment!=null)<p>#(api.comment)</p>#end
+      #(api.javaDocParameterList)
+      * @return  Result#(api.htmlGenericResultCode) #(api.resultDesc)
+	  */
+	#if(isEnableSwagger)
+	@ApiOperation(value = "#(api.comment)")
+	#(api.swaggerParameterList)
+	@ApiOperationSupport(order=8)
+	#end
+	#if(isEnableMicroService)
+	@SentinelResource(value = #(agentSimpleName).#(api.constName) , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	#end
+	@#(api.mappingTypeName)(#(agentSimpleName).#(api.constName))
+	public Result#(api.genericResultCode) #(api.name)(#(api.parameterListString)) {
+		Result#(api.genericResultCode) result = new Result#(api.genericResultCode4New)();
+		// TODO 实现 #(api.comment) 逻辑
+		return result;
+	}
+
 	#end
 
 }

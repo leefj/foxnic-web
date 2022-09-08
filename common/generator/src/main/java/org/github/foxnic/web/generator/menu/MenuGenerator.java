@@ -47,6 +47,8 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
+//		ControllerProxyFile.getJavaDocTitle("api",new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\example\\AddressServiceProxy.java"));
+
 //		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER.$TABLE, OrderServiceProxy.class, OrderPageController.class);
 //		mg.generate("583014848745439232");
 
@@ -58,7 +60,7 @@ public class MenuGenerator {
 
 		mg=new MenuGenerator(ExampleTables.EXAMPLE_ADDRESS.$TABLE, AddressServiceProxy.class, AddressPageController.class);
 		mg.generate("583014848745439232");
-//		mg.removeByBatchId("608188281577799680");
+//		mg.removeByBatchId("620270722337472512");
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
 //		mg.generate("555766790999773184");
@@ -451,8 +453,8 @@ public class MenuGenerator {
 		prefix=StringUtil.removeFirst(prefix, "/");
 
 		File file=(new MavenProject(pageType)).getSourceFile(pageType);
-		String source= FileUtil.readText(file);
-		String[] lines=source.split("\n");
+//		String source= FileUtil.readText(file);
+//		String[] lines=source.split("\n");
 
 		Method[] ms=pageType.getDeclaredMethods();
 
@@ -461,7 +463,7 @@ public class MenuGenerator {
 			if(rm==null) continue;
 			String path="/"+StringUtil.joinUrl(prefix,rm.value()[0]);
 			System.out.println(path);
-			String doc=this.findDoc(m.getName(),source,lines);
+			String doc=this.findDoc(m.getName(),file);
 			String[] parts=doc.split(" ");
 			String name=parts[parts.length-1];
 			if(path.endsWith("_list.html")) {
@@ -497,8 +499,8 @@ public class MenuGenerator {
 	private void createApiResource() throws Exception {
 
 		File file=this.configs.getProxyProject().getSourceFile(proxyType);
-		String source= FileUtil.readText(file);
-		String[] lines=source.split("\n");
+//		String source= FileUtil.readText(file);
+//		String[] lines=source.split("\n");
 
 
 		Field[] fs=proxyType.getDeclaredFields();
@@ -509,7 +511,7 @@ public class MenuGenerator {
 			//排除一些无效的静态属性
 			if(name.equals("CONTROLLER_CLASS_NAME") || name.startsWith("API_") ) continue;
 			String value=(String)f.get(null);
-			String doc=this.findDoc(f.getName(),source,lines);
+			String doc=this.findDoc(f.getName(),file);
 
 			Resourze resourze=new Resourze();
 			resourze.setId(IDGenerator.getSnowflakeIdString());
@@ -559,22 +561,25 @@ public class MenuGenerator {
 		}
 	}
 
-	private String findDoc(String name, String source, String[] lines) {
-		String line=null;
-		int index=-1;
-		for (int i = 0; i < lines.length; i++) {
-			line=lines[i];
-			if(line.contains(" "+name+" ") || line.contains(" "+name+"=")) {
-				index=i;
-				break;
-			}
-		}
-		if(index==-1) return name;
+	private String findDoc(String name, File source) {
 
-		String doc=lines[index-2];
-		doc=doc.trim();
-		doc=StringUtil.removeFirst(doc,"*").trim();
-		return doc;
+		return ControllerProxyFile.getJavaDocTitle(name,source);
+
+//		String line=null;
+//		int index=-1;
+//		for (int i = 0; i < lines.length; i++) {
+//			line=lines[i];
+//			if(line.contains(" "+name+" ") || line.contains(" "+name+"=")) {
+//				index=i;
+//				break;
+//			}
+//		}
+//		if(index==-1) return name;
+//
+//		String doc=lines[index-2];
+//		doc=doc.trim();
+//		doc=StringUtil.removeFirst(doc,"*").trim();
+//		return doc;
 	}
 
 	public void removeByBatchId(String batchId)  {
