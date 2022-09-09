@@ -277,7 +277,7 @@ logging:
 #禁止自动扫描API
 springfox:
   documentation:
-    auto-startup: false
+    auto-startup: true
 
 management:
   endpoints:

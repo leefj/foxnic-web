@@ -30,8 +30,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <p>
  * If no instances DocumentationConfigurer are found a default one is created and executed.
  */
-@Component("FoxnicDocumentationPluginsBootstrapper")
-@Conditional(SpringIntegrationPluginNotPresentInClassPathCondition.class)
+//@Component("FoxnicDocumentationPluginsBootstrapper")
+//@Conditional(SpringIntegrationPluginNotPresentInClassPathCondition.class)
 public class DocumentationPluginsBootstrapper
         extends AbstractDocumentationPluginsBootstrapper
         implements SmartLifecycle {
@@ -67,13 +67,13 @@ public class DocumentationPluginsBootstrapper
 
     @Override
     public boolean isAutoStartup() {
-//        String autoStartupConfig =
-//                environment.getProperty(
-//                        SPRINGFOX_DOCUMENTATION_AUTO_STARTUP,
-//                        "true");
-//        return Boolean.parseBoolean(autoStartupConfig);
+        String autoStartupConfig =
+                environment.getProperty(
+                        SPRINGFOX_DOCUMENTATION_AUTO_STARTUP,
+                        "true");
+        return Boolean.parseBoolean(autoStartupConfig);
 //        暂不启动 Swagger 扫描，还有蛮多错误
-        return false;
+//        return false;
     }
 
     @Override

@@ -167,6 +167,8 @@ public class SecurityConfiguration {
 			web.ignoring().antMatchers(securityProperties.getLoginPage());
 			// 语言
 			web.ignoring().antMatchers("/service-system/sys-lang/query-list");
+			// API
+			web.ignoring().antMatchers("/v2/api-docs");
 
 			List<RequestMatcher> ignoredRequests=BeanUtil.getFieldValue(web,"ignoredRequests", List.class);
 
