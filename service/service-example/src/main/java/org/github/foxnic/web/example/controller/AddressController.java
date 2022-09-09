@@ -321,26 +321,26 @@ public class AddressController extends SuperController {
 		return result;
 	}
 
-//	/**
-//	  * 方法抬头
-//	  * <p>方法描述</p>
-//      * @param address 地址对象 , 地址基本信息
-//      * @param model 地址模型 , 地址的扩展信息
-//      * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
-//	  */
-//	@ApiOperation(value = "方法描述")
-//	@ApiImplicitParams({
-//        @ApiImplicitParam(name = "address" , value = "地址对象" , required = true , dataTypeClass=AddressVO.class),
-//        @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=AddressModel.class),
-//    })
-//	@ApiOperationSupport(order=8)
-//	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-//	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
-//	public Result<List<Address>> newApiName2(AddressVO address , AddressModel model) {
-//		Result<List<Address>> result = new Result<>();
-//		// TODO 实现 方法描述 逻辑
-//		return result;
-//	}
+	/**
+	  * 方法抬头
+	  * <p>方法描述</p>
+      * @param address 地址对象 , 地址基本信息
+      * @param model 地址模型 , 地址的扩展信息
+      * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
+	  */
+	@ApiOperation(value = "方法描述")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "address" , value = "地址对象" , required = true , dataTypeClass=AddressVO.class),
+        @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=AddressModel.class),
+    })
+	@ApiOperationSupport(order=8)
+	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
+	public Result<List<Address>> newApiName2(AddressVO address , AddressModel model) {
+		Result<List<Address>> result = new Result<>();
+		// TODO 实现 方法描述 逻辑
+		return result;
+	}
 
 
 }
