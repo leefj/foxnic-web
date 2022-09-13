@@ -1,6 +1,13 @@
 package org.github.foxnic.web.framework.knife4j;
 
+import com.github.foxnic.commons.log.Logger;
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
+import javassist.ClassMap;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,7 +76,28 @@ public class Swagger2Config {
 	@Value("${knife4j.description}")
 	private String description;
 
-	private static final String DEFAULT_PATH = "/swagger";
+
+	/**
+	 * 修复 springfox 3.0.0 存在的 bug
+	 * */
+	private static String EXAMPLE_EQUALS_IMPL_CODE="{ " +
+			"        System.err.println(\"equals xxx\");\n" +
+			"        if ($0 == this) {\n" +
+			"            return true;\n" +
+			"        }\n" +
+			"        if ($0 == null || getClass() != $0.getClass()) {\n" +
+			"            return false;\n" +
+			"        }\n" +
+			"        springfox.documentation.schema.Example example = (springfox.documentation.schema.Example) $0;\n" +
+			"        return Objects.equals(this.getId(), example.getId()) &&\n" +
+			"                Objects.equals(this.getSummary(), example.getSummary()) &&\n" +
+			"                Objects.equals(this.getDescription(), example.getDescription()) &&\n" +
+			"                this.getValue().equals(example.getValue()) &&\n" +
+			"                this.getExternalValue().equals(example.getExternalValue()) &&\n" +
+			"                this.getMediaType().equals(example.getMediaType()) &&\n" +
+			"                this.getExtensions().equals(example.getExtensions());" +
+			"}";
+
 
 //	@Bean
 //    public Docket createRestApi(){
@@ -92,16 +120,40 @@ public class Swagger2Config {
 //    }
 
 
+	private OpenApiExtensionResolver openApiExtensionResolver;
+
+	@Autowired
+	public Swagger2Config(OpenApiExtensionResolver openApiExtensionResolver) {
+		this.openApiExtensionResolver = openApiExtensionResolver;
+	}
+
 	@Bean
 	public Docket createRestApi() {
+
+		// 修复 springfox 3.0.0 存在的 bug
+		try {
+			ClassPool pool = ClassPool.getDefault();
+			pool.importPackage("java.util.Objects");
+			CtClass type = pool.get("springfox.documentation.schema.Example");
+			//找到对应的方法
+			CtMethod equalsMethod = type.getDeclaredMethod("equals");
+			equalsMethod.setBody(EXAMPLE_EQUALS_IMPL_CODE);
+			type.toClass();
+		} catch (Throwable t) {
+			Logger.exception("springfox 3.0.0 bug 修复失败",t);
+		}
+
+		String groupName="2.X版本";
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.enable(true)
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("org.github.foxnic.web.example"))
-//				.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+				.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 				.paths(PathSelectors.any())
-				.build();
+				.build()
+				.extensions(openApiExtensionResolver.buildExtensions(groupName));
 	}
 
 	private ApiInfo apiInfo() {

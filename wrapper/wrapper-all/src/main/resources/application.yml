@@ -290,3 +290,6 @@ knife4j:
   title: ${spring.application.name}
   description: ${spring.application.description}
   version: 1.0
+  setting:
+    enableSwaggerModels: true
+    swaggerModelName: FoxnicModel
