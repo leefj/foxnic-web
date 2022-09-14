@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-08-22 11:17:10
+ * @since 2022-09-14 15:45:40
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4108,6 +4108,112 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 接口数据来源定义
+	*/
+	public static class SYS_API_SOURCE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_api_source";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 接口地址
+		*/
+		public static final DBField API_URL = new DBField(DBDataType.STRING , "api_url","apiUrl","接口地址","接口地址",false,false,true);
+		
+		/**
+		 * 账户
+		*/
+		public static final DBField USER_NAME = new DBField(DBDataType.STRING , "user_name","userName","账户","账户",false,false,true);
+		
+		/**
+		 * 密码
+		*/
+		public static final DBField PASSWORD = new DBField(DBDataType.STRING , "password","password","密码","密码",false,false,true);
+		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		
+		/**
+		 * API数据
+		*/
+		public static final DBField API_DATA = new DBField(DBDataType.STRING , "api_data","apiData","API数据","API数据",false,false,true);
+		
+		/**
+		 * 目录结构
+		*/
+		public static final DBField NAV_DIR = new DBField(DBDataType.STRING , "nav_dir","navDir","目录结构","目录结构",false,false,true);
+		
+		/**
+		 * 取数时间
+		*/
+		public static final DBField FETCH_TIME = new DBField(DBDataType.DATE , "fetch_time","fetchTime","取数时间","取数时间",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_API_SOURCE() {
+			this.init($NAME,"接口数据来源定义" , ID , NAME , API_URL , USER_NAME , PASSWORD , VALID , API_DATA , NAV_DIR , FETCH_TIME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_API_SOURCE $TABLE=new SYS_API_SOURCE();
+	}
+	
+	/**
 	 * 中国行政地区表
 	*/
 	public static class SYS_AREA extends DBTable {
@@ -4185,6 +4291,295 @@ public class FoxnicWeb {
 			this.init($NAME,"中国行政地区表" , ID , LEVEL , PARENT_CODE , AREA_CODE , ZIP_CODE , CITY_CODE , NAME , SHORT_NAME , MERGER_NAME , PINYIN , LNG , LAT , HIERARCHY);
 		}
 		public static final SYS_AREA $TABLE=new SYS_AREA();
+	}
+	
+	/**
+	 * 模块角色
+	*/
+	public static class SYS_AUTO_MODULE_ROLE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_auto_module_role";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 模块
+		*/
+		public static final DBField MODULE = new DBField(DBDataType.STRING , "module","module","模块","模块",false,false,true);
+		
+		/**
+		 * 类型,role|data_role|busi_role
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","role|data_role|busi_role",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_AUTO_MODULE_ROLE() {
+			this.init($NAME,"模块角色" , ID , NAME , STATUS , MODULE , TYPE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_AUTO_MODULE_ROLE $TABLE=new SYS_AUTO_MODULE_ROLE();
+	}
+	
+	/**
+	 * 模块角色明细
+	*/
+	public static class SYS_AUTO_MODULE_ROLE_ITEM extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_auto_module_role_item";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 模块
+		*/
+		public static final DBField MODULE_ROLE_ID = new DBField(DBDataType.STRING , "module_role_id","moduleRoleId","模块","模块",false,false,true);
+		
+		/**
+		 * 角色
+		*/
+		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色","角色",false,false,true);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField ROLE_NAME = new DBField(DBDataType.STRING , "role_name","roleName","名称","名称",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_AUTO_MODULE_ROLE_ITEM() {
+			this.init($NAME,"模块角色明细" , ID , MODULE_ROLE_ID , ROLE_ID , ROLE_NAME , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_AUTO_MODULE_ROLE_ITEM $TABLE=new SYS_AUTO_MODULE_ROLE_ITEM();
+	}
+	
+	/**
+	 * 自动赋权
+	*/
+	public static class SYS_AUTO_ROLE_GRANT_RCD extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_auto_role_grant_rcd";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 模块
+		*/
+		public static final DBField MODULE_ROLE_ID = new DBField(DBDataType.STRING , "module_role_id","moduleRoleId","模块","模块",false,false,true);
+		
+		/**
+		 * 角色
+		*/
+		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色","角色",false,false,true);
+		
+		/**
+		 * 用户
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","用户","用户",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_AUTO_ROLE_GRANT_RCD() {
+			this.init($NAME,"自动赋权" , ID , MODULE_ROLE_ID , ROLE_ID , USER_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_AUTO_ROLE_GRANT_RCD $TABLE=new SYS_AUTO_ROLE_GRANT_RCD();
+	}
+	
+	/**
+	 * 预定义用户
+	*/
+	public static class SYS_AUTO_USER_PREDEFINED extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_auto_user_predefined";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 用户
+		*/
+		public static final DBField ACCOUNT = new DBField(DBDataType.STRING , "account","account","用户","用户",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_AUTO_USER_PREDEFINED() {
+			this.init($NAME,"预定义用户" , ID , ACCOUNT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_AUTO_USER_PREDEFINED $TABLE=new SYS_AUTO_USER_PREDEFINED();
 	}
 	
 	/**
@@ -5383,11 +5778,6 @@ public class FoxnicWeb {
 		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","排序","排序",false,false,false);
 		
 		/**
-		 * 有效，是否有效
-		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","有效","是否有效",false,false,true);
-		
-		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -5427,8 +5817,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 有效，是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","有效","是否有效",false,false,true);
+		
 		public SYS_DICT_ITEM() {
-			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
 		}
 		public static final SYS_DICT_ITEM $TABLE=new SYS_DICT_ITEM();
 	}
@@ -6573,12 +6968,12 @@ public class FoxnicWeb {
 	
 	/**
 	*/
-	public static class SYS_LICENCE_FREE extends DBTable {
+	public static class SYS_LICENCE_FREE_FULL extends DBTable {
 		
 		/**
 		 * 表名
 		*/
-		public static final String $NAME = "sys_licence_free";
+		public static final String $NAME = "sys_licence_free_full";
 		
 		/**
 		 * 键
@@ -6595,10 +6990,40 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
 		
-		public SYS_LICENCE_FREE() {
+		public SYS_LICENCE_FREE_FULL() {
 			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
 		}
-		public static final SYS_LICENCE_FREE $TABLE=new SYS_LICENCE_FREE();
+		public static final SYS_LICENCE_FREE_FULL $TABLE=new SYS_LICENCE_FREE_FULL();
+	}
+	
+	/**
+	*/
+	public static class SYS_LICENCE_FREE_STA extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_free_sta";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE_FREE_STA() {
+			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE_FREE_STA $TABLE=new SYS_LICENCE_FREE_STA();
 	}
 	
 	/**

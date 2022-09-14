@@ -21,6 +21,8 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_DATA_PERM="service-dataperm";
     public static final String PREFIX_JOB="service-job";
 
+    public static final String PREFIX_API="service-api";
+
 
     private FoxnicWebConfigs configs;
     private int apiSort;

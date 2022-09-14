@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
+import org.github.foxnic.web.generator.module.api.ApiSourceConfig;
 import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
@@ -39,7 +40,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
@@ -47,6 +48,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //
 //        initExample2Modules();
 //        initJobModules();
+
+        initApiModules();
+
     }
 
 
@@ -56,6 +60,10 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
 
+
+    private void initApiModules() {
+        this.addConfig(new ApiSourceConfig());
+    }
 
     private void initStorageModules() {
 

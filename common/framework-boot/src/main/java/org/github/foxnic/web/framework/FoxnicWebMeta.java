@@ -87,6 +87,12 @@ public class FoxnicWebMeta {
 
 
 	/**
+	 * 接口文档
+	 * */
+	public static final String SERVICE_API_PACKAGE=BASE_PACKAGE+".api";
+
+
+	/**
 	 * Support
 	 * */
 	public static final String WRAPPER_SUPPORT_PACKAGE=BASE_PACKAGE+".wrapper.support";

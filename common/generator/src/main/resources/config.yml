@@ -113,6 +113,19 @@ applications:
     viewProjectPath: /view/view-bpm
     viewPrefixPath: public/business/bpm
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  # API 文档服务
+  service-api:
+    # 非开源
+    advance: true
+    nacosGroup: service
+    nacosDataId: service-api.yml
+    serviceProjectPath: /service/service-api
+    packageName: org.github.foxnic.web.api
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: API
+    viewProjectPath: /view/view-api
+    viewPrefixPath: public/business/api
+    wrapperProjectPath:  /wrapper/wrapper-all-service
   #数据权限
   service-dataperm:
     advance: true
