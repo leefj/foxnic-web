@@ -2,6 +2,7 @@ package org.github.foxnic.web.framework.knife4j;
 
 import com.github.foxnic.commons.log.Logger;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
+import com.google.common.base.Optional;
 import javassist.ClassMap;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 import org.springframework.web.util.UrlPathHelper;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -38,6 +40,7 @@ import springfox.documentation.swagger.web.ApiResourceController;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import com.google.common.base.Predicates;
 import springfox.documentation.swagger2.mappers.ServiceModelToSwagger2Mapper;
 import springfox.documentation.swagger2.web.Swagger2ControllerWebMvc;
 import springfox.documentation.swagger2.web.WebMvcSwaggerTransformationFilter;
@@ -48,6 +51,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+
+
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,6 +74,8 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @EnableSwagger2
 @EnableKnife4j
 public class Swagger2Config {
+
+	private static final String PKG_SPLITOR = ";";
 
 	@Value("${knife4j.title}")
 	private String title;
@@ -149,7 +159,9 @@ public class Swagger2Config {
 				.enable(true)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("org.github.foxnic.web.example"))
+				//.apis(Predicates.or(RequestHandlerSelectors.basePackage("com.web.controller"),RequestHandlerSelectors.basePackage("com.api.controller")))
+				.apis(basePackage("org.github.foxnic.web.example,org.github.foxnic.web.bpm"))
+				//.apis(RequestHandlerSelectors.basePackage("org.github.foxnic.web.example;org.github.foxnic.web.bpm"),RequestHandlerSelectors.basePackage("org.github.foxnic.web.example;org.github.foxnic.web.bpm"))
 				.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 				.paths(PathSelectors.any())
 				.build()
@@ -165,6 +177,55 @@ public class Swagger2Config {
 				.version("1.0.0").license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
 				.build();
 	}
+
+
+	/**
+	 * Predicate that matches RequestHandler with given base package name for the class of the handler method.
+	 * This predicate includes all request handlers matching the provided basePackage
+	 *
+	 * @param basePackage - base package of the classes
+	 * @return this
+	 */
+	public static Predicate<RequestHandler> basePackage(final String basePackage) {
+		return new Predicate<RequestHandler>() {
+
+			@Override
+			public boolean apply(RequestHandler input) {
+				return declaringClass(input).transform(handlerPackage(basePackage)).or(true);
+			}
+		};
+	}
+
+	/**
+	 * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
+	 *
+	 * @param basePackage 扫描包路径
+	 * @return Function
+	 */
+	private static Function<Class<?>, Boolean> handlerPackage(final String basePackage) {
+		return new Function<Class<?>, Boolean>() {
+
+			@Override
+			public Boolean apply(Class<?> input) {
+				for (String strPackage : basePackage.split(",")) {
+					boolean isMatch = input.getPackage().getName().startsWith(strPackage);
+					if (isMatch) {
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+	}
+
+	/**
+	 * @param input RequestHandler
+	 * @return Optional
+	 */
+	private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
+		return Optional.fromNullable(input.declaringClass());
+	}
+
 
 //
 //	@Bean

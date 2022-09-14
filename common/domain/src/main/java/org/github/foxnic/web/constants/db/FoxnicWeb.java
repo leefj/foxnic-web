@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-09-14 15:45:40
+ * @since 2022-09-14 16:40:02
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4120,7 +4120,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 名称
