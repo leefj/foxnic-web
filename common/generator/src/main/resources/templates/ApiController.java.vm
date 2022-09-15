@@ -4,10 +4,13 @@ package #(package);
 import java.util.List;
 import java.util.ArrayList;
 
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-
+#if(inDoc)
+import com.github.foxnic.api.swagger.InDoc;
+#end
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +32,8 @@ import org.github.foxnic.web.domain.bpm.BpmEvent;
 #(classJavaDoc)
 
 #if(isEnableSwagger)
+#if(inDoc)@InDoc#end
 @Api(tags = "#(topic)")
-@ApiSort(#(apiSort))
 #end
 @RestController("#(beanName)")
 public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbackController#end {

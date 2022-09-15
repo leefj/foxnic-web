@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-08 16:38:12
- * @sign 16D4C13E23C3C3232246E6E448EF551F
+ * @since 2022-09-15 11:10:51
+ * @sign DC13DD184293CCD592CFDAA93BF3DAC3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -116,6 +116,12 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="版本" , notes = "版本")
 	private Integer version;
+	
+	/**
+	 * 引用1：引用1
+	*/
+	@ApiModelProperty(required = false,value="引用1" , notes = "引用1")
+	private AddressModel model;
 	
 	/**
 	 * 获得 主键<br>
@@ -413,6 +419,25 @@ public class Address extends Entity {
 		this.version=version;
 		return this;
 	}
+	
+	/**
+	 * 获得 引用1<br>
+	 * 引用1
+	 * @return 引用1
+	*/
+	public AddressModel getModel() {
+		return model;
+	}
+	
+	/**
+	 * 设置 引用1
+	 * @param model 引用1
+	 * @return 当前对象
+	*/
+	public Address setModel(AddressModel model) {
+		this.model=model;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -472,6 +497,9 @@ public class Address extends Entity {
 		inst.setName(this.getName());
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
+		if(all) {
+			inst.setModel(this.getModel());
+		}
 		inst.clearModifies();
 		return inst;
 	}

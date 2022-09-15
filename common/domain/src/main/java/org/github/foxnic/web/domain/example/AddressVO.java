@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-08 16:38:12
+ * @since 2022-09-15 11:10:51
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -342,6 +342,7 @@ public class AddressVO extends Address {
 			inst.setSortField(this.getSortField());
 			inst.setPageSize(this.getPageSize());
 			inst.setIds(this.getIds());
+			inst.setModel(this.getModel());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();

@@ -1,5 +1,7 @@
 package org.github.foxnic.web.framework.knife4j;
 
+import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.google.common.base.Optional;
@@ -155,17 +157,23 @@ public class Swagger2Config {
 
 		String groupName="2.X版本";
 
+		String[] basePackages={"org.github.foxnic.web.example"}; // "org.github.foxnic.web.bpm"
+
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.enable(true)
 				.apiInfo(apiInfo())
 				.select()
 				//.apis(Predicates.or(RequestHandlerSelectors.basePackage("com.web.controller"),RequestHandlerSelectors.basePackage("com.api.controller")))
-				.apis(basePackage("org.github.foxnic.web.example,org.github.foxnic.web.bpm"))
+//				.apis(basePackage(StringUtil.join(basePackages,",")))
 				//.apis(RequestHandlerSelectors.basePackage("org.github.foxnic.web.example;org.github.foxnic.web.bpm"),RequestHandlerSelectors.basePackage("org.github.foxnic.web.example;org.github.foxnic.web.bpm"))
 				.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+				.apis(RequestHandlerSelectors.withClassAnnotation(InDoc.class))
 				.paths(PathSelectors.any())
 				.build()
 				.extensions(openApiExtensionResolver.buildExtensions(groupName));
+
+
 	}
 
 	private ApiInfo apiInfo() {

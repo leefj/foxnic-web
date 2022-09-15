@@ -19,6 +19,42 @@ import javax.servlet.http.HttpServletRequest;
 public class SuperController {
 
 
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.QUERY
+	 */
+	public static final String PARAM_TYPE_QUERY="query";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.BODY
+	 */
+	public static final String PARAM_TYPE_BODY="body";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.HEADER
+	 */
+	public static final String PARAM_TYPE_HEADER="header";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.PATH
+	 */
+	public static final String PARAM_TYPE_PATH="path";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.COOKIE
+	 */
+	public static final String PARAM_TYPE_COOKIE="cookie";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.FORM
+	 */
+	public static final String PARAM_TYPE_FORM="form";
+
+	/**
+	 * 定义 springfox.documentation.service.ParameterType.FORMDATA
+	 */
+	public static final String PARAM_TYPE_FORMDATA="formData";
+
+
 	private static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
 
 	@Autowired

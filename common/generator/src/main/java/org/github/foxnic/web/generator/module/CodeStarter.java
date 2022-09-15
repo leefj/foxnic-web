@@ -40,14 +40,14 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-//        initExampleModules();
+        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
-//        initJobModules();
+        initJobModules();
 
         initApiModules();
 

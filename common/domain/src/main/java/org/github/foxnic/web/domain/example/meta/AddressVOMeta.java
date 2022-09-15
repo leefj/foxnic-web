@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.example.AddressVO;
 import java.util.List;
 import org.github.foxnic.web.domain.example.Address;
 import java.util.Date;
+import org.github.foxnic.web.domain.example.AddressModel;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-08 16:38:12
+ * @since 2022-09-15 11:10:51
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -249,9 +250,19 @@ public class AddressVOMeta extends AddressMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,VERSION, java.lang.Integer.class, "版本", "版本", java.lang.Integer.class, null);
 	
 	/**
+	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
+	*/
+	public static final String MODEL="model";
+	
+	/**
+	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,org.github.foxnic.web.domain.example.AddressModel> MODEL_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,MODEL, org.github.foxnic.web.domain.example.AddressModel.class, "引用1", "引用1", org.github.foxnic.web.domain.example.AddressModel.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODEL };
 	
 	/**
 	 * 代理类
@@ -513,6 +524,17 @@ public class AddressVOMeta extends AddressMeta {
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 引用1
+		 * @param model 引用1
+		 * @return 当前对象
+		*/
+		public Address setModel(AddressModel model) {
+			super.change(MODEL,super.getModel(),model);
+			super.setModel(model);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -552,6 +574,7 @@ public class AddressVOMeta extends AddressMeta {
 				inst.setSortField(this.getSortField());
 				inst.setPageSize(this.getPageSize());
 				inst.setIds(this.getIds());
+				inst.setModel(this.getModel());
 				inst.setSearchValue(this.getSearchValue());
 			}
 			inst.clearModifies();

@@ -31,6 +31,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 //		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");
 //		poType.addListProperty(Order.class,"orderList","订单","订单");
 
+		poType.addSimpleProperty(AddressModel.class,"model","引用1","引用1");
+
 
 		PojoClassFile addressModel=context.createPojo("AddressModel");
 		addressModel.setSuperType(Entity.class);
@@ -38,6 +40,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 		fields.addAll().removeDBTreatyFields();
 		addressModel.addSimpleProperties(fields);
 		addressModel.addSimpleProperty(String.class,"other","其它","其它");
+		addressModel.addSimpleProperty(Address.class,"addressX","引用2","引用2");
 
 
 		PojoClassFile addressSubModel=context.createPojo("AddressSubModel");
@@ -86,6 +89,9 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 	@Override
 	public void configController(ControllerOptions controller) {
+
+		controller.inDoc(true);
+
 
 		controller
 				// 方法头

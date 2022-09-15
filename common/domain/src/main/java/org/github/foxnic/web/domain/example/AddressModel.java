@@ -11,8 +11,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-08 16:38:12
- * @sign 207499D04984C0BEAC80058663571E0A
+ * @since 2022-09-15 11:10:51
+ * @sign A19FA58A64BD91EFF8DF7F6A1D2FD250
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -61,6 +61,12 @@ public class AddressModel extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="其它" , notes = "其它")
 	private String other;
+	
+	/**
+	 * 引用2：引用2
+	*/
+	@ApiModelProperty(required = false,value="引用2" , notes = "引用2")
+	private Address addressX;
 	
 	/**
 	 * 获得 主键<br>
@@ -194,6 +200,25 @@ public class AddressModel extends Entity {
 		this.other=other;
 		return this;
 	}
+	
+	/**
+	 * 获得 引用2<br>
+	 * 引用2
+	 * @return 引用2
+	*/
+	public Address getAddressX() {
+		return addressX;
+	}
+	
+	/**
+	 * 设置 引用2
+	 * @param addressX 引用2
+	 * @return 当前对象
+	*/
+	public AddressModel setAddressX(Address addressX) {
+		this.addressX=addressX;
+		return this;
+	}
 
 	/**
 	 * 将 Map 转换成 AddressModel
@@ -238,6 +263,7 @@ public class AddressModel extends Entity {
 		inst.setRegionLocation(this.getRegionLocation());
 		if(all) {
 			inst.setOther(this.getOther());
+			inst.setAddressX(this.getAddressX());
 		}
 		inst.clearModifies();
 		return inst;

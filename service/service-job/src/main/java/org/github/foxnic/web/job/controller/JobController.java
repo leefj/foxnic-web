@@ -3,6 +3,7 @@ package org.github.foxnic.web.job.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -48,8 +49,8 @@ import java.util.Map;
  * @version
 */
 
+@InDoc
 @Api(tags = "定时任务配置")
-@ApiSort(0)
 @RestController("SysJobController")
 public class JobController extends SuperController {
 

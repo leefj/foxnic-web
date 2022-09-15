@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.example.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.example.AddressSubModel;
 import org.github.foxnic.web.domain.example.AddressModel;
+import org.github.foxnic.web.domain.example.Address;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-08 16:38:12
+ * @since 2022-09-15 11:10:51
  * @sign 9E592FF32177CCE731954B80F8619340
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -107,9 +108,19 @@ public class AddressSubModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressSubModel,java.lang.String> OTHER_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressSubModel.class ,OTHER, java.lang.String.class, "其它", "其它", java.lang.String.class, null);
 	
 	/**
+	 * 引用2 , 类型: org.github.foxnic.web.domain.example.Address
+	*/
+	public static final String ADDRESS_X="addressX";
+	
+	/**
+	 * 引用2 , 类型: org.github.foxnic.web.domain.example.Address
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressSubModel,org.github.foxnic.web.domain.example.Address> ADDRESS_X_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressSubModel.class ,ADDRESS_X, org.github.foxnic.web.domain.example.Address.class, "引用2", "引用2", org.github.foxnic.web.domain.example.Address.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ POST_CODE , POST_CODE2 , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , OTHER };
+	public static final String[] $PROPS={ POST_CODE , POST_CODE2 , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , OTHER , ADDRESS_X };
 	
 	/**
 	 * 代理类
@@ -217,6 +228,17 @@ public class AddressSubModelMeta {
 			super.setOther(other);
 			return this;
 		}
+		
+		/**
+		 * 设置 引用2
+		 * @param addressX 引用2
+		 * @return 当前对象
+		*/
+		public AddressModel setAddressX(Address addressX) {
+			super.change(ADDRESS_X,super.getAddressX(),addressX);
+			super.setAddressX(addressX);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -243,6 +265,7 @@ public class AddressSubModelMeta {
 				inst.setPostCode2(this.getPostCode2());
 				inst.setOther(this.getOther());
 				inst.setPostCode(this.getPostCode());
+				inst.setAddressX(this.getAddressX());
 			}
 			inst.clearModifies();
 			return inst;
