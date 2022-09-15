@@ -6,12 +6,13 @@ import java.util.List;
 import org.github.foxnic.web.domain.job.Job;
 import java.util.Date;
 import org.github.foxnic.web.domain.job.JobWorker;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:21:35
+ * @since 2022-09-15 11:22:37
  * @sign 32A48B507E3B8F2FB3C9BE4C5F35F85A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -681,5 +682,58 @@ public class JobVOMeta extends JobMeta {
 			super.setNextFireTime(nextFireTime);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public JobVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public JobVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setWorkerId(this.getWorkerId());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setConcurrent(this.getConcurrent());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCronExpr(this.getCronExpr());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setGroupTag(this.getGroupTag());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setParameter(this.getParameter());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setMisfirePolicy(this.getMisfirePolicy());
+			inst.setId(this.getId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setNextFireTime(this.getNextFireTime());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setWorker(this.getWorker());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

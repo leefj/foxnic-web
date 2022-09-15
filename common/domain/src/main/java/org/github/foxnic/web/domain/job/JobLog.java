@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.job.LogType;
 import javax.persistence.Transient;
 import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
@@ -19,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务执行日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:14:13
+ * @since 2022-09-15 11:39:11
  * @sign C029C1323DE3AFF04D024A306A46DDB9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -225,6 +226,7 @@ public class JobLog extends Entity {
 	 * @param type 日志分类
 	 * @return 当前对象
 	*/
+	@JsonProperty("type")
 	public JobLog setType(String type) {
 		this.type=type;
 		this.typeEnum= (LogType) EnumUtil.parseByCode(LogType.values(),type) ;
@@ -626,7 +628,39 @@ public class JobLog extends Entity {
 	*/
 	@Transient
 	public JobLog clone() {
-		return EntityContext.clone(JobLog.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public JobLog duplicate(boolean all) {
+		org.github.foxnic.web.domain.job.meta.JobLogMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.job.meta.JobLogMeta.$$proxy$$();
+		inst.setJobName(this.getJobName());
+		inst.setException(this.getException());
+		inst.setCost(this.getCost());
+		inst.setIsManual(this.getIsManual());
+		inst.setConcurrent(this.getConcurrent());
+		inst.setClassName(this.getClassName());
+		inst.setType(this.getType());
+		inst.setUserId(this.getUserId());
+		inst.setTid(this.getTid());
+		inst.setLogText(this.getLogText());
+		inst.setCronExpr(this.getCronExpr());
+		inst.setResult(this.getResult());
+		inst.setJobId(this.getJobId());
+		inst.setSuccess(this.getSuccess());
+		inst.setParameter(this.getParameter());
+		inst.setMisfirePolicy(this.getMisfirePolicy());
+		inst.setId(this.getId());
+		inst.setBeginTime(this.getBeginTime());
+		inst.setEndTime(this.getEndTime());
+		inst.setIsMissfire(this.getIsMissfire());
+		inst.setNodeId(this.getNodeId());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
@@ -645,7 +679,9 @@ public class JobLog extends Entity {
 	@Transient
 	public static JobLog createFrom(Map<String,Object> jobLogMap) {
 		if(jobLogMap==null) return null;
-		JobLog po = EntityContext.create(JobLog.class, jobLogMap);
+		JobLog po = create();
+		EntityContext.copyProperties(po,jobLogMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -657,7 +693,9 @@ public class JobLog extends Entity {
 	@Transient
 	public static JobLog createFrom(Object pojo) {
 		if(pojo==null) return null;
-		JobLog po = EntityContext.create(JobLog.class,pojo);
+		JobLog po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -667,6 +705,6 @@ public class JobLog extends Entity {
 	*/
 	@Transient
 	public static JobLog create() {
-		return EntityContext.create(JobLog.class);
+		return new org.github.foxnic.web.domain.job.meta.JobLogMeta.$$proxy$$();
 	}
 }

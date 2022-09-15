@@ -50,7 +50,7 @@ import java.util.Map;
 */
 
 @InDoc
-@Api(tags = "定时任务配置")
+@Api(tags = "定时任务/任务配置")
 @RestController("SysJobController")
 public class JobController extends SuperController {
 
@@ -317,67 +317,6 @@ public class JobController extends SuperController {
 
 		result.success(true).data(list);
 		return result;
-	}
-
-
-
-	/**
-	 * 导出 Excel
-	 * */
-	@SentinelResource(value = JobServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(JobServiceProxy.EXPORT_EXCEL)
-	public void exportExcel(JobVO  sample,HttpServletResponse response) throws Exception {
-		try{
-			//生成 Excel 数据
-			ExcelWriter ew=jobService.exportExcel(sample);
-			//下载
-			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
-		} catch (Exception e) {
-			DownloadUtil.writeDownloadError(response,e);
-		}
-	}
-
-
-	/**
-	 * 导出 Excel 模板
-	 * */
-	@SentinelResource(value = JobServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(JobServiceProxy.EXPORT_EXCEL_TEMPLATE)
-	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
-		try{
-			//生成 Excel 模版
-			ExcelWriter ew=jobService.exportExcelTemplate();
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-		} catch (Exception e) {
-			DownloadUtil.writeDownloadError(response,e);
-		}
-	}
-
-
-
-	@SentinelResource(value = JobServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(JobServiceProxy.IMPORT_EXCEL)
-	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		//获得上传的文件
-		Map<String, MultipartFile> map = request.getFileMap();
-		InputStream input=null;
-		for (MultipartFile mf : map.values()) {
-			input=StreamUtil.bytes2input(mf.getBytes());
-			break;
-		}
-
-		if(input==null) {
-			return ErrorDesc.failure().message("缺少上传的文件");
-		}
-
-		List<ValidateResult> errors=jobService.importExcel(input,0,true);
-		if(errors==null || errors.isEmpty()) {
-			return ErrorDesc.success();
-		} else {
-			return ErrorDesc.failure().message("导入失败").data(errors);
-		}
 	}
 
 

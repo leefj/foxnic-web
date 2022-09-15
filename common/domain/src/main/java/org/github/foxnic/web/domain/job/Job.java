@@ -10,6 +10,7 @@ import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
 import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.job.Status;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
@@ -21,7 +22,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:21:35
+ * @since 2022-09-15 11:22:36
  * @sign 03DF11D6137819BF41A157DD0A8000EC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -351,6 +352,7 @@ public class Job extends Entity {
 	 * @param misfirePolicy 遗漏执行的策略
 	 * @return 当前对象
 	*/
+	@JsonProperty("misfirePolicy")
 	public Job setMisfirePolicy(String misfirePolicy) {
 		this.misfirePolicy=misfirePolicy;
 		this.misfirePolicyEnum= (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy) ;
@@ -403,6 +405,7 @@ public class Job extends Entity {
 	 * @param status 状态
 	 * @return 当前对象
 	*/
+	@JsonProperty("status")
 	public Job setStatus(String status) {
 		this.status=status;
 		this.statusEnum= (Status) EnumUtil.parseByCode(Status.values(),status) ;
@@ -569,6 +572,7 @@ public class Job extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public Job setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -720,7 +724,42 @@ public class Job extends Entity {
 	*/
 	@Transient
 	public Job clone() {
-		return EntityContext.clone(Job.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Job duplicate(boolean all) {
+		org.github.foxnic.web.domain.job.meta.JobMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.job.meta.JobMeta.$$proxy$$();
+		inst.setWorkerId(this.getWorkerId());
+		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
+		inst.setConcurrent(this.getConcurrent());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setCronExpr(this.getCronExpr());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setGroupTag(this.getGroupTag());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setParameter(this.getParameter());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setMisfirePolicy(this.getMisfirePolicy());
+		inst.setId(this.getId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setNextFireTime(this.getNextFireTime());
+			inst.setWorker(this.getWorker());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
@@ -739,7 +778,9 @@ public class Job extends Entity {
 	@Transient
 	public static Job createFrom(Map<String,Object> jobMap) {
 		if(jobMap==null) return null;
-		Job po = EntityContext.create(Job.class, jobMap);
+		Job po = create();
+		EntityContext.copyProperties(po,jobMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -751,7 +792,9 @@ public class Job extends Entity {
 	@Transient
 	public static Job createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Job po = EntityContext.create(Job.class,pojo);
+		Job po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -761,6 +804,6 @@ public class Job extends Entity {
 	*/
 	@Transient
 	public static Job create() {
-		return EntityContext.create(Job.class);
+		return new org.github.foxnic.web.domain.job.meta.JobMeta.$$proxy$$();
 	}
 }

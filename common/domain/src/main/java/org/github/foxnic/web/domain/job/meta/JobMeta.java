@@ -4,12 +4,13 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.job.Job;
 import java.util.Date;
 import org.github.foxnic.web.domain.job.JobWorker;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:21:35
+ * @since 2022-09-15 11:22:37
  * @sign 03DF11D6137819BF41A157DD0A8000EC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -490,5 +491,49 @@ public class JobMeta {
 			super.setNextFireTime(nextFireTime);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Job clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Job duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setWorkerId(this.getWorkerId());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setConcurrent(this.getConcurrent());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCronExpr(this.getCronExpr());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setGroupTag(this.getGroupTag());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setParameter(this.getParameter());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setMisfirePolicy(this.getMisfirePolicy());
+			inst.setId(this.getId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setNextFireTime(this.getNextFireTime());
+				inst.setWorker(this.getWorker());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

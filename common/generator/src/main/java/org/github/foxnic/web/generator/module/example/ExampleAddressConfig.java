@@ -90,8 +90,9 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	@Override
 	public void configController(ControllerOptions controller) {
 
-		controller.inDoc(true);
 
+
+		controller.inDoc(true);
 
 		controller
 				// 方法头
@@ -135,6 +136,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	public void configList(ViewOptions view,ListOptions list) {
 
 		list.sort(EXAMPLE_ADDRESS.PHONE_NUMBER,true);
+
+//		list.excel(true,true);
 
 	}
 

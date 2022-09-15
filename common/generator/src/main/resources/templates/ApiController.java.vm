@@ -362,7 +362,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
-	@RequestMapping(#(agentSimpleName).EXPORT_EXCEL)
+	@GetMapping(#(agentSimpleName).EXPORT_EXCEL)
 	public void exportExcel(#(voSimpleName)  sample,HttpServletResponse response) throws Exception {
 		try{
 			//生成 Excel 数据
@@ -382,7 +382,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
-	@RequestMapping(#(agentSimpleName).EXPORT_EXCEL_TEMPLATE)
+	@GetMapping(#(agentSimpleName).EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
 		try{
 			//生成 Excel 模版
@@ -397,7 +397,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
-	@RequestMapping(#(agentSimpleName).IMPORT_EXCEL)
+	@PostMapping(#(agentSimpleName).IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		//获得上传的文件

@@ -3,12 +3,13 @@ package org.github.foxnic.web.domain.job.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.job.JobLog;
 import java.sql.Timestamp;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:14:13
+ * @since 2022-09-15 11:39:11
  * @sign C029C1323DE3AFF04D024A306A46DDB9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -468,5 +469,46 @@ public class JobLogMeta {
 			super.setNodeId(nodeId);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public JobLog clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public JobLog duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setJobName(this.getJobName());
+			inst.setException(this.getException());
+			inst.setCost(this.getCost());
+			inst.setIsManual(this.getIsManual());
+			inst.setConcurrent(this.getConcurrent());
+			inst.setClassName(this.getClassName());
+			inst.setType(this.getType());
+			inst.setUserId(this.getUserId());
+			inst.setTid(this.getTid());
+			inst.setLogText(this.getLogText());
+			inst.setCronExpr(this.getCronExpr());
+			inst.setResult(this.getResult());
+			inst.setJobId(this.getJobId());
+			inst.setSuccess(this.getSuccess());
+			inst.setParameter(this.getParameter());
+			inst.setMisfirePolicy(this.getMisfirePolicy());
+			inst.setId(this.getId());
+			inst.setBeginTime(this.getBeginTime());
+			inst.setEndTime(this.getEndTime());
+			inst.setIsMissfire(this.getIsMissfire());
+			inst.setNodeId(this.getNodeId());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

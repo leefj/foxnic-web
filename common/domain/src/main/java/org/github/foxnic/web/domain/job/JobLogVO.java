@@ -7,13 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
  * 定时任务执行日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:14:13
+ * @since 2022-09-15 11:39:11
  * @sign 956B94F0354C832D711E0E2F5F640881
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +273,130 @@ public class JobLogVO extends JobLog {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return JobLogVO , 转换好的 JobLogVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return JobLogVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public JobLogVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public JobLogVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.job.meta.JobLogVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.job.meta.JobLogVOMeta.$$proxy$$();
+		inst.setJobName(this.getJobName());
+		inst.setException(this.getException());
+		inst.setCost(this.getCost());
+		inst.setIsManual(this.getIsManual());
+		inst.setConcurrent(this.getConcurrent());
+		inst.setClassName(this.getClassName());
+		inst.setType(this.getType());
+		inst.setUserId(this.getUserId());
+		inst.setTid(this.getTid());
+		inst.setLogText(this.getLogText());
+		inst.setCronExpr(this.getCronExpr());
+		inst.setResult(this.getResult());
+		inst.setJobId(this.getJobId());
+		inst.setSuccess(this.getSuccess());
+		inst.setParameter(this.getParameter());
+		inst.setMisfirePolicy(this.getMisfirePolicy());
+		inst.setId(this.getId());
+		inst.setBeginTime(this.getBeginTime());
+		inst.setEndTime(this.getEndTime());
+		inst.setIsMissfire(this.getIsMissfire());
+		inst.setNodeId(this.getNodeId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public JobLogVO clone(boolean deep) {
+		return EntityContext.clone(JobLogVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 JobLogVO
+	 * @param jobLogMap 包含实体信息的 Map 对象
+	 * @return JobLogVO , 转换好的的 JobLog 对象
+	*/
+	@Transient
+	public static JobLogVO createFrom(Map<String,Object> jobLogMap) {
+		if(jobLogMap==null) return null;
+		JobLogVO vo = create();
+		EntityContext.copyProperties(vo,jobLogMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 JobLogVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return JobLogVO , 转换好的的 JobLog 对象
+	*/
+	@Transient
+	public static JobLogVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		JobLogVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 JobLogVO，等同于 new
+	 * @return JobLogVO 对象
+	*/
+	@Transient
+	public static JobLogVO create() {
+		return new org.github.foxnic.web.domain.job.meta.JobLogVOMeta.$$proxy$$();
 	}
 }

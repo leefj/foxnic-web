@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 定时任务执行日志表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:14:14
+ * @since 2022-09-15 11:39:11
  */
 @FeignClient(value = MicroServiceNames.JOB, contextId = JobLogServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface JobLogServiceProxy {
