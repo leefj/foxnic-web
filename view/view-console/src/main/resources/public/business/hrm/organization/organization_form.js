@@ -265,6 +265,10 @@ function FormPage() {
 				// 调整状态为编辑
 				action="edit";
 
+				// fox.showMessage(data);
+
+				admin.toast().success("组织信息已保存", {time: 1000, position: "top-right",title:"提示"});
+
 			} else {
 				fox.showMessage(data);
 			}

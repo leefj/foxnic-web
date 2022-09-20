@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,6 +91,19 @@ public class EmployeeController extends SuperController {
 	@SentinelResource(value = EmployeeServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeeServiceProxy.DELETE)
 	public Result deleteById(String id) {
+
+		this.validator().asserts(id).require("缺少id值");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+		// 引用校验
+		Boolean hasRefer = employeeService.hasRefers(id);
+		// 判断是否可以删除
+		this.validator().asserts(hasRefer).requireEqual("不允许删除当前员工",false);
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+
 		Result result=employeeService.deleteByIdLogical(id);
 		return result;
 	}
@@ -108,8 +122,42 @@ public class EmployeeController extends SuperController {
 	@SentinelResource(value = EmployeeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeeServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=employeeService.deleteByIdsLogical(ids);
-		return result;
+		// 参数校验
+		this.validator().asserts(ids).require("缺少ids参数");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+
+		// 查询引用
+		Map<String, Boolean> hasRefersMap = employeeService.hasRefers(ids);
+		// 收集可以删除的ID值
+		List<String> canDeleteIds = new ArrayList<>();
+		for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
+			if (!e.getValue()) {
+				canDeleteIds.add(e.getKey());
+			}
+		}
+
+		// 执行删除
+		if (canDeleteIds.isEmpty()) {
+			// 如果没有一行可以被删除
+			return ErrorDesc.failure().message("无法删除您选中的数据行");
+		} else if (canDeleteIds.size() == ids.size()) {
+			// 如果全部可以删除
+			Result result=employeeService.deleteByIdsLogical(canDeleteIds);
+			return result;
+		} else if (canDeleteIds.size()>0 && canDeleteIds.size() < ids.size()) {
+			// 如果部分行可以删除
+			Result result=employeeService.deleteByIdsLogical(canDeleteIds);
+			if (result.failure()) {
+				return result;
+			} else {
+				return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除").messageLevel4Confirm();
+			}
+		} else {
+			// 理论上，这个分支不存在
+			return ErrorDesc.success().message("数据删除未处理");
+		}
 	}
 
 	/**
@@ -171,8 +219,15 @@ public class EmployeeController extends SuperController {
 		Result<Employee> result=new Result<>();
 		Employee employee=employeeService.getById(id);
 		// 关联出 姓名 数据
-		employeeService.join(employee,EmployeeMeta.PERSON,EmployeeMeta.POSITIONS);
-//		employeeService.join(employee,EmployeeMeta.PERSON);
+		employeeService.dao().fill(employee)
+				.with(EmployeeMeta.PERSON)
+				.with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION)
+				.execute();
+
+		//按主岗设置主部门
+		if(employee.getPrimaryPosition()!=null) {
+			employee.setPrimaryOrganization(employee.getPrimaryPosition().getOrganization());
+		}
 		result.success(true).data(employee);
 		return result;
 	}

@@ -292,4 +292,16 @@ public interface IPositionService extends ISuperService<Position> {
 	List<ZTreeNode> queryGroupedPositionNodes(String orgId);
 
 	Map<String,List<ZTreeNode>> queryGroupedPositionNodes();
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	Boolean hasRefers(String id);
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	Map<String,Boolean> hasRefers(List<String> ids);
 }

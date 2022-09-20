@@ -5,6 +5,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -60,7 +61,7 @@ public class OrganizationController extends SuperController {
 	@Autowired
 	private IPositionService positionService;
 
-	
+
 	/**
 	 * 添加组织层级
 	*/
@@ -87,7 +88,7 @@ public class OrganizationController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除组织层级
 	*/
@@ -116,17 +117,18 @@ public class OrganizationController extends SuperController {
 		result=organizationService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除组织层级 <br>
 	 * 联合主键时，请自行调整实现
 	*/
+	@Forbidden
 	@ApiOperation(value = "批量删除组织层级")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = OrganizationVOMeta.IDS)
 	@SentinelResource(value = OrganizationServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrganizationServiceProxy.DELETE_BY_IDS)
@@ -134,7 +136,7 @@ public class OrganizationController extends SuperController {
 		Result result=organizationService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新组织层级
 	*/
@@ -149,7 +151,7 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { OrganizationVOMeta.PAGE_INDEX , OrganizationVOMeta.PAGE_SIZE , OrganizationVOMeta.SEARCH_FIELD , OrganizationVOMeta.FUZZY_FIELD , OrganizationVOMeta.SEARCH_VALUE , OrganizationVOMeta.SORT_FIELD , OrganizationVOMeta.SORT_TYPE , OrganizationVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { OrganizationVOMeta.PAGE_INDEX , OrganizationVOMeta.PAGE_SIZE , OrganizationVOMeta.SEARCH_FIELD , OrganizationVOMeta.FUZZY_FIELD , OrganizationVOMeta.SEARCH_VALUE , OrganizationVOMeta.SORT_FIELD , OrganizationVOMeta.SORT_TYPE , OrganizationVOMeta.IDS } )
 	@NotNull(name = OrganizationVOMeta.ID)
 	@SentinelResource(value = OrganizationServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrganizationServiceProxy.UPDATE)
@@ -157,8 +159,8 @@ public class OrganizationController extends SuperController {
 		Result result=organizationService.update(organizationVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存组织层级
 	*/
@@ -182,7 +184,7 @@ public class OrganizationController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取组织层级
 	*/
@@ -210,7 +212,7 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = OrganizationVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = OrganizationVOMeta.IDS)
 		@SentinelResource(value = OrganizationServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrganizationServiceProxy.GET_BY_IDS)
@@ -221,7 +223,7 @@ public class OrganizationController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询组织层级
 	*/
@@ -246,7 +248,7 @@ public class OrganizationController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询组织层级
 	*/

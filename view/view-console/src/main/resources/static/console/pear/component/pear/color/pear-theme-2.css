@@ -80,6 +80,27 @@ button[action-type] {
     color: #36b368;
 }
 
+
+td[data-field] {
+    border-right: solid #fff 1px;
+}
+
+.layui-table[lay-even] tr:nth-child(even) td[data-field] {
+    border-right: solid #FAFAFA 1px;
+}
+
+td[data-field=row-ops] {
+    border-right: solid #eee 1px !important;
+}
+
+th[data-field] {
+    border-right: solid #fafafa 1px !important;
+}
+
+th[data-field]:hover {
+    border-right: solid #eee 1px !important;
+}
+
 .version-no {
     border-color: #36b368;
     background: #36b368;
