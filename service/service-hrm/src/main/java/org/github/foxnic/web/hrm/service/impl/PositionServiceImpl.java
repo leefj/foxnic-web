@@ -16,6 +16,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IPositionService;
@@ -26,10 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -312,5 +310,29 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 		return super.buildExcelStructure(isForExport);
 	}
 
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	@Override
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
+	}
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		return super.hasRefers(ids,
+				FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID,
+				FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID,FoxnicWeb.BPM_TASK_ASSIGNEE.ASSIGNEE_ID,
+				FoxnicWeb.BPM_TASK_APPROVAL.ASSIGNEE_ID);
+	}
 
 }

@@ -7,6 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -18,6 +19,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.hrm.PersonSource;
 import org.github.foxnic.web.constants.enums.system.YesNo;
@@ -38,9 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -485,5 +485,26 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		return super.buildExcelStructure(isForExport);
 	}
 
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	@Override
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
+	}
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		 return super.hasRefers(ids,FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID,FoxnicWeb.BPM_TASK_ASSIGNEE.ASSIGNEE_ID,FoxnicWeb.BPM_TASK_APPROVAL.ASSIGNEE_ID);
+	}
 
 }

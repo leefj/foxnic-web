@@ -15,6 +15,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,23 +27,23 @@ import java.util.List;
 */
 
 public interface IEmployeeService extends ISuperService<Employee> {
-	
+
 	/**
 	 * 插入实体
 	 * @param employee 实体数据
 	 * @return 插入是否成功
 	 * */
 	Result insert(Employee employee);
- 
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param employeeList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	Result insertList(List<Employee> employeeList);
-	
-	
-		
+
+
+
 	/**
 	 * 按主键删除 员工
 	 *
@@ -50,7 +51,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除 员工
 	 *
@@ -58,22 +59,22 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdLogical(String id);
-	
+
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsPhysical(List<T> ids);
-	
+
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
-	
-		
+
+
 	/**
 	 * 按主键更新字段 员工
 	 *
@@ -81,7 +82,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 是否更新成功
 	 */
 	boolean update(DBField field,Object value , String id);
-	
+
 	/**
 	 * 更新实体
 	 * @param employee 数据对象
@@ -89,8 +90,8 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 保存是否成功
 	 * */
 	Result update(Employee employee , SaveMode mode);
-	
-	
+
+
 	/**
 	 * 更新实体集，事务内
 	 * @param employeeList 数据对象列表
@@ -98,7 +99,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 保存是否成功
 	 * */
 	Result updateList(List<Employee> employeeList, SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
 	 * @param employee 实体数据
@@ -106,7 +107,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 保存是否成功
 	 * */
 	Result save(Employee employee , SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
 	 * @param employeeList 实体数据清单
@@ -114,7 +115,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 保存是否成功
 	 * */
 	Result saveList(List<Employee> employeeList , SaveMode mode);
-	
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param employee  实体对象
@@ -122,8 +123,8 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 是否已经存在
 	 * */
 	boolean checkExists(Employee employee,DBField... field);
- 
-		
+
+
 	/**
 	 * 按主键获取 员工
 	 *
@@ -131,7 +132,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return Employee 数据对象
 	 */
 	Employee getById(String id);
-		
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
@@ -153,7 +154,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(Employee sample);
-	
+
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
 	 * @param sample 数据样例
@@ -168,7 +169,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	List<Employee> queryList(Employee sample);
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -177,7 +178,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	List<Employee> queryList(Employee sample,ConditionExpr condition,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -185,7 +186,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	List<Employee> queryList(Employee sample,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -193,14 +194,14 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	List<Employee> queryList(Employee sample,ConditionExpr condition);
-	
+
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	Employee queryEntity(Employee sample);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -209,7 +210,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	PagedList<Employee> queryPagedList(Employee sample,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -220,7 +221,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	PagedList<Employee> queryPagedList(Employee sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -230,7 +231,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	PagedList<Employee> queryPagedList(Employee sample,ConditionExpr condition,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -240,7 +241,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 查询结果
 	 * */
 	PagedList<Employee> queryPagedList(Employee sample,OrderBy orderBy,int pageSize,int pageIndex);
- 
+
  	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -250,7 +251,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field,Class<T> type, ConditionExpr condition);
- 
+
 	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -294,4 +295,16 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * 批量按工号获取员工 <br>
 	 */
 	List<Employee> getByBadges(List<String> badges);
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	Boolean hasRefers(String id);
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	Map<String,Boolean> hasRefers(List<String> ids);
 }
