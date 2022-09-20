@@ -845,6 +845,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							var p=args[1];
 							p.message=args[0];
 							if(p.position=="right-bottom") p.position="bottomRight"
+							if(p.position=="top-right") p.position="topRight"
 							layui.toast.success(p);
 						} else if(args.length==1 && TypeUtil.isObject(args[0])) {
 							layui.toast.success(args[0]);
