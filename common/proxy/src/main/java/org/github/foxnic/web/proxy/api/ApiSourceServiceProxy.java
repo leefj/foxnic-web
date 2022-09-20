@@ -14,13 +14,14 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 /**
  * <p>
  * 接口数据来源定义  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-14 16:40:36
+ * @since 2022-09-20 15:24:48
  */
 @FeignClient(value = MicroServiceNames.API, contextId = ApiSourceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ApiSourceServiceProxy {
@@ -92,6 +93,18 @@ public interface ApiSourceServiceProxy {
     public static final String FETCH_API_DOC = API_PREFIX + "fetch-api-doc";
 
     /**
+     * 获得API接口节点
+     * <p>获得API接口节点</p>
+     */
+    public static final String QUERY_API_NODES = API_PREFIX + "query-api-nodes";
+
+    /**
+     * 获得API接口详情
+     * <p>获得API接口详情</p>
+     */
+    public static final String QUERY_API_DETAIL = API_PREFIX + "query-api-detail";
+
+    /**
      * 添加接口数据来源定义
      */
     @RequestMapping(ApiSourceServiceProxy.INSERT)
@@ -153,6 +166,25 @@ public interface ApiSourceServiceProxy {
      */
     @RequestMapping(FETCH_API_DOC)
     Result fetchApiDoc(@RequestParam(name = "id") String id);
+
+    /**
+     * 获得API接口节点
+     * <p>获得API接口节点</p>
+     * @param id id
+     * @return  Result&lt;List&lt;ZTreeNode&gt;&gt; 节点树形结构
+     */
+    @RequestMapping(QUERY_API_NODES)
+    Result<List<ZTreeNode>> queryApiNodes(@RequestParam(name = "id") String id);
+
+    /**
+     * 获得API接口详情
+     * <p>获得API接口详情</p>
+     * @param path path
+     * @param method method
+     * @return  Result
+     */
+    @RequestMapping(QUERY_API_DETAIL)
+    Result queryApiDetail(@RequestParam(name = "path") String path, @RequestParam(name = "method") String method);
 
     /**
      * 控制器类名

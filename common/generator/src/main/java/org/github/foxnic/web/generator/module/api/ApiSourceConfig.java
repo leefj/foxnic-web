@@ -9,6 +9,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_API_SOURCE;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class ApiSourceConfig extends BaseCodeConfig<SYS_API_SOURCE> {
@@ -72,6 +73,16 @@ public class ApiSourceConfig extends BaseCodeConfig<SYS_API_SOURCE> {
         // 定义一个控制器方法
         controller.restApi("立即取数","fetchApiDoc","fetch-api-doc", RequestMethod.POST,"获取API文档")
                 .addSimpleParameter(String.class,"id","来源ID",true,"001","来源ID");
+
+        // 定义一个控制器方法
+        controller.restApi("获得API接口节点","queryApiNodes","query-api-nodes", RequestMethod.POST,"获得API接口节点")
+                .addSimpleParameter(String.class,"id","id",true,"example","id")
+                .listResult(ZTreeNode.class,"节点树形结构");
+
+        // 定义一个控制器方法
+        controller.restApi("获得API接口详情","queryApiDetail","query-api-detail", RequestMethod.POST,"获得API接口详情")
+                .addSimpleParameter(String.class,"path","path",true,"/example/query-list","path")
+                .addSimpleParameter(String.class,"method","method",true,"post","method");
 
     }
 
