@@ -40,10 +40,6 @@ public class SwaggerConfig4Job extends BasicSwaggerConfig {
                 .title("计划任务")
                 .description("用于系统相关定时任务的调度。")
                 .version("1.0.0")
-                //.termsOfServiceUrl("127.0.0.1")
-                //.contact(new Contact("xxx", "http://www.apache.org", "xxx@qq.com"))
-                //.license("Apache 2.0")
-                //.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
     }
 

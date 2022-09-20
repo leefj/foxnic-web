@@ -47,10 +47,6 @@ public class SwaggerConfig4Example extends BasicSwaggerConfig {
                 .title("示例模块")
                 .description("用于系统开发演示的示例模块。")
                 .version("1.0.0")
-                // .termsOfServiceUrl("127.0.0.1")
-                //.contact(new Contact("xxx", "http://www.apache.org", "xxx@qq.com"))
-                //.license("Apache 2.0")
-                //.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
     }
 
