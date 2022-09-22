@@ -44,15 +44,16 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
 import com.github.foxnic.api.validate.annotations.NotNull;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * <p>
- * 订单地址 接口控制器
+ * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-15 14:09:18
+ * @since 2022-09-22 16:52:34
 */
 
 @InDoc
@@ -122,7 +123,7 @@ public class AddressController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3)
+	@ApiOperationSupport(order=3) 
 	@NotNull(name = AddressVOMeta.IDS)
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
@@ -237,7 +238,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3)
+		@ApiOperationSupport(order=3) 
 		@NotNull(name = AddressVOMeta.IDS)
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
@@ -314,7 +315,7 @@ public class AddressController extends SuperController {
     })
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_1 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(AddressServiceProxy.NEW_API_NAME_1)
+	@GetMapping(AddressServiceProxy.NEW_API_NAME_1)
 	public Result<String> newApiName1(String name , String memberIds , Integer ageMap) {
 		Result<String> result = new Result<>();
 		// TODO 实现 方法描述 逻辑

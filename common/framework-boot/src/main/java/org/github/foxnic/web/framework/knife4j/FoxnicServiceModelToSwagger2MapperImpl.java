@@ -68,6 +68,8 @@ public class FoxnicServiceModelToSwagger2MapperImpl  extends ServiceModelToSwagg
                 existsNames.add(splitName);
             }
         }
+
+
         return super.tagSetToTagList(set);
     }
 

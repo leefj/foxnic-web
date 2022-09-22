@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.example.AddressServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 订单地址 模版页面控制器
+ * 订单地址模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-15 14:09:18
+ * @since 2022-09-22 16:52:34
 */
 
 @Controller("ExampleAddressPageController")

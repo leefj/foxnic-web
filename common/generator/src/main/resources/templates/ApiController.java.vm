@@ -33,7 +33,7 @@ import org.github.foxnic.web.domain.bpm.BpmEvent;
 
 #if(isEnableSwagger)
 #if(inDoc)@InDoc#end
-@Api(tags = "#(topic)")
+@Api(tags = "#(restApiTagDir)#(topic)")
 #end
 @RestController("#(beanName)")
 public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbackController#end {

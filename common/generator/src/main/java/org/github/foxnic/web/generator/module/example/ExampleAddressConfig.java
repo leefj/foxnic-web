@@ -91,12 +91,14 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	public void configController(ControllerOptions controller) {
 
 
+		controller.topic("订单地址");
+		controller.restApiTagDir("功能示例");
 
 		controller.inDoc(true);
 
 		controller
 				// 方法头
-				.restApi("方法抬头","newApiName1","new-api-name-1", RequestMethod.POST,"方法描述")
+				.restApi("方法抬头","newApiName1","new-api-name-1", RequestMethod.GET,"方法描述")
 				// 参数
 				.addSimpleParameter(String.class,"name","姓名",true,"LeeFJ","所有者的姓名")
 				.addListParameter(String.class,"memberIds","成员ID集合",false,"[1,2,3]","指定成员的ID清单")

@@ -20,10 +20,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 订单地址 服务接口
+ * 订单地址服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-15 14:09:16
+ * @since 2022-09-22 16:52:34
 */
 
 public interface IAddressService extends  ISimpleIdService<Address,String> {
