@@ -428,7 +428,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
       * @return  Result#(api.htmlGenericResultCode) #(api.resultDesc)
 	  */
 	#if(isEnableSwagger)
-	@ApiOperation(value = "#(api.comment)")
+	@ApiOperation(value = "#(api.title)",notes = "#(api.comment)")
 	#(api.swaggerParameterList)
 	@ApiOperationSupport(order=8)
 	#end

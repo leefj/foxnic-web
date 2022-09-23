@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import com.github.foxnic.api.swagger.InDoc;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -43,8 +44,8 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
 import com.github.foxnic.api.validate.annotations.NotNull;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -52,7 +53,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-22 16:52:34
+ * @since 2022-09-23 16:22:44
 */
 
 @InDoc
@@ -122,7 +123,7 @@ public class AddressController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3)
+	@ApiOperationSupport(order=3) 
 	@NotNull(name = AddressVOMeta.IDS)
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
@@ -237,7 +238,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3)
+		@ApiOperationSupport(order=3) 
 		@NotNull(name = AddressVOMeta.IDS)
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
@@ -306,16 +307,16 @@ public class AddressController extends SuperController {
       * @param ageMap 年龄表 , 成员年龄表
       * @return  Result&lt;String&gt; 结果
 	  */
-	@ApiOperation(value = "方法描述")
+	@ApiOperation(value = "方法抬头",notes = "方法描述")
 	@ApiImplicitParams({
         @ApiImplicitParam(name = "name" , value = "姓名" , required = true , dataTypeClass=String.class , example = "LeeFJ"),
-        @ApiImplicitParam(name = "memberIds" , value = "成员ID集合" , required = false , dataTypeClass=String.class , example = "[1,2,3]"),
-        @ApiImplicitParam(name = "ageMap" , value = "年龄表" , required = false , dataTypeClass=Integer.class , example = "{\"LeeFJ\":28}"),
+        @ApiImplicitParam(name = "memberIds" , value = "成员ID集合" , required = false , dataTypeClass=List.class , example = "[1,2,3]"),
+        @ApiImplicitParam(name = "ageMap" , value = "年龄表" , required = false , dataTypeClass=Map.class , example = "{\"LeeFJ\":28}"),
     })
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_1 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@GetMapping(AddressServiceProxy.NEW_API_NAME_1)
-	public Result<String> newApiName1(String name , String memberIds , Integer ageMap) {
+	public Result<String> newApiName1(String name , List<String> memberIds , Map<String,Integer> ageMap) {
 		Result<String> result = new Result<>();
 		// TODO 实现 方法描述 逻辑
 		return result;
@@ -328,29 +329,15 @@ public class AddressController extends SuperController {
       * @param model 地址模型 , 地址的扩展信息
       * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
 	  */
-	@ApiOperation(value = "方法描述")
+	@ApiOperation(value = "方法抬头",notes = "方法描述")
 	@ApiImplicitParams({
         @ApiImplicitParam(name = "address" , value = "地址对象" , required = true , dataTypeClass=AddressVO.class , example = "{}"),
-        @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=AddressModel.class , example = "{}"),
+        @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=List.class , example = "{}"),
     })
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
-	public Result<List<Address>> newApiName2(AddressVO address , AddressModel model) {
-		Result<List<Address>> result = new Result<>();
-		// TODO 实现 方法描述 逻辑
-		return result;
-	}
-
-	@PutMapping(AddressServiceProxy.NEW_API_NAME_2)
-	public Result<List<Address>> newApiName2Put(AddressVO address , AddressModel model) {
-		Result<List<Address>> result = new Result<>();
-		// TODO 实现 方法描述 逻辑
-		return result;
-	}
-
-	@RequestMapping("xxxxx-any")
-	public Result<List<Address>> newApiName2Any(AddressVO address , AddressModel model) {
+	public Result<List<Address>> newApiName2(AddressVO address , List<AddressModel> model) {
 		Result<List<Address>> result = new Result<>();
 		// TODO 实现 方法描述 逻辑
 		return result;

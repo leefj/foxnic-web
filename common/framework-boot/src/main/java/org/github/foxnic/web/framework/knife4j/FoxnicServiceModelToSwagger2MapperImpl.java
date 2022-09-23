@@ -28,6 +28,8 @@ public class FoxnicServiceModelToSwagger2MapperImpl  extends ServiceModelToSwagg
      * */
     protected io.swagger.models.Operation mapOperation(springfox.documentation.service.Operation from, ModelNamesRegistry modelNames) {
 
+
+
         for (RequestParameter parameter : from.getRequestParameters()) {
             // 若未设置，设置一个默认值
             if(parameter.getIn()==null) {
@@ -38,6 +40,7 @@ public class FoxnicServiceModelToSwagger2MapperImpl  extends ServiceModelToSwagg
 
         return super.mapOperation(from,modelNames);
     }
+
 
     /**
      * 处理 tag

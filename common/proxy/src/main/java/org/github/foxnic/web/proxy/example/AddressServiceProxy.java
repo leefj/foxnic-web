@@ -13,6 +13,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.github.foxnic.web.domain.example.AddressModel;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-22 16:52:34
+ * @since 2022-09-23 16:22:43
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = AddressServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface AddressServiceProxy {
@@ -162,7 +163,7 @@ public interface AddressServiceProxy {
      * @return  Result&lt;String&gt; 结果
      */
     @RequestMapping(NEW_API_NAME_1)
-    Result<String> newApiName1(@RequestParam(name = "name") String name, @RequestParam(name = "memberIds") String memberIds, @RequestParam(name = "ageMap") Integer ageMap);
+    Result<String> newApiName1(@RequestParam(name = "name") String name, @RequestParam(name = "memberIds") List<String> memberIds, @RequestParam(name = "ageMap") Map<String, Integer> ageMap);
 
     /**
      * 方法抬头
@@ -172,7 +173,7 @@ public interface AddressServiceProxy {
      * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
      */
     @RequestMapping(NEW_API_NAME_2)
-    Result<List<Address>> newApiName2(@RequestParam(name = "address") AddressVO address, @RequestParam(name = "model") AddressModel model);
+    Result<List<Address>> newApiName2(@RequestParam(name = "address") AddressVO address, @RequestParam(name = "model") List<AddressModel> model);
 
     /**
      * 控制器类名
