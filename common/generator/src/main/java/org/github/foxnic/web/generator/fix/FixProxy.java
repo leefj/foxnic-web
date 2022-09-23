@@ -4,7 +4,6 @@ import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.FileNavigator;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
-import com.github.foxnic.generator.util.JavaCPUnit;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.NodeList;

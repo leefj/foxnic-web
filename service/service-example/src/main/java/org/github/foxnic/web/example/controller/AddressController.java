@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import com.github.foxnic.api.swagger.InDoc;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -44,7 +43,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
 import com.github.foxnic.api.validate.annotations.NotNull;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -123,7 +122,7 @@ public class AddressController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = AddressVOMeta.IDS)
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
@@ -238,7 +237,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = AddressVOMeta.IDS)
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
@@ -338,6 +337,20 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
 	public Result<List<Address>> newApiName2(AddressVO address , AddressModel model) {
+		Result<List<Address>> result = new Result<>();
+		// TODO 实现 方法描述 逻辑
+		return result;
+	}
+
+	@PutMapping(AddressServiceProxy.NEW_API_NAME_2)
+	public Result<List<Address>> newApiName2Put(AddressVO address , AddressModel model) {
+		Result<List<Address>> result = new Result<>();
+		// TODO 实现 方法描述 逻辑
+		return result;
+	}
+
+	@RequestMapping("xxxxx-any")
+	public Result<List<Address>> newApiName2Any(AddressVO address , AddressModel model) {
 		Result<List<Address>> result = new Result<>();
 		// TODO 实现 方法描述 逻辑
 		return result;
