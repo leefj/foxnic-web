@@ -22,6 +22,7 @@ import org.github.foxnic.web.misc.ztree.ZTreeNode;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-09-20 15:24:48
+ * @version
  */
 @FeignClient(value = MicroServiceNames.API, contextId = ApiSourceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ApiSourceServiceProxy {
@@ -184,7 +185,7 @@ public interface ApiSourceServiceProxy {
      * @return  Result
      */
     @RequestMapping(QUERY_API_DETAIL)
-    Result queryApiDetail(@RequestParam(name = "path") String path, @RequestParam(name = "method") String method);
+    Result queryApiDetail(@RequestParam(name = "id") String id,@RequestParam(name = "path") String path, @RequestParam(name = "method") String method);
 
     /**
      * 控制器类名
