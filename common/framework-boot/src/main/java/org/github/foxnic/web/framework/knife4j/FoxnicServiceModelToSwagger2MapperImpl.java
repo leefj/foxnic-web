@@ -77,7 +77,7 @@ public class FoxnicServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
                             if(DataParser.isSimpleType(mp.getType())) continue;
                                 if(!modelNameMap.values().contains(mp.getType().getName())) {
 
-                                    if(ReflectUtil.isSubType(List.class,mp.getType()) || ReflectUtil.isSubType(Set.class,mp.getType()) || ReflectUtil.isSubType(Map.class,mp.getType())) {
+                                    if(DataParser.isCollection(mp.getType())) {
                                         ParameterizedType type=(ParameterizedType)mp.getParameterizedType();
                                         Type[] args=type.getActualTypeArguments();
                                         for (Type arg : args) {
@@ -146,7 +146,7 @@ public class FoxnicServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
 
     private springfox.documentation.schema.Model createModel(Class type) {
 
-        if(ReflectUtil.isSubType(List.class,type) || ReflectUtil.isSubType(Set.class,type) || ReflectUtil.isSubType(Map.class,type)) {
+        if(DataParser.isCollection(type) || DataParser.isArray(type)) {
             return null;
         }
         if(Object.class.equals(type)) return null;
