@@ -7,6 +7,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
@@ -21,7 +22,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private static final long serialVersionUID = 1L;
 
-	private SessionUserImpl sessionUser;
+//	private SessionUserImpl sessionUser;
 
 	private Set<AntPathRequestMatcher> requestMatchers;
 
@@ -44,9 +45,11 @@ public class SessionPermissionImpl implements SessionPermission {
 	private Set<String> authorityKeys=new HashSet<>();
 	private Set<String> roleKeys=new HashSet<>();
 
-	public SessionPermissionImpl(SessionUserImpl sessionUser,Map<String,String> menuRoleRelation) {
-		this.sessionUser=sessionUser;
+	private User user;
 
+	public SessionPermissionImpl(User user,Map<String,String> menuRoleRelation) {
+
+		this.user=user;
 		initRequestMatchers();
 		initAuthorities();
 
@@ -62,7 +65,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 		// 复制一份以避免并发问题
 		List<Role> roles=new ArrayList<>();
-		for (Role role : sessionUser.getUser().getRoles()) {
+		for (Role role : this.user.getRoles()) {
 			Role newRole=new Role();
 			BeanUtil.copy(role,newRole,true);
 			roles.add(newRole);
@@ -77,7 +80,7 @@ public class SessionPermissionImpl implements SessionPermission {
 			role.setMenus(null);
 		}
 
-		sessionUser.getUser().setRoles(roles);
+		this.user.setRoles(roles);
 	}
 
 
@@ -90,7 +93,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 		//设置角色
 		roleIdCache=new HashMap<String, Role>();
-		for (Role role : sessionUser.getUser().getRoles()) {
+		for (Role role : this.user.getRoles()) {
 			if(StringUtil.isBlank(role.getCode())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(ROLE_PREFIX+role.getCode());
 			authorities.add(auth);
@@ -104,7 +107,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 		//设置菜单权限
 
-		for (Menu menu : sessionUser.getUser().getMenus()) {
+		for (Menu menu : this.user.getMenus()) {
 			if(StringUtil.isBlank(menu.getAuthority())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(menu.getAuthority());
 			authorities.add(auth);
@@ -112,8 +115,8 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 
 		//业务角色
-		if(sessionUser.getUser().getActivatedTenant()!=null) {
-			Employee employee = sessionUser.getUser().getActivatedTenant().getEmployee();
+		if(this.user.getActivatedTenant()!=null) {
+			Employee employee = this.user.getActivatedTenant().getEmployee();
 			if (employee != null) {
 				List<BusiRole> bRoles = employee.getBusiRoles();
 				if(bRoles!=null) {
@@ -134,7 +137,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	private void initRequestMatchers() {
 		urlMenuCache =new HashMap<String, String>();
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
-		for (Menu menu : this.sessionUser.getUser().getMenus()) {
+		for (Menu menu : this.user.getMenus()) {
 			Resourze resourze=menu.getPathResource();
 			if(resourze!=null && resourze.getAccessTypeEnum() == AccessType.GRANT) {
 //				if("/service-oauth/sys-user/query-paged-list".equals(resourze.getUrl())){
@@ -180,12 +183,6 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 		return null;
 	}
-
-
-	public SessionUserImpl getSessionUser() {
-		return sessionUser;
-	}
-
 
 	public Set<AntPathRequestMatcher> getRequestMatchers() {
 		return requestMatchers;
