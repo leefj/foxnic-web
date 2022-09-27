@@ -167,7 +167,7 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	private Map<String,String> menuRoleRelation;
 
 	public SessionPermission permission() {
-		if(permission==null) permission=new SessionPermissionImpl(this,menuRoleRelation);
+		if(permission==null) permission=new SessionPermissionImpl(this.getUser(),menuRoleRelation);
 		this.menuRoleRelation=permission.getMenuRoleRelation();
 		return permission;
 	}
