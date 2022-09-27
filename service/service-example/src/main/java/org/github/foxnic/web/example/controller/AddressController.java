@@ -44,8 +44,10 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.example.AddressSubModel;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.github.foxnic.web.domain.example.AddressPureModel;
 import org.github.foxnic.web.domain.oauth.User;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -54,7 +56,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-27 15:42:27
+ * @since 2022-09-27 16:03:25
 */
 
 @InDoc
@@ -306,7 +308,7 @@ public class AddressController extends SuperController {
       * @param name 姓名 , 所有者的姓名
       * @param memberIds 成员ID集合 , 指定成员的ID清单
       * @param ageMap 年龄表 , 成员年龄表
-      * @return  Result&lt;String&gt; 结果
+      * @return  Result&lt;AddressSubModel&gt; 结果
 	  */
 	@ApiOperation(value = "Get-示例",notes = "方法描述")
 	@ApiImplicitParams({
@@ -317,8 +319,8 @@ public class AddressController extends SuperController {
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_1 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@GetMapping(AddressServiceProxy.NEW_API_NAME_1)
-	public Result<String> newApiName1(String name , List<String> memberIds , Map<String,Integer> ageMap) {
-		Result<String> result = new Result<>();
+	public Result<AddressSubModel> newApiName1(String name , List<String> memberIds , Map<String,Integer> ageMap) {
+		Result<AddressSubModel> result = new Result<>();
 		// TODO 实现 方法描述 逻辑
 		return result;
 	}
@@ -329,7 +331,7 @@ public class AddressController extends SuperController {
       * @param address 地址对象 , 地址基本信息
       * @param model 地址模型 , 地址的扩展信息
       * @param userMap 账户对象Map
-      * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
+      * @return  Result&lt;List&lt;AddressPureModel&gt;&gt; 地址列表
 	  */
 	@ApiOperation(value = "Post-示例",notes = "方法描述")
 	@ApiImplicitParams({
@@ -340,8 +342,8 @@ public class AddressController extends SuperController {
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
-	public Result<List<Address>> newApiName2(AddressVO address , List<AddressModel> model , Map<String,User> userMap) {
-		Result<List<Address>> result = new Result<>();
+	public Result<List<AddressPureModel>> newApiName2(AddressVO address , List<AddressModel> model , Map<String,User> userMap) {
+		Result<List<AddressPureModel>> result = new Result<>();
 		// TODO 实现 方法描述 逻辑
 		return result;
 	}

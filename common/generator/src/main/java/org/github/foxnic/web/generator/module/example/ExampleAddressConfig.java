@@ -10,9 +10,7 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
-import org.github.foxnic.web.domain.example.Address;
-import org.github.foxnic.web.domain.example.AddressModel;
-import org.github.foxnic.web.domain.example.AddressVO;
+import org.github.foxnic.web.domain.example.*;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -111,7 +109,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 				.addListParameter(String.class,"memberIds","成员ID集合",false,"[1,2,3]","指定成员的ID清单")
 				.addMapParameter(String.class,Integer.class,"ageMap","年龄表",false,"{\"LeeFJ\":28}","成员年龄表")
 				// 返回值
-				.simpleResult(String.class,"结果")
+				.simpleResult(AddressSubModel.class,"结果")
 		;
 
 
@@ -123,7 +121,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 				.addListParameter(AddressModel.class,"model","地址模型",false,"[]","地址的扩展信息")
 				.addMapParameter(String.class, User.class,"userMap","账户对象Map",false,"{}","账户对象Map")
 				// 返回值
-				.listResult(Address.class,"地址列表")
+				.listResult(AddressPureModel.class,"地址列表")
 		;
 
 

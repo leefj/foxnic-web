@@ -13,8 +13,10 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.domain.example.AddressSubModel;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.github.foxnic.web.domain.example.AddressPureModel;
 import org.github.foxnic.web.domain.example.AddressModel;
 import org.github.foxnic.web.domain.oauth.User;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-27 15:42:27
+ * @since 2022-09-27 16:03:24
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = AddressServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface AddressServiceProxy {
@@ -161,10 +163,10 @@ public interface AddressServiceProxy {
      * @param name 姓名 , 所有者的姓名
      * @param memberIds 成员ID集合 , 指定成员的ID清单
      * @param ageMap 年龄表 , 成员年龄表
-     * @return  Result&lt;String&gt; 结果
+     * @return  Result&lt;AddressSubModel&gt; 结果
      */
     @RequestMapping(NEW_API_NAME_1)
-    Result<String> newApiName1(@RequestParam(name = "name") String name, @RequestParam(name = "memberIds") List<String> memberIds, @RequestParam(name = "ageMap") Map<String, Integer> ageMap);
+    Result<AddressSubModel> newApiName1(@RequestParam(name = "name") String name, @RequestParam(name = "memberIds") List<String> memberIds, @RequestParam(name = "ageMap") Map<String, Integer> ageMap);
 
     /**
      * Post-示例
@@ -172,10 +174,10 @@ public interface AddressServiceProxy {
      * @param address 地址对象 , 地址基本信息
      * @param model 地址模型 , 地址的扩展信息
      * @param userMap 账户对象Map
-     * @return  Result&lt;List&lt;Address&gt;&gt; 地址列表
+     * @return  Result&lt;List&lt;AddressPureModel&gt;&gt; 地址列表
      */
     @RequestMapping(NEW_API_NAME_2)
-    Result<List<Address>> newApiName2(@RequestParam(name = "address") AddressVO address, @RequestParam(name = "model") List<AddressModel> model, @RequestParam(name = "userMap") Map<String, User> userMap);
+    Result<List<AddressPureModel>> newApiName2(@RequestParam(name = "address") AddressVO address, @RequestParam(name = "model") List<AddressModel> model, @RequestParam(name = "userMap") Map<String, User> userMap);
 
     /**
      * 控制器类名
