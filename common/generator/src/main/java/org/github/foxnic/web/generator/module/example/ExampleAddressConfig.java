@@ -13,6 +13,7 @@ import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
 import org.github.foxnic.web.domain.example.Address;
 import org.github.foxnic.web.domain.example.AddressModel;
 import org.github.foxnic.web.domain.example.AddressVO;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,6 +36,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 
 		PojoClassFile addressModel=context.createPojo("AddressModel");
+		addressModel.setTitle("AddressModel 模型");
+		addressModel.setDesc("用于 AddressModel 的保存");
 		addressModel.setSuperType(Entity.class);
 		FieldsBuilder fields=this.createFieldsBuilder();
 		fields.addAll().removeDBTreatyFields();
@@ -44,6 +47,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 
 		PojoClassFile addressSubModel=context.createPojo("AddressSubModel");
+		addressSubModel.setTitle("AddressModel 模型");
+		addressSubModel.setDesc("用于 AddressModel 的保存");
 		addressSubModel.setSuperTypeFile(addressModel);
 		addressSubModel.addSimpleProperty(String.class,"postCode","邮编","邮编");
 		addressSubModel.addSimpleProperty(String.class,"postCode2","邮编","邮编");
@@ -52,6 +57,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 //		model.set
 
 		PojoClassFile addressPureModel=context.createPojo("AddressPureModel");
+		addressPureModel.setTitle("AddressModel 模型");
+		addressPureModel.setDesc("用于 AddressModel 的保存");
 		addressPureModel.noSuperType();
 		fields=this.createFieldsBuilder();
 		fields.addAll().removeDBTreatyFields();
@@ -98,7 +105,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 		controller
 				// 方法头
-				.restApi("方法抬头","newApiName1","new-api-name-1", RequestMethod.GET,"方法描述")
+				.restApi("Get-示例","newApiName1","new-api-name-1", RequestMethod.GET,"方法描述")
 				// 参数
 				.addSimpleParameter(String.class,"name","姓名",true,"LeeFJ","所有者的姓名")
 				.addListParameter(String.class,"memberIds","成员ID集合",false,"[1,2,3]","指定成员的ID清单")
@@ -110,10 +117,11 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 		controller
 				// 方法头
-				.restApi("方法抬头","newApiName2","new-api-name-2", RequestMethod.POST,"方法描述")
+				.restApi("Post-示例","newApiName2","new-api-name-2", RequestMethod.POST,"方法描述")
 				// 参数
 				.addSimpleParameter(AddressVO.class,"address","地址对象",true,"{}","地址基本信息")
-				.addListParameter(AddressModel.class,"model","地址模型",false,"{}","地址的扩展信息")
+				.addListParameter(AddressModel.class,"model","地址模型",false,"[]","地址的扩展信息")
+				.addMapParameter(String.class, User.class,"userMap","账户对象Map",false,"{}","账户对象Map")
 				// 返回值
 				.listResult(Address.class,"地址列表")
 		;

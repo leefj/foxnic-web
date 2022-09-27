@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.example;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -10,13 +11,15 @@ import com.github.foxnic.dao.entity.Entity;
 
 
 /**
- * 订单地址
+ * AddressModel 模型
+ * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-23 16:22:42
+ * @since 2022-09-27 15:42:27
  * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "AddressModel 模型 ; 用于 AddressModel 的保存")
 public class AddressPureModel {
 
 	private static final long serialVersionUID = 1L;

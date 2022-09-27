@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.example;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
@@ -17,13 +18,15 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * 订单地址
+ * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-23 16:22:42
+ * @since 2022-09-27 15:42:27
  * @sign DC13DD184293CCD592CFDAA93BF3DAC3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "example_address")
+@ApiModel(description = "订单地址 ; 订单地址 , 数据表 example_address 的PO类型")
 public class Address extends Entity {
 
 	private static final long serialVersionUID = 1L;
