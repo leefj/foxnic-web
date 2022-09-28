@@ -45,6 +45,8 @@ public class ZTreeNode {
 	private String namePath;
 	private List<ZTreeNode> children;
 
+	private Integer sortIndex=0;
+
 	private Map<String,Object> extra;
 
 	/**
@@ -175,5 +177,13 @@ public class ZTreeNode {
 
 	public void setOpen(Boolean open) {
 		this.open = open;
+	}
+
+	public Integer getSortIndex() {
+		return sortIndex;
+	}
+
+	public void setSortIndex(Integer sortIndex) {
+		this.sortIndex = sortIndex;
 	}
 }
