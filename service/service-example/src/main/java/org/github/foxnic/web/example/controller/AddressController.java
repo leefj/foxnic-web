@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +36,10 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
 import org.github.foxnic.web.domain.example.meta.AddressMeta;
 import org.github.foxnic.web.domain.example.AddressModel;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
@@ -53,7 +56,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-27 16:03:25
+ * @since 2022-09-29 17:09:50
 */
 
 @InDoc
@@ -70,14 +73,14 @@ public class AddressController extends SuperController {
 	*/
 	@ApiOperation(value = "添加订单地址")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267102228274176",examples=@Example(value = @ExampleProperty(mediaType ="", value =""))),
+		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176"),
 		@ApiImplicitParam(name = AddressVOMeta.NAME , value = "收件人姓名" , required = false , dataTypeClass=String.class , example = "李方捷"),
 		@ApiImplicitParam(name = AddressVOMeta.PHONE_NUMBER , value = "收件人手机" , required = false , dataTypeClass=String.class , example = "1234567333"),
 		@ApiImplicitParam(name = AddressVOMeta.ADDRESS , value = "收件地址" , required = false , dataTypeClass=String.class , example = "浙江省宁波市鄞州区鄞县大道二号"),
 		@ApiImplicitParam(name = AddressVOMeta.REGION_TYPE , value = "类型" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=1)
+	@ApiOperationSupport(order=1 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.INSERT)
 	public Result insert(AddressVO addressVO) {
@@ -91,10 +94,10 @@ public class AddressController extends SuperController {
 	 * 删除订单地址
 	*/
 	@ApiOperation(value = "删除订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176")
 	})
-	@ApiOperationSupport(order=2)
+	@ApiOperationSupport(order=2 , author="李方捷 , leefangjie@qq.com")
 	@NotNull(name = AddressVOMeta.ID)
 	@SentinelResource(value = AddressServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE)
@@ -120,10 +123,10 @@ public class AddressController extends SuperController {
 	 * 联合主键时，请自行调整实现
 	*/
 	@ApiOperation(value = "批量删除订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3)
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 	@NotNull(name = AddressVOMeta.IDS)
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
@@ -171,7 +174,7 @@ public class AddressController extends SuperController {
 	 * 更新订单地址
 	*/
 	@ApiOperation(value = "更新订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176"),
 		@ApiImplicitParam(name = AddressVOMeta.NAME , value = "收件人姓名" , required = false , dataTypeClass=String.class , example = "李方捷"),
 		@ApiImplicitParam(name = AddressVOMeta.PHONE_NUMBER , value = "收件人手机" , required = false , dataTypeClass=String.class , example = "1234567333"),
@@ -179,7 +182,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_TYPE , value = "类型" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
 	@SentinelResource(value = AddressServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.UPDATE)
 	public Result update(AddressVO addressVO) {
@@ -192,7 +195,7 @@ public class AddressController extends SuperController {
 	 * 保存订单地址
 	*/
 	@ApiOperation(value = "保存订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176"),
 		@ApiImplicitParam(name = AddressVOMeta.NAME , value = "收件人姓名" , required = false , dataTypeClass=String.class , example = "李方捷"),
 		@ApiImplicitParam(name = AddressVOMeta.PHONE_NUMBER , value = "收件人手机" , required = false , dataTypeClass=String.class , example = "1234567333"),
@@ -215,10 +218,10 @@ public class AddressController extends SuperController {
 	 * 获取订单地址
 	*/
 	@ApiOperation(value = "获取订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
-	@ApiOperationSupport(order=6)
+	@ApiOperationSupport(order=6 , author="李方捷 , leefangjie@qq.com")
 	@NotNull(name = AddressVOMeta.ID)
 	@SentinelResource(value = AddressServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_ID)
@@ -235,10 +238,10 @@ public class AddressController extends SuperController {
 	 * 联合主键时，请自行调整实现
 	*/
 		@ApiOperation(value = "批量获取订单地址")
-		@ApiImplicitParams(value={
+		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3)
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 		@NotNull(name = AddressVOMeta.IDS)
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
@@ -254,7 +257,7 @@ public class AddressController extends SuperController {
 	 * 查询订单地址
 	*/
 	@ApiOperation(value = "查询订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176"),
 		@ApiImplicitParam(name = AddressVOMeta.NAME , value = "收件人姓名" , required = false , dataTypeClass=String.class , example = "李方捷"),
 		@ApiImplicitParam(name = AddressVOMeta.PHONE_NUMBER , value = "收件人手机" , required = false , dataTypeClass=String.class , example = "1234567333"),
@@ -262,7 +265,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_TYPE , value = "类型" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE } )
+	@ApiOperationSupport(order=5 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = AddressServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.QUERY_LIST)
 	public Result<List<Address>> queryList(AddressVO sample) {
@@ -277,7 +280,7 @@ public class AddressController extends SuperController {
 	 * 分页查询订单地址
 	*/
 	@ApiOperation(value = "分页查询订单地址")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "583028267108274176"),
 		@ApiImplicitParam(name = AddressVOMeta.NAME , value = "收件人姓名" , required = false , dataTypeClass=String.class , example = "李方捷"),
 		@ApiImplicitParam(name = AddressVOMeta.PHONE_NUMBER , value = "收件人手机" , required = false , dataTypeClass=String.class , example = "1234567333"),
@@ -285,7 +288,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_TYPE , value = "类型" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=8)
+	@ApiOperationSupport(order=8 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Address>> queryPagedList(AddressVO sample) {
@@ -308,12 +311,12 @@ public class AddressController extends SuperController {
       * @return  Result&lt;AddressSubModel&gt; 结果
 	  */
 	@ApiOperation(value = "Get-示例",notes = "方法描述")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
         @ApiImplicitParam(name = "name" , value = "姓名" , required = true , dataTypeClass=String.class , example = "LeeFJ"),
         @ApiImplicitParam(name = "memberIds" , value = "成员ID集合" , required = false , dataTypeClass=List.class , example = "[1,2,3]"),
         @ApiImplicitParam(name = "ageMap" , value = "年龄表" , required = false , dataTypeClass=Map.class , example = "{\"LeeFJ\":28}"),
     })
-	@ApiOperationSupport(order=8)
+	@ApiOperationSupport(order=16,author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_1 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@GetMapping(AddressServiceProxy.NEW_API_NAME_1)
 	public Result<AddressSubModel> newApiName1(String name , List<String> memberIds , Map<String,Integer> ageMap) {
@@ -331,12 +334,12 @@ public class AddressController extends SuperController {
       * @return  Result&lt;List&lt;AddressPureModel&gt;&gt; 地址列表
 	  */
 	@ApiOperation(value = "Post-示例",notes = "方法描述")
-	@ApiImplicitParams(value={
+	@ApiImplicitParams({
         @ApiImplicitParam(name = "address" , value = "地址对象" , required = true , dataTypeClass=AddressVO.class , example = "{}"),
         @ApiImplicitParam(name = "model" , value = "地址模型" , required = false , dataTypeClass=List.class , example = "[]"),
         @ApiImplicitParam(name = "userMap" , value = "账户对象Map" , required = false , dataTypeClass=Map.class , example = "{}"),
     })
-	@ApiOperationSupport(order=8)
+	@ApiOperationSupport(order=16,author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.NEW_API_NAME_2 , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.NEW_API_NAME_2)
 	public Result<List<AddressPureModel>> newApiName2(AddressVO address , List<AddressModel> model , Map<String,User> userMap) {

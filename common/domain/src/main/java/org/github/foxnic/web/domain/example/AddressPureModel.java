@@ -14,7 +14,7 @@ import com.github.foxnic.dao.entity.Entity;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-27 16:03:23
+ * @since 2022-09-29 17:09:47
  * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

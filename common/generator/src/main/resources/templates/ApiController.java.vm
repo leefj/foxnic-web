@@ -47,7 +47,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4Insert)
-	@ApiOperationSupport(order=1)
+	@ApiOperationSupport(order=1 , author="#(author)")
 	#end
 	#(validation4Insert)
 	#if(isEnableMicroService)
@@ -65,7 +65,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4Insert)
-	@ApiOperationSupport(order=1)
+	@ApiOperationSupport(order=1 , author="#(author)")
 	#end
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).INSERTS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -83,7 +83,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4DeleteById)
-	@ApiOperationSupport(order=2)
+	@ApiOperationSupport(order=2 , author="#(author)")
 	#end
 	#(validation4DeleteById)
 	#if(isEnableMicroService)
@@ -119,7 +119,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = #(voMetaSimpleName).#(idsPropertyConst) , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) #end
+	@ApiOperationSupport(order=3 , author="#(author)") #end
 	@NotNull(name = #(voMetaSimpleName).#(idsPropertyConst))
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -171,7 +171,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4Update)
-	@ApiOperationSupport( order=4 , ignoreParameters = { #(ignoreParameters4Update) } )
+	@ApiOperationSupport( order=4 , author="#(author)" ,  ignoreParameters = { #(ignoreParameters4Update) } )
 	#end
 	#(validation4Update)
 	#if(isEnableMicroService)
@@ -212,7 +212,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 		@ApiImplicitParam(name = #(voMetaSimpleName).#(pk.idPropertyConst) , value = "主键" , required = true , dataTypeClass=#(pk.idPropertyType).class , example = "1"),
 		#end
 	})
-	@ApiOperationSupport(order=6)
+	@ApiOperationSupport(order=6 , author="#(author)")
 	#end
 	#for(pk : pks)
 	@NotNull(name = #(voMetaSimpleName).#(pk.idPropertyConst))
@@ -251,7 +251,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = #(voMetaSimpleName).#(idsPropertyConst) , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) #end
+		@ApiOperationSupport(order=3 , author="#(author)") #end
 		@NotNull(name = #(voMetaSimpleName).#(idsPropertyConst))
 		#if(isEnableMicroService)
 		@SentinelResource(value = #(agentSimpleName).GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -279,7 +279,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4QueryList)
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { #(voMetaSimpleName).PAGE_INDEX , #(voMetaSimpleName).PAGE_SIZE } )
+	@ApiOperationSupport(order=5 , author="#(author)" ,  ignoreParameters = { #(voMetaSimpleName).PAGE_INDEX , #(voMetaSimpleName).PAGE_SIZE } )
 	#end
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -306,7 +306,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	*/
 	#if(isEnableSwagger)
 	#(swagger4QueryPagedList)
-	@ApiOperationSupport(order=8)
+	@ApiOperationSupport(order=8 , author="#(author)")
 	#end
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -430,7 +430,7 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	#if(isEnableSwagger)
 	@ApiOperation(value = "#(api.title)",notes = "#(api.comment)")
 	#(api.swaggerParameterList)
-	@ApiOperationSupport(order=8)
+	@ApiOperationSupport(order=16,author="#(author)")
 	#end
 	#if(isEnableMicroService)
 	@SentinelResource(value = #(agentSimpleName).#(api.constName) , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
