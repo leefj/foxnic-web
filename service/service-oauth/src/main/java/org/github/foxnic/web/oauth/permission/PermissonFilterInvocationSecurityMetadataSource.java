@@ -78,7 +78,6 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
         }
 
         Collection<ConfigAttribute> attrs=permission.getConfigAttributesByMatcher(matcher);
-          attrs=null;
         if(attrs==null) {
     		throw new AccessDeniedException("非法访问");
     	}
