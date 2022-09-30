@@ -4,6 +4,7 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -12,6 +13,7 @@ import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.oauth.service.IRoleService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -56,7 +58,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
             List<Menu> menus=menuService.getRelatedMenus(CollectorUtil.collectList(matchs,Resourze::getId));
             if(menus.isEmpty()) {
                 result.message("资源 "+method+" , "+uri+" 未关联到菜单，请联系开发人员");
-                result.addSolution("需要开发人员将资源与菜单关联");
+                result.addSolution("需要开发人员将资源与菜单关联，或请到菜单管理进行配置");
             } else {
                 result.message("资源 "+method+" , "+uri+" 未授权，需要为角色勾选相关菜单");
                 List<Role> roles=roleService.getRelatedRoles(CollectorUtil.collectList(menus,Menu::getId));
@@ -64,8 +66,10 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
                     result.addSolution("请为当前账户勾选角色 : "+ role.getName());
                 }
                 for (Menu menu : menus) {
-                    result.addSolution("请为角色勾选菜单 : "+ menu.getAncestorsNamePath());
+                    result.addSolution("请为角色勾选菜单 : " + menu.getAncestorsNamePath());
                 }
+                List<String> roleNames=CollectorUtil.collectList(SessionUser.getCurrent().getUser().getRoles(),Role::getName);
+                result.addSolution("当前账户已授予以下角色："+ StringUtil.join(roleNames," , "));
             }
         }
         result.messageLevel4Confirm();
