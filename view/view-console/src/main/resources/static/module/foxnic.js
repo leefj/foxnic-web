@@ -587,7 +587,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // debugger;
 
                     if (!res.success) {
-                        alert(res.message);
+                        foxnic.showMessage(res);
                         return null;
                     }
                     data=res.data.list;
@@ -2165,9 +2165,21 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
                 if(errs.length>0) {
-                    message+=" : <br>"+errs.join("<br>");
+                    message+="<br><span style='font-weight: bold'>错误详情 :</span>  : <br>"+errs.join("<br>");
                 }
             }
+
+            if(result.solutions!=null && result.solutions.length>0) {
+                var errs=[];
+                for (var i=0;i<result.solutions.length;i++) {
+                    var solution=result.solutions[i];
+                    errs.push((errs.length+1)+"."+solution);
+                }
+                if(errs.length>0) {
+                    message+="<br><span style='font-weight: bold'>解决方案 :</span> <br>"+errs.join("<br>");
+                }
+            }
+
 
             var success=result.success;
             var icon=null;

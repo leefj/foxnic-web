@@ -31,7 +31,7 @@ import java.util.Set;
  **/
 
 public class PermissonFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
-    
+
     @Resource
     private IResourzeService resourzeService;
 
@@ -70,19 +70,20 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
 //      }
 
         SessionPermissionImpl permission=(SessionPermissionImpl)user.permission();
-        
+
         AntPathRequestMatcher matcher=permission.check(request);
         if(matcher==null) {
         	throw new AccessDeniedException("非法访问");
         }
-     
+
         Collection<ConfigAttribute> attrs=permission.getConfigAttributesByMatcher(matcher);
+          attrs=null;
         if(attrs==null) {
     		throw new AccessDeniedException("非法访问");
     	}
-        
+
         return attrs;
-        
+
 //        // 这里可以放一个抽象接口来获取  request 配置的 ant pattern
 //        Set<RequestMatcher> requestMatchers = convertToRequestMatcher(metaResourceService.queryList(Menu.create()));
 //        // 去匹配之中的一个，如果没有，就抛出缺少权限的访问异常
@@ -95,9 +96,9 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
 //        return CollectionUtils.isEmpty(roles) ? null : SecurityConfig.createList(roles.toArray(new String[0]));
     }
 
-    
+
     private Set<RequestMatcher> convertToRequestMatcher(List<Menu> menus) {
- 
+
     	Set<RequestMatcher> matchers=new HashSet<RequestMatcher>();
     	for (Menu menu : menus) {
     		if(StringUtil.isBlank(menu.getPath())) continue;
@@ -105,7 +106,7 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     		matchers.add(m);
 		}
     	return matchers;
-    	
+
 	}
 
 	@Override
