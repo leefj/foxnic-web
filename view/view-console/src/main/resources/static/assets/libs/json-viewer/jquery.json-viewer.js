@@ -44,8 +44,9 @@
      * Transform a json object into html representation
      * @return string
      */
-    function json2html(json, options) {
+    function json2html(json, options , path) {
         var html = '';
+        //debugger
         if (typeof json === 'string') {
             // Escape tags and quotes
             json = htmlEscape(json);
@@ -94,10 +95,11 @@
                 if (keyCount > 0) {
                     html += '{<ul class="json-dict">';
                     for (var key in json) {
+                        var propPath=path+"-"+key;
                         if (Object.prototype.hasOwnProperty.call(json, key)) {
                             key = htmlEscape(key);
                             var keyRepr = options.withQuotes ?
-                                '<span class="json-string">"' + key + '"</span>' : key;
+                                '<span path="'+propPath+'" class="json-string P-'+propPath+'">"' + key + '"</span>' : key;
 
                             html += '<li>';
                             // Add toggle button if item is collapsable
@@ -106,11 +108,20 @@
                             } else {
                                 html += keyRepr;
                             }
-                            html += ': ' + json2html(json[key], options);
+
+                            var subHtml=json2html(json[key], options,propPath);
+                            // debugger;
+                            if(subHtml.startsWith("{") ||subHtml.startsWith("[")) {
+                                subHtml="{"+"<div path='"+propPath+"' class='C-"+propPath+"' style='float:right;width:100px;text-align:right'>"+key+"</div>"+subHtml.substring(1);
+                            } else {
+                                subHtml=subHtml+"<div path='"+propPath+"' class='C-"+propPath+"' style='float:right;width:100px;text-align:right'>"+key+"</div>";
+                            }
+                            html += ': ' + subHtml;
                             // Add comma if item is not last
                             if (--keyCount > 0) {
                                 html += ',';
                             }
+
                             html += '</li>';
                         }
                     }
@@ -142,7 +153,7 @@
         return this.each(function() {
 
             // Transform to HTML
-            var html = json2html(json, options);
+            var html = json2html(json, options,"root");
             if (options.rootCollapsable && isCollapsable(json)) {
                 html = '<a href class="json-toggle"></a>' + html;
             }
