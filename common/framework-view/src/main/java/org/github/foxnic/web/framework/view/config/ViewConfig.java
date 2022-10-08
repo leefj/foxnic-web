@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ViewConfig {
 
+    /**
+     * 注册过滤器
+     * */
     @Bean
-    public FilterRegistrationBean clusterFilterRegistration() {
+    public FilterRegistrationBean viewFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean(new ViewFilter());
         registration.addUrlPatterns("*.html");
         registration.addUrlPatterns("*.htm");
