@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ViewConfig {
 
     @Bean
-    public FilterRegistrationBean clusterFilterRegistration() {
+    public FilterRegistrationBean viewFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean(new ViewFilter());
         registration.addUrlPatterns("*.html");
         registration.addUrlPatterns("*.htm");
