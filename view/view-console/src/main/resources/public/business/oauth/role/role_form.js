@@ -148,7 +148,8 @@ function FormPage() {
 	    //关闭窗口
 	    $("#cancel-button").click(function(){
 			var index=admin.getTempData('sys-role-form-popup-index');
-	    	admin.closePopupCenter(index);
+	    	// admin.closePopupCenter(index);
+			admin.finishPopupCenterById("sys-role-form-data-win")
 	    });
 
 		//
