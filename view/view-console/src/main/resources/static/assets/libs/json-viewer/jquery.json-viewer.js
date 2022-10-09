@@ -68,12 +68,13 @@
             if (json.length > 0) {
                 html += '[<ol class="json-array">';
                 for (var i = 0; i < json.length; ++i) {
+                    var propPath=path+"-"+i;
                     html += '<li>';
                     // Add toggle button if item is collapsable
                     if (isCollapsable(json[i])) {
                         html += '<a href class="json-toggle"></a>';
                     }
-                    html += json2html(json[i], options);
+                    html += json2html(json[i], options,propPath);
                     // Add comma if item is not last
                     if (i < json.length - 1) {
                         html += ',';
@@ -95,11 +96,40 @@
                 if (keyCount > 0) {
                     html += '{<ul class="json-dict">';
                     for (var key in json) {
+                        // debugger
                         var propPath=path+"-"+key;
+                        var currPath=propPath.substring(5);
+                        var m=options.meta[currPath];
+                        // debugger
+                        var commentHtml="";
+                        if(m) {
+                            var content=[];
+                            if(m.originalRef) {
+                                content.push("<span path='" + propPath + "' class='layui-btn comment-data-type'>" + m.originalRef + "</span>");
+                            } else {
+                                if (m.type) {
+                                    content.push("<span path='" + propPath + "' class='layui-btn comment-data-type'>" + m.type + "</span>");
+                                }
+                            }
+                            if(options.type=="request") {
+                                if (m.required) {
+                                    content.push("<span class='comment-required'>必填</span>");
+                                } else {
+                                    content.push("<span class='comment-required'>可选</span>");
+                                }
+                            }
+                            if(m.title) {
+                                content.push(m.title);
+                            }
+                            if(m.description && m.description!=m.title) {
+                                content.push(m.description);
+                            }
+                            commentHtml = "<span path='" + propPath + "' class='json-comment comment-" + propPath + "' style='padding-top:3px;padding-bottom:4px;white-space:nowrap;margin-left:18px;margin-right: 18px;font:13px Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif'>" + content.join(" / ") + "</span>"
+                        }
                         if (Object.prototype.hasOwnProperty.call(json, key)) {
                             key = htmlEscape(key);
                             var keyRepr = options.withQuotes ?
-                                '<span path="'+propPath+'" class="json-string P-'+propPath+'">"' + key + '"</span>' : key;
+                                '<span path="'+propPath+'" class="json-string json-prop prop-'+propPath+'">"' + key + '"</span>' : key;
 
                             html += '<li>';
                             // Add toggle button if item is collapsable
@@ -109,18 +139,32 @@
                                 html += keyRepr;
                             }
 
+
+
                             var subHtml=json2html(json[key], options,propPath);
+
+
+
                             // debugger;
-                            if(subHtml.startsWith("{") ||subHtml.startsWith("[")) {
-                                subHtml="{"+"<div path='"+propPath+"' class='C-"+propPath+"' style='float:right;width:100px;text-align:right'>"+key+"</div>"+subHtml.substring(1);
+                            if(subHtml.startsWith("{")) {
+                                subHtml="{"+commentHtml+subHtml.substring(1);
+                            } else if(subHtml.startsWith("[")) {
+                                subHtml="["+commentHtml+subHtml.substring(1);
                             } else {
-                                subHtml=subHtml+"<div path='"+propPath+"' class='C-"+propPath+"' style='float:right;width:100px;text-align:right'>"+key+"</div>";
+                                subHtml=subHtml+commentHtml;
                             }
+
                             html += ': ' + subHtml;
                             // Add comma if item is not last
                             if (--keyCount > 0) {
                                 html += ',';
+                            } else {
+
                             }
+
+
+
+
 
                             html += '</li>';
                         }
@@ -146,7 +190,8 @@
             rootCollapsable: true,
             withQuotes: false,
             withLinks: true,
-            bigNumbers: false
+            bigNumbers: false,
+            meta:null
         }, options);
 
         // jQuery chaining
@@ -158,9 +203,13 @@
                 html = '<a href class="json-toggle"></a>' + html;
             }
 
+            html="<div style='float: right;' class='copy-button'>复制</div>"+html;
+
             // Insert HTML in target DOM element
             $(this).html(html);
             $(this).addClass('json-document');
+
+
 
             // Bind click on toggle buttons
             $(this).off('click');
@@ -187,6 +236,55 @@
                 // Trigger click to collapse all nodes
                 $(this).find('a.json-toggle').click();
             }
+
+            $(".comment-data-type").click(function (it){
+                //var path=$(it.currentTarget).attr("path");
+                //var m=options.meta[path.substring(5)];
+                //debugger
+                //alert(JSON.stringify(m));
+            });
+
+
+            $(".copy-button").click(function (it){
+                var str=JSON.stringify(json,null,4);
+                navigator.clipboard.writeText(str);
+                if(options.admin) {
+                    options.admin.toast().success("请求参数已经复制",{time:1000,position:"right-bottom"});
+                } else {
+                    alert("请求参数已经复制");
+                }
+            });
+
+
+
+
+
+            var activedColor="#e0e0e0";
+            $(".json-comment").hover(function(it){
+                //debugger
+                var path=$(it.currentTarget).attr("path");
+                $(".prop-"+path).css("background-color",activedColor);
+                $(it.currentTarget).css("background-color",activedColor);
+            },function(it){
+                var path=$(it.currentTarget).attr("path");
+                $(".prop-"+path).css("background-color","");
+                $(it.currentTarget).css("background-color","");
+            });
+
+            $(".json-prop").hover(function(it){
+                //debugger
+                var path=$(it.currentTarget).attr("path");
+                $(".comment-"+path).css("background-color",activedColor);
+                $(it.currentTarget).css("background-color",activedColor);
+            },function(it){
+                var path=$(it.currentTarget).attr("path");
+                $(".comment-"+path).css("background-color","");
+                $(it.currentTarget).css("background-color","");
+            });
+
+
+
+
         });
     };
 })(jQuery);
