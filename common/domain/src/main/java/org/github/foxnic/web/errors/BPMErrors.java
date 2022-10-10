@@ -52,11 +52,13 @@ public class BPMErrors extends ErrorDefinition {
     @Override
     @PostConstruct
     public void init() {
+        this.setTitle("BPM错误码");
+        this.setPrefix(PREFIX);
         try {
-            new ErrorDesc(PROCESS_INSTANCE_STATUS_CAN_NOT_SAVE, "当前流程状态不允许暂存");
-            new ErrorDesc(PROCESS_INSTANCE_STATUS_CAN_NOT_START, "当前流程状态不允许启动");
-            new ErrorDesc(PROCESS_INSTANCE_NOT_EXISTS, "流程实例不存在");
-            new ErrorDesc(PROCESS_INSTANCE_NOT_READY_FOR_START, "流程数据错误");
+            new ErrorDesc(this,PROCESS_INSTANCE_STATUS_CAN_NOT_SAVE, "当前流程状态不允许暂存");
+            new ErrorDesc(this,PROCESS_INSTANCE_STATUS_CAN_NOT_START, "当前流程状态不允许启动");
+            new ErrorDesc(this,PROCESS_INSTANCE_NOT_EXISTS, "流程实例不存在");
+            new ErrorDesc(this,PROCESS_INSTANCE_NOT_READY_FOR_START, "流程数据错误");
         } catch (Exception e) {}
     }
 }

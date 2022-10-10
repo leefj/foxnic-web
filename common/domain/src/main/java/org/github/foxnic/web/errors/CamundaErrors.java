@@ -36,11 +36,13 @@ public class CamundaErrors extends ErrorDefinition {
     @Override
     @PostConstruct
     public void init() {
+        this.setTitle("流程错误码");
+        this.setPrefix(PREFIX);
         try {
-            new ErrorDesc(DEFINE_NO_FILE, "缺少流程定义文件");
-            new ErrorDesc(DEFINE_FILE_READ_ERROR, "流程定义文件读取失败");
-            new ErrorDesc(DEPLOY_ERROR, "流程部署失败");
-            new ErrorDesc(DEFINE_FILE_ID_NOT_MATCH, "流程文件ID与之前的不匹配");
+            new ErrorDesc(this,DEFINE_NO_FILE, "缺少流程定义文件");
+            new ErrorDesc(this,DEFINE_FILE_READ_ERROR, "流程定义文件读取失败");
+            new ErrorDesc(this,DEPLOY_ERROR, "流程部署失败");
+            new ErrorDesc(this,DEFINE_FILE_ID_NOT_MATCH, "流程文件ID与之前的不匹配");
         } catch (Exception e) {}
     }
 }

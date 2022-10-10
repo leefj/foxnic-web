@@ -1,7 +1,10 @@
 package org.github.foxnic.web.example.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ErrorCode;
+import com.github.foxnic.api.swagger.ErrorCodes;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -47,6 +50,19 @@ public class ApiDocDemoController {
     })
     @ApiOperationSupport(order=16,author="李方捷 , leefangjie@qq.com")
     @PostMapping("/service-example/example-api/new-name-2")
+    @ErrorCodes({
+            @ErrorCode(code = CommonError.CAPTCHA_EXPIRED,name = "动态码错误",desc = "需要输入正确的验证码", solutions = {
+                    "解决方案-1",
+                    "解决方案-2",
+                    "解决方案-3"
+            }),
+            @ErrorCode(code = CommonError.DATA_REPETITION,name = "数据重复",desc = "请确认数据是否重复", solutions = {
+                    "解决方案-A",
+                    "解决方案-B",
+                    "解决方案-C"
+            }),
+            @ErrorCode(code = CommonError.DATA_NOT_EXISTS),
+    })
     public Result<List<AddressPureModel>> newApiName2(AddressVO address , List<AddressModel> model , Map<String, User> userMap) {
         Result<List<AddressPureModel>> result = new Result<>();
         // TODO 实现 方法描述 逻辑
