@@ -238,10 +238,13 @@
             }
 
             $(".comment-data-type").click(function (it){
-                //var path=$(it.currentTarget).attr("path");
+                var name=$(it.currentTarget).text();
                 //var m=options.meta[path.substring(5)];
                 //debugger
-                //alert(JSON.stringify(m));
+                // alert(name);
+                if(options.onModelNameClick) {
+                    options.onModelNameClick(name);
+                }
             });
 
 
