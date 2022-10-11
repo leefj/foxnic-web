@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,21 +110,19 @@ public class ApiDocDemoController {
 
 
     @PostMapping("/service-example/example-api/demo3")
-    @ApiOperation(value = "jdk-HashMap-动态创建显示参数-无@RequestBody")
+    @ApiOperation(value = "jdk-Map-动态参数")
     @DynamicParameters(name = "CreateOrderHashMapModel",properties = {
-            @DynamicParameter(name = "",value = "注解id",example = "X000111",required = true,dataTypeClass = Integer.class),
-            @DynamicParameter(name = "name3",value = "订单编号-gson"),
-            @DynamicParameter(name = "name1",value = "订单编号1-gson"),
+            @DynamicParameter(name = "name01",value = "注解id",example = "X000111",required = true,dataTypeClass = Integer.class),
+            @DynamicParameter(name = "name31",value = "订单编号-gson",dataTypeClass = String.class),
+            @DynamicParameter(name = "name11",value = "订单编号1-gson",dataTypeClass = String.class),
     })
-    @DynamicResponseParameters(name = "CreateOrderHashMapModel",properties = {
-            @DynamicParameter(name = "",value = "注解id",example = "X000111",required = true,dataTypeClass = Integer.class),
-            @DynamicParameter(name = "name3",value = "订单编号-gson"),
-            @DynamicParameter(name = "name1",value = "订单编号1-gson"),
+    @DynamicResponseParameters(name = "CreateOrderHashMapModeResult",properties = {
+            @DynamicParameter(name = "name0",value = "注解id",example = "X000111",required = true,dataTypeClass = Integer.class),
+            @DynamicParameter(name = "name3",value = "订单编号-gson",dataTypeClass = Date.class),
+            @DynamicParameter(name = "name1",value = "订单编号1-gson",dataTypeClass = BigDecimal.class),
     })
-    public Result<HashMap> createOrder1235332(@RequestBody HashMap map){
-        Result<HashMap> r=new Result<>();
-        r.data(map);
-        return r;
+    public Map createOrder1235332(@RequestBody HashMap map){
+        return null;
     }
 
 }

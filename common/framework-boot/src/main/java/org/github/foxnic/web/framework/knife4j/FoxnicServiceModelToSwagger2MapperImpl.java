@@ -78,17 +78,21 @@ public class FoxnicServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
                                 if(!modelNameMap.values().contains(mp.getType().getName())) {
 
                                     if(DataParser.isCollection(mp.getType())) {
-                                        ParameterizedType type=(ParameterizedType)mp.getParameterizedType();
-                                        Type[] args=type.getActualTypeArguments();
-                                        for (Type arg : args) {
-                                            Class cType = (Class)arg;
-                                            if(!DataParser.isSimpleType(cType) && !modelNameMap.values().contains(cType.getName())) {
-                                                springfox.documentation.schema.Model model = createModel(cType);
-                                                if(model!=null) {
-                                                    modelMap.put(model.getName(), model);
-                                                    modelNameMap.put(model.getName(), model.getQualifiedType());
+                                        if(mp.getParameterizedType() instanceof  ParameterizedType) {
+                                            ParameterizedType type = (ParameterizedType) mp.getParameterizedType();
+                                            Type[] args=type.getActualTypeArguments();
+                                            for (Type arg : args) {
+                                                Class cType = (Class)arg;
+                                                if(!DataParser.isSimpleType(cType) && !modelNameMap.values().contains(cType.getName())) {
+                                                    springfox.documentation.schema.Model model = createModel(cType);
+                                                    if(model!=null) {
+                                                        modelMap.put(model.getName(), model);
+                                                        modelNameMap.put(model.getName(), model.getQualifiedType());
+                                                    }
                                                 }
                                             }
+                                        } else {
+                                            //System.out.println();
                                         }
                                     } else {
                                         springfox.documentation.schema.Model model = createModel(mp.getType());
