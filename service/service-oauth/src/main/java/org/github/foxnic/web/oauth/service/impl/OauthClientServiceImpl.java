@@ -32,18 +32,18 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 
 @Service("SysOauthClientService")
 public class OauthClientServiceImpl extends SuperService<OauthClient> implements IOauthClientService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	/**
 	 * 插入实体
 	 * @param role 实体数据
@@ -53,7 +53,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public Result insert(OauthClient oauthClient) {
 		return super.insert(oauthClient);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param roleList 实体数据清单
@@ -63,8 +63,8 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public Result insertList(List<OauthClient> oauthClientList) {
 		return super.insertList(oauthClientList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 认证客户端
 	 *
@@ -77,7 +77,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 		oauthClient.setId(id);
 		return dao.deleteEntity(oauthClient);
 	}
-	
+
 	/**
 	 * 按主键删除 认证客户端
 	 *
@@ -88,12 +88,12 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 		OauthClient oauthClient = new OauthClient();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		oauthClient.setId(id);
-		oauthClient.setDeleted(dao.getDBTreaty().getTrueValue());
+		oauthClient.setDeleted(true);
 		oauthClient.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		oauthClient.setDeleteTime(new Date());
 		return dao.updateEntity(oauthClient,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param role 数据对象
@@ -104,7 +104,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public Result update(OauthClient oauthClient , SaveMode mode) {
 		return super.update(oauthClient , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param roleList 数据对象列表
@@ -115,8 +115,8 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public Result updateList(List<OauthClient> oauthClientList , SaveMode mode) {
 		return super.updateList(oauthClientList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 认证客户端
 	 *
@@ -128,9 +128,9 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 认证客户端
 	 *
@@ -143,10 +143,10 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -154,11 +154,11 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public List<OauthClient> queryList(OauthClient sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -168,10 +168,10 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public PagedList<OauthClient> queryPagedList(OauthClient sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -182,7 +182,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	public PagedList<OauthClient> queryPagedList(OauthClient sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

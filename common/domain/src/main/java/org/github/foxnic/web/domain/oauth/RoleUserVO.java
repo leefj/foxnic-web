@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,20 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * 角色账户关系
+ * 角色账户关系VO类型
+ * <p>角色账户关系 , 数据表 sys_role_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:51:06
+ * @since 2022-10-12 15:38:28
  * @sign 0E01FC0BB215CF1A9E042E380886C9D4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "角色账户关系VO类型 ; 角色账户关系 , 数据表 sys_role_user 的通用VO类型" , parent = RoleUser.class)
 public class RoleUserVO extends RoleUser {
 
 	private static final long serialVersionUID = 1L;
@@ -353,6 +357,20 @@ public class RoleUserVO extends RoleUser {
 	}
 
 	/**
+	 * 将 Map 转换成 RoleUserVO
+	 * @param roleUserMap 包含实体信息的 Map 对象
+	 * @return RoleUserVO , 转换好的的 RoleUser 对象
+	*/
+	@Transient
+	public static RoleUserVO createFrom(Map<String,Object> roleUserMap) {
+		if(roleUserMap==null) return null;
+		RoleUserVO vo = create();
+		EntityContext.copyProperties(vo,roleUserMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 RoleUserVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return RoleUserVO , 转换好的的 RoleUser 对象
@@ -360,8 +378,10 @@ public class RoleUserVO extends RoleUser {
 	@Transient
 	public static RoleUserVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		RoleUserVO po = EntityContext.create(RoleUserVO.class,pojo);
-		return po;
+		RoleUserVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -370,6 +390,6 @@ public class RoleUserVO extends RoleUser {
 	*/
 	@Transient
 	public static RoleUserVO create() {
-		return EntityContext.create(RoleUserVO.class);
+		return new org.github.foxnic.web.domain.oauth.meta.RoleUserVOMeta.$$proxy$$();
 	}
 }

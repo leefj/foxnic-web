@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,13 +15,15 @@ import java.util.Map;
 
 
 /**
- * 账户
+ * 账户VO类型
+ * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-06 13:48:50
+ * @since 2022-10-12 15:35:52
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "账户VO类型 ; 账户 , 数据表 sys_user 的通用VO类型" , parent = User.class)
 public class UserVO extends User {
 
 	private static final long serialVersionUID = 1L;

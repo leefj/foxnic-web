@@ -416,6 +416,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();
+		List<Menu> dySubMenus=new ArrayList<>();
 		for (Menu menu : userMenus) {
 			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
 				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
@@ -425,6 +426,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				}
 				String title = dy.getLabel(menu, user);
 				menu.setLabel(title);
+				List<Menu> subs=dy.generateExtraChildNodes(menu,user);
+				if(subs!=null) {
+					dySubMenus.addAll(subs);
+				}
 			}
 
 			if(excludedMenuIds.contains(menu.getId())) {
@@ -432,6 +437,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 
 		}
+
+		userMenus.addAll(dySubMenus);
 
 		for (Menu remMenu : remMenus) {
 			userMenus.remove(remMenu);

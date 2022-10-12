@@ -62,7 +62,7 @@ applications:
     microServiceNameConst: OAUTH
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/oauth
-    wrapperProjectPath:  /wrapper/wrapper-service-oauth
+    wrapperProjectPath:  /wrapper/wrapper-all-service
   #HRM
   service-hrm:
     nacosGroup: service

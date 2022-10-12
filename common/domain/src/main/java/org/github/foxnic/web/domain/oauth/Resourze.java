@@ -1,7 +1,7 @@
 package org.github.foxnic.web.domain.oauth;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
@@ -22,32 +23,34 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * 系统资源
+ * <p>系统资源 , 数据表 sys_resourze 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:48:40
+ * @since 2022-10-12 15:35:33
  * @sign E4CF522624992BAEA759A534EC0F107D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_resourze")
+@ApiModel(description = "系统资源 ; 系统资源 , 数据表 sys_resourze 的PO类型")
 public class Resourze extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_RESOURZE.$TABLE;
-
+	
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-
+	
 	/**
 	 * 名称：名称
 	*/
 	@ApiModelProperty(required = false,value="名称" , notes = "名称")
 	private String name;
-
+	
 	/**
 	 * 类型：api/page
 	*/
@@ -55,7 +58,7 @@ public class Resourze extends Entity {
 	private String type;
 	@Transient
 	private ResourceType typeEnum;
-
+	
 	/**
 	 * 访问控制类型：访问控制类型
 	*/
@@ -63,13 +66,13 @@ public class Resourze extends Entity {
 	private String accessType;
 	@Transient
 	private AccessType accessTypeEnum;
-
+	
 	/**
 	 * 地址：地址
 	*/
 	@ApiModelProperty(required = true,value="地址" , notes = "地址")
 	private String url;
-
+	
 	/**
 	 * HttpMethod：HttpMethod
 	*/
@@ -77,49 +80,49 @@ public class Resourze extends Entity {
 	private String method;
 	@Transient
 	private HttpMethodType methodEnum;
-
+	
 	/**
 	 * 批次号：批次号
 	*/
 	@ApiModelProperty(required = false,value="批次号" , notes = "批次号")
 	private String batchId;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-
+	
 	/**
 	 * 来源表：来源表
 	*/
 	@ApiModelProperty(required = false,value="来源表" , notes = "来源表")
 	private String tableName;
-
+	
 	/**
 	 * 来源模块：来源模块
 	*/
 	@ApiModelProperty(required = false,value="来源模块" , notes = "来源模块")
 	private String module;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -127,25 +130,25 @@ public class Resourze extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-
+	
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -154,7 +157,7 @@ public class Resourze extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -164,7 +167,7 @@ public class Resourze extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 名称<br>
 	 * 名称
@@ -173,7 +176,7 @@ public class Resourze extends Entity {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * 设置 名称
 	 * @param name 名称
@@ -183,7 +186,7 @@ public class Resourze extends Entity {
 		this.name=name;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 类型<br>
 	 * api/page
@@ -192,7 +195,7 @@ public class Resourze extends Entity {
 	public String getType() {
 		return type;
 	}
-
+	
 	/**
 	 * 获得 类型 的投影属性<br>
 	 * 等价于 getType 方法，获得对应的枚举类型
@@ -205,12 +208,13 @@ public class Resourze extends Entity {
 		}
 		return this.typeEnum ;
 	}
-
+	
 	/**
 	 * 设置 类型
 	 * @param type 类型
 	 * @return 当前对象
 	*/
+	@JsonProperty("type")
 	public Resourze setType(String type) {
 		this.type=type;
 		this.typeEnum= (ResourceType) EnumUtil.parseByCode(ResourceType.values(),type) ;
@@ -219,7 +223,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 类型的投影属性，等同于设置 类型
 	 * @param typeEnum 类型
@@ -235,7 +239,7 @@ public class Resourze extends Entity {
 		this.typeEnum=typeEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 访问控制类型<br>
 	 * 访问控制类型
@@ -244,7 +248,7 @@ public class Resourze extends Entity {
 	public String getAccessType() {
 		return accessType;
 	}
-
+	
 	/**
 	 * 获得 访问控制类型 的投影属性<br>
 	 * 等价于 getAccessType 方法，获得对应的枚举类型
@@ -257,12 +261,13 @@ public class Resourze extends Entity {
 		}
 		return this.accessTypeEnum ;
 	}
-
+	
 	/**
 	 * 设置 访问控制类型
 	 * @param accessType 访问控制类型
 	 * @return 当前对象
 	*/
+	@JsonProperty("accessType")
 	public Resourze setAccessType(String accessType) {
 		this.accessType=accessType;
 		this.accessTypeEnum= (AccessType) EnumUtil.parseByCode(AccessType.values(),accessType) ;
@@ -271,7 +276,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 访问控制类型的投影属性，等同于设置 访问控制类型
 	 * @param accessTypeEnum 访问控制类型
@@ -287,7 +292,7 @@ public class Resourze extends Entity {
 		this.accessTypeEnum=accessTypeEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 地址<br>
 	 * 地址
@@ -296,7 +301,7 @@ public class Resourze extends Entity {
 	public String getUrl() {
 		return url;
 	}
-
+	
 	/**
 	 * 设置 地址
 	 * @param url 地址
@@ -306,7 +311,7 @@ public class Resourze extends Entity {
 		this.url=url;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 HttpMethod<br>
 	 * HttpMethod
@@ -315,7 +320,7 @@ public class Resourze extends Entity {
 	public String getMethod() {
 		return method;
 	}
-
+	
 	/**
 	 * 获得 HttpMethod 的投影属性<br>
 	 * 等价于 getMethod 方法，获得对应的枚举类型
@@ -328,12 +333,13 @@ public class Resourze extends Entity {
 		}
 		return this.methodEnum ;
 	}
-
+	
 	/**
 	 * 设置 HttpMethod
 	 * @param method HttpMethod
 	 * @return 当前对象
 	*/
+	@JsonProperty("method")
 	public Resourze setMethod(String method) {
 		this.method=method;
 		this.methodEnum= (HttpMethodType) EnumUtil.parseByCode(HttpMethodType.values(),method) ;
@@ -342,7 +348,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 HttpMethod的投影属性，等同于设置 HttpMethod
 	 * @param methodEnum HttpMethod
@@ -358,7 +364,7 @@ public class Resourze extends Entity {
 		this.methodEnum=methodEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 批次号<br>
 	 * 批次号
@@ -367,7 +373,7 @@ public class Resourze extends Entity {
 	public String getBatchId() {
 		return batchId;
 	}
-
+	
 	/**
 	 * 设置 批次号
 	 * @param batchId 批次号
@@ -377,7 +383,7 @@ public class Resourze extends Entity {
 		this.batchId=batchId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -386,7 +392,7 @@ public class Resourze extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -396,7 +402,7 @@ public class Resourze extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 来源表<br>
 	 * 来源表
@@ -405,7 +411,7 @@ public class Resourze extends Entity {
 	public String getTableName() {
 		return tableName;
 	}
-
+	
 	/**
 	 * 设置 来源表
 	 * @param tableName 来源表
@@ -415,7 +421,7 @@ public class Resourze extends Entity {
 		this.tableName=tableName;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 来源模块<br>
 	 * 来源模块
@@ -424,7 +430,7 @@ public class Resourze extends Entity {
 	public String getModule() {
 		return module;
 	}
-
+	
 	/**
 	 * 设置 来源模块
 	 * @param module 来源模块
@@ -434,7 +440,7 @@ public class Resourze extends Entity {
 		this.module=module;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -443,7 +449,7 @@ public class Resourze extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -453,7 +459,7 @@ public class Resourze extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -462,7 +468,7 @@ public class Resourze extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -472,7 +478,7 @@ public class Resourze extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -481,7 +487,7 @@ public class Resourze extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -491,7 +497,7 @@ public class Resourze extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -500,7 +506,7 @@ public class Resourze extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -513,7 +519,7 @@ public class Resourze extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -525,7 +531,7 @@ public class Resourze extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -541,7 +547,7 @@ public class Resourze extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -550,7 +556,7 @@ public class Resourze extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -560,7 +566,7 @@ public class Resourze extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -569,7 +575,7 @@ public class Resourze extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -579,7 +585,7 @@ public class Resourze extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -588,7 +594,7 @@ public class Resourze extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -680,7 +686,9 @@ public class Resourze extends Entity {
 	@Transient
 	public static Resourze createFrom(Map<String,Object> resourzeMap) {
 		if(resourzeMap==null) return null;
-		Resourze po = EntityContext.create(Resourze.class, resourzeMap);
+		Resourze po = create();
+		EntityContext.copyProperties(po,resourzeMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -692,7 +700,9 @@ public class Resourze extends Entity {
 	@Transient
 	public static Resourze createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Resourze po = EntityContext.create(Resourze.class,pojo);
+		Resourze po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -702,6 +712,6 @@ public class Resourze extends Entity {
 	*/
 	@Transient
 	public static Resourze create() {
-		return EntityContext.create(Resourze.class);
+		return new org.github.foxnic.web.domain.oauth.meta.ResourzeMeta.$$proxy$$();
 	}
 }

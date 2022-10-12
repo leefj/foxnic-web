@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,20 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * 系统资源
+ * 系统资源VO类型
+ * <p>系统资源 , 数据表 sys_resourze 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:48:40
+ * @since 2022-10-12 15:35:33
  * @sign B0AD13E1F63579B5BA4FF956A9190A4C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "系统资源VO类型 ; 系统资源 , 数据表 sys_resourze 的通用VO类型" , parent = Resourze.class)
 public class ResourzeVO extends Resourze {
 
 	private static final long serialVersionUID = 1L;
@@ -359,6 +363,20 @@ public class ResourzeVO extends Resourze {
 	}
 
 	/**
+	 * 将 Map 转换成 ResourzeVO
+	 * @param resourzeMap 包含实体信息的 Map 对象
+	 * @return ResourzeVO , 转换好的的 Resourze 对象
+	*/
+	@Transient
+	public static ResourzeVO createFrom(Map<String,Object> resourzeMap) {
+		if(resourzeMap==null) return null;
+		ResourzeVO vo = create();
+		EntityContext.copyProperties(vo,resourzeMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 ResourzeVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return ResourzeVO , 转换好的的 Resourze 对象
@@ -366,8 +384,10 @@ public class ResourzeVO extends Resourze {
 	@Transient
 	public static ResourzeVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ResourzeVO po = EntityContext.create(ResourzeVO.class,pojo);
-		return po;
+		ResourzeVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -376,6 +396,6 @@ public class ResourzeVO extends Resourze {
 	*/
 	@Transient
 	public static ResourzeVO create() {
-		return EntityContext.create(ResourzeVO.class);
+		return new org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta.$$proxy$$();
 	}
 }

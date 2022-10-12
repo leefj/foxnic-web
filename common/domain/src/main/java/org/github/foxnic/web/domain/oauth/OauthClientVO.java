@@ -1,19 +1,29 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * null
+ * 认证客户端VO类型
+ * <p>认证客户端 , 数据表 sys_oauth_client 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 16:31:58
- * @sign ABF65D06BF34D09D0ED1CA2ABA9BB4FB1
+ * @since 2022-10-12 15:38:25
+ * @sign E52EC3770C9F13BDDEFD22A75F7ED55C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "认证客户端VO类型 ; 认证客户端 , 数据表 sys_oauth_client 的通用VO类型" , parent = OauthClient.class)
 public class OauthClientVO extends OauthClient {
 
 	private static final long serialVersionUID = 1L;
@@ -37,10 +47,22 @@ public class OauthClientVO extends OauthClient {
 	private String searchField;
 	
 	/**
+	 * 模糊搜索字段
+	*/
+	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
+	private String fuzzyField;
+	
+	/**
 	 * 搜索的值
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -79,12 +101,6 @@ public class OauthClientVO extends OauthClient {
 	}
 	
 	/**
-	 * 添加 页码
-	 * @param pageIndex 页码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
 	*/
@@ -101,12 +117,6 @@ public class OauthClientVO extends OauthClient {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
-	/**
-	 * 添加 分页大小
-	 * @param pageSize 分页大小
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 搜索字段<br>
@@ -127,10 +137,22 @@ public class OauthClientVO extends OauthClient {
 	}
 	
 	/**
-	 * 添加 搜索字段
-	 * @param searchField 搜索字段
+	 * 获得 模糊搜索字段<br>
+	 * @return 模糊搜索字段
+	*/
+	public String getFuzzyField() {
+		return fuzzyField;
+	}
+	
+	/**
+	 * 设置 模糊搜索字段
+	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
+	public OauthClientVO setFuzzyField(String fuzzyField) {
+		this.fuzzyField=fuzzyField;
+		return this;
+	}
 	
 	/**
 	 * 获得 搜索的值<br>
@@ -151,10 +173,33 @@ public class OauthClientVO extends OauthClient {
 	}
 	
 	/**
-	 * 添加 搜索的值
-	 * @param searchValue 搜索的值
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
+	public OauthClientVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public OauthClientVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
 	
 	/**
 	 * 获得 排序字段<br>
@@ -175,12 +220,6 @@ public class OauthClientVO extends OauthClient {
 	}
 	
 	/**
-	 * 添加 排序字段
-	 * @param sortField 排序字段
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序方式<br>
 	 * @return 排序方式
 	*/
@@ -199,14 +238,8 @@ public class OauthClientVO extends OauthClient {
 	}
 	
 	/**
-	 * 添加 排序方式
-	 * @param sortType 排序方式
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 主键清单<br>
-	 * 属性说明 : 用于接收批量主键参数
+	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
 	public List<String> getIds() {
@@ -225,12 +258,149 @@ public class OauthClientVO extends OauthClient {
 	
 	/**
 	 * 添加 主键清单
-	 * @param ids 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public OauthClientVO addId(String id) {
+	public OauthClientVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return OauthClientVO , 转换好的 OauthClientVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return OauthClientVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public OauthClientVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public OauthClientVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.OauthClientVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.OauthClientVOMeta.$$proxy$$();
+		inst.setAuthorizedGrantTypes(this.getAuthorizedGrantTypes());
+		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setAuthorities(this.getAuthorities());
+		inst.setAccessTokenValidity(this.getAccessTokenValidity());
+		inst.setAutoApprove(this.getAutoApprove());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setTrusted(this.getTrusted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setRefreshTokenValidity(this.getRefreshTokenValidity());
+		inst.setScope(this.getScope());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setClientSecret(this.getClientSecret());
+		inst.setWebServerRedirectUri(this.getWebServerRedirectUri());
+		inst.setId(this.getId());
+		inst.setResourceIds(this.getResourceIds());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public OauthClientVO clone(boolean deep) {
+		return EntityContext.clone(OauthClientVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 OauthClientVO
+	 * @param oauthClientMap 包含实体信息的 Map 对象
+	 * @return OauthClientVO , 转换好的的 OauthClient 对象
+	*/
+	@Transient
+	public static OauthClientVO createFrom(Map<String,Object> oauthClientMap) {
+		if(oauthClientMap==null) return null;
+		OauthClientVO vo = create();
+		EntityContext.copyProperties(vo,oauthClientMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 OauthClientVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return OauthClientVO , 转换好的的 OauthClient 对象
+	*/
+	@Transient
+	public static OauthClientVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		OauthClientVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 OauthClientVO，等同于 new
+	 * @return OauthClientVO 对象
+	*/
+	@Transient
+	public static OauthClientVO create() {
+		return new org.github.foxnic.web.domain.oauth.meta.OauthClientVOMeta.$$proxy$$();
 	}
 }

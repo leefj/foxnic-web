@@ -1,6 +1,8 @@
 package org.github.foxnic.web.oauth.controller;
 
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
@@ -24,14 +26,15 @@ import javax.servlet.http.HttpServletResponse;
  * @author 李方捷
  * @date 2021/03/18
  */
-@Api(tags = "验证码服务")
+@InDoc
+@Api(tags = "认证服务/验证码服务")
 @ApiSort(1)
 @Controller
 @RequestMapping(CaptchaController.CAPTCHA_URI)
 public class CaptchaController {
- 
+
 	public static final String CAPTCHA_URI="/security/captcha";
-	
+
 	@Autowired
 	private ICaptchaService validateCodeService;
     /**
@@ -39,7 +42,7 @@ public class CaptchaController {
      *
      * @throws Exception
      */
-	@ApiOperation(value = "获取验证码图片")
+	@ApiOperation(value = "获取验证码图片",notes = "用于生成验证并返回生成的验证码图片")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "browserId" , value = "客户端唯一码" , required = true , dataTypeClass=String.class),
 	})
@@ -52,7 +55,7 @@ public class CaptchaController {
         // 三个参数分别为宽、高、位数
         //GifCaptcha gifCaptcha = new GifCaptcha(100, 35, 4);
         SpecCaptcha captcha = new SpecCaptcha(100, 35, 4);
-        
+
         // 设置类型：字母数字混合
         captcha.setCharType(Captcha.TYPE_DEFAULT);
         // 保存验证码
@@ -61,5 +64,5 @@ public class CaptchaController {
         captcha.out(response.getOutputStream());
 
     }
- 
+
 }

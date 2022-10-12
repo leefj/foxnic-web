@@ -39,7 +39,7 @@ public class SwaggerConfig4Job extends BasicSwaggerConfig {
         return new ApiInfoBuilder()
                 .title("计划任务")
                 .description("用于系统相关定时任务的调度。")
-                .version("1.0.0")
+                .version(FoxnicWebMeta.VERSION)
                 .build();
     }
 

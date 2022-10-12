@@ -1,7 +1,7 @@
 package org.github.foxnic.web.domain.oauth;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,98 +18,100 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * 在线会话
+ * <p>在线会话 , 数据表 sys_session_online 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-25 14:02:27
- * @sign 8D5AB1AAE0F0813B6BB50E95249C16C4
+ * @since 2022-10-12 15:38:26
+ * @sign 9DA453369728B9CBD532B7003F45E473
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_session_online")
+@ApiModel(description = "在线会话 ; 在线会话 , 数据表 sys_session_online 的PO类型")
 public class SessionOnline extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_SESSION_ONLINE.$TABLE;
-
+	
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-
+	
 	/**
 	 * 会话ID：会话ID
 	*/
 	@ApiModelProperty(required = false,value="会话ID" , notes = "会话ID")
 	private String sessionId;
-
+	
 	/**
 	 * 账户ID：账户ID
 	*/
 	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
 	private String userId;
-
+	
 	/**
 	 * 登录时间：登录时间
 	*/
 	@ApiModelProperty(required = false,value="登录时间" , notes = "登录时间")
 	private Date loginTime;
-
+	
 	/**
 	 * 最近一次交互时间：最近一次交互时间
 	*/
 	@ApiModelProperty(required = false,value="最近一次交互时间" , notes = "最近一次交互时间")
 	private Date interactTime;
-
+	
 	/**
 	 * 最后访问的地址：最后访问的地址
 	*/
 	@ApiModelProperty(required = false,value="最后访问的地址" , notes = "最后访问的地址")
 	private String interactUrl;
-
+	
 	/**
 	 * 登出时间：登出时间
 	*/
 	@ApiModelProperty(required = false,value="登出时间" , notes = "登出时间")
 	private Date logoutTime;
-
+	
 	/**
 	 * 会话时长：单位秒
 	*/
 	@ApiModelProperty(required = false,value="会话时长" , notes = "单位秒")
 	private Integer sessionTime;
-
+	
 	/**
 	 * 是否在线：是否在线
 	*/
 	@ApiModelProperty(required = false,value="是否在线" , notes = "是否在线")
 	private Integer online;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -116,55 +119,55 @@ public class SessionOnline extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 主机ID：主机ID
 	*/
 	@ApiModelProperty(required = false,value="主机ID" , notes = "主机ID")
 	private String hostId;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-
+	
 	/**
 	 * 节点实例ID：节点实例ID
 	*/
 	@ApiModelProperty(required = false,value="节点实例ID" , notes = "节点实例ID")
 	private String nodeId;
-
+	
 	/**
 	 * accessToken：accessToken
 	*/
 	@ApiModelProperty(required = false,value="accessToken" , notes = "accessToken")
 	private String accessToken;
-
+	
 	/**
 	 * refreshToken：refreshToken
 	*/
 	@ApiModelProperty(required = false,value="refreshToken" , notes = "refreshToken")
 	private String refreshToken;
-
+	
 	/**
 	 * 账户
 	*/
 	@ApiModelProperty(required = false,value="账户" , notes = "")
 	private User user;
-
+	
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -173,7 +176,7 @@ public class SessionOnline extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -183,7 +186,7 @@ public class SessionOnline extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 会话ID<br>
 	 * 会话ID
@@ -192,7 +195,7 @@ public class SessionOnline extends Entity {
 	public String getSessionId() {
 		return sessionId;
 	}
-
+	
 	/**
 	 * 设置 会话ID
 	 * @param sessionId 会话ID
@@ -202,7 +205,7 @@ public class SessionOnline extends Entity {
 		this.sessionId=sessionId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 账户ID<br>
 	 * 账户ID
@@ -211,7 +214,7 @@ public class SessionOnline extends Entity {
 	public String getUserId() {
 		return userId;
 	}
-
+	
 	/**
 	 * 设置 账户ID
 	 * @param userId 账户ID
@@ -221,7 +224,7 @@ public class SessionOnline extends Entity {
 		this.userId=userId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 登录时间<br>
 	 * 登录时间
@@ -230,7 +233,7 @@ public class SessionOnline extends Entity {
 	public Date getLoginTime() {
 		return loginTime;
 	}
-
+	
 	/**
 	 * 设置 登录时间
 	 * @param loginTime 登录时间
@@ -240,7 +243,7 @@ public class SessionOnline extends Entity {
 		this.loginTime=loginTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 最近一次交互时间<br>
 	 * 最近一次交互时间
@@ -249,7 +252,7 @@ public class SessionOnline extends Entity {
 	public Date getInteractTime() {
 		return interactTime;
 	}
-
+	
 	/**
 	 * 设置 最近一次交互时间
 	 * @param interactTime 最近一次交互时间
@@ -259,7 +262,7 @@ public class SessionOnline extends Entity {
 		this.interactTime=interactTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 最后访问的地址<br>
 	 * 最后访问的地址
@@ -268,7 +271,7 @@ public class SessionOnline extends Entity {
 	public String getInteractUrl() {
 		return interactUrl;
 	}
-
+	
 	/**
 	 * 设置 最后访问的地址
 	 * @param interactUrl 最后访问的地址
@@ -278,7 +281,7 @@ public class SessionOnline extends Entity {
 		this.interactUrl=interactUrl;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 登出时间<br>
 	 * 登出时间
@@ -287,7 +290,7 @@ public class SessionOnline extends Entity {
 	public Date getLogoutTime() {
 		return logoutTime;
 	}
-
+	
 	/**
 	 * 设置 登出时间
 	 * @param logoutTime 登出时间
@@ -297,7 +300,7 @@ public class SessionOnline extends Entity {
 		this.logoutTime=logoutTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 会话时长<br>
 	 * 单位秒
@@ -306,7 +309,7 @@ public class SessionOnline extends Entity {
 	public Integer getSessionTime() {
 		return sessionTime;
 	}
-
+	
 	/**
 	 * 设置 会话时长
 	 * @param sessionTime 会话时长
@@ -316,7 +319,7 @@ public class SessionOnline extends Entity {
 		this.sessionTime=sessionTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否在线<br>
 	 * 是否在线
@@ -325,7 +328,7 @@ public class SessionOnline extends Entity {
 	public Integer getOnline() {
 		return online;
 	}
-
+	
 	/**
 	 * 设置 是否在线
 	 * @param online 是否在线
@@ -335,7 +338,7 @@ public class SessionOnline extends Entity {
 		this.online=online;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -344,7 +347,7 @@ public class SessionOnline extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -354,7 +357,7 @@ public class SessionOnline extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -363,7 +366,7 @@ public class SessionOnline extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -373,7 +376,7 @@ public class SessionOnline extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -382,7 +385,7 @@ public class SessionOnline extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -392,7 +395,7 @@ public class SessionOnline extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -401,7 +404,7 @@ public class SessionOnline extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -411,7 +414,7 @@ public class SessionOnline extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -420,7 +423,7 @@ public class SessionOnline extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -433,7 +436,7 @@ public class SessionOnline extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -445,7 +448,7 @@ public class SessionOnline extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -461,7 +464,7 @@ public class SessionOnline extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -470,7 +473,7 @@ public class SessionOnline extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -480,7 +483,7 @@ public class SessionOnline extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -489,7 +492,7 @@ public class SessionOnline extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -499,7 +502,7 @@ public class SessionOnline extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 主机ID<br>
 	 * 主机ID
@@ -508,7 +511,7 @@ public class SessionOnline extends Entity {
 	public String getHostId() {
 		return hostId;
 	}
-
+	
 	/**
 	 * 设置 主机ID
 	 * @param hostId 主机ID
@@ -518,7 +521,7 @@ public class SessionOnline extends Entity {
 		this.hostId=hostId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -527,7 +530,7 @@ public class SessionOnline extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -537,7 +540,7 @@ public class SessionOnline extends Entity {
 		this.version=version;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 节点实例ID<br>
 	 * 节点实例ID
@@ -546,7 +549,7 @@ public class SessionOnline extends Entity {
 	public String getNodeId() {
 		return nodeId;
 	}
-
+	
 	/**
 	 * 设置 节点实例ID
 	 * @param nodeId 节点实例ID
@@ -556,7 +559,7 @@ public class SessionOnline extends Entity {
 		this.nodeId=nodeId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 accessToken<br>
 	 * accessToken
@@ -565,7 +568,7 @@ public class SessionOnline extends Entity {
 	public String getAccessToken() {
 		return accessToken;
 	}
-
+	
 	/**
 	 * 设置 accessToken
 	 * @param accessToken accessToken
@@ -575,7 +578,7 @@ public class SessionOnline extends Entity {
 		this.accessToken=accessToken;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 refreshToken<br>
 	 * refreshToken
@@ -584,7 +587,7 @@ public class SessionOnline extends Entity {
 	public String getRefreshToken() {
 		return refreshToken;
 	}
-
+	
 	/**
 	 * 设置 refreshToken
 	 * @param refreshToken refreshToken
@@ -594,7 +597,7 @@ public class SessionOnline extends Entity {
 		this.refreshToken=refreshToken;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 账户<br>
 	 * @return 账户
@@ -602,7 +605,7 @@ public class SessionOnline extends Entity {
 	public User getUser() {
 		return user;
 	}
-
+	
 	/**
 	 * 设置 账户
 	 * @param user 账户
@@ -643,6 +646,57 @@ public class SessionOnline extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public SessionOnline clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public SessionOnline duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta.$$proxy$$();
+		inst.setInteractTime(this.getInteractTime());
+		inst.setHostId(this.getHostId());
+		inst.setSessionTime(this.getSessionTime());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSessionId(this.getSessionId());
+		inst.setAccessToken(this.getAccessToken());
+		inst.setUserId(this.getUserId());
+		inst.setVersion(this.getVersion());
+		inst.setLogoutTime(this.getLogoutTime());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setLoginTime(this.getLoginTime());
+		inst.setInteractUrl(this.getInteractUrl());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setOnline(this.getOnline());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setNodeId(this.getNodeId());
+		inst.setRefreshToken(this.getRefreshToken());
+		if(all) {
+			inst.setUser(this.getUser());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public SessionOnline clone(boolean deep) {
+		return EntityContext.clone(SessionOnline.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 SessionOnline
 	 * @param sessionOnlineMap 包含实体信息的 Map 对象
 	 * @return SessionOnline , 转换好的的 SessionOnline 对象
@@ -650,7 +704,9 @@ public class SessionOnline extends Entity {
 	@Transient
 	public static SessionOnline createFrom(Map<String,Object> sessionOnlineMap) {
 		if(sessionOnlineMap==null) return null;
-		SessionOnline po = EntityContext.create(SessionOnline.class, sessionOnlineMap);
+		SessionOnline po = create();
+		EntityContext.copyProperties(po,sessionOnlineMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -662,7 +718,9 @@ public class SessionOnline extends Entity {
 	@Transient
 	public static SessionOnline createFrom(Object pojo) {
 		if(pojo==null) return null;
-		SessionOnline po = EntityContext.create(SessionOnline.class,pojo);
+		SessionOnline po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -672,6 +730,6 @@ public class SessionOnline extends Entity {
 	*/
 	@Transient
 	public static SessionOnline create() {
-		return EntityContext.create(SessionOnline.class);
+		return new org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta.$$proxy$$();
 	}
 }

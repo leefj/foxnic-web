@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,20 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * 菜单资源关系
+ * 菜单资源关系VO类型
+ * <p>菜单资源关系 , 数据表 sys_menu_resource 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:51:02
+ * @since 2022-10-12 15:38:21
  * @sign 4A3389A2BBD6170D6CC1CEA1846DDC20
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "菜单资源关系VO类型 ; 菜单资源关系 , 数据表 sys_menu_resource 的通用VO类型" , parent = MenuResource.class)
 public class MenuResourceVO extends MenuResource {
 
 	private static final long serialVersionUID = 1L;
@@ -353,6 +357,20 @@ public class MenuResourceVO extends MenuResource {
 	}
 
 	/**
+	 * 将 Map 转换成 MenuResourceVO
+	 * @param menuResourceMap 包含实体信息的 Map 对象
+	 * @return MenuResourceVO , 转换好的的 MenuResource 对象
+	*/
+	@Transient
+	public static MenuResourceVO createFrom(Map<String,Object> menuResourceMap) {
+		if(menuResourceMap==null) return null;
+		MenuResourceVO vo = create();
+		EntityContext.copyProperties(vo,menuResourceMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 MenuResourceVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return MenuResourceVO , 转换好的的 MenuResource 对象
@@ -360,8 +378,10 @@ public class MenuResourceVO extends MenuResource {
 	@Transient
 	public static MenuResourceVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		MenuResourceVO po = EntityContext.create(MenuResourceVO.class,pojo);
-		return po;
+		MenuResourceVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -370,6 +390,6 @@ public class MenuResourceVO extends MenuResource {
 	*/
 	@Transient
 	public static MenuResourceVO create() {
-		return EntityContext.create(MenuResourceVO.class);
+		return new org.github.foxnic.web.domain.oauth.meta.MenuResourceVOMeta.$$proxy$$();
 	}
 }

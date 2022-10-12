@@ -31,44 +31,44 @@ import java.util.List;
 
 @Service("SysTokenService")
 public class TokenServiceImpl extends SuperService<Token> implements ITokenService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
-	 * @param role 实体数据
+	 * @param token 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insert(Token token) {
 		return super.insert(token);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
-	 * @param roleList 实体数据清单
+	 * @param tokenList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insertList(List<Token> tokenList) {
 		return super.insertList(tokenList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 Token
 	 *
@@ -81,7 +81,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 		token.setId(id);
 		return dao.deleteEntity(token);
 	}
-	
+
 	/**
 	 * 按主键删除 Token
 	 *
@@ -92,15 +92,15 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 		Token token = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		token.setId(id);
-		token.setDeleted(dao.getDBTreaty().getTrueValue());
+		token.setDeleted(true);
 		token.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		token.setDeleteTime(new Date());
 		return dao.updateEntity(token,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
-	 * @param role 数据对象
+	 * @param token 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -108,10 +108,10 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	public Result update(Token token , SaveMode mode) {
 		return super.update(token , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
-	 * @param roleList 数据对象列表
+	 * @param tokenList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -119,8 +119,8 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	public Result updateList(List<Token> tokenList , SaveMode mode) {
 		return super.updateList(tokenList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 Token
 	 *
@@ -132,9 +132,9 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 Token
 	 *
@@ -147,10 +147,10 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -158,11 +158,11 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	public List<Token> queryList(Token sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -172,10 +172,10 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	public PagedList<Token> queryPagedList(Token sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -186,7 +186,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	public PagedList<Token> queryPagedList(Token sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -205,6 +205,6 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 
 		return dao.queryEntities(Token.class,new Expr("select * from sys_token where refresh_token_expire_time>now() or access_token_expire_time>now()"));
 	}
- 
+
 
 }

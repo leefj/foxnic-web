@@ -19,9 +19,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysResource();  //ok
 		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
-//		g.generateSysOAuthClient();
-//		g.generateSysSessionOnline();
-//		g.generateSysToken();
+		g.generateSysOAuthClient();
+		g.generateSysSessionOnline();
+		g.generateSysToken();
 		g.generateSysRole();
 		g.generateSysRoleUser();
 		g.generateSysMenu();
@@ -48,9 +48,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
-		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setPageController(WriteMode.IGNORE) //页面控制器
+		.setFormPage(WriteMode.IGNORE) //表单HTML页
+		.setListPage(WriteMode.IGNORE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();
@@ -158,9 +158,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
-		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setPageController(WriteMode.IGNORE) //页面控制器
+		.setFormPage(WriteMode.IGNORE) //表单HTML页
+		.setListPage(WriteMode.IGNORE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();

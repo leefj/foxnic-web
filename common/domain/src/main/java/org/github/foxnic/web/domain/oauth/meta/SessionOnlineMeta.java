@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-25 14:02:27
- * @sign 8D5AB1AAE0F0813B6BB50E95249C16C4
+ * @since 2022-10-12 15:38:26
+ * @sign 9DA453369728B9CBD532B7003F45E473
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -490,5 +491,49 @@ public class SessionOnlineMeta {
 			super.setUser(user);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public SessionOnline clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public SessionOnline duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setInteractTime(this.getInteractTime());
+			inst.setHostId(this.getHostId());
+			inst.setSessionTime(this.getSessionTime());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSessionId(this.getSessionId());
+			inst.setAccessToken(this.getAccessToken());
+			inst.setUserId(this.getUserId());
+			inst.setVersion(this.getVersion());
+			inst.setLogoutTime(this.getLogoutTime());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setLoginTime(this.getLoginTime());
+			inst.setInteractUrl(this.getInteractUrl());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setOnline(this.getOnline());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setNodeId(this.getNodeId());
+			inst.setRefreshToken(this.getRefreshToken());
+			if(all) {
+				inst.setUser(this.getUser());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

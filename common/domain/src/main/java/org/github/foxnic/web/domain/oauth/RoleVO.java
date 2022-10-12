@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,20 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * 角色
+ * 角色VO类型
+ * <p>角色 , 数据表 sys_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 15:51:05
+ * @since 2022-10-12 15:38:28
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "角色VO类型 ; 角色 , 数据表 sys_role 的通用VO类型" , parent = Role.class)
 public class RoleVO extends Role {
 
 	private static final long serialVersionUID = 1L;
@@ -355,6 +359,20 @@ public class RoleVO extends Role {
 	}
 
 	/**
+	 * 将 Map 转换成 RoleVO
+	 * @param roleMap 包含实体信息的 Map 对象
+	 * @return RoleVO , 转换好的的 Role 对象
+	*/
+	@Transient
+	public static RoleVO createFrom(Map<String,Object> roleMap) {
+		if(roleMap==null) return null;
+		RoleVO vo = create();
+		EntityContext.copyProperties(vo,roleMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 RoleVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return RoleVO , 转换好的的 Role 对象
@@ -362,8 +380,10 @@ public class RoleVO extends Role {
 	@Transient
 	public static RoleVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		RoleVO po = EntityContext.create(RoleVO.class,pojo);
-		return po;
+		RoleVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -372,6 +392,6 @@ public class RoleVO extends Role {
 	*/
 	@Transient
 	public static RoleVO create() {
-		return EntityContext.create(RoleVO.class);
+		return new org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$();
 	}
 }

@@ -44,9 +44,9 @@ public class SwaggerConfig4Example extends BasicSwaggerConfig {
 
     protected ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("示例模块")
+                .title("示例服务")
                 .description("用于系统开发演示的示例模块。")
-                .version("1.0.0")
+                .version(FoxnicWebMeta.VERSION)
                 .build();
     }
 

@@ -6,6 +6,8 @@ import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 
+import java.util.List;
+
 public abstract class DynamicMenuHandler {
 
     private static LocalCache<String, DynamicMenuHandler> HANDLERS=new LocalCache<>();
@@ -33,4 +35,10 @@ public abstract class DynamicMenuHandler {
      * 动态获得菜单名称
      * */
     public abstract String getLabel(Menu menu,User user);
+
+    /**
+     * 获得额外的下级菜单名称
+     * */
+    public abstract List<Menu> generateExtraChildNodes(Menu menu, User user);
+
 }

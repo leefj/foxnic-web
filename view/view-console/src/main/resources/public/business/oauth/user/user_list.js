@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-06 13:48:55
+ * @since 2022-10-12 15:35:53
  */
 
 
@@ -79,12 +79,12 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'account', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('account',d.account,d);}  }
 					,{ field: 'realName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',d.realName,d);}  }
-					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
-					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language,'#BY-THEME','language'),d);}}
-					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
-					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','#BY-THEME','roleIds'),d);}}
+					,{ field: 'portraitId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('头像ID') , templet: function (d) { return templet('portraitId',d.portraitId,d);}  }
+					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言') , templet: function (d) { return templet('language',d.language,d);}  }
+					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机号码') , templet: function (d) { return templet('phone',d.phone,d);}  }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效') , templet: function (d) { return templet('valid',d.valid,d);}  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'passwd', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('密码') , templet: function (d) { return templet('passwd',d.passwd,d);}  }
 					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
@@ -99,11 +99,6 @@ function ListPage() {
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
-			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
-				refreshRowData(data,true);
-			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.sortField,obj.type);
@@ -141,12 +136,16 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.account={ inputType:"button",value: $("#account").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.language={ inputType:"radio_box", value: getSelectedValue("#language","value"), label:getSelectedValue("#language","nameStr") };
-		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
-		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
+		value.account={ inputType:"button",value: $("#account").val()};
+		value.realName={ inputType:"button",value: $("#realName").val()};
+		value.portraitId={ inputType:"button",value: $("#portraitId").val()};
+		value.language={ inputType:"button",value: $("#language").val()};
+		value.phone={ inputType:"button",value: $("#phone").val()};
+		value.valid={ inputType:"number_input", value: $("#valid").val() };
+		value.id={ inputType:"button",value: $("#id").val()};
+		value.passwd={ inputType:"button",value: $("#passwd").val()};
+		value.cacheKey={ inputType:"button",value: $("#cacheKey").val()};
+		value.lastLoginTime={ inputType:"date_input", value: $("#lastLoginTime").val() ,matchType:"auto"};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -194,71 +193,13 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		//渲染 language 搜索框
-		fox.renderSelectBox({
-			el: "language",
-			size: "small",
-			radio: true,
-			on: function(data){
+		laydate.render({
+			elem: '#lastLoginTime',
+			trigger:"click",
+			done: function(value, date, endDate) {
 				setTimeout(function () {
-					if(data.change && data.change.length>0) {
-						refreshTableData();
-					}
-					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("language",data.arr,data.change,data.isAdd);
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("lastLoginTime",value, date, endDate);
 				},1);
-			},
-			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
-			transform:function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					opts.push({data:data[i],name:data[i].text,value:data[i].code});
-				}
-				return opts;
-			}
-		});
-		//渲染 valid 搜索框
-		fox.renderSelectBox({
-			el: "valid",
-			size: "small",
-			radio: true,
-			on: function(data){
-				setTimeout(function () {
-					if(data.change && data.change.length>0) {
-						refreshTableData();
-					}
-					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
-				},1);
-			},
-		});
-		//渲染 roleIds 下拉字段
-		fox.renderSelectBox({
-			el: "roleIds",
-			radio: true,
-			size: "small",
-			filterable: true,
-			on: function(data){
-				setTimeout(function () {
-					if(data.change && data.change.length>0) {
-						refreshTableData();
-					}
-					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("roleIds",data.arr,data.change,data.isAdd);
-				},1);
-			},
-			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
-			//转换数据
-			searchField: "name", //请自行调整用于搜索的字段名称
-			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({data:data[i],name:data[i].name,value:data[i].id});
-				}
-				return opts;
 			}
 		});
 		fox.renderSearchInputs();

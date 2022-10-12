@@ -1,4 +1,4 @@
-package org.github.foxnic.web.system.permision;
+package org.github.foxnic.web.proxy.oauth.handler;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.VersionType;
@@ -6,6 +6,8 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.DynamicMenuHandler;
+
+import java.util.List;
 
 public class CodeExampleDyHandler extends DynamicMenuHandler {
 
@@ -25,5 +27,10 @@ public class CodeExampleDyHandler extends DynamicMenuHandler {
     public String getLabel(Menu menu, User user) {
         //根据不同的情况显示不同的菜单标题，如待数量等
         return "代码生成示例("+(System.currentTimeMillis()%10)+")";
+    }
+
+    @Override
+    public List<Menu> generateExtraChildNodes(Menu menu, User user) {
+        return null;
     }
 }

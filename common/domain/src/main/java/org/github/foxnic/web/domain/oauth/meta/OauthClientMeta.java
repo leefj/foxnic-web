@@ -1,128 +1,240 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.OauthClient;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:51
- * @sign 80217A241E1E48648680C90E230A2E8A
+ * @since 2022-10-12 15:38:25
+ * @sign 547B58F40BD29A5F2269D6519356D46E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class OauthClientMeta {
 	
 	/**
-	 * 客户端标识
+	 * 客户端标识 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 名称
+	 * 客户端标识 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,ID, java.lang.String.class, "客户端标识", "客户端标识", java.lang.String.class, null);
+	
+	/**
+	 * 名称 , 类型: java.lang.String
 	*/
 	public static final String NAME="name";
 	
 	/**
-	 * 资源集合 , 用逗号隔开
+	 * 名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	
+	/**
+	 * 资源集合 , 用逗号隔开 , 类型: java.lang.String
 	*/
 	public static final String RESOURCE_IDS="resourceIds";
 	
 	/**
-	 * 访问密匙
+	 * 资源集合 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> RESOURCE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,RESOURCE_IDS, java.lang.String.class, "资源集合", "用逗号隔开", java.lang.String.class, null);
+	
+	/**
+	 * 访问密匙 , 类型: java.lang.String
 	*/
 	public static final String CLIENT_SECRET="clientSecret";
 	
 	/**
-	 * 权限范围
+	 * 访问密匙 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> CLIENT_SECRET_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,CLIENT_SECRET, java.lang.String.class, "访问密匙", "访问密匙", java.lang.String.class, null);
+	
+	/**
+	 * 权限范围 , 类型: java.lang.String
 	*/
 	public static final String SCOPE="scope";
 	
 	/**
-	 * 授权类型
+	 * 权限范围 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> SCOPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,SCOPE, java.lang.String.class, "权限范围", "权限范围", java.lang.String.class, null);
+	
+	/**
+	 * 授权类型 , 类型: java.lang.String
 	*/
 	public static final String AUTHORIZED_GRANT_TYPES="authorizedGrantTypes";
 	
 	/**
-	 * 重定向URI
+	 * 授权类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> AUTHORIZED_GRANT_TYPES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,AUTHORIZED_GRANT_TYPES, java.lang.String.class, "授权类型", "授权类型", java.lang.String.class, null);
+	
+	/**
+	 * 重定向URI , 类型: java.lang.String
 	*/
 	public static final String WEB_SERVER_REDIRECT_URI="webServerRedirectUri";
 	
 	/**
-	 * 权限值列表
+	 * 重定向URI , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> WEB_SERVER_REDIRECT_URI_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,WEB_SERVER_REDIRECT_URI, java.lang.String.class, "重定向URI", "重定向URI", java.lang.String.class, null);
+	
+	/**
+	 * 权限值列表 , 类型: java.lang.String
 	*/
 	public static final String AUTHORITIES="authorities";
 	
 	/**
-	 * access , token时长(秒)
+	 * 权限值列表 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> AUTHORITIES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,AUTHORITIES, java.lang.String.class, "权限值列表", "权限值列表", java.lang.String.class, null);
+	
+	/**
+	 * access , token时长(秒) , 类型: java.lang.Integer
 	*/
 	public static final String ACCESS_TOKEN_VALIDITY="accessTokenValidity";
 	
 	/**
-	 * refresh , token时长(秒)
+	 * access , token时长(秒) , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> ACCESS_TOKEN_VALIDITY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,ACCESS_TOKEN_VALIDITY, java.lang.Integer.class, "access", "token时长(秒)", java.lang.Integer.class, null);
+	
+	/**
+	 * refresh , token时长(秒) , 类型: java.lang.Integer
 	*/
 	public static final String REFRESH_TOKEN_VALIDITY="refreshTokenValidity";
 	
 	/**
-	 * 备注信息
+	 * refresh , token时长(秒) , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> REFRESH_TOKEN_VALIDITY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,REFRESH_TOKEN_VALIDITY, java.lang.Integer.class, "refresh", "token时长(秒)", java.lang.Integer.class, null);
+	
+	/**
+	 * 备注信息 , 类型: java.lang.String
 	*/
 	public static final String NOTES="notes";
 	
 	/**
-	 * 是否有效
+	 * 备注信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,NOTES, java.lang.String.class, "备注信息", "备注信息", java.lang.String.class, null);
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
 	*/
 	public static final String VALID="valid";
 	
 	/**
-	 * 是否自动Approval操作
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否自动Approval操作 , 类型: java.lang.Integer
 	*/
 	public static final String AUTO_APPROVE="autoApprove";
 	
 	/**
-	 * 是否信任
+	 * 是否自动Approval操作 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> AUTO_APPROVE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,AUTO_APPROVE, java.lang.Integer.class, "是否自动Approval操作", "是否自动Approval操作", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否信任 , 类型: java.lang.Integer
 	*/
 	public static final String TRUSTED="trusted";
 	
 	/**
-	 * 创建人ID
+	 * 是否信任 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> TRUSTED_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,TRUSTED, java.lang.Integer.class, "是否信任", "是否信任", java.lang.Integer.class, null);
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
 	
 	/**
-	 * 创建时间
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final String CREATE_TIME="createTime";
 	
 	/**
-	 * 修改人ID
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final String UPDATE_BY="updateBy";
 	
 	/**
-	 * 修改时间
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final String UPDATE_TIME="updateTime";
 	
 	/**
-	 * 是否已删除
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final String DELETED="deleted";
 	
 	/**
-	 * 删除人ID
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final String DELETE_BY="deleteBy";
 	
 	/**
-	 * 删除时间
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final String DELETE_TIME="deleteTime";
 	
 	/**
-	 * 数据版本号
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.OauthClient,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.OauthClient.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -378,5 +490,47 @@ public class OauthClientMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public OauthClient clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public OauthClient duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setAuthorizedGrantTypes(this.getAuthorizedGrantTypes());
+			inst.setNotes(this.getNotes());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setAuthorities(this.getAuthorities());
+			inst.setAccessTokenValidity(this.getAccessTokenValidity());
+			inst.setAutoApprove(this.getAutoApprove());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setTrusted(this.getTrusted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setRefreshTokenValidity(this.getRefreshTokenValidity());
+			inst.setScope(this.getScope());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setClientSecret(this.getClientSecret());
+			inst.setWebServerRedirectUri(this.getWebServerRedirectUri());
+			inst.setId(this.getId());
+			inst.setResourceIds(this.getResourceIds());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

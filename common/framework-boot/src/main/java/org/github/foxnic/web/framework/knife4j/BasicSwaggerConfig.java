@@ -7,6 +7,7 @@ import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.RequestHandler;
@@ -60,7 +61,7 @@ public abstract class BasicSwaggerConfig {
                 .groupName(this.getGroupName())
                 .select()
                 .apis(basePackage(StringUtil.join(basePackages, ",")))
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .apis(RequestHandlerSelectors.withClassAnnotation(InDoc.class))
                 .paths(PathSelectors.any())
                 .build()

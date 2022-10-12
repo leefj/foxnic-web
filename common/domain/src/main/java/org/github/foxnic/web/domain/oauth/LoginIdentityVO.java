@@ -1,8 +1,10 @@
 package org.github.foxnic.web.domain.oauth;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.system.LoginType;
 import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -15,11 +17,12 @@ import com.github.foxnic.dao.entity.Entity;
 /**
  * 用于App登录接口
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-06 13:48:50
+ * @since 2022-10-12 15:35:52
  * @sign 67CB1F28B06642A43DD3CE559E713A6B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel()
 public class LoginIdentityVO {
 
 	private static final long serialVersionUID = 1L;
@@ -157,6 +160,7 @@ public class LoginIdentityVO {
 	 * @param loginType 登录方式
 	 * @return 当前对象
 	*/
+	@JsonProperty("loginType")
 	public LoginIdentityVO setLoginType(String loginType) {
 		this.loginType=loginType;
 		this.loginTypeEnum= (LoginType) EnumUtil.parseByCode(LoginType.values(),loginType) ;
@@ -215,6 +219,22 @@ public class LoginIdentityVO {
 		LoginIdentityVO po = new LoginIdentityVO();
 		BeanUtil.copy(pojo,po,true);
 		return po;
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public LoginIdentityVO duplicate(boolean all) {
+		LoginIdentityVO inst = new LoginIdentityVO();
+		// others
+			inst.setBrowserId(this.getBrowserId());
+			inst.setPasswd(this.getPasswd());
+			inst.setCaptcha(this.getCaptcha());
+			inst.setLoginType(this.getLoginType());
+			inst.setIdentity(this.getIdentity());
+		return inst;
 	}
 
 	/**
