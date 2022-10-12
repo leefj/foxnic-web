@@ -1,6 +1,6 @@
 spring:
-  servlet: 
-    multipart: 
+  servlet:
+    multipart:
       max-file-size: 100MB
       max-request-size: 100MB
   datasource:
@@ -13,7 +13,7 @@ spring:
             mac: /Users/Shared/foxnic/passwd.txt
             linux: /foxnic/passwd.txt
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: ai+mCm8asbK9SNrQDk7ac29neidjdgHp2jFU7HYbZZOmvbR4OKNXb877AJzdYToBGLgN+etaRMM4wzovFLMULMH6brIo3zgsyub026w4Il4Oqg9jzyYsLaa6LNyznmYm5kKoS17K9XHBX8e0lDuik9pcc/DfdjaUkhm0MmOALUM86dHiyURHUP5hfQ4otf/kE9gVP+GO1G7fUdc4JBLDYylfBzmp9SNKQcTLQ/5AkWcnbm89+5pAz4JNnCJILF0B
+        url: ggdlOOBMie3vE8HByRqs+BgUVl6hx82mm7MvCATepLnLyfrv38EeIWdtheCT15s9ZFxardNYEjXZRNf9VGmxy6VzfkOzLPRJMv4cbXMD8m5RZtAt5flc/PfNB2ScolLZ9htpur58Y4AMzJD3ma0pJA8m9Mild+AG93Lnbn72yoA6SAENEhP27C0vXcDnMBzPLLNhgZSZ0mT8b92Yc3X0xqzKbPcXfg2XdJy84evH+qw04hjuX9RtsLEmjLX6QRHH
         username: tD5wkJAfnCt04A+Y+QN5GA==
         password: ODGx5F84xpWJgfRFnzAaYhViHJqrTO3uxxDZ2lRlZNk=
         min-idle: 1
@@ -24,25 +24,25 @@ spring:
 
 
 logging:
-  config: classpath:logback-config.xml  
+  config: classpath:logback-config.xml
 
-snowflake: 
-  datacenterId: 1  
+snowflake:
+  datacenterId: 1
   workerId: 1
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"  
+        include: "*"
 
-knife4j: 
+knife4j:
   enable: true
   title: ${spring.application.name}
   description: ${spring.application.description}
-  version: 1.0        
+  version: 1.0
 
-upload: 
+upload:
   windows: c:/upload
   mac: /Users/LeeFJ/git/tailoring/uploads
-  linux: /tailoring/uploads         
+  linux: /tailoring/uploads

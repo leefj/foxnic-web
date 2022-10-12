@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:50
+ * @since 2022-10-12 14:48:00
  */
 
 
@@ -87,6 +87,7 @@ function ListPage() {
 					,{ field: 'regionType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型') , templet: function (d) { return templet('regionType',d.regionType,d);}  }
 					,{ field: 'regionLocation', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地区位置') , templet: function (d) { return templet('regionLocation',d.regionLocation,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'dd', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('sf') , templet: function (d) { return templet('dd',d.dd,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -142,6 +143,7 @@ function ListPage() {
 		value.regionType={ inputType:"button",value: $("#regionType").val()};
 		value.regionLocation={ inputType:"button",value: $("#regionLocation").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.dd={ inputType:"button",value: $("#dd").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -193,15 +195,6 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		laydate.render({
-			elem: '#createTime',
-			trigger:"click",
-			done: function(value, date, endDate) {
-				setTimeout(function () {
-					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("createTime",value, date, endDate);
-				},1);
-			}
-		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

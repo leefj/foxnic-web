@@ -14,11 +14,11 @@ public class EncryptUtil {
         AESUtil aes=new AESUtil(passwd);
 //        String user="root";
 //        String pwd="P@sse12311111";
-//        String url="jdbc:mysql://139.105.191.122:3306/eam_XXX?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false";
+        String url="jdbc:mysql://121.43.103.102:3306/foxnic?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false";
 
         String user="mmxt";
         String pwd="123";
-        String url="jdbc:dm://121.143.103.102:5537/mmxt";
+//        String url="jdbc:dm://121.143.103.102:5537/mmxt";
 
         user=aes.encryptData(user);
         pwd=aes.encryptData(pwd);

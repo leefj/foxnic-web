@@ -14,8 +14,8 @@ import com.github.foxnic.dao.entity.Entity;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:47
- * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
+ * @since 2022-10-12 14:48:00
+ * @sign 7F9DE8FD80A631866037FAB5EF06213D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,6 +59,12 @@ public class AddressPureModel {
 	*/
 	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
 	private String regionLocation;
+	
+	/**
+	 * sf：sf
+	*/
+	@ApiModelProperty(required = false,value="sf" , notes = "sf")
+	private String dd;
 	
 	/**
 	 * 获得 主键<br>
@@ -173,6 +179,25 @@ public class AddressPureModel {
 		this.regionLocation=regionLocation;
 		return this;
 	}
+	
+	/**
+	 * 获得 sf<br>
+	 * sf
+	 * @return sf
+	*/
+	public String getDd() {
+		return dd;
+	}
+	
+	/**
+	 * 设置 sf
+	 * @param dd sf
+	 * @return 当前对象
+	*/
+	public AddressPureModel setDd(String dd) {
+		this.dd=dd;
+		return this;
+	}
 
 	/**
 	 * 创建一个 AddressPureModel，等同于 new
@@ -216,6 +241,7 @@ public class AddressPureModel {
 	@Transient
 	public AddressPureModel duplicate(boolean all) {
 		AddressPureModel inst = new AddressPureModel();
+		inst.setDd(this.getDd());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setAddress(this.getAddress());
 		inst.setRegionType(this.getRegionType());

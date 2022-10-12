@@ -18,7 +18,7 @@ import java.util.Map;
  * 订单地址VO类型
  * <p>订单地址 , 数据表 example_address 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:47
+ * @since 2022-10-12 14:48:00
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -322,6 +322,7 @@ public class AddressVO extends Address {
 	@Transient
 	public AddressVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.example.meta.AddressVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressVOMeta.$$proxy$$();
+		inst.setDd(this.getDd());
 		inst.setAddress(this.getAddress());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setRegionLocation(this.getRegionLocation());

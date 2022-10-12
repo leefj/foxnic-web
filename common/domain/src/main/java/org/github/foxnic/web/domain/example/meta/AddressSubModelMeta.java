@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:47
+ * @since 2022-10-12 14:48:00
  * @sign 9E592FF32177CCE731954B80F8619340
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -98,6 +98,16 @@ public class AddressSubModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressSubModel,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressSubModel.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "地区位置，东北、华北等", java.lang.String.class, null);
 	
 	/**
+	 * sf , 类型: java.lang.String
+	*/
+	public static final String DD="dd";
+	
+	/**
+	 * sf , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressSubModel,java.lang.String> DD_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressSubModel.class ,DD, java.lang.String.class, "sf", "sf", java.lang.String.class, null);
+	
+	/**
 	 * 其它 , 类型: java.lang.String
 	*/
 	public static final String OTHER="other";
@@ -120,7 +130,7 @@ public class AddressSubModelMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ POST_CODE , POST_CODE2 , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , OTHER , ADDRESS_X };
+	public static final String[] $PROPS={ POST_CODE , POST_CODE2 , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , OTHER , ADDRESS_X };
 	
 	/**
 	 * 代理类
@@ -219,6 +229,17 @@ public class AddressSubModelMeta {
 		}
 		
 		/**
+		 * 设置 sf
+		 * @param dd sf
+		 * @return 当前对象
+		*/
+		public AddressModel setDd(String dd) {
+			super.change(DD,super.getDd(),dd);
+			super.setDd(dd);
+			return this;
+		}
+		
+		/**
 		 * 设置 其它
 		 * @param other 其它
 		 * @return 当前对象
@@ -255,6 +276,7 @@ public class AddressSubModelMeta {
 		@Transient
 		public AddressSubModel duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
+			inst.setDd(this.getDd());
 			inst.setPhoneNumber(this.getPhoneNumber());
 			inst.setAddress(this.getAddress());
 			inst.setRegionType(this.getRegionType());

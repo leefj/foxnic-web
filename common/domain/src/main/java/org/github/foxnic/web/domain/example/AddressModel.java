@@ -13,8 +13,8 @@ import com.github.foxnic.dao.entity.EntityContext;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:47
- * @sign A19FA58A64BD91EFF8DF7F6A1D2FD250
+ * @since 2022-10-12 14:48:00
+ * @sign 661F0E9246318269F1437BB46BCB3BED
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,6 +58,12 @@ public class AddressModel extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
 	private String regionLocation;
+	
+	/**
+	 * sf：sf
+	*/
+	@ApiModelProperty(required = false,value="sf" , notes = "sf")
+	private String dd;
 	
 	/**
 	 * 其它：其它
@@ -186,6 +192,25 @@ public class AddressModel extends Entity {
 	}
 	
 	/**
+	 * 获得 sf<br>
+	 * sf
+	 * @return sf
+	*/
+	public String getDd() {
+		return dd;
+	}
+	
+	/**
+	 * 设置 sf
+	 * @param dd sf
+	 * @return 当前对象
+	*/
+	public AddressModel setDd(String dd) {
+		this.dd=dd;
+		return this;
+	}
+	
+	/**
 	 * 获得 其它<br>
 	 * 其它
 	 * @return 其它
@@ -258,6 +283,7 @@ public class AddressModel extends Entity {
 	@Transient
 	public AddressModel duplicate(boolean all) {
 		org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
+		inst.setDd(this.getDd());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setAddress(this.getAddress());
 		inst.setRegionType(this.getRegionType());

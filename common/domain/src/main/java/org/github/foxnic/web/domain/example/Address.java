@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-29 17:09:47
- * @sign DC13DD184293CCD592CFDAA93BF3DAC3
+ * @since 2022-10-12 14:48:00
+ * @sign 1F813FF1CB7AA2ECDEBCB23C056BDF64
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -119,6 +119,12 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="版本" , notes = "版本")
 	private Integer version;
+	
+	/**
+	 * sf：sf
+	*/
+	@ApiModelProperty(required = false,value="sf" , notes = "sf")
+	private String dd;
 	
 	/**
 	 * 引用1：引用1
@@ -424,6 +430,25 @@ public class Address extends Entity {
 	}
 	
 	/**
+	 * 获得 sf<br>
+	 * sf
+	 * @return sf
+	*/
+	public String getDd() {
+		return dd;
+	}
+	
+	/**
+	 * 设置 sf
+	 * @param dd sf
+	 * @return 当前对象
+	*/
+	public Address setDd(String dd) {
+		this.dd=dd;
+		return this;
+	}
+	
+	/**
 	 * 获得 引用1<br>
 	 * 引用1
 	 * @return 引用1
@@ -486,6 +511,7 @@ public class Address extends Entity {
 	@Transient
 	public Address duplicate(boolean all) {
 		org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$();
+		inst.setDd(this.getDd());
 		inst.setAddress(this.getAddress());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setRegionLocation(this.getRegionLocation());

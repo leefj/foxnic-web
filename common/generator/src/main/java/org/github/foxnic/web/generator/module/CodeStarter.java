@@ -47,9 +47,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initDatapermModules();
 //
 //        initExample2Modules();
-        initJobModules();
+//        initJobModules();
 
-        initApiModules();
+//        initApiModules();
 
     }
 
