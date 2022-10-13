@@ -1,20 +1,17 @@
-package org.github.foxnic.web.proxy.oauth.handler;
+package org.github.foxnic.web.framework.busi.menu;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.domain.api.ApiSource;
 import org.github.foxnic.web.domain.api.ApiSourceVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.api.ApiSourceServiceProxy;
-import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.DynamicMenuHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocletDyHandler extends DynamicMenuHandler {
+public class DocketDyHandler extends DynamicMenuHandler {
 
     @Override
     public boolean hasPermission(Menu menu, User user) {

@@ -418,17 +418,24 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		List<Menu> remMenus=new ArrayList<>();
 		List<Menu> dySubMenus=new ArrayList<>();
 		for (Menu menu : userMenus) {
+			// 临时处理
+			if(menu.getId().equals("631513237405302784")) {
+				menu.setDynamicHandler("org.github.foxnic.web.framework.busi.menu.DocketDyHandler");
+			}
+			//
 			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
 				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-				boolean has = dy.hasPermission(menu, user);
-				if (!has) {
-					remMenus.add(menu);
-				}
-				String title = dy.getLabel(menu, user);
-				menu.setLabel(title);
-				List<Menu> subs=dy.generateExtraChildNodes(menu,user);
-				if(subs!=null) {
-					dySubMenus.addAll(subs);
+				if(dy!=null) {
+					boolean has = dy.hasPermission(menu, user);
+					if (!has) {
+						remMenus.add(menu);
+					}
+					String title = dy.getLabel(menu, user);
+					menu.setLabel(title);
+					List<Menu> subs = dy.generateExtraChildNodes(menu, user);
+					if (subs != null) {
+						dySubMenus.addAll(subs);
+					}
 				}
 			}
 

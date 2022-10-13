@@ -1,4 +1,4 @@
-package org.github.foxnic.web.proxy.oauth.handler;
+package org.github.foxnic.web.framework.busi.menu;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.VersionType;

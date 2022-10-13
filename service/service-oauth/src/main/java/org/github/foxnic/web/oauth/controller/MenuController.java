@@ -1,7 +1,9 @@
 package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiResponseSupport;
 import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.swagger.Model;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuService;
@@ -34,8 +37,8 @@ import java.util.List;
  * @since 2021-06-01 09:27:29
  * @version
  */
-//@InDoc
-@Api(tags = "菜单")
+@InDoc
+@Api(tags = "认证服务/菜单接口2")
 @ApiSort(0)
 @RestController("SysMenuController")
 public class MenuController {
@@ -99,6 +102,9 @@ public class MenuController {
     @NotNull(name = MenuVOMeta.ID)
     @SentinelResource(value = MenuServiceProxy.DELETE)
     @PostMapping(MenuServiceProxy.DELETE)
+    @ApiResponseSupport( {
+        @Model(name = "MenuForDelete",baseModelType = Menu.class,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE})
+    })
     public Result<Menu> deleteById(String id) {
         Result<Menu> result = new Result<>();
         List children = menuService.queryChildNodes(id, null);
@@ -207,7 +213,7 @@ public class MenuController {
     /**
      * 查询菜单
      */
-    @ApiOperation(value = "查询菜单")
+    @ApiOperation(value = "查询菜单列表")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "451739178166648832"),
@@ -237,7 +243,7 @@ public class MenuController {
     /**
      * 查询菜单节点
      */
-    @ApiOperation(value = "查询菜单")
+    @ApiOperation(value = "查询菜单节点")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "451739178166648832"),
