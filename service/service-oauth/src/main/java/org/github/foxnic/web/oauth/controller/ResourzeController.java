@@ -45,8 +45,8 @@ import java.util.Map;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-03 18:46:21
  */
-//@InDoc
-@Api(tags = "系统资源")
+@InDoc
+@Api(tags = "认证服务/系统资源")
 @ApiSort(0)
 @RestController("SysResourzeController")
 public class ResourzeController extends SuperController {
@@ -271,7 +271,7 @@ public class ResourzeController extends SuperController {
      * 导出 Excel
      */
     @SentinelResource(value = ResourzeServiceProxy.EXPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(ResourzeServiceProxy.EXPORT_EXCEL)
+    @PostMapping(ResourzeServiceProxy.EXPORT_EXCEL)
     public void exportExcel(ResourzeVO sample, HttpServletResponse response) throws Exception {
         // 生成 Excel 数据
         ExcelWriter ew = resourzeService.exportExcel(sample);
@@ -283,7 +283,7 @@ public class ResourzeController extends SuperController {
      * 导出 Excel 模板
      */
     @SentinelResource(value = ResourzeServiceProxy.EXPORT_EXCEL_TEMPLATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(ResourzeServiceProxy.EXPORT_EXCEL_TEMPLATE)
+    @PostMapping(ResourzeServiceProxy.EXPORT_EXCEL_TEMPLATE)
     public void exportExcelTemplate(HttpServletResponse response) throws Exception {
         // 生成 Excel 模版
         ExcelWriter ew = resourzeService.exportExcelTemplate();
@@ -292,7 +292,7 @@ public class ResourzeController extends SuperController {
     }
 
     @SentinelResource(value = ResourzeServiceProxy.IMPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(ResourzeServiceProxy.IMPORT_EXCEL)
+    @PostMapping(ResourzeServiceProxy.IMPORT_EXCEL)
     public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
         // 获得上传的文件
         Map<String, MultipartFile> map = request.getFileMap();

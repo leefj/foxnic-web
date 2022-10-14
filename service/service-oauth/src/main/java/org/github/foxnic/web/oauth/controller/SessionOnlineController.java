@@ -32,8 +32,8 @@ import java.util.List;
  * @since 2021-06-01 09:27:28
  * @version
  */
-//@InDoc
-@Api(tags = "在线会话")
+@InDoc
+@Api(tags = "认证服务/在线会话")
 @ApiSort(0)
 @RestController("SysSessionOnlineController")
 public class SessionOnlineController {

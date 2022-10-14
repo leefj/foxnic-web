@@ -44,8 +44,8 @@ import java.util.Map;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-06 16:53:31
  */
-//@InDoc
-@Api(tags = "角色")
+@InDoc
+@Api(tags = "认证服务/角色接口")
 @ApiSort(0)
 @RestController("SysRoleController")
 public class RoleController extends SuperController {
@@ -225,7 +225,7 @@ public class RoleController extends SuperController {
      * 导出 Excel
      */
     @SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(RoleServiceProxy.EXPORT_EXCEL)
+    @PostMapping(RoleServiceProxy.EXPORT_EXCEL)
     public void exportExcel(RoleVO sample, HttpServletResponse response) throws Exception {
         try {
             // 生成 Excel 数据
@@ -241,7 +241,7 @@ public class RoleController extends SuperController {
      * 导出 Excel 模板
      */
     @SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL_TEMPLATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(RoleServiceProxy.EXPORT_EXCEL_TEMPLATE)
+    @PostMapping(RoleServiceProxy.EXPORT_EXCEL_TEMPLATE)
     public void exportExcelTemplate(HttpServletResponse response) throws Exception {
         try {
             // 生成 Excel 模版
@@ -254,7 +254,7 @@ public class RoleController extends SuperController {
     }
 
     @SentinelResource(value = RoleServiceProxy.IMPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
-    @RequestMapping(RoleServiceProxy.IMPORT_EXCEL)
+    @PostMapping(RoleServiceProxy.IMPORT_EXCEL)
     public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
         // 获得上传的文件
         Map<String, MultipartFile> map = request.getFileMap();

@@ -49,8 +49,8 @@ import java.util.List;
  * @since 2021-06-01 09:27:27
  * @version manual
  */
-//@InDoc
-@Api(tags = "账户")
+@InDoc
+@Api(tags = "认证服务/账户接口")
 @ApiSort(0)
 @RestController("SysUserController")
 public class UserController extends SuperController {

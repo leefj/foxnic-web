@@ -38,7 +38,7 @@ import java.util.List;
  * @version
  */
 @InDoc
-@Api(tags = "认证服务/菜单接口2")
+@Api(tags = "认证服务/菜单接口")
 @ApiSort(0)
 @RestController("SysMenuController")
 public class MenuController {
