@@ -389,10 +389,6 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		$.each(option.data, function (i, item) {
 			var menuItem = '';
 			var controlItem = '';
-			if(item==null) {
-				debugger
-				return;
-			}
 			var navIcon=item.icon;
 			if(navIcon.indexOf("mdi-")>=0) {
 				navIcon+=" mdi-17px6rp";
