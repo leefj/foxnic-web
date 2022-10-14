@@ -134,7 +134,8 @@ spring:
 
 #设置开发选项
 develop:
-  language: confuse
+  # 语言，生产环境不需要指定，开发时时，可指定 confuse
+  language:
   start-relation-monitor: true
   deploy:
     enable: true
