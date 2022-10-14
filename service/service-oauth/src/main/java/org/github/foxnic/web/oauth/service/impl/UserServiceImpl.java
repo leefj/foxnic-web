@@ -8,6 +8,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -83,7 +84,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 						if(user!=null) {
 							break;
 						}
-					} catch (Exception e) { }
+					} catch (Exception e) {
+						Logger.exception(e);
+					}
 				}
 				dao().resumePrintThreadSQL();
 			}
