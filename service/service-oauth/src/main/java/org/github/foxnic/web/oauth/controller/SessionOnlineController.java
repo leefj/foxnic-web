@@ -4,6 +4,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -44,6 +45,7 @@ public class SessionOnlineController {
     /**
      * 添加在线会话
      */
+    @Forbidden
     @ApiOperation(value = "添加在线会话")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "450690969709314048"),
@@ -72,6 +74,7 @@ public class SessionOnlineController {
     /**
      * 删除在线会话
      */
+    @Forbidden
     @ApiOperation(value = "按主键删除在线会话")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "450690969709314048")
@@ -91,6 +94,7 @@ public class SessionOnlineController {
      * 批量删除在线会话 <br>
      * 联合主键时，请自行调整实现
      */
+    @Forbidden
     @ApiOperation(value = "批量删除在线会话")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
@@ -107,6 +111,7 @@ public class SessionOnlineController {
     /**
      * 更新在线会话
      */
+    @Forbidden
     @ApiOperation(value = "更新在线会话")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "450690969709314048"),
@@ -135,6 +140,7 @@ public class SessionOnlineController {
     /**
      * 保存在线会话
      */
+    @Forbidden
     @ApiOperation(value = "保存在线会话")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "450690969709314048"),

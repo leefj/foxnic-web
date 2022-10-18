@@ -310,13 +310,15 @@ public class MenuController {
      */
     @ApiOperation(value = "变更菜单层级关系")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = "ids", value = "ID", required = true, dataTypeClass = String.class, example = "451739184575545344"),
+		@ApiImplicitParam(name = MenuVOMeta.IDS, value = "节点ID数组", required = true, dataTypeClass = String.class, example = "['111','222']"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID, value = "新的上级节点ID", required = true, dataTypeClass = String.class, example = "451739184575545344")
 	})
     @ApiOperationSupport(order = 2)
-    @NotNull(name = "ids")
     @SentinelResource(value = MenuServiceProxy.SAVE_HIERARCHY)
     @PostMapping(MenuServiceProxy.SAVE_HIERARCHY)
+    @ApiResponseSupport( {
+            @Model(name = "MenuForDelete",baseModelType = Menu.class,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE})
+    })
     public Result<Menu> changeParent(List<String> ids, String parentId) {
         Result<Menu> result = new Result<>();
         Boolean suc = menuService.saveHierarchy(ids, parentId);

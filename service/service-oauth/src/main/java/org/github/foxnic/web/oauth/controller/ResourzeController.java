@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -268,8 +269,9 @@ public class ResourzeController extends SuperController {
     }
 
     /**
-     * 导出 Excel
+     * 导出 Excel 2
      */
+    @Forbidden
     @SentinelResource(value = ResourzeServiceProxy.EXPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.EXPORT_EXCEL)
     public void exportExcel(ResourzeVO sample, HttpServletResponse response) throws Exception {
@@ -282,6 +284,7 @@ public class ResourzeController extends SuperController {
     /**
      * 导出 Excel 模板
      */
+    @Forbidden
     @SentinelResource(value = ResourzeServiceProxy.EXPORT_EXCEL_TEMPLATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.EXPORT_EXCEL_TEMPLATE)
     public void exportExcelTemplate(HttpServletResponse response) throws Exception {
@@ -291,6 +294,7 @@ public class ResourzeController extends SuperController {
         DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
     }
 
+    @Forbidden
     @SentinelResource(value = ResourzeServiceProxy.IMPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.IMPORT_EXCEL)
     public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {

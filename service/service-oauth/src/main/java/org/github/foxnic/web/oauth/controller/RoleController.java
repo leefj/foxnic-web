@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -59,14 +60,13 @@ public class RoleController extends SuperController {
     /**
      * 添加角色
      */
-    @ApiOperation(value = "添加角色")
+    @ApiOperation(value = "添加角色1")
     @ApiImplicitParams({
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员")
 	})
-    @ApiOperationSupport(order = 1)
-    @NotNull(name = RoleVOMeta.ID)
+    @ApiOperationSupport(order = 1,includeParameters = { RoleVOMeta.ID,RoleVOMeta.CODE,RoleVOMeta.NAME,RoleVOMeta.MENU_IDS})
     @SentinelResource(value = RoleServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.INSERT)
     public Result insert(RoleVO roleVO) {
@@ -224,6 +224,7 @@ public class RoleController extends SuperController {
     /**
      * 导出 Excel
      */
+    @Forbidden
     @SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.EXPORT_EXCEL)
     public void exportExcel(RoleVO sample, HttpServletResponse response) throws Exception {
@@ -240,6 +241,7 @@ public class RoleController extends SuperController {
     /**
      * 导出 Excel 模板
      */
+    @Forbidden
     @SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL_TEMPLATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.EXPORT_EXCEL_TEMPLATE)
     public void exportExcelTemplate(HttpServletResponse response) throws Exception {
@@ -253,6 +255,7 @@ public class RoleController extends SuperController {
         }
     }
 
+    @Forbidden
     @SentinelResource(value = RoleServiceProxy.IMPORT_EXCEL, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.IMPORT_EXCEL)
     public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
