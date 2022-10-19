@@ -1,7 +1,10 @@
 package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.ApiResponseSupport;
 import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.swagger.Model;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.api.web.Forbidden;
@@ -203,9 +206,13 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ACCESS_TOKEN, value = "accessToken", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.REFRESH_TOKEN, value = "refreshToken", required = false, dataTypeClass = String.class)
 	})
+    @ApiParamSupport(name = "SessionOnlineQueryVO",ignoreDBTreatyProperties = true,includeProperties = {SessionOnlineVOMeta.CREATE_TIME} )
     @ApiOperationSupport(order = 5, ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX, SessionOnlineVOMeta.PAGE_SIZE })
     @SentinelResource(value = SessionOnlineServiceProxy.QUERY_LIST)
     @PostMapping(SessionOnlineServiceProxy.QUERY_LIST)
+    @ApiResponseSupport({
+            @Model(baseModelType = User.class,name = "UUU")
+    })
     public Result<List<SessionOnline>> queryList(SessionOnlineVO sample) {
         Result<List<SessionOnline>> result = new Result<>();
         List<SessionOnline> list = sessionOnlineService.queryList(sample);

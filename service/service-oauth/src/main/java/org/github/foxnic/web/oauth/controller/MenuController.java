@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.ApiResponseSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.swagger.Model;
@@ -69,9 +70,8 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 1)
-    @NotNull(name = MenuVOMeta.ID)
-    @NotNull(name = MenuVOMeta.HIDDEN)
     @SentinelResource(value = MenuServiceProxy.INSERT)
     @PostMapping(MenuServiceProxy.INSERT)
     public Result insert(MenuVO menuVO) {
@@ -103,7 +103,7 @@ public class MenuController {
     @SentinelResource(value = MenuServiceProxy.DELETE)
     @PostMapping(MenuServiceProxy.DELETE)
     @ApiResponseSupport( {
-        @Model(name = "MenuForDelete",baseModelType = Menu.class,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE})
+        @Model(name = "MenuForDelete",baseModelType = Menu.class,ignoreDBTreatyProperties = true,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE},includeProperties = {MenuMeta.CREATE_TIME})
     })
     public Result<Menu> deleteById(String id) {
         Result<Menu> result = new Result<>();
@@ -152,6 +152,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 4, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
     @NotNull(name = MenuVOMeta.ID)
     @NotNull(name = MenuVOMeta.HIDDEN)
@@ -182,6 +183,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
     @NotNull(name = MenuVOMeta.ID)
     @NotNull(name = MenuVOMeta.HIDDEN)
@@ -256,6 +258,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.URL, value = "路由地址", required = false, dataTypeClass = String.class, example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class, example = "451739184579739648")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE })
     @SentinelResource(value = MenuServiceProxy.QUERY_NODES)
     @PostMapping(MenuServiceProxy.QUERY_NODES)
@@ -317,7 +320,7 @@ public class MenuController {
     @SentinelResource(value = MenuServiceProxy.SAVE_HIERARCHY)
     @PostMapping(MenuServiceProxy.SAVE_HIERARCHY)
     @ApiResponseSupport( {
-            @Model(name = "MenuForDelete",baseModelType = Menu.class,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE})
+            @Model(name = "MenuForChangeParent",baseModelType = Menu.class,ignoreDBTreatyProperties = true,ignoredProperties = {MenuMeta.PARENT,MenuMeta.RESOURCES,MenuMeta.PATH_RESOURCE},includeProperties = {MenuMeta.CREATE_TIME})
     })
     public Result<Menu> changeParent(List<String> ids, String parentId) {
         Result<Menu> result = new Result<>();

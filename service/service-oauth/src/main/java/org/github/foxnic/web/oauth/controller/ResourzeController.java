@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -29,7 +30,6 @@ import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -73,6 +73,7 @@ public class ResourzeController extends SuperController {
 		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
 		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 1)
     @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -148,6 +149,7 @@ public class ResourzeController extends SuperController {
 		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
 		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 4, ignoreParameters = { ResourzeVOMeta.PAGE_INDEX, ResourzeVOMeta.PAGE_SIZE, ResourzeVOMeta.SEARCH_FIELD, ResourzeVOMeta.SEARCH_VALUE, ResourzeVOMeta.SORT_FIELD, ResourzeVOMeta.SORT_TYPE, ResourzeVOMeta.IDS })
     @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -172,6 +174,7 @@ public class ResourzeController extends SuperController {
 		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
 		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { ResourzeVOMeta.PAGE_INDEX, ResourzeVOMeta.PAGE_SIZE, ResourzeVOMeta.SEARCH_FIELD, ResourzeVOMeta.SEARCH_VALUE, ResourzeVOMeta.SORT_FIELD, ResourzeVOMeta.SORT_TYPE, ResourzeVOMeta.IDS })
     @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

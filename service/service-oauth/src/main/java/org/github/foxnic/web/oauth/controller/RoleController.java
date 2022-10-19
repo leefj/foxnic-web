@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -29,7 +30,6 @@ import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -66,6 +66,7 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员")
 	})
+    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 1,includeParameters = { RoleVOMeta.ID,RoleVOMeta.CODE,RoleVOMeta.NAME,RoleVOMeta.MENU_IDS})
     @SentinelResource(value = RoleServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.INSERT)
