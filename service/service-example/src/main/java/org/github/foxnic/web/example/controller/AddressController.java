@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
 
@@ -56,7 +57,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 14:48:00
+ * @since 2022-10-19 15:07:50
 */
 
 @InDoc
@@ -81,6 +82,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.DD , value = "sf" , required = false , dataTypeClass=String.class),
 	})
+	@ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
 	@ApiOperationSupport(order=1 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.INSERT)
@@ -182,6 +184,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.DD , value = "sf" , required = false , dataTypeClass=String.class),
 	})
+	@ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
 	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
 	@SentinelResource(value = AddressServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.UPDATE)
@@ -204,6 +207,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.DD , value = "sf" , required = false , dataTypeClass=String.class),
 	})
+	@ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
 	@SentinelResource(value = AddressServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.SAVE)
