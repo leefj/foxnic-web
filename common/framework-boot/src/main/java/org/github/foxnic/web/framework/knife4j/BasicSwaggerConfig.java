@@ -6,10 +6,9 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
+//import com.google.common.base.Predicate;
+import java.util.function.Predicate;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -80,44 +79,56 @@ public abstract class BasicSwaggerConfig {
      * @return this
      */
     public Predicate<RequestHandler> basePackage(final String basePackage) {
-        return new Predicate<RequestHandler>() {
+        return new LocalPredicate<RequestHandler>(basePackage);
 
-            @Override
-            public boolean apply(RequestHandler input) {
-                return declaringClass(input).transform(handlerPackage(basePackage)).or(true);
-            }
-        };
     }
 
-    /**
-     * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
-     *
-     * @param basePackage 扫描包路径
-     * @return Function
-     */
-    private Function<Class<?>, Boolean> handlerPackage(final String basePackage) {
-        return new Function<Class<?>, Boolean>() {
 
-            @Override
-            public Boolean apply(Class<?> input) {
-                for (String strPackage : basePackage.split(",")) {
-                    boolean isMatch = input.getPackage().getName().startsWith(strPackage);
-                    if (isMatch) {
-                        return true;
+    private static class LocalPredicate<T> implements com.google.common.base.Predicate<T> {
+
+        private String basePackage;
+        private LocalPredicate(String basePackage) {
+            this.basePackage=basePackage;
+        }
+        @Override
+        public boolean apply(T input) {
+            RequestHandler handler=(RequestHandler)input;
+            return declaringClass(handler).transform(handlerPackage(basePackage)).or(true);
+        }
+
+        /**
+         * @param input RequestHandler
+         * @return Optional
+         */
+        private Optional<? extends Class<?>> declaringClass(RequestHandler input) {
+            return Optional.fromNullable(input.declaringClass());
+        }
+
+        /**
+         * 处理包路径配置规则,支持多路径扫描匹配以逗号隔开
+         *
+         * @param basePackage 扫描包路径
+         * @return Function
+         */
+        private Function<Class<?>, Boolean> handlerPackage(final String basePackage) {
+            return new Function<Class<?>, Boolean>() {
+
+                @Override
+                public Boolean apply(Class<?> input) {
+                    for (String strPackage : basePackage.split(",")) {
+                        boolean isMatch = input.getPackage().getName().startsWith(strPackage);
+                        if (isMatch) {
+                            return true;
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        };
+            };
+        }
     }
 
-    /**
-     * @param input RequestHandler
-     * @return Optional
-     */
-    private Optional<? extends Class<?>> declaringClass(RequestHandler input) {
-        return Optional.fromNullable(input.declaringClass());
-    }
+
+
 
 
 
