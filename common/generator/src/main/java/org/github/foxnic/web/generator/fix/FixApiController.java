@@ -41,10 +41,13 @@ public class FixApiController {
                 ann.getParentNode().get().remove(ann);
             }
         }
-        List<ImportDeclaration> notNulls = controller.find(ImportDeclaration.class);
-
+        List<ImportDeclaration> imports = controller.find(ImportDeclaration.class);
+        for (ImportDeclaration imp : imports) {
+            if(imp.getName().getIdentifier().equals("NotNull")) {
+                imp.getParentNode().get().remove(imp);
+            }
+        }
         System.out.println(controller.getSource());
-
     }
 
 
