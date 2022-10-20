@@ -20,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-19 15:07:48
+ * @since 2022-10-20 16:47:02
  * @sign 1F813FF1CB7AA2ECDEBCB23C056BDF64
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

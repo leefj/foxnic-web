@@ -5,7 +5,6 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
@@ -62,20 +61,9 @@ public class ResourzeController extends SuperController {
      * 添加系统资源
      */
     @ApiOperation(value = "添加系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
-		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
-		@ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
-		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
-	})
-    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"), @ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"), @ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"), @ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"), @ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"), @ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"), @ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"), @ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源") })
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 1)
-    @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.INSERT)
     public Result insert(ResourzeVO resourzeVO) {
@@ -87,11 +75,8 @@ public class ResourzeController extends SuperController {
      * 删除系统资源
      */
     @ApiOperation(value = "按主键删除系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256") })
     @ApiOperationSupport(order = 2)
-    @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.DELETE)
     public Result deleteById(String id) {
@@ -113,11 +98,8 @@ public class ResourzeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
     @ApiOperationSupport(order = 3)
-    @NotNull(name = ResourzeVOMeta.IDS)
     @SentinelResource(value = ResourzeServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.DELETE_BY_IDS)
     public Result deleteByIds(List<String> ids) {
@@ -138,20 +120,9 @@ public class ResourzeController extends SuperController {
      * 更新系统资源
      */
     @ApiOperation(value = "更新系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
-		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
-		@ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
-		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
-	})
-    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"), @ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"), @ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"), @ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"), @ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"), @ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"), @ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"), @ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源") })
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 4, ignoreParameters = { ResourzeVOMeta.PAGE_INDEX, ResourzeVOMeta.PAGE_SIZE, ResourzeVOMeta.SEARCH_FIELD, ResourzeVOMeta.SEARCH_VALUE, ResourzeVOMeta.SORT_FIELD, ResourzeVOMeta.SORT_TYPE, ResourzeVOMeta.IDS })
-    @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.UPDATE)
     public Result update(ResourzeVO resourzeVO) {
@@ -163,20 +134,9 @@ public class ResourzeController extends SuperController {
      * 保存系统资源
      */
     @ApiOperation(value = "保存系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
-		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
-		@ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
-		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
-	})
-    @ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"), @ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"), @ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"), @ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"), @ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"), @ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"), @ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"), @ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源") })
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { ResourzeVOMeta.PAGE_INDEX, ResourzeVOMeta.PAGE_SIZE, ResourzeVOMeta.SEARCH_FIELD, ResourzeVOMeta.SEARCH_VALUE, ResourzeVOMeta.SORT_FIELD, ResourzeVOMeta.SORT_TYPE, ResourzeVOMeta.IDS })
-    @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.SAVE)
     public Result save(ResourzeVO resourzeVO) {
@@ -188,11 +148,8 @@ public class ResourzeController extends SuperController {
      * 获取系统资源
      */
     @ApiOperation(value = "按主键获取系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1") })
     @ApiOperationSupport(order = 6)
-    @NotNull(name = ResourzeVOMeta.ID)
     @SentinelResource(value = ResourzeServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.GET_BY_ID)
     public Result<Resourze> getById(String id) {
@@ -207,11 +164,8 @@ public class ResourzeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
     @ApiOperationSupport(order = 3)
-    @NotNull(name = ResourzeVOMeta.IDS)
     @SentinelResource(value = ResourzeServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.GET_BY_IDS)
     public Result<List<Resourze>> getByIds(List<String> ids) {
@@ -225,17 +179,7 @@ public class ResourzeController extends SuperController {
      * 查询系统资源
      */
     @ApiOperation(value = "查询系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
-		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
-		@ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
-		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"), @ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"), @ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"), @ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"), @ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"), @ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"), @ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"), @ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源") })
     @ApiOperationSupport(order = 5, ignoreParameters = { ResourzeVOMeta.PAGE_INDEX, ResourzeVOMeta.PAGE_SIZE })
     @SentinelResource(value = ResourzeServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.QUERY_LIST)
@@ -250,17 +194,7 @@ public class ResourzeController extends SuperController {
      * 分页查询系统资源
      */
     @ApiOperation(value = "分页查询系统资源")
-    @ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
-		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
-		@ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"),
-		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"),
-		@ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源")
-	})
+    @ApiImplicitParams({ @ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"), @ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"), @ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"), @ApiImplicitParam(name = ResourzeVOMeta.ACCESS_TYPE, value = "访问控制类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = ResourzeVOMeta.URL, value = "地址", required = true, dataTypeClass = String.class, example = "/business/oauth/resourze/resourze_form.html"), @ApiImplicitParam(name = ResourzeVOMeta.METHOD, value = "HttpMethod", required = true, dataTypeClass = String.class, example = "GET"), @ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID, value = "批次号", required = false, dataTypeClass = String.class, example = "463397723765211136"), @ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME, value = "来源表", required = false, dataTypeClass = String.class, example = "sys_resourze"), @ApiImplicitParam(name = ResourzeVOMeta.MODULE, value = "来源模块", required = false, dataTypeClass = String.class, example = "系统资源") })
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = ResourzeServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.QUERY_PAGED_LIST)

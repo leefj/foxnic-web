@@ -2,7 +2,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-19 15:07:53
+ * @since 2022-10-20 16:47:06
  */
  -->
  <!DOCTYPE html>
@@ -67,6 +67,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('地区位置')}" class="search-label regionLocation-label">地区位置</span><span class="search-colon">:</span></div>
                         <input id="regionLocation" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 创建时间 , createTime ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('创建时间')}" class="search-label createTime-label">创建时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="createTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
                     <!-- sf , dd ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
