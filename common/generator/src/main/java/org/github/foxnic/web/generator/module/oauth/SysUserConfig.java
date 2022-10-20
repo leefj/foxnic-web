@@ -65,9 +65,6 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     @Override
     public void configFields(ViewOptions view) {
 
-
-
-
         context.view().field(SYS_USER.ID)
                 .basic().hidden(true);
 
