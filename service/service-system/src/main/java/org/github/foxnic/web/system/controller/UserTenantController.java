@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.collection.CollectorUtil;
@@ -48,8 +49,8 @@ import java.util.Map;
  * @since 2021-08-26 15:18:47
  * @version
 */
-
-@Api(tags = "账户租户关系")
+@InDoc
+@Api(tags = "系统服务/账户租户关系")
 @ApiSort(0)
 @RestController("SysUserTenantController")
 public class UserTenantController extends SuperController {

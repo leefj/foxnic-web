@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.lang.DataParser;
@@ -43,7 +44,8 @@ import java.util.Map;
  * @since 2021-03-19 02:41:52
 */
 
-@Api(tags = "sys_file")
+@InDoc
+@Api(tags = "存储服务/存储接口")
 @ApiSort(1006)
 @RestController("SysFileController")
 public class FileController extends SuperController {
@@ -251,4 +253,4 @@ public class FileController extends SuperController {
 		return result;
 	}
 
-}
+}

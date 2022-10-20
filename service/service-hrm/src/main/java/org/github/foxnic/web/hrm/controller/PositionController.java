@@ -3,6 +3,7 @@ package org.github.foxnic.web.hrm.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -48,7 +49,8 @@ import java.util.Map;
  * @version
 */
 
-@Api(tags = "岗位")
+@InDoc
+@Api(tags = "人事服务/岗位")
 @ApiSort(0)
 @RestController("HrmPositionController")
 public class PositionController extends SuperController {

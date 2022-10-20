@@ -1,8 +1,9 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -45,7 +46,8 @@ import java.util.Map;
  * @since 2021-08-13 22:17:16
 */
 
-@Api(tags = "sys_node")
+@InDoc
+@Api(tags = "系统服务/系统节点")
 @ApiSort(0)
 @RestController("SysNodeController")
 public class NodeController extends SuperController {
@@ -53,7 +55,7 @@ public class NodeController extends SuperController {
 	@Autowired
 	private INodeService nodeService;
 
-	
+
 	/**
 	 * 添加sys_node
 	*/
@@ -81,7 +83,7 @@ public class NodeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除sys_node
 	*/
@@ -97,8 +99,8 @@ public class NodeController extends SuperController {
 		Result result=nodeService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除sys_node <br>
 	 * 联合主键时，请自行调整实现
@@ -107,7 +109,7 @@ public class NodeController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = NodeVOMeta.IDS)
 	@SentinelResource(value = NodeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(NodeServiceProxy.DELETE_BY_IDS)
@@ -115,7 +117,7 @@ public class NodeController extends SuperController {
 		Result result=nodeService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新sys_node
 	*/
@@ -134,7 +136,7 @@ public class NodeController extends SuperController {
 		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID , value = "雪花DCId" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID , value = "雪花WKId" , required = false , dataTypeClass=Integer.class , example = "0"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { NodeVOMeta.PAGE_INDEX , NodeVOMeta.PAGE_SIZE , NodeVOMeta.SEARCH_FIELD , NodeVOMeta.FUZZY_FIELD , NodeVOMeta.SEARCH_VALUE , NodeVOMeta.SORT_FIELD , NodeVOMeta.SORT_TYPE , NodeVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { NodeVOMeta.PAGE_INDEX , NodeVOMeta.PAGE_SIZE , NodeVOMeta.SEARCH_FIELD , NodeVOMeta.FUZZY_FIELD , NodeVOMeta.SEARCH_VALUE , NodeVOMeta.SORT_FIELD , NodeVOMeta.SORT_TYPE , NodeVOMeta.IDS } )
 	@NotNull(name = NodeVOMeta.ID)
 	@SentinelResource(value = NodeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(NodeServiceProxy.UPDATE)
@@ -142,8 +144,8 @@ public class NodeController extends SuperController {
 		Result result=nodeService.update(nodeVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存sys_node
 	*/
@@ -171,7 +173,7 @@ public class NodeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取sys_node
 	*/
@@ -199,7 +201,7 @@ public class NodeController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = NodeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = NodeVOMeta.IDS)
 		@SentinelResource(value = NodeServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(NodeServiceProxy.GET_BY_IDS)
@@ -210,7 +212,7 @@ public class NodeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询sys_node
 	*/
@@ -239,7 +241,7 @@ public class NodeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询sys_node
 	*/

@@ -3,6 +3,7 @@ package org.github.foxnic.web.hrm.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.api.web.Forbidden;
@@ -50,7 +51,8 @@ import java.util.Map;
  * @version 20210903
 */
 
-@Api(tags = "组织层级")
+@InDoc
+@Api(tags = "人事服务/组织层级")
 @ApiSort(0)
 @RestController("HrmOrganizationController")
 public class OrganizationController extends SuperController {

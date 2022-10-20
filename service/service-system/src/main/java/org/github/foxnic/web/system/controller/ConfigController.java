@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -44,8 +45,8 @@ import java.util.Map;
  * @since 2021-12-03 09:07:26
  * @version
 */
-
-@Api(tags = "系统配置")
+@InDoc
+@Api(tags = "系统服务/系统配置")
 @ApiSort(0)
 @RestController("SysConfigController")
 public class ConfigController extends SuperController {

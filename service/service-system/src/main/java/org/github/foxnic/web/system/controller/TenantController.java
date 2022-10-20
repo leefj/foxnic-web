@@ -4,6 +4,7 @@ package org.github.foxnic.web.system.controller;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,8 +54,8 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-09-02 16:18:43
 */
-
-@Api(tags = "租户")
+@InDoc
+@Api(tags = "系统服务/租户")
 @ApiSort(0)
 @RestController("SysTenantController")
 public class TenantController extends SuperController {
@@ -119,7 +120,7 @@ public class TenantController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = TenantVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = TenantVOMeta.IDS)
 	@SentinelResource(value = TenantServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(TenantServiceProxy.DELETE_BY_IDS)
@@ -234,7 +235,7 @@ public class TenantController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = TenantVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = TenantVOMeta.IDS)
 		@SentinelResource(value = TenantServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(TenantServiceProxy.GET_BY_IDS)

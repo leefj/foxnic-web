@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.controller;
 
 import java.util.List;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,8 +51,8 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-02-11 13:02:52
 */
-
-@Api(tags = "主键多字段测试")
+@InDoc
+@Api(tags = "系统服务/主键多字段测试")
 @ApiSort(0)
 @RestController("SysCodeExampleMulitPkController")
 public class CodeExampleMulitPkController extends SuperController {

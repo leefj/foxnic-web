@@ -1,8 +1,9 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -43,8 +44,8 @@ import java.util.Map;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-17 11:58:03
 */
-
-@Api(tags = "语言条目")
+@InDoc
+@Api(tags = "系统服务/语言条目")
 @ApiSort(0)
 @RestController("SysLangController")
 public class LangController extends SuperController {
@@ -52,7 +53,7 @@ public class LangController extends SuperController {
 	@Autowired
 	private ILangService langService;
 
-	
+
 	/**
 	 * 添加语言条目
 	*/
@@ -79,7 +80,7 @@ public class LangController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除语言条目
 	*/
@@ -98,8 +99,8 @@ public class LangController extends SuperController {
 		if(!suc) result.message("数据删除失败");
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除语言条目 <br>
 	 * 联合主键时，请自行调整实现
@@ -108,7 +109,7 @@ public class LangController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = LangVOMeta.CODES , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = LangVOMeta.CODES)
 	@SentinelResource(value = LangServiceProxy.BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.BATCH_DELETE)
@@ -116,7 +117,7 @@ public class LangController extends SuperController {
 		Result result=langService.deleteByIdsLogical(codes);
 		return result;
 	}
-	
+
 	/**
 	 * 更新语言条目
 	*/
@@ -131,7 +132,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { LangVOMeta.PAGE_INDEX , LangVOMeta.PAGE_SIZE , LangVOMeta.SEARCH_FIELD , LangVOMeta.SEARCH_VALUE , LangVOMeta.SORT_FIELD , LangVOMeta.SORT_TYPE , LangVOMeta.CODES } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { LangVOMeta.PAGE_INDEX , LangVOMeta.PAGE_SIZE , LangVOMeta.SEARCH_FIELD , LangVOMeta.SEARCH_VALUE , LangVOMeta.SORT_FIELD , LangVOMeta.SORT_TYPE , LangVOMeta.CODES } )
 	@NotNull(name = LangVOMeta.CODE)
 	@SentinelResource(value = LangServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.UPDATE)
@@ -139,8 +140,8 @@ public class LangController extends SuperController {
 		Result result=langService.update(langVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存语言条目
 	*/
@@ -164,7 +165,7 @@ public class LangController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取语言条目
 	*/
@@ -183,7 +184,7 @@ public class LangController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询语言条目
 	*/
@@ -208,7 +209,7 @@ public class LangController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询语言条目
 	*/

@@ -1,8 +1,9 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -44,8 +45,8 @@ import java.util.Map;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-03 16:01:50
 */
-
-@Api(tags = "数据库缓存")
+@InDoc
+@Api(tags = "系统服务/数据库缓存")
 @ApiSort(0)
 @RestController("SysDbCacheController")
 public class DbCacheController extends SuperController {
@@ -53,7 +54,7 @@ public class DbCacheController extends SuperController {
 	@Autowired
 	private IDbCacheService dbCacheService;
 
-	
+
 	/**
 	 * 添加数据库缓存
 	*/
@@ -76,7 +77,7 @@ public class DbCacheController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除数据库缓存
 	*/
@@ -92,8 +93,8 @@ public class DbCacheController extends SuperController {
 		Result result=dbCacheService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除数据库缓存 <br>
 	 * 联合主键时，请自行调整实现
@@ -102,7 +103,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = DbCacheVOMeta.IDS)
 	@SentinelResource(value = DbCacheServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.DELETE_BY_IDS)
@@ -110,7 +111,7 @@ public class DbCacheController extends SuperController {
 		Result result=dbCacheService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新数据库缓存
 	*/
@@ -124,7 +125,7 @@ public class DbCacheController extends SuperController {
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
 		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { DbCacheVOMeta.PAGE_INDEX , DbCacheVOMeta.PAGE_SIZE , DbCacheVOMeta.SEARCH_FIELD , DbCacheVOMeta.SEARCH_VALUE , DbCacheVOMeta.SORT_FIELD , DbCacheVOMeta.SORT_TYPE , DbCacheVOMeta.IDS , DbCacheVOMeta.SECONDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { DbCacheVOMeta.PAGE_INDEX , DbCacheVOMeta.PAGE_SIZE , DbCacheVOMeta.SEARCH_FIELD , DbCacheVOMeta.SEARCH_VALUE , DbCacheVOMeta.SORT_FIELD , DbCacheVOMeta.SORT_TYPE , DbCacheVOMeta.IDS , DbCacheVOMeta.SECONDS } )
 	@NotNull(name = DbCacheVOMeta.ID)
 	@SentinelResource(value = DbCacheServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.UPDATE)
@@ -132,8 +133,8 @@ public class DbCacheController extends SuperController {
 		Result result=dbCacheService.update(dbCacheVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存数据库缓存
 	*/
@@ -156,7 +157,7 @@ public class DbCacheController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取数据库缓存
 	*/
@@ -178,7 +179,7 @@ public class DbCacheController extends SuperController {
 
 
 
-	
+
 	/**
 	 * 查询数据库缓存
 	*/
@@ -202,7 +203,7 @@ public class DbCacheController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询数据库缓存
 	*/

@@ -1,9 +1,10 @@
 package org.github.foxnic.web.hrm.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -46,7 +47,8 @@ import java.util.Map;
  * @version
 */
 
-@Api(tags = "常用人员分组条目")
+@InDoc
+@Api(tags = "人事服务/常用人员分组条目")
 @ApiSort(0)
 @RestController("HrmFavouriteGroupItemController")
 public class FavouriteGroupItemController extends SuperController {
@@ -54,7 +56,7 @@ public class FavouriteGroupItemController extends SuperController {
 	@Autowired
 	private IFavouriteGroupItemService favouriteGroupItemService;
 
-	
+
 	/**
 	 * 添加常用人员分组条目
 	*/
@@ -108,7 +110,7 @@ public class FavouriteGroupItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除常用人员分组条目
 	*/
@@ -124,8 +126,8 @@ public class FavouriteGroupItemController extends SuperController {
 		Result result=favouriteGroupItemService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除常用人员分组条目 <br>
 	 * 联合主键时，请自行调整实现
@@ -134,7 +136,7 @@ public class FavouriteGroupItemController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = FavouriteGroupItemVOMeta.IDS)
 	@SentinelResource(value = FavouriteGroupItemServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupItemServiceProxy.DELETE_BY_IDS)
@@ -142,7 +144,7 @@ public class FavouriteGroupItemController extends SuperController {
 		Result result=favouriteGroupItemService.deleteByIdsPhysical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新常用人员分组条目
 	*/
@@ -158,7 +160,7 @@ public class FavouriteGroupItemController extends SuperController {
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY , value = "是否临时" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupItemVOMeta.PAGE_INDEX , FavouriteGroupItemVOMeta.PAGE_SIZE , FavouriteGroupItemVOMeta.SEARCH_FIELD , FavouriteGroupItemVOMeta.FUZZY_FIELD , FavouriteGroupItemVOMeta.SEARCH_VALUE , FavouriteGroupItemVOMeta.SORT_FIELD , FavouriteGroupItemVOMeta.SORT_TYPE , FavouriteGroupItemVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupItemVOMeta.PAGE_INDEX , FavouriteGroupItemVOMeta.PAGE_SIZE , FavouriteGroupItemVOMeta.SEARCH_FIELD , FavouriteGroupItemVOMeta.FUZZY_FIELD , FavouriteGroupItemVOMeta.SEARCH_VALUE , FavouriteGroupItemVOMeta.SORT_FIELD , FavouriteGroupItemVOMeta.SORT_TYPE , FavouriteGroupItemVOMeta.IDS } )
 	@NotNull(name = FavouriteGroupItemVOMeta.ID)
 	@NotNull(name = FavouriteGroupItemVOMeta.TARGET_ID)
 	@NotNull(name = FavouriteGroupItemVOMeta.TARGET_TYPE)
@@ -169,8 +171,8 @@ public class FavouriteGroupItemController extends SuperController {
 		Result result=favouriteGroupItemService.update(favouriteGroupItemVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存常用人员分组条目
 	*/
@@ -198,7 +200,7 @@ public class FavouriteGroupItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取常用人员分组条目
 	*/
@@ -226,7 +228,7 @@ public class FavouriteGroupItemController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = FavouriteGroupItemVOMeta.IDS)
 		@SentinelResource(value = FavouriteGroupItemServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupItemServiceProxy.GET_BY_IDS)
@@ -237,7 +239,7 @@ public class FavouriteGroupItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询常用人员分组条目
 	*/
@@ -263,7 +265,7 @@ public class FavouriteGroupItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询常用人员分组条目
 	*/

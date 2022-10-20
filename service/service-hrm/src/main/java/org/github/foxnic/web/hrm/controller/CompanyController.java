@@ -4,6 +4,7 @@ package org.github.foxnic.web.hrm.controller;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +53,8 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * @since 2022-09-02 16:24:50
 */
 
-@Api(tags = "公司")
+@InDoc
+@Api(tags = "人事服务/公司")
 @ApiSort(0)
 @RestController("HrmCompanyController")
 public class CompanyController extends SuperController {
@@ -117,7 +119,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = CompanyVOMeta.IDS)
 	@SentinelResource(value = CompanyServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CompanyServiceProxy.DELETE_BY_IDS)
@@ -227,7 +229,7 @@ public class CompanyController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CompanyVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = CompanyVOMeta.IDS)
 		@SentinelResource(value = CompanyServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CompanyServiceProxy.GET_BY_IDS)

@@ -4,6 +4,7 @@ package org.github.foxnic.web.system.controller;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,8 +55,8 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-08-22 13:39:22
 */
-
-@Api(tags = "代码生成示例主")
+@InDoc
+@Api(tags = "系统服务/代码生成示例主")
 @ApiSort(0)
 @RestController("SysCodeExampleController")
 public class CodeExampleController extends SuperController {
@@ -134,7 +135,7 @@ public class CodeExampleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = CodeExampleVOMeta.IDS)
 	@SentinelResource(value = CodeExampleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.DELETE_BY_IDS)
@@ -277,7 +278,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = CodeExampleVOMeta.IDS)
 		@SentinelResource(value = CodeExampleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.GET_BY_IDS)

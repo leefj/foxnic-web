@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.controller;
 
 import java.util.List;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,8 +58,8 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-02-07 09:03:10
 */
-
-@Api(tags = "代码生成拥有的车辆")
+@InDoc
+@Api(tags = "系统服务/代码生成拥有的车辆")
 @ApiSort(0)
 @RestController("SysCodeExampleCarController")
 public class CodeExampleCarController extends SuperController {
@@ -122,7 +123,7 @@ public class CodeExampleCarController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = CodeExampleCarVOMeta.IDS)
 	@SentinelResource(value = CodeExampleCarServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.DELETE_BY_IDS)
@@ -226,7 +227,7 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleCarVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = CodeExampleCarVOMeta.IDS)
 		@SentinelResource(value = CodeExampleCarServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.GET_BY_IDS)

@@ -1,8 +1,9 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -43,8 +44,8 @@ import java.util.Map;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-20 01:06:36
 */
-
-@Api(tags = "数据字典条目")
+@InDoc
+@Api(tags = "系统服务/数据字典条目")
 @ApiSort(0)
 @RestController("SysDictItemController")
 public class DictItemController extends SuperController {
@@ -52,7 +53,7 @@ public class DictItemController extends SuperController {
 	@Autowired
 	private IDictItemService dictItemService;
 
-	
+
 	/**
 	 * 添加数据字典条目
 	*/
@@ -78,7 +79,7 @@ public class DictItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除数据字典条目
 	*/
@@ -94,8 +95,8 @@ public class DictItemController extends SuperController {
 		Result result=dictItemService.deleteByIdPhysical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除数据字典条目 <br>
 	 * 联合主键时，请自行调整实现
@@ -104,7 +105,7 @@ public class DictItemController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DictItemVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = DictItemVOMeta.IDS)
 	@SentinelResource(value = DictItemServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.DELETE_BY_IDS)
@@ -112,7 +113,7 @@ public class DictItemController extends SuperController {
 		Result result=dictItemService.deleteByIdsPhysical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新数据字典条目
 	*/
@@ -127,7 +128,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParam(name = DictItemVOMeta.SORT , value = "排序" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = DictItemVOMeta.VALID , value = "有效" , required = false , dataTypeClass=Integer.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { DictItemVOMeta.PAGE_INDEX , DictItemVOMeta.PAGE_SIZE , DictItemVOMeta.SEARCH_FIELD , DictItemVOMeta.FUZZY_FIELD , DictItemVOMeta.SEARCH_VALUE , DictItemVOMeta.SORT_FIELD , DictItemVOMeta.SORT_TYPE , DictItemVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { DictItemVOMeta.PAGE_INDEX , DictItemVOMeta.PAGE_SIZE , DictItemVOMeta.SEARCH_FIELD , DictItemVOMeta.FUZZY_FIELD , DictItemVOMeta.SEARCH_VALUE , DictItemVOMeta.SORT_FIELD , DictItemVOMeta.SORT_TYPE , DictItemVOMeta.IDS } )
 	@NotNull(name = DictItemVOMeta.ID)
 	@NotNull(name = DictItemVOMeta.DICT_CODE)
 	@NotNull(name = DictItemVOMeta.SORT)
@@ -137,8 +138,8 @@ public class DictItemController extends SuperController {
 		Result result=dictItemService.update(dictItemVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存数据字典条目
 	*/
@@ -164,7 +165,7 @@ public class DictItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取数据字典条目
 	*/
@@ -192,7 +193,7 @@ public class DictItemController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = DictItemVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = DictItemVOMeta.IDS)
 		@SentinelResource(value = DictItemServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.GET_BY_IDS)
@@ -203,7 +204,7 @@ public class DictItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询数据字典条目
 	*/
@@ -228,7 +229,7 @@ public class DictItemController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询数据字典条目
 	*/

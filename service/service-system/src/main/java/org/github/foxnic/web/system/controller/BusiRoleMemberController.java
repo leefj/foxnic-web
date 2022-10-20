@@ -4,6 +4,7 @@ package org.github.foxnic.web.system.controller;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.github.foxnic.api.swagger.InDoc;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,8 +58,8 @@ import java.util.ArrayList;
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-09-02 16:18:40
 */
-
-@Api(tags = "业务角色成员关系")
+@InDoc
+@Api(tags = "系统服务/业务角色成员关系")
 @ApiSort(0)
 @RestController("SysBusiRoleMemberController")
 public class BusiRoleMemberController extends SuperController {
@@ -140,7 +141,7 @@ public class BusiRoleMemberController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = BusiRoleMemberVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = BusiRoleMemberVOMeta.IDS)
 	@SentinelResource(value = BusiRoleMemberServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(BusiRoleMemberServiceProxy.DELETE_BY_IDS)
@@ -257,7 +258,7 @@ public class BusiRoleMemberController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = BusiRoleMemberVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = BusiRoleMemberVOMeta.IDS)
 		@SentinelResource(value = BusiRoleMemberServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(BusiRoleMemberServiceProxy.GET_BY_IDS)

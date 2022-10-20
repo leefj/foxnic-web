@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
@@ -44,8 +45,8 @@ import java.util.Map;
  * @since 2021-09-11 15:59:19
  * @version
 */
-
-@Api(tags = "序列")
+@InDoc
+@Api(tags = "系统服务/序列")
 @ApiSort(0)
 @RestController("SysSequenceController")
 public class SequenceController extends SuperController {
