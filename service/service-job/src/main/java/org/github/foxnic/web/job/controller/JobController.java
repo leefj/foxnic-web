@@ -75,6 +75,7 @@ public class JobController extends SuperController {
     @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?") })
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobServiceProxy.SIMULATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
+    @ApiParamSupport(ignoreAllProperties = true,includeProperties = {JobVOMeta.CRON_EXPR} )
     @PostMapping(JobServiceProxy.SIMULATE)
     public Result simulate(JobVO jobVO) {
         Result result = jobService.simulate(jobVO.getCronExpr());
