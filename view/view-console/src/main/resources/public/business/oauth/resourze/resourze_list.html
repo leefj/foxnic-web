@@ -2,7 +2,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:38
+ * @since 2022-10-20 15:07:29
  */
  -->
  <!DOCTYPE html>
@@ -38,49 +38,39 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('ID')}" class="search-label id-label">ID</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 类型 , type ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 类型 , type ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label type-label">类型</span><span class="search-colon">:</span></div>
-                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+
+
+                        <div id="type" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 访问控制类型 , accessType ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 访问控制 , accessType ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('访问控制类型')}" class="search-label accessType-label">访问控制类型</span><span class="search-colon">:</span></div>
-                        <input id="accessType" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('访问控制')}" class="search-label accessType-label">访问控制</span><span class="search-colon">:</span></div>
+
+
+                        <div id="accessType" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}" style="width:140px"></div>
+
                     </div>
                     <!-- 地址 , url ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('地址')}" class="search-label url-label">地址</span><span class="search-colon">:</span></div>
                         <input id="url" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- HttpMethod , method ,typeName=text_input, isHideInSearch=false -->
+                    <!-- Method , method ,typeName=radio_box, isHideInSearch=true -->
+                    <!-- 批次号 , batchId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 数据表 , tableName ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 模块 , module ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('HttpMethod')}" class="search-label method-label">HttpMethod</span><span class="search-colon">:</span></div>
-                        <input id="method" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 批次号 , batchId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('批次号')}" class="search-label batchId-label">批次号</span><span class="search-colon">:</span></div>
-                        <input id="batchId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 来源表 , tableName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('来源表')}" class="search-label tableName-label">来源表</span><span class="search-colon">:</span></div>
-                        <input id="tableName" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 来源模块 , module ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('来源模块')}" class="search-label module-label">来源模块</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('模块')}" class="search-label module-label">模块</span><span class="search-colon">:</span></div>
                         <input id="module" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
@@ -130,6 +120,9 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}]];
+    var RADIO_ACCESSTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}]];
+    var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.HttpMethodType')}]];
     var AUTH_PREFIX="sys_resourze";
 
 

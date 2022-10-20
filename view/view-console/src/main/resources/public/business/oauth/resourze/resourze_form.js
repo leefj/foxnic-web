@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:38
+ * @since 2022-10-20 15:07:29
  */
 
 function FormPage() {
@@ -111,6 +111,27 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		form.on('radio(type)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=type]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("type",data,checked);
+		});
+		form.on('radio(accessType)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=accessType]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("accessType",data,checked);
+		});
+		form.on('radio(method)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=method]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("method",data,checked);
+		});
 	}
 
 	/**

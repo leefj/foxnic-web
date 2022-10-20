@@ -37,6 +37,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.job.service.IJobLogService;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -61,6 +62,7 @@ public class JobLogController extends SuperController {
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobLogServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobLogServiceProxy.INSERT)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result insert(JobLogVO jobLogVO) {
         Result result = jobLogService.insert(jobLogVO, false);
         return result;
@@ -144,6 +146,7 @@ public class JobLogController extends SuperController {
     @ApiOperationSupport(order = 4, ignoreParameters = { JobLogVOMeta.PAGE_INDEX, JobLogVOMeta.PAGE_SIZE, JobLogVOMeta.SEARCH_FIELD, JobLogVOMeta.FUZZY_FIELD, JobLogVOMeta.SEARCH_VALUE, JobLogVOMeta.DIRTY_FIELDS, JobLogVOMeta.SORT_FIELD, JobLogVOMeta.SORT_TYPE, JobLogVOMeta.IDS })
     @SentinelResource(value = JobLogServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobLogServiceProxy.UPDATE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result update(JobLogVO jobLogVO) {
         Result result = jobLogService.update(jobLogVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;
@@ -157,6 +160,7 @@ public class JobLogController extends SuperController {
     @ApiOperationSupport(order = 5, ignoreParameters = { JobLogVOMeta.PAGE_INDEX, JobLogVOMeta.PAGE_SIZE, JobLogVOMeta.SEARCH_FIELD, JobLogVOMeta.FUZZY_FIELD, JobLogVOMeta.SEARCH_VALUE, JobLogVOMeta.DIRTY_FIELDS, JobLogVOMeta.SORT_FIELD, JobLogVOMeta.SORT_TYPE, JobLogVOMeta.IDS })
     @SentinelResource(value = JobLogServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobLogServiceProxy.SAVE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result save(JobLogVO jobLogVO) {
         Result result = jobLogService.save(jobLogVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;

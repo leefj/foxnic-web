@@ -37,6 +37,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.job.service.IJobWorkerService;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -61,6 +62,7 @@ public class JobWorkerController extends SuperController {
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobWorkerServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.INSERT)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result insert(JobWorkerVO jobWorkerVO) {
         Result result = jobWorkerService.insert(jobWorkerVO, false);
         return result;
@@ -101,6 +103,7 @@ public class JobWorkerController extends SuperController {
     @ApiOperationSupport(order = 4, ignoreParameters = { JobWorkerVOMeta.PAGE_INDEX, JobWorkerVOMeta.PAGE_SIZE, JobWorkerVOMeta.SEARCH_FIELD, JobWorkerVOMeta.FUZZY_FIELD, JobWorkerVOMeta.SEARCH_VALUE, JobWorkerVOMeta.DIRTY_FIELDS, JobWorkerVOMeta.SORT_FIELD, JobWorkerVOMeta.SORT_TYPE, JobWorkerVOMeta.IDS })
     @SentinelResource(value = JobWorkerServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.UPDATE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result update(JobWorkerVO jobWorkerVO) {
         Result result = jobWorkerService.update(jobWorkerVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;
@@ -114,6 +117,7 @@ public class JobWorkerController extends SuperController {
     @ApiOperationSupport(order = 5, ignoreParameters = { JobWorkerVOMeta.PAGE_INDEX, JobWorkerVOMeta.PAGE_SIZE, JobWorkerVOMeta.SEARCH_FIELD, JobWorkerVOMeta.FUZZY_FIELD, JobWorkerVOMeta.SEARCH_VALUE, JobWorkerVOMeta.DIRTY_FIELDS, JobWorkerVOMeta.SORT_FIELD, JobWorkerVOMeta.SORT_TYPE, JobWorkerVOMeta.IDS })
     @SentinelResource(value = JobWorkerServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.SAVE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result save(JobWorkerVO jobWorkerVO) {
         Result result = jobWorkerService.save(jobWorkerVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;

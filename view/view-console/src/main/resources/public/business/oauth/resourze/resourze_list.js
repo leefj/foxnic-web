@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:36
+ * @since 2022-10-20 15:07:29
  */
 
 
@@ -77,15 +77,15 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型') , templet: function (d) { return templet('type',d.type,d);}  }
-					,{ field: 'accessType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('访问控制类型') , templet: function (d) { return templet('accessType',d.accessType,d);}  }
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type,'','type'),d);}}
+					,{ field: 'accessType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('访问控制'), templet:function (d){ return templet('accessType',fox.getEnumText(RADIO_ACCESSTYPE_DATA,d.accessType,'','accessType'),d);}}
 					,{ field: 'url', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地址') , templet: function (d) { return templet('url',d.url,d);}  }
-					,{ field: 'method', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('HttpMethod') , templet: function (d) { return templet('method',d.method,d);}  }
-					,{ field: 'batchId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('批次号') , templet: function (d) { return templet('batchId',d.batchId,d);}  }
-					,{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('来源表') , templet: function (d) { return templet('tableName',d.tableName,d);}  }
-					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('来源模块') , templet: function (d) { return templet('module',d.module,d);}  }
+					,{ field: 'method', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('Method'), templet:function (d){ return templet('method',fox.getEnumText(RADIO_METHOD_DATA,d.method,'','method'),d);}}
+					,{ field: 'batchId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('批次号') , templet: function (d) { return templet('batchId',d.batchId,d);}  }
+					,{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('数据表') , templet: function (d) { return templet('tableName',d.tableName,d);}  }
+					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('模块') , templet: function (d) { return templet('module',d.module,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -135,15 +135,11 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.name={ inputType:"button",value: $("#name").val()};
-		value.type={ inputType:"button",value: $("#type").val()};
-		value.accessType={ inputType:"button",value: $("#accessType").val()};
-		value.url={ inputType:"button",value: $("#url").val()};
-		value.method={ inputType:"button",value: $("#method").val()};
-		value.batchId={ inputType:"button",value: $("#batchId").val()};
-		value.tableName={ inputType:"button",value: $("#tableName").val()};
-		value.module={ inputType:"button",value: $("#module").val()};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.type={ inputType:"radio_box", value: getSelectedValue("#type","value"), label:getSelectedValue("#type","nameStr") };
+		value.accessType={ inputType:"radio_box", value: getSelectedValue("#accessType","value"), label:getSelectedValue("#accessType","nameStr") };
+		value.url={ inputType:"button",value: $("#url").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.module={ inputType:"button",value: $("#module").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -191,6 +187,48 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 type 搜索框
+		fox.renderSelectBox({
+			el: "type",
+			size: "small",
+			radio: true,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 accessType 搜索框
+		fox.renderSelectBox({
+			el: "accessType",
+			size: "small",
+			radio: true,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("accessType",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

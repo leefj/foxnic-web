@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:53
+ * @since 2022-10-20 15:07:07
  */
  -->
  <!DOCTYPE html>
@@ -70,41 +70,48 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('密码')}">密码</div><div class="layui-required">*</div></div>
+                                    <div class="layui-form-item" style="display: none">
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('密码')}">密码</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"    lay-verify="|required"  />
+                            <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"    lay-verify=""  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('手机号码')}">手机号码</div><div class="layui-required">*</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机号码') }" type="text" class="layui-input"    lay-verify="|required"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('头像ID')}">头像ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="portraitId" id="portraitId" name="portraitId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('头像ID') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语言')}">语言</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="language" id="language" name="language" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('语言') }" type="text" class="layui-input"  />
+                            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机') }" type="text" class="layui-input"    lay-verify="|required|phone"  />
                         </div>
                     </div>
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否有效') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
-                        </div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('头像')}">头像</div></div>
+                    <div class="layui-upload layui-input-block layui-input-block-c1">
+                        <input input-type="upload" id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
+                        <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择头像')}">选择头像</button>
+                        <div class="layui-upload-list" id="portraitId-file-list"></div>
                     </div>
+                </div>
+
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语言')}">语言</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
+                    </div>
+                </div>
 
 
                                     <div class="layui-form-item" >
@@ -115,12 +122,21 @@
                     </div>
 
                 
-                    <div class="layui-form-item" >
+                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后登录时间')}">最后登录时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input input-type="date" lay-filter="lastLoginTime" id="lastLoginTime" name="lastLoginTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后登录时间') }" type="text" class="layui-input"   />
                         </div>
                     </div>
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}" extraParam="{}"></div>
+                        </div>
+                    </div>
+
 
                 <!--结束：栏次内字段循环-->
             </div>
@@ -146,7 +162,8 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"number_input","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"passwd":{"labelInForm":"密码","inputType":"text_input","required":true},"phone":{"labelInForm":"手机号码","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
+    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"roleIds":{"labelInForm":"角色","inputType":"select_box","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_user";
 
 

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:53
+ * @since 2022-10-20 15:07:07
  */
 
 function FormPage() {
@@ -49,8 +49,6 @@ function FormPage() {
 		//绑定提交事件
 		bindButtonEvent();
 
-		//调整窗口的高度与位置
-		adjustPopup();
 
 		//右键菜单
 		initContextMenu();
@@ -175,12 +173,79 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+	    //渲染图片字段
+		foxup.render({
+			el:"portraitId",
+			maxFileCount: 1,
+			displayFileName: false,
+			accept: "image",
+			acceptMime:'image/*',
+			exts:'png|jpg|bmp|gif|jpeg',
+			afterPreview:function(elId,index,fileId,upload,fileName,fileType){
+				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterPreview",elId:elId,index:index,fileId:fileId,upload:upload,fileName:fileName,fileType:fileType});
+			},
+			afterUpload:function (elId,result,index,upload) {
+				console.log("文件上传后回调");
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterUpload",elId:elId,index:index,upload:upload});
+			},
+			beforeRemove:function (elId,fileId,index,upload) {
+				console.log("文件删除前回调");
+				if(window.pageExt.form.onUploadEvent) {
+					return window.pageExt.form.onUploadEvent({event:"beforeRemove",elId:elId,index:index,fileId:fileId,upload:upload});
+				}
+				return true;
+			},
+			afterRemove:function (elId,fileId,index,upload) {
+				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterRemove",elId:elId,index:index,upload:upload});
+			}
+	    });
+		form.on('radio(language)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=language]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("language",data,checked);
+		});
 		laydate.render({
 			elem: '#lastLoginTime',
 			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click",
 			done: function(value, date, endDate){
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("lastLoginTime",value, date, endDate);
+			}
+		});
+		//渲染 roleIds 下拉字段
+		fox.renderSelectBox({
+			el: "roleIds",
+			radio: false,
+			filterable: true,
+			layVerify: 'required',
+			layVerType: 'msg',
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("roleIds",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].name,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
 			}
 		});
 	}
@@ -230,6 +295,12 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
+			//设置 头像 显示附件
+		    if($("#portraitId").val()) {
+				foxup.fill("portraitId",$("#portraitId").val());
+		    } else {
+				adjustPopup();
+			}
 
 
 
@@ -239,6 +310,8 @@ function FormPage() {
 			}
 
 
+			//设置  角色 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
 
 			//处理fillBy
 
@@ -288,8 +361,12 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 是否有效 默认值
+		if(!data.valid) data.valid=0;
 
 
+		//获取 角色 下拉框的值
+		data["roleIds"]=fox.getSelectedValue("roleIds",true);
 
 		return data;
 	}

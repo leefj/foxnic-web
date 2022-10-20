@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:35:53
+ * @since 2022-10-20 15:07:07
  */
  -->
  <!DOCTYPE html>
@@ -38,11 +38,7 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('ID')}" class="search-label id-label">ID</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 账户 , account ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('账户')}" class="search-label account-label">账户</span><span class="search-colon">:</span></div>
@@ -53,40 +49,32 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label realName-label">姓名</span><span class="search-colon">:</span></div>
                         <input id="realName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 密码 , passwd ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 密码 , passwd ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 手机 , phone ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('密码')}" class="search-label passwd-label">密码</span><span class="search-colon">:</span></div>
-                        <input id="passwd" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 手机号码 , phone ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('手机号码')}" class="search-label phone-label">手机号码</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('手机')}" class="search-label phone-label">手机</span><span class="search-colon">:</span></div>
                         <input id="phone" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 头像ID , portraitId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('头像ID')}" class="search-label portraitId-label">头像ID</span><span class="search-colon">:</span></div>
-                        <input id="portraitId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 语言 , language ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 头像 , portraitId ,typeName=upload, isHideInSearch=true -->
+                    <!-- 语言 , language ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('语言')}" class="search-label language-label">语言</span><span class="search-colon">:</span></div>
-                        <input id="language" class="layui-input search-input" style="width: 140px" type="text" />
+
+
+                        <div id="language" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
-                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
-                    <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('缓存键')}" class="search-label cacheKey-label">缓存键</span><span class="search-colon">:</span></div>
-                        <input id="cacheKey" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('最后登录时间')}" class="search-label lastLoginTime-label">最后登录时间</span><span class="search-colon">:</span></div>
-                            <input type="text" id="lastLoginTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('角色')}" class="search-label roleIds-label">角色</span><span class="search-colon">:</span></div>
+                        <div id="roleIds" th:data="${'/service-oauth/sys-role/query-list'}" style="width:180px" extraParam="{}"></div>
                     </div>
 
 
@@ -133,9 +121,14 @@
     <button class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more" data-id="{{d.id}}"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></button>
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
     var AUTH_PREFIX="sys_user";
 
 

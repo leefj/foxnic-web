@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -61,6 +62,7 @@ public class JobController extends SuperController {
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.INSERT)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result insert(JobVO jobVO) {
         Result result = jobService.insert(jobVO, false);
         return result;
@@ -114,6 +116,7 @@ public class JobController extends SuperController {
     @ApiOperationSupport(order = 4, ignoreParameters = { JobVOMeta.PAGE_INDEX, JobVOMeta.PAGE_SIZE, JobVOMeta.SEARCH_FIELD, JobVOMeta.FUZZY_FIELD, JobVOMeta.SEARCH_VALUE, JobVOMeta.DIRTY_FIELDS, JobVOMeta.SORT_FIELD, JobVOMeta.SORT_TYPE, JobVOMeta.IDS })
     @SentinelResource(value = JobServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.UPDATE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result update(JobVO jobVO) {
         Result result = jobService.update(jobVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;
@@ -127,6 +130,7 @@ public class JobController extends SuperController {
     @ApiOperationSupport(order = 5, ignoreParameters = { JobVOMeta.PAGE_INDEX, JobVOMeta.PAGE_SIZE, JobVOMeta.SEARCH_FIELD, JobVOMeta.FUZZY_FIELD, JobVOMeta.SEARCH_VALUE, JobVOMeta.DIRTY_FIELDS, JobVOMeta.SORT_FIELD, JobVOMeta.SORT_TYPE, JobVOMeta.IDS })
     @SentinelResource(value = JobServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.SAVE)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     public Result save(JobVO jobVO) {
         Result result = jobService.save(jobVO, SaveMode.DIRTY_OR_NOT_NULL_FIELDS, false);
         return result;

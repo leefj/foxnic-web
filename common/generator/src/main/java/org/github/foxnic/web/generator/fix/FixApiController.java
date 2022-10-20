@@ -1,14 +1,17 @@
 package org.github.foxnic.web.generator.fix;
 
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.commons.compiler.source.ControllerCompilationUnit;
 import com.github.foxnic.commons.io.FileNavigator;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.expr.*;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 public class FixApiController {
 
@@ -33,21 +36,58 @@ public class FixApiController {
     }
 
     private void fix(File javaFile) {
-
+        boolean modified=false;
+        //
         ControllerCompilationUnit controller=new ControllerCompilationUnit(javaFile,true);
         List<NormalAnnotationExpr> notNulls = controller.find(NormalAnnotationExpr.class);
         for (NormalAnnotationExpr ann : notNulls) {
             if(ann.getName().getIdentifier().equals("NotNull")) {
                 ann.getParentNode().get().remove(ann);
+                modified=true;
             }
         }
         List<ImportDeclaration> imports = controller.find(ImportDeclaration.class);
+        boolean  hasApiParamSupport = false;
         for (ImportDeclaration imp : imports) {
             if(imp.getName().getIdentifier().equals("NotNull")) {
                 imp.getParentNode().get().remove(imp);
+                modified=true;
+            }
+            if(imp.getName().getIdentifier().equals("ApiParamSupport")) {
+                hasApiParamSupport=true;
             }
         }
-        System.out.println(controller.getSource());
+
+
+        //
+        List<MethodDeclaration> methods = controller.find(MethodDeclaration.class);
+        for (MethodDeclaration method : methods) {
+            if(method.getName().getIdentifier().equals("insert") || method.getName().getIdentifier().equals("update")  || method.getName().getIdentifier().equals("save")) {
+
+                Optional<AnnotationExpr> ann= method.getAnnotationByClass(ApiParamSupport.class);
+                if(ann==null || !ann.isPresent()) {
+                    NormalAnnotationExpr  apiImplicitParam=new NormalAnnotationExpr();
+                    apiImplicitParam.setName("ApiParamSupport");
+                    apiImplicitParam.getPairs().add(new MemberValuePair("ignoreDBTreatyProperties", new BooleanLiteralExpr(true)));
+                    apiImplicitParam.getPairs().add(new MemberValuePair("ignoreDefaultVoProperties", new BooleanLiteralExpr(true)));
+                    method.addAnnotation(apiImplicitParam);
+
+                    if(!hasApiParamSupport) {
+                        ImportDeclaration importDeclaration=new ImportDeclaration(ApiParamSupport.class.getName(),false,false);
+                        controller.getCompilationUnit().addImport(importDeclaration);
+                        hasApiParamSupport=true;
+                    }
+
+                    modified=true;
+
+                }
+            }
+        }
+
+
+        if(modified) {
+            controller.save();
+        }
     }
 
 

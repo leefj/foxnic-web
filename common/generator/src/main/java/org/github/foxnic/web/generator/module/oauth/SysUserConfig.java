@@ -77,6 +77,9 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.PASSWD)
                 .basic().hidden(true);
 
+        context.view().field(SYS_USER.PASSWD)
+                .basic().hidden(true).table().disable();
+
 //        context.view().field(SYS_USER.EMPLOYEE_ID)
 //                .basic().hidden(true);
 
@@ -89,8 +92,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 //        context.view().field(SYS_USER.EMPLOYEE_ID)
 //                .basic().hidden(true);
 
-        context.view().field(SYS_USER.PASSWD)
-                .basic().hidden(true).table().disable();
+
 
         context.view().field(SYS_USER.ACCOUNT)
                 .search().fuzzySearch()
