@@ -25,7 +25,7 @@ public class FixApiController {
 
     private void fixAll() {
 
-        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-system");
+        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-hrm");
 
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
