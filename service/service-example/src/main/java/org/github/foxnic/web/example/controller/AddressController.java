@@ -57,7 +57,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-20 16:47:04
+ * @since 2022-10-21 13:53:54
 */
 
 @InDoc
@@ -82,7 +82,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = AddressVOMeta.DD , value = "sf" , required = false , dataTypeClass=String.class),
 	})
-	@ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true)
+	@ApiParamSupport(ignoreDBTreatyProperties = true,ignoreDefaultVoProperties = true , ignorePrimaryKey = true)
 	@ApiOperationSupport(order=1 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = AddressServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.INSERT)

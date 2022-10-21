@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.fix;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.commons.compiler.source.ControllerCompilationUnit;
 import com.github.foxnic.commons.io.FileNavigator;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
@@ -30,7 +31,12 @@ public class FixApiController {
             if(!isFile) return;
             if(ext.equals(".java")) return;
             if(!file.getName().endsWith("Controller.java")) return;
-            fix(file);
+            try {
+                fix(file);
+            } catch (Throwable e) {
+                System.err.println(file.getAbsolutePath());
+                Logger.exception(e);
+            }
         });
 
     }

@@ -25,6 +25,7 @@ import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.proxy.storage.FileServiceProxy;
 import org.github.foxnic.web.storage.service.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +54,7 @@ public class FileController extends SuperController {
 	@Autowired
 	private IFileService fileService;
 
-
+	@ApiOperation(value = "文件上传")
 	@PostMapping(FileServiceProxy.UPLOAD)
 	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -90,8 +91,9 @@ public class FileController extends SuperController {
 		response.getWriter().write(JSON.toJSONString(ErrorDesc.success().data(list)));
 	}
 
+	@ApiOperation(value = "文件下载")
 	@SentinelResource(value = FileServiceProxy.DOWNLOAD)
-	@RequestMapping(FileServiceProxy.DOWNLOAD)
+	@GetMapping(FileServiceProxy.DOWNLOAD)
 	public void download(HttpServletRequest request,HttpServletResponse response,String id,String inline,String catalog) throws Exception {
 		Boolean il= DataParser.parseBoolean(inline);
 		FileCatalog fileCatalog=FileCatalog.parseByCode(catalog);
@@ -101,7 +103,8 @@ public class FileController extends SuperController {
 		fileService.downloadFile(id,il,response,fileCatalog);
     }
 
-	@RequestMapping(FileServiceProxy.IMAGE)
+	@ApiOperation(value = "图片下载")
+	@GetMapping(FileServiceProxy.IMAGE)
 	public void image(HttpServletRequest request,HttpServletResponse response,String id,String catalog) throws Exception {
 		FileCatalog fileCatalog=FileCatalog.parseByCode(catalog);
 		if(fileCatalog==null) {
@@ -116,7 +119,7 @@ public class FileController extends SuperController {
 	/**
 	 * 删除附件
 	*/
-	@ApiOperation(value = "删除系统文件")
+	@ApiOperation(value = "删除文件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 	})
@@ -136,7 +139,7 @@ public class FileController extends SuperController {
 	 * 批量删除附件 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-	@ApiOperation(value = "批量删除附件")
+	@ApiOperation(value = "批量删除文件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
@@ -179,6 +182,7 @@ public class FileController extends SuperController {
 	@NotNull(name = FileVOMeta.ID)
 	@SentinelResource(value = FileServiceProxy.GET_BY_ID)
 	@PostMapping(FileServiceProxy.GET_BY_ID)
+	@GetMapping(FileServiceProxy.GET_BY_ID)
 	public Result<File> getById(String id) {
 		Result<File> result=new Result<>();
 		File role=fileService.getById(id);
@@ -197,7 +201,8 @@ public class FileController extends SuperController {
 	@ApiOperationSupport(order=6)
 	@NotNull(name = FileVOMeta.ID)
 	@SentinelResource(value = FileServiceProxy.FILE_DATA)
-	@RequestMapping(FileServiceProxy.FILE_DATA)
+	@PostMapping(FileServiceProxy.FILE_DATA)
+	@GetMapping(FileServiceProxy.FILE_DATA)
 	public Result<String> getFileData(String id) {
 		return fileService.getFileData(id);
 	}

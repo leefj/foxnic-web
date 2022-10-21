@@ -11,6 +11,7 @@ import com.github.foxnic.springboot.Licence;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.system.LicenceServiceProxy;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("SysLicenceController")
 public class LicenceController {
 
+    @ApiOperation(value = "导入许可证")
     @PostMapping(LicenceServiceProxy.IMPORT)
     public Result importLicence() {
         Long t=System.currentTimeMillis();
@@ -45,9 +47,10 @@ public class LicenceController {
     }
 
     /**
-     * 获取语言条目
+     * 获取许可证数据
      */
-    @RequestMapping(LicenceServiceProxy.GET)
+    @ApiOperation(value = "获取许可证信息")
+    @PostMapping(LicenceServiceProxy.GET)
     public Result<JSONObject> get() {
         Result<JSONObject> result=new Result<>();
         result.success(true).data(LicenceProxy.getLicence());
@@ -56,9 +59,10 @@ public class LicenceController {
     }
 
     /**
-     * 获取语言条目
+     * 获取许可证条目数据
      */
-    @RequestMapping(LicenceServiceProxy.GET_LICENCE_ITEMS)
+    @ApiOperation(value = "导入许可证条目信息")
+    @PostMapping(LicenceServiceProxy.GET_LICENCE_ITEMS)
     public Result<JSONObject> getLicenceItems() {
         Result<JSONObject> result=new Result<>();
         result.success(true).data(JSONObject.parseObject(JSON.toJSONString(Licence.getItems())));
