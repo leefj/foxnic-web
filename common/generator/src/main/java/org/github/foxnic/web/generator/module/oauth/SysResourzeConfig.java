@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.oauth;
 
+import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
@@ -75,6 +76,11 @@ public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         //list.refreshAfterEdit(false);
+    }
+
+    @Override
+    public void configController(ControllerOptions controller) {
+        controller.restApiTagDir("认证服务");
     }
 
     @Override

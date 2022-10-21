@@ -275,16 +275,19 @@ security:
 logging:
   config: classpath:logback-config.xml
 
-#禁止自动扫描API
-springfox:
-  documentation:
-    auto-startup: true
+
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+
+#自动扫描API
+springfox:
+  documentation:
+    auto-startup: true
 
 knife4j:
   enable: true

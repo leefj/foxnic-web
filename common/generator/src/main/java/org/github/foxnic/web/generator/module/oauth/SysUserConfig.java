@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.oauth;
 
+import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
@@ -166,6 +167,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         list.operationColumn().addActionMenu("ownerRelation","属主关系");
         list.operationColumn().addActionMenu("passwdReset","重置密码");
 
+    }
+
+    @Override
+    public void configController(ControllerOptions controller) {
+        controller.restApiTagDir("认证服务");
     }
 
     @Override
