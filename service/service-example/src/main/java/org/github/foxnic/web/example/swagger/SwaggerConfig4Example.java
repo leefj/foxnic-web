@@ -33,15 +33,22 @@ public class SwaggerConfig4Example extends BasicSwaggerConfig {
 
     @Autowired
     public SwaggerConfig4Example(OpenApiExtensionResolver openApiExtensionResolver) {
+        // 指定扫描的包范围
         super(openApiExtensionResolver,FoxnicWebMeta.SERVICE_EXAMPLE_PACKAGE);
     }
 
 
+    /**
+     * 返回 docket Bean , 注意调整 @Bean 注解的 value 值
+     * */
     @Bean("ExampleApiDocket")
     public Docket createRestApi() {
         return super.createRestApi();
     }
 
+    /**
+     * 返回 ApiInfo , 描述信息
+     * */
     protected ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("示例服务")

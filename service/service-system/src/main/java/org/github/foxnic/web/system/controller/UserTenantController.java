@@ -1,16 +1,11 @@
 package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.CollectorUtil;
-import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -29,14 +24,10 @@ import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
 import org.github.foxnic.web.system.service.IUserTenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
+
 import java.util.List;
-import java.util.Map;
+
 import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
@@ -192,7 +183,7 @@ public class UserTenantController extends SuperController {
         userTenantService.join(list, UserTenantMeta.TENANT);
         // 关联出 工号 数据
         userTenantService.join(list, UserTenantMeta.EMPLOYEE);
-        // 
+        //
         List<Employee> employees = CollectorUtil.collectList(list, UserTenant::getEmployee);
         userTenantService.dao().join(employees, Person.class);
         result.success(true).data(list);

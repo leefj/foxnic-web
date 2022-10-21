@@ -1,34 +1,23 @@
 package org.github.foxnic.web.system.test;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.DateUtil;
-import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.dict.LeaveType;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
-import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.framework.bpm.ProcessDelegate;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import com.github.foxnic.api.swagger.ApiParamSupport;
 
 @RestController("BPMTestController")
