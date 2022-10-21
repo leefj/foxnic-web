@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-20 15:07:07
+ * @since 2022-10-21 15:02:05
  */
 
 
@@ -426,7 +426,7 @@ function ListPage() {
 				dropdown.render({
 					elem: this
 					,show: true //外部事件触发即显示
-					,data: [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"},{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}]
+					,data: [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}]
 					,click: function(menu, othis){
 						if(menu.perm && !admin.checkAuth(menu.perm)) {
 							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});
