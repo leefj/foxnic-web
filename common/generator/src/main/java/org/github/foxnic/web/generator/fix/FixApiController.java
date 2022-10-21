@@ -25,11 +25,13 @@ public class FixApiController {
 
     private void fixAll() {
 
-        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-hrm");
+        // FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-hrm");
+        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\eam\\platform\\service\\service-contract");
 
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
             if(ext.equals(".java")) return;
+            if(!file.getParentFile().getName().equals("controller")) return;
             if(!file.getName().endsWith("Controller.java")) return;
             try {
                 fix(file);
