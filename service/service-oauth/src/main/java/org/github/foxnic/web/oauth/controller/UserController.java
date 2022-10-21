@@ -69,7 +69,7 @@ public class UserController extends SuperController {
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = UserServiceProxy.INSERT)
     @PostMapping(UserServiceProxy.INSERT)
-    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true,ignorePrimaryKey = true)
     public Result insert(UserVO userVO) {
         this.validator().asserts(userVO.getRealName()).require();
         if (this.validator().failure()) {

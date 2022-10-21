@@ -59,10 +59,10 @@ public class RoleController extends SuperController {
     /**
      * 添加角色
      */
-    @ApiOperation(value = "添加角色1")
+    @ApiOperation(value = "添加角色")
     @ApiImplicitParams({ @ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"), @ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"), @ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员") })
-    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
-    @ApiOperationSupport(order = 1, includeParameters = { RoleVOMeta.ID, RoleVOMeta.CODE, RoleVOMeta.NAME, RoleVOMeta.MENU_IDS })
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true ,ignorePrimaryKey = true )
+    @ApiOperationSupport(order = 1, includeParameters = { RoleVOMeta.CODE, RoleVOMeta.NAME, RoleVOMeta.MENU_IDS })
     @SentinelResource(value = RoleServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.INSERT)
     public Result insert(RoleVO roleVO) {
@@ -108,7 +108,7 @@ public class RoleController extends SuperController {
     @ApiOperationSupport(order = 4, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE, RoleVOMeta.SEARCH_FIELD, RoleVOMeta.SEARCH_VALUE, RoleVOMeta.SORT_FIELD, RoleVOMeta.SORT_TYPE, RoleVOMeta.IDS })
     @SentinelResource(value = RoleServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.UPDATE)
-    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true,baseModelType = RoleVO.class)
     public Result update(RoleVO roleVO) {
         Result result = roleService.update(roleVO, SaveMode.NOT_NULL_FIELDS);
         return result;

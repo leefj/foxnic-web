@@ -77,7 +77,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			@Override
 			public void run() {
 				dao().pausePrintThreadSQL();
-				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=?",10,1,"super_admin").getValueList("account",String.class);
+				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=?",2,1,"super_admin").getValueList("account",String.class);
 				for (String account : accounts) {
 					try {
 						User user = UserServiceImpl.this.getUserByIdentity(account);

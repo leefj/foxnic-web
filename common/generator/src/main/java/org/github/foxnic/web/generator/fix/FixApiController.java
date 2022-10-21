@@ -24,7 +24,7 @@ public class FixApiController {
 
     private void fixAll() {
 
-        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-oauth");
+        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-system");
 
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
@@ -70,6 +70,9 @@ public class FixApiController {
                     apiImplicitParam.setName("ApiParamSupport");
                     apiImplicitParam.getPairs().add(new MemberValuePair("ignoreDBTreatyProperties", new BooleanLiteralExpr(true)));
                     apiImplicitParam.getPairs().add(new MemberValuePair("ignoreDefaultVoProperties", new BooleanLiteralExpr(true)));
+                    if(method.getName().getIdentifier().equals("insert")) {
+                        apiImplicitParam.getPairs().add(new MemberValuePair("ignorePrimaryKey", new BooleanLiteralExpr(true)));
+                    }
                     method.addAnnotation(apiImplicitParam);
 
                     if(!hasApiParamSupport) {

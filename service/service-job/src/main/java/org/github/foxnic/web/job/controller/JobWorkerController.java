@@ -62,7 +62,7 @@ public class JobWorkerController extends SuperController {
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobWorkerServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.INSERT)
-    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
     public Result insert(JobWorkerVO jobWorkerVO) {
         Result result = jobWorkerService.insert(jobWorkerVO, false);
         return result;

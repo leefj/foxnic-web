@@ -7,20 +7,15 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.encrypt.Base64Util;
-import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.springboot.Licence;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.system.LicenceServiceProxy;
-import org.github.foxnic.web.proxy.utils.StorageProxyUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.File;
-import java.util.Map;
 
 @InDoc
 @Api(tags = "系统服务/许可证")
