@@ -1,15 +1,12 @@
 package org.github.foxnic.web.example.controller;
 
 
-import java.util.List;
-import java.util.ArrayList;
-
-
+import java.util.*;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.github.foxnic.api.swagger.InDoc;
-import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
@@ -21,29 +18,39 @@ import org.github.foxnic.web.domain.example.Address;
 import org.github.foxnic.web.domain.example.AddressVO;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
 import com.github.foxnic.api.error.ErrorDesc;
-
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
-
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.example.meta.AddressMeta;
 import org.github.foxnic.web.domain.example.AddressModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.example.service.IAddressService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 import org.github.foxnic.web.domain.example.AddressSubModel;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.github.foxnic.web.domain.example.AddressPureModel;
 import org.github.foxnic.web.domain.oauth.User;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * <p>
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-21 13:53:54
+ * @since 2022-10-23 09:58:20
 */
 
 @InDoc
@@ -114,7 +121,7 @@ public class AddressController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
@@ -229,7 +236,7 @@ public class AddressController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
 	public Result<List<Address>> getByIds(List<String> ids) {

@@ -79,7 +79,7 @@ public abstract class BasicSwaggerConfig {
      * @return this
      */
     public Predicate<RequestHandler> basePackage(final String basePackage) {
-        return new LocalPredicate<RequestHandler>(basePackage);
+        return new LocalPredicate<>(basePackage);
 
     }
 
