@@ -24,7 +24,7 @@ public class SystemConfigProxyUtil {
 
     public static <T extends CodeTextEnum> T getEnum(SystemConfigEnum key,Class<T> type) {
         String value=getString(key);
-        return  (T)EnumUtil.parseByCode(type,value);
+        return  EnumUtil.parseByCode(type,value);
     }
 
     /**
