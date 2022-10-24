@@ -17,6 +17,7 @@ import org.github.foxnic.web.job.service.IJobService;
 import org.github.foxnic.web.job.service.IJobWorkerService;
 import org.github.foxnic.web.job.utils.ScheduleUtils;
 import org.quartz.CronTrigger;
+import org.quartz.ObjectAlreadyExistsException;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -167,7 +168,11 @@ public class ScheduleConfig
                 } else {
                     ScheduleUtils.updateScheduleJob(job);
                 }
-            } catch (Exception e) {
+            } catch (ObjectAlreadyExistsException e1) {
+                jobService.fixObjectAlreadyExistsException();
+                Logger.exception("job 启动异常:"+job.getName()+", 已尝试修复，请重启应用 , "+job.getWorker().getClassName(),e1);
+            }
+            catch (Exception e) {
                 Logger.exception("job 启动异常:"+job.getName()+" , "+job.getWorker().getClassName(),e);
             }
         }

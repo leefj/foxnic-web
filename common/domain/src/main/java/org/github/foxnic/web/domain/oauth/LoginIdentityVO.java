@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.system.LoginType;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -15,14 +16,15 @@ import com.github.foxnic.dao.entity.Entity;
 
 
 /**
- * 用于App登录接口
+ * 账户登录模型
+ * <p>用于登录接口</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-21 15:22:11
- * @sign 67CB1F28B06642A43DD3CE559E713A6B
+ * @since 2022-10-24 13:52:09
+ * @sign 13946368950A58EE2AD6CBBEC6EABA18
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@ApiModel()
+@ApiModel(description = "账户登录模型 ; 用于登录接口")
 public class LoginIdentityVO {
 
 	private static final long serialVersionUID = 1L;
@@ -30,33 +32,34 @@ public class LoginIdentityVO {
 	/**
 	 * 帐号或手机号等用于识别身份的标识
 	*/
-	@ApiModelProperty(required = false,value="帐号或手机号等用于识别身份的标识" , notes = "")
+	@ApiModelProperty(required = false,value="帐号或手机号等用于识别身份的标识" , notes = "" , example = "admin")
 	private String identity;
 	
 	/**
 	 * 密码
 	*/
-	@ApiModelProperty(required = false,value="密码" , notes = "")
+	@ApiModelProperty(required = false,value="密码" , notes = "" , example = "123321")
 	private String passwd;
 	
 	/**
 	 * 随机ID：客户端产生的唯一ID，用于标识一次认证
 	*/
-	@ApiModelProperty(required = false,value="随机ID" , notes = "客户端产生的唯一ID，用于标识一次认证")
+	@ApiModelProperty(required = false,value="随机ID" , notes = "客户端产生的唯一ID，用于标识一次认证" , example = "uuid")
 	private String browserId;
 	
 	/**
 	 * 校验码/验证码：用户输入的校验码
 	*/
-	@ApiModelProperty(required = false,value="校验码/验证码" , notes = "用户输入的校验码")
+	@ApiModelProperty(required = false,value="校验码/验证码" , notes = "用户输入的校验码" , example = "1234")
 	private String captcha;
 	
 	/**
 	 * 登录方式：登录方式
 	*/
-	@ApiModelProperty(required = false,value="登录方式" , notes = "登录方式")
+	@ApiModelProperty(required = false,value="登录方式" , notes = "登录方式" , example = "IDENTITY_PWD")
 	private String loginType;
 	@Transient
+	@EnumFor("loginType")
 	private LoginType loginTypeEnum;
 	
 	/**

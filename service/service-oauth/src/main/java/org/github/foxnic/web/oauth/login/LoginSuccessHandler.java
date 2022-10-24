@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
@@ -11,6 +12,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
+import org.github.foxnic.web.domain.oauth.TokenModel;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
@@ -138,9 +140,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
         if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
-        	Map<String, String> token = getToken(authentication);
+			TokenModel token = getToken(authentication);
         	ret.put("token", token);
-			for (Map.Entry<String, String> entry : token.entrySet()) {
+			Map<String,Object> tokenMap= BeanUtil.toMap(token);
+			for (Map.Entry<String, Object> entry : tokenMap.entrySet()) {
 				response.addHeader("Set-Cookie", entry.getKey()+"="+entry.getValue()+"; path=/");
 			}
         }
@@ -207,9 +210,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	}
 
 
-	private Map<String, String> getToken(Authentication authentication)  {
+	private TokenModel getToken(Authentication authentication)  {
 
-		Map<String, String> map = new HashMap<>(5);
+		TokenModel tokenModel=new TokenModel();
 		SessionUserImpl principal = (SessionUserImpl) authentication.getPrincipal();
 
 		String username = principal.getUsername();
@@ -224,10 +227,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		JwtTokenPair jwtTokenPair = jwtTokenGenerator.jwtTokenPair(principal.getUser().getId(), username);
 
-		map.put("accessToken", jwtTokenPair.getAccessToken().token());
-		map.put("refreshToken", jwtTokenPair.getRefreshToken().token());
+		tokenModel.setAccessToken( jwtTokenPair.getAccessToken().token());
+		tokenModel.setRefreshToken(jwtTokenPair.getRefreshToken().token());
 
-		return map;
+		return tokenModel;
 
 	}
 

@@ -42,7 +42,9 @@ public class CaptchaController {
      * @throws Exception
      */
     @ApiOperation(value = "获取验证码图片", notes = "用于生成验证并返回生成的验证码图片")
-    @ApiImplicitParams({ @ApiImplicitParam(name = "browserId", value = "客户端唯一码", required = true, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = "browserId", value = "客户端唯一码", required = true, dataTypeClass = String.class)
+	})
     @GetMapping("/image/{browserId}")
     public void createCode(@PathVariable String browserId, HttpServletResponse response) throws Exception {
         Assert.notNull(browserId, "机器码不能为空");

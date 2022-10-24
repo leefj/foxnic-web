@@ -69,14 +69,14 @@ public class FoxnicServiceModelToSwagger2MapperImpl extends ServiceModelToSwagge
                     for (Operation operation : operations) {
                         HandlerMethod hm=context.getHandlerMethod(apiDescription.getPath(), operation.getMethod().name());
                         Method m=hm.getMethod();
-                        if("newApiName2".equals(m.getName())) {
-                            System.out.println();
-                        }
+                        // if("newApiName2".equals(m.getName())) {
+                        //     System.out.println();
+                        // }
 
                         for (java.lang.reflect.Parameter mp : m.getParameters()) {
                             if(DataParser.isSimpleType(mp.getType())) continue;
                                 if(!modelNameMap.values().contains(mp.getType().getName())) {
-
+                                    //
                                     if(DataParser.isCollection(mp.getType())) {
                                         if(mp.getParameterizedType() instanceof  ParameterizedType) {
                                             ParameterizedType type = (ParameterizedType) mp.getParameterizedType();

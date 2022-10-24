@@ -321,4 +321,6 @@ public interface IJobService extends ISuperService<Job> {
 	 * 校验并模拟Job的执行时间
 	 * */
     Result simulate(String cronExpr);
+
+    void fixObjectAlreadyExistsException();
 }

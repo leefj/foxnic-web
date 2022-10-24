@@ -48,7 +48,17 @@ public class FavouriteGroupItemController extends SuperController {
      * 添加常用人员分组条目
      */
     @ApiOperation(value = "添加常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.INSERT)
@@ -89,7 +99,9 @@ public class FavouriteGroupItemController extends SuperController {
      * 删除常用人员分组条目
      */
     @ApiOperation(value = "删除常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.DELETE)
@@ -103,7 +115,9 @@ public class FavouriteGroupItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.DELETE_BY_IDS)
@@ -116,7 +130,17 @@ public class FavouriteGroupItemController extends SuperController {
      * 更新常用人员分组条目
      */
     @ApiOperation(value = "更新常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { FavouriteGroupItemVOMeta.PAGE_INDEX, FavouriteGroupItemVOMeta.PAGE_SIZE, FavouriteGroupItemVOMeta.SEARCH_FIELD, FavouriteGroupItemVOMeta.FUZZY_FIELD, FavouriteGroupItemVOMeta.SEARCH_VALUE, FavouriteGroupItemVOMeta.SORT_FIELD, FavouriteGroupItemVOMeta.SORT_TYPE, FavouriteGroupItemVOMeta.IDS })
     @SentinelResource(value = FavouriteGroupItemServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.UPDATE)
@@ -130,7 +154,17 @@ public class FavouriteGroupItemController extends SuperController {
      * 保存常用人员分组条目
      */
     @ApiOperation(value = "保存常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { FavouriteGroupItemVOMeta.PAGE_INDEX, FavouriteGroupItemVOMeta.PAGE_SIZE, FavouriteGroupItemVOMeta.SEARCH_FIELD, FavouriteGroupItemVOMeta.FUZZY_FIELD, FavouriteGroupItemVOMeta.SEARCH_VALUE, FavouriteGroupItemVOMeta.SORT_FIELD, FavouriteGroupItemVOMeta.SORT_TYPE, FavouriteGroupItemVOMeta.IDS })
     @SentinelResource(value = FavouriteGroupItemServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.SAVE)
@@ -144,7 +178,9 @@ public class FavouriteGroupItemController extends SuperController {
      * 获取常用人员分组条目
      */
     @ApiOperation(value = "获取常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.GET_BY_ID)
@@ -160,7 +196,9 @@ public class FavouriteGroupItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.GET_BY_IDS)
@@ -175,7 +213,17 @@ public class FavouriteGroupItemController extends SuperController {
      * 查询常用人员分组条目
      */
     @ApiOperation(value = "查询常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { FavouriteGroupItemVOMeta.PAGE_INDEX, FavouriteGroupItemVOMeta.PAGE_SIZE })
     @SentinelResource(value = FavouriteGroupItemServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.QUERY_LIST)
@@ -190,7 +238,17 @@ public class FavouriteGroupItemController extends SuperController {
      * 分页查询常用人员分组条目
      */
     @ApiOperation(value = "分页查询常用人员分组条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class), @ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_NAME, value = "对象名称", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.GROUP_ID, value = "层级路径", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.EMPLOYEE_ID, value = "所有者ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TEMPORARY, value = "是否临时", required = true, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = FavouriteGroupItemServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.QUERY_PAGED_LIST)

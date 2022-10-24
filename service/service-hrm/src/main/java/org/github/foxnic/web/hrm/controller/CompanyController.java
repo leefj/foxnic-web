@@ -49,7 +49,12 @@ public class CompanyController extends SuperController {
      * 添加公司
      */
     @ApiOperation(value = "添加公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"), @ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"), @ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"), @ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"),
+		@ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"),
+		@ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = CompanyServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.INSERT)
@@ -63,7 +68,9 @@ public class CompanyController extends SuperController {
      * 删除公司
      */
     @ApiOperation(value = "删除公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = CompanyServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.DELETE)
@@ -88,7 +95,9 @@ public class CompanyController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = CompanyServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.DELETE_BY_IDS)
@@ -133,7 +142,12 @@ public class CompanyController extends SuperController {
      * 更新公司
      */
     @ApiOperation(value = "更新公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"), @ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"), @ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"), @ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"),
+		@ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"),
+		@ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { CompanyVOMeta.PAGE_INDEX, CompanyVOMeta.PAGE_SIZE, CompanyVOMeta.SEARCH_FIELD, CompanyVOMeta.FUZZY_FIELD, CompanyVOMeta.SEARCH_VALUE, CompanyVOMeta.DIRTY_FIELDS, CompanyVOMeta.SORT_FIELD, CompanyVOMeta.SORT_TYPE, CompanyVOMeta.IDS })
     @SentinelResource(value = CompanyServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.UPDATE)
@@ -147,7 +161,12 @@ public class CompanyController extends SuperController {
      * 保存公司
      */
     @ApiOperation(value = "保存公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"), @ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"), @ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"), @ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"),
+		@ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"),
+		@ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { CompanyVOMeta.PAGE_INDEX, CompanyVOMeta.PAGE_SIZE, CompanyVOMeta.SEARCH_FIELD, CompanyVOMeta.FUZZY_FIELD, CompanyVOMeta.SEARCH_VALUE, CompanyVOMeta.DIRTY_FIELDS, CompanyVOMeta.SORT_FIELD, CompanyVOMeta.SORT_TYPE, CompanyVOMeta.IDS })
     @SentinelResource(value = CompanyServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.SAVE)
@@ -161,7 +180,9 @@ public class CompanyController extends SuperController {
      * 获取公司
      */
     @ApiOperation(value = "获取公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = CompanyServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.GET_BY_ID)
@@ -177,7 +198,9 @@ public class CompanyController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量获取公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = CompanyServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.GET_BY_IDS)
@@ -192,7 +215,12 @@ public class CompanyController extends SuperController {
      * 查询公司
      */
     @ApiOperation(value = "查询公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"), @ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"), @ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"), @ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"),
+		@ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"),
+		@ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { CompanyVOMeta.PAGE_INDEX, CompanyVOMeta.PAGE_SIZE })
     @SentinelResource(value = CompanyServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.QUERY_LIST)
@@ -207,7 +235,12 @@ public class CompanyController extends SuperController {
      * 分页查询公司
      */
     @ApiOperation(value = "分页查询公司")
-    @ApiImplicitParams({ @ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"), @ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"), @ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"), @ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = CompanyVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "002"),
+		@ApiImplicitParam(name = CompanyVOMeta.NAME, value = "公司名称", required = false, dataTypeClass = String.class, example = "租户公司"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE, value = "社会信用代码", required = false, dataTypeClass = String.class, example = "00000000000000000"),
+		@ApiImplicitParam(name = CompanyVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = CompanyServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(CompanyServiceProxy.QUERY_PAGED_LIST)

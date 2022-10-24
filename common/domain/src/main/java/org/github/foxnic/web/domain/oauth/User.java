@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
 import org.github.foxnic.web.domain.system.UserTenant;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +25,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-21 15:22:11
+ * @since 2022-10-24 13:52:09
  * @sign B875799D0E408516EA4096962DCFDF9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -41,61 +42,61 @@ public class User extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "110588348101165911")
 	private String id;
 	
 	/**
 	 * 账户：账户
 	*/
-	@ApiModelProperty(required = true,value="账户" , notes = "账户")
+	@ApiModelProperty(required = true,value="账户" , notes = "账户" , example = "admin")
 	private String account;
 	
 	/**
 	 * 姓名：姓名
 	*/
-	@ApiModelProperty(required = true,value="姓名" , notes = "姓名")
+	@ApiModelProperty(required = true,value="姓名" , notes = "姓名" , example = "超级管理员")
 	private String realName;
 	
 	/**
 	 * 密码：密码
 	*/
-	@ApiModelProperty(required = true,value="密码" , notes = "密码")
+	@ApiModelProperty(required = true,value="密码" , notes = "密码" , example = "******")
 	private String passwd;
 	
 	/**
 	 * 手机号码：手机号码
 	*/
-	@ApiModelProperty(required = true,value="手机号码" , notes = "手机号码")
+	@ApiModelProperty(required = true,value="手机号码" , notes = "手机号码" , example = "15700000000")
 	private String phone;
 	
 	/**
 	 * 头像ID：头像ID
 	*/
-	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID")
+	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID" , example = "604393122465587200")
 	private String portraitId;
 	
 	/**
 	 * 语言：语言
 	*/
-	@ApiModelProperty(required = false,value="语言" , notes = "语言")
+	@ApiModelProperty(required = false,value="语言" , notes = "语言" , example = "confuse")
 	private String language;
 	
 	/**
 	 * 是否有效：是否有效
 	*/
-	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
+	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效" , example = "1")
 	private Integer valid;
 	
 	/**
 	 * 缓存键：改变这个值，可使浏览器重新请求静态资源
 	*/
-	@ApiModelProperty(required = false,value="缓存键" , notes = "改变这个值，可使浏览器重新请求静态资源")
+	@ApiModelProperty(required = false,value="缓存键" , notes = "改变这个值，可使浏览器重新请求静态资源" , example = "443c1")
 	private String cacheKey;
 	
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-10-24 01:48:48")
 	private Date lastLoginTime;
 	
 	/**
@@ -107,27 +108,28 @@ public class User extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-06-09 04:52:05")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-09-09 09:58:00")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -139,13 +141,13 @@ public class User extends Entity {
 	/**
 	 * 删除时间：删除时间
 	*/
-	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
+	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间" , example = "2022-02-10 10:27:23")
 	private Date deleteTime;
 	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "198")
 	private Integer version;
 	
 	/**

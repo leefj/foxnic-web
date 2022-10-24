@@ -54,7 +54,12 @@ public class JobWorkerController extends SuperController {
      * 添加任务执行器
      */
     @ApiOperation(value = "添加任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"), @ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"), @ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobWorkerServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.INSERT)
@@ -68,7 +73,9 @@ public class JobWorkerController extends SuperController {
      * 删除任务执行器
      */
     @ApiOperation(value = "删除任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = JobWorkerServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.DELETE)
@@ -82,7 +89,9 @@ public class JobWorkerController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = JobWorkerServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.DELETE_BY_IDS)
@@ -95,7 +104,12 @@ public class JobWorkerController extends SuperController {
      * 更新任务执行器
      */
     @ApiOperation(value = "更新任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"), @ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"), @ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { JobWorkerVOMeta.PAGE_INDEX, JobWorkerVOMeta.PAGE_SIZE, JobWorkerVOMeta.SEARCH_FIELD, JobWorkerVOMeta.FUZZY_FIELD, JobWorkerVOMeta.SEARCH_VALUE, JobWorkerVOMeta.DIRTY_FIELDS, JobWorkerVOMeta.SORT_FIELD, JobWorkerVOMeta.SORT_TYPE, JobWorkerVOMeta.IDS })
     @SentinelResource(value = JobWorkerServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.UPDATE)
@@ -109,7 +123,12 @@ public class JobWorkerController extends SuperController {
      * 保存任务执行器
      */
     @ApiOperation(value = "保存任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"), @ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"), @ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { JobWorkerVOMeta.PAGE_INDEX, JobWorkerVOMeta.PAGE_SIZE, JobWorkerVOMeta.SEARCH_FIELD, JobWorkerVOMeta.FUZZY_FIELD, JobWorkerVOMeta.SEARCH_VALUE, JobWorkerVOMeta.DIRTY_FIELDS, JobWorkerVOMeta.SORT_FIELD, JobWorkerVOMeta.SORT_TYPE, JobWorkerVOMeta.IDS })
     @SentinelResource(value = JobWorkerServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.SAVE)
@@ -123,7 +142,9 @@ public class JobWorkerController extends SuperController {
      * 获取任务执行器
      */
     @ApiOperation(value = "获取任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = JobWorkerServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.GET_BY_ID)
@@ -139,7 +160,9 @@ public class JobWorkerController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量获取任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = JobWorkerServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.GET_BY_IDS)
@@ -154,7 +177,12 @@ public class JobWorkerController extends SuperController {
      * 查询任务执行器
      */
     @ApiOperation(value = "查询任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"), @ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"), @ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { JobWorkerVOMeta.PAGE_INDEX, JobWorkerVOMeta.PAGE_SIZE })
     @SentinelResource(value = JobWorkerServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.QUERY_LIST)
@@ -169,7 +197,12 @@ public class JobWorkerController extends SuperController {
      * 分页查询任务执行器
      */
     @ApiOperation(value = "分页查询任务执行器")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"), @ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"), @ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobWorkerVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "示例-1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.CLASS_NAME, value = "类名", required = false, dataTypeClass = String.class, example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobWorkerVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class, example = "1")
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = JobWorkerServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobWorkerServiceProxy.QUERY_PAGED_LIST)

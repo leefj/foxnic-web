@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.fix;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.commons.compiler.source.ControllerCompilationUnit;
 import com.github.foxnic.commons.io.FileNavigator;
+import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.javaparser.ast.ImportDeclaration;
@@ -25,8 +26,9 @@ public class FixApiController {
 
     private void fixAll() {
 
-        // FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-hrm");
-        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\eam\\platform\\service\\service-contract");
+         FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\service\\service-oauth");
+//        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\eam\\platform\\service");
+
 
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
@@ -34,13 +36,22 @@ public class FixApiController {
             if(!file.getParentFile().getName().equals("controller")) return;
             if(!file.getName().endsWith("Controller.java")) return;
             try {
-                fix(file);
+                // fix(file);
+                breakLine(file);
             } catch (Throwable e) {
                 System.err.println(file.getAbsolutePath());
                 Logger.exception(e);
             }
         });
 
+    }
+
+    private void breakLine(File file) {
+        String code= FileUtil.readText(file);
+        code=code.replace("@ApiImplicitParams({ @ApiImplicitParam(","@ApiImplicitParams({ \n\t\t@ApiImplicitParam(");
+        code=code.replace("), @ApiImplicitParam(name =","),\n\t\t@ApiImplicitParam(name =");
+        code=code.replace(") })",")\n\t})");
+        FileUtil.writeText(file,code);
     }
 
     private void fix(File javaFile) {

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
@@ -20,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-23 09:58:20
+ * @since 2022-10-24 10:25:27
  * @sign 1F813FF1CB7AA2ECDEBCB23C056BDF64
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -100,6 +101,7 @@ public class Address extends Entity {
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**

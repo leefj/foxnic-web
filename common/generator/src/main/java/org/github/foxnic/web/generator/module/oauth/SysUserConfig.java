@@ -54,13 +54,23 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         PojoClassFile pojo=context.createPojo("LoginIdentityVO");
         pojo.setSuperType(null);
-        pojo.setDoc("用于App登录接口");
-        pojo.addSimpleProperty(String.class,"identity","帐号或手机号等用于识别身份的标识","");
-        pojo.addSimpleProperty(String.class,"passwd","密码","");
-        pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
-        pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
-        pojo.addSimpleProperty(String.class,"loginType","登录方式","登录方式");
+        pojo.setTitle("账户登录模型");
+        pojo.setDesc("用于登录接口");
+        pojo.setDoc("账户登录模型，用于App登录接口");
+        pojo.addSimpleProperty(String.class,"identity","帐号或手机号等用于识别身份的标识","","admin");
+        pojo.addSimpleProperty(String.class,"passwd","密码","","123321");
+        pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证","uuid");
+        pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码","1234");
+        pojo.addSimpleProperty(String.class,"loginType","登录方式","登录方式","IDENTITY_PWD");
         pojo.shadow("loginType", LoginType.class);
+
+
+        pojo=context.createPojo("TokenModel");
+        pojo.setSuperType(null);
+        pojo.setTitle("Token模型");
+        pojo.addSimpleProperty(String.class,"accessToken","accessToken","");
+        pojo.addSimpleProperty(String.class,"refreshToken","refreshToken","");
+
     }
 
     @Override

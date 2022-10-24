@@ -53,7 +53,16 @@ public class PositionController extends SuperController {
      * 添加岗位
      */
     @ApiOperation(value = "添加岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = PositionServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.INSERT)
@@ -67,7 +76,9 @@ public class PositionController extends SuperController {
      * 删除岗位
      */
     @ApiOperation(value = "删除岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = PositionServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.DELETE)
@@ -92,7 +103,9 @@ public class PositionController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = PositionServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.DELETE_BY_IDS)
@@ -137,7 +150,16 @@ public class PositionController extends SuperController {
      * 更新岗位
      */
     @ApiOperation(value = "更新岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { PositionVOMeta.PAGE_INDEX, PositionVOMeta.PAGE_SIZE, PositionVOMeta.SEARCH_FIELD, PositionVOMeta.FUZZY_FIELD, PositionVOMeta.SEARCH_VALUE, PositionVOMeta.SORT_FIELD, PositionVOMeta.SORT_TYPE, PositionVOMeta.IDS })
     @SentinelResource(value = PositionServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.UPDATE)
@@ -151,7 +173,16 @@ public class PositionController extends SuperController {
      * 保存岗位
      */
     @ApiOperation(value = "保存岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { PositionVOMeta.PAGE_INDEX, PositionVOMeta.PAGE_SIZE, PositionVOMeta.SEARCH_FIELD, PositionVOMeta.FUZZY_FIELD, PositionVOMeta.SEARCH_VALUE, PositionVOMeta.SORT_FIELD, PositionVOMeta.SORT_TYPE, PositionVOMeta.IDS })
     @SentinelResource(value = PositionServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.SAVE)
@@ -165,7 +196,9 @@ public class PositionController extends SuperController {
      * 获取岗位
      */
     @ApiOperation(value = "获取岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = PositionServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.GET_BY_ID)
@@ -181,7 +214,9 @@ public class PositionController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = PositionServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.GET_BY_IDS)
@@ -196,7 +231,16 @@ public class PositionController extends SuperController {
      * 查询岗位
      */
     @ApiOperation(value = "查询岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { PositionVOMeta.PAGE_INDEX, PositionVOMeta.PAGE_SIZE })
     @SentinelResource(value = PositionServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.QUERY_LIST)
@@ -211,7 +255,16 @@ public class PositionController extends SuperController {
      * 分页查询岗位
      */
     @ApiOperation(value = "分页查询岗位")
-    @ApiImplicitParams({ @ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class), @ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class), @ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = PositionVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.ORG_ID, value = "所属组织ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.CODE, value = "岗位代码", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME, value = "全称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME, value = "简称", required = true, dataTypeClass = String.class),
+		@ApiImplicitParam(name = PositionVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = PositionServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(PositionServiceProxy.QUERY_PAGED_LIST)

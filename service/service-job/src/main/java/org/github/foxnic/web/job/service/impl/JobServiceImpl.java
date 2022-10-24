@@ -29,6 +29,7 @@ import org.quartz.CronExpression;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -404,6 +405,14 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 		}
 
 		return ErrorDesc.success().data(list);
+	}
+
+	@Override
+	@Transactional
+	public void fixObjectAlreadyExistsException() {
+		dao.execute("delete from sys_job_cron_triggers");
+		dao.execute("delete from sys_job_triggers");
+		dao.execute("delete from sys_job_job_details");
 	}
 
 	@Override

@@ -48,7 +48,18 @@ public class JobController extends SuperController {
      * 添加定时任务配置
      */
     @ApiOperation(value = "添加定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"), @ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"), @ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"), @ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"), @ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"), @ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"),
+		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"),
+		@ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"),
+		@ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"),
+		@ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.INSERT)
@@ -62,7 +73,9 @@ public class JobController extends SuperController {
      * 校验并模拟Job的执行时间
      */
     @ApiOperation(value = "校验并模拟Job的执行时间")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?")
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = JobServiceProxy.SIMULATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @ApiParamSupport(ignoreAllProperties = true,includeProperties = {JobVOMeta.CRON_EXPR} )
@@ -76,7 +89,9 @@ public class JobController extends SuperController {
      * 删除定时任务配置
      */
     @ApiOperation(value = "删除定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = JobServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.DELETE)
@@ -90,7 +105,9 @@ public class JobController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = JobServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.DELETE_BY_IDS)
@@ -103,7 +120,18 @@ public class JobController extends SuperController {
      * 更新定时任务配置
      */
     @ApiOperation(value = "更新定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"), @ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"), @ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"), @ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"), @ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"), @ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"),
+		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"),
+		@ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"),
+		@ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"),
+		@ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { JobVOMeta.PAGE_INDEX, JobVOMeta.PAGE_SIZE, JobVOMeta.SEARCH_FIELD, JobVOMeta.FUZZY_FIELD, JobVOMeta.SEARCH_VALUE, JobVOMeta.DIRTY_FIELDS, JobVOMeta.SORT_FIELD, JobVOMeta.SORT_TYPE, JobVOMeta.IDS })
     @SentinelResource(value = JobServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.UPDATE)
@@ -117,7 +145,18 @@ public class JobController extends SuperController {
      * 保存定时任务配置
      */
     @ApiOperation(value = "保存定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"), @ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"), @ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"), @ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"), @ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"), @ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"),
+		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"),
+		@ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"),
+		@ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"),
+		@ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { JobVOMeta.PAGE_INDEX, JobVOMeta.PAGE_SIZE, JobVOMeta.SEARCH_FIELD, JobVOMeta.FUZZY_FIELD, JobVOMeta.SEARCH_VALUE, JobVOMeta.DIRTY_FIELDS, JobVOMeta.SORT_FIELD, JobVOMeta.SORT_TYPE, JobVOMeta.IDS })
     @SentinelResource(value = JobServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.SAVE)
@@ -131,7 +170,9 @@ public class JobController extends SuperController {
      * 获取定时任务配置
      */
     @ApiOperation(value = "获取定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = JobServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.GET_BY_ID)
@@ -148,7 +189,9 @@ public class JobController extends SuperController {
      * 获取定时任务配置
      */
     @ApiOperation(value = "获取定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = JobServiceProxy.INVOKE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.INVOKE)
@@ -161,7 +204,9 @@ public class JobController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量获取定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = JobServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.GET_BY_IDS)
@@ -176,7 +221,18 @@ public class JobController extends SuperController {
      * 查询定时任务配置
      */
     @ApiOperation(value = "查询定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"), @ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"), @ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"), @ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"), @ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"), @ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"),
+		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"),
+		@ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"),
+		@ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"),
+		@ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { JobVOMeta.PAGE_INDEX, JobVOMeta.PAGE_SIZE })
     @SentinelResource(value = JobServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.QUERY_LIST)
@@ -191,7 +247,18 @@ public class JobController extends SuperController {
      * 分页查询定时任务配置
      */
     @ApiOperation(value = "分页查询定时任务配置")
-    @ApiImplicitParams({ @ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"), @ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"), @ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"), @ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"), @ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"), @ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"), @ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class) })
+    @ApiImplicitParams({ 
+		@ApiImplicitParam(name = JobVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME, value = "任务名称", required = false, dataTypeClass = String.class, example = "111"),
+		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG, value = "组别", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID, value = "执行类ID", required = false, dataTypeClass = String.class, example = "530777750395420672"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR, value = "cron表达式", required = false, dataTypeClass = String.class, example = "0/2 * * * * ?"),
+		@ApiImplicitParam(name = JobVOMeta.PARAMETER, value = "执行参数", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT, value = "是否并发执行（0允许", required = true, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY, value = "遗漏执行的策略", required = false, dataTypeClass = String.class, example = "once_now"),
+		@ApiImplicitParam(name = JobVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class, example = "normal"),
+		@ApiImplicitParam(name = JobVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = JobServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(JobServiceProxy.QUERY_PAGED_LIST)
