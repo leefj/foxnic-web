@@ -1,20 +1,18 @@
-package org.github.foxnic.web.proxy.api;
+package org.github.foxnic.web.proxy.docs;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.domain.api.ApiSource;
-import org.github.foxnic.web.domain.api.ApiSourceVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.github.foxnic.web.domain.api.ApiSource;
+import org.github.foxnic.web.domain.api.ApiSourceVO;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,13 +22,13 @@ import org.github.foxnic.web.misc.ztree.ZTreeNode;
  * @since 2022-09-20 15:24:48
  * @version
  */
-@FeignClient(value = MicroServiceNames.API, contextId = ApiSourceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
+@FeignClient(value = MicroServiceNames.DOCS, contextId = ApiSourceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ApiSourceServiceProxy {
 
     /**
      * 基础路径 , service-api
      */
-    public static final String API_BASIC_PATH = "service-api";
+    public static final String API_BASIC_PATH = "service-docs";
 
     /**
      * API 上下文路径 , sys-api-source
@@ -190,7 +188,7 @@ public interface ApiSourceServiceProxy {
     /**
      * 控制器类名
      */
-    public static final String CONTROLLER_CLASS_NAME = "org.github.foxnic.web.api.controller.ApiSourceController";
+    public static final String CONTROLLER_CLASS_NAME = "org.github.foxnic.web.docs.controller.ApiSourceController";
 
     /**
      * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

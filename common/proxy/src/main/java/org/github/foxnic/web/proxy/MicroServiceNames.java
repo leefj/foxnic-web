@@ -43,10 +43,10 @@ public class MicroServiceNames {
 
 
 	/**
-	 * 数据变更相关的服务 <br>
+	 * 文档相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
-	public static final String API="service-api";
+	public static final String DOCS ="service-docs";
 
 
 	/**

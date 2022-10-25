@@ -1,7 +1,6 @@
 package org.github.foxnic.web.generator.menu;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.dao.data.Rcd;
@@ -12,21 +11,15 @@ import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import com.github.foxnic.sql.meta.DBType;
 import org.github.foxnic.web.api.page.ApiSourcePageController;
-import org.github.foxnic.web.bpm.page.ProcessErrorPageController;
-import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
-import org.github.foxnic.web.domain.api.ApiSource;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
-import org.github.foxnic.web.example.page.AddressPageController;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.api.ApiSourceServiceProxy;
-import org.github.foxnic.web.proxy.bpm.ProcessErrorServiceProxy;
-import org.github.foxnic.web.proxy.example.AddressServiceProxy;
+import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;

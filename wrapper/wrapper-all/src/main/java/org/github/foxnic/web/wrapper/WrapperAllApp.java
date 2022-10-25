@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 		FoxnicWebMeta.SERVICE_BPM_PACKAGE,
 		FoxnicWebMeta.SERVICE_DATA_PERM_PACKAGE,
 		FoxnicWebMeta.SERVICE_EXAMPLE_PACKAGE,
-		FoxnicWebMeta.SERVICE_API_PACKAGE
+		FoxnicWebMeta.SERVICE_DOCS_PACKAGE
 })
 @SpringBootApplication(exclude = {FeignAutoConfiguration.class})
 public class WrapperAllApp {

@@ -1,7 +1,5 @@
 package org.github.foxnic.web.framework;
 
-import com.alibaba.druid.VERSION;
-
 public class FoxnicWebMeta {
 
 	/**
@@ -91,7 +89,7 @@ public class FoxnicWebMeta {
 	/**
 	 * 接口文档
 	 * */
-	public static final String SERVICE_API_PACKAGE=BASE_PACKAGE+".api";
+	public static final String SERVICE_DOCS_PACKAGE =BASE_PACKAGE+".docs";
 
 
 	/**

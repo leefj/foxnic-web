@@ -5,7 +5,7 @@ import org.github.foxnic.web.domain.api.ApiSource;
 import org.github.foxnic.web.domain.api.ApiSourceVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.proxy.api.ApiSourceServiceProxy;
+import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
 import org.github.foxnic.web.session.DynamicMenuHandler;
 
 import java.util.ArrayList;
