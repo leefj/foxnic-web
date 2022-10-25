@@ -1,6 +1,7 @@
-package org.github.foxnic.web.domain.api;
+package org.github.foxnic.web.domain.docs;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_API_SOURCE;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
@@ -17,13 +19,15 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * 接口数据来源定义
+ * <p>接口数据来源定义 , 数据表 sys_api_source 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-20 15:24:48
- * @sign 7B03FD741333F01EACEC3B2444650F44
+ * @since 2022-10-25 16:22:59
+ * @sign 5F09DC83B848B0926C46186D5C8EEC08
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_api_source")
+@ApiModel(description = "接口数据来源定义 ; 接口数据来源定义 , 数据表 sys_api_source 的PO类型")
 public class ApiSource extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -34,37 +38,37 @@ public class ApiSource extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "1598029824")
 	private String id;
 	
 	/**
 	 * 名称：名称
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="名称" , notes = "名称" , example = "示例服务")
 	private String name;
 	
 	/**
 	 * 接口地址：接口地址
 	*/
-	@ApiModelProperty(required = false,value="接口地址" , notes = "接口地址")
+	@ApiModelProperty(required = false,value="接口地址" , notes = "接口地址" , example = "http://127.0.0.1:{localPort}/v2/api-docs?group=example")
 	private String apiUrl;
 	
 	/**
 	 * 账户：账户
 	*/
-	@ApiModelProperty(required = false,value="账户" , notes = "账户")
+	@ApiModelProperty(required = false,value="账户" , notes = "账户" , example = "user")
 	private String userName;
 	
 	/**
 	 * 密码：密码
 	*/
-	@ApiModelProperty(required = false,value="密码" , notes = "密码")
+	@ApiModelProperty(required = false,value="密码" , notes = "密码" , example = "******")
 	private String password;
 	
 	/**
 	 * 是否有效：是否有效
 	*/
-	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
+	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效" , example = "1")
 	private Integer valid;
 	
 	/**
@@ -82,7 +86,7 @@ public class ApiSource extends Entity {
 	/**
 	 * 取数时间：取数时间
 	*/
-	@ApiModelProperty(required = false,value="取数时间" , notes = "取数时间")
+	@ApiModelProperty(required = false,value="取数时间" , notes = "取数时间" , example = "2022-10-24 03:36:25")
 	private Date fetchTime;
 	
 	/**
@@ -94,13 +98,13 @@ public class ApiSource extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2022-09-14 04:23:26")
 	private Date createTime;
 	
 	/**
@@ -112,15 +116,16 @@ public class ApiSource extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-10-24 03:36:25")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -138,7 +143,7 @@ public class ApiSource extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1021")
 	private Integer version;
 	
 	/**
@@ -557,7 +562,7 @@ public class ApiSource extends Entity {
 	*/
 	@Transient
 	public ApiSource duplicate(boolean all) {
-		org.github.foxnic.web.domain.api.meta.ApiSourceMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.api.meta.ApiSourceMeta.$$proxy$$();
+		org.github.foxnic.web.domain.docs.meta.ApiSourceMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.docs.meta.ApiSourceMeta.$$proxy$$();
 		inst.setNotes(this.getNotes());
 		inst.setApiData(this.getApiData());
 		inst.setNavDir(this.getNavDir());
@@ -622,6 +627,6 @@ public class ApiSource extends Entity {
 	*/
 	@Transient
 	public static ApiSource create() {
-		return new org.github.foxnic.web.domain.api.meta.ApiSourceMeta.$$proxy$$();
+		return new org.github.foxnic.web.domain.docs.meta.ApiSourceMeta.$$proxy$$();
 	}
 }

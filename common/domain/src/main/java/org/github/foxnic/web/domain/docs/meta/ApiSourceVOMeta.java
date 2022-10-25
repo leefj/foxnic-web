@@ -1,9 +1,9 @@
-package org.github.foxnic.web.domain.api.meta;
+package org.github.foxnic.web.domain.docs.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.api.ApiSourceVO;
+import org.github.foxnic.web.domain.docs.ApiSourceVO;
 import java.util.List;
-import org.github.foxnic.web.domain.api.ApiSource;
+import org.github.foxnic.web.domain.docs.ApiSource;
 import java.util.Date;
 import javax.persistence.Transient;
 
@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-20 15:24:48
+ * @since 2022-10-25 16:22:59
  * @sign B1DB3838444793848029B81333A97146
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -26,7 +26,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 页码 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.Integer> PAGE_INDEX_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.Integer> PAGE_INDEX_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
 	
 	/**
 	 * 分页大小 , 类型: java.lang.Integer
@@ -36,7 +36,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 分页大小 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.Integer> PAGE_SIZE_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.Integer> PAGE_SIZE_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
 	
 	/**
 	 * 搜索字段 , 类型: java.lang.String
@@ -46,7 +46,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 搜索字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> SEARCH_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> SEARCH_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 模糊搜索字段 , 类型: java.lang.String
@@ -56,7 +56,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 模糊搜索字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> FUZZY_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> FUZZY_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 搜索的值 , 类型: java.lang.String
@@ -66,7 +66,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 搜索的值 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
 	
 	/**
 	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
@@ -76,7 +76,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> DIRTY_FIELDS_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,DIRTY_FIELDS, java.util.List.class, "已修改字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> DIRTY_FIELDS_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,DIRTY_FIELDS, java.util.List.class, "已修改字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 排序字段 , 类型: java.lang.String
@@ -86,7 +86,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 排序字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> SORT_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> SORT_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 排序方式 , 类型: java.lang.String
@@ -96,7 +96,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 排序方式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -106,7 +106,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 主键 , 类型: java.lang.String
@@ -116,7 +116,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -126,7 +126,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 名称 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
 	 * 接口地址 , 类型: java.lang.String
@@ -136,7 +136,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 接口地址 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> API_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,API_URL, java.lang.String.class, "接口地址", "接口地址", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> API_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,API_URL, java.lang.String.class, "接口地址", "接口地址", java.lang.String.class, null);
 	
 	/**
 	 * 账户 , 类型: java.lang.String
@@ -146,7 +146,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 账户 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> USER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,USER_NAME, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> USER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,USER_NAME, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
 	
 	/**
 	 * 密码 , 类型: java.lang.String
@@ -156,7 +156,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 密码 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> PASSWORD_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,PASSWORD, java.lang.String.class, "密码", "密码", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> PASSWORD_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,PASSWORD, java.lang.String.class, "密码", "密码", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -166,7 +166,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * API数据 , 类型: java.lang.String
@@ -176,7 +176,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * API数据 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> API_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,API_DATA, java.lang.String.class, "API数据", "API数据", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> API_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,API_DATA, java.lang.String.class, "API数据", "API数据", java.lang.String.class, null);
 	
 	/**
 	 * 目录结构 , 类型: java.lang.String
@@ -186,7 +186,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 目录结构 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> NAV_DIR_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,NAV_DIR, java.lang.String.class, "目录结构", "目录结构", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> NAV_DIR_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,NAV_DIR, java.lang.String.class, "目录结构", "目录结构", java.lang.String.class, null);
 	
 	/**
 	 * 取数时间 , 类型: java.util.Date
@@ -196,7 +196,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 取数时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.util.Date> FETCH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,FETCH_TIME, java.util.Date.class, "取数时间", "取数时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.util.Date> FETCH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,FETCH_TIME, java.util.Date.class, "取数时间", "取数时间", java.util.Date.class, null);
 	
 	/**
 	 * 备注 , 类型: java.lang.String
@@ -206,7 +206,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 备注 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -216,7 +216,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间 , 类型: java.util.Date
@@ -226,7 +226,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID , 类型: java.lang.String
@@ -236,7 +236,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间 , 类型: java.util.Date
@@ -246,7 +246,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
@@ -256,7 +256,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID , 类型: java.lang.String
@@ -266,7 +266,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间 , 类型: java.util.Date
@@ -276,7 +276,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
@@ -286,7 +286,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSourceVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSourceVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSourceVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSourceVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -296,7 +296,7 @@ public class ApiSourceVOMeta extends ApiSourceMeta {
 	/**
 	 * 代理类
 	*/
-	public static class $$proxy$$ extends org.github.foxnic.web.domain.api.ApiSourceVO {
+	public static class $$proxy$$ extends org.github.foxnic.web.domain.docs.ApiSourceVO {
 
 		private static final long serialVersionUID = 1L;
 

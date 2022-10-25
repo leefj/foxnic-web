@@ -2,8 +2,8 @@ package org.github.foxnic.web.proxy.docs;
 
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.domain.api.ApiSource;
-import org.github.foxnic.web.domain.api.ApiSourceVO;
+import org.github.foxnic.web.domain.docs.ApiSource;
+import org.github.foxnic.web.domain.docs.ApiSourceVO;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;

@@ -1,8 +1,8 @@
 package org.github.foxnic.web.framework.busi.menu;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.api.ApiSource;
-import org.github.foxnic.web.domain.api.ApiSourceVO;
+import org.github.foxnic.web.domain.docs.ApiSource;
+import org.github.foxnic.web.domain.docs.ApiSourceVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
@@ -34,7 +34,8 @@ public class DocketDyHandler extends DynamicMenuHandler {
             Menu m=new Menu();
             m.setLabel(source.getName());
             m.setCss("mdi mdi-gamepad-circle-up");
-            m.setPath("/business/api/navigator/index.html?id="+source.getId());
+            m.setPath("/business/docs/api_navigator/index.html?id="+source.getId());
+            m.setUrl("#!sys_api_docket_"+source.getId());
             m.setParentId(menu.getId());
             m.setHidden(0);
             m.setId(source.getId());

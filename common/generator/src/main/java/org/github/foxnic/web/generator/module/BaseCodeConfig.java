@@ -1,10 +1,8 @@
 package org.github.foxnic.web.generator.module;
 
-import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.util.ModuleCodeConfig;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
@@ -21,7 +19,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_DATA_PERM="service-dataperm";
     public static final String PREFIX_JOB="service-job";
 
-    public static final String PREFIX_API="service-api";
+    public static final String PREFIX_DOCS ="service-docs";
 
 
     private FoxnicWebConfigs configs;

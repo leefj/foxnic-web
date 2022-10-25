@@ -2,12 +2,10 @@ package org.github.foxnic.web.generator.module.api;
 
 import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
-import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_API_SOURCE;
-import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ApiSourceConfig extends BaseCodeConfig<SYS_API_SOURCE> {
 
     public ApiSourceConfig() {
-        super(PREFIX_API, SYS_API_SOURCE.$TABLE,"sys_", 4);
+        super(PREFIX_DOCS, SYS_API_SOURCE.$TABLE,"sys_", 4);
     }
 
     @Override

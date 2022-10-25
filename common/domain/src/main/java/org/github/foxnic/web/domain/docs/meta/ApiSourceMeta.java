@@ -1,7 +1,7 @@
-package org.github.foxnic.web.domain.api.meta;
+package org.github.foxnic.web.domain.docs.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.api.ApiSource;
+import org.github.foxnic.web.domain.docs.ApiSource;
 import java.util.Date;
 import javax.persistence.Transient;
 
@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-20 15:24:48
- * @sign 7B03FD741333F01EACEC3B2444650F44
+ * @since 2022-10-25 16:22:59
+ * @sign 5F09DC83B848B0926C46186D5C8EEC08
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,7 +24,7 @@ public class ApiSourceMeta {
 	/**
 	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -34,7 +34,7 @@ public class ApiSourceMeta {
 	/**
 	 * 名称 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
 	 * 接口地址 , 类型: java.lang.String
@@ -44,7 +44,7 @@ public class ApiSourceMeta {
 	/**
 	 * 接口地址 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> API_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,API_URL, java.lang.String.class, "接口地址", "接口地址", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> API_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,API_URL, java.lang.String.class, "接口地址", "接口地址", java.lang.String.class, null);
 	
 	/**
 	 * 账户 , 类型: java.lang.String
@@ -54,7 +54,7 @@ public class ApiSourceMeta {
 	/**
 	 * 账户 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> USER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,USER_NAME, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> USER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,USER_NAME, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
 	
 	/**
 	 * 密码 , 类型: java.lang.String
@@ -64,7 +64,7 @@ public class ApiSourceMeta {
 	/**
 	 * 密码 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> PASSWORD_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,PASSWORD, java.lang.String.class, "密码", "密码", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> PASSWORD_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,PASSWORD, java.lang.String.class, "密码", "密码", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -74,7 +74,7 @@ public class ApiSourceMeta {
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * API数据 , 类型: java.lang.String
@@ -84,7 +84,7 @@ public class ApiSourceMeta {
 	/**
 	 * API数据 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> API_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,API_DATA, java.lang.String.class, "API数据", "API数据", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> API_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,API_DATA, java.lang.String.class, "API数据", "API数据", java.lang.String.class, null);
 	
 	/**
 	 * 目录结构 , 类型: java.lang.String
@@ -94,7 +94,7 @@ public class ApiSourceMeta {
 	/**
 	 * 目录结构 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> NAV_DIR_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,NAV_DIR, java.lang.String.class, "目录结构", "目录结构", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> NAV_DIR_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,NAV_DIR, java.lang.String.class, "目录结构", "目录结构", java.lang.String.class, null);
 	
 	/**
 	 * 取数时间 , 类型: java.util.Date
@@ -104,7 +104,7 @@ public class ApiSourceMeta {
 	/**
 	 * 取数时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.util.Date> FETCH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,FETCH_TIME, java.util.Date.class, "取数时间", "取数时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.util.Date> FETCH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,FETCH_TIME, java.util.Date.class, "取数时间", "取数时间", java.util.Date.class, null);
 	
 	/**
 	 * 备注 , 类型: java.lang.String
@@ -114,7 +114,7 @@ public class ApiSourceMeta {
 	/**
 	 * 备注 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -124,7 +124,7 @@ public class ApiSourceMeta {
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间 , 类型: java.util.Date
@@ -134,7 +134,7 @@ public class ApiSourceMeta {
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID , 类型: java.lang.String
@@ -144,7 +144,7 @@ public class ApiSourceMeta {
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间 , 类型: java.util.Date
@@ -154,7 +154,7 @@ public class ApiSourceMeta {
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
@@ -164,7 +164,7 @@ public class ApiSourceMeta {
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID , 类型: java.lang.String
@@ -174,7 +174,7 @@ public class ApiSourceMeta {
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间 , 类型: java.util.Date
@@ -184,7 +184,7 @@ public class ApiSourceMeta {
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
@@ -194,7 +194,7 @@ public class ApiSourceMeta {
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.api.ApiSource,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.api.ApiSource.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.docs.ApiSource,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.docs.ApiSource.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -204,7 +204,7 @@ public class ApiSourceMeta {
 	/**
 	 * 代理类
 	*/
-	public static class $$proxy$$ extends org.github.foxnic.web.domain.api.ApiSource {
+	public static class $$proxy$$ extends org.github.foxnic.web.domain.docs.ApiSource {
 
 		private static final long serialVersionUID = 1L;
 

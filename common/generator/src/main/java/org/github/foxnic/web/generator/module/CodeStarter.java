@@ -37,7 +37,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
@@ -49,7 +49,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initExample2Modules();
 //        initJobModules();
 
-//        initApiModules();
+        initDocsModules();
 
     }
 
@@ -61,7 +61,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 
 
-    private void initApiModules() {
+    private void initDocsModules() {
         this.addConfig(new ApiSourceConfig());
     }
 

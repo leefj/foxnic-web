@@ -1,5 +1,6 @@
-package org.github.foxnic.web.domain.api;
+package org.github.foxnic.web.domain.docs;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,13 +15,15 @@ import java.util.Map;
 
 
 /**
- * 接口数据来源定义
+ * 接口数据来源定义VO类型
+ * <p>接口数据来源定义 , 数据表 sys_api_source 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-20 15:24:48
+ * @since 2022-10-25 16:22:59
  * @sign B1DB3838444793848029B81333A97146
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "接口数据来源定义VO类型 ; 接口数据来源定义 , 数据表 sys_api_source 的通用VO类型" , parent = ApiSource.class)
 public class ApiSourceVO extends ApiSource {
 
 	private static final long serialVersionUID = 1L;
@@ -318,7 +321,7 @@ public class ApiSourceVO extends ApiSource {
 	*/
 	@Transient
 	public ApiSourceVO duplicate(boolean all) {
-		org.github.foxnic.web.domain.api.meta.ApiSourceVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.api.meta.ApiSourceVOMeta.$$proxy$$();
+		org.github.foxnic.web.domain.docs.meta.ApiSourceVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.docs.meta.ApiSourceVOMeta.$$proxy$$();
 		inst.setNotes(this.getNotes());
 		inst.setApiData(this.getApiData());
 		inst.setNavDir(this.getNavDir());
@@ -394,6 +397,6 @@ public class ApiSourceVO extends ApiSource {
 	*/
 	@Transient
 	public static ApiSourceVO create() {
-		return new org.github.foxnic.web.domain.api.meta.ApiSourceVOMeta.$$proxy$$();
+		return new org.github.foxnic.web.domain.docs.meta.ApiSourceVOMeta.$$proxy$$();
 	}
 }
