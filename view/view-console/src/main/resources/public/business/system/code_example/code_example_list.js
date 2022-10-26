@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 13:39:22
+ * @since 2022-10-26 09:22:50
  */
 
 
@@ -600,12 +600,20 @@ function ListPage() {
 			else if (layEvent === 'do-test-action') { // 测试
 				window.pageExt.list.doTestAction(data,this);
 			}
+			else if (layEvent === 'do-test-action') { // 测试
+				window.pageExt.list.doTestAction(data,this);
+			}
 			else if(obj.event === 'ops-more'){
 				//更多下拉菜单
+				var  items = [{"perm":"p1","id":"t1","title":"测试-1"},{"id":"t2","title":"测试-2"}];
+				items=items.filter(function (item,i,arr){
+					if(!item.perm) return true;
+					else return admin.checkAuth(item.perm);
+				});
 				dropdown.render({
 					elem: this
 					,show: true //外部事件触发即显示
-					,data: [{"id":"t1","title":"测试-1"},{"id":"t2","title":"测试-2"}]
+					,data: items
 					,click: function(menu, othis){
 						if(menu.perm && !admin.checkAuth(menu.perm)) {
 							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});

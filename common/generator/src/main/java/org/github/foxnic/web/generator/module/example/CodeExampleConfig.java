@@ -229,7 +229,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		list.operationColumn().addActionButton("测试","doTestAction","layui-btn-primary layui-border-red");
 
 		//添加操作列菜单
-		list.operationColumn().addActionMenu("t1","测试-1");
+		list.operationColumn().addActionMenu("t1","测试-1","p1");
 		list.operationColumn().addActionMenu("t2","测试-2");
 
 		//增加工具栏按钮

@@ -40,7 +40,8 @@ applications:
     microServiceNameConst: SYSTEM
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/system
-    wrapperProjectPath:  /wrapper/wrapper-service-system
+    #wrapperProjectPath:  /wrapper/wrapper-service-system
+    wrapperProjectPath:  /wrapper/wrapper-all-service
   #存储服务
   service-storage:
     nacosGroup: service

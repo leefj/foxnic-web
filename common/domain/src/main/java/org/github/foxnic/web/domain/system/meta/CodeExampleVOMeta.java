@@ -7,12 +7,13 @@ import org.github.foxnic.web.domain.system.CodeExample;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 13:39:22
+ * @since 2022-10-26 09:22:50
  * @sign 18729F2CDDBC6E22EC7B8D69A06D53E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -871,5 +872,67 @@ public class CodeExampleVOMeta extends CodeExampleMeta {
 			super.setRoleIds(roleIds);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public CodeExampleVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public CodeExampleVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setBirthday(this.getBirthday());
+			inst.setResourceId(this.getResourceId());
+			inst.setNotes(this.getNotes());
+			inst.setValid(this.getValid());
+			inst.setButtonInput(this.getButtonInput());
+			inst.setCheckEnum(this.getCheckEnum());
+			inst.setFileIds(this.getFileIds());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setSelectDict(this.getSelectDict());
+			inst.setSelectEnum(this.getSelectEnum());
+			inst.setId(this.getId());
+			inst.setArea(this.getArea());
+			inst.setImageId(this.getImageId());
+			inst.setCheckDict(this.getCheckDict());
+			inst.setWeight(this.getWeight());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setWorkTime(this.getWorkTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setRadioDict(this.getRadioDict());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setRadioEnum(this.getRadioEnum());
+			inst.setDeleteBy(this.getDeleteBy());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setRoles(this.getRoles());
+				inst.setPageSize(this.getPageSize());
+				inst.setRoleCountByJoin(this.getRoleCountByJoin());
+				inst.setRoleCountByAfter(this.getRoleCountByAfter());
+				inst.setRoleIds(this.getRoleIds());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setIds(this.getIds());
+				inst.setResourze(this.getResourze());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

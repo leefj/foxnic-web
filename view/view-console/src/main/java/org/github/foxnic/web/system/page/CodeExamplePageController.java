@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 代码生成示例主表 模版页面控制器
+ * 代码生成示例主模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 13:39:22
+ * @since 2022-10-26 09:22:50
 */
 
 @Controller("SysCodeExamplePageController")

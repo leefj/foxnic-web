@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
@@ -8,9 +9,11 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,13 +24,15 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * 代码生成示例主
+ * <p>代码生成示例主 , 数据表 sys_code_example 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 13:39:22
+ * @since 2022-10-26 09:22:50
  * @sign 5DA5B807819C80EF8AD87B54E1E5646B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_code_example")
+@ApiModel(description = "代码生成示例主 ; 代码生成示例主 , 数据表 sys_code_example 的PO类型")
 public class CodeExample extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -38,49 +43,49 @@ public class CodeExample extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "1")
 	private String id;
 	
 	/**
 	 * 单行文本：单行文本
 	*/
-	@ApiModelProperty(required = false,value="单行文本" , notes = "单行文本")
+	@ApiModelProperty(required = false,value="单行文本" , notes = "单行文本" , example = "ZZ")
 	private String name;
 	
 	/**
 	 * 多行文本：多行文本
 	*/
-	@ApiModelProperty(required = false,value="多行文本" , notes = "多行文本")
+	@ApiModelProperty(required = false,value="多行文本" , notes = "多行文本" , example = "XXX")
 	private String notes;
 	
 	/**
 	 * 图片上传：图片上传
 	*/
-	@ApiModelProperty(required = false,value="图片上传" , notes = "图片上传")
+	@ApiModelProperty(required = false,value="图片上传" , notes = "图片上传" , example = "1")
 	private String imageId;
 	
 	/**
 	 * 多文件上传：多文件上传
 	*/
-	@ApiModelProperty(required = false,value="多文件上传" , notes = "多文件上传")
+	@ApiModelProperty(required = false,value="多文件上传" , notes = "多文件上传" , example = "CC")
 	private String fileIds;
 	
 	/**
 	 * 整数输入：整数输入
 	*/
-	@ApiModelProperty(required = false,value="整数输入" , notes = "整数输入")
+	@ApiModelProperty(required = false,value="整数输入" , notes = "整数输入" , example = "10")
 	private Integer area;
 	
 	/**
 	 * 小数输入：小数输入
 	*/
-	@ApiModelProperty(required = false,value="小数输入" , notes = "小数输入")
+	@ApiModelProperty(required = false,value="小数输入" , notes = "小数输入" , example = "12.0")
 	private Double weight;
 	
 	/**
 	 * 逻辑值：逻辑值
 	*/
-	@ApiModelProperty(required = false,value="逻辑值" , notes = "逻辑值")
+	@ApiModelProperty(required = false,value="逻辑值" , notes = "逻辑值" , example = "0")
 	private Integer valid;
 	
 	/**
@@ -134,7 +139,7 @@ public class CodeExample extends Entity {
 	/**
 	 * 日期：日期
 	*/
-	@ApiModelProperty(required = false,value="日期" , notes = "日期")
+	@ApiModelProperty(required = false,value="日期" , notes = "日期" , example = "2021-08-23 12:00:00")
 	private Date birthday;
 	
 	/**
@@ -152,45 +157,46 @@ public class CodeExample extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-08-01 09:35:19")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2021-08-06 04:50:54")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "1")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
 	*/
-	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
+	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID" , example = "110588348101165911")
 	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
 	*/
-	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
+	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间" , example = "2021-08-06 04:50:54")
 	private Date deleteTime;
 	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "4")
 	private Integer version;
 	
 	/**
@@ -668,6 +674,7 @@ public class CodeExample extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public CodeExample setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -898,7 +905,51 @@ public class CodeExample extends Entity {
 	*/
 	@Transient
 	public CodeExample clone() {
-		return EntityContext.clone(CodeExample.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CodeExample duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.CodeExampleMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.CodeExampleMeta.$$proxy$$();
+		inst.setBirthday(this.getBirthday());
+		inst.setResourceId(this.getResourceId());
+		inst.setNotes(this.getNotes());
+		inst.setValid(this.getValid());
+		inst.setButtonInput(this.getButtonInput());
+		inst.setCheckEnum(this.getCheckEnum());
+		inst.setFileIds(this.getFileIds());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setSelectDict(this.getSelectDict());
+		inst.setSelectEnum(this.getSelectEnum());
+		inst.setId(this.getId());
+		inst.setArea(this.getArea());
+		inst.setImageId(this.getImageId());
+		inst.setCheckDict(this.getCheckDict());
+		inst.setWeight(this.getWeight());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setWorkTime(this.getWorkTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setRadioDict(this.getRadioDict());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setRadioEnum(this.getRadioEnum());
+		inst.setDeleteBy(this.getDeleteBy());
+		if(all) {
+			inst.setRoleCountByAfter(this.getRoleCountByAfter());
+			inst.setRoleIds(this.getRoleIds());
+			inst.setRoles(this.getRoles());
+			inst.setResourze(this.getResourze());
+			inst.setRoleCountByJoin(this.getRoleCountByJoin());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
@@ -917,7 +968,9 @@ public class CodeExample extends Entity {
 	@Transient
 	public static CodeExample createFrom(Map<String,Object> codeExampleMap) {
 		if(codeExampleMap==null) return null;
-		CodeExample po = EntityContext.create(CodeExample.class, codeExampleMap);
+		CodeExample po = create();
+		EntityContext.copyProperties(po,codeExampleMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -929,7 +982,9 @@ public class CodeExample extends Entity {
 	@Transient
 	public static CodeExample createFrom(Object pojo) {
 		if(pojo==null) return null;
-		CodeExample po = EntityContext.create(CodeExample.class,pojo);
+		CodeExample po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -939,6 +994,6 @@ public class CodeExample extends Entity {
 	*/
 	@Transient
 	public static CodeExample create() {
-		return EntityContext.create(CodeExample.class);
+		return new org.github.foxnic.web.domain.system.meta.CodeExampleMeta.$$proxy$$();
 	}
 }

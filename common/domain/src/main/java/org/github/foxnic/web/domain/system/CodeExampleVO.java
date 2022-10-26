@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,17 +8,22 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
 
 
 
 /**
- * 代码生成示例主
+ * 代码生成示例主VO类型
+ * <p>代码生成示例主 , 数据表 sys_code_example 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 13:39:22
+ * @since 2022-10-26 09:22:50
  * @sign 18729F2CDDBC6E22EC7B8D69A06D53E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "代码生成示例主VO类型 ; 代码生成示例主 , 数据表 sys_code_example 的通用VO类型" , parent = CodeExample.class)
 public class CodeExampleVO extends CodeExample {
 
 	private static final long serialVersionUID = 1L;
@@ -270,5 +276,140 @@ public class CodeExampleVO extends CodeExample {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return CodeExampleVO , 转换好的 CodeExampleVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return CodeExampleVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CodeExampleVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CodeExampleVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta.$$proxy$$();
+		inst.setBirthday(this.getBirthday());
+		inst.setResourceId(this.getResourceId());
+		inst.setNotes(this.getNotes());
+		inst.setValid(this.getValid());
+		inst.setButtonInput(this.getButtonInput());
+		inst.setCheckEnum(this.getCheckEnum());
+		inst.setFileIds(this.getFileIds());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setSelectDict(this.getSelectDict());
+		inst.setSelectEnum(this.getSelectEnum());
+		inst.setId(this.getId());
+		inst.setArea(this.getArea());
+		inst.setImageId(this.getImageId());
+		inst.setCheckDict(this.getCheckDict());
+		inst.setWeight(this.getWeight());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setWorkTime(this.getWorkTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setRadioDict(this.getRadioDict());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setRadioEnum(this.getRadioEnum());
+		inst.setDeleteBy(this.getDeleteBy());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setRoles(this.getRoles());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setRoleCountByJoin(this.getRoleCountByJoin());
+			inst.setRoleCountByAfter(this.getRoleCountByAfter());
+			inst.setRoleIds(this.getRoleIds());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setIds(this.getIds());
+			inst.setResourze(this.getResourze());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CodeExampleVO clone(boolean deep) {
+		return EntityContext.clone(CodeExampleVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 CodeExampleVO
+	 * @param codeExampleMap 包含实体信息的 Map 对象
+	 * @return CodeExampleVO , 转换好的的 CodeExample 对象
+	*/
+	@Transient
+	public static CodeExampleVO createFrom(Map<String,Object> codeExampleMap) {
+		if(codeExampleMap==null) return null;
+		CodeExampleVO vo = create();
+		EntityContext.copyProperties(vo,codeExampleMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 CodeExampleVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return CodeExampleVO , 转换好的的 CodeExample 对象
+	*/
+	@Transient
+	public static CodeExampleVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		CodeExampleVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 CodeExampleVO，等同于 new
+	 * @return CodeExampleVO 对象
+	*/
+	@Transient
+	public static CodeExampleVO create() {
+		return new org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta.$$proxy$$();
 	}
 }
