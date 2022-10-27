@@ -3,17 +3,15 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
-import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
-import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
@@ -51,7 +49,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -345,12 +342,16 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	public User getUserByIdentity(String identity) {
 
+		PerformanceLogger logger=new PerformanceLogger();
+
+		logger.collect("A");
 		ConditionExpr conditionExpr=new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity);
 		conditionExpr.or(SYS_USER.PHONE+" = ?",identity);
 		conditionExpr.or(SYS_USER.ID+" = ?",identity);
 
 		Map<String,User> userMap=new HashMap();
 		List<User> users=dao.queryEntities(User.class, conditionExpr);
+		logger.collect("B");
 
 		User user = null ;
 
@@ -372,6 +373,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
+		logger.collect("C");
+
 		if(user==null) {
 			throw new UsernameNotFoundException("用户不存在");
 		}
@@ -392,6 +395,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				removeDBTreatyFields()
 				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY);
 
+		logger.collect("Start Join");
  		//填充账户模型
  		dao.fill(user).tag("login")
 			.with(UserMeta.ROLES, RoleMeta.MENUS, MenuMeta.RESOURCES)
@@ -404,30 +408,38 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.fields(sysRoleFields,busiRoleFields,menuFields,resourzeFields)
 			.execute();
 
+		logger.collect("End Join");
 //		int size2= ObjectUtil.sizeOf(user);
 
-		List<Menu> userMenus=new ArrayList<>();
 
-		if(user.getRoles()!=null) {
+
+		//logger.collect("F");
+		List<Menu> userMenus =new ArrayList<>();
+//		List<Menu> userMenus=CollectorUtil.collectMergedList(user.getRoles(),Role::getMenus);
+		//if(user.getRoles()!=null) {
+			List<Role> newRoles=new ArrayList<>();
 			for (Role role : user.getRoles()) {
 				if(role.getMenus()!=null) {
 					userMenus.addAll(role.getMenus());
 				}
+				Role newRole=role.clone();
+				newRoles.add(newRole);
 			}
-			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
-		}
+			//logger.collect("F1");
+			//EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
+			user.setRoles(newRoles);
+//		}
+		logger.collect("G");
 
 		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();
 		List<Menu> dySubMenus=new ArrayList<>();
 		for (Menu menu : userMenus) {
-			// 临时处理
-			if(menu.getId().equals("631513237405302784")) {
-				menu.setDynamicHandler("org.github.foxnic.web.framework.busi.menu.DocketDyHandler");
-			}
 			//
 			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
+				logger.collect("G1");
 				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+				logger.collect("G1.1");
 				if(dy!=null) {
 					boolean has = dy.hasPermission(menu, user);
 					if (!has) {
@@ -440,6 +452,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 						dySubMenus.addAll(subs);
 					}
 				}
+				logger.collect("G2");
 			}
 
 			if(excludedMenuIds.contains(menu.getId())) {
@@ -454,6 +467,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			userMenus.remove(remMenu);
 		}
 
+		logger.collect("H");
+
 		// 按 ID distinct
 		userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
 			return menu.getId();
@@ -462,6 +477,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
 		// 设置用户菜单
 		user.setMenus(userMenus);
+
+		logger.collect("I");
 
 		//
  		if(user.getActivatedTenant()!=null){
@@ -481,6 +498,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
+		logger.collect("J");
+
     	//设置用户语言
     	String usrLang=user.getLanguage();
     	if(!StringUtil.isBlank(devLang)) {
@@ -497,7 +516,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			user.setLanguage(Language.defaults.name());
 		}
 
+		logger.collect("K");
 
+		logger.info("Login");
         return user;
     }
 

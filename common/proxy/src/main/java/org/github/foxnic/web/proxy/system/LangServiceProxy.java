@@ -1,5 +1,6 @@
 package org.github.foxnic.web.proxy.system;
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.system.Lang;
@@ -9,9 +10,9 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
-
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -133,7 +134,7 @@ public interface LangServiceProxy {
      * 查询语言条目
      */
     @RequestMapping(LangServiceProxy.QUERY_LIST)
-    Result<List<Lang>> queryList(@RequestParam(name = "sample") LangVO sample);
+    Result<JSONArray> queryList(@RequestParam(name = "sample") LangVO sample);
 
     /**
      * 分页查询语言条目

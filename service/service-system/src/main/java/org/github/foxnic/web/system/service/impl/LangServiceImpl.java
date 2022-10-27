@@ -9,6 +9,7 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -17,8 +18,8 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -194,8 +195,22 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<Lang> queryList(Lang sample) {
-		return super.queryList(sample);
+	public List<Lang> queryList(Lang sample,Language... langs) {
+		FieldsBuilder fieldsBuilder=this.createFieldsBuilder();
+		fieldsBuilder.removeAll();
+		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CODE);
+		boolean isDefaultsExists=false;
+		for (Language lang : langs) {
+			if(lang==Language.defaults) {
+				isDefaultsExists=true;
+			}
+			fieldsBuilder.add(lang.code());
+		}
+		if(!isDefaultsExists) {
+			fieldsBuilder.add(Language.defaults.code());
+		}
+		List<Lang> list=super.queryList(sample,fieldsBuilder);
+		return list;
 	}
 
 

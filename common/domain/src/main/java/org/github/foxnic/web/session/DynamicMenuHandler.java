@@ -20,7 +20,7 @@ public abstract class DynamicMenuHandler {
             try {
                 handler = (DynamicMenuHandler) clz.newInstance();
                 HANDLERS.put(clsName,handler);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Logger.exception("创建失败",e);
             }
         }
