@@ -261,8 +261,11 @@ layui.define(['settings', 'layer'], function (exports) {
             if(TypeUtil.isNumber(opt.delayLoading)) {
                 delay=parseFloat(opt.delayLoading);
             }
+            if(!opt.loadingParams) {
+                opt.loadingParams = {shade:[0.1,"#333"]};
+            }
             if(opt.delayLoading) {
-                task=setTimeout(function(){layer.load(2);},delay);
+                task=setTimeout(function(){layer.load(2,opt.loadingParams);},delay);
             }
             if(opt.elms) {
                 for (var i = 0; i < opt.elms.length; i++) {
