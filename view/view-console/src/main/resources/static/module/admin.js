@@ -265,7 +265,13 @@ layui.define(['settings', 'layer'], function (exports) {
                 opt.loadingParams = {shade:[0.1,"#333"]};
             }
             if(opt.delayLoading) {
-                task=setTimeout(function(){layer.load(2,opt.loadingParams);},delay);
+                task=setTimeout(function() {
+                    if (top.layer) {
+                        top.layer.load(2, opt.loadingParams);
+                    } else {
+                        layer.load(2, opt.loadingParams);
+                    }
+                },delay);
             }
             if(opt.elms) {
                 for (var i = 0; i < opt.elms.length; i++) {
@@ -276,7 +282,11 @@ layui.define(['settings', 'layer'], function (exports) {
             admin.request(url,data,function (r){
                 if(task) {
                     clearTimeout(task);
-                    layer.closeAll('loading');
+                    if (top.layer) {
+                        top.layer.closeAll('loading');
+                    } else {
+                        layer.closeAll('loading');
+                    }
                 }
                 if(opt.elms) {
                     for (var i = 0; i < opt.elms.length; i++) {
