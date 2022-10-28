@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,23 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.SequenceVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 序列
+ * 序列VO类型
+ * <p>序列 , 数据表 sys_sequence 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:51
  * @sign 92A7DFD2CDDC2E381BAD0CD21E42C25E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "序列VO类型 ; 序列 , 数据表 sys_sequence 的通用VO类型" , parent = Sequence.class)
 public class SequenceVO extends Sequence {
 
 	private static final long serialVersionUID = 1L;
@@ -352,6 +359,20 @@ public class SequenceVO extends Sequence {
 	}
 
 	/**
+	 * 将 Map 转换成 SequenceVO
+	 * @param sequenceMap 包含实体信息的 Map 对象
+	 * @return SequenceVO , 转换好的的 Sequence 对象
+	*/
+	@Transient
+	public static SequenceVO createFrom(Map<String,Object> sequenceMap) {
+		if(sequenceMap==null) return null;
+		SequenceVO vo = create();
+		EntityContext.copyProperties(vo,sequenceMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 SequenceVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return SequenceVO , 转换好的的 Sequence 对象
@@ -359,8 +380,10 @@ public class SequenceVO extends Sequence {
 	@Transient
 	public static SequenceVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		SequenceVO po = EntityContext.create(SequenceVO.class,pojo);
-		return po;
+		SequenceVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -369,6 +392,100 @@ public class SequenceVO extends Sequence {
 	*/
 	@Transient
 	public static SequenceVO create() {
-		return EntityContext.create(SequenceVO.class);
+		return new org.github.foxnic.web.domain.system.meta.SequenceVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setFetchSize(DataParser.parse(Integer.class, map.get(SequenceVOMeta.FETCH_SIZE)));
+			this.setCatalog(DataParser.parse(String.class, map.get(SequenceVOMeta.CATALOG)));
+			this.setName(DataParser.parse(String.class, map.get(SequenceVOMeta.NAME)));
+			this.setLength(DataParser.parse(Integer.class, map.get(SequenceVOMeta.LENGTH)));
+			this.setTenantId(DataParser.parse(String.class, map.get(SequenceVOMeta.TENANT_ID)));
+			this.setMemo(DataParser.parse(String.class, map.get(SequenceVOMeta.MEMO)));
+			this.setPk(DataParser.parse(String.class, map.get(SequenceVOMeta.PK)));
+			this.setId(DataParser.parse(String.class, map.get(SequenceVOMeta.ID)));
+			this.setType(DataParser.parse(String.class, map.get(SequenceVOMeta.TYPE)));
+			this.setValue(DataParser.parse(Long.class, map.get(SequenceVOMeta.VALUE)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(SequenceVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(SequenceVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(SequenceVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(SequenceVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(SequenceVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(SequenceVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(SequenceVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setFetchSize( (Integer)map.get(SequenceVOMeta.FETCH_SIZE));
+				this.setCatalog( (String)map.get(SequenceVOMeta.CATALOG));
+				this.setName( (String)map.get(SequenceVOMeta.NAME));
+				this.setLength( (Integer)map.get(SequenceVOMeta.LENGTH));
+				this.setTenantId( (String)map.get(SequenceVOMeta.TENANT_ID));
+				this.setMemo( (String)map.get(SequenceVOMeta.MEMO));
+				this.setPk( (String)map.get(SequenceVOMeta.PK));
+				this.setId( (String)map.get(SequenceVOMeta.ID));
+				this.setType( (String)map.get(SequenceVOMeta.TYPE));
+				this.setValue( (Long)map.get(SequenceVOMeta.VALUE));
+				// others
+				this.setSearchField( (String)map.get(SequenceVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(SequenceVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(SequenceVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(SequenceVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(SequenceVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(SequenceVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(SequenceVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setFetchSize(DataParser.parse(Integer.class, r.getValue(SequenceVOMeta.FETCH_SIZE)));
+			this.setCatalog(DataParser.parse(String.class, r.getValue(SequenceVOMeta.CATALOG)));
+			this.setName(DataParser.parse(String.class, r.getValue(SequenceVOMeta.NAME)));
+			this.setLength(DataParser.parse(Integer.class, r.getValue(SequenceVOMeta.LENGTH)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(SequenceVOMeta.TENANT_ID)));
+			this.setMemo(DataParser.parse(String.class, r.getValue(SequenceVOMeta.MEMO)));
+			this.setPk(DataParser.parse(String.class, r.getValue(SequenceVOMeta.PK)));
+			this.setId(DataParser.parse(String.class, r.getValue(SequenceVOMeta.ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(SequenceVOMeta.TYPE)));
+			this.setValue(DataParser.parse(Long.class, r.getValue(SequenceVOMeta.VALUE)));
+			return true;
+		} else {
+			try {
+				this.setFetchSize( (Integer)r.getValue(SequenceVOMeta.FETCH_SIZE));
+				this.setCatalog( (String)r.getValue(SequenceVOMeta.CATALOG));
+				this.setName( (String)r.getValue(SequenceVOMeta.NAME));
+				this.setLength( (Integer)r.getValue(SequenceVOMeta.LENGTH));
+				this.setTenantId( (String)r.getValue(SequenceVOMeta.TENANT_ID));
+				this.setMemo( (String)r.getValue(SequenceVOMeta.MEMO));
+				this.setPk( (String)r.getValue(SequenceVOMeta.PK));
+				this.setId( (String)r.getValue(SequenceVOMeta.ID));
+				this.setType( (String)r.getValue(SequenceVOMeta.TYPE));
+				this.setValue( (Long)r.getValue(SequenceVOMeta.VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -26,9 +26,7 @@ import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
-
 import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
@@ -55,7 +53,7 @@ public class OrganizationController extends SuperController {
      * 添加组织层级
      */
     @ApiOperation(value = "添加组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.SHORT_NAME, value = "简称", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.FULL_NAME, value = "全称", required = false, dataTypeClass = String.class),
@@ -63,7 +61,11 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = OrganizationServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -81,7 +83,7 @@ public class OrganizationController extends SuperController {
      * 删除组织层级
      */
     @ApiOperation(value = "删除组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 2)
@@ -110,7 +112,7 @@ public class OrganizationController extends SuperController {
      */
     @Forbidden
     @ApiOperation(value = "批量删除组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -125,7 +127,7 @@ public class OrganizationController extends SuperController {
      * 更新组织层级
      */
     @ApiOperation(value = "更新组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.SHORT_NAME, value = "简称", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.FULL_NAME, value = "全称", required = false, dataTypeClass = String.class),
@@ -133,7 +135,11 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE, OrganizationVOMeta.SEARCH_FIELD, OrganizationVOMeta.FUZZY_FIELD, OrganizationVOMeta.SEARCH_VALUE, OrganizationVOMeta.SORT_FIELD, OrganizationVOMeta.SORT_TYPE, OrganizationVOMeta.IDS })
     @SentinelResource(value = OrganizationServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -148,7 +154,7 @@ public class OrganizationController extends SuperController {
      * 保存组织层级
      */
     @ApiOperation(value = "保存组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.SHORT_NAME, value = "简称", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.FULL_NAME, value = "全称", required = false, dataTypeClass = String.class),
@@ -156,7 +162,11 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE, OrganizationVOMeta.SEARCH_FIELD, OrganizationVOMeta.FUZZY_FIELD, OrganizationVOMeta.SEARCH_VALUE, OrganizationVOMeta.SORT_FIELD, OrganizationVOMeta.SORT_TYPE, OrganizationVOMeta.IDS })
     @SentinelResource(value = OrganizationServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -171,8 +181,8 @@ public class OrganizationController extends SuperController {
      * 获取组织层级
      */
     @ApiOperation(value = "获取组织层级")
-    @ApiImplicitParams({ 
-		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = OrganizationServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -189,7 +199,7 @@ public class OrganizationController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -206,7 +216,7 @@ public class OrganizationController extends SuperController {
      * 查询组织层级
      */
     @ApiOperation(value = "查询组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.SHORT_NAME, value = "简称", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.FULL_NAME, value = "全称", required = false, dataTypeClass = String.class),
@@ -214,7 +224,11 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE })
     @SentinelResource(value = OrganizationServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -230,7 +244,7 @@ public class OrganizationController extends SuperController {
      * 分页查询组织层级
      */
     @ApiOperation(value = "分页查询组织层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.SHORT_NAME, value = "简称", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.FULL_NAME, value = "全称", required = false, dataTypeClass = String.class),
@@ -238,7 +252,11 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.VALID, value = "是否有效", required = false, dataTypeClass = Integer.class),
 		@ApiImplicitParam(name = OrganizationVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = OrganizationVOMeta.COMPANY_ID, value = "总公司ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = OrganizationServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -269,7 +287,7 @@ public class OrganizationController extends SuperController {
      * 查询组织节点(带层级)
      */
     @ApiOperation(value = "查询组织节点(带层级)")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "上级ID", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE })
@@ -295,7 +313,7 @@ public class OrganizationController extends SuperController {
      * 搜索分类层级
      */
     @ApiOperation(value = "搜索分类层级")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = "keyword", value = "keyword", required = true, dataTypeClass = String.class, example = "橡胶")
 	})
     @ApiOperationSupport(order = 2)
@@ -312,7 +330,7 @@ public class OrganizationController extends SuperController {
      * 变更分类层级关系
      */
     @ApiOperation(value = "变更分类层级关系")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = "ids", value = "ID", required = true, dataTypeClass = String.class, example = "451739184575545344"),
 		@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID, value = "新的上级节点ID", required = true, dataTypeClass = String.class, example = "451739184575545344")
 	})
@@ -325,5 +343,4 @@ public class OrganizationController extends SuperController {
         result.success(suc);
         return result;
     }
-
 }

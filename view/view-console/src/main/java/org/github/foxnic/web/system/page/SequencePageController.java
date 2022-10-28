@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.SequenceServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 序列表 模版页面控制器
+ * 序列模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:51
 */
 
 @Controller("SysSequencePageController")

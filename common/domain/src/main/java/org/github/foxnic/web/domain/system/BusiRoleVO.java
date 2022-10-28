@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 业务角色
+ * 业务角色VO类型
+ * <p>业务角色 , 数据表 sys_busi_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:34
+ * @since 2022-10-28 14:38:39
  * @sign DE49A3C167B2EDF6529728F9CBE8C52B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "业务角色VO类型 ; 业务角色 , 数据表 sys_busi_role 的通用VO类型" , parent = BusiRole.class)
 public class BusiRoleVO extends BusiRole {
 
 	private static final long serialVersionUID = 1L;
@@ -356,6 +364,20 @@ public class BusiRoleVO extends BusiRole {
 	}
 
 	/**
+	 * 将 Map 转换成 BusiRoleVO
+	 * @param busiRoleMap 包含实体信息的 Map 对象
+	 * @return BusiRoleVO , 转换好的的 BusiRole 对象
+	*/
+	@Transient
+	public static BusiRoleVO createFrom(Map<String,Object> busiRoleMap) {
+		if(busiRoleMap==null) return null;
+		BusiRoleVO vo = create();
+		EntityContext.copyProperties(vo,busiRoleMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 BusiRoleVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return BusiRoleVO , 转换好的的 BusiRole 对象
@@ -363,8 +385,10 @@ public class BusiRoleVO extends BusiRole {
 	@Transient
 	public static BusiRoleVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		BusiRoleVO po = EntityContext.create(BusiRoleVO.class,pojo);
-		return po;
+		BusiRoleVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -373,6 +397,112 @@ public class BusiRoleVO extends BusiRole {
 	*/
 	@Transient
 	public static BusiRoleVO create() {
-		return EntityContext.create(BusiRoleVO.class);
+		return new org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(BusiRoleVOMeta.CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.VERSION)));
+			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.ORG_ID)));
+			this.setValid(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(BusiRoleVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(BusiRoleVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(BusiRoleVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(BusiRoleVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(BusiRoleVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(BusiRoleVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(BusiRoleVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(BusiRoleVOMeta.CODE));
+				this.setUpdateTime( (Date)map.get(BusiRoleVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(BusiRoleVOMeta.VERSION));
+				this.setOrgId( (Integer)map.get(BusiRoleVOMeta.ORG_ID));
+				this.setValid( (Integer)map.get(BusiRoleVOMeta.VALID));
+				this.setCreateBy( (String)map.get(BusiRoleVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(BusiRoleVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(BusiRoleVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(BusiRoleVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(BusiRoleVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(BusiRoleVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(BusiRoleVOMeta.DELETE_BY));
+				this.setId( (String)map.get(BusiRoleVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(BusiRoleVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(BusiRoleVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(BusiRoleVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(BusiRoleVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(BusiRoleVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(BusiRoleVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(BusiRoleVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.VERSION)));
+			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.ORG_ID)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(BusiRoleVOMeta.CODE));
+				this.setUpdateTime( (Date)r.getValue(BusiRoleVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(BusiRoleVOMeta.VERSION));
+				this.setOrgId( (Integer)r.getValue(BusiRoleVOMeta.ORG_ID));
+				this.setValid( (Integer)r.getValue(BusiRoleVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(BusiRoleVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(BusiRoleVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(BusiRoleVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(BusiRoleVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(BusiRoleVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(BusiRoleVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(BusiRoleVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(BusiRoleVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

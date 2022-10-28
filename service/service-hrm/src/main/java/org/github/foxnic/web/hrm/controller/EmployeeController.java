@@ -24,7 +24,6 @@ import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +50,7 @@ public class EmployeeController extends SuperController {
      * 添加员工
      */
     @ApiOperation(value = "添加员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056"),
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = false, dataTypeClass = String.class, example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PHONE, value = "手机号", required = false, dataTypeClass = String.class),
@@ -72,7 +71,7 @@ public class EmployeeController extends SuperController {
      * 删除员工
      */
     @ApiOperation(value = "删除员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056")
 	})
     @ApiOperationSupport(order = 2)
@@ -99,7 +98,7 @@ public class EmployeeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -146,7 +145,7 @@ public class EmployeeController extends SuperController {
      * 更新员工
      */
     @ApiOperation(value = "更新员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056"),
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = false, dataTypeClass = String.class, example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PHONE, value = "手机号", required = false, dataTypeClass = String.class),
@@ -167,7 +166,7 @@ public class EmployeeController extends SuperController {
      * 保存员工
      */
     @ApiOperation(value = "保存员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056"),
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = false, dataTypeClass = String.class, example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PHONE, value = "手机号", required = false, dataTypeClass = String.class),
@@ -188,8 +187,8 @@ public class EmployeeController extends SuperController {
      * 获取员工
      */
     @ApiOperation(value = "获取员工")
-    @ApiImplicitParams({ 
-		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = EmployeeServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -212,7 +211,7 @@ public class EmployeeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -231,7 +230,7 @@ public class EmployeeController extends SuperController {
      * 按工号获取员工
      */
     @ApiOperation(value = "按工号获取员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
@@ -250,7 +249,7 @@ public class EmployeeController extends SuperController {
      * 批量按工号获取员工 <br>
      */
     @ApiOperation(value = "批量按工号获取员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = "badges", value = "工号清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -269,7 +268,7 @@ public class EmployeeController extends SuperController {
      * 查询员工
      */
     @ApiOperation(value = "查询员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056"),
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = false, dataTypeClass = String.class, example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PHONE, value = "手机号", required = false, dataTypeClass = String.class),
@@ -291,7 +290,7 @@ public class EmployeeController extends SuperController {
      * 分页查询员工
      */
     @ApiOperation(value = "分页查询员工")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "483311859227693056"),
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE, value = "工号", required = false, dataTypeClass = String.class, example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PHONE, value = "手机号", required = false, dataTypeClass = String.class),
@@ -316,6 +315,4 @@ public class EmployeeController extends SuperController {
         result.success(true).data(list);
         return result;
     }
-
-
 }

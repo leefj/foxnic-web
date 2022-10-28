@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 系统配置
+ * 系统配置VO类型
+ * <p>系统配置 , 数据表 sys_config 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:41
+ * @since 2022-10-28 14:38:48
  * @sign 466C9860D16E6E052E1B2A383B70A3FA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "系统配置VO类型 ; 系统配置 , 数据表 sys_config 的通用VO类型" , parent = Config.class)
 public class ConfigVO extends Config {
 
 	private static final long serialVersionUID = 1L;
@@ -360,6 +368,20 @@ public class ConfigVO extends Config {
 	}
 
 	/**
+	 * 将 Map 转换成 ConfigVO
+	 * @param configMap 包含实体信息的 Map 对象
+	 * @return ConfigVO , 转换好的的 Config 对象
+	*/
+	@Transient
+	public static ConfigVO createFrom(Map<String,Object> configMap) {
+		if(configMap==null) return null;
+		ConfigVO vo = create();
+		EntityContext.copyProperties(vo,configMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 ConfigVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return ConfigVO , 转换好的的 Config 对象
@@ -367,8 +389,10 @@ public class ConfigVO extends Config {
 	@Transient
 	public static ConfigVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ConfigVO po = EntityContext.create(ConfigVO.class,pojo);
-		return po;
+		ConfigVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -377,6 +401,132 @@ public class ConfigVO extends Config {
 	*/
 	@Transient
 	public static ConfigVO create() {
-		return EntityContext.create(ConfigVO.class);
+		return new org.github.foxnic.web.domain.system.meta.ConfigVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(ConfigVOMeta.CODE)));
+			this.setTypeDesc(DataParser.parse(String.class, map.get(ConfigVOMeta.TYPE_DESC)));
+			this.setNotes(DataParser.parse(String.class, map.get(ConfigVOMeta.NOTES)));
+			this.setCatalogCode(DataParser.parse(String.class, map.get(ConfigVOMeta.CATALOG_CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ConfigVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(ConfigVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ConfigVOMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, map.get(ConfigVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ConfigVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ConfigVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ConfigVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ConfigVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ConfigVOMeta.DELETE_TIME)));
+			this.setProfileId(DataParser.parse(String.class, map.get(ConfigVOMeta.PROFILE_ID)));
+			this.setName(DataParser.parse(String.class, map.get(ConfigVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ConfigVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ConfigVOMeta.ID)));
+			this.setValue(DataParser.parse(String.class, map.get(ConfigVOMeta.VALUE)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(ConfigVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(ConfigVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(ConfigVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(ConfigVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(ConfigVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(ConfigVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(ConfigVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(ConfigVOMeta.CODE));
+				this.setTypeDesc( (String)map.get(ConfigVOMeta.TYPE_DESC));
+				this.setNotes( (String)map.get(ConfigVOMeta.NOTES));
+				this.setCatalogCode( (String)map.get(ConfigVOMeta.CATALOG_CODE));
+				this.setUpdateTime( (Date)map.get(ConfigVOMeta.UPDATE_TIME));
+				this.setType( (String)map.get(ConfigVOMeta.TYPE));
+				this.setVersion( (Integer)map.get(ConfigVOMeta.VERSION));
+				this.setValid( (Integer)map.get(ConfigVOMeta.VALID));
+				this.setCreateBy( (String)map.get(ConfigVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ConfigVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ConfigVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ConfigVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ConfigVOMeta.DELETE_TIME));
+				this.setProfileId( (String)map.get(ConfigVOMeta.PROFILE_ID));
+				this.setName( (String)map.get(ConfigVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(ConfigVOMeta.DELETE_BY));
+				this.setId( (String)map.get(ConfigVOMeta.ID));
+				this.setValue( (String)map.get(ConfigVOMeta.VALUE));
+				// others
+				this.setSearchField( (String)map.get(ConfigVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(ConfigVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(ConfigVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(ConfigVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(ConfigVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(ConfigVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(ConfigVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(ConfigVOMeta.CODE)));
+			this.setTypeDesc(DataParser.parse(String.class, r.getValue(ConfigVOMeta.TYPE_DESC)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(ConfigVOMeta.NOTES)));
+			this.setCatalogCode(DataParser.parse(String.class, r.getValue(ConfigVOMeta.CATALOG_CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ConfigVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(ConfigVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ConfigVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ConfigVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ConfigVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ConfigVOMeta.DELETE_TIME)));
+			this.setProfileId(DataParser.parse(String.class, r.getValue(ConfigVOMeta.PROFILE_ID)));
+			this.setName(DataParser.parse(String.class, r.getValue(ConfigVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ConfigVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ConfigVOMeta.ID)));
+			this.setValue(DataParser.parse(String.class, r.getValue(ConfigVOMeta.VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(ConfigVOMeta.CODE));
+				this.setTypeDesc( (String)r.getValue(ConfigVOMeta.TYPE_DESC));
+				this.setNotes( (String)r.getValue(ConfigVOMeta.NOTES));
+				this.setCatalogCode( (String)r.getValue(ConfigVOMeta.CATALOG_CODE));
+				this.setUpdateTime( (Date)r.getValue(ConfigVOMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(ConfigVOMeta.TYPE));
+				this.setVersion( (Integer)r.getValue(ConfigVOMeta.VERSION));
+				this.setValid( (Integer)r.getValue(ConfigVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(ConfigVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ConfigVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ConfigVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ConfigVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ConfigVOMeta.DELETE_TIME));
+				this.setProfileId( (String)r.getValue(ConfigVOMeta.PROFILE_ID));
+				this.setName( (String)r.getValue(ConfigVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(ConfigVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ConfigVOMeta.ID));
+				this.setValue( (String)r.getValue(ConfigVOMeta.VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

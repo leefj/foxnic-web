@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.OauthClientVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 认证客户端VO类型
  * <p>认证客户端 , 数据表 sys_oauth_client 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:25
+ * @since 2022-10-28 15:18:30
  * @sign E52EC3770C9F13BDDEFD22A75F7ED55C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -402,5 +406,147 @@ public class OauthClientVO extends OauthClient {
 	@Transient
 	public static OauthClientVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.OauthClientVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setAuthorizedGrantTypes(DataParser.parse(String.class, map.get(OauthClientVOMeta.AUTHORIZED_GRANT_TYPES)));
+			this.setNotes(DataParser.parse(String.class, map.get(OauthClientVOMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(OauthClientVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.VERSION)));
+			this.setAuthorities(DataParser.parse(String.class, map.get(OauthClientVOMeta.AUTHORITIES)));
+			this.setAccessTokenValidity(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.ACCESS_TOKEN_VALIDITY)));
+			this.setAutoApprove(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.AUTO_APPROVE)));
+			this.setValid(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(OauthClientVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.DELETED)));
+			this.setTrusted(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.TRUSTED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(OauthClientVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(OauthClientVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(OauthClientVOMeta.DELETE_TIME)));
+			this.setRefreshTokenValidity(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.REFRESH_TOKEN_VALIDITY)));
+			this.setScope(DataParser.parse(String.class, map.get(OauthClientVOMeta.SCOPE)));
+			this.setName(DataParser.parse(String.class, map.get(OauthClientVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(OauthClientVOMeta.DELETE_BY)));
+			this.setClientSecret(DataParser.parse(String.class, map.get(OauthClientVOMeta.CLIENT_SECRET)));
+			this.setWebServerRedirectUri(DataParser.parse(String.class, map.get(OauthClientVOMeta.WEB_SERVER_REDIRECT_URI)));
+			this.setId(DataParser.parse(String.class, map.get(OauthClientVOMeta.ID)));
+			this.setResourceIds(DataParser.parse(String.class, map.get(OauthClientVOMeta.RESOURCE_IDS)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(OauthClientVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(OauthClientVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(OauthClientVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(OauthClientVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(OauthClientVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(OauthClientVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setAuthorizedGrantTypes( (String)map.get(OauthClientVOMeta.AUTHORIZED_GRANT_TYPES));
+				this.setNotes( (String)map.get(OauthClientVOMeta.NOTES));
+				this.setUpdateTime( (Date)map.get(OauthClientVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(OauthClientVOMeta.VERSION));
+				this.setAuthorities( (String)map.get(OauthClientVOMeta.AUTHORITIES));
+				this.setAccessTokenValidity( (Integer)map.get(OauthClientVOMeta.ACCESS_TOKEN_VALIDITY));
+				this.setAutoApprove( (Integer)map.get(OauthClientVOMeta.AUTO_APPROVE));
+				this.setValid( (Integer)map.get(OauthClientVOMeta.VALID));
+				this.setCreateBy( (String)map.get(OauthClientVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(OauthClientVOMeta.DELETED));
+				this.setTrusted( (Integer)map.get(OauthClientVOMeta.TRUSTED));
+				this.setCreateTime( (Date)map.get(OauthClientVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(OauthClientVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(OauthClientVOMeta.DELETE_TIME));
+				this.setRefreshTokenValidity( (Integer)map.get(OauthClientVOMeta.REFRESH_TOKEN_VALIDITY));
+				this.setScope( (String)map.get(OauthClientVOMeta.SCOPE));
+				this.setName( (String)map.get(OauthClientVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(OauthClientVOMeta.DELETE_BY));
+				this.setClientSecret( (String)map.get(OauthClientVOMeta.CLIENT_SECRET));
+				this.setWebServerRedirectUri( (String)map.get(OauthClientVOMeta.WEB_SERVER_REDIRECT_URI));
+				this.setId( (String)map.get(OauthClientVOMeta.ID));
+				this.setResourceIds( (String)map.get(OauthClientVOMeta.RESOURCE_IDS));
+				// others
+				this.setSearchField( (String)map.get(OauthClientVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(OauthClientVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(OauthClientVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(OauthClientVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(OauthClientVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(OauthClientVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(OauthClientVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setAuthorizedGrantTypes(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.AUTHORIZED_GRANT_TYPES)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(OauthClientVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.VERSION)));
+			this.setAuthorities(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.AUTHORITIES)));
+			this.setAccessTokenValidity(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.ACCESS_TOKEN_VALIDITY)));
+			this.setAutoApprove(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.AUTO_APPROVE)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.DELETED)));
+			this.setTrusted(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.TRUSTED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(OauthClientVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(OauthClientVOMeta.DELETE_TIME)));
+			this.setRefreshTokenValidity(DataParser.parse(Integer.class, r.getValue(OauthClientVOMeta.REFRESH_TOKEN_VALIDITY)));
+			this.setScope(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.SCOPE)));
+			this.setName(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.DELETE_BY)));
+			this.setClientSecret(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.CLIENT_SECRET)));
+			this.setWebServerRedirectUri(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.WEB_SERVER_REDIRECT_URI)));
+			this.setId(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.ID)));
+			this.setResourceIds(DataParser.parse(String.class, r.getValue(OauthClientVOMeta.RESOURCE_IDS)));
+			return true;
+		} else {
+			try {
+				this.setAuthorizedGrantTypes( (String)r.getValue(OauthClientVOMeta.AUTHORIZED_GRANT_TYPES));
+				this.setNotes( (String)r.getValue(OauthClientVOMeta.NOTES));
+				this.setUpdateTime( (Date)r.getValue(OauthClientVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(OauthClientVOMeta.VERSION));
+				this.setAuthorities( (String)r.getValue(OauthClientVOMeta.AUTHORITIES));
+				this.setAccessTokenValidity( (Integer)r.getValue(OauthClientVOMeta.ACCESS_TOKEN_VALIDITY));
+				this.setAutoApprove( (Integer)r.getValue(OauthClientVOMeta.AUTO_APPROVE));
+				this.setValid( (Integer)r.getValue(OauthClientVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(OauthClientVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(OauthClientVOMeta.DELETED));
+				this.setTrusted( (Integer)r.getValue(OauthClientVOMeta.TRUSTED));
+				this.setCreateTime( (Date)r.getValue(OauthClientVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(OauthClientVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(OauthClientVOMeta.DELETE_TIME));
+				this.setRefreshTokenValidity( (Integer)r.getValue(OauthClientVOMeta.REFRESH_TOKEN_VALIDITY));
+				this.setScope( (String)r.getValue(OauthClientVOMeta.SCOPE));
+				this.setName( (String)r.getValue(OauthClientVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(OauthClientVOMeta.DELETE_BY));
+				this.setClientSecret( (String)r.getValue(OauthClientVOMeta.CLIENT_SECRET));
+				this.setWebServerRedirectUri( (String)r.getValue(OauthClientVOMeta.WEB_SERVER_REDIRECT_URI));
+				this.setId( (String)r.getValue(OauthClientVOMeta.ID));
+				this.setResourceIds( (String)r.getValue(OauthClientVOMeta.RESOURCE_IDS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

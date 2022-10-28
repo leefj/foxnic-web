@@ -34,10 +34,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 业务角色成员关系表 服务实现
+ * 业务角色成员关系服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:40
+ * @since 2022-10-28 14:38:47
 */
 
 
@@ -97,7 +97,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 
 	
 	/**
-	 * 按主键删除 业务角色成员关系
+	 * 按主键删除业务角色成员关系
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -118,7 +118,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 	}
 	
 	/**
-	 * 按主键删除 业务角色成员关系
+	 * 按主键删除业务角色成员关系
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -164,7 +164,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 
 	
 	/**
-	 * 按主键更新字段 业务角色成员关系
+	 * 按主键更新业务角色成员关系
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -178,7 +178,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 
 	
 	/**
-	 * 按主键获取 业务角色成员关系
+	 * 按主键获取业务角色成员关系
 	 *
 	 * @param id 主键
 	 * @return BusiRoleMember 数据对象

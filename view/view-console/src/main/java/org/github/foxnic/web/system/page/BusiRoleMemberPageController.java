@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.BusiRoleMemberServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 业务角色成员关系表 模版页面控制器
+ * 业务角色成员关系模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:40
+ * @since 2022-10-28 14:38:47
 */
 
 @Controller("SysBusiRoleMemberPageController")

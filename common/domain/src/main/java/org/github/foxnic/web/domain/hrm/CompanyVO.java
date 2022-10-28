@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.hrm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.hrm.meta.CompanyVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 公司
+ * 公司VO类型
+ * <p>公司 , 数据表 hrm_company 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:49
+ * @since 2022-10-28 14:51:39
  * @sign 205FD5189E18D253938EAEA1CD97C380
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "公司VO类型 ; 公司 , 数据表 hrm_company 的通用VO类型" , parent = Company.class)
 public class CompanyVO extends Company {
 
 	private static final long serialVersionUID = 1L;
@@ -354,6 +362,20 @@ public class CompanyVO extends Company {
 	}
 
 	/**
+	 * 将 Map 转换成 CompanyVO
+	 * @param companyMap 包含实体信息的 Map 对象
+	 * @return CompanyVO , 转换好的的 Company 对象
+	*/
+	@Transient
+	public static CompanyVO createFrom(Map<String,Object> companyMap) {
+		if(companyMap==null) return null;
+		CompanyVO vo = create();
+		EntityContext.copyProperties(vo,companyMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 CompanyVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return CompanyVO , 转换好的的 Company 对象
@@ -361,8 +383,10 @@ public class CompanyVO extends Company {
 	@Transient
 	public static CompanyVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		CompanyVO po = EntityContext.create(CompanyVO.class,pojo);
-		return po;
+		CompanyVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -371,6 +395,108 @@ public class CompanyVO extends Company {
 	*/
 	@Transient
 	public static CompanyVO create() {
-		return EntityContext.create(CompanyVO.class);
+		return new org.github.foxnic.web.domain.hrm.meta.CompanyVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, map.get(CompanyVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(CompanyVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(CompanyVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(CompanyVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(CompanyVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(CompanyVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(CompanyVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(CompanyVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(CompanyVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(CompanyVOMeta.ID)));
+			this.setSocialCreditCode(DataParser.parse(String.class, map.get(CompanyVOMeta.SOCIAL_CREDIT_CODE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(CompanyVOMeta.VERSION)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(CompanyVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(CompanyVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(CompanyVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(CompanyVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(CompanyVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(CompanyVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(CompanyVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)map.get(CompanyVOMeta.VALID));
+				this.setCreateBy( (String)map.get(CompanyVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(CompanyVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(CompanyVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(CompanyVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(CompanyVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(CompanyVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(CompanyVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(CompanyVOMeta.UPDATE_TIME));
+				this.setId( (String)map.get(CompanyVOMeta.ID));
+				this.setSocialCreditCode( (String)map.get(CompanyVOMeta.SOCIAL_CREDIT_CODE));
+				this.setVersion( (Integer)map.get(CompanyVOMeta.VERSION));
+				// others
+				this.setSearchField( (String)map.get(CompanyVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(CompanyVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(CompanyVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(CompanyVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(CompanyVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(CompanyVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(CompanyVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, r.getValue(CompanyVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(CompanyVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(CompanyVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(CompanyVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(CompanyVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(CompanyVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(CompanyVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(CompanyVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(CompanyVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(CompanyVOMeta.ID)));
+			this.setSocialCreditCode(DataParser.parse(String.class, r.getValue(CompanyVOMeta.SOCIAL_CREDIT_CODE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(CompanyVOMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)r.getValue(CompanyVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(CompanyVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(CompanyVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(CompanyVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(CompanyVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(CompanyVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(CompanyVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(CompanyVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(CompanyVOMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(CompanyVOMeta.ID));
+				this.setSocialCreditCode( (String)r.getValue(CompanyVOMeta.SOCIAL_CREDIT_CODE));
+				this.setVersion( (Integer)r.getValue(CompanyVOMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

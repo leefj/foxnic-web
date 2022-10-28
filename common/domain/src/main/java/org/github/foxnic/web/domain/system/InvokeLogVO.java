@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,17 +8,26 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.sql.Timestamp;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 调用统计日志
+ * 调用统计日志VO类型
+ * <p>调用统计日志 , 数据表 sys_invoke_log 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:23
+ * @since 2022-10-28 14:42:52
  * @sign B8DB3DC49B7EB1FEC08D22C688A9C8E6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "调用统计日志VO类型 ; 调用统计日志 , 数据表 sys_invoke_log 的通用VO类型" , parent = InvokeLog.class)
 public class InvokeLogVO extends InvokeLog {
 
 	private static final long serialVersionUID = 1L;
@@ -270,5 +280,243 @@ public class InvokeLogVO extends InvokeLog {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return InvokeLogVO , 转换好的 InvokeLogVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return InvokeLogVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public InvokeLogVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public InvokeLogVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta.$$proxy$$();
+		inst.setException(this.getException());
+		inst.setHostName(this.getHostName());
+		inst.setUserAgent(this.getUserAgent());
+		inst.setSessionId(this.getSessionId());
+		inst.setUserName(this.getUserName());
+		inst.setUri(this.getUri());
+		inst.setUserId(this.getUserId());
+		inst.setTid(this.getTid());
+		inst.setToken(this.getToken());
+		inst.setApplication(this.getApplication());
+		inst.setResponse(this.getResponse());
+		inst.setClientIp(this.getClientIp());
+		inst.setParameter(this.getParameter());
+		inst.setStartTime(this.getStartTime());
+		inst.setId(this.getId());
+		inst.setEndTime(this.getEndTime());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public InvokeLogVO clone(boolean deep) {
+		return EntityContext.clone(InvokeLogVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 InvokeLogVO
+	 * @param invokeLogMap 包含实体信息的 Map 对象
+	 * @return InvokeLogVO , 转换好的的 InvokeLog 对象
+	*/
+	@Transient
+	public static InvokeLogVO createFrom(Map<String,Object> invokeLogMap) {
+		if(invokeLogMap==null) return null;
+		InvokeLogVO vo = create();
+		EntityContext.copyProperties(vo,invokeLogMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 InvokeLogVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return InvokeLogVO , 转换好的的 InvokeLog 对象
+	*/
+	@Transient
+	public static InvokeLogVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		InvokeLogVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 InvokeLogVO，等同于 new
+	 * @return InvokeLogVO 对象
+	*/
+	@Transient
+	public static InvokeLogVO create() {
+		return new org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setException(DataParser.parse(String.class, map.get(InvokeLogVOMeta.EXCEPTION)));
+			this.setHostName(DataParser.parse(String.class, map.get(InvokeLogVOMeta.HOST_NAME)));
+			this.setUserAgent(DataParser.parse(String.class, map.get(InvokeLogVOMeta.USER_AGENT)));
+			this.setSessionId(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SESSION_ID)));
+			this.setUserName(DataParser.parse(String.class, map.get(InvokeLogVOMeta.USER_NAME)));
+			this.setUri(DataParser.parse(String.class, map.get(InvokeLogVOMeta.URI)));
+			this.setUserId(DataParser.parse(Long.class, map.get(InvokeLogVOMeta.USER_ID)));
+			this.setTid(DataParser.parse(String.class, map.get(InvokeLogVOMeta.TID)));
+			this.setToken(DataParser.parse(String.class, map.get(InvokeLogVOMeta.TOKEN)));
+			this.setApplication(DataParser.parse(String.class, map.get(InvokeLogVOMeta.APPLICATION)));
+			this.setResponse(DataParser.parse(String.class, map.get(InvokeLogVOMeta.RESPONSE)));
+			this.setClientIp(DataParser.parse(String.class, map.get(InvokeLogVOMeta.CLIENT_IP)));
+			this.setParameter(DataParser.parse(String.class, map.get(InvokeLogVOMeta.PARAMETER)));
+			this.setStartTime(DataParser.parse(Timestamp.class, map.get(InvokeLogVOMeta.START_TIME)));
+			this.setId(DataParser.parse(Long.class, map.get(InvokeLogVOMeta.ID)));
+			this.setEndTime(DataParser.parse(Timestamp.class, map.get(InvokeLogVOMeta.END_TIME)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setException( (String)map.get(InvokeLogVOMeta.EXCEPTION));
+				this.setHostName( (String)map.get(InvokeLogVOMeta.HOST_NAME));
+				this.setUserAgent( (String)map.get(InvokeLogVOMeta.USER_AGENT));
+				this.setSessionId( (String)map.get(InvokeLogVOMeta.SESSION_ID));
+				this.setUserName( (String)map.get(InvokeLogVOMeta.USER_NAME));
+				this.setUri( (String)map.get(InvokeLogVOMeta.URI));
+				this.setUserId( (Long)map.get(InvokeLogVOMeta.USER_ID));
+				this.setTid( (String)map.get(InvokeLogVOMeta.TID));
+				this.setToken( (String)map.get(InvokeLogVOMeta.TOKEN));
+				this.setApplication( (String)map.get(InvokeLogVOMeta.APPLICATION));
+				this.setResponse( (String)map.get(InvokeLogVOMeta.RESPONSE));
+				this.setClientIp( (String)map.get(InvokeLogVOMeta.CLIENT_IP));
+				this.setParameter( (String)map.get(InvokeLogVOMeta.PARAMETER));
+				this.setStartTime( (Timestamp)map.get(InvokeLogVOMeta.START_TIME));
+				this.setId( (Long)map.get(InvokeLogVOMeta.ID));
+				this.setEndTime( (Timestamp)map.get(InvokeLogVOMeta.END_TIME));
+				// others
+				this.setSearchField( (String)map.get(InvokeLogVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(InvokeLogVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(InvokeLogVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(InvokeLogVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(InvokeLogVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(InvokeLogVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(InvokeLogVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setException(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.EXCEPTION)));
+			this.setHostName(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.HOST_NAME)));
+			this.setUserAgent(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.USER_AGENT)));
+			this.setSessionId(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.SESSION_ID)));
+			this.setUserName(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.USER_NAME)));
+			this.setUri(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.URI)));
+			this.setUserId(DataParser.parse(Long.class, r.getValue(InvokeLogVOMeta.USER_ID)));
+			this.setTid(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.TID)));
+			this.setToken(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.TOKEN)));
+			this.setApplication(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.APPLICATION)));
+			this.setResponse(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.RESPONSE)));
+			this.setClientIp(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.CLIENT_IP)));
+			this.setParameter(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.PARAMETER)));
+			this.setStartTime(DataParser.parse(Timestamp.class, r.getValue(InvokeLogVOMeta.START_TIME)));
+			this.setId(DataParser.parse(Long.class, r.getValue(InvokeLogVOMeta.ID)));
+			this.setEndTime(DataParser.parse(Timestamp.class, r.getValue(InvokeLogVOMeta.END_TIME)));
+			return true;
+		} else {
+			try {
+				this.setException( (String)r.getValue(InvokeLogVOMeta.EXCEPTION));
+				this.setHostName( (String)r.getValue(InvokeLogVOMeta.HOST_NAME));
+				this.setUserAgent( (String)r.getValue(InvokeLogVOMeta.USER_AGENT));
+				this.setSessionId( (String)r.getValue(InvokeLogVOMeta.SESSION_ID));
+				this.setUserName( (String)r.getValue(InvokeLogVOMeta.USER_NAME));
+				this.setUri( (String)r.getValue(InvokeLogVOMeta.URI));
+				this.setUserId( (Long)r.getValue(InvokeLogVOMeta.USER_ID));
+				this.setTid( (String)r.getValue(InvokeLogVOMeta.TID));
+				this.setToken( (String)r.getValue(InvokeLogVOMeta.TOKEN));
+				this.setApplication( (String)r.getValue(InvokeLogVOMeta.APPLICATION));
+				this.setResponse( (String)r.getValue(InvokeLogVOMeta.RESPONSE));
+				this.setClientIp( (String)r.getValue(InvokeLogVOMeta.CLIENT_IP));
+				this.setParameter( (String)r.getValue(InvokeLogVOMeta.PARAMETER));
+				this.setStartTime( (Timestamp)r.getValue(InvokeLogVOMeta.START_TIME));
+				this.setId( (Long)r.getValue(InvokeLogVOMeta.ID));
+				this.setEndTime( (Timestamp)r.getValue(InvokeLogVOMeta.END_TIME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

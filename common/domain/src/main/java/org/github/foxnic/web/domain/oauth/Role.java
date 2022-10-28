@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -23,7 +26,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 角色
  * <p>角色 , 数据表 sys_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:28
+ * @since 2022-10-28 15:18:32
  * @sign 36B23A7F642A6BB9483AEC2EB417A762
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -40,19 +43,19 @@ public class Role extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "110352963290923110")
 	private String id;
 	
 	/**
 	 * 代码：代码
 	*/
-	@ApiModelProperty(required = false,value="代码" , notes = "代码")
+	@ApiModelProperty(required = false,value="代码" , notes = "代码" , example = "super_admin")
 	private String code;
 	
 	/**
 	 * 名称：名称
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="名称" , notes = "名称" , example = "超级管理员")
 	private String name;
 	
 	/**
@@ -70,21 +73,22 @@ public class Role extends Entity {
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "89623837")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-02-10 10:27:35")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -96,13 +100,13 @@ public class Role extends Entity {
 	/**
 	 * 删除时间：删除时间
 	*/
-	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
+	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间" , example = "2022-02-10 10:27:21")
 	private Date deleteTime;
 	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "148")
 	private Integer version;
 	
 	/**
@@ -522,5 +526,89 @@ public class Role extends Entity {
 	@Transient
 	public static Role create() {
 		return new org.github.foxnic.web.domain.oauth.meta.RoleMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMeta.CREATE_BY)));
+			this.setCode(DataParser.parse(String.class, map.get(RoleMeta.CODE)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(RoleMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(RoleMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleMeta.VERSION)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)map.get(RoleMeta.CREATE_BY));
+				this.setCode( (String)map.get(RoleMeta.CODE));
+				this.setDeleted( (Integer)map.get(RoleMeta.DELETED));
+				this.setCreateTime( (Date)map.get(RoleMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(RoleMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(RoleMeta.DELETE_TIME));
+				this.setName( (String)map.get(RoleMeta.NAME));
+				this.setDeleteBy( (String)map.get(RoleMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(RoleMeta.UPDATE_TIME));
+				this.setId( (String)map.get(RoleMeta.ID));
+				this.setVersion( (Integer)map.get(RoleMeta.VERSION));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMeta.CREATE_BY)));
+			this.setCode(DataParser.parse(String.class, r.getValue(RoleMeta.CODE)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(RoleMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(RoleMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)r.getValue(RoleMeta.CREATE_BY));
+				this.setCode( (String)r.getValue(RoleMeta.CODE));
+				this.setDeleted( (Integer)r.getValue(RoleMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(RoleMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(RoleMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(RoleMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(RoleMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(RoleMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(RoleMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(RoleMeta.ID));
+				this.setVersion( (Integer)r.getValue(RoleMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

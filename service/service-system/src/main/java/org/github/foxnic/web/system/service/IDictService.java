@@ -20,10 +20,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 数据字典 服务接口
+ * 数据字典服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:40
+ * @since 2022-10-28 14:38:47
 */
 
 public interface IDictService extends  ISimpleIdService<Dict,String> {
@@ -55,7 +55,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 
 		
 	/**
-	 * 按主键删除 数据字典
+	 * 按主键删除数据字典
 	 *
 	 * @param id 字典ID
 	 * @return 删除是否成功
@@ -63,7 +63,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 数据字典
+	 * 按主键删除数据字典
 	 *
 	 * @param id 字典ID
 	 * @return 删除是否成功
@@ -86,7 +86,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 
 		
 	/**
-	 * 按主键更新字段 数据字典
+	 * 按主键更新数据字典
 	 *
 	 * @param id 字典ID
 	 * @return 是否更新成功
@@ -156,7 +156,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 
 		
 	/**
-	 * 按主键获取 数据字典
+	 * 按主键获取数据字典
 	 *
 	 * @param id 字典ID
 	 * @return Dict 数据对象

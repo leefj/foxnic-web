@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.RoleVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 角色VO类型
  * <p>角色 , 数据表 sys_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:28
+ * @since 2022-10-28 15:18:32
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -393,5 +397,103 @@ public class RoleVO extends Role {
 	@Transient
 	public static RoleVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleVOMeta.CREATE_BY)));
+			this.setCode(DataParser.parse(String.class, map.get(RoleVOMeta.CODE)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(RoleVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(RoleVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleVOMeta.VERSION)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(RoleVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(RoleVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(RoleVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(RoleVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(RoleVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)map.get(RoleVOMeta.CREATE_BY));
+				this.setCode( (String)map.get(RoleVOMeta.CODE));
+				this.setDeleted( (Integer)map.get(RoleVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(RoleVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(RoleVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(RoleVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(RoleVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(RoleVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(RoleVOMeta.UPDATE_TIME));
+				this.setId( (String)map.get(RoleVOMeta.ID));
+				this.setVersion( (Integer)map.get(RoleVOMeta.VERSION));
+				// others
+				this.setSearchField( (String)map.get(RoleVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(RoleVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(RoleVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(RoleVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(RoleVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(RoleVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(RoleVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.CREATE_BY)));
+			this.setCode(DataParser.parse(String.class, r.getValue(RoleVOMeta.CODE)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(RoleVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(RoleVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)r.getValue(RoleVOMeta.CREATE_BY));
+				this.setCode( (String)r.getValue(RoleVOMeta.CODE));
+				this.setDeleted( (Integer)r.getValue(RoleVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(RoleVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(RoleVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(RoleVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(RoleVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(RoleVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(RoleVOMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(RoleVOMeta.ID));
+				this.setVersion( (Integer)r.getValue(RoleVOMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

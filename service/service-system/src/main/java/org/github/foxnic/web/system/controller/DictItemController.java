@@ -21,9 +21,7 @@ import org.github.foxnic.web.system.service.IDictItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
-
 import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
@@ -46,7 +44,16 @@ public class DictItemController extends SuperController {
      * 添加数据字典条目
      */
     @ApiOperation(value = "添加数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"), @ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"), @ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"), @ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class) })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"),
+		@ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"),
+		@ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"),
+		@ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class)
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = DictItemServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.INSERT)
@@ -60,7 +67,9 @@ public class DictItemController extends SuperController {
      * 删除数据字典条目
      */
     @ApiOperation(value = "删除数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = DictItemServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.DELETE)
@@ -74,7 +83,9 @@ public class DictItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = DictItemServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.DELETE_BY_IDS)
@@ -87,7 +98,16 @@ public class DictItemController extends SuperController {
      * 更新数据字典条目
      */
     @ApiOperation(value = "更新数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"), @ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"), @ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"), @ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class) })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"),
+		@ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"),
+		@ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"),
+		@ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class)
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { DictItemVOMeta.PAGE_INDEX, DictItemVOMeta.PAGE_SIZE, DictItemVOMeta.SEARCH_FIELD, DictItemVOMeta.FUZZY_FIELD, DictItemVOMeta.SEARCH_VALUE, DictItemVOMeta.SORT_FIELD, DictItemVOMeta.SORT_TYPE, DictItemVOMeta.IDS })
     @SentinelResource(value = DictItemServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.UPDATE)
@@ -101,7 +121,16 @@ public class DictItemController extends SuperController {
      * 保存数据字典条目
      */
     @ApiOperation(value = "保存数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"), @ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"), @ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"), @ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class) })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"),
+		@ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"),
+		@ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"),
+		@ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { DictItemVOMeta.PAGE_INDEX, DictItemVOMeta.PAGE_SIZE, DictItemVOMeta.SEARCH_FIELD, DictItemVOMeta.FUZZY_FIELD, DictItemVOMeta.SEARCH_VALUE, DictItemVOMeta.SORT_FIELD, DictItemVOMeta.SORT_TYPE, DictItemVOMeta.IDS })
     @SentinelResource(value = DictItemServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.SAVE)
@@ -115,7 +144,9 @@ public class DictItemController extends SuperController {
      * 获取数据字典条目
      */
     @ApiOperation(value = "获取数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = DictItemServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.GET_BY_ID)
@@ -131,7 +162,9 @@ public class DictItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = DictItemServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.GET_BY_IDS)
@@ -146,7 +179,16 @@ public class DictItemController extends SuperController {
      * 查询数据字典条目
      */
     @ApiOperation(value = "查询数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"), @ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"), @ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"), @ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class) })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"),
+		@ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"),
+		@ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"),
+		@ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class)
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { DictItemVOMeta.PAGE_INDEX, DictItemVOMeta.PAGE_SIZE })
     @SentinelResource(value = DictItemServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.QUERY_LIST)
@@ -161,7 +203,16 @@ public class DictItemController extends SuperController {
      * 分页查询数据字典条目
      */
     @ApiOperation(value = "分页查询数据字典条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"), @ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"), @ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"), @ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"), @ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class) })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = DictItemVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_ID, value = "字典ID", required = false, dataTypeClass = String.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.DICT_CODE, value = "字典代码", required = true, dataTypeClass = String.class, example = "sex"),
+		@ApiImplicitParam(name = DictItemVOMeta.PARENT_ID, value = "上级条目ID", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = DictItemVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "F"),
+		@ApiImplicitParam(name = DictItemVOMeta.LABEL, value = "标签", required = false, dataTypeClass = String.class, example = "男"),
+		@ApiImplicitParam(name = DictItemVOMeta.SORT, value = "排序", required = true, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.VALID, value = "有效", required = false, dataTypeClass = Integer.class)
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = DictItemServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(DictItemServiceProxy.QUERY_PAGED_LIST)
@@ -171,5 +222,4 @@ public class DictItemController extends SuperController {
         result.success(true).data(list);
         return result;
     }
-
 }

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_INVOKE_LOG;
@@ -12,18 +13,23 @@ import java.sql.Timestamp;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.system.meta.InvokeLogMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 调用统计日志
+ * <p>调用统计日志 , 数据表 sys_invoke_log 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:23
+ * @since 2022-10-28 14:42:52
  * @sign 1001880D3A20913EBC4BB6DA9DB43CF2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_invoke_log")
+@ApiModel(description = "调用统计日志 ; 调用统计日志 , 数据表 sys_invoke_log 的PO类型")
 public class InvokeLog extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +41,7 @@ public class InvokeLog extends Entity {
 	*/
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "1")
 	private Long id;
 	
 	/**
@@ -47,31 +53,31 @@ public class InvokeLog extends Entity {
 	/**
 	 * 主机名称：主机名称
 	*/
-	@ApiModelProperty(required = false,value="主机名称" , notes = "主机名称")
+	@ApiModelProperty(required = false,value="主机名称" , notes = "主机名称" , example = "1")
 	private String hostName;
 	
 	/**
 	 * 请求的URI：请求的URI
 	*/
-	@ApiModelProperty(required = false,value="请求的URI" , notes = "请求的URI")
+	@ApiModelProperty(required = false,value="请求的URI" , notes = "请求的URI" , example = "1")
 	private String uri;
 	
 	/**
 	 * UserAgent：UserAgent
 	*/
-	@ApiModelProperty(required = false,value="UserAgent" , notes = "UserAgent")
+	@ApiModelProperty(required = false,value="UserAgent" , notes = "UserAgent" , example = "1")
 	private String userAgent;
 	
 	/**
 	 * 客户端IP：客户端IP
 	*/
-	@ApiModelProperty(required = false,value="客户端IP" , notes = "客户端IP")
+	@ApiModelProperty(required = false,value="客户端IP" , notes = "客户端IP" , example = "1")
 	private String clientIp;
 	
 	/**
 	 * token值：token值
 	*/
-	@ApiModelProperty(required = false,value="token值" , notes = "token值")
+	@ApiModelProperty(required = false,value="token值" , notes = "token值" , example = "1")
 	private String token;
 	
 	/**
@@ -83,13 +89,13 @@ public class InvokeLog extends Entity {
 	/**
 	 * 用户ID：用户ID
 	*/
-	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID")
+	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID" , example = "1")
 	private Long userId;
 	
 	/**
 	 * 用户姓名：用户姓名
 	*/
-	@ApiModelProperty(required = false,value="用户姓名" , notes = "用户姓名")
+	@ApiModelProperty(required = false,value="用户姓名" , notes = "用户姓名" , example = "1")
 	private String userName;
 	
 	/**
@@ -101,7 +107,7 @@ public class InvokeLog extends Entity {
 	/**
 	 * 请求参数：请求参数
 	*/
-	@ApiModelProperty(required = false,value="请求参数" , notes = "请求参数")
+	@ApiModelProperty(required = false,value="请求参数" , notes = "请求参数" , example = "1")
 	private String parameter;
 	
 	/**
@@ -466,7 +472,34 @@ public class InvokeLog extends Entity {
 	*/
 	@Transient
 	public InvokeLog clone() {
-		return EntityContext.clone(InvokeLog.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public InvokeLog duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.InvokeLogMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.InvokeLogMeta.$$proxy$$();
+		inst.setException(this.getException());
+		inst.setHostName(this.getHostName());
+		inst.setUserAgent(this.getUserAgent());
+		inst.setSessionId(this.getSessionId());
+		inst.setUserName(this.getUserName());
+		inst.setUri(this.getUri());
+		inst.setUserId(this.getUserId());
+		inst.setTid(this.getTid());
+		inst.setToken(this.getToken());
+		inst.setApplication(this.getApplication());
+		inst.setResponse(this.getResponse());
+		inst.setClientIp(this.getClientIp());
+		inst.setParameter(this.getParameter());
+		inst.setStartTime(this.getStartTime());
+		inst.setId(this.getId());
+		inst.setEndTime(this.getEndTime());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
@@ -485,7 +518,9 @@ public class InvokeLog extends Entity {
 	@Transient
 	public static InvokeLog createFrom(Map<String,Object> invokeLogMap) {
 		if(invokeLogMap==null) return null;
-		InvokeLog po = EntityContext.create(InvokeLog.class, invokeLogMap);
+		InvokeLog po = create();
+		EntityContext.copyProperties(po,invokeLogMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -497,7 +532,9 @@ public class InvokeLog extends Entity {
 	@Transient
 	public static InvokeLog createFrom(Object pojo) {
 		if(pojo==null) return null;
-		InvokeLog po = EntityContext.create(InvokeLog.class,pojo);
+		InvokeLog po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -507,6 +544,110 @@ public class InvokeLog extends Entity {
 	*/
 	@Transient
 	public static InvokeLog create() {
-		return EntityContext.create(InvokeLog.class);
+		return new org.github.foxnic.web.domain.system.meta.InvokeLogMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setException(DataParser.parse(String.class, map.get(InvokeLogMeta.EXCEPTION)));
+			this.setHostName(DataParser.parse(String.class, map.get(InvokeLogMeta.HOST_NAME)));
+			this.setUserAgent(DataParser.parse(String.class, map.get(InvokeLogMeta.USER_AGENT)));
+			this.setSessionId(DataParser.parse(String.class, map.get(InvokeLogMeta.SESSION_ID)));
+			this.setUserName(DataParser.parse(String.class, map.get(InvokeLogMeta.USER_NAME)));
+			this.setUri(DataParser.parse(String.class, map.get(InvokeLogMeta.URI)));
+			this.setUserId(DataParser.parse(Long.class, map.get(InvokeLogMeta.USER_ID)));
+			this.setTid(DataParser.parse(String.class, map.get(InvokeLogMeta.TID)));
+			this.setToken(DataParser.parse(String.class, map.get(InvokeLogMeta.TOKEN)));
+			this.setApplication(DataParser.parse(String.class, map.get(InvokeLogMeta.APPLICATION)));
+			this.setResponse(DataParser.parse(String.class, map.get(InvokeLogMeta.RESPONSE)));
+			this.setClientIp(DataParser.parse(String.class, map.get(InvokeLogMeta.CLIENT_IP)));
+			this.setParameter(DataParser.parse(String.class, map.get(InvokeLogMeta.PARAMETER)));
+			this.setStartTime(DataParser.parse(Timestamp.class, map.get(InvokeLogMeta.START_TIME)));
+			this.setId(DataParser.parse(Long.class, map.get(InvokeLogMeta.ID)));
+			this.setEndTime(DataParser.parse(Timestamp.class, map.get(InvokeLogMeta.END_TIME)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setException( (String)map.get(InvokeLogMeta.EXCEPTION));
+				this.setHostName( (String)map.get(InvokeLogMeta.HOST_NAME));
+				this.setUserAgent( (String)map.get(InvokeLogMeta.USER_AGENT));
+				this.setSessionId( (String)map.get(InvokeLogMeta.SESSION_ID));
+				this.setUserName( (String)map.get(InvokeLogMeta.USER_NAME));
+				this.setUri( (String)map.get(InvokeLogMeta.URI));
+				this.setUserId( (Long)map.get(InvokeLogMeta.USER_ID));
+				this.setTid( (String)map.get(InvokeLogMeta.TID));
+				this.setToken( (String)map.get(InvokeLogMeta.TOKEN));
+				this.setApplication( (String)map.get(InvokeLogMeta.APPLICATION));
+				this.setResponse( (String)map.get(InvokeLogMeta.RESPONSE));
+				this.setClientIp( (String)map.get(InvokeLogMeta.CLIENT_IP));
+				this.setParameter( (String)map.get(InvokeLogMeta.PARAMETER));
+				this.setStartTime( (Timestamp)map.get(InvokeLogMeta.START_TIME));
+				this.setId( (Long)map.get(InvokeLogMeta.ID));
+				this.setEndTime( (Timestamp)map.get(InvokeLogMeta.END_TIME));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setException(DataParser.parse(String.class, r.getValue(InvokeLogMeta.EXCEPTION)));
+			this.setHostName(DataParser.parse(String.class, r.getValue(InvokeLogMeta.HOST_NAME)));
+			this.setUserAgent(DataParser.parse(String.class, r.getValue(InvokeLogMeta.USER_AGENT)));
+			this.setSessionId(DataParser.parse(String.class, r.getValue(InvokeLogMeta.SESSION_ID)));
+			this.setUserName(DataParser.parse(String.class, r.getValue(InvokeLogMeta.USER_NAME)));
+			this.setUri(DataParser.parse(String.class, r.getValue(InvokeLogMeta.URI)));
+			this.setUserId(DataParser.parse(Long.class, r.getValue(InvokeLogMeta.USER_ID)));
+			this.setTid(DataParser.parse(String.class, r.getValue(InvokeLogMeta.TID)));
+			this.setToken(DataParser.parse(String.class, r.getValue(InvokeLogMeta.TOKEN)));
+			this.setApplication(DataParser.parse(String.class, r.getValue(InvokeLogMeta.APPLICATION)));
+			this.setResponse(DataParser.parse(String.class, r.getValue(InvokeLogMeta.RESPONSE)));
+			this.setClientIp(DataParser.parse(String.class, r.getValue(InvokeLogMeta.CLIENT_IP)));
+			this.setParameter(DataParser.parse(String.class, r.getValue(InvokeLogMeta.PARAMETER)));
+			this.setStartTime(DataParser.parse(Timestamp.class, r.getValue(InvokeLogMeta.START_TIME)));
+			this.setId(DataParser.parse(Long.class, r.getValue(InvokeLogMeta.ID)));
+			this.setEndTime(DataParser.parse(Timestamp.class, r.getValue(InvokeLogMeta.END_TIME)));
+			return true;
+		} else {
+			try {
+				this.setException( (String)r.getValue(InvokeLogMeta.EXCEPTION));
+				this.setHostName( (String)r.getValue(InvokeLogMeta.HOST_NAME));
+				this.setUserAgent( (String)r.getValue(InvokeLogMeta.USER_AGENT));
+				this.setSessionId( (String)r.getValue(InvokeLogMeta.SESSION_ID));
+				this.setUserName( (String)r.getValue(InvokeLogMeta.USER_NAME));
+				this.setUri( (String)r.getValue(InvokeLogMeta.URI));
+				this.setUserId( (Long)r.getValue(InvokeLogMeta.USER_ID));
+				this.setTid( (String)r.getValue(InvokeLogMeta.TID));
+				this.setToken( (String)r.getValue(InvokeLogMeta.TOKEN));
+				this.setApplication( (String)r.getValue(InvokeLogMeta.APPLICATION));
+				this.setResponse( (String)r.getValue(InvokeLogMeta.RESPONSE));
+				this.setClientIp( (String)r.getValue(InvokeLogMeta.CLIENT_IP));
+				this.setParameter( (String)r.getValue(InvokeLogMeta.PARAMETER));
+				this.setStartTime( (Timestamp)r.getValue(InvokeLogMeta.START_TIME));
+				this.setId( (Long)r.getValue(InvokeLogMeta.ID));
+				this.setEndTime( (Timestamp)r.getValue(InvokeLogMeta.END_TIME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 账户租户关系表 模版页面控制器
+ * 账户租户关系模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:52
 */
 
 @Controller("SysUserTenantPageController")

@@ -1,7 +1,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:55
+ * @since 2022-10-28 14:47:52
  */
 
 function FormPage() {
@@ -264,10 +264,6 @@ function FormPage() {
 
 				// 调整状态为编辑
 				action="edit";
-
-				// fox.showMessage(data);
-
-				admin.toast().success("组织信息已保存", {time: 1000, position: "top-right",title:"提示"});
 
 			} else {
 				fox.showMessage(data);

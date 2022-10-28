@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -23,7 +26,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 菜单
  * <p>菜单 , 数据表 sys_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:28
+ * @since 2022-10-28 15:18:33
  * @sign 02BAA553C35E43DA7B5DEDBFBD921A85
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -40,7 +43,7 @@ public class Menu extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "463397133957988352")
 	private String id;
 	
 	/**
@@ -52,31 +55,31 @@ public class Menu extends Entity {
 	/**
 	 * 权限：权限标识
 	*/
-	@ApiModelProperty(required = false,value="权限" , notes = "权限标识")
+	@ApiModelProperty(required = false,value="权限" , notes = "权限标识" , example = "f5-2746f65498-2739")
 	private String authority;
 	
 	/**
 	 * 是否隐藏：是否隐藏
 	*/
-	@ApiModelProperty(required = true,value="是否隐藏" , notes = "是否隐藏")
+	@ApiModelProperty(required = true,value="是否隐藏" , notes = "是否隐藏" , example = "0")
 	private Integer hidden;
 	
 	/**
 	 * 样式：样式
 	*/
-	@ApiModelProperty(required = false,value="样式" , notes = "样式")
+	@ApiModelProperty(required = false,value="样式" , notes = "样式" , example = "mdi mdi-account-box")
 	private String css;
 	
 	/**
 	 * 标签：标签
 	*/
-	@ApiModelProperty(required = false,value="标签" , notes = "标签")
+	@ApiModelProperty(required = false,value="标签" , notes = "标签" , example = "系统管理")
 	private String label;
 	
 	/**
 	 * 菜单类型：菜单类型
 	*/
-	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型")
+	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型" , example = "page")
 	private String type;
 	
 	/**
@@ -100,7 +103,7 @@ public class Menu extends Entity {
 	/**
 	 * 上级ID：上级ID
 	*/
-	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
+	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID" , example = "0")
 	private String parentId;
 	
 	/**
@@ -112,45 +115,46 @@ public class Menu extends Entity {
 	/**
 	 * 层级路径：层级路径
 	*/
-	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
+	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径" , example = "463397133957988352")
 	private String hierarchy;
 	
 	/**
 	 * 显示顺序：显示顺序
 	*/
-	@ApiModelProperty(required = true,value="显示顺序" , notes = "显示顺序")
+	@ApiModelProperty(required = true,value="显示顺序" , notes = "显示顺序" , example = "1")
 	private Integer sort;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-07-02 05:34:46")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-03-14 02:58:46")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -168,7 +172,7 @@ public class Menu extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "60")
 	private Integer version;
 	
 	/**
@@ -908,5 +912,141 @@ public class Menu extends Entity {
 	@Transient
 	public static Menu create() {
 		return new org.github.foxnic.web.domain.oauth.meta.MenuMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCss(DataParser.parse(String.class, map.get(MenuMeta.CSS)));
+			this.setHidden(DataParser.parse(Integer.class, map.get(MenuMeta.HIDDEN)));
+			this.setHierarchy(DataParser.parse(String.class, map.get(MenuMeta.HIERARCHY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuMeta.UPDATE_TIME)));
+			this.setLabel(DataParser.parse(String.class, map.get(MenuMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, map.get(MenuMeta.SORT)));
+			this.setBatchId(DataParser.parse(String.class, map.get(MenuMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, map.get(MenuMeta.TYPE)));
+			this.setParams(DataParser.parse(String.class, map.get(MenuMeta.PARAMS)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(MenuMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, map.get(MenuMeta.URL)));
+			this.setParentId(DataParser.parse(String.class, map.get(MenuMeta.PARENT_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(MenuMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(MenuMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(MenuMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(MenuMeta.DELETE_TIME)));
+			this.setAuthority(DataParser.parse(String.class, map.get(MenuMeta.AUTHORITY)));
+			this.setDynamicHandler(DataParser.parse(String.class, map.get(MenuMeta.DYNAMIC_HANDLER)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(MenuMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(MenuMeta.ID)));
+			this.setPathResourceId(DataParser.parse(String.class, map.get(MenuMeta.PATH_RESOURCE_ID)));
+			// others
+			this.setParent(DataParser.parse(Menu.class, map.get(MenuMeta.PARENT)));
+			this.setPath(DataParser.parse(String.class, map.get(MenuMeta.PATH)));
+			this.setPathResource(DataParser.parse(Resourze.class, map.get(MenuMeta.PATH_RESOURCE)));
+			this.setAncestorsNamePath(DataParser.parse(String.class, map.get(MenuMeta.ANCESTORS_NAME_PATH)));
+			return true;
+		} else {
+			try {
+				this.setCss( (String)map.get(MenuMeta.CSS));
+				this.setHidden( (Integer)map.get(MenuMeta.HIDDEN));
+				this.setHierarchy( (String)map.get(MenuMeta.HIERARCHY));
+				this.setUpdateTime( (Date)map.get(MenuMeta.UPDATE_TIME));
+				this.setLabel( (String)map.get(MenuMeta.LABEL));
+				this.setSort( (Integer)map.get(MenuMeta.SORT));
+				this.setBatchId( (String)map.get(MenuMeta.BATCH_ID));
+				this.setType( (String)map.get(MenuMeta.TYPE));
+				this.setParams( (String)map.get(MenuMeta.PARAMS));
+				this.setVersion( (Integer)map.get(MenuMeta.VERSION));
+				this.setUrl( (String)map.get(MenuMeta.URL));
+				this.setParentId( (String)map.get(MenuMeta.PARENT_ID));
+				this.setCreateBy( (String)map.get(MenuMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(MenuMeta.DELETED));
+				this.setCreateTime( (Date)map.get(MenuMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(MenuMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(MenuMeta.DELETE_TIME));
+				this.setAuthority( (String)map.get(MenuMeta.AUTHORITY));
+				this.setDynamicHandler( (String)map.get(MenuMeta.DYNAMIC_HANDLER));
+				this.setDeleteBy( (String)map.get(MenuMeta.DELETE_BY));
+				this.setId( (String)map.get(MenuMeta.ID));
+				this.setPathResourceId( (String)map.get(MenuMeta.PATH_RESOURCE_ID));
+				// others
+				this.setParent( (Menu)map.get(MenuMeta.PARENT));
+				this.setPath( (String)map.get(MenuMeta.PATH));
+				this.setPathResource( (Resourze)map.get(MenuMeta.PATH_RESOURCE));
+				this.setAncestorsNamePath( (String)map.get(MenuMeta.ANCESTORS_NAME_PATH));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCss(DataParser.parse(String.class, r.getValue(MenuMeta.CSS)));
+			this.setHidden(DataParser.parse(Integer.class, r.getValue(MenuMeta.HIDDEN)));
+			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuMeta.HIERARCHY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.UPDATE_TIME)));
+			this.setLabel(DataParser.parse(String.class, r.getValue(MenuMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(MenuMeta.SORT)));
+			this.setBatchId(DataParser.parse(String.class, r.getValue(MenuMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(MenuMeta.TYPE)));
+			this.setParams(DataParser.parse(String.class, r.getValue(MenuMeta.PARAMS)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(MenuMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, r.getValue(MenuMeta.URL)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(MenuMeta.PARENT_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(MenuMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(MenuMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(MenuMeta.DELETE_TIME)));
+			this.setAuthority(DataParser.parse(String.class, r.getValue(MenuMeta.AUTHORITY)));
+			this.setDynamicHandler(DataParser.parse(String.class, r.getValue(MenuMeta.DYNAMIC_HANDLER)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(MenuMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(MenuMeta.ID)));
+			this.setPathResourceId(DataParser.parse(String.class, r.getValue(MenuMeta.PATH_RESOURCE_ID)));
+			return true;
+		} else {
+			try {
+				this.setCss( (String)r.getValue(MenuMeta.CSS));
+				this.setHidden( (Integer)r.getValue(MenuMeta.HIDDEN));
+				this.setHierarchy( (String)r.getValue(MenuMeta.HIERARCHY));
+				this.setUpdateTime( (Date)r.getValue(MenuMeta.UPDATE_TIME));
+				this.setLabel( (String)r.getValue(MenuMeta.LABEL));
+				this.setSort( (Integer)r.getValue(MenuMeta.SORT));
+				this.setBatchId( (String)r.getValue(MenuMeta.BATCH_ID));
+				this.setType( (String)r.getValue(MenuMeta.TYPE));
+				this.setParams( (String)r.getValue(MenuMeta.PARAMS));
+				this.setVersion( (Integer)r.getValue(MenuMeta.VERSION));
+				this.setUrl( (String)r.getValue(MenuMeta.URL));
+				this.setParentId( (String)r.getValue(MenuMeta.PARENT_ID));
+				this.setCreateBy( (String)r.getValue(MenuMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(MenuMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(MenuMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(MenuMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(MenuMeta.DELETE_TIME));
+				this.setAuthority( (String)r.getValue(MenuMeta.AUTHORITY));
+				this.setDynamicHandler( (String)r.getValue(MenuMeta.DYNAMIC_HANDLER));
+				this.setDeleteBy( (String)r.getValue(MenuMeta.DELETE_BY));
+				this.setId( (String)r.getValue(MenuMeta.ID));
+				this.setPathResourceId( (String)r.getValue(MenuMeta.PATH_RESOURCE_ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

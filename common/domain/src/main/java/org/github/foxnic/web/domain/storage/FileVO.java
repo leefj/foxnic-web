@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.storage;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.storage.meta.FileVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 系统文件
+ * 系统文件VO类型
+ * <p>系统文件 , 数据表 sys_file 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:43:10
  * @sign F22F5F27BB2009D7E68DEC527FE71CCE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "系统文件VO类型 ; 系统文件 , 数据表 sys_file 的通用VO类型" , parent = File.class)
 public class FileVO extends File {
 
 	private static final long serialVersionUID = 1L;
@@ -360,6 +368,20 @@ public class FileVO extends File {
 	}
 
 	/**
+	 * 将 Map 转换成 FileVO
+	 * @param fileMap 包含实体信息的 Map 对象
+	 * @return FileVO , 转换好的的 File 对象
+	*/
+	@Transient
+	public static FileVO createFrom(Map<String,Object> fileMap) {
+		if(fileMap==null) return null;
+		FileVO vo = create();
+		EntityContext.copyProperties(vo,fileMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 FileVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return FileVO , 转换好的的 File 对象
@@ -367,8 +389,10 @@ public class FileVO extends File {
 	@Transient
 	public static FileVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		FileVO po = EntityContext.create(FileVO.class,pojo);
-		return po;
+		FileVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -377,6 +401,130 @@ public class FileVO extends File {
 	*/
 	@Transient
 	public static FileVO create() {
-		return EntityContext.create(FileVO.class);
+		return new org.github.foxnic.web.domain.storage.meta.FileVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setFileName(DataParser.parse(String.class, map.get(FileVOMeta.FILE_NAME)));
+			this.setDownloadUrl(DataParser.parse(String.class, map.get(FileVOMeta.DOWNLOAD_URL)));
+			this.setMediaType(DataParser.parse(String.class, map.get(FileVOMeta.MEDIA_TYPE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FileVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FileVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FileVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FileVOMeta.DELETED)));
+			this.setSize(DataParser.parse(Long.class, map.get(FileVOMeta.SIZE)));
+			this.setDownloads(DataParser.parse(Integer.class, map.get(FileVOMeta.DOWNLOADS)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FileVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FileVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FileVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FileVOMeta.DELETE_BY)));
+			this.setLocation(DataParser.parse(String.class, map.get(FileVOMeta.LOCATION)));
+			this.setId(DataParser.parse(String.class, map.get(FileVOMeta.ID)));
+			this.setFileType(DataParser.parse(String.class, map.get(FileVOMeta.FILE_TYPE)));
+			this.setLatestVisitTime(DataParser.parse(Date.class, map.get(FileVOMeta.LATEST_VISIT_TIME)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(FileVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(FileVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(FileVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(FileVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(FileVOMeta.SORT_FIELD)));
+			this.setExists(DataParser.parse(Boolean.class, map.get(FileVOMeta.EXISTS)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(FileVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(FileVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setFileName( (String)map.get(FileVOMeta.FILE_NAME));
+				this.setDownloadUrl( (String)map.get(FileVOMeta.DOWNLOAD_URL));
+				this.setMediaType( (String)map.get(FileVOMeta.MEDIA_TYPE));
+				this.setUpdateTime( (Date)map.get(FileVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(FileVOMeta.VERSION));
+				this.setCreateBy( (String)map.get(FileVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FileVOMeta.DELETED));
+				this.setSize( (Long)map.get(FileVOMeta.SIZE));
+				this.setDownloads( (Integer)map.get(FileVOMeta.DOWNLOADS));
+				this.setCreateTime( (Date)map.get(FileVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FileVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FileVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(FileVOMeta.DELETE_BY));
+				this.setLocation( (String)map.get(FileVOMeta.LOCATION));
+				this.setId( (String)map.get(FileVOMeta.ID));
+				this.setFileType( (String)map.get(FileVOMeta.FILE_TYPE));
+				this.setLatestVisitTime( (Date)map.get(FileVOMeta.LATEST_VISIT_TIME));
+				// others
+				this.setSearchField( (String)map.get(FileVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(FileVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(FileVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(FileVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(FileVOMeta.SORT_FIELD));
+				this.setExists( (Boolean)map.get(FileVOMeta.EXISTS));
+				this.setPageSize( (Integer)map.get(FileVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(FileVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setFileName(DataParser.parse(String.class, r.getValue(FileVOMeta.FILE_NAME)));
+			this.setDownloadUrl(DataParser.parse(String.class, r.getValue(FileVOMeta.DOWNLOAD_URL)));
+			this.setMediaType(DataParser.parse(String.class, r.getValue(FileVOMeta.MEDIA_TYPE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FileVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FileVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FileVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FileVOMeta.DELETED)));
+			this.setSize(DataParser.parse(Long.class, r.getValue(FileVOMeta.SIZE)));
+			this.setDownloads(DataParser.parse(Integer.class, r.getValue(FileVOMeta.DOWNLOADS)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FileVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FileVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FileVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FileVOMeta.DELETE_BY)));
+			this.setLocation(DataParser.parse(String.class, r.getValue(FileVOMeta.LOCATION)));
+			this.setId(DataParser.parse(String.class, r.getValue(FileVOMeta.ID)));
+			this.setFileType(DataParser.parse(String.class, r.getValue(FileVOMeta.FILE_TYPE)));
+			this.setLatestVisitTime(DataParser.parse(Date.class, r.getValue(FileVOMeta.LATEST_VISIT_TIME)));
+			return true;
+		} else {
+			try {
+				this.setFileName( (String)r.getValue(FileVOMeta.FILE_NAME));
+				this.setDownloadUrl( (String)r.getValue(FileVOMeta.DOWNLOAD_URL));
+				this.setMediaType( (String)r.getValue(FileVOMeta.MEDIA_TYPE));
+				this.setUpdateTime( (Date)r.getValue(FileVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(FileVOMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(FileVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FileVOMeta.DELETED));
+				this.setSize( (Long)r.getValue(FileVOMeta.SIZE));
+				this.setDownloads( (Integer)r.getValue(FileVOMeta.DOWNLOADS));
+				this.setCreateTime( (Date)r.getValue(FileVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FileVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FileVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(FileVOMeta.DELETE_BY));
+				this.setLocation( (String)r.getValue(FileVOMeta.LOCATION));
+				this.setId( (String)r.getValue(FileVOMeta.ID));
+				this.setFileType( (String)r.getValue(FileVOMeta.FILE_TYPE));
+				this.setLatestVisitTime( (Date)r.getValue(FileVOMeta.LATEST_VISIT_TIME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

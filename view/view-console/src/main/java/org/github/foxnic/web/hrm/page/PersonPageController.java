@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.hrm.PersonServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 人员表 模版页面控制器
+ * 人员模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
 */
 
 @Controller("HrmPersonPageController")

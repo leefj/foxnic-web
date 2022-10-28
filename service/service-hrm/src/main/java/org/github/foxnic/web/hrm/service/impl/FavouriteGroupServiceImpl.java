@@ -35,10 +35,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 常用人员分组表 服务实现
+ * 常用人员分组服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
 */
 
 
@@ -98,7 +98,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 
 	
 	/**
-	 * 按主键删除 常用人员分组
+	 * 按主键删除常用人员分组
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -119,7 +119,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 	}
 	
 	/**
-	 * 按主键删除 常用人员分组
+	 * 按主键删除常用人员分组
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -179,7 +179,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 
 	
 	/**
-	 * 按主键更新字段 常用人员分组
+	 * 按主键更新常用人员分组
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -193,7 +193,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 
 	
 	/**
-	 * 按主键获取 常用人员分组
+	 * 按主键获取常用人员分组
 	 *
 	 * @param id 主键
 	 * @return FavouriteGroup 数据对象

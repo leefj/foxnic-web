@@ -42,12 +42,12 @@ public class SystemCodeGenerator  {
 //		g.generateSysDictItem();
 //		//
 
-//		g.generateSysNode();
+		g.generateSysNode();
 
 //		//
 //		g.generateSysArea();
 //		//
-//		g.generateSysLang();
+		g.generateSysLang();
 
 
 		g.generateSysDbCache();

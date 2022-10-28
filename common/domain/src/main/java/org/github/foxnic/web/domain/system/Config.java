@@ -1,29 +1,36 @@
 package org.github.foxnic.web.domain.system;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
-import javax.persistence.Id;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.github.foxnic.commons.lang.DataParser;
-import java.util.Map;
+import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.data.ExprRcd;
+import com.github.foxnic.sql.meta.DBTable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import org.github.foxnic.web.domain.system.meta.ConfigMeta;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Date;
+import java.util.Map;
 
 
 
 /**
  * 系统配置
+ * <p>系统配置 , 数据表 sys_config 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:41
+ * @since 2022-10-28 14:38:48
  * @sign 27EBC9E6C100042BE51E6D0BFBBA68AE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_config")
+@ApiModel(description = "系统配置 ; 系统配置 , 数据表 sys_config 的PO类型")
 public class Config extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -34,13 +41,13 @@ public class Config extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "eam.assetCodeAutoCreate")
 	private String id;
 
 	/**
 	 * Profile：Profile Id
 	*/
-	@ApiModelProperty(required = true,value="Profile" , notes = "Profile Id")
+	@ApiModelProperty(required = true,value="Profile" , notes = "Profile Id" , example = "default")
 	private String profileId;
 
 	/**
@@ -52,43 +59,43 @@ public class Config extends Entity {
 	/**
 	 * 配置键：配置键
 	*/
-	@ApiModelProperty(required = true,value="配置键" , notes = "配置键")
+	@ApiModelProperty(required = true,value="配置键" , notes = "配置键" , example = "eam.assetCodeAutoCreate")
 	private String code;
 
 	/**
 	 * 配置名：配置名
 	*/
-	@ApiModelProperty(required = false,value="配置名" , notes = "配置名")
+	@ApiModelProperty(required = false,value="配置名" , notes = "配置名" , example = "资产编码自动生成")
 	private String name;
 
 	/**
 	 * 数据类型：由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
 	*/
-	@ApiModelProperty(required = false,value="数据类型" , notes = "由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict")
+	@ApiModelProperty(required = false,value="数据类型" , notes = "由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict" , example = "ENUM")
 	private String type;
 
 	/**
 	 * 类型描述：类型描述
 	*/
-	@ApiModelProperty(required = false,value="类型描述" , notes = "类型描述")
+	@ApiModelProperty(required = false,value="类型描述" , notes = "类型描述" , example = "org.github.foxnic.web.constants.enums.system.YesNo")
 	private String typeDesc;
 
 	/**
 	 * 配置值：配置值
 	*/
-	@ApiModelProperty(required = false,value="配置值" , notes = "配置值")
+	@ApiModelProperty(required = false,value="配置值" , notes = "配置值" , example = "1")
 	private String value;
 
 	/**
 	 * 是否生效：是否生效
 	*/
-	@ApiModelProperty(required = true,value="是否生效" , notes = "是否生效")
+	@ApiModelProperty(required = true,value="是否生效" , notes = "是否生效" , example = "1")
 	private Integer valid;
 
 	/**
 	 * 说明：说明
 	*/
-	@ApiModelProperty(required = false,value="说明" , notes = "说明")
+	@ApiModelProperty(required = false,value="说明" , notes = "说明" , example = "资产编码自动生成，只完成了登记功能修改，导入和入库暂时没有做判断")
 	private String notes;
 
 	/**
@@ -112,15 +119,16 @@ public class Config extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-10-25 09:47:56")
 	private Date updateTime;
 
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 
 	/**
@@ -138,7 +146,7 @@ public class Config extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 
 	/**
@@ -596,7 +604,9 @@ public class Config extends Entity {
 	@Transient
 	public static Config createFrom(Map<String,Object> configMap) {
 		if(configMap==null) return null;
-		Config po = EntityContext.create(Config.class, configMap);
+		Config po = create();
+		EntityContext.copyProperties(po,configMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -608,7 +618,9 @@ public class Config extends Entity {
 	@Transient
 	public static Config createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Config po = EntityContext.create(Config.class,pojo);
+		Config po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -618,6 +630,118 @@ public class Config extends Entity {
 	*/
 	@Transient
 	public static Config create() {
-		return EntityContext.create(Config.class);
+		return new org.github.foxnic.web.domain.system.meta.ConfigMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(ConfigMeta.CODE)));
+			this.setTypeDesc(DataParser.parse(String.class, map.get(ConfigMeta.TYPE_DESC)));
+			this.setNotes(DataParser.parse(String.class, map.get(ConfigMeta.NOTES)));
+			this.setCatalogCode(DataParser.parse(String.class, map.get(ConfigMeta.CATALOG_CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ConfigMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(ConfigMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ConfigMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, map.get(ConfigMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ConfigMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ConfigMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ConfigMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ConfigMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ConfigMeta.DELETE_TIME)));
+			this.setProfileId(DataParser.parse(String.class, map.get(ConfigMeta.PROFILE_ID)));
+			this.setName(DataParser.parse(String.class, map.get(ConfigMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ConfigMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ConfigMeta.ID)));
+			this.setValue(DataParser.parse(String.class, map.get(ConfigMeta.VALUE)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(ConfigMeta.CODE));
+				this.setTypeDesc( (String)map.get(ConfigMeta.TYPE_DESC));
+				this.setNotes( (String)map.get(ConfigMeta.NOTES));
+				this.setCatalogCode( (String)map.get(ConfigMeta.CATALOG_CODE));
+				this.setUpdateTime( (Date)map.get(ConfigMeta.UPDATE_TIME));
+				this.setType( (String)map.get(ConfigMeta.TYPE));
+				this.setVersion( (Integer)map.get(ConfigMeta.VERSION));
+				this.setValid( (Integer)map.get(ConfigMeta.VALID));
+				this.setCreateBy( (String)map.get(ConfigMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ConfigMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ConfigMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ConfigMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ConfigMeta.DELETE_TIME));
+				this.setProfileId( (String)map.get(ConfigMeta.PROFILE_ID));
+				this.setName( (String)map.get(ConfigMeta.NAME));
+				this.setDeleteBy( (String)map.get(ConfigMeta.DELETE_BY));
+				this.setId( (String)map.get(ConfigMeta.ID));
+				this.setValue( (String)map.get(ConfigMeta.VALUE));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(ConfigMeta.CODE)));
+			this.setTypeDesc(DataParser.parse(String.class, r.getValue(ConfigMeta.TYPE_DESC)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(ConfigMeta.NOTES)));
+			this.setCatalogCode(DataParser.parse(String.class, r.getValue(ConfigMeta.CATALOG_CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ConfigMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(ConfigMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ConfigMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(ConfigMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ConfigMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ConfigMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ConfigMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ConfigMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ConfigMeta.DELETE_TIME)));
+			this.setProfileId(DataParser.parse(String.class, r.getValue(ConfigMeta.PROFILE_ID)));
+			this.setName(DataParser.parse(String.class, r.getValue(ConfigMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ConfigMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ConfigMeta.ID)));
+			this.setValue(DataParser.parse(String.class, r.getValue(ConfigMeta.VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(ConfigMeta.CODE));
+				this.setTypeDesc( (String)r.getValue(ConfigMeta.TYPE_DESC));
+				this.setNotes( (String)r.getValue(ConfigMeta.NOTES));
+				this.setCatalogCode( (String)r.getValue(ConfigMeta.CATALOG_CODE));
+				this.setUpdateTime( (Date)r.getValue(ConfigMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(ConfigMeta.TYPE));
+				this.setVersion( (Integer)r.getValue(ConfigMeta.VERSION));
+				this.setValid( (Integer)r.getValue(ConfigMeta.VALID));
+				this.setCreateBy( (String)r.getValue(ConfigMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ConfigMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ConfigMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ConfigMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ConfigMeta.DELETE_TIME));
+				this.setProfileId( (String)r.getValue(ConfigMeta.PROFILE_ID));
+				this.setName( (String)r.getValue(ConfigMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(ConfigMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ConfigMeta.ID));
+				this.setValue( (String)r.getValue(ConfigMeta.VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

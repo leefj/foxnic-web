@@ -20,10 +20,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 租户表 服务接口
+ * 租户服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:52
 */
 
 public interface ITenantService extends  ISimpleIdService<Tenant,String> {
@@ -55,7 +55,7 @@ public interface ITenantService extends  ISimpleIdService<Tenant,String> {
 
 		
 	/**
-	 * 按主键删除 租户
+	 * 按主键删除租户
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -63,7 +63,7 @@ public interface ITenantService extends  ISimpleIdService<Tenant,String> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 租户
+	 * 按主键删除租户
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -86,7 +86,7 @@ public interface ITenantService extends  ISimpleIdService<Tenant,String> {
 
 		
 	/**
-	 * 按主键更新字段 租户
+	 * 按主键更新租户
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -156,7 +156,7 @@ public interface ITenantService extends  ISimpleIdService<Tenant,String> {
 
 		
 	/**
-	 * 按主键获取 租户
+	 * 按主键获取租户
 	 *
 	 * @param id 主键
 	 * @return Tenant 数据对象

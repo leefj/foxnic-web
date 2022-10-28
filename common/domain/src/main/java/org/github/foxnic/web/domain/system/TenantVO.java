@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,25 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.TenantVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Company;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 租户
+ * 租户VO类型
+ * <p>租户 , 数据表 sys_tenant 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:52
  * @sign 99A9A8BCBE702236665A039052CF3210
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "租户VO类型 ; 租户 , 数据表 sys_tenant 的通用VO类型" , parent = Tenant.class)
 public class TenantVO extends Tenant {
 
 	private static final long serialVersionUID = 1L;
@@ -355,6 +364,20 @@ public class TenantVO extends Tenant {
 	}
 
 	/**
+	 * 将 Map 转换成 TenantVO
+	 * @param tenantMap 包含实体信息的 Map 对象
+	 * @return TenantVO , 转换好的的 Tenant 对象
+	*/
+	@Transient
+	public static TenantVO createFrom(Map<String,Object> tenantMap) {
+		if(tenantMap==null) return null;
+		TenantVO vo = create();
+		EntityContext.copyProperties(vo,tenantMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 TenantVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return TenantVO , 转换好的的 Tenant 对象
@@ -362,8 +385,10 @@ public class TenantVO extends Tenant {
 	@Transient
 	public static TenantVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		TenantVO po = EntityContext.create(TenantVO.class,pojo);
-		return po;
+		TenantVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -372,6 +397,110 @@ public class TenantVO extends Tenant {
 	*/
 	@Transient
 	public static TenantVO create() {
-		return EntityContext.create(TenantVO.class);
+		return new org.github.foxnic.web.domain.system.meta.TenantVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, map.get(TenantVOMeta.VALID)));
+			this.setCompanyId(DataParser.parse(String.class, map.get(TenantVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(TenantVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(TenantVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(TenantVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(TenantVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(TenantVOMeta.DELETE_TIME)));
+			this.setAlias(DataParser.parse(String.class, map.get(TenantVOMeta.ALIAS)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(TenantVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(TenantVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(TenantVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(TenantVOMeta.VERSION)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(TenantVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(TenantVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(TenantVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(TenantVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(TenantVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(TenantVOMeta.PAGE_SIZE)));
+			this.setCompany(DataParser.parse(Company.class, map.get(TenantVOMeta.COMPANY)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(TenantVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)map.get(TenantVOMeta.VALID));
+				this.setCompanyId( (String)map.get(TenantVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)map.get(TenantVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(TenantVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(TenantVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(TenantVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(TenantVOMeta.DELETE_TIME));
+				this.setAlias( (String)map.get(TenantVOMeta.ALIAS));
+				this.setDeleteBy( (String)map.get(TenantVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(TenantVOMeta.UPDATE_TIME));
+				this.setId( (String)map.get(TenantVOMeta.ID));
+				this.setVersion( (Integer)map.get(TenantVOMeta.VERSION));
+				// others
+				this.setSearchField( (String)map.get(TenantVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(TenantVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(TenantVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(TenantVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(TenantVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(TenantVOMeta.PAGE_SIZE));
+				this.setCompany( (Company)map.get(TenantVOMeta.COMPANY));
+				this.setSearchValue( (String)map.get(TenantVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, r.getValue(TenantVOMeta.VALID)));
+			this.setCompanyId(DataParser.parse(String.class, r.getValue(TenantVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(TenantVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(TenantVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(TenantVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(TenantVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(TenantVOMeta.DELETE_TIME)));
+			this.setAlias(DataParser.parse(String.class, r.getValue(TenantVOMeta.ALIAS)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(TenantVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TenantVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(TenantVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(TenantVOMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)r.getValue(TenantVOMeta.VALID));
+				this.setCompanyId( (String)r.getValue(TenantVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)r.getValue(TenantVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(TenantVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(TenantVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(TenantVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(TenantVOMeta.DELETE_TIME));
+				this.setAlias( (String)r.getValue(TenantVOMeta.ALIAS));
+				this.setDeleteBy( (String)r.getValue(TenantVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(TenantVOMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(TenantVOMeta.ID));
+				this.setVersion( (Integer)r.getValue(TenantVOMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

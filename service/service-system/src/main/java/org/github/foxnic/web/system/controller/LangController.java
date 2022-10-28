@@ -26,7 +26,6 @@ import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,7 +50,16 @@ public class LangController extends SuperController {
      * 添加语言条目
      */
     @ApiOperation(value = "添加语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"), @ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"), @ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
+		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
+		@ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true")
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = LangServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.INSERT)
@@ -68,7 +76,9 @@ public class LangController extends SuperController {
      * 删除语言条目
      */
     @ApiOperation(value = "删除语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = LangServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.DELETE)
@@ -86,7 +96,9 @@ public class LangController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODES, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODES, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = LangServiceProxy.BATCH_DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.BATCH_DELETE)
@@ -99,7 +111,16 @@ public class LangController extends SuperController {
      * 更新语言条目
      */
     @ApiOperation(value = "更新语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"), @ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"), @ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
+		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
+		@ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true")
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.UPDATE)
@@ -113,7 +134,16 @@ public class LangController extends SuperController {
      * 保存语言条目
      */
     @ApiOperation(value = "保存语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"), @ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"), @ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
+		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
+		@ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.SAVE)
@@ -127,7 +157,9 @@ public class LangController extends SuperController {
      * 获取语言条目
      */
     @ApiOperation(value = "获取语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = LangServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.GET_BY_ID)
@@ -142,28 +174,35 @@ public class LangController extends SuperController {
      * 查询语言条目
      */
     @ApiOperation(value = "查询语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"), @ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"), @ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
+		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
+		@ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_LIST)
     public Result<JSONArray> queryList(LangVO sample) {
         Result<JSONArray> result = new Result<>();
-        Language language=null;
-        if(this.getSessionUser()!=null) {
-           language= Language.parseByCode(this.getSessionUser().getLanguage());
+        Language language = null;
+        if (this.getSessionUser() != null) {
+            language = Language.parseByCode(this.getSessionUser().getLanguage());
         }
-        if(language==null) {
-            language=Language.defaults;
+        if (language == null) {
+            language = Language.defaults;
         }
-
-        Set<String> fields=new HashSet<>();
+        Set<String> fields = new HashSet<>();
         fields.add(LangMeta.CODE);
         fields.add(Language.defaults.code());
         fields.add(language.code());
-
-        List<Lang> list = langService.queryList(sample,language);
-        JSONArray  data= JSONUtil.toJSONArray(list);
-        Set<String> rms=new HashSet<>();
+        List<Lang> list = langService.queryList(sample, language);
+        JSONArray data = JSONUtil.toJSONArray(list);
+        Set<String> rms = new HashSet<>();
         rms.addAll(data.getJSONObject(0).keySet());
         rms.removeAll(fields);
         for (int i = 0; i < data.size(); i++) {
@@ -171,7 +210,6 @@ public class LangController extends SuperController {
                 data.getJSONObject(i).remove(s);
             }
         }
-
         result.success(true).data(data);
         return result;
     }
@@ -180,7 +218,16 @@ public class LangController extends SuperController {
      * 分页查询语言条目
      */
     @ApiOperation(value = "分页查询语言条目")
-    @ApiImplicitParams({ @ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"), @ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"), @ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class), @ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
+		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
+		@ApiImplicitParam(name = LangVOMeta.ZH_CH, value = "简体中文(大陆)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "繁体中文(台湾)", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.EN_UK, value = "英文英国", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true")
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = LangServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_PAGED_LIST)
@@ -190,5 +237,4 @@ public class LangController extends SuperController {
         result.success(true).data(list);
         return result;
     }
-
 }

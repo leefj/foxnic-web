@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 13:52:13
+ * @since 2022-10-28 15:10:33
  */
 
 
@@ -423,10 +423,15 @@ function ListPage() {
 			}
 			else if(obj.event === 'ops-more'){
 				//更多下拉菜单
+				var  items = [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}];
+				items=items.filter(function (item,i,arr){
+					if(!item.perm) return true;
+					else return admin.checkAuth(item.perm);
+				});
 				dropdown.render({
 					elem: this
 					,show: true //外部事件触发即显示
-					,data: [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}]
+					,data: items
 					,click: function(menu, othis){
 						if(menu.perm && !admin.checkAuth(menu.perm)) {
 							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});

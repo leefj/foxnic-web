@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.hrm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.hrm.meta.EmployeePositionVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 员工岗位关系
+ * 员工岗位关系VO类型
+ * <p>员工岗位关系 , 数据表 hrm_employee_position 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:58
+ * @since 2022-10-28 14:47:56
  * @sign 5ED40C5124A51AECFECB9947D314907E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "员工岗位关系VO类型 ; 员工岗位关系 , 数据表 hrm_employee_position 的通用VO类型" , parent = EmployeePosition.class)
 public class EmployeePositionVO extends EmployeePosition {
 
 	private static final long serialVersionUID = 1L;
@@ -354,6 +362,20 @@ public class EmployeePositionVO extends EmployeePosition {
 	}
 
 	/**
+	 * 将 Map 转换成 EmployeePositionVO
+	 * @param employeePositionMap 包含实体信息的 Map 对象
+	 * @return EmployeePositionVO , 转换好的的 EmployeePosition 对象
+	*/
+	@Transient
+	public static EmployeePositionVO createFrom(Map<String,Object> employeePositionMap) {
+		if(employeePositionMap==null) return null;
+		EmployeePositionVO vo = create();
+		EntityContext.copyProperties(vo,employeePositionMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 EmployeePositionVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return EmployeePositionVO , 转换好的的 EmployeePosition 对象
@@ -361,8 +383,10 @@ public class EmployeePositionVO extends EmployeePosition {
 	@Transient
 	public static EmployeePositionVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		EmployeePositionVO po = EntityContext.create(EmployeePositionVO.class,pojo);
-		return po;
+		EmployeePositionVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -371,6 +395,108 @@ public class EmployeePositionVO extends EmployeePosition {
 	*/
 	@Transient
 	public static EmployeePositionVO create() {
-		return EntityContext.create(EmployeePositionVO.class);
+		return new org.github.foxnic.web.domain.hrm.meta.EmployeePositionVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(EmployeePositionVOMeta.DELETED)));
+			this.setPositionId(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.POSITION_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(EmployeePositionVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(EmployeePositionVOMeta.DELETE_TIME)));
+			this.setIsPrimary(DataParser.parse(Integer.class, map.get(EmployeePositionVOMeta.IS_PRIMARY)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.DELETE_BY)));
+			this.setEmployeeId(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeePositionVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeePositionVOMeta.VERSION)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(EmployeePositionVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(EmployeePositionVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(EmployeePositionVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)map.get(EmployeePositionVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(EmployeePositionVOMeta.DELETED));
+				this.setPositionId( (String)map.get(EmployeePositionVOMeta.POSITION_ID));
+				this.setCreateTime( (Date)map.get(EmployeePositionVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(EmployeePositionVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(EmployeePositionVOMeta.DELETE_TIME));
+				this.setIsPrimary( (Integer)map.get(EmployeePositionVOMeta.IS_PRIMARY));
+				this.setDeleteBy( (String)map.get(EmployeePositionVOMeta.DELETE_BY));
+				this.setEmployeeId( (String)map.get(EmployeePositionVOMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)map.get(EmployeePositionVOMeta.UPDATE_TIME));
+				this.setId( (String)map.get(EmployeePositionVOMeta.ID));
+				this.setVersion( (Integer)map.get(EmployeePositionVOMeta.VERSION));
+				// others
+				this.setSearchField( (String)map.get(EmployeePositionVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(EmployeePositionVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(EmployeePositionVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(EmployeePositionVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(EmployeePositionVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(EmployeePositionVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(EmployeePositionVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(EmployeePositionVOMeta.DELETED)));
+			this.setPositionId(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.POSITION_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(EmployeePositionVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(EmployeePositionVOMeta.DELETE_TIME)));
+			this.setIsPrimary(DataParser.parse(Integer.class, r.getValue(EmployeePositionVOMeta.IS_PRIMARY)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.DELETE_BY)));
+			this.setEmployeeId(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(EmployeePositionVOMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(EmployeePositionVOMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(EmployeePositionVOMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)r.getValue(EmployeePositionVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(EmployeePositionVOMeta.DELETED));
+				this.setPositionId( (String)r.getValue(EmployeePositionVOMeta.POSITION_ID));
+				this.setCreateTime( (Date)r.getValue(EmployeePositionVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(EmployeePositionVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(EmployeePositionVOMeta.DELETE_TIME));
+				this.setIsPrimary( (Integer)r.getValue(EmployeePositionVOMeta.IS_PRIMARY));
+				this.setDeleteBy( (String)r.getValue(EmployeePositionVOMeta.DELETE_BY));
+				this.setEmployeeId( (String)r.getValue(EmployeePositionVOMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)r.getValue(EmployeePositionVOMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(EmployeePositionVOMeta.ID));
+				this.setVersion( (Integer)r.getValue(EmployeePositionVOMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

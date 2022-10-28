@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.hrm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.hrm.meta.PersonVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 人员
+ * 人员VO类型
+ * <p>人员 , 数据表 hrm_person 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
  * @sign 5597C4BE95EE72BE1688CA7C72DA25E8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "人员VO类型 ; 人员 , 数据表 hrm_person 的通用VO类型" , parent = Person.class)
 public class PersonVO extends Person {
 
 	private static final long serialVersionUID = 1L;
@@ -355,6 +363,20 @@ public class PersonVO extends Person {
 	}
 
 	/**
+	 * 将 Map 转换成 PersonVO
+	 * @param personMap 包含实体信息的 Map 对象
+	 * @return PersonVO , 转换好的的 Person 对象
+	*/
+	@Transient
+	public static PersonVO createFrom(Map<String,Object> personMap) {
+		if(personMap==null) return null;
+		PersonVO vo = create();
+		EntityContext.copyProperties(vo,personMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 PersonVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return PersonVO , 转换好的的 Person 对象
@@ -362,8 +384,10 @@ public class PersonVO extends Person {
 	@Transient
 	public static PersonVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		PersonVO po = EntityContext.create(PersonVO.class,pojo);
-		return po;
+		PersonVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -372,6 +396,112 @@ public class PersonVO extends Person {
 	*/
 	@Transient
 	public static PersonVO create() {
-		return EntityContext.create(PersonVO.class);
+		return new org.github.foxnic.web.domain.hrm.meta.PersonVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setSex(DataParser.parse(String.class, map.get(PersonVOMeta.SEX)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(PersonVOMeta.UPDATE_TIME)));
+			this.setSource(DataParser.parse(String.class, map.get(PersonVOMeta.SOURCE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(PersonVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(PersonVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(PersonVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(PersonVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(PersonVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(PersonVOMeta.DELETE_TIME)));
+			this.setIdentity(DataParser.parse(String.class, map.get(PersonVOMeta.IDENTITY)));
+			this.setName(DataParser.parse(String.class, map.get(PersonVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(PersonVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(PersonVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(PersonVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(PersonVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(PersonVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(PersonVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(PersonVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(PersonVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(PersonVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setSex( (String)map.get(PersonVOMeta.SEX));
+				this.setUpdateTime( (Date)map.get(PersonVOMeta.UPDATE_TIME));
+				this.setSource( (String)map.get(PersonVOMeta.SOURCE));
+				this.setVersion( (Integer)map.get(PersonVOMeta.VERSION));
+				this.setCreateBy( (String)map.get(PersonVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(PersonVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(PersonVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(PersonVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(PersonVOMeta.DELETE_TIME));
+				this.setIdentity( (String)map.get(PersonVOMeta.IDENTITY));
+				this.setName( (String)map.get(PersonVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(PersonVOMeta.DELETE_BY));
+				this.setId( (String)map.get(PersonVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(PersonVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(PersonVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(PersonVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(PersonVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(PersonVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(PersonVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(PersonVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setSex(DataParser.parse(String.class, r.getValue(PersonVOMeta.SEX)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(PersonVOMeta.UPDATE_TIME)));
+			this.setSource(DataParser.parse(String.class, r.getValue(PersonVOMeta.SOURCE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(PersonVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(PersonVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(PersonVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(PersonVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(PersonVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(PersonVOMeta.DELETE_TIME)));
+			this.setIdentity(DataParser.parse(String.class, r.getValue(PersonVOMeta.IDENTITY)));
+			this.setName(DataParser.parse(String.class, r.getValue(PersonVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(PersonVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(PersonVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setSex( (String)r.getValue(PersonVOMeta.SEX));
+				this.setUpdateTime( (Date)r.getValue(PersonVOMeta.UPDATE_TIME));
+				this.setSource( (String)r.getValue(PersonVOMeta.SOURCE));
+				this.setVersion( (Integer)r.getValue(PersonVOMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(PersonVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(PersonVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(PersonVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(PersonVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(PersonVOMeta.DELETE_TIME));
+				this.setIdentity( (String)r.getValue(PersonVOMeta.IDENTITY));
+				this.setName( (String)r.getValue(PersonVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(PersonVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(PersonVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

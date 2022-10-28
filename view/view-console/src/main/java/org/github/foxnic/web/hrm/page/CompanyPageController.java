@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.hrm.CompanyServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 公司表 模版页面控制器
+ * 公司模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:50
+ * @since 2022-10-28 14:51:39
 */
 
 @Controller("HrmCompanyPageController")

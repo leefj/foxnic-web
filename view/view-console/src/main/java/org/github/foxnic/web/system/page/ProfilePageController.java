@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.ProfileServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * Profile 模版页面控制器
+ * Profile模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:42
+ * @since 2022-10-28 14:38:50
 */
 
 @Controller("SysProfilePageController")

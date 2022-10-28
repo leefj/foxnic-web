@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.TokenMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -20,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * Token
  * <p>Token , 数据表 sys_token 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:27
+ * @since 2022-10-28 15:18:32
  * @sign B87FC6896ECA7824AE9D0D7CCEFB4C93
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,55 +40,55 @@ public class Token extends Entity {
 	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id")
+	@ApiModelProperty(required = true,value="id" , notes = "id" , example = "-1015021568")
 	private String id;
 	
 	/**
 	 * 账户ID：账户ID
 	*/
-	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
+	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID" , example = "110588348101165911")
 	private String userId;
 	
 	/**
 	 * Token标识：Token标识
 	*/
-	@ApiModelProperty(required = false,value="Token标识" , notes = "Token标识")
+	@ApiModelProperty(required = false,value="Token标识" , notes = "Token标识" , example = "dbc73530-592c-4b6f-a60a-6c5fd3cc1b2b")
 	private String jti;
 	
 	/**
 	 * 访问用Token：访问用Token
 	*/
-	@ApiModelProperty(required = false,value="访问用Token" , notes = "访问用Token")
+	@ApiModelProperty(required = false,value="访问用Token" , notes = "访问用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZlbG9yZC5...")
 	private String accessToken;
 	
 	/**
 	 * 刷新用Token：刷新用Token
 	*/
-	@ApiModelProperty(required = false,value="刷新用Token" , notes = "刷新用Token")
+	@ApiModelProperty(required = false,value="刷新用Token" , notes = "刷新用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZlbG9yZC5...")
 	private String refreshToken;
 	
 	/**
 	 * 访问用Token过期时间：访问用Token过期时间
 	*/
-	@ApiModelProperty(required = false,value="访问用Token过期时间" , notes = "访问用Token过期时间")
+	@ApiModelProperty(required = false,value="访问用Token过期时间" , notes = "访问用Token过期时间" , example = "2021-06-03 05:06:51")
 	private Date accessTokenExpireTime;
 	
 	/**
 	 * 访问用Token是否过期：访问用Token是否过期
 	*/
-	@ApiModelProperty(required = true,value="访问用Token是否过期" , notes = "访问用Token是否过期")
+	@ApiModelProperty(required = true,value="访问用Token是否过期" , notes = "访问用Token是否过期" , example = "0")
 	private Integer accessTokenExpired;
 	
 	/**
 	 * 刷新用Token过期时间：刷新用Token过期时间
 	*/
-	@ApiModelProperty(required = false,value="刷新用Token过期时间" , notes = "刷新用Token过期时间")
+	@ApiModelProperty(required = false,value="刷新用Token过期时间" , notes = "刷新用Token过期时间" , example = "2021-06-03 05:10:11")
 	private Date refreshTokenExpireTime;
 	
 	/**
 	 * 刷新用Token是否过期：刷新用Token是否过期
 	*/
-	@ApiModelProperty(required = true,value="刷新用Token是否过期" , notes = "刷新用Token是否过期")
+	@ApiModelProperty(required = true,value="刷新用Token是否过期" , notes = "刷新用Token是否过期" , example = "0")
 	private Integer refreshTokenExpired;
 	
 	/**
@@ -97,7 +100,7 @@ public class Token extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-06-03 04:36:51")
 	private Date createTime;
 	
 	/**
@@ -115,9 +118,10 @@ public class Token extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -135,7 +139,7 @@ public class Token extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -600,5 +604,113 @@ public class Token extends Entity {
 	@Transient
 	public static Token create() {
 		return new org.github.foxnic.web.domain.oauth.meta.TokenMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setAccessTokenExpireTime(DataParser.parse(Date.class, map.get(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(TokenMeta.UPDATE_TIME)));
+			this.setAccessToken(DataParser.parse(String.class, map.get(TokenMeta.ACCESS_TOKEN)));
+			this.setUserId(DataParser.parse(String.class, map.get(TokenMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(TokenMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(TokenMeta.CREATE_BY)));
+			this.setRefreshTokenExpireTime(DataParser.parse(Date.class, map.get(TokenMeta.REFRESH_TOKEN_EXPIRE_TIME)));
+			this.setRefreshTokenExpired(DataParser.parse(Integer.class, map.get(TokenMeta.REFRESH_TOKEN_EXPIRED)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(TokenMeta.DELETED)));
+			this.setAccessTokenExpired(DataParser.parse(Integer.class, map.get(TokenMeta.ACCESS_TOKEN_EXPIRED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(TokenMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(TokenMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(TokenMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(TokenMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(TokenMeta.ID)));
+			this.setJti(DataParser.parse(String.class, map.get(TokenMeta.JTI)));
+			this.setRefreshToken(DataParser.parse(String.class, map.get(TokenMeta.REFRESH_TOKEN)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setAccessTokenExpireTime( (Date)map.get(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME));
+				this.setUpdateTime( (Date)map.get(TokenMeta.UPDATE_TIME));
+				this.setAccessToken( (String)map.get(TokenMeta.ACCESS_TOKEN));
+				this.setUserId( (String)map.get(TokenMeta.USER_ID));
+				this.setVersion( (Integer)map.get(TokenMeta.VERSION));
+				this.setCreateBy( (String)map.get(TokenMeta.CREATE_BY));
+				this.setRefreshTokenExpireTime( (Date)map.get(TokenMeta.REFRESH_TOKEN_EXPIRE_TIME));
+				this.setRefreshTokenExpired( (Integer)map.get(TokenMeta.REFRESH_TOKEN_EXPIRED));
+				this.setDeleted( (Integer)map.get(TokenMeta.DELETED));
+				this.setAccessTokenExpired( (Integer)map.get(TokenMeta.ACCESS_TOKEN_EXPIRED));
+				this.setCreateTime( (Date)map.get(TokenMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(TokenMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(TokenMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(TokenMeta.DELETE_BY));
+				this.setId( (String)map.get(TokenMeta.ID));
+				this.setJti( (String)map.get(TokenMeta.JTI));
+				this.setRefreshToken( (String)map.get(TokenMeta.REFRESH_TOKEN));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setAccessTokenExpireTime(DataParser.parse(Date.class, r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TokenMeta.UPDATE_TIME)));
+			this.setAccessToken(DataParser.parse(String.class, r.getValue(TokenMeta.ACCESS_TOKEN)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(TokenMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(TokenMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(TokenMeta.CREATE_BY)));
+			this.setRefreshTokenExpireTime(DataParser.parse(Date.class, r.getValue(TokenMeta.REFRESH_TOKEN_EXPIRE_TIME)));
+			this.setRefreshTokenExpired(DataParser.parse(Integer.class, r.getValue(TokenMeta.REFRESH_TOKEN_EXPIRED)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(TokenMeta.DELETED)));
+			this.setAccessTokenExpired(DataParser.parse(Integer.class, r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(TokenMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(TokenMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(TokenMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(TokenMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(TokenMeta.ID)));
+			this.setJti(DataParser.parse(String.class, r.getValue(TokenMeta.JTI)));
+			this.setRefreshToken(DataParser.parse(String.class, r.getValue(TokenMeta.REFRESH_TOKEN)));
+			return true;
+		} else {
+			try {
+				this.setAccessTokenExpireTime( (Date)r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME));
+				this.setUpdateTime( (Date)r.getValue(TokenMeta.UPDATE_TIME));
+				this.setAccessToken( (String)r.getValue(TokenMeta.ACCESS_TOKEN));
+				this.setUserId( (String)r.getValue(TokenMeta.USER_ID));
+				this.setVersion( (Integer)r.getValue(TokenMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(TokenMeta.CREATE_BY));
+				this.setRefreshTokenExpireTime( (Date)r.getValue(TokenMeta.REFRESH_TOKEN_EXPIRE_TIME));
+				this.setRefreshTokenExpired( (Integer)r.getValue(TokenMeta.REFRESH_TOKEN_EXPIRED));
+				this.setDeleted( (Integer)r.getValue(TokenMeta.DELETED));
+				this.setAccessTokenExpired( (Integer)r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRED));
+				this.setCreateTime( (Date)r.getValue(TokenMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(TokenMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(TokenMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(TokenMeta.DELETE_BY));
+				this.setId( (String)r.getValue(TokenMeta.ID));
+				this.setJti( (String)r.getValue(TokenMeta.JTI));
+				this.setRefreshToken( (String)r.getValue(TokenMeta.REFRESH_TOKEN));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

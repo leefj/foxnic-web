@@ -12,6 +12,9 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import org.github.foxnic.web.domain.oauth.meta.LoginIdentityVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -19,7 +22,7 @@ import com.github.foxnic.dao.entity.Entity;
  * 账户登录模型
  * <p>用于登录接口</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 13:52:09
+ * @since 2022-10-28 15:10:33
  * @sign 13946368950A58EE2AD6CBBEC6EABA18
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -272,6 +275,56 @@ public class LoginIdentityVO {
 			return pojo;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			// others
+			this.setBrowserId(DataParser.parse(String.class, map.get(LoginIdentityVOMeta.BROWSER_ID)));
+			this.setPasswd(DataParser.parse(String.class, map.get(LoginIdentityVOMeta.PASSWD)));
+			this.setCaptcha(DataParser.parse(String.class, map.get(LoginIdentityVOMeta.CAPTCHA)));
+			this.setLoginType(DataParser.parse(String.class, map.get(LoginIdentityVOMeta.LOGIN_TYPE)));
+			this.setIdentity(DataParser.parse(String.class, map.get(LoginIdentityVOMeta.IDENTITY)));
+			return true;
+		} else {
+			try {
+				// others
+				this.setBrowserId( (String)map.get(LoginIdentityVOMeta.BROWSER_ID));
+				this.setPasswd( (String)map.get(LoginIdentityVOMeta.PASSWD));
+				this.setCaptcha( (String)map.get(LoginIdentityVOMeta.CAPTCHA));
+				this.setLoginType( (String)map.get(LoginIdentityVOMeta.LOGIN_TYPE));
+				this.setIdentity( (String)map.get(LoginIdentityVOMeta.IDENTITY));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			return true;
+		} else {
+			try {
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 }

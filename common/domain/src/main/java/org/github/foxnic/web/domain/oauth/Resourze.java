@@ -1,23 +1,27 @@
 package org.github.foxnic.web.domain.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.dao.entity.Entity;
-import io.swagger.annotations.ApiModel;
-import javax.persistence.Table;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.data.ExprRcd;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
-import javax.persistence.Id;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
 import org.github.foxnic.web.constants.enums.hrm.ResourceType;
-import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.foxnic.commons.reflect.EnumUtil;
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
-import com.github.foxnic.dao.entity.EntityContext;
 
 
 
@@ -25,7 +29,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 系统资源
  * <p>系统资源 , 数据表 sys_resourze 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-20 15:07:29
+ * @since 2022-10-28 15:10:33
  * @sign E4CF522624992BAEA759A534EC0F107D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,118 +41,122 @@ public class Resourze extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_RESOURZE.$TABLE;
-	
+
 	/**
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "463397728609632251")
 	private String id;
-	
+
 	/**
 	 * 名称：名称
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="名称" , notes = "名称" , example = "监控脚本收集数据")
 	private String name;
-	
+
 	/**
 	 * 类型：api/page
 	*/
-	@ApiModelProperty(required = true,value="类型" , notes = "api/page")
+	@ApiModelProperty(required = true,value="类型" , notes = "api/page" , example = "api")
 	private String type;
 	@Transient
+	@EnumFor("type")
 	private ResourceType typeEnum;
-	
+
 	/**
 	 * 访问控制类型：访问控制类型
 	*/
-	@ApiModelProperty(required = true,value="访问控制类型" , notes = "访问控制类型")
+	@ApiModelProperty(required = true,value="访问控制类型" , notes = "访问控制类型" , example = "LOGIN")
 	private String accessType;
 	@Transient
+	@EnumFor("accessType")
 	private AccessType accessTypeEnum;
-	
+
 	/**
 	 * 地址：地址
 	*/
-	@ApiModelProperty(required = true,value="地址" , notes = "地址")
+	@ApiModelProperty(required = true,value="地址" , notes = "地址" , example = "/service-ops/monitor-process-script/collect-data")
 	private String url;
-	
+
 	/**
 	 * HttpMethod：HttpMethod
 	*/
-	@ApiModelProperty(required = true,value="HttpMethod" , notes = "HttpMethod")
+	@ApiModelProperty(required = true,value="HttpMethod" , notes = "HttpMethod" , example = "POST")
 	private String method;
 	@Transient
+	@EnumFor("method")
 	private HttpMethodType methodEnum;
-	
+
 	/**
 	 * 批次号：批次号
 	*/
-	@ApiModelProperty(required = false,value="批次号" , notes = "批次号")
+	@ApiModelProperty(required = false,value="批次号" , notes = "批次号" , example = "463397723765211136")
 	private String batchId;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 来源表：来源表
 	*/
 	@ApiModelProperty(required = false,value="来源表" , notes = "来源表")
 	private String tableName;
-	
+
 	/**
 	 * 来源模块：来源模块
 	*/
 	@ApiModelProperty(required = false,value="来源模块" , notes = "来源模块")
 	private String module;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
-	
+
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -157,7 +165,7 @@ public class Resourze extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -167,7 +175,7 @@ public class Resourze extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 名称<br>
 	 * 名称
@@ -176,7 +184,7 @@ public class Resourze extends Entity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 设置 名称
 	 * @param name 名称
@@ -186,7 +194,7 @@ public class Resourze extends Entity {
 		this.name=name;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 类型<br>
 	 * api/page
@@ -195,7 +203,7 @@ public class Resourze extends Entity {
 	public String getType() {
 		return type;
 	}
-	
+
 	/**
 	 * 获得 类型 的投影属性<br>
 	 * 等价于 getType 方法，获得对应的枚举类型
@@ -208,7 +216,7 @@ public class Resourze extends Entity {
 		}
 		return this.typeEnum ;
 	}
-	
+
 	/**
 	 * 设置 类型
 	 * @param type 类型
@@ -223,7 +231,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 类型的投影属性，等同于设置 类型
 	 * @param typeEnum 类型
@@ -239,7 +247,7 @@ public class Resourze extends Entity {
 		this.typeEnum=typeEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 访问控制类型<br>
 	 * 访问控制类型
@@ -248,7 +256,7 @@ public class Resourze extends Entity {
 	public String getAccessType() {
 		return accessType;
 	}
-	
+
 	/**
 	 * 获得 访问控制类型 的投影属性<br>
 	 * 等价于 getAccessType 方法，获得对应的枚举类型
@@ -261,7 +269,7 @@ public class Resourze extends Entity {
 		}
 		return this.accessTypeEnum ;
 	}
-	
+
 	/**
 	 * 设置 访问控制类型
 	 * @param accessType 访问控制类型
@@ -276,7 +284,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 访问控制类型的投影属性，等同于设置 访问控制类型
 	 * @param accessTypeEnum 访问控制类型
@@ -292,7 +300,7 @@ public class Resourze extends Entity {
 		this.accessTypeEnum=accessTypeEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 地址<br>
 	 * 地址
@@ -301,7 +309,7 @@ public class Resourze extends Entity {
 	public String getUrl() {
 		return url;
 	}
-	
+
 	/**
 	 * 设置 地址
 	 * @param url 地址
@@ -311,7 +319,7 @@ public class Resourze extends Entity {
 		this.url=url;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 HttpMethod<br>
 	 * HttpMethod
@@ -320,7 +328,7 @@ public class Resourze extends Entity {
 	public String getMethod() {
 		return method;
 	}
-	
+
 	/**
 	 * 获得 HttpMethod 的投影属性<br>
 	 * 等价于 getMethod 方法，获得对应的枚举类型
@@ -333,7 +341,7 @@ public class Resourze extends Entity {
 		}
 		return this.methodEnum ;
 	}
-	
+
 	/**
 	 * 设置 HttpMethod
 	 * @param method HttpMethod
@@ -348,7 +356,7 @@ public class Resourze extends Entity {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 HttpMethod的投影属性，等同于设置 HttpMethod
 	 * @param methodEnum HttpMethod
@@ -364,7 +372,7 @@ public class Resourze extends Entity {
 		this.methodEnum=methodEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 批次号<br>
 	 * 批次号
@@ -373,7 +381,7 @@ public class Resourze extends Entity {
 	public String getBatchId() {
 		return batchId;
 	}
-	
+
 	/**
 	 * 设置 批次号
 	 * @param batchId 批次号
@@ -383,7 +391,7 @@ public class Resourze extends Entity {
 		this.batchId=batchId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -392,7 +400,7 @@ public class Resourze extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -402,7 +410,7 @@ public class Resourze extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 来源表<br>
 	 * 来源表
@@ -411,7 +419,7 @@ public class Resourze extends Entity {
 	public String getTableName() {
 		return tableName;
 	}
-	
+
 	/**
 	 * 设置 来源表
 	 * @param tableName 来源表
@@ -421,7 +429,7 @@ public class Resourze extends Entity {
 		this.tableName=tableName;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 来源模块<br>
 	 * 来源模块
@@ -430,7 +438,7 @@ public class Resourze extends Entity {
 	public String getModule() {
 		return module;
 	}
-	
+
 	/**
 	 * 设置 来源模块
 	 * @param module 来源模块
@@ -440,7 +448,7 @@ public class Resourze extends Entity {
 		this.module=module;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -449,7 +457,7 @@ public class Resourze extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -459,7 +467,7 @@ public class Resourze extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -468,7 +476,7 @@ public class Resourze extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -478,7 +486,7 @@ public class Resourze extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -487,7 +495,7 @@ public class Resourze extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -497,7 +505,7 @@ public class Resourze extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -506,7 +514,7 @@ public class Resourze extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -519,7 +527,7 @@ public class Resourze extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -531,7 +539,7 @@ public class Resourze extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -547,7 +555,7 @@ public class Resourze extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -556,7 +564,7 @@ public class Resourze extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -566,7 +574,7 @@ public class Resourze extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -575,7 +583,7 @@ public class Resourze extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -585,7 +593,7 @@ public class Resourze extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -594,7 +602,7 @@ public class Resourze extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -713,5 +721,113 @@ public class Resourze extends Entity {
 	@Transient
 	public static Resourze create() {
 		return new org.github.foxnic.web.domain.oauth.meta.ResourzeMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setMethod(DataParser.parse(String.class, map.get(ResourzeMeta.METHOD)));
+			this.setModule(DataParser.parse(String.class, map.get(ResourzeMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ResourzeMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(ResourzeMeta.TYPE)));
+			this.setBatchId(DataParser.parse(String.class, map.get(ResourzeMeta.BATCH_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ResourzeMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, map.get(ResourzeMeta.URL)));
+			this.setTableName(DataParser.parse(String.class, map.get(ResourzeMeta.TABLE_NAME)));
+			this.setAccessType(DataParser.parse(String.class, map.get(ResourzeMeta.ACCESS_TYPE)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ResourzeMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ResourzeMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ResourzeMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ResourzeMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ResourzeMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(ResourzeMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ResourzeMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ResourzeMeta.ID)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setMethod( (String)map.get(ResourzeMeta.METHOD));
+				this.setModule( (String)map.get(ResourzeMeta.MODULE));
+				this.setUpdateTime( (Date)map.get(ResourzeMeta.UPDATE_TIME));
+				this.setType( (String)map.get(ResourzeMeta.TYPE));
+				this.setBatchId( (String)map.get(ResourzeMeta.BATCH_ID));
+				this.setVersion( (Integer)map.get(ResourzeMeta.VERSION));
+				this.setUrl( (String)map.get(ResourzeMeta.URL));
+				this.setTableName( (String)map.get(ResourzeMeta.TABLE_NAME));
+				this.setAccessType( (String)map.get(ResourzeMeta.ACCESS_TYPE));
+				this.setCreateBy( (String)map.get(ResourzeMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ResourzeMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ResourzeMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ResourzeMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ResourzeMeta.DELETE_TIME));
+				this.setName( (String)map.get(ResourzeMeta.NAME));
+				this.setDeleteBy( (String)map.get(ResourzeMeta.DELETE_BY));
+				this.setId( (String)map.get(ResourzeMeta.ID));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setMethod(DataParser.parse(String.class, r.getValue(ResourzeMeta.METHOD)));
+			this.setModule(DataParser.parse(String.class, r.getValue(ResourzeMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ResourzeMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(ResourzeMeta.TYPE)));
+			this.setBatchId(DataParser.parse(String.class, r.getValue(ResourzeMeta.BATCH_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ResourzeMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, r.getValue(ResourzeMeta.URL)));
+			this.setTableName(DataParser.parse(String.class, r.getValue(ResourzeMeta.TABLE_NAME)));
+			this.setAccessType(DataParser.parse(String.class, r.getValue(ResourzeMeta.ACCESS_TYPE)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ResourzeMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ResourzeMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ResourzeMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ResourzeMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ResourzeMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(ResourzeMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ResourzeMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ResourzeMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setMethod( (String)r.getValue(ResourzeMeta.METHOD));
+				this.setModule( (String)r.getValue(ResourzeMeta.MODULE));
+				this.setUpdateTime( (Date)r.getValue(ResourzeMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(ResourzeMeta.TYPE));
+				this.setBatchId( (String)r.getValue(ResourzeMeta.BATCH_ID));
+				this.setVersion( (Integer)r.getValue(ResourzeMeta.VERSION));
+				this.setUrl( (String)r.getValue(ResourzeMeta.URL));
+				this.setTableName( (String)r.getValue(ResourzeMeta.TABLE_NAME));
+				this.setAccessType( (String)r.getValue(ResourzeMeta.ACCESS_TYPE));
+				this.setCreateBy( (String)r.getValue(ResourzeMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ResourzeMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ResourzeMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ResourzeMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ResourzeMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(ResourzeMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(ResourzeMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ResourzeMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

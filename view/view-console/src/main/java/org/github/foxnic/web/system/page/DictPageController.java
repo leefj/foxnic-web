@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.DictServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 数据字典 模版页面控制器
+ * 数据字典模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:41
+ * @since 2022-10-28 14:38:48
 */
 
 @Controller("SysDictPageController")

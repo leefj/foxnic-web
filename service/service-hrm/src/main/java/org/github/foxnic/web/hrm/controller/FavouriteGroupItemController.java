@@ -2,6 +2,7 @@ package org.github.foxnic.web.hrm.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -25,8 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import com.github.foxnic.api.swagger.ApiParamSupport;
-
 /**
  * <p>
  * 常用人员分组条目表 接口控制器
@@ -48,7 +47,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 添加常用人员分组条目
      */
     @ApiOperation(value = "添加常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
@@ -77,7 +76,7 @@ public class FavouriteGroupItemController extends SuperController {
     @SentinelResource(value = FavouriteGroupItemServiceProxy.INSERTS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(FavouriteGroupItemServiceProxy.INSERTS)
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
-    public Result insert(List<FavouriteGroupItemVO> list) {
+    public Result batchInsert(List<FavouriteGroupItemVO> list) {
         Result result = favouriteGroupItemService.inserts(list);
         return result;
     }
@@ -99,7 +98,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 删除常用人员分组条目
      */
     @ApiOperation(value = "删除常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 2)
@@ -115,7 +114,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -130,7 +129,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 更新常用人员分组条目
      */
     @ApiOperation(value = "更新常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
@@ -154,7 +153,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 保存常用人员分组条目
      */
     @ApiOperation(value = "保存常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
@@ -178,7 +177,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 获取常用人员分组条目
      */
     @ApiOperation(value = "获取常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
@@ -196,7 +195,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -213,7 +212,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 查询常用人员分组条目
      */
     @ApiOperation(value = "查询常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),
@@ -238,7 +237,7 @@ public class FavouriteGroupItemController extends SuperController {
      * 分页查询常用人员分组条目
      */
     @ApiOperation(value = "分页查询常用人员分组条目")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_ID, value = "对象ID", required = true, dataTypeClass = String.class),
 		@ApiImplicitParam(name = FavouriteGroupItemVOMeta.TARGET_TYPE, value = "对象类型", required = true, dataTypeClass = String.class),

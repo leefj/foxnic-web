@@ -3,12 +3,13 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.Lang;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:24:19
+ * @since 2022-10-28 14:42:51
  * @sign BD215A94BAF4EA9816BBB98144045EDA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -363,5 +364,41 @@ public class LangMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Lang clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Lang duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setZhTw(this.getZhTw());
+			inst.setEnUs(this.getEnUs());
+			inst.setZhCh(this.getZhCh());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setEnUk(this.getEnUk());
+			inst.setValid(this.getValid());
+			inst.setConfuse(this.getConfuse());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setDefaults(this.getDefaults());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

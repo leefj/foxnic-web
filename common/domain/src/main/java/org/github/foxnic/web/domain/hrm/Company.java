@@ -1,7 +1,7 @@
 package org.github.foxnic.web.domain.hrm;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_COMPANY;
@@ -9,102 +9,109 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.hrm.meta.CompanyMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 公司
+ * <p>公司 , 数据表 hrm_company 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:49
+ * @since 2022-10-28 14:51:37
  * @sign 1FF5FC27D26E5AE17A8941512864F8BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "hrm_company")
+@ApiModel(description = "公司 ; 公司 , 数据表 hrm_company 的PO类型")
 public class Company extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =HRM_COMPANY.$TABLE;
-
+	
 	/**
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "002")
 	private String id;
-
+	
 	/**
 	 * 公司名称：公司名称
 	*/
-	@ApiModelProperty(required = false,value="公司名称" , notes = "公司名称")
+	@ApiModelProperty(required = false,value="公司名称" , notes = "公司名称" , example = "租户公司")
 	private String name;
-
+	
 	/**
 	 * 社会信用代码：社会信用代码
 	*/
-	@ApiModelProperty(required = false,value="社会信用代码" , notes = "社会信用代码")
+	@ApiModelProperty(required = false,value="社会信用代码" , notes = "社会信用代码" , example = "00000000000000000")
 	private String socialCreditCode;
-
+	
 	/**
 	 * 是否有效：是否有效
 	*/
-	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
+	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效" , example = "1")
 	private Integer valid;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-09-01 09:45:53")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "17")
 	private Integer version;
-
+	
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -113,7 +120,7 @@ public class Company extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -123,7 +130,7 @@ public class Company extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 公司名称<br>
 	 * 公司名称
@@ -132,7 +139,7 @@ public class Company extends Entity {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * 设置 公司名称
 	 * @param name 公司名称
@@ -142,7 +149,7 @@ public class Company extends Entity {
 		this.name=name;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 社会信用代码<br>
 	 * 社会信用代码
@@ -151,7 +158,7 @@ public class Company extends Entity {
 	public String getSocialCreditCode() {
 		return socialCreditCode;
 	}
-
+	
 	/**
 	 * 设置 社会信用代码
 	 * @param socialCreditCode 社会信用代码
@@ -161,7 +168,7 @@ public class Company extends Entity {
 		this.socialCreditCode=socialCreditCode;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否有效<br>
 	 * 是否有效
@@ -170,7 +177,7 @@ public class Company extends Entity {
 	public Integer getValid() {
 		return valid;
 	}
-
+	
 	/**
 	 * 设置 是否有效
 	 * @param valid 是否有效
@@ -180,7 +187,7 @@ public class Company extends Entity {
 		this.valid=valid;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -189,7 +196,7 @@ public class Company extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -199,7 +206,7 @@ public class Company extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -208,7 +215,7 @@ public class Company extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -218,7 +225,7 @@ public class Company extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -227,7 +234,7 @@ public class Company extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -237,7 +244,7 @@ public class Company extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -246,7 +253,7 @@ public class Company extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -256,7 +263,7 @@ public class Company extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -265,7 +272,7 @@ public class Company extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -278,7 +285,7 @@ public class Company extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -290,7 +297,7 @@ public class Company extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -306,7 +313,7 @@ public class Company extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -315,7 +322,7 @@ public class Company extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -325,7 +332,7 @@ public class Company extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -334,7 +341,7 @@ public class Company extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -344,7 +351,7 @@ public class Company extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -353,7 +360,7 @@ public class Company extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -440,7 +447,9 @@ public class Company extends Entity {
 	@Transient
 	public static Company createFrom(Map<String,Object> companyMap) {
 		if(companyMap==null) return null;
-		Company po = EntityContext.create(Company.class, companyMap);
+		Company po = create();
+		EntityContext.copyProperties(po,companyMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -452,7 +461,9 @@ public class Company extends Entity {
 	@Transient
 	public static Company createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Company po = EntityContext.create(Company.class,pojo);
+		Company po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -462,6 +473,94 @@ public class Company extends Entity {
 	*/
 	@Transient
 	public static Company create() {
-		return EntityContext.create(Company.class);
+		return new org.github.foxnic.web.domain.hrm.meta.CompanyMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, map.get(CompanyMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(CompanyMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(CompanyMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(CompanyMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(CompanyMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(CompanyMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(CompanyMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(CompanyMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(CompanyMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(CompanyMeta.ID)));
+			this.setSocialCreditCode(DataParser.parse(String.class, map.get(CompanyMeta.SOCIAL_CREDIT_CODE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(CompanyMeta.VERSION)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)map.get(CompanyMeta.VALID));
+				this.setCreateBy( (String)map.get(CompanyMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(CompanyMeta.DELETED));
+				this.setCreateTime( (Date)map.get(CompanyMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(CompanyMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(CompanyMeta.DELETE_TIME));
+				this.setName( (String)map.get(CompanyMeta.NAME));
+				this.setDeleteBy( (String)map.get(CompanyMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(CompanyMeta.UPDATE_TIME));
+				this.setId( (String)map.get(CompanyMeta.ID));
+				this.setSocialCreditCode( (String)map.get(CompanyMeta.SOCIAL_CREDIT_CODE));
+				this.setVersion( (Integer)map.get(CompanyMeta.VERSION));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setValid(DataParser.parse(Integer.class, r.getValue(CompanyMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(CompanyMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(CompanyMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(CompanyMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(CompanyMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(CompanyMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(CompanyMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(CompanyMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(CompanyMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(CompanyMeta.ID)));
+			this.setSocialCreditCode(DataParser.parse(String.class, r.getValue(CompanyMeta.SOCIAL_CREDIT_CODE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(CompanyMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setValid( (Integer)r.getValue(CompanyMeta.VALID));
+				this.setCreateBy( (String)r.getValue(CompanyMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(CompanyMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(CompanyMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(CompanyMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(CompanyMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(CompanyMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(CompanyMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(CompanyMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(CompanyMeta.ID));
+				this.setSocialCreditCode( (String)r.getValue(CompanyMeta.SOCIAL_CREDIT_CODE));
+				this.setVersion( (Integer)r.getValue(CompanyMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

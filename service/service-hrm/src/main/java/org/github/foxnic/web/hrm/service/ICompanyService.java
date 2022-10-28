@@ -20,10 +20,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 公司表 服务接口
+ * 公司服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:50
+ * @since 2022-10-28 14:51:39
 */
 
 public interface ICompanyService extends  ISimpleIdService<Company,String> {
@@ -55,7 +55,7 @@ public interface ICompanyService extends  ISimpleIdService<Company,String> {
 
 		
 	/**
-	 * 按主键删除 公司
+	 * 按主键删除公司
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -63,7 +63,7 @@ public interface ICompanyService extends  ISimpleIdService<Company,String> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 公司
+	 * 按主键删除公司
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -86,7 +86,7 @@ public interface ICompanyService extends  ISimpleIdService<Company,String> {
 
 		
 	/**
-	 * 按主键更新字段 公司
+	 * 按主键更新公司
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -156,7 +156,7 @@ public interface ICompanyService extends  ISimpleIdService<Company,String> {
 
 		
 	/**
-	 * 按主键获取 公司
+	 * 按主键获取公司
 	 *
 	 * @param id 主键
 	 * @return Company 数据对象

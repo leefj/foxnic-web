@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.system.LangVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.Lang;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:24:19
+ * @since 2022-10-28 14:42:51
  * @sign BA40CDF42C01C9095A6649D22DC40B24
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -554,5 +555,52 @@ public class LangVOMeta extends LangMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public LangVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public LangVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setZhTw(this.getZhTw());
+			inst.setEnUs(this.getEnUs());
+			inst.setZhCh(this.getZhCh());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setEnUk(this.getEnUk());
+			inst.setValid(this.getValid());
+			inst.setConfuse(this.getConfuse());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setDefaults(this.getDefaults());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			if(all) {
+				inst.setCodes(this.getCodes());
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.storage;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_FILE;
@@ -8,21 +9,27 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.storage.meta.FileMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 系统文件
+ * <p>系统文件 , 数据表 sys_file 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:43:10
  * @sign 4187DD794E7BA4CB4DCB50CF5712D9D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_file")
+@ApiModel(description = "系统文件 ; 系统文件 , 数据表 sys_file 的PO类型")
 public class File extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -33,37 +40,37 @@ public class File extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "559304160260915200")
 	private String id;
 	
 	/**
 	 * 文件名：文件名
 	*/
-	@ApiModelProperty(required = false,value="文件名" , notes = "文件名")
+	@ApiModelProperty(required = false,value="文件名" , notes = "文件名" , example = "foxnic-demo.bpmn")
 	private String fileName;
 	
 	/**
 	 * 存储位置：存储位置
 	*/
-	@ApiModelProperty(required = false,value="存储位置" , notes = "存储位置")
+	@ApiModelProperty(required = false,value="存储位置" , notes = "存储位置" , example = "\20220324\559304160252526592.bpmn")
 	private String location;
 	
 	/**
 	 * 文件大小：单位KB
 	*/
-	@ApiModelProperty(required = false,value="文件大小" , notes = "单位KB")
+	@ApiModelProperty(required = false,value="文件大小" , notes = "单位KB" , example = "3665")
 	private Long size;
 	
 	/**
 	 * 媒体类型：媒体类型
 	*/
-	@ApiModelProperty(required = false,value="媒体类型" , notes = "媒体类型")
+	@ApiModelProperty(required = false,value="媒体类型" , notes = "媒体类型" , example = "application/octet-stream")
 	private String mediaType;
 	
 	/**
 	 * 文件类型：存放文件扩展名
 	*/
-	@ApiModelProperty(required = false,value="文件类型" , notes = "存放文件扩展名")
+	@ApiModelProperty(required = false,value="文件类型" , notes = "存放文件扩展名" , example = "bpmn")
 	private String fileType;
 	
 	/**
@@ -75,45 +82,46 @@ public class File extends Entity {
 	/**
 	 * 最后访问时间：最后访问时间
 	*/
-	@ApiModelProperty(required = false,value="最后访问时间" , notes = "最后访问时间")
+	@ApiModelProperty(required = false,value="最后访问时间" , notes = "最后访问时间" , example = "2022-03-24 11:01:38")
 	private Date latestVisitTime;
 	
 	/**
 	 * 下载次数：下载次数
 	*/
-	@ApiModelProperty(required = true,value="下载次数" , notes = "下载次数")
+	@ApiModelProperty(required = true,value="下载次数" , notes = "下载次数" , example = "1")
 	private Integer downloads;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2022-03-24 09:15:03")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-03-24 09:22:56")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -131,7 +139,7 @@ public class File extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "2")
 	private Integer version;
 	
 	/**
@@ -414,6 +422,7 @@ public class File extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public File setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -604,7 +613,9 @@ public class File extends Entity {
 	@Transient
 	public static File createFrom(Map<String,Object> fileMap) {
 		if(fileMap==null) return null;
-		File po = EntityContext.create(File.class, fileMap);
+		File po = create();
+		EntityContext.copyProperties(po,fileMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -616,7 +627,9 @@ public class File extends Entity {
 	@Transient
 	public static File createFrom(Object pojo) {
 		if(pojo==null) return null;
-		File po = EntityContext.create(File.class,pojo);
+		File po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -626,6 +639,116 @@ public class File extends Entity {
 	*/
 	@Transient
 	public static File create() {
-		return EntityContext.create(File.class);
+		return new org.github.foxnic.web.domain.storage.meta.FileMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setFileName(DataParser.parse(String.class, map.get(FileMeta.FILE_NAME)));
+			this.setDownloadUrl(DataParser.parse(String.class, map.get(FileMeta.DOWNLOAD_URL)));
+			this.setMediaType(DataParser.parse(String.class, map.get(FileMeta.MEDIA_TYPE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FileMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FileMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FileMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FileMeta.DELETED)));
+			this.setSize(DataParser.parse(Long.class, map.get(FileMeta.SIZE)));
+			this.setDownloads(DataParser.parse(Integer.class, map.get(FileMeta.DOWNLOADS)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FileMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FileMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FileMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FileMeta.DELETE_BY)));
+			this.setLocation(DataParser.parse(String.class, map.get(FileMeta.LOCATION)));
+			this.setId(DataParser.parse(String.class, map.get(FileMeta.ID)));
+			this.setFileType(DataParser.parse(String.class, map.get(FileMeta.FILE_TYPE)));
+			this.setLatestVisitTime(DataParser.parse(Date.class, map.get(FileMeta.LATEST_VISIT_TIME)));
+			// others
+			this.setExists(DataParser.parse(Boolean.class, map.get(FileMeta.EXISTS)));
+			return true;
+		} else {
+			try {
+				this.setFileName( (String)map.get(FileMeta.FILE_NAME));
+				this.setDownloadUrl( (String)map.get(FileMeta.DOWNLOAD_URL));
+				this.setMediaType( (String)map.get(FileMeta.MEDIA_TYPE));
+				this.setUpdateTime( (Date)map.get(FileMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(FileMeta.VERSION));
+				this.setCreateBy( (String)map.get(FileMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FileMeta.DELETED));
+				this.setSize( (Long)map.get(FileMeta.SIZE));
+				this.setDownloads( (Integer)map.get(FileMeta.DOWNLOADS));
+				this.setCreateTime( (Date)map.get(FileMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FileMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FileMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(FileMeta.DELETE_BY));
+				this.setLocation( (String)map.get(FileMeta.LOCATION));
+				this.setId( (String)map.get(FileMeta.ID));
+				this.setFileType( (String)map.get(FileMeta.FILE_TYPE));
+				this.setLatestVisitTime( (Date)map.get(FileMeta.LATEST_VISIT_TIME));
+				// others
+				this.setExists( (Boolean)map.get(FileMeta.EXISTS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setFileName(DataParser.parse(String.class, r.getValue(FileMeta.FILE_NAME)));
+			this.setDownloadUrl(DataParser.parse(String.class, r.getValue(FileMeta.DOWNLOAD_URL)));
+			this.setMediaType(DataParser.parse(String.class, r.getValue(FileMeta.MEDIA_TYPE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FileMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FileMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FileMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FileMeta.DELETED)));
+			this.setSize(DataParser.parse(Long.class, r.getValue(FileMeta.SIZE)));
+			this.setDownloads(DataParser.parse(Integer.class, r.getValue(FileMeta.DOWNLOADS)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FileMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FileMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FileMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FileMeta.DELETE_BY)));
+			this.setLocation(DataParser.parse(String.class, r.getValue(FileMeta.LOCATION)));
+			this.setId(DataParser.parse(String.class, r.getValue(FileMeta.ID)));
+			this.setFileType(DataParser.parse(String.class, r.getValue(FileMeta.FILE_TYPE)));
+			this.setLatestVisitTime(DataParser.parse(Date.class, r.getValue(FileMeta.LATEST_VISIT_TIME)));
+			return true;
+		} else {
+			try {
+				this.setFileName( (String)r.getValue(FileMeta.FILE_NAME));
+				this.setDownloadUrl( (String)r.getValue(FileMeta.DOWNLOAD_URL));
+				this.setMediaType( (String)r.getValue(FileMeta.MEDIA_TYPE));
+				this.setUpdateTime( (Date)r.getValue(FileMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(FileMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(FileMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FileMeta.DELETED));
+				this.setSize( (Long)r.getValue(FileMeta.SIZE));
+				this.setDownloads( (Integer)r.getValue(FileMeta.DOWNLOADS));
+				this.setCreateTime( (Date)r.getValue(FileMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FileMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FileMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(FileMeta.DELETE_BY));
+				this.setLocation( (String)r.getValue(FileMeta.LOCATION));
+				this.setId( (String)r.getValue(FileMeta.ID));
+				this.setFileType( (String)r.getValue(FileMeta.FILE_TYPE));
+				this.setLatestVisitTime( (Date)r.getValue(FileMeta.LATEST_VISIT_TIME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

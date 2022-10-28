@@ -20,10 +20,10 @@ import java.util.Map;
 
 /**
  * <p>
- * Profile 服务接口
+ * Profile服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:42
+ * @since 2022-10-28 14:38:50
 */
 
 public interface IProfileService extends  ISimpleIdService<Profile,String> {
@@ -55,7 +55,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 
 		
 	/**
-	 * 按主键删除 Profile
+	 * 按主键删除Profile
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -78,7 +78,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 
 		
 	/**
-	 * 按主键更新字段 Profile
+	 * 按主键更新Profile
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -148,7 +148,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 
 		
 	/**
-	 * 按主键获取 Profile
+	 * 按主键获取Profile
 	 *
 	 * @param id ID
 	 * @return Profile 数据对象

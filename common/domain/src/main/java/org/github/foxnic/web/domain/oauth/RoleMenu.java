@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.RoleMenuMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -20,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 角色账户关系
  * <p>角色账户关系 , 数据表 sys_role_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:29
+ * @since 2022-10-28 15:18:34
  * @sign 593389CE94857B0DF46D9A0209D57C3A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,19 +40,19 @@ public class RoleMenu extends Entity {
 	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id")
+	@ApiModelProperty(required = true,value="id" , notes = "id" , example = "463779099165327360")
 	private String id;
 	
 	/**
 	 * 角色ID：角色ID
 	*/
-	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID")
+	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID" , example = "110352963290923110")
 	private String roleId;
 	
 	/**
 	 * 菜单ID：菜单ID
 	*/
-	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
+	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID" , example = "463779099165327360")
 	private String menuId;
 	
 	/**
@@ -79,9 +82,10 @@ public class RoleMenu extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -99,7 +103,7 @@ public class RoleMenu extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -444,5 +448,89 @@ public class RoleMenu extends Entity {
 	@Transient
 	public static RoleMenu create() {
 		return new org.github.foxnic.web.domain.oauth.meta.RoleMenuMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMenuMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMenuMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleMenuMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleMenuMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleMenuMeta.DELETE_TIME)));
+			this.setRoleId(DataParser.parse(String.class, map.get(RoleMenuMeta.ROLE_ID)));
+			this.setMenuId(DataParser.parse(String.class, map.get(RoleMenuMeta.MENU_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleMenuMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleMenuMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(RoleMenuMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleMenuMeta.VERSION)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)map.get(RoleMenuMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(RoleMenuMeta.DELETED));
+				this.setCreateTime( (Date)map.get(RoleMenuMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(RoleMenuMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(RoleMenuMeta.DELETE_TIME));
+				this.setRoleId( (String)map.get(RoleMenuMeta.ROLE_ID));
+				this.setMenuId( (String)map.get(RoleMenuMeta.MENU_ID));
+				this.setDeleteBy( (String)map.get(RoleMenuMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(RoleMenuMeta.UPDATE_TIME));
+				this.setId( (String)map.get(RoleMenuMeta.ID));
+				this.setVersion( (Integer)map.get(RoleMenuMeta.VERSION));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMenuMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMenuMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleMenuMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleMenuMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleMenuMeta.DELETE_TIME)));
+			this.setRoleId(DataParser.parse(String.class, r.getValue(RoleMenuMeta.ROLE_ID)));
+			this.setMenuId(DataParser.parse(String.class, r.getValue(RoleMenuMeta.MENU_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleMenuMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleMenuMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(RoleMenuMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleMenuMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)r.getValue(RoleMenuMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(RoleMenuMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(RoleMenuMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(RoleMenuMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(RoleMenuMeta.DELETE_TIME));
+				this.setRoleId( (String)r.getValue(RoleMenuMeta.ROLE_ID));
+				this.setMenuId( (String)r.getValue(RoleMenuMeta.MENU_ID));
+				this.setDeleteBy( (String)r.getValue(RoleMenuMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(RoleMenuMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(RoleMenuMeta.ID));
+				this.setVersion( (Integer)r.getValue(RoleMenuMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

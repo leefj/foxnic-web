@@ -11,6 +11,11 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import org.github.foxnic.web.domain.system.UserTenant;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +23,7 @@ import java.util.Map;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 13:52:09
+ * @since 2022-10-28 15:10:33
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -441,5 +446,137 @@ public class UserVO extends User {
 	@Transient
 	public static UserVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.UserVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setPortraitId(DataParser.parse(String.class, map.get(UserVOMeta.PORTRAIT_ID)));
+			this.setLanguage(DataParser.parse(String.class, map.get(UserVOMeta.LANGUAGE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(UserVOMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, map.get(UserVOMeta.VALID)));
+			this.setRealName(DataParser.parse(String.class, map.get(UserVOMeta.REAL_NAME)));
+			this.setLastLoginTime(DataParser.parse(Date.class, map.get(UserVOMeta.LAST_LOGIN_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(UserVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(UserVOMeta.DELETED)));
+			this.setCacheKey(DataParser.parse(String.class, map.get(UserVOMeta.CACHE_KEY)));
+			this.setPasswd(DataParser.parse(String.class, map.get(UserVOMeta.PASSWD)));
+			this.setPhone(DataParser.parse(String.class, map.get(UserVOMeta.PHONE)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(UserVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(UserVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(UserVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(UserVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(UserVOMeta.ID)));
+			this.setAccount(DataParser.parse(String.class, map.get(UserVOMeta.ACCOUNT)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(UserVOMeta.SEARCH_FIELD)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(UserVOMeta.FUZZY_FIELD)));
+			this.setActivatedEmployeeId(DataParser.parse(String.class, map.get(UserVOMeta.ACTIVATED_EMPLOYEE_ID)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(UserVOMeta.PAGE_SIZE)));
+			this.setActivatedEmployeeName(DataParser.parse(String.class, map.get(UserVOMeta.ACTIVATED_EMPLOYEE_NAME)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(UserVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(UserVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(UserVOMeta.SORT_FIELD)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(UserVOMeta.SEARCH_VALUE)));
+			this.setActivatedTenant(DataParser.parse(UserTenant.class, map.get(UserVOMeta.ACTIVATED_TENANT)));
+			return true;
+		} else {
+			try {
+				this.setPortraitId( (String)map.get(UserVOMeta.PORTRAIT_ID));
+				this.setLanguage( (String)map.get(UserVOMeta.LANGUAGE));
+				this.setUpdateTime( (Date)map.get(UserVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(UserVOMeta.VERSION));
+				this.setValid( (Integer)map.get(UserVOMeta.VALID));
+				this.setRealName( (String)map.get(UserVOMeta.REAL_NAME));
+				this.setLastLoginTime( (Date)map.get(UserVOMeta.LAST_LOGIN_TIME));
+				this.setCreateBy( (String)map.get(UserVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(UserVOMeta.DELETED));
+				this.setCacheKey( (String)map.get(UserVOMeta.CACHE_KEY));
+				this.setPasswd( (String)map.get(UserVOMeta.PASSWD));
+				this.setPhone( (String)map.get(UserVOMeta.PHONE));
+				this.setCreateTime( (Date)map.get(UserVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(UserVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(UserVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(UserVOMeta.DELETE_BY));
+				this.setId( (String)map.get(UserVOMeta.ID));
+				this.setAccount( (String)map.get(UserVOMeta.ACCOUNT));
+				// others
+				this.setSearchField( (String)map.get(UserVOMeta.SEARCH_FIELD));
+				this.setFuzzyField( (String)map.get(UserVOMeta.FUZZY_FIELD));
+				this.setActivatedEmployeeId( (String)map.get(UserVOMeta.ACTIVATED_EMPLOYEE_ID));
+				this.setPageSize( (Integer)map.get(UserVOMeta.PAGE_SIZE));
+				this.setActivatedEmployeeName( (String)map.get(UserVOMeta.ACTIVATED_EMPLOYEE_NAME));
+				this.setPageIndex( (Integer)map.get(UserVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(UserVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(UserVOMeta.SORT_FIELD));
+				this.setSearchValue( (String)map.get(UserVOMeta.SEARCH_VALUE));
+				this.setActivatedTenant( (UserTenant)map.get(UserVOMeta.ACTIVATED_TENANT));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setPortraitId(DataParser.parse(String.class, r.getValue(UserVOMeta.PORTRAIT_ID)));
+			this.setLanguage(DataParser.parse(String.class, r.getValue(UserVOMeta.LANGUAGE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserVOMeta.VERSION)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(UserVOMeta.VALID)));
+			this.setRealName(DataParser.parse(String.class, r.getValue(UserVOMeta.REAL_NAME)));
+			this.setLastLoginTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.LAST_LOGIN_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(UserVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(UserVOMeta.DELETED)));
+			this.setCacheKey(DataParser.parse(String.class, r.getValue(UserVOMeta.CACHE_KEY)));
+			this.setPasswd(DataParser.parse(String.class, r.getValue(UserVOMeta.PASSWD)));
+			this.setPhone(DataParser.parse(String.class, r.getValue(UserVOMeta.PHONE)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(UserVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(UserVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(UserVOMeta.ID)));
+			this.setAccount(DataParser.parse(String.class, r.getValue(UserVOMeta.ACCOUNT)));
+			return true;
+		} else {
+			try {
+				this.setPortraitId( (String)r.getValue(UserVOMeta.PORTRAIT_ID));
+				this.setLanguage( (String)r.getValue(UserVOMeta.LANGUAGE));
+				this.setUpdateTime( (Date)r.getValue(UserVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(UserVOMeta.VERSION));
+				this.setValid( (Integer)r.getValue(UserVOMeta.VALID));
+				this.setRealName( (String)r.getValue(UserVOMeta.REAL_NAME));
+				this.setLastLoginTime( (Date)r.getValue(UserVOMeta.LAST_LOGIN_TIME));
+				this.setCreateBy( (String)r.getValue(UserVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(UserVOMeta.DELETED));
+				this.setCacheKey( (String)r.getValue(UserVOMeta.CACHE_KEY));
+				this.setPasswd( (String)r.getValue(UserVOMeta.PASSWD));
+				this.setPhone( (String)r.getValue(UserVOMeta.PHONE));
+				this.setCreateTime( (Date)r.getValue(UserVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(UserVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(UserVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(UserVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(UserVOMeta.ID));
+				this.setAccount( (String)r.getValue(UserVOMeta.ACCOUNT));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.system.NodeVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.Node;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:27:07
+ * @since 2022-10-28 14:42:46
  * @sign 0FE3EBCDB1805FB52C3B243E3E1E1193
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -638,5 +639,56 @@ public class NodeVOMeta extends NodeMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public NodeVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public NodeVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setHostName(this.getHostName());
+			inst.setWorkerId(this.getWorkerId());
+			inst.setIp(this.getIp());
+			inst.setDatacenterId(this.getDatacenterId());
+			inst.setHostId(this.getHostId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setHeartBeatTime(this.getHeartBeatTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setIsUp(this.getIsUp());
+			inst.setPort(this.getPort());
+			inst.setProcessId(this.getProcessId());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setStartTime(this.getStartTime());
+			inst.setId(this.getId());
+			inst.setApplicationName(this.getApplicationName());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

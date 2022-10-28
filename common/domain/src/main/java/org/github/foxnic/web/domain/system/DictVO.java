@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,25 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.DictVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Menu;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 数据字典
+ * 数据字典VO类型
+ * <p>数据字典 , 数据表 sys_dict 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:40
+ * @since 2022-10-28 14:38:47
  * @sign F0B6CE5735F5F87F0DF1625262BF7ED1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "数据字典VO类型 ; 数据字典 , 数据表 sys_dict 的通用VO类型" , parent = Dict.class)
 public class DictVO extends Dict {
 
 	private static final long serialVersionUID = 1L;
@@ -358,6 +367,20 @@ public class DictVO extends Dict {
 	}
 
 	/**
+	 * 将 Map 转换成 DictVO
+	 * @param dictMap 包含实体信息的 Map 对象
+	 * @return DictVO , 转换好的的 Dict 对象
+	*/
+	@Transient
+	public static DictVO createFrom(Map<String,Object> dictMap) {
+		if(dictMap==null) return null;
+		DictVO vo = create();
+		EntityContext.copyProperties(vo,dictMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 DictVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return DictVO , 转换好的的 Dict 对象
@@ -365,8 +388,10 @@ public class DictVO extends Dict {
 	@Transient
 	public static DictVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		DictVO po = EntityContext.create(DictVO.class,pojo);
-		return po;
+		DictVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -375,6 +400,118 @@ public class DictVO extends Dict {
 	*/
 	@Transient
 	public static DictVO create() {
-		return EntityContext.create(DictVO.class);
+		return new org.github.foxnic.web.domain.system.meta.DictVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setIsTree(DataParser.parse(Integer.class, map.get(DictVOMeta.IS_TREE)));
+			this.setCode(DataParser.parse(String.class, map.get(DictVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(DictVOMeta.NOTES)));
+			this.setModule(DataParser.parse(String.class, map.get(DictVOMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(DictVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(DictVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(DictVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(DictVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(DictVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(DictVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(DictVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(DictVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(DictVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(DictVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(DictVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(DictVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(DictVOMeta.SORT_TYPE)));
+			this.setModuleInfo(DataParser.parse(Menu.class, map.get(DictVOMeta.MODULE_INFO)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(DictVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(DictVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(DictVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(DictVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setIsTree( (Integer)map.get(DictVOMeta.IS_TREE));
+				this.setCode( (String)map.get(DictVOMeta.CODE));
+				this.setNotes( (String)map.get(DictVOMeta.NOTES));
+				this.setModule( (String)map.get(DictVOMeta.MODULE));
+				this.setUpdateTime( (Date)map.get(DictVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(DictVOMeta.VERSION));
+				this.setCreateBy( (String)map.get(DictVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(DictVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(DictVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(DictVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(DictVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(DictVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(DictVOMeta.DELETE_BY));
+				this.setId( (String)map.get(DictVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(DictVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(DictVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(DictVOMeta.SORT_TYPE));
+				this.setModuleInfo( (Menu)map.get(DictVOMeta.MODULE_INFO));
+				this.setFuzzyField( (String)map.get(DictVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(DictVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(DictVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(DictVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setIsTree(DataParser.parse(Integer.class, r.getValue(DictVOMeta.IS_TREE)));
+			this.setCode(DataParser.parse(String.class, r.getValue(DictVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(DictVOMeta.NOTES)));
+			this.setModule(DataParser.parse(String.class, r.getValue(DictVOMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(DictVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(DictVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(DictVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(DictVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(DictVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(DictVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(DictVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(DictVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(DictVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(DictVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setIsTree( (Integer)r.getValue(DictVOMeta.IS_TREE));
+				this.setCode( (String)r.getValue(DictVOMeta.CODE));
+				this.setNotes( (String)r.getValue(DictVOMeta.NOTES));
+				this.setModule( (String)r.getValue(DictVOMeta.MODULE));
+				this.setUpdateTime( (Date)r.getValue(DictVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(DictVOMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(DictVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(DictVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(DictVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(DictVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(DictVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(DictVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(DictVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(DictVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

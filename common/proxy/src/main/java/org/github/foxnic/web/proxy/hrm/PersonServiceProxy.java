@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 人员表  控制器服务代理
+ * 人员 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
  */
 @FeignClient(value = MicroServiceNames.HRM, contextId = PersonServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface PersonServiceProxy {

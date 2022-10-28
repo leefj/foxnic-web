@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 菜单VO类型
  * <p>菜单 , 数据表 sys_menu 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:28
+ * @since 2022-10-28 15:18:33
  * @sign CE145BF1CA43AFFDB6E417F50CFABB46
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -460,5 +464,159 @@ public class MenuVO extends Menu {
 	@Transient
 	public static MenuVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.MenuVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCss(DataParser.parse(String.class, map.get(MenuVOMeta.CSS)));
+			this.setHidden(DataParser.parse(Integer.class, map.get(MenuVOMeta.HIDDEN)));
+			this.setHierarchy(DataParser.parse(String.class, map.get(MenuVOMeta.HIERARCHY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuVOMeta.UPDATE_TIME)));
+			this.setLabel(DataParser.parse(String.class, map.get(MenuVOMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, map.get(MenuVOMeta.SORT)));
+			this.setBatchId(DataParser.parse(String.class, map.get(MenuVOMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, map.get(MenuVOMeta.TYPE)));
+			this.setParams(DataParser.parse(String.class, map.get(MenuVOMeta.PARAMS)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(MenuVOMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, map.get(MenuVOMeta.URL)));
+			this.setParentId(DataParser.parse(String.class, map.get(MenuVOMeta.PARENT_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(MenuVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(MenuVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(MenuVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(MenuVOMeta.DELETE_TIME)));
+			this.setAuthority(DataParser.parse(String.class, map.get(MenuVOMeta.AUTHORITY)));
+			this.setDynamicHandler(DataParser.parse(String.class, map.get(MenuVOMeta.DYNAMIC_HANDLER)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(MenuVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(MenuVOMeta.ID)));
+			this.setPathResourceId(DataParser.parse(String.class, map.get(MenuVOMeta.PATH_RESOURCE_ID)));
+			// others
+			this.setParent(DataParser.parse(Menu.class, map.get(MenuVOMeta.PARENT)));
+			this.setSearchField(DataParser.parse(String.class, map.get(MenuVOMeta.SEARCH_FIELD)));
+			this.setRoleId(DataParser.parse(String.class, map.get(MenuVOMeta.ROLE_ID)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(MenuVOMeta.FUZZY_FIELD)));
+			this.setPathResource(DataParser.parse(Resourze.class, map.get(MenuVOMeta.PATH_RESOURCE)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(MenuVOMeta.PAGE_SIZE)));
+			this.setIsLoadAllDescendants(DataParser.parse(Integer.class, map.get(MenuVOMeta.IS_LOAD_ALL_DESCENDANTS)));
+			this.setPath(DataParser.parse(String.class, map.get(MenuVOMeta.PATH)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(MenuVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(MenuVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(MenuVOMeta.SORT_FIELD)));
+			this.setAncestorsNamePath(DataParser.parse(String.class, map.get(MenuVOMeta.ANCESTORS_NAME_PATH)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(MenuVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCss( (String)map.get(MenuVOMeta.CSS));
+				this.setHidden( (Integer)map.get(MenuVOMeta.HIDDEN));
+				this.setHierarchy( (String)map.get(MenuVOMeta.HIERARCHY));
+				this.setUpdateTime( (Date)map.get(MenuVOMeta.UPDATE_TIME));
+				this.setLabel( (String)map.get(MenuVOMeta.LABEL));
+				this.setSort( (Integer)map.get(MenuVOMeta.SORT));
+				this.setBatchId( (String)map.get(MenuVOMeta.BATCH_ID));
+				this.setType( (String)map.get(MenuVOMeta.TYPE));
+				this.setParams( (String)map.get(MenuVOMeta.PARAMS));
+				this.setVersion( (Integer)map.get(MenuVOMeta.VERSION));
+				this.setUrl( (String)map.get(MenuVOMeta.URL));
+				this.setParentId( (String)map.get(MenuVOMeta.PARENT_ID));
+				this.setCreateBy( (String)map.get(MenuVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(MenuVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(MenuVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(MenuVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(MenuVOMeta.DELETE_TIME));
+				this.setAuthority( (String)map.get(MenuVOMeta.AUTHORITY));
+				this.setDynamicHandler( (String)map.get(MenuVOMeta.DYNAMIC_HANDLER));
+				this.setDeleteBy( (String)map.get(MenuVOMeta.DELETE_BY));
+				this.setId( (String)map.get(MenuVOMeta.ID));
+				this.setPathResourceId( (String)map.get(MenuVOMeta.PATH_RESOURCE_ID));
+				// others
+				this.setParent( (Menu)map.get(MenuVOMeta.PARENT));
+				this.setSearchField( (String)map.get(MenuVOMeta.SEARCH_FIELD));
+				this.setRoleId( (String)map.get(MenuVOMeta.ROLE_ID));
+				this.setFuzzyField( (String)map.get(MenuVOMeta.FUZZY_FIELD));
+				this.setPathResource( (Resourze)map.get(MenuVOMeta.PATH_RESOURCE));
+				this.setPageSize( (Integer)map.get(MenuVOMeta.PAGE_SIZE));
+				this.setIsLoadAllDescendants( (Integer)map.get(MenuVOMeta.IS_LOAD_ALL_DESCENDANTS));
+				this.setPath( (String)map.get(MenuVOMeta.PATH));
+				this.setPageIndex( (Integer)map.get(MenuVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(MenuVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(MenuVOMeta.SORT_FIELD));
+				this.setAncestorsNamePath( (String)map.get(MenuVOMeta.ANCESTORS_NAME_PATH));
+				this.setSearchValue( (String)map.get(MenuVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCss(DataParser.parse(String.class, r.getValue(MenuVOMeta.CSS)));
+			this.setHidden(DataParser.parse(Integer.class, r.getValue(MenuVOMeta.HIDDEN)));
+			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuVOMeta.HIERARCHY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuVOMeta.UPDATE_TIME)));
+			this.setLabel(DataParser.parse(String.class, r.getValue(MenuVOMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(MenuVOMeta.SORT)));
+			this.setBatchId(DataParser.parse(String.class, r.getValue(MenuVOMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(MenuVOMeta.TYPE)));
+			this.setParams(DataParser.parse(String.class, r.getValue(MenuVOMeta.PARAMS)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(MenuVOMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, r.getValue(MenuVOMeta.URL)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(MenuVOMeta.PARENT_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(MenuVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(MenuVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(MenuVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(MenuVOMeta.DELETE_TIME)));
+			this.setAuthority(DataParser.parse(String.class, r.getValue(MenuVOMeta.AUTHORITY)));
+			this.setDynamicHandler(DataParser.parse(String.class, r.getValue(MenuVOMeta.DYNAMIC_HANDLER)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(MenuVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(MenuVOMeta.ID)));
+			this.setPathResourceId(DataParser.parse(String.class, r.getValue(MenuVOMeta.PATH_RESOURCE_ID)));
+			return true;
+		} else {
+			try {
+				this.setCss( (String)r.getValue(MenuVOMeta.CSS));
+				this.setHidden( (Integer)r.getValue(MenuVOMeta.HIDDEN));
+				this.setHierarchy( (String)r.getValue(MenuVOMeta.HIERARCHY));
+				this.setUpdateTime( (Date)r.getValue(MenuVOMeta.UPDATE_TIME));
+				this.setLabel( (String)r.getValue(MenuVOMeta.LABEL));
+				this.setSort( (Integer)r.getValue(MenuVOMeta.SORT));
+				this.setBatchId( (String)r.getValue(MenuVOMeta.BATCH_ID));
+				this.setType( (String)r.getValue(MenuVOMeta.TYPE));
+				this.setParams( (String)r.getValue(MenuVOMeta.PARAMS));
+				this.setVersion( (Integer)r.getValue(MenuVOMeta.VERSION));
+				this.setUrl( (String)r.getValue(MenuVOMeta.URL));
+				this.setParentId( (String)r.getValue(MenuVOMeta.PARENT_ID));
+				this.setCreateBy( (String)r.getValue(MenuVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(MenuVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(MenuVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(MenuVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(MenuVOMeta.DELETE_TIME));
+				this.setAuthority( (String)r.getValue(MenuVOMeta.AUTHORITY));
+				this.setDynamicHandler( (String)r.getValue(MenuVOMeta.DYNAMIC_HANDLER));
+				this.setDeleteBy( (String)r.getValue(MenuVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(MenuVOMeta.ID));
+				this.setPathResourceId( (String)r.getValue(MenuVOMeta.PATH_RESOURCE_ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

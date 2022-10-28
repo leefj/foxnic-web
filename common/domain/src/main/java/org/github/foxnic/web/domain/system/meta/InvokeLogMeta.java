@@ -3,12 +3,13 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.InvokeLog;
 import java.sql.Timestamp;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:23
+ * @since 2022-10-28 14:42:52
  * @sign 1001880D3A20913EBC4BB6DA9DB43CF2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -363,5 +364,41 @@ public class InvokeLogMeta {
 			super.setException(exception);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public InvokeLog clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public InvokeLog duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setException(this.getException());
+			inst.setHostName(this.getHostName());
+			inst.setUserAgent(this.getUserAgent());
+			inst.setSessionId(this.getSessionId());
+			inst.setUserName(this.getUserName());
+			inst.setUri(this.getUri());
+			inst.setUserId(this.getUserId());
+			inst.setTid(this.getTid());
+			inst.setToken(this.getToken());
+			inst.setApplication(this.getApplication());
+			inst.setResponse(this.getResponse());
+			inst.setClientIp(this.getClientIp());
+			inst.setParameter(this.getParameter());
+			inst.setStartTime(this.getStartTime());
+			inst.setId(this.getId());
+			inst.setEndTime(this.getEndTime());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

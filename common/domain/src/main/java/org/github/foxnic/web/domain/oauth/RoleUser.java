@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.RoleUserMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -20,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 角色账户关系
  * <p>角色账户关系 , 数据表 sys_role_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:28
+ * @since 2022-10-28 15:18:33
  * @sign D303306DC895E13F5CC0C901229C3176
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,31 +40,31 @@ public class RoleUser extends Entity {
 	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id")
+	@ApiModelProperty(required = true,value="id" , notes = "id" , example = "465814943271223296")
 	private String id;
 	
 	/**
 	 * 角色ID：角色ID
 	*/
-	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID")
+	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID" , example = "110352963290923110")
 	private String roleId;
 	
 	/**
 	 * 账户ID：账户ID
 	*/
-	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
+	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID" , example = "110588348101165000")
 	private String userId;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-07-09 09:42:17")
 	private Date createTime;
 	
 	/**
@@ -79,9 +82,10 @@ public class RoleUser extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -99,7 +103,7 @@ public class RoleUser extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -444,5 +448,89 @@ public class RoleUser extends Entity {
 	@Transient
 	public static RoleUser create() {
 		return new org.github.foxnic.web.domain.oauth.meta.RoleUserMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleUserMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleUserMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleUserMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleUserMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleUserMeta.DELETE_TIME)));
+			this.setRoleId(DataParser.parse(String.class, map.get(RoleUserMeta.ROLE_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleUserMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleUserMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(RoleUserMeta.ID)));
+			this.setUserId(DataParser.parse(String.class, map.get(RoleUserMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleUserMeta.VERSION)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)map.get(RoleUserMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(RoleUserMeta.DELETED));
+				this.setCreateTime( (Date)map.get(RoleUserMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(RoleUserMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(RoleUserMeta.DELETE_TIME));
+				this.setRoleId( (String)map.get(RoleUserMeta.ROLE_ID));
+				this.setDeleteBy( (String)map.get(RoleUserMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(RoleUserMeta.UPDATE_TIME));
+				this.setId( (String)map.get(RoleUserMeta.ID));
+				this.setUserId( (String)map.get(RoleUserMeta.USER_ID));
+				this.setVersion( (Integer)map.get(RoleUserMeta.VERSION));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleUserMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleUserMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleUserMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleUserMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleUserMeta.DELETE_TIME)));
+			this.setRoleId(DataParser.parse(String.class, r.getValue(RoleUserMeta.ROLE_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleUserMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleUserMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(RoleUserMeta.ID)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(RoleUserMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleUserMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setCreateBy( (String)r.getValue(RoleUserMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(RoleUserMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(RoleUserMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(RoleUserMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(RoleUserMeta.DELETE_TIME));
+				this.setRoleId( (String)r.getValue(RoleUserMeta.ROLE_ID));
+				this.setDeleteBy( (String)r.getValue(RoleUserMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(RoleUserMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(RoleUserMeta.ID));
+				this.setUserId( (String)r.getValue(RoleUserMeta.USER_ID));
+				this.setVersion( (Integer)r.getValue(RoleUserMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -1,7 +1,7 @@
 package org.github.foxnic.web.domain.hrm;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
@@ -9,108 +9,115 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 人员
+ * <p>人员 , 数据表 hrm_person 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
  * @sign A0A58DBE699A1519EEDA7C6AD3AA08AD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "hrm_person")
+@ApiModel(description = "人员 ; 人员 , 数据表 hrm_person 的PO类型")
 public class Person extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =HRM_PERSON.$TABLE;
-
+	
 	/**
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "571627450212024320")
 	private String id;
-
+	
 	/**
 	 * 姓名：姓名
 	*/
-	@ApiModelProperty(required = false,value="姓名" , notes = "姓名")
+	@ApiModelProperty(required = false,value="姓名" , notes = "姓名" , example = "张猛1")
 	private String name;
-
+	
 	/**
 	 * 性别：性别
 	*/
-	@ApiModelProperty(required = false,value="性别" , notes = "性别")
+	@ApiModelProperty(required = false,value="性别" , notes = "性别" , example = "F")
 	private String sex;
-
+	
 	/**
 	 * 来源：PersonSource枚举
 	*/
-	@ApiModelProperty(required = true,value="来源" , notes = "PersonSource枚举")
+	@ApiModelProperty(required = true,value="来源" , notes = "PersonSource枚举" , example = "employee")
 	private String source;
-
+	
 	/**
 	 * 身份证号码：身份证号码
 	*/
 	@ApiModelProperty(required = true,value="身份证号码" , notes = "身份证号码")
 	private String identity;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "569945394587369472")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2022-04-27 09:23:24")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-10-08 08:35:21")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "2")
 	private Integer version;
-
+	
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -119,7 +126,7 @@ public class Person extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -129,7 +136,7 @@ public class Person extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 姓名<br>
 	 * 姓名
@@ -138,7 +145,7 @@ public class Person extends Entity {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * 设置 姓名
 	 * @param name 姓名
@@ -148,7 +155,7 @@ public class Person extends Entity {
 		this.name=name;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 性别<br>
 	 * 性别
@@ -157,7 +164,7 @@ public class Person extends Entity {
 	public String getSex() {
 		return sex;
 	}
-
+	
 	/**
 	 * 设置 性别
 	 * @param sex 性别
@@ -167,7 +174,7 @@ public class Person extends Entity {
 		this.sex=sex;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 来源<br>
 	 * PersonSource枚举
@@ -176,7 +183,7 @@ public class Person extends Entity {
 	public String getSource() {
 		return source;
 	}
-
+	
 	/**
 	 * 设置 来源
 	 * @param source 来源
@@ -186,7 +193,7 @@ public class Person extends Entity {
 		this.source=source;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 身份证号码<br>
 	 * 身份证号码
@@ -195,7 +202,7 @@ public class Person extends Entity {
 	public String getIdentity() {
 		return identity;
 	}
-
+	
 	/**
 	 * 设置 身份证号码
 	 * @param identity 身份证号码
@@ -205,7 +212,7 @@ public class Person extends Entity {
 		this.identity=identity;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -214,7 +221,7 @@ public class Person extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -224,7 +231,7 @@ public class Person extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -233,7 +240,7 @@ public class Person extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -243,7 +250,7 @@ public class Person extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -252,7 +259,7 @@ public class Person extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -262,7 +269,7 @@ public class Person extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -271,7 +278,7 @@ public class Person extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -281,7 +288,7 @@ public class Person extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -290,7 +297,7 @@ public class Person extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -303,7 +310,7 @@ public class Person extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -315,7 +322,7 @@ public class Person extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -331,7 +338,7 @@ public class Person extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -340,7 +347,7 @@ public class Person extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -350,7 +357,7 @@ public class Person extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -359,7 +366,7 @@ public class Person extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -369,7 +376,7 @@ public class Person extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -378,7 +385,7 @@ public class Person extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -466,7 +473,9 @@ public class Person extends Entity {
 	@Transient
 	public static Person createFrom(Map<String,Object> personMap) {
 		if(personMap==null) return null;
-		Person po = EntityContext.create(Person.class, personMap);
+		Person po = create();
+		EntityContext.copyProperties(po,personMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -478,7 +487,9 @@ public class Person extends Entity {
 	@Transient
 	public static Person createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Person po = EntityContext.create(Person.class,pojo);
+		Person po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -488,6 +499,98 @@ public class Person extends Entity {
 	*/
 	@Transient
 	public static Person create() {
-		return EntityContext.create(Person.class);
+		return new org.github.foxnic.web.domain.hrm.meta.PersonMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setSex(DataParser.parse(String.class, map.get(PersonMeta.SEX)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(PersonMeta.UPDATE_TIME)));
+			this.setSource(DataParser.parse(String.class, map.get(PersonMeta.SOURCE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(PersonMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(PersonMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(PersonMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(PersonMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(PersonMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(PersonMeta.DELETE_TIME)));
+			this.setIdentity(DataParser.parse(String.class, map.get(PersonMeta.IDENTITY)));
+			this.setName(DataParser.parse(String.class, map.get(PersonMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(PersonMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(PersonMeta.ID)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setSex( (String)map.get(PersonMeta.SEX));
+				this.setUpdateTime( (Date)map.get(PersonMeta.UPDATE_TIME));
+				this.setSource( (String)map.get(PersonMeta.SOURCE));
+				this.setVersion( (Integer)map.get(PersonMeta.VERSION));
+				this.setCreateBy( (String)map.get(PersonMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(PersonMeta.DELETED));
+				this.setCreateTime( (Date)map.get(PersonMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(PersonMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(PersonMeta.DELETE_TIME));
+				this.setIdentity( (String)map.get(PersonMeta.IDENTITY));
+				this.setName( (String)map.get(PersonMeta.NAME));
+				this.setDeleteBy( (String)map.get(PersonMeta.DELETE_BY));
+				this.setId( (String)map.get(PersonMeta.ID));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setSex(DataParser.parse(String.class, r.getValue(PersonMeta.SEX)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(PersonMeta.UPDATE_TIME)));
+			this.setSource(DataParser.parse(String.class, r.getValue(PersonMeta.SOURCE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(PersonMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(PersonMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(PersonMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(PersonMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(PersonMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(PersonMeta.DELETE_TIME)));
+			this.setIdentity(DataParser.parse(String.class, r.getValue(PersonMeta.IDENTITY)));
+			this.setName(DataParser.parse(String.class, r.getValue(PersonMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(PersonMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(PersonMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setSex( (String)r.getValue(PersonMeta.SEX));
+				this.setUpdateTime( (Date)r.getValue(PersonMeta.UPDATE_TIME));
+				this.setSource( (String)r.getValue(PersonMeta.SOURCE));
+				this.setVersion( (Integer)r.getValue(PersonMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(PersonMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(PersonMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(PersonMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(PersonMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(PersonMeta.DELETE_TIME));
+				this.setIdentity( (String)r.getValue(PersonMeta.IDENTITY));
+				this.setName( (String)r.getValue(PersonMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(PersonMeta.DELETE_BY));
+				this.setId( (String)r.getValue(PersonMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.OauthClientMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -20,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 认证客户端
  * <p>认证客户端 , 数据表 sys_oauth_client 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:25
+ * @since 2022-10-28 15:18:30
  * @sign 547B58F40BD29A5F2269D6519356D46E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,37 +40,37 @@ public class OauthClient extends Entity {
 	 * 客户端标识：客户端标识
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="客户端标识" , notes = "客户端标识")
+	@ApiModelProperty(required = true,value="客户端标识" , notes = "客户端标识" , example = "credentials-client")
 	private String id;
 	
 	/**
 	 * 名称：名称
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="名称" , notes = "名称" , example = "证书客户端")
 	private String name;
 	
 	/**
 	 * 资源集合：用逗号隔开
 	*/
-	@ApiModelProperty(required = false,value="资源集合" , notes = "用逗号隔开")
+	@ApiModelProperty(required = false,value="资源集合" , notes = "用逗号隔开" , example = "sos-resource")
 	private String resourceIds;
 	
 	/**
 	 * 访问密匙：访问密匙
 	*/
-	@ApiModelProperty(required = false,value="访问密匙" , notes = "访问密匙")
+	@ApiModelProperty(required = false,value="访问密匙" , notes = "访问密匙" , example = "$2a$10$Dl2VwWVv/3h5KzK02gysheH7sy28weESL84DiO/CvUiGKcoXGTVlO")
 	private String clientSecret;
 	
 	/**
 	 * 权限范围：权限范围
 	*/
-	@ApiModelProperty(required = false,value="权限范围" , notes = "权限范围")
+	@ApiModelProperty(required = false,value="权限范围" , notes = "权限范围" , example = "read,write")
 	private String scope;
 	
 	/**
 	 * 授权类型：授权类型
 	*/
-	@ApiModelProperty(required = false,value="授权类型" , notes = "授权类型")
+	@ApiModelProperty(required = false,value="授权类型" , notes = "授权类型" , example = "client_credentials")
 	private String authorizedGrantTypes;
 	
 	/**
@@ -79,7 +82,7 @@ public class OauthClient extends Entity {
 	/**
 	 * 权限值列表：权限值列表
 	*/
-	@ApiModelProperty(required = false,value="权限值列表" , notes = "权限值列表")
+	@ApiModelProperty(required = false,value="权限值列表" , notes = "权限值列表" , example = "ROLE_UNITY,ROLE_USER")
 	private String authorities;
 	
 	/**
@@ -103,7 +106,7 @@ public class OauthClient extends Entity {
 	/**
 	 * 是否有效：是否有效
 	*/
-	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
+	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效" , example = "0")
 	private Integer valid;
 	
 	/**
@@ -115,7 +118,7 @@ public class OauthClient extends Entity {
 	/**
 	 * 是否信任：是否信任
 	*/
-	@ApiModelProperty(required = false,value="是否信任" , notes = "是否信任")
+	@ApiModelProperty(required = false,value="是否信任" , notes = "是否信任" , example = "0")
 	private Integer trusted;
 	
 	/**
@@ -145,9 +148,10 @@ public class OauthClient extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -165,7 +169,7 @@ public class OauthClient extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -730,5 +734,133 @@ public class OauthClient extends Entity {
 	@Transient
 	public static OauthClient create() {
 		return new org.github.foxnic.web.domain.oauth.meta.OauthClientMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setAuthorizedGrantTypes(DataParser.parse(String.class, map.get(OauthClientMeta.AUTHORIZED_GRANT_TYPES)));
+			this.setNotes(DataParser.parse(String.class, map.get(OauthClientMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(OauthClientMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(OauthClientMeta.VERSION)));
+			this.setAuthorities(DataParser.parse(String.class, map.get(OauthClientMeta.AUTHORITIES)));
+			this.setAccessTokenValidity(DataParser.parse(Integer.class, map.get(OauthClientMeta.ACCESS_TOKEN_VALIDITY)));
+			this.setAutoApprove(DataParser.parse(Integer.class, map.get(OauthClientMeta.AUTO_APPROVE)));
+			this.setValid(DataParser.parse(Integer.class, map.get(OauthClientMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(OauthClientMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(OauthClientMeta.DELETED)));
+			this.setTrusted(DataParser.parse(Integer.class, map.get(OauthClientMeta.TRUSTED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(OauthClientMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(OauthClientMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(OauthClientMeta.DELETE_TIME)));
+			this.setRefreshTokenValidity(DataParser.parse(Integer.class, map.get(OauthClientMeta.REFRESH_TOKEN_VALIDITY)));
+			this.setScope(DataParser.parse(String.class, map.get(OauthClientMeta.SCOPE)));
+			this.setName(DataParser.parse(String.class, map.get(OauthClientMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(OauthClientMeta.DELETE_BY)));
+			this.setClientSecret(DataParser.parse(String.class, map.get(OauthClientMeta.CLIENT_SECRET)));
+			this.setWebServerRedirectUri(DataParser.parse(String.class, map.get(OauthClientMeta.WEB_SERVER_REDIRECT_URI)));
+			this.setId(DataParser.parse(String.class, map.get(OauthClientMeta.ID)));
+			this.setResourceIds(DataParser.parse(String.class, map.get(OauthClientMeta.RESOURCE_IDS)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setAuthorizedGrantTypes( (String)map.get(OauthClientMeta.AUTHORIZED_GRANT_TYPES));
+				this.setNotes( (String)map.get(OauthClientMeta.NOTES));
+				this.setUpdateTime( (Date)map.get(OauthClientMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(OauthClientMeta.VERSION));
+				this.setAuthorities( (String)map.get(OauthClientMeta.AUTHORITIES));
+				this.setAccessTokenValidity( (Integer)map.get(OauthClientMeta.ACCESS_TOKEN_VALIDITY));
+				this.setAutoApprove( (Integer)map.get(OauthClientMeta.AUTO_APPROVE));
+				this.setValid( (Integer)map.get(OauthClientMeta.VALID));
+				this.setCreateBy( (String)map.get(OauthClientMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(OauthClientMeta.DELETED));
+				this.setTrusted( (Integer)map.get(OauthClientMeta.TRUSTED));
+				this.setCreateTime( (Date)map.get(OauthClientMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(OauthClientMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(OauthClientMeta.DELETE_TIME));
+				this.setRefreshTokenValidity( (Integer)map.get(OauthClientMeta.REFRESH_TOKEN_VALIDITY));
+				this.setScope( (String)map.get(OauthClientMeta.SCOPE));
+				this.setName( (String)map.get(OauthClientMeta.NAME));
+				this.setDeleteBy( (String)map.get(OauthClientMeta.DELETE_BY));
+				this.setClientSecret( (String)map.get(OauthClientMeta.CLIENT_SECRET));
+				this.setWebServerRedirectUri( (String)map.get(OauthClientMeta.WEB_SERVER_REDIRECT_URI));
+				this.setId( (String)map.get(OauthClientMeta.ID));
+				this.setResourceIds( (String)map.get(OauthClientMeta.RESOURCE_IDS));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setAuthorizedGrantTypes(DataParser.parse(String.class, r.getValue(OauthClientMeta.AUTHORIZED_GRANT_TYPES)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(OauthClientMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(OauthClientMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.VERSION)));
+			this.setAuthorities(DataParser.parse(String.class, r.getValue(OauthClientMeta.AUTHORITIES)));
+			this.setAccessTokenValidity(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.ACCESS_TOKEN_VALIDITY)));
+			this.setAutoApprove(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.AUTO_APPROVE)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(OauthClientMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.DELETED)));
+			this.setTrusted(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.TRUSTED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(OauthClientMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(OauthClientMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(OauthClientMeta.DELETE_TIME)));
+			this.setRefreshTokenValidity(DataParser.parse(Integer.class, r.getValue(OauthClientMeta.REFRESH_TOKEN_VALIDITY)));
+			this.setScope(DataParser.parse(String.class, r.getValue(OauthClientMeta.SCOPE)));
+			this.setName(DataParser.parse(String.class, r.getValue(OauthClientMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(OauthClientMeta.DELETE_BY)));
+			this.setClientSecret(DataParser.parse(String.class, r.getValue(OauthClientMeta.CLIENT_SECRET)));
+			this.setWebServerRedirectUri(DataParser.parse(String.class, r.getValue(OauthClientMeta.WEB_SERVER_REDIRECT_URI)));
+			this.setId(DataParser.parse(String.class, r.getValue(OauthClientMeta.ID)));
+			this.setResourceIds(DataParser.parse(String.class, r.getValue(OauthClientMeta.RESOURCE_IDS)));
+			return true;
+		} else {
+			try {
+				this.setAuthorizedGrantTypes( (String)r.getValue(OauthClientMeta.AUTHORIZED_GRANT_TYPES));
+				this.setNotes( (String)r.getValue(OauthClientMeta.NOTES));
+				this.setUpdateTime( (Date)r.getValue(OauthClientMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(OauthClientMeta.VERSION));
+				this.setAuthorities( (String)r.getValue(OauthClientMeta.AUTHORITIES));
+				this.setAccessTokenValidity( (Integer)r.getValue(OauthClientMeta.ACCESS_TOKEN_VALIDITY));
+				this.setAutoApprove( (Integer)r.getValue(OauthClientMeta.AUTO_APPROVE));
+				this.setValid( (Integer)r.getValue(OauthClientMeta.VALID));
+				this.setCreateBy( (String)r.getValue(OauthClientMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(OauthClientMeta.DELETED));
+				this.setTrusted( (Integer)r.getValue(OauthClientMeta.TRUSTED));
+				this.setCreateTime( (Date)r.getValue(OauthClientMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(OauthClientMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(OauthClientMeta.DELETE_TIME));
+				this.setRefreshTokenValidity( (Integer)r.getValue(OauthClientMeta.REFRESH_TOKEN_VALIDITY));
+				this.setScope( (String)r.getValue(OauthClientMeta.SCOPE));
+				this.setName( (String)r.getValue(OauthClientMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(OauthClientMeta.DELETE_BY));
+				this.setClientSecret( (String)r.getValue(OauthClientMeta.CLIENT_SECRET));
+				this.setWebServerRedirectUri( (String)r.getValue(OauthClientMeta.WEB_SERVER_REDIRECT_URI));
+				this.setId( (String)r.getValue(OauthClientMeta.ID));
+				this.setResourceIds( (String)r.getValue(OauthClientMeta.RESOURCE_IDS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

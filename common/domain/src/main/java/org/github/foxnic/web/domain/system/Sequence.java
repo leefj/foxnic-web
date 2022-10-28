@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SEQUENCE;
@@ -9,18 +10,23 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.system.meta.SequenceMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 序列
+ * <p>序列 , 数据表 sys_sequence 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:51
  * @sign C53230327A370931738A2F89D651168E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_sequence")
+@ApiModel(description = "序列 ; 序列 , 数据表 sys_sequence 的PO类型")
 public class Sequence extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -31,37 +37,37 @@ public class Sequence extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "493436270085668833")
 	private String pk;
 	
 	/**
 	 * 序列ID：序列ID
 	*/
-	@ApiModelProperty(required = true,value="序列ID" , notes = "序列ID")
+	@ApiModelProperty(required = true,value="序列ID" , notes = "序列ID" , example = "pcm-catalog-version-no")
 	private String id;
 	
 	/**
 	 * 序列名称：序列名称
 	*/
-	@ApiModelProperty(required = false,value="序列名称" , notes = "序列名称")
+	@ApiModelProperty(required = false,value="序列名称" , notes = "序列名称" , example = "PCM")
 	private String name;
 	
 	/**
 	 * 编码长度：编码长度
 	*/
-	@ApiModelProperty(required = false,value="编码长度" , notes = "编码长度")
+	@ApiModelProperty(required = false,value="编码长度" , notes = "编码长度" , example = "3")
 	private Integer length;
 	
 	/**
 	 * 编码分类：编码分类
 	*/
-	@ApiModelProperty(required = false,value="编码分类" , notes = "编码分类")
+	@ApiModelProperty(required = false,value="编码分类" , notes = "编码分类" , example = "20221025")
 	private String catalog;
 	
 	/**
 	 * 当前数值：当前数值
 	*/
-	@ApiModelProperty(required = false,value="当前数值" , notes = "当前数值")
+	@ApiModelProperty(required = false,value="当前数值" , notes = "当前数值" , example = "4")
 	private Long value;
 	
 	/**
@@ -73,19 +79,19 @@ public class Sequence extends Entity {
 	/**
 	 * 编码类型：编码类型
 	*/
-	@ApiModelProperty(required = false,value="编码类型" , notes = "编码类型")
+	@ApiModelProperty(required = false,value="编码类型" , notes = "编码类型" , example = "DAI")
 	private String type;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
 	
 	/**
 	 * 每次取数的个数：每次取数的个数
 	*/
-	@ApiModelProperty(required = true,value="每次取数的个数" , notes = "每次取数的个数")
+	@ApiModelProperty(required = true,value="每次取数的个数" , notes = "每次取数的个数" , example = "4")
 	private Integer fetchSize;
 	
 	/**
@@ -352,7 +358,9 @@ public class Sequence extends Entity {
 	@Transient
 	public static Sequence createFrom(Map<String,Object> sequenceMap) {
 		if(sequenceMap==null) return null;
-		Sequence po = EntityContext.create(Sequence.class, sequenceMap);
+		Sequence po = create();
+		EntityContext.copyProperties(po,sequenceMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -364,7 +372,9 @@ public class Sequence extends Entity {
 	@Transient
 	public static Sequence createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Sequence po = EntityContext.create(Sequence.class,pojo);
+		Sequence po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -374,6 +384,86 @@ public class Sequence extends Entity {
 	*/
 	@Transient
 	public static Sequence create() {
-		return EntityContext.create(Sequence.class);
+		return new org.github.foxnic.web.domain.system.meta.SequenceMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setFetchSize(DataParser.parse(Integer.class, map.get(SequenceMeta.FETCH_SIZE)));
+			this.setCatalog(DataParser.parse(String.class, map.get(SequenceMeta.CATALOG)));
+			this.setName(DataParser.parse(String.class, map.get(SequenceMeta.NAME)));
+			this.setLength(DataParser.parse(Integer.class, map.get(SequenceMeta.LENGTH)));
+			this.setTenantId(DataParser.parse(String.class, map.get(SequenceMeta.TENANT_ID)));
+			this.setMemo(DataParser.parse(String.class, map.get(SequenceMeta.MEMO)));
+			this.setPk(DataParser.parse(String.class, map.get(SequenceMeta.PK)));
+			this.setId(DataParser.parse(String.class, map.get(SequenceMeta.ID)));
+			this.setType(DataParser.parse(String.class, map.get(SequenceMeta.TYPE)));
+			this.setValue(DataParser.parse(Long.class, map.get(SequenceMeta.VALUE)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setFetchSize( (Integer)map.get(SequenceMeta.FETCH_SIZE));
+				this.setCatalog( (String)map.get(SequenceMeta.CATALOG));
+				this.setName( (String)map.get(SequenceMeta.NAME));
+				this.setLength( (Integer)map.get(SequenceMeta.LENGTH));
+				this.setTenantId( (String)map.get(SequenceMeta.TENANT_ID));
+				this.setMemo( (String)map.get(SequenceMeta.MEMO));
+				this.setPk( (String)map.get(SequenceMeta.PK));
+				this.setId( (String)map.get(SequenceMeta.ID));
+				this.setType( (String)map.get(SequenceMeta.TYPE));
+				this.setValue( (Long)map.get(SequenceMeta.VALUE));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setFetchSize(DataParser.parse(Integer.class, r.getValue(SequenceMeta.FETCH_SIZE)));
+			this.setCatalog(DataParser.parse(String.class, r.getValue(SequenceMeta.CATALOG)));
+			this.setName(DataParser.parse(String.class, r.getValue(SequenceMeta.NAME)));
+			this.setLength(DataParser.parse(Integer.class, r.getValue(SequenceMeta.LENGTH)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(SequenceMeta.TENANT_ID)));
+			this.setMemo(DataParser.parse(String.class, r.getValue(SequenceMeta.MEMO)));
+			this.setPk(DataParser.parse(String.class, r.getValue(SequenceMeta.PK)));
+			this.setId(DataParser.parse(String.class, r.getValue(SequenceMeta.ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(SequenceMeta.TYPE)));
+			this.setValue(DataParser.parse(Long.class, r.getValue(SequenceMeta.VALUE)));
+			return true;
+		} else {
+			try {
+				this.setFetchSize( (Integer)r.getValue(SequenceMeta.FETCH_SIZE));
+				this.setCatalog( (String)r.getValue(SequenceMeta.CATALOG));
+				this.setName( (String)r.getValue(SequenceMeta.NAME));
+				this.setLength( (Integer)r.getValue(SequenceMeta.LENGTH));
+				this.setTenantId( (String)r.getValue(SequenceMeta.TENANT_ID));
+				this.setMemo( (String)r.getValue(SequenceMeta.MEMO));
+				this.setPk( (String)r.getValue(SequenceMeta.PK));
+				this.setId( (String)r.getValue(SequenceMeta.ID));
+				this.setType( (String)r.getValue(SequenceMeta.TYPE));
+				this.setValue( (Long)r.getValue(SequenceMeta.VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.DictItemVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 数据字典条目
+ * 数据字典条目VO类型
+ * <p>数据字典条目 , 数据表 sys_dict_item 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:43
+ * @since 2022-10-28 14:38:51
  * @sign 867DAA5E7A653819A33CFDA22933DDEC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "数据字典条目VO类型 ; 数据字典条目 , 数据表 sys_dict_item 的通用VO类型" , parent = DictItem.class)
 public class DictItemVO extends DictItem {
 
 	private static final long serialVersionUID = 1L;
@@ -358,6 +366,20 @@ public class DictItemVO extends DictItem {
 	}
 
 	/**
+	 * 将 Map 转换成 DictItemVO
+	 * @param dictItemMap 包含实体信息的 Map 对象
+	 * @return DictItemVO , 转换好的的 DictItem 对象
+	*/
+	@Transient
+	public static DictItemVO createFrom(Map<String,Object> dictItemMap) {
+		if(dictItemMap==null) return null;
+		DictItemVO vo = create();
+		EntityContext.copyProperties(vo,dictItemMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 DictItemVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return DictItemVO , 转换好的的 DictItem 对象
@@ -365,8 +387,10 @@ public class DictItemVO extends DictItem {
 	@Transient
 	public static DictItemVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		DictItemVO po = EntityContext.create(DictItemVO.class,pojo);
-		return po;
+		DictItemVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -375,6 +399,124 @@ public class DictItemVO extends DictItem {
 	*/
 	@Transient
 	public static DictItemVO create() {
-		return EntityContext.create(DictItemVO.class);
+		return new org.github.foxnic.web.domain.system.meta.DictItemVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(DictItemVOMeta.CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(DictItemVOMeta.UPDATE_TIME)));
+			this.setDictId(DataParser.parse(String.class, map.get(DictItemVOMeta.DICT_ID)));
+			this.setLabel(DataParser.parse(String.class, map.get(DictItemVOMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, map.get(DictItemVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(DictItemVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, map.get(DictItemVOMeta.PARENT_ID)));
+			this.setValid(DataParser.parse(Integer.class, map.get(DictItemVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(DictItemVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(DictItemVOMeta.DELETED)));
+			this.setDictCode(DataParser.parse(String.class, map.get(DictItemVOMeta.DICT_CODE)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(DictItemVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(DictItemVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(DictItemVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(DictItemVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(DictItemVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(DictItemVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(DictItemVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(DictItemVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(DictItemVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(DictItemVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(DictItemVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(DictItemVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(DictItemVOMeta.CODE));
+				this.setUpdateTime( (Date)map.get(DictItemVOMeta.UPDATE_TIME));
+				this.setDictId( (String)map.get(DictItemVOMeta.DICT_ID));
+				this.setLabel( (String)map.get(DictItemVOMeta.LABEL));
+				this.setSort( (Integer)map.get(DictItemVOMeta.SORT));
+				this.setVersion( (Integer)map.get(DictItemVOMeta.VERSION));
+				this.setParentId( (String)map.get(DictItemVOMeta.PARENT_ID));
+				this.setValid( (Integer)map.get(DictItemVOMeta.VALID));
+				this.setCreateBy( (String)map.get(DictItemVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(DictItemVOMeta.DELETED));
+				this.setDictCode( (String)map.get(DictItemVOMeta.DICT_CODE));
+				this.setCreateTime( (Date)map.get(DictItemVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(DictItemVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(DictItemVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(DictItemVOMeta.DELETE_BY));
+				this.setId( (String)map.get(DictItemVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(DictItemVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(DictItemVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(DictItemVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(DictItemVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(DictItemVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(DictItemVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(DictItemVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(DictItemVOMeta.CODE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(DictItemVOMeta.UPDATE_TIME)));
+			this.setDictId(DataParser.parse(String.class, r.getValue(DictItemVOMeta.DICT_ID)));
+			this.setLabel(DataParser.parse(String.class, r.getValue(DictItemVOMeta.LABEL)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(DictItemVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(DictItemVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(DictItemVOMeta.PARENT_ID)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(DictItemVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(DictItemVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(DictItemVOMeta.DELETED)));
+			this.setDictCode(DataParser.parse(String.class, r.getValue(DictItemVOMeta.DICT_CODE)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(DictItemVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(DictItemVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(DictItemVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(DictItemVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(DictItemVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(DictItemVOMeta.CODE));
+				this.setUpdateTime( (Date)r.getValue(DictItemVOMeta.UPDATE_TIME));
+				this.setDictId( (String)r.getValue(DictItemVOMeta.DICT_ID));
+				this.setLabel( (String)r.getValue(DictItemVOMeta.LABEL));
+				this.setSort( (Integer)r.getValue(DictItemVOMeta.SORT));
+				this.setVersion( (Integer)r.getValue(DictItemVOMeta.VERSION));
+				this.setParentId( (String)r.getValue(DictItemVOMeta.PARENT_ID));
+				this.setValid( (Integer)r.getValue(DictItemVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(DictItemVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(DictItemVOMeta.DELETED));
+				this.setDictCode( (String)r.getValue(DictItemVOMeta.DICT_CODE));
+				this.setCreateTime( (Date)r.getValue(DictItemVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(DictItemVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(DictItemVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(DictItemVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(DictItemVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

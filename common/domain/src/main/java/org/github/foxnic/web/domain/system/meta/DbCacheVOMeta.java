@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.system.DbCacheVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.DbCache;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:19
+ * @since 2022-10-28 14:42:52
  * @sign 72833A5F5866DEE38894B2A14C2890F9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -554,5 +555,52 @@ public class DbCacheVOMeta extends DbCacheMeta {
 			super.setVersion(version);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public DbCacheVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public DbCacheVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setArea(this.getArea());
+			inst.setOwnerType(this.getOwnerType());
+			inst.setCatalog(this.getCatalog());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setOwnerId(this.getOwnerId());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setExpireTime(this.getExpireTime());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setValue(this.getValue());
+			if(all) {
+				inst.setSeconds(this.getSeconds());
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

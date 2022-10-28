@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.hrm.FavouriteGroupItemServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 常用人员分组条目表 模版页面控制器
+ * 常用人员分组条目模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:58
 */
 
 @Controller("HrmFavouriteGroupItemPageController")

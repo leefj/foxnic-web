@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 调用统计日志  控制器服务代理
+ * 调用统计日志 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:23
+ * @since 2022-10-28 14:42:52
  */
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = InvokeLogServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface InvokeLogServiceProxy {

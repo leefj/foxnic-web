@@ -21,10 +21,8 @@ import org.github.foxnic.web.system.service.INodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Date;
 import java.util.List;
-
 import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
@@ -47,7 +45,20 @@ public class NodeController extends SuperController {
      * 添加sys_node
      */
     @ApiOperation(value = "添加系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"), @ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"), @ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"), @ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"), @ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"), @ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"), @ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"), @ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"), @ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"), @ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"),
+		@ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"),
+		@ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"),
+		@ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"),
+		@ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"),
+		@ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"),
+		@ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"),
+		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0")
+	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = NodeServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.INSERT)
@@ -61,7 +72,9 @@ public class NodeController extends SuperController {
      * 删除sys_node
      */
     @ApiOperation(value = "删除系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381")
+	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = NodeServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.DELETE)
@@ -75,7 +88,9 @@ public class NodeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除sys_node")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = NodeServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.DELETE_BY_IDS)
@@ -88,7 +103,20 @@ public class NodeController extends SuperController {
      * 更新sys_node
      */
     @ApiOperation(value = "更新系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"), @ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"), @ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"), @ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"), @ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"), @ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"), @ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"), @ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"), @ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"), @ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"),
+		@ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"),
+		@ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"),
+		@ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"),
+		@ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"),
+		@ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"),
+		@ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"),
+		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0")
+	})
     @ApiOperationSupport(order = 4, ignoreParameters = { NodeVOMeta.PAGE_INDEX, NodeVOMeta.PAGE_SIZE, NodeVOMeta.SEARCH_FIELD, NodeVOMeta.FUZZY_FIELD, NodeVOMeta.SEARCH_VALUE, NodeVOMeta.SORT_FIELD, NodeVOMeta.SORT_TYPE, NodeVOMeta.IDS })
     @SentinelResource(value = NodeServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.UPDATE)
@@ -102,7 +130,20 @@ public class NodeController extends SuperController {
      * 保存sys_node
      */
     @ApiOperation(value = "保存系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"), @ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"), @ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"), @ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"), @ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"), @ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"), @ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"), @ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"), @ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"), @ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"),
+		@ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"),
+		@ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"),
+		@ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"),
+		@ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"),
+		@ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"),
+		@ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"),
+		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { NodeVOMeta.PAGE_INDEX, NodeVOMeta.PAGE_SIZE, NodeVOMeta.SEARCH_FIELD, NodeVOMeta.FUZZY_FIELD, NodeVOMeta.SEARCH_VALUE, NodeVOMeta.SORT_FIELD, NodeVOMeta.SORT_TYPE, NodeVOMeta.IDS })
     @SentinelResource(value = NodeServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.SAVE)
@@ -116,7 +157,9 @@ public class NodeController extends SuperController {
      * 获取sys_node
      */
     @ApiOperation(value = "获取sys_node")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "1")
+	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = NodeServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.GET_BY_ID)
@@ -132,7 +175,9 @@ public class NodeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除sys_node")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
+	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = NodeServiceProxy.GET_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.GET_BY_IDS)
@@ -147,7 +192,20 @@ public class NodeController extends SuperController {
      * 查询sys_node
      */
     @ApiOperation(value = "查询系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"), @ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"), @ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"), @ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"), @ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"), @ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"), @ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"), @ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"), @ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"), @ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"),
+		@ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"),
+		@ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"),
+		@ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"),
+		@ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"),
+		@ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"),
+		@ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"),
+		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0")
+	})
     @ApiOperationSupport(order = 5, ignoreParameters = { NodeVOMeta.PAGE_INDEX, NodeVOMeta.PAGE_SIZE })
     @SentinelResource(value = NodeServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.QUERY_LIST)
@@ -162,7 +220,20 @@ public class NodeController extends SuperController {
      * 分页查询sys_node
      */
     @ApiOperation(value = "分页查询系统节点")
-    @ApiImplicitParams({ @ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"), @ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"), @ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"), @ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"), @ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"), @ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"), @ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"), @ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"), @ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"), @ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"), @ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0") })
+    @ApiImplicitParams({
+		@ApiImplicitParam(name = NodeVOMeta.ID, value = "实例id", required = true, dataTypeClass = String.class, example = "01-f15ba211b4-9381"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_ID, value = "主机ID", required = false, dataTypeClass = String.class, example = "B15BDA59450483F9"),
+		@ApiImplicitParam(name = NodeVOMeta.APPLICATION_NAME, value = "应用名称", required = false, dataTypeClass = String.class, example = "service-all"),
+		@ApiImplicitParam(name = NodeVOMeta.PORT, value = "端口", required = false, dataTypeClass = Integer.class, example = "1899"),
+		@ApiImplicitParam(name = NodeVOMeta.PROCESS_ID, value = "进程号", required = false, dataTypeClass = String.class, example = "29128"),
+		@ApiImplicitParam(name = NodeVOMeta.START_TIME, value = "启动时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:12:02"),
+		@ApiImplicitParam(name = NodeVOMeta.IS_UP, value = "是否启动", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.HEART_BEAT_TIME, value = "心跳时间", required = false, dataTypeClass = Date.class, example = "2021-08-12 04:31:12"),
+		@ApiImplicitParam(name = NodeVOMeta.HOST_NAME, value = "主机名称", required = false, dataTypeClass = String.class, example = "LeeFJ-PC"),
+		@ApiImplicitParam(name = NodeVOMeta.IP, value = "IP地址", required = false, dataTypeClass = String.class, example = "192.168.70.158"),
+		@ApiImplicitParam(name = NodeVOMeta.DATACENTER_ID, value = "雪花DCId", required = false, dataTypeClass = Integer.class, example = "0"),
+		@ApiImplicitParam(name = NodeVOMeta.WORKER_ID, value = "雪花WKId", required = false, dataTypeClass = Integer.class, example = "0")
+	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = NodeServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(NodeServiceProxy.QUERY_PAGED_LIST)
@@ -173,5 +244,4 @@ public class NodeController extends SuperController {
         result.success(true).data(list);
         return result;
     }
-
 }

@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 系统资源VO类型
  * <p>系统资源 , 数据表 sys_resourze 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-20 15:07:29
+ * @since 2022-10-28 15:10:33
  * @sign B0AD13E1F63579B5BA4FF956A9190A4C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -397,5 +401,127 @@ public class ResourzeVO extends Resourze {
 	@Transient
 	public static ResourzeVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setMethod(DataParser.parse(String.class, map.get(ResourzeVOMeta.METHOD)));
+			this.setModule(DataParser.parse(String.class, map.get(ResourzeVOMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ResourzeVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(ResourzeVOMeta.TYPE)));
+			this.setBatchId(DataParser.parse(String.class, map.get(ResourzeVOMeta.BATCH_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, map.get(ResourzeVOMeta.URL)));
+			this.setTableName(DataParser.parse(String.class, map.get(ResourzeVOMeta.TABLE_NAME)));
+			this.setAccessType(DataParser.parse(String.class, map.get(ResourzeVOMeta.ACCESS_TYPE)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ResourzeVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ResourzeVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ResourzeVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ResourzeVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(ResourzeVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ResourzeVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ResourzeVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(ResourzeVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(ResourzeVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(ResourzeVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(ResourzeVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(ResourzeVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setMethod( (String)map.get(ResourzeVOMeta.METHOD));
+				this.setModule( (String)map.get(ResourzeVOMeta.MODULE));
+				this.setUpdateTime( (Date)map.get(ResourzeVOMeta.UPDATE_TIME));
+				this.setType( (String)map.get(ResourzeVOMeta.TYPE));
+				this.setBatchId( (String)map.get(ResourzeVOMeta.BATCH_ID));
+				this.setVersion( (Integer)map.get(ResourzeVOMeta.VERSION));
+				this.setUrl( (String)map.get(ResourzeVOMeta.URL));
+				this.setTableName( (String)map.get(ResourzeVOMeta.TABLE_NAME));
+				this.setAccessType( (String)map.get(ResourzeVOMeta.ACCESS_TYPE));
+				this.setCreateBy( (String)map.get(ResourzeVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ResourzeVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ResourzeVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ResourzeVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ResourzeVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(ResourzeVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(ResourzeVOMeta.DELETE_BY));
+				this.setId( (String)map.get(ResourzeVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(ResourzeVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(ResourzeVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(ResourzeVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(ResourzeVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(ResourzeVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(ResourzeVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(ResourzeVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setMethod(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.METHOD)));
+			this.setModule(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.MODULE)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ResourzeVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.TYPE)));
+			this.setBatchId(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.BATCH_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ResourzeVOMeta.VERSION)));
+			this.setUrl(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.URL)));
+			this.setTableName(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.TABLE_NAME)));
+			this.setAccessType(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.ACCESS_TYPE)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ResourzeVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ResourzeVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ResourzeVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ResourzeVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setMethod( (String)r.getValue(ResourzeVOMeta.METHOD));
+				this.setModule( (String)r.getValue(ResourzeVOMeta.MODULE));
+				this.setUpdateTime( (Date)r.getValue(ResourzeVOMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(ResourzeVOMeta.TYPE));
+				this.setBatchId( (String)r.getValue(ResourzeVOMeta.BATCH_ID));
+				this.setVersion( (Integer)r.getValue(ResourzeVOMeta.VERSION));
+				this.setUrl( (String)r.getValue(ResourzeVOMeta.URL));
+				this.setTableName( (String)r.getValue(ResourzeVOMeta.TABLE_NAME));
+				this.setAccessType( (String)r.getValue(ResourzeVOMeta.ACCESS_TYPE));
+				this.setCreateBy( (String)r.getValue(ResourzeVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ResourzeVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ResourzeVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ResourzeVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ResourzeVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(ResourzeVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(ResourzeVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ResourzeVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

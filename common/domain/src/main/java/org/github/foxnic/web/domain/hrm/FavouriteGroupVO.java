@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.hrm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.hrm.meta.FavouriteGroupVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 常用人员分组
+ * 常用人员分组VO类型
+ * <p>常用人员分组 , 数据表 hrm_favourite_group 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
  * @sign FC4B8AF59FE3828EED7AA14D7099E3AD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "常用人员分组VO类型 ; 常用人员分组 , 数据表 hrm_favourite_group 的通用VO类型" , parent = FavouriteGroup.class)
 public class FavouriteGroupVO extends FavouriteGroup {
 
 	private static final long serialVersionUID = 1L;
@@ -358,6 +366,20 @@ public class FavouriteGroupVO extends FavouriteGroup {
 	}
 
 	/**
+	 * 将 Map 转换成 FavouriteGroupVO
+	 * @param favouriteGroupMap 包含实体信息的 Map 对象
+	 * @return FavouriteGroupVO , 转换好的的 FavouriteGroup 对象
+	*/
+	@Transient
+	public static FavouriteGroupVO createFrom(Map<String,Object> favouriteGroupMap) {
+		if(favouriteGroupMap==null) return null;
+		FavouriteGroupVO vo = create();
+		EntityContext.copyProperties(vo,favouriteGroupMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 FavouriteGroupVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return FavouriteGroupVO , 转换好的的 FavouriteGroup 对象
@@ -365,8 +387,10 @@ public class FavouriteGroupVO extends FavouriteGroup {
 	@Transient
 	public static FavouriteGroupVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		FavouriteGroupVO po = EntityContext.create(FavouriteGroupVO.class,pojo);
-		return po;
+		FavouriteGroupVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -375,6 +399,124 @@ public class FavouriteGroupVO extends FavouriteGroup {
 	*/
 	@Transient
 	public static FavouriteGroupVO create() {
-		return EntityContext.create(FavouriteGroupVO.class);
+		return new org.github.foxnic.web.domain.hrm.meta.FavouriteGroupVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setHierarchy(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.HIERARCHY)));
+			this.setEmployeeId(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FavouriteGroupVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, map.get(FavouriteGroupVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FavouriteGroupVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.PARENT_ID)));
+			this.setCompanyId(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FavouriteGroupVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FavouriteGroupVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FavouriteGroupVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(FavouriteGroupVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(FavouriteGroupVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(FavouriteGroupVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setHierarchy( (String)map.get(FavouriteGroupVOMeta.HIERARCHY));
+				this.setEmployeeId( (String)map.get(FavouriteGroupVOMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)map.get(FavouriteGroupVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)map.get(FavouriteGroupVOMeta.SORT));
+				this.setVersion( (Integer)map.get(FavouriteGroupVOMeta.VERSION));
+				this.setParentId( (String)map.get(FavouriteGroupVOMeta.PARENT_ID));
+				this.setCompanyId( (String)map.get(FavouriteGroupVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)map.get(FavouriteGroupVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FavouriteGroupVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(FavouriteGroupVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FavouriteGroupVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FavouriteGroupVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(FavouriteGroupVOMeta.NAME));
+				this.setTenantId( (String)map.get(FavouriteGroupVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(FavouriteGroupVOMeta.DELETE_BY));
+				this.setId( (String)map.get(FavouriteGroupVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(FavouriteGroupVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(FavouriteGroupVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(FavouriteGroupVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(FavouriteGroupVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(FavouriteGroupVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(FavouriteGroupVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(FavouriteGroupVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setHierarchy(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.HIERARCHY)));
+			this.setEmployeeId(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(FavouriteGroupVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FavouriteGroupVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.PARENT_ID)));
+			this.setCompanyId(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FavouriteGroupVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(FavouriteGroupVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setHierarchy( (String)r.getValue(FavouriteGroupVOMeta.HIERARCHY));
+				this.setEmployeeId( (String)r.getValue(FavouriteGroupVOMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)r.getValue(FavouriteGroupVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)r.getValue(FavouriteGroupVOMeta.SORT));
+				this.setVersion( (Integer)r.getValue(FavouriteGroupVOMeta.VERSION));
+				this.setParentId( (String)r.getValue(FavouriteGroupVOMeta.PARENT_ID));
+				this.setCompanyId( (String)r.getValue(FavouriteGroupVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)r.getValue(FavouriteGroupVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FavouriteGroupVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(FavouriteGroupVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FavouriteGroupVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FavouriteGroupVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(FavouriteGroupVOMeta.NAME));
+				this.setTenantId( (String)r.getValue(FavouriteGroupVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(FavouriteGroupVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(FavouriteGroupVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

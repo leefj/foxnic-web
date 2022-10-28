@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,23 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * Profile
+ * ProfileVO类型
+ * <p>Profile , 数据表 sys_profile 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:18:42
+ * @since 2022-10-28 14:38:50
  * @sign BFC7F59AF85B4575AF455EEAA67F73DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "ProfileVO类型 ; Profile , 数据表 sys_profile 的通用VO类型" , parent = Profile.class)
 public class ProfileVO extends Profile {
 
 	private static final long serialVersionUID = 1L;
@@ -345,6 +352,20 @@ public class ProfileVO extends Profile {
 	}
 
 	/**
+	 * 将 Map 转换成 ProfileVO
+	 * @param profileMap 包含实体信息的 Map 对象
+	 * @return ProfileVO , 转换好的的 Profile 对象
+	*/
+	@Transient
+	public static ProfileVO createFrom(Map<String,Object> profileMap) {
+		if(profileMap==null) return null;
+		ProfileVO vo = create();
+		EntityContext.copyProperties(vo,profileMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 ProfileVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return ProfileVO , 转换好的的 Profile 对象
@@ -352,8 +373,10 @@ public class ProfileVO extends Profile {
 	@Transient
 	public static ProfileVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProfileVO po = EntityContext.create(ProfileVO.class,pojo);
-		return po;
+		ProfileVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -362,6 +385,72 @@ public class ProfileVO extends Profile {
 	*/
 	@Transient
 	public static ProfileVO create() {
-		return EntityContext.create(ProfileVO.class);
+		return new org.github.foxnic.web.domain.system.meta.ProfileVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setNotes(DataParser.parse(String.class, map.get(ProfileVOMeta.NOTES)));
+			this.setName(DataParser.parse(String.class, map.get(ProfileVOMeta.NAME)));
+			this.setId(DataParser.parse(String.class, map.get(ProfileVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(ProfileVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProfileVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(ProfileVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(ProfileVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(ProfileVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(ProfileVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(ProfileVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setNotes( (String)map.get(ProfileVOMeta.NOTES));
+				this.setName( (String)map.get(ProfileVOMeta.NAME));
+				this.setId( (String)map.get(ProfileVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(ProfileVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(ProfileVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(ProfileVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(ProfileVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(ProfileVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(ProfileVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(ProfileVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setNotes(DataParser.parse(String.class, r.getValue(ProfileVOMeta.NOTES)));
+			this.setName(DataParser.parse(String.class, r.getValue(ProfileVOMeta.NAME)));
+			this.setId(DataParser.parse(String.class, r.getValue(ProfileVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setNotes( (String)r.getValue(ProfileVOMeta.NOTES));
+				this.setName( (String)r.getValue(ProfileVOMeta.NAME));
+				this.setId( (String)r.getValue(ProfileVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

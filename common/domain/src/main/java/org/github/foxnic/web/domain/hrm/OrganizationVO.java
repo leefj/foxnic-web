@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.hrm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,24 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 组织层级
+ * 组织层级VO类型
+ * <p>组织层级 , 数据表 hrm_organization 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:54
+ * @since 2022-10-28 14:47:50
  * @sign 40F9CC5E1E30A130DF35A45E1A0D5F1C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "组织层级VO类型 ; 组织层级 , 数据表 hrm_organization 的通用VO类型" , parent = Organization.class)
 public class OrganizationVO extends Organization {
 
 	private static final long serialVersionUID = 1L;
@@ -439,6 +447,20 @@ public class OrganizationVO extends Organization {
 	}
 
 	/**
+	 * 将 Map 转换成 OrganizationVO
+	 * @param organizationMap 包含实体信息的 Map 对象
+	 * @return OrganizationVO , 转换好的的 Organization 对象
+	*/
+	@Transient
+	public static OrganizationVO createFrom(Map<String,Object> organizationMap) {
+		if(organizationMap==null) return null;
+		OrganizationVO vo = create();
+		EntityContext.copyProperties(vo,organizationMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 OrganizationVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return OrganizationVO , 转换好的的 Organization 对象
@@ -446,8 +468,10 @@ public class OrganizationVO extends Organization {
 	@Transient
 	public static OrganizationVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		OrganizationVO po = EntityContext.create(OrganizationVO.class,pojo);
-		return po;
+		OrganizationVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -456,6 +480,142 @@ public class OrganizationVO extends Organization {
 	*/
 	@Transient
 	public static OrganizationVO create() {
-		return EntityContext.create(OrganizationVO.class);
+		return new org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(OrganizationVOMeta.CODE)));
+			this.setHierarchy(DataParser.parse(String.class, map.get(OrganizationVOMeta.HIERARCHY)));
+			this.setFullName(DataParser.parse(String.class, map.get(OrganizationVOMeta.FULL_NAME)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(OrganizationVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.SORT)));
+			this.setType(DataParser.parse(String.class, map.get(OrganizationVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, map.get(OrganizationVOMeta.PARENT_ID)));
+			this.setValid(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.VALID)));
+			this.setCompanyId(DataParser.parse(String.class, map.get(OrganizationVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(OrganizationVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(OrganizationVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(OrganizationVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(OrganizationVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(OrganizationVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(OrganizationVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(OrganizationVOMeta.ID)));
+			this.setShortName(DataParser.parse(String.class, map.get(OrganizationVOMeta.SHORT_NAME)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(OrganizationVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(OrganizationVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(OrganizationVOMeta.FUZZY_FIELD)));
+			this.setRoot(DataParser.parse(String.class, map.get(OrganizationVOMeta.ROOT)));
+			this.setSortField(DataParser.parse(String.class, map.get(OrganizationVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.PAGE_SIZE)));
+			this.setTargetType(DataParser.parse(String.class, map.get(OrganizationVOMeta.TARGET_TYPE)));
+			this.setIsLoadAllDescendants(DataParser.parse(Integer.class, map.get(OrganizationVOMeta.IS_LOAD_ALL_DESCENDANTS)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(OrganizationVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(OrganizationVOMeta.CODE));
+				this.setHierarchy( (String)map.get(OrganizationVOMeta.HIERARCHY));
+				this.setFullName( (String)map.get(OrganizationVOMeta.FULL_NAME));
+				this.setUpdateTime( (Date)map.get(OrganizationVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)map.get(OrganizationVOMeta.SORT));
+				this.setType( (String)map.get(OrganizationVOMeta.TYPE));
+				this.setVersion( (Integer)map.get(OrganizationVOMeta.VERSION));
+				this.setParentId( (String)map.get(OrganizationVOMeta.PARENT_ID));
+				this.setValid( (Integer)map.get(OrganizationVOMeta.VALID));
+				this.setCompanyId( (String)map.get(OrganizationVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)map.get(OrganizationVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(OrganizationVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(OrganizationVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(OrganizationVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(OrganizationVOMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(OrganizationVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(OrganizationVOMeta.DELETE_BY));
+				this.setId( (String)map.get(OrganizationVOMeta.ID));
+				this.setShortName( (String)map.get(OrganizationVOMeta.SHORT_NAME));
+				// others
+				this.setSearchField( (String)map.get(OrganizationVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(OrganizationVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(OrganizationVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(OrganizationVOMeta.FUZZY_FIELD));
+				this.setRoot( (String)map.get(OrganizationVOMeta.ROOT));
+				this.setSortField( (String)map.get(OrganizationVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(OrganizationVOMeta.PAGE_SIZE));
+				this.setTargetType( (String)map.get(OrganizationVOMeta.TARGET_TYPE));
+				this.setIsLoadAllDescendants( (Integer)map.get(OrganizationVOMeta.IS_LOAD_ALL_DESCENDANTS));
+				this.setSearchValue( (String)map.get(OrganizationVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.CODE)));
+			this.setHierarchy(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.HIERARCHY)));
+			this.setFullName(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.FULL_NAME)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(OrganizationVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(OrganizationVOMeta.SORT)));
+			this.setType(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(OrganizationVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.PARENT_ID)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(OrganizationVOMeta.VALID)));
+			this.setCompanyId(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(OrganizationVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(OrganizationVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(OrganizationVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.ID)));
+			this.setShortName(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.SHORT_NAME)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(OrganizationVOMeta.CODE));
+				this.setHierarchy( (String)r.getValue(OrganizationVOMeta.HIERARCHY));
+				this.setFullName( (String)r.getValue(OrganizationVOMeta.FULL_NAME));
+				this.setUpdateTime( (Date)r.getValue(OrganizationVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)r.getValue(OrganizationVOMeta.SORT));
+				this.setType( (String)r.getValue(OrganizationVOMeta.TYPE));
+				this.setVersion( (Integer)r.getValue(OrganizationVOMeta.VERSION));
+				this.setParentId( (String)r.getValue(OrganizationVOMeta.PARENT_ID));
+				this.setValid( (Integer)r.getValue(OrganizationVOMeta.VALID));
+				this.setCompanyId( (String)r.getValue(OrganizationVOMeta.COMPANY_ID));
+				this.setCreateBy( (String)r.getValue(OrganizationVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(OrganizationVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(OrganizationVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(OrganizationVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(OrganizationVOMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(OrganizationVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(OrganizationVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(OrganizationVOMeta.ID));
+				this.setShortName( (String)r.getValue(OrganizationVOMeta.SHORT_NAME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

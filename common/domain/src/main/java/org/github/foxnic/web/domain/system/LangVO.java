@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,17 +8,26 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.system.meta.LangVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 语言条目
+ * 语言条目VO类型
+ * <p>语言条目 , 数据表 sys_lang 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:24:19
+ * @since 2022-10-28 14:42:51
  * @sign BA40CDF42C01C9095A6649D22DC40B24
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "语言条目VO类型 ; 语言条目 , 数据表 sys_lang 的通用VO类型" , parent = Lang.class)
 public class LangVO extends Lang {
 
 	private static final long serialVersionUID = 1L;
@@ -270,5 +280,243 @@ public class LangVO extends Lang {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return LangVO , 转换好的 LangVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return LangVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public LangVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public LangVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setZhTw(this.getZhTw());
+		inst.setEnUs(this.getEnUs());
+		inst.setZhCh(this.getZhCh());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setEnUk(this.getEnUk());
+		inst.setValid(this.getValid());
+		inst.setConfuse(this.getConfuse());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setDefaults(this.getDefaults());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDeleteBy(this.getDeleteBy());
+		if(all) {
+			inst.setCodes(this.getCodes());
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public LangVO clone(boolean deep) {
+		return EntityContext.clone(LangVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 LangVO
+	 * @param langMap 包含实体信息的 Map 对象
+	 * @return LangVO , 转换好的的 Lang 对象
+	*/
+	@Transient
+	public static LangVO createFrom(Map<String,Object> langMap) {
+		if(langMap==null) return null;
+		LangVO vo = create();
+		EntityContext.copyProperties(vo,langMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 LangVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return LangVO , 转换好的的 Lang 对象
+	*/
+	@Transient
+	public static LangVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		LangVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 LangVO，等同于 new
+	 * @return LangVO 对象
+	*/
+	@Transient
+	public static LangVO create() {
+		return new org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, map.get(LangVOMeta.CODE)));
+			this.setZhTw(DataParser.parse(String.class, map.get(LangVOMeta.ZH_TW)));
+			this.setEnUs(DataParser.parse(String.class, map.get(LangVOMeta.EN_US)));
+			this.setZhCh(DataParser.parse(String.class, map.get(LangVOMeta.ZH_CH)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(LangVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(LangVOMeta.VERSION)));
+			this.setEnUk(DataParser.parse(String.class, map.get(LangVOMeta.EN_UK)));
+			this.setValid(DataParser.parse(Integer.class, map.get(LangVOMeta.VALID)));
+			this.setConfuse(DataParser.parse(String.class, map.get(LangVOMeta.CONFUSE)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(LangVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(LangVOMeta.DELETED)));
+			this.setDefaults(DataParser.parse(String.class, map.get(LangVOMeta.DEFAULTS)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(LangVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(LangVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(LangVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(LangVOMeta.DELETE_BY)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(LangVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(LangVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(LangVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(LangVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(LangVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(LangVOMeta.PAGE_SIZE)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(LangVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)map.get(LangVOMeta.CODE));
+				this.setZhTw( (String)map.get(LangVOMeta.ZH_TW));
+				this.setEnUs( (String)map.get(LangVOMeta.EN_US));
+				this.setZhCh( (String)map.get(LangVOMeta.ZH_CH));
+				this.setUpdateTime( (Date)map.get(LangVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(LangVOMeta.VERSION));
+				this.setEnUk( (String)map.get(LangVOMeta.EN_UK));
+				this.setValid( (Integer)map.get(LangVOMeta.VALID));
+				this.setConfuse( (String)map.get(LangVOMeta.CONFUSE));
+				this.setCreateBy( (String)map.get(LangVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(LangVOMeta.DELETED));
+				this.setDefaults( (String)map.get(LangVOMeta.DEFAULTS));
+				this.setCreateTime( (Date)map.get(LangVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(LangVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(LangVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)map.get(LangVOMeta.DELETE_BY));
+				// others
+				this.setSearchField( (String)map.get(LangVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(LangVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(LangVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(LangVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(LangVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(LangVOMeta.PAGE_SIZE));
+				this.setSearchValue( (String)map.get(LangVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setCode(DataParser.parse(String.class, r.getValue(LangVOMeta.CODE)));
+			this.setZhTw(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_TW)));
+			this.setEnUs(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_US)));
+			this.setZhCh(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_CH)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(LangVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(LangVOMeta.VERSION)));
+			this.setEnUk(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_UK)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(LangVOMeta.VALID)));
+			this.setConfuse(DataParser.parse(String.class, r.getValue(LangVOMeta.CONFUSE)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(LangVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(LangVOMeta.DELETED)));
+			this.setDefaults(DataParser.parse(String.class, r.getValue(LangVOMeta.DEFAULTS)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(LangVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(LangVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(LangVOMeta.DELETE_TIME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(LangVOMeta.DELETE_BY)));
+			return true;
+		} else {
+			try {
+				this.setCode( (String)r.getValue(LangVOMeta.CODE));
+				this.setZhTw( (String)r.getValue(LangVOMeta.ZH_TW));
+				this.setEnUs( (String)r.getValue(LangVOMeta.EN_US));
+				this.setZhCh( (String)r.getValue(LangVOMeta.ZH_CH));
+				this.setUpdateTime( (Date)r.getValue(LangVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(LangVOMeta.VERSION));
+				this.setEnUk( (String)r.getValue(LangVOMeta.EN_UK));
+				this.setValid( (Integer)r.getValue(LangVOMeta.VALID));
+				this.setConfuse( (String)r.getValue(LangVOMeta.CONFUSE));
+				this.setCreateBy( (String)r.getValue(LangVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(LangVOMeta.DELETED));
+				this.setDefaults( (String)r.getValue(LangVOMeta.DEFAULTS));
+				this.setCreateTime( (Date)r.getValue(LangVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(LangVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(LangVOMeta.DELETE_TIME));
+				this.setDeleteBy( (String)r.getValue(LangVOMeta.DELETE_BY));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

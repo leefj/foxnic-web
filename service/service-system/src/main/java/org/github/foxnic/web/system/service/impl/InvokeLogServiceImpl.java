@@ -34,10 +34,10 @@ import java.util.Map;
 
 /**
  * <p>
- * 调用统计日志 服务实现
+ * 调用统计日志服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:42:23
+ * @since 2022-10-28 14:42:52
 */
 
 
@@ -97,7 +97,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 
 	
 	/**
-	 * 按主键删除 调用统计日志
+	 * 按主键删除调用统计日志
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -118,7 +118,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	}
 	
 	/**
-	 * 按主键删除 调用统计日志
+	 * 按主键删除调用统计日志
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -164,7 +164,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 
 	
 	/**
-	 * 按主键更新字段 调用统计日志
+	 * 按主键更新调用统计日志
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -178,7 +178,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 
 	
 	/**
-	 * 按主键获取 调用统计日志
+	 * 按主键获取调用统计日志
 	 *
 	 * @param id ID
 	 * @return InvokeLog 数据对象

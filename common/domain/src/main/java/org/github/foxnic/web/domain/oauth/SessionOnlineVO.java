@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.oauth.meta.SessionOnlineVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 在线会话VO类型
  * <p>在线会话 , 数据表 sys_session_online 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:26
+ * @since 2022-10-28 15:18:31
  * @sign FE98016781F1D2B503D626A0F384FF8F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -402,5 +406,145 @@ public class SessionOnlineVO extends SessionOnline {
 	@Transient
 	public static SessionOnlineVO create() {
 		return new org.github.foxnic.web.domain.oauth.meta.SessionOnlineVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setInteractTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.INTERACT_TIME)));
+			this.setHostId(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.HOST_ID)));
+			this.setSessionTime(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.SESSION_TIME)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.SESSION_ID)));
+			this.setAccessToken(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.ACCESS_TOKEN)));
+			this.setUserId(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.VERSION)));
+			this.setLogoutTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.LOGOUT_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.CREATE_BY)));
+			this.setLoginTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.LOGIN_TIME)));
+			this.setInteractUrl(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.INTERACT_URL)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(SessionOnlineVOMeta.DELETE_TIME)));
+			this.setOnline(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.ONLINE)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.ID)));
+			this.setNodeId(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.NODE_ID)));
+			this.setRefreshToken(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.REFRESH_TOKEN)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(SessionOnlineVOMeta.PAGE_SIZE)));
+			this.setUser(DataParser.parse(User.class, map.get(SessionOnlineVOMeta.USER)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(SessionOnlineVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setInteractTime( (Date)map.get(SessionOnlineVOMeta.INTERACT_TIME));
+				this.setHostId( (String)map.get(SessionOnlineVOMeta.HOST_ID));
+				this.setSessionTime( (Integer)map.get(SessionOnlineVOMeta.SESSION_TIME));
+				this.setUpdateTime( (Date)map.get(SessionOnlineVOMeta.UPDATE_TIME));
+				this.setSessionId( (String)map.get(SessionOnlineVOMeta.SESSION_ID));
+				this.setAccessToken( (String)map.get(SessionOnlineVOMeta.ACCESS_TOKEN));
+				this.setUserId( (String)map.get(SessionOnlineVOMeta.USER_ID));
+				this.setVersion( (Integer)map.get(SessionOnlineVOMeta.VERSION));
+				this.setLogoutTime( (Date)map.get(SessionOnlineVOMeta.LOGOUT_TIME));
+				this.setCreateBy( (String)map.get(SessionOnlineVOMeta.CREATE_BY));
+				this.setLoginTime( (Date)map.get(SessionOnlineVOMeta.LOGIN_TIME));
+				this.setInteractUrl( (String)map.get(SessionOnlineVOMeta.INTERACT_URL));
+				this.setDeleted( (Integer)map.get(SessionOnlineVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(SessionOnlineVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(SessionOnlineVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(SessionOnlineVOMeta.DELETE_TIME));
+				this.setOnline( (Integer)map.get(SessionOnlineVOMeta.ONLINE));
+				this.setDeleteBy( (String)map.get(SessionOnlineVOMeta.DELETE_BY));
+				this.setId( (String)map.get(SessionOnlineVOMeta.ID));
+				this.setNodeId( (String)map.get(SessionOnlineVOMeta.NODE_ID));
+				this.setRefreshToken( (String)map.get(SessionOnlineVOMeta.REFRESH_TOKEN));
+				// others
+				this.setSearchField( (String)map.get(SessionOnlineVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(SessionOnlineVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(SessionOnlineVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(SessionOnlineVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(SessionOnlineVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(SessionOnlineVOMeta.PAGE_SIZE));
+				this.setUser( (User)map.get(SessionOnlineVOMeta.USER));
+				this.setSearchValue( (String)map.get(SessionOnlineVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setInteractTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.INTERACT_TIME)));
+			this.setHostId(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.HOST_ID)));
+			this.setSessionTime(DataParser.parse(Integer.class, r.getValue(SessionOnlineVOMeta.SESSION_TIME)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.SESSION_ID)));
+			this.setAccessToken(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.ACCESS_TOKEN)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(SessionOnlineVOMeta.VERSION)));
+			this.setLogoutTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.LOGOUT_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.CREATE_BY)));
+			this.setLoginTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.LOGIN_TIME)));
+			this.setInteractUrl(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.INTERACT_URL)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(SessionOnlineVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(SessionOnlineVOMeta.DELETE_TIME)));
+			this.setOnline(DataParser.parse(Integer.class, r.getValue(SessionOnlineVOMeta.ONLINE)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.ID)));
+			this.setNodeId(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.NODE_ID)));
+			this.setRefreshToken(DataParser.parse(String.class, r.getValue(SessionOnlineVOMeta.REFRESH_TOKEN)));
+			return true;
+		} else {
+			try {
+				this.setInteractTime( (Date)r.getValue(SessionOnlineVOMeta.INTERACT_TIME));
+				this.setHostId( (String)r.getValue(SessionOnlineVOMeta.HOST_ID));
+				this.setSessionTime( (Integer)r.getValue(SessionOnlineVOMeta.SESSION_TIME));
+				this.setUpdateTime( (Date)r.getValue(SessionOnlineVOMeta.UPDATE_TIME));
+				this.setSessionId( (String)r.getValue(SessionOnlineVOMeta.SESSION_ID));
+				this.setAccessToken( (String)r.getValue(SessionOnlineVOMeta.ACCESS_TOKEN));
+				this.setUserId( (String)r.getValue(SessionOnlineVOMeta.USER_ID));
+				this.setVersion( (Integer)r.getValue(SessionOnlineVOMeta.VERSION));
+				this.setLogoutTime( (Date)r.getValue(SessionOnlineVOMeta.LOGOUT_TIME));
+				this.setCreateBy( (String)r.getValue(SessionOnlineVOMeta.CREATE_BY));
+				this.setLoginTime( (Date)r.getValue(SessionOnlineVOMeta.LOGIN_TIME));
+				this.setInteractUrl( (String)r.getValue(SessionOnlineVOMeta.INTERACT_URL));
+				this.setDeleted( (Integer)r.getValue(SessionOnlineVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(SessionOnlineVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(SessionOnlineVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(SessionOnlineVOMeta.DELETE_TIME));
+				this.setOnline( (Integer)r.getValue(SessionOnlineVOMeta.ONLINE));
+				this.setDeleteBy( (String)r.getValue(SessionOnlineVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(SessionOnlineVOMeta.ID));
+				this.setNodeId( (String)r.getValue(SessionOnlineVOMeta.NODE_ID));
+				this.setRefreshToken( (String)r.getValue(SessionOnlineVOMeta.REFRESH_TOKEN));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

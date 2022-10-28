@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.oauth.meta.MenuResourceMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -20,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 菜单资源关系
  * <p>菜单资源关系 , 数据表 sys_menu_resource 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-12 15:38:21
+ * @since 2022-10-28 15:18:26
  * @sign 16DF333D0885522287E343B89154CD4A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -37,19 +40,19 @@ public class MenuResource extends Entity {
 	 * ID：ID
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "463397736838856704")
 	private String id;
 	
 	/**
 	 * 菜单ID：菜单ID
 	*/
-	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
+	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID" , example = "463397736541061120")
 	private String menuId;
 	
 	/**
 	 * 资源ID：资源ID
 	*/
-	@ApiModelProperty(required = false,value="资源ID" , notes = "资源ID")
+	@ApiModelProperty(required = false,value="资源ID" , notes = "资源ID" , example = "463397732921376768")
 	private String resourceId;
 	
 	/**
@@ -61,7 +64,7 @@ public class MenuResource extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-07-02 05:37:10")
 	private Date createTime;
 	
 	/**
@@ -79,9 +82,10 @@ public class MenuResource extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -99,7 +103,7 @@ public class MenuResource extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -444,5 +448,89 @@ public class MenuResource extends Entity {
 	@Transient
 	public static MenuResource create() {
 		return new org.github.foxnic.web.domain.oauth.meta.MenuResourceMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setResourceId(DataParser.parse(String.class, map.get(MenuResourceMeta.RESOURCE_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(MenuResourceMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(MenuResourceMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(MenuResourceMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuResourceMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(MenuResourceMeta.DELETE_TIME)));
+			this.setMenuId(DataParser.parse(String.class, map.get(MenuResourceMeta.MENU_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(MenuResourceMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuResourceMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, map.get(MenuResourceMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(MenuResourceMeta.VERSION)));
+			// others
+			return true;
+		} else {
+			try {
+				this.setResourceId( (String)map.get(MenuResourceMeta.RESOURCE_ID));
+				this.setCreateBy( (String)map.get(MenuResourceMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(MenuResourceMeta.DELETED));
+				this.setCreateTime( (Date)map.get(MenuResourceMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(MenuResourceMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(MenuResourceMeta.DELETE_TIME));
+				this.setMenuId( (String)map.get(MenuResourceMeta.MENU_ID));
+				this.setDeleteBy( (String)map.get(MenuResourceMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(MenuResourceMeta.UPDATE_TIME));
+				this.setId( (String)map.get(MenuResourceMeta.ID));
+				this.setVersion( (Integer)map.get(MenuResourceMeta.VERSION));
+				// others
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setResourceId(DataParser.parse(String.class, r.getValue(MenuResourceMeta.RESOURCE_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(MenuResourceMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(MenuResourceMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(MenuResourceMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuResourceMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(MenuResourceMeta.DELETE_TIME)));
+			this.setMenuId(DataParser.parse(String.class, r.getValue(MenuResourceMeta.MENU_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(MenuResourceMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuResourceMeta.UPDATE_TIME)));
+			this.setId(DataParser.parse(String.class, r.getValue(MenuResourceMeta.ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(MenuResourceMeta.VERSION)));
+			return true;
+		} else {
+			try {
+				this.setResourceId( (String)r.getValue(MenuResourceMeta.RESOURCE_ID));
+				this.setCreateBy( (String)r.getValue(MenuResourceMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(MenuResourceMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(MenuResourceMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(MenuResourceMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(MenuResourceMeta.DELETE_TIME));
+				this.setMenuId( (String)r.getValue(MenuResourceMeta.MENU_ID));
+				this.setDeleteBy( (String)r.getValue(MenuResourceMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(MenuResourceMeta.UPDATE_TIME));
+				this.setId( (String)r.getValue(MenuResourceMeta.ID));
+				this.setVersion( (Integer)r.getValue(MenuResourceMeta.VERSION));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

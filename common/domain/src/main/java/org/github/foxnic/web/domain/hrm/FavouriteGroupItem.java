@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.hrm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_FAVOURITE_GROUP_ITEM;
@@ -8,21 +9,27 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.hrm.meta.FavouriteGroupItemMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 常用人员分组条目
+ * <p>常用人员分组条目 , 数据表 hrm_favourite_group_item 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:24:59
+ * @since 2022-10-28 14:47:57
  * @sign 24F468F18ED212DA383A1F7746CFD991
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "hrm_favourite_group_item")
+@ApiModel(description = "常用人员分组条目 ; 常用人员分组条目 , 数据表 hrm_favourite_group_item 的PO类型")
 public class FavouriteGroupItem extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -120,6 +127,7 @@ public class FavouriteGroupItem extends Entity {
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -451,6 +459,7 @@ public class FavouriteGroupItem extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public FavouriteGroupItem setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -671,7 +680,9 @@ public class FavouriteGroupItem extends Entity {
 	@Transient
 	public static FavouriteGroupItem createFrom(Map<String,Object> favouriteGroupItemMap) {
 		if(favouriteGroupItemMap==null) return null;
-		FavouriteGroupItem po = EntityContext.create(FavouriteGroupItem.class, favouriteGroupItemMap);
+		FavouriteGroupItem po = create();
+		EntityContext.copyProperties(po,favouriteGroupItemMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -683,7 +694,9 @@ public class FavouriteGroupItem extends Entity {
 	@Transient
 	public static FavouriteGroupItem createFrom(Object pojo) {
 		if(pojo==null) return null;
-		FavouriteGroupItem po = EntityContext.create(FavouriteGroupItem.class,pojo);
+		FavouriteGroupItem po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -693,6 +706,124 @@ public class FavouriteGroupItem extends Entity {
 	*/
 	@Transient
 	public static FavouriteGroupItem create() {
-		return EntityContext.create(FavouriteGroupItem.class);
+		return new org.github.foxnic.web.domain.hrm.meta.FavouriteGroupItemMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setTemporary(DataParser.parse(Integer.class, map.get(FavouriteGroupItemMeta.TEMPORARY)));
+			this.setTargetName(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.TARGET_NAME)));
+			this.setTargetId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.TARGET_ID)));
+			this.setGroupId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.GROUP_ID)));
+			this.setTargetType(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.TARGET_TYPE)));
+			this.setEmployeeId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FavouriteGroupItemMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, map.get(FavouriteGroupItemMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FavouriteGroupItemMeta.VERSION)));
+			this.setCompanyId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FavouriteGroupItemMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FavouriteGroupItemMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FavouriteGroupItemMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(FavouriteGroupItemMeta.ID)));
+			// others
+			this.setOrganization(DataParser.parse(Employee.class, map.get(FavouriteGroupItemMeta.ORGANIZATION)));
+			this.setPosition(DataParser.parse(Employee.class, map.get(FavouriteGroupItemMeta.POSITION)));
+			this.setEmployee(DataParser.parse(Employee.class, map.get(FavouriteGroupItemMeta.EMPLOYEE)));
+			return true;
+		} else {
+			try {
+				this.setTemporary( (Integer)map.get(FavouriteGroupItemMeta.TEMPORARY));
+				this.setTargetName( (String)map.get(FavouriteGroupItemMeta.TARGET_NAME));
+				this.setTargetId( (String)map.get(FavouriteGroupItemMeta.TARGET_ID));
+				this.setGroupId( (String)map.get(FavouriteGroupItemMeta.GROUP_ID));
+				this.setTargetType( (String)map.get(FavouriteGroupItemMeta.TARGET_TYPE));
+				this.setEmployeeId( (String)map.get(FavouriteGroupItemMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)map.get(FavouriteGroupItemMeta.UPDATE_TIME));
+				this.setSort( (Integer)map.get(FavouriteGroupItemMeta.SORT));
+				this.setVersion( (Integer)map.get(FavouriteGroupItemMeta.VERSION));
+				this.setCompanyId( (String)map.get(FavouriteGroupItemMeta.COMPANY_ID));
+				this.setCreateBy( (String)map.get(FavouriteGroupItemMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FavouriteGroupItemMeta.DELETED));
+				this.setCreateTime( (Date)map.get(FavouriteGroupItemMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FavouriteGroupItemMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FavouriteGroupItemMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(FavouriteGroupItemMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(FavouriteGroupItemMeta.DELETE_BY));
+				this.setId( (String)map.get(FavouriteGroupItemMeta.ID));
+				// others
+				this.setOrganization( (Employee)map.get(FavouriteGroupItemMeta.ORGANIZATION));
+				this.setPosition( (Employee)map.get(FavouriteGroupItemMeta.POSITION));
+				this.setEmployee( (Employee)map.get(FavouriteGroupItemMeta.EMPLOYEE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setTemporary(DataParser.parse(Integer.class, r.getValue(FavouriteGroupItemMeta.TEMPORARY)));
+			this.setTargetName(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.TARGET_NAME)));
+			this.setTargetId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.TARGET_ID)));
+			this.setGroupId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.GROUP_ID)));
+			this.setTargetType(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.TARGET_TYPE)));
+			this.setEmployeeId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.EMPLOYEE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupItemMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(FavouriteGroupItemMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FavouriteGroupItemMeta.VERSION)));
+			this.setCompanyId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.COMPANY_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FavouriteGroupItemMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupItemMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FavouriteGroupItemMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(FavouriteGroupItemMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setTemporary( (Integer)r.getValue(FavouriteGroupItemMeta.TEMPORARY));
+				this.setTargetName( (String)r.getValue(FavouriteGroupItemMeta.TARGET_NAME));
+				this.setTargetId( (String)r.getValue(FavouriteGroupItemMeta.TARGET_ID));
+				this.setGroupId( (String)r.getValue(FavouriteGroupItemMeta.GROUP_ID));
+				this.setTargetType( (String)r.getValue(FavouriteGroupItemMeta.TARGET_TYPE));
+				this.setEmployeeId( (String)r.getValue(FavouriteGroupItemMeta.EMPLOYEE_ID));
+				this.setUpdateTime( (Date)r.getValue(FavouriteGroupItemMeta.UPDATE_TIME));
+				this.setSort( (Integer)r.getValue(FavouriteGroupItemMeta.SORT));
+				this.setVersion( (Integer)r.getValue(FavouriteGroupItemMeta.VERSION));
+				this.setCompanyId( (String)r.getValue(FavouriteGroupItemMeta.COMPANY_ID));
+				this.setCreateBy( (String)r.getValue(FavouriteGroupItemMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FavouriteGroupItemMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(FavouriteGroupItemMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FavouriteGroupItemMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FavouriteGroupItemMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(FavouriteGroupItemMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(FavouriteGroupItemMeta.DELETE_BY));
+				this.setId( (String)r.getValue(FavouriteGroupItemMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }
