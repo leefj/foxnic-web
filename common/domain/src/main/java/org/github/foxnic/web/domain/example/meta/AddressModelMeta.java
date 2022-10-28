@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:50
- * @sign 661F0E9246318269F1437BB46BCB3BED
+ * @since 2022-10-28 13:59:59
+ * @sign 7E75F645EB55222D4F1B17867D7FDA07
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,6 +87,16 @@ public class AddressModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> DD_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,DD, java.lang.String.class, "sf", "sf", java.lang.String.class, null);
 	
 	/**
+	 * DD2 , 类型: java.lang.String
+	*/
+	public static final String D2="d2";
+	
+	/**
+	 * DD2 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
+	
+	/**
 	 * 其它 , 类型: java.lang.String
 	*/
 	public static final String OTHER="other";
@@ -109,7 +119,7 @@ public class AddressModelMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , OTHER , ADDRESS_X };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , OTHER , ADDRESS_X };
 	
 	/**
 	 * 代理类
@@ -197,6 +207,17 @@ public class AddressModelMeta {
 		}
 		
 		/**
+		 * 设置 DD2
+		 * @param d2 DD2
+		 * @return 当前对象
+		*/
+		public AddressModel setD2(String d2) {
+			super.change(D2,super.getD2(),d2);
+			super.setD2(d2);
+			return this;
+		}
+		
+		/**
 		 * 设置 其它
 		 * @param other 其它
 		 * @return 当前对象
@@ -240,6 +261,7 @@ public class AddressModelMeta {
 			inst.setName(this.getName());
 			inst.setId(this.getId());
 			inst.setRegionLocation(this.getRegionLocation());
+			inst.setD2(this.getD2());
 			if(all) {
 				inst.setOther(this.getOther());
 				inst.setAddressX(this.getAddressX());

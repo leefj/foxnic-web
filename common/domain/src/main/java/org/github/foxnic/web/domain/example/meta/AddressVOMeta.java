@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:46
+ * @since 2022-10-28 13:59:59
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -260,6 +260,16 @@ public class AddressVOMeta extends AddressMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> DD_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,DD, java.lang.String.class, "sf", "sf", java.lang.String.class, null);
 	
 	/**
+	 * DD2 , 类型: java.lang.String
+	*/
+	public static final String D2="d2";
+	
+	/**
+	 * DD2 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
+	
+	/**
 	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
 	*/
 	public static final String MODEL="model";
@@ -272,7 +282,7 @@ public class AddressVOMeta extends AddressMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DD , MODEL };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DD , D2 , MODEL };
 	
 	/**
 	 * 代理类
@@ -547,6 +557,17 @@ public class AddressVOMeta extends AddressMeta {
 		}
 		
 		/**
+		 * 设置 DD2
+		 * @param d2 DD2
+		 * @return 当前对象
+		*/
+		public Address setD2(String d2) {
+			super.change(D2,super.getD2(),d2);
+			super.setD2(d2);
+			return this;
+		}
+		
+		/**
 		 * 设置 引用1
 		 * @param model 引用1
 		 * @return 当前对象
@@ -577,6 +598,7 @@ public class AddressVOMeta extends AddressMeta {
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setRegionLocation(this.getRegionLocation());
 			inst.setVersion(this.getVersion());
+			inst.setD2(this.getD2());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setPhoneNumber(this.getPhoneNumber());
 			inst.setDeleted(this.getDeleted());

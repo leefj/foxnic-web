@@ -2,7 +2,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:50
+ * @since 2022-10-28 14:00:04
  */
  -->
  <!DOCTYPE html>
@@ -77,6 +77,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('sf')}" class="search-label dd-label">sf</span><span class="search-colon">:</span></div>
                         <input id="dd" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- DD2 , d2 ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('DD2')}" class="search-label d2-label">DD2</span><span class="search-colon">:</span></div>
+                        <input id="d2" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

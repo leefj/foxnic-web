@@ -24,6 +24,9 @@ import org.springframework.context.annotation.ComponentScan;
 public class WrapperAllApp {
 
 	public static void main(String[] args) {
+//		try {
+//			Thread.sleep(15000);
+//		} catch (Exception e) {}
 		BootApplication.run(WrapperAllApp.class, args);
 	}
 

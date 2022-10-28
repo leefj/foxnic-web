@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.example.meta.AddressMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -21,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:27
- * @sign 1F813FF1CB7AA2ECDEBCB23C056BDF64
+ * @since 2022-10-28 13:59:59
+ * @sign 48D1C01F3438A60CD379CED10BCFB647
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,25 +40,25 @@ public class Address extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "583028267108274176")
 	private String id;
 	
 	/**
 	 * 收件人姓名：收件人姓名
 	*/
-	@ApiModelProperty(required = false,value="收件人姓名" , notes = "收件人姓名")
+	@ApiModelProperty(required = false,value="收件人姓名" , notes = "收件人姓名" , example = "李方捷")
 	private String name;
 	
 	/**
 	 * 收件人手机：收件人手机
 	*/
-	@ApiModelProperty(required = false,value="收件人手机" , notes = "收件人手机")
+	@ApiModelProperty(required = false,value="收件人手机" , notes = "收件人手机" , example = "1234567333")
 	private String phoneNumber;
 	
 	/**
 	 * 收件地址：收件地址
 	*/
-	@ApiModelProperty(required = false,value="收件地址" , notes = "收件地址")
+	@ApiModelProperty(required = false,value="收件地址" , notes = "收件地址" , example = "浙江省宁波市鄞州区鄞县大道二号")
 	private String address;
 	
 	/**
@@ -74,31 +76,31 @@ public class Address extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2022-05-28 08:26:11")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-06-11 06:44:28")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
 	@EnumFor("deleted")
@@ -119,7 +121,7 @@ public class Address extends Entity {
 	/**
 	 * 版本：版本
 	*/
-	@ApiModelProperty(required = true,value="版本" , notes = "版本")
+	@ApiModelProperty(required = true,value="版本" , notes = "版本" , example = "2")
 	private Integer version;
 	
 	/**
@@ -127,6 +129,12 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="sf" , notes = "sf")
 	private String dd;
+	
+	/**
+	 * DD2：DD2
+	*/
+	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
+	private String d2;
 	
 	/**
 	 * 引用1：引用1
@@ -451,6 +459,25 @@ public class Address extends Entity {
 	}
 	
 	/**
+	 * 获得 DD2<br>
+	 * DD2
+	 * @return DD2
+	*/
+	public String getD2() {
+		return d2;
+	}
+	
+	/**
+	 * 设置 DD2
+	 * @param d2 DD2
+	 * @return 当前对象
+	*/
+	public Address setD2(String d2) {
+		this.d2=d2;
+		return this;
+	}
+	
+	/**
 	 * 获得 引用1<br>
 	 * 引用1
 	 * @return 引用1
@@ -518,6 +545,7 @@ public class Address extends Entity {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setVersion(this.getVersion());
+		inst.setD2(this.getD2());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setDeleted(this.getDeleted());
@@ -578,5 +606,111 @@ public class Address extends Entity {
 	@Transient
 	public static Address create() {
 		return new org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, map.get(AddressMeta.DD)));
+			this.setAddress(DataParser.parse(String.class, map.get(AddressMeta.ADDRESS)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(AddressMeta.UPDATE_TIME)));
+			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressMeta.REGION_LOCATION)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(AddressMeta.VERSION)));
+			this.setD2(DataParser.parse(String.class, map.get(AddressMeta.D2)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(AddressMeta.CREATE_BY)));
+			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressMeta.PHONE_NUMBER)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(AddressMeta.DELETED)));
+			this.setRegionType(DataParser.parse(String.class, map.get(AddressMeta.REGION_TYPE)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(AddressMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(AddressMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(AddressMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(AddressMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(AddressMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(AddressMeta.ID)));
+			// others
+			this.setModel(DataParser.parse(AddressModel.class, map.get(AddressMeta.MODEL)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)map.get(AddressMeta.DD));
+				this.setAddress( (String)map.get(AddressMeta.ADDRESS));
+				this.setUpdateTime( (Date)map.get(AddressMeta.UPDATE_TIME));
+				this.setRegionLocation( (String)map.get(AddressMeta.REGION_LOCATION));
+				this.setVersion( (Integer)map.get(AddressMeta.VERSION));
+				this.setD2( (String)map.get(AddressMeta.D2));
+				this.setCreateBy( (String)map.get(AddressMeta.CREATE_BY));
+				this.setPhoneNumber( (String)map.get(AddressMeta.PHONE_NUMBER));
+				this.setDeleted( (Integer)map.get(AddressMeta.DELETED));
+				this.setRegionType( (String)map.get(AddressMeta.REGION_TYPE));
+				this.setCreateTime( (Date)map.get(AddressMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(AddressMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(AddressMeta.DELETE_TIME));
+				this.setName( (String)map.get(AddressMeta.NAME));
+				this.setDeleteBy( (String)map.get(AddressMeta.DELETE_BY));
+				this.setId( (String)map.get(AddressMeta.ID));
+				// others
+				this.setModel( (AddressModel)map.get(AddressMeta.MODEL));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, r.getValue(AddressMeta.DD)));
+			this.setAddress(DataParser.parse(String.class, r.getValue(AddressMeta.ADDRESS)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(AddressMeta.UPDATE_TIME)));
+			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressMeta.REGION_LOCATION)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(AddressMeta.VERSION)));
+			this.setD2(DataParser.parse(String.class, r.getValue(AddressMeta.D2)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(AddressMeta.CREATE_BY)));
+			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressMeta.PHONE_NUMBER)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(AddressMeta.DELETED)));
+			this.setRegionType(DataParser.parse(String.class, r.getValue(AddressMeta.REGION_TYPE)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(AddressMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(AddressMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(AddressMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(AddressMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(AddressMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(AddressMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)r.getValue(AddressMeta.DD));
+				this.setAddress( (String)r.getValue(AddressMeta.ADDRESS));
+				this.setUpdateTime( (Date)r.getValue(AddressMeta.UPDATE_TIME));
+				this.setRegionLocation( (String)r.getValue(AddressMeta.REGION_LOCATION));
+				this.setVersion( (Integer)r.getValue(AddressMeta.VERSION));
+				this.setD2( (String)r.getValue(AddressMeta.D2));
+				this.setCreateBy( (String)r.getValue(AddressMeta.CREATE_BY));
+				this.setPhoneNumber( (String)r.getValue(AddressMeta.PHONE_NUMBER));
+				this.setDeleted( (Integer)r.getValue(AddressMeta.DELETED));
+				this.setRegionType( (String)r.getValue(AddressMeta.REGION_TYPE));
+				this.setCreateTime( (Date)r.getValue(AddressMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(AddressMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(AddressMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(AddressMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(AddressMeta.DELETE_BY));
+				this.setId( (String)r.getValue(AddressMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

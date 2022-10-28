@@ -86,7 +86,7 @@ public class DAOConfig {
 				SQLoader.addTQLScanPackage(dao,pkg);
 			}
 
-			Logger.info("dao is ready : \n\n"+dao.toString()+"\n");
+			Logger.info("dao is ready : \n"+dao.toString()+"\n");
 
 			return dao;
 		} catch (Exception e) {

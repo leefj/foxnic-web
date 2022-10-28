@@ -82,12 +82,12 @@ public class PageAspector {
 
 	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4RequestMapping()")
 	public Object processRequestMapping(ProceedingJoinPoint joinPoint) throws Throwable {
-		return processControllerMethod(joinPoint,RequestMapping.class);
+		return processControllerMethod(joinPoint, RequestMapping.class);
 	}
 
 	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4GetMapping()")
 	public Object processGetMapping(ProceedingJoinPoint joinPoint) throws Throwable {
-		return processControllerMethod(joinPoint,GetMapping.class);
+		return processControllerMethod(joinPoint, GetMapping.class);
 	}
 
 	/**

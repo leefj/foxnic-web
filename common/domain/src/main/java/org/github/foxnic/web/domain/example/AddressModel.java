@@ -6,6 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.example.meta.AddressModelMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -13,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:50
- * @sign 661F0E9246318269F1437BB46BCB3BED
+ * @since 2022-10-28 13:59:59
+ * @sign 7E75F645EB55222D4F1B17867D7FDA07
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +67,12 @@ public class AddressModel extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="sf" , notes = "sf")
 	private String dd;
+	
+	/**
+	 * DD2：DD2
+	*/
+	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
+	private String d2;
 	
 	/**
 	 * 其它：其它
@@ -211,6 +220,25 @@ public class AddressModel extends Entity {
 	}
 	
 	/**
+	 * 获得 DD2<br>
+	 * DD2
+	 * @return DD2
+	*/
+	public String getD2() {
+		return d2;
+	}
+	
+	/**
+	 * 设置 DD2
+	 * @param d2 DD2
+	 * @return 当前对象
+	*/
+	public AddressModel setD2(String d2) {
+		this.d2=d2;
+		return this;
+	}
+	
+	/**
 	 * 获得 其它<br>
 	 * 其它
 	 * @return 其它
@@ -290,6 +318,7 @@ public class AddressModel extends Entity {
 		inst.setName(this.getName());
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
+		inst.setD2(this.getD2());
 		if(all) {
 			inst.setOther(this.getOther());
 			inst.setAddressX(this.getAddressX());
@@ -340,5 +369,81 @@ public class AddressModel extends Entity {
 	@Transient
 	public static AddressModel create() {
 		return new org.github.foxnic.web.domain.example.meta.AddressModelMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, map.get(AddressModelMeta.DD)));
+			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressModelMeta.PHONE_NUMBER)));
+			this.setAddress(DataParser.parse(String.class, map.get(AddressModelMeta.ADDRESS)));
+			this.setRegionType(DataParser.parse(String.class, map.get(AddressModelMeta.REGION_TYPE)));
+			this.setName(DataParser.parse(String.class, map.get(AddressModelMeta.NAME)));
+			this.setId(DataParser.parse(String.class, map.get(AddressModelMeta.ID)));
+			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressModelMeta.REGION_LOCATION)));
+			this.setD2(DataParser.parse(String.class, map.get(AddressModelMeta.D2)));
+			// others
+			this.setOther(DataParser.parse(String.class, map.get(AddressModelMeta.OTHER)));
+			this.setAddressX(DataParser.parse(Address.class, map.get(AddressModelMeta.ADDRESS_X)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)map.get(AddressModelMeta.DD));
+				this.setPhoneNumber( (String)map.get(AddressModelMeta.PHONE_NUMBER));
+				this.setAddress( (String)map.get(AddressModelMeta.ADDRESS));
+				this.setRegionType( (String)map.get(AddressModelMeta.REGION_TYPE));
+				this.setName( (String)map.get(AddressModelMeta.NAME));
+				this.setId( (String)map.get(AddressModelMeta.ID));
+				this.setRegionLocation( (String)map.get(AddressModelMeta.REGION_LOCATION));
+				this.setD2( (String)map.get(AddressModelMeta.D2));
+				// others
+				this.setOther( (String)map.get(AddressModelMeta.OTHER));
+				this.setAddressX( (Address)map.get(AddressModelMeta.ADDRESS_X));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, r.getValue(AddressModelMeta.DD)));
+			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressModelMeta.PHONE_NUMBER)));
+			this.setAddress(DataParser.parse(String.class, r.getValue(AddressModelMeta.ADDRESS)));
+			this.setRegionType(DataParser.parse(String.class, r.getValue(AddressModelMeta.REGION_TYPE)));
+			this.setName(DataParser.parse(String.class, r.getValue(AddressModelMeta.NAME)));
+			this.setId(DataParser.parse(String.class, r.getValue(AddressModelMeta.ID)));
+			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressModelMeta.REGION_LOCATION)));
+			this.setD2(DataParser.parse(String.class, r.getValue(AddressModelMeta.D2)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)r.getValue(AddressModelMeta.DD));
+				this.setPhoneNumber( (String)r.getValue(AddressModelMeta.PHONE_NUMBER));
+				this.setAddress( (String)r.getValue(AddressModelMeta.ADDRESS));
+				this.setRegionType( (String)r.getValue(AddressModelMeta.REGION_TYPE));
+				this.setName( (String)r.getValue(AddressModelMeta.NAME));
+				this.setId( (String)r.getValue(AddressModelMeta.ID));
+				this.setRegionLocation( (String)r.getValue(AddressModelMeta.REGION_LOCATION));
+				this.setD2( (String)r.getValue(AddressModelMeta.D2));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

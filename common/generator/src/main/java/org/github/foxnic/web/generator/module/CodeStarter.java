@@ -149,7 +149,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initExampleModules() {
-        this.addConfig(new CodeExampleConfig());
+        //this.addConfig(new CodeExampleConfig());
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());

@@ -6,15 +6,16 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-//import com.google.common.base.Predicate;
-import java.util.function.Predicate;
 import io.swagger.annotations.Api;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.function.Predicate;
 
 public abstract class BasicSwaggerConfig {
 
@@ -80,17 +81,20 @@ public abstract class BasicSwaggerConfig {
      */
     public Predicate<RequestHandler> basePackage(final String basePackage) {
         return new LocalPredicate<>(basePackage);
-
     }
 
 
-    private static class LocalPredicate<T> implements com.google.common.base.Predicate<T> {
+    private static class LocalPredicate<T> implements Predicate<T> {
+
+        public boolean test(@Nullable T input) {
+            return this.apply(input);
+        }
 
         private String basePackage;
         private LocalPredicate(String basePackage) {
             this.basePackage=basePackage;
         }
-        @Override
+
         public boolean apply(T input) {
             RequestHandler handler=(RequestHandler)input;
             return declaringClass(handler).transform(handlerPackage(basePackage)).or(true);

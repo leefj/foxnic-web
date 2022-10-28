@@ -11,6 +11,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
+import org.github.foxnic.web.domain.example.meta.AddressVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -18,7 +22,7 @@ import java.util.Map;
  * 订单地址VO类型
  * <p>订单地址 , 数据表 example_address 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-24 10:25:45
+ * @since 2022-10-28 13:59:59
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -327,6 +331,7 @@ public class AddressVO extends Address {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setVersion(this.getVersion());
+		inst.setD2(this.getD2());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setDeleted(this.getDeleted());
@@ -396,5 +401,125 @@ public class AddressVO extends Address {
 	@Transient
 	public static AddressVO create() {
 		return new org.github.foxnic.web.domain.example.meta.AddressVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, map.get(AddressVOMeta.DD)));
+			this.setAddress(DataParser.parse(String.class, map.get(AddressVOMeta.ADDRESS)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(AddressVOMeta.UPDATE_TIME)));
+			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressVOMeta.REGION_LOCATION)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(AddressVOMeta.VERSION)));
+			this.setD2(DataParser.parse(String.class, map.get(AddressVOMeta.D2)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(AddressVOMeta.CREATE_BY)));
+			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressVOMeta.PHONE_NUMBER)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(AddressVOMeta.DELETED)));
+			this.setRegionType(DataParser.parse(String.class, map.get(AddressVOMeta.REGION_TYPE)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(AddressVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(AddressVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(AddressVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(AddressVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(AddressVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(AddressVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(AddressVOMeta.SEARCH_FIELD)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(AddressVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(AddressVOMeta.SORT_TYPE)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(AddressVOMeta.FUZZY_FIELD)));
+			this.setSortField(DataParser.parse(String.class, map.get(AddressVOMeta.SORT_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(AddressVOMeta.PAGE_SIZE)));
+			this.setModel(DataParser.parse(AddressModel.class, map.get(AddressVOMeta.MODEL)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(AddressVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)map.get(AddressVOMeta.DD));
+				this.setAddress( (String)map.get(AddressVOMeta.ADDRESS));
+				this.setUpdateTime( (Date)map.get(AddressVOMeta.UPDATE_TIME));
+				this.setRegionLocation( (String)map.get(AddressVOMeta.REGION_LOCATION));
+				this.setVersion( (Integer)map.get(AddressVOMeta.VERSION));
+				this.setD2( (String)map.get(AddressVOMeta.D2));
+				this.setCreateBy( (String)map.get(AddressVOMeta.CREATE_BY));
+				this.setPhoneNumber( (String)map.get(AddressVOMeta.PHONE_NUMBER));
+				this.setDeleted( (Integer)map.get(AddressVOMeta.DELETED));
+				this.setRegionType( (String)map.get(AddressVOMeta.REGION_TYPE));
+				this.setCreateTime( (Date)map.get(AddressVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(AddressVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(AddressVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(AddressVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(AddressVOMeta.DELETE_BY));
+				this.setId( (String)map.get(AddressVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(AddressVOMeta.SEARCH_FIELD));
+				this.setPageIndex( (Integer)map.get(AddressVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(AddressVOMeta.SORT_TYPE));
+				this.setFuzzyField( (String)map.get(AddressVOMeta.FUZZY_FIELD));
+				this.setSortField( (String)map.get(AddressVOMeta.SORT_FIELD));
+				this.setPageSize( (Integer)map.get(AddressVOMeta.PAGE_SIZE));
+				this.setModel( (AddressModel)map.get(AddressVOMeta.MODEL));
+				this.setSearchValue( (String)map.get(AddressVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setDd(DataParser.parse(String.class, r.getValue(AddressVOMeta.DD)));
+			this.setAddress(DataParser.parse(String.class, r.getValue(AddressVOMeta.ADDRESS)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(AddressVOMeta.UPDATE_TIME)));
+			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressVOMeta.REGION_LOCATION)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(AddressVOMeta.VERSION)));
+			this.setD2(DataParser.parse(String.class, r.getValue(AddressVOMeta.D2)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(AddressVOMeta.CREATE_BY)));
+			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressVOMeta.PHONE_NUMBER)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(AddressVOMeta.DELETED)));
+			this.setRegionType(DataParser.parse(String.class, r.getValue(AddressVOMeta.REGION_TYPE)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(AddressVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(AddressVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(AddressVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(AddressVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(AddressVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(AddressVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setDd( (String)r.getValue(AddressVOMeta.DD));
+				this.setAddress( (String)r.getValue(AddressVOMeta.ADDRESS));
+				this.setUpdateTime( (Date)r.getValue(AddressVOMeta.UPDATE_TIME));
+				this.setRegionLocation( (String)r.getValue(AddressVOMeta.REGION_LOCATION));
+				this.setVersion( (Integer)r.getValue(AddressVOMeta.VERSION));
+				this.setD2( (String)r.getValue(AddressVOMeta.D2));
+				this.setCreateBy( (String)r.getValue(AddressVOMeta.CREATE_BY));
+				this.setPhoneNumber( (String)r.getValue(AddressVOMeta.PHONE_NUMBER));
+				this.setDeleted( (Integer)r.getValue(AddressVOMeta.DELETED));
+				this.setRegionType( (String)r.getValue(AddressVOMeta.REGION_TYPE));
+				this.setCreateTime( (Date)r.getValue(AddressVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(AddressVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(AddressVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(AddressVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(AddressVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(AddressVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

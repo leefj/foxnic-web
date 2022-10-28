@@ -344,14 +344,14 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		PerformanceLogger logger=new PerformanceLogger();
 
-		logger.collect("A");
+		logger.collect("Query");
 		ConditionExpr conditionExpr=new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity);
 		conditionExpr.or(SYS_USER.PHONE+" = ?",identity);
 		conditionExpr.or(SYS_USER.ID+" = ?",identity);
 
 		Map<String,User> userMap=new HashMap();
 		List<User> users=dao.queryEntities(User.class, conditionExpr);
-		logger.collect("B");
+		logger.collect("Query OK");
 
 		User user = null ;
 
@@ -373,7 +373,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
-		logger.collect("C");
+		logger.collect("Unique Identity");
 
 		if(user==null) {
 			throw new UsernameNotFoundException("用户不存在");
@@ -417,19 +417,19 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		List<Menu> userMenus =new ArrayList<>();
 //		List<Menu> userMenus=CollectorUtil.collectMergedList(user.getRoles(),Role::getMenus);
 		//if(user.getRoles()!=null) {
-			List<Role> newRoles=new ArrayList<>();
+			//List<Role> newRoles=new ArrayList<>();
 			for (Role role : user.getRoles()) {
 				if(role.getMenus()!=null) {
 					userMenus.addAll(role.getMenus());
 				}
-				Role newRole=role.clone();
-				newRoles.add(newRole);
+				//Role newRole=role.clone();
+				//newRoles.add(newRole);
 			}
 			//logger.collect("F1");
-			//EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
-			user.setRoles(newRoles);
+			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
+//			user.setRoles(newRoles);
 //		}
-		logger.collect("G");
+		logger.collect("End Process Role&Menu");
 
 		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();
@@ -437,9 +437,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		for (Menu menu : userMenus) {
 			//
 			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
-				logger.collect("G1");
+				logger.collect("G1-START : "+menu.getDynamicHandler());
 				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-				logger.collect("G1.1");
+				logger.collect("G1-END : "+menu.getDynamicHandler());
 				if(dy!=null) {
 					boolean has = dy.hasPermission(menu, user);
 					if (!has) {
@@ -452,7 +452,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 						dySubMenus.addAll(subs);
 					}
 				}
-				logger.collect("G2");
 			}
 
 			if(excludedMenuIds.contains(menu.getId())) {
@@ -467,7 +466,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			userMenus.remove(remMenu);
 		}
 
-		logger.collect("H");
+		logger.collect("Menu Process 2");
 
 		// 按 ID distinct
 		userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
@@ -478,7 +477,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		// 设置用户菜单
 		user.setMenus(userMenus);
 
-		logger.collect("I");
+		logger.collect("Tenant Process");
 
 		//
  		if(user.getActivatedTenant()!=null){
@@ -498,7 +497,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
-		logger.collect("J");
+		logger.collect("Language");
 
     	//设置用户语言
     	String usrLang=user.getLanguage();
@@ -516,7 +515,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			user.setLanguage(Language.defaults.name());
 		}
 
-		logger.collect("K");
+		logger.collect("Done");
 
 		logger.info("Login");
         return user;
