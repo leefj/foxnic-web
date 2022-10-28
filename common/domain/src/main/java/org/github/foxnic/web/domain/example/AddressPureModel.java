@@ -17,8 +17,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 72EAD645D9F0845849108E4A56492797
+ * @since 2022-10-28 15:51:47
+ * @sign 4CC616A37058A18D197395086E454760
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,6 +74,12 @@ public class AddressPureModel {
 	*/
 	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
 	private String d2;
+	
+	/**
+	 * DD3：DD3
+	*/
+	@ApiModelProperty(required = false,value="DD3" , notes = "DD3")
+	private String d3;
 	
 	/**
 	 * 获得 主键<br>
@@ -226,6 +232,25 @@ public class AddressPureModel {
 		this.d2=d2;
 		return this;
 	}
+	
+	/**
+	 * 获得 DD3<br>
+	 * DD3
+	 * @return DD3
+	*/
+	public String getD3() {
+		return d3;
+	}
+	
+	/**
+	 * 设置 DD3
+	 * @param d3 DD3
+	 * @return 当前对象
+	*/
+	public AddressPureModel setD3(String d3) {
+		this.d3=d3;
+		return this;
+	}
 
 	/**
 	 * 创建一个 AddressPureModel，等同于 new
@@ -277,6 +302,7 @@ public class AddressPureModel {
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setD2(this.getD2());
+		inst.setD3(this.getD3());
 		return inst;
 	}
 
@@ -332,6 +358,7 @@ public class AddressPureModel {
 			this.setId(DataParser.parse(String.class, map.get(AddressPureModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressPureModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, map.get(AddressPureModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, map.get(AddressPureModelMeta.D3)));
 			// others
 			return true;
 		} else {
@@ -344,6 +371,7 @@ public class AddressPureModel {
 				this.setId( (String)map.get(AddressPureModelMeta.ID));
 				this.setRegionLocation( (String)map.get(AddressPureModelMeta.REGION_LOCATION));
 				this.setD2( (String)map.get(AddressPureModelMeta.D2));
+				this.setD3( (String)map.get(AddressPureModelMeta.D3));
 				// others
 				return true;
 			} catch (Exception e) {
@@ -369,6 +397,7 @@ public class AddressPureModel {
 			this.setId(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.D3)));
 			return true;
 		} else {
 			try {
@@ -380,6 +409,7 @@ public class AddressPureModel {
 				this.setId( (String)r.getValue(AddressPureModelMeta.ID));
 				this.setRegionLocation( (String)r.getValue(AddressPureModelMeta.REGION_LOCATION));
 				this.setD2( (String)r.getValue(AddressPureModelMeta.D2));
+				this.setD3( (String)r.getValue(AddressPureModelMeta.D3));
 				return true;
 			} catch (Exception e) {
 				return false;

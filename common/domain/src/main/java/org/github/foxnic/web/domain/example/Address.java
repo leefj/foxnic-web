@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 48D1C01F3438A60CD379CED10BCFB647
+ * @since 2022-10-28 15:51:47
+ * @sign C5E049736A81A0D6CF6BB157C9AF17F0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -135,6 +135,12 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
 	private String d2;
+	
+	/**
+	 * DD3：DD3
+	*/
+	@ApiModelProperty(required = false,value="DD3" , notes = "DD3")
+	private String d3;
 	
 	/**
 	 * 引用1：引用1
@@ -478,6 +484,25 @@ public class Address extends Entity {
 	}
 	
 	/**
+	 * 获得 DD3<br>
+	 * DD3
+	 * @return DD3
+	*/
+	public String getD3() {
+		return d3;
+	}
+	
+	/**
+	 * 设置 DD3
+	 * @param d3 DD3
+	 * @return 当前对象
+	*/
+	public Address setD3(String d3) {
+		this.d3=d3;
+		return this;
+	}
+	
+	/**
 	 * 获得 引用1<br>
 	 * 引用1
 	 * @return 引用1
@@ -546,6 +571,7 @@ public class Address extends Entity {
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setVersion(this.getVersion());
 		inst.setD2(this.getD2());
+		inst.setD3(this.getD3());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setDeleted(this.getDeleted());
@@ -623,6 +649,7 @@ public class Address extends Entity {
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(AddressMeta.VERSION)));
 			this.setD2(DataParser.parse(String.class, map.get(AddressMeta.D2)));
+			this.setD3(DataParser.parse(String.class, map.get(AddressMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(AddressMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(AddressMeta.DELETED)));
@@ -644,6 +671,7 @@ public class Address extends Entity {
 				this.setRegionLocation( (String)map.get(AddressMeta.REGION_LOCATION));
 				this.setVersion( (Integer)map.get(AddressMeta.VERSION));
 				this.setD2( (String)map.get(AddressMeta.D2));
+				this.setD3( (String)map.get(AddressMeta.D3));
 				this.setCreateBy( (String)map.get(AddressMeta.CREATE_BY));
 				this.setPhoneNumber( (String)map.get(AddressMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)map.get(AddressMeta.DELETED));
@@ -678,6 +706,7 @@ public class Address extends Entity {
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(AddressMeta.VERSION)));
 			this.setD2(DataParser.parse(String.class, r.getValue(AddressMeta.D2)));
+			this.setD3(DataParser.parse(String.class, r.getValue(AddressMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(AddressMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(AddressMeta.DELETED)));
@@ -697,6 +726,7 @@ public class Address extends Entity {
 				this.setRegionLocation( (String)r.getValue(AddressMeta.REGION_LOCATION));
 				this.setVersion( (Integer)r.getValue(AddressMeta.VERSION));
 				this.setD2( (String)r.getValue(AddressMeta.D2));
+				this.setD3( (String)r.getValue(AddressMeta.D3));
 				this.setCreateBy( (String)r.getValue(AddressMeta.CREATE_BY));
 				this.setPhoneNumber( (String)r.getValue(AddressMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)r.getValue(AddressMeta.DELETED));

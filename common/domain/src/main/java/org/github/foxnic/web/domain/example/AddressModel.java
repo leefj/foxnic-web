@@ -16,8 +16,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 7E75F645EB55222D4F1B17867D7FDA07
+ * @since 2022-10-28 15:51:47
+ * @sign 56EAA62D6D6D2EFA1C1EA32789665FA8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,6 +73,12 @@ public class AddressModel extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
 	private String d2;
+	
+	/**
+	 * DD3：DD3
+	*/
+	@ApiModelProperty(required = false,value="DD3" , notes = "DD3")
+	private String d3;
 	
 	/**
 	 * 其它：其它
@@ -239,6 +245,25 @@ public class AddressModel extends Entity {
 	}
 	
 	/**
+	 * 获得 DD3<br>
+	 * DD3
+	 * @return DD3
+	*/
+	public String getD3() {
+		return d3;
+	}
+	
+	/**
+	 * 设置 DD3
+	 * @param d3 DD3
+	 * @return 当前对象
+	*/
+	public AddressModel setD3(String d3) {
+		this.d3=d3;
+		return this;
+	}
+	
+	/**
 	 * 获得 其它<br>
 	 * 其它
 	 * @return 其它
@@ -319,6 +344,7 @@ public class AddressModel extends Entity {
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setD2(this.getD2());
+		inst.setD3(this.getD3());
 		if(all) {
 			inst.setOther(this.getOther());
 			inst.setAddressX(this.getAddressX());
@@ -388,6 +414,7 @@ public class AddressModel extends Entity {
 			this.setId(DataParser.parse(String.class, map.get(AddressModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, map.get(AddressModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, map.get(AddressModelMeta.D3)));
 			// others
 			this.setOther(DataParser.parse(String.class, map.get(AddressModelMeta.OTHER)));
 			this.setAddressX(DataParser.parse(Address.class, map.get(AddressModelMeta.ADDRESS_X)));
@@ -402,6 +429,7 @@ public class AddressModel extends Entity {
 				this.setId( (String)map.get(AddressModelMeta.ID));
 				this.setRegionLocation( (String)map.get(AddressModelMeta.REGION_LOCATION));
 				this.setD2( (String)map.get(AddressModelMeta.D2));
+				this.setD3( (String)map.get(AddressModelMeta.D3));
 				// others
 				this.setOther( (String)map.get(AddressModelMeta.OTHER));
 				this.setAddressX( (Address)map.get(AddressModelMeta.ADDRESS_X));
@@ -429,6 +457,7 @@ public class AddressModel extends Entity {
 			this.setId(DataParser.parse(String.class, r.getValue(AddressModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, r.getValue(AddressModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, r.getValue(AddressModelMeta.D3)));
 			return true;
 		} else {
 			try {
@@ -440,6 +469,7 @@ public class AddressModel extends Entity {
 				this.setId( (String)r.getValue(AddressModelMeta.ID));
 				this.setRegionLocation( (String)r.getValue(AddressModelMeta.REGION_LOCATION));
 				this.setD2( (String)r.getValue(AddressModelMeta.D2));
+				this.setD3( (String)r.getValue(AddressModelMeta.D3));
 				return true;
 			} catch (Exception e) {
 				return false;

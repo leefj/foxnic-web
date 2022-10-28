@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址VO类型
  * <p>订单地址 , 数据表 example_address 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
+ * @since 2022-10-28 15:51:47
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -332,6 +332,7 @@ public class AddressVO extends Address {
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setVersion(this.getVersion());
 		inst.setD2(this.getD2());
+		inst.setD3(this.getD3());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setDeleted(this.getDeleted());
@@ -418,6 +419,7 @@ public class AddressVO extends Address {
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressVOMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(AddressVOMeta.VERSION)));
 			this.setD2(DataParser.parse(String.class, map.get(AddressVOMeta.D2)));
+			this.setD3(DataParser.parse(String.class, map.get(AddressVOMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(AddressVOMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressVOMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(AddressVOMeta.DELETED)));
@@ -446,6 +448,7 @@ public class AddressVO extends Address {
 				this.setRegionLocation( (String)map.get(AddressVOMeta.REGION_LOCATION));
 				this.setVersion( (Integer)map.get(AddressVOMeta.VERSION));
 				this.setD2( (String)map.get(AddressVOMeta.D2));
+				this.setD3( (String)map.get(AddressVOMeta.D3));
 				this.setCreateBy( (String)map.get(AddressVOMeta.CREATE_BY));
 				this.setPhoneNumber( (String)map.get(AddressVOMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)map.get(AddressVOMeta.DELETED));
@@ -487,6 +490,7 @@ public class AddressVO extends Address {
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressVOMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(AddressVOMeta.VERSION)));
 			this.setD2(DataParser.parse(String.class, r.getValue(AddressVOMeta.D2)));
+			this.setD3(DataParser.parse(String.class, r.getValue(AddressVOMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(AddressVOMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressVOMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(AddressVOMeta.DELETED)));
@@ -506,6 +510,7 @@ public class AddressVO extends Address {
 				this.setRegionLocation( (String)r.getValue(AddressVOMeta.REGION_LOCATION));
 				this.setVersion( (Integer)r.getValue(AddressVOMeta.VERSION));
 				this.setD2( (String)r.getValue(AddressVOMeta.D2));
+				this.setD3( (String)r.getValue(AddressVOMeta.D3));
 				this.setCreateBy( (String)r.getValue(AddressVOMeta.CREATE_BY));
 				this.setPhoneNumber( (String)r.getValue(AddressVOMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)r.getValue(AddressVOMeta.DELETED));

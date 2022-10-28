@@ -10,8 +10,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 48D1C01F3438A60CD379CED10BCFB647
+ * @since 2022-10-28 15:51:47
+ * @sign C5E049736A81A0D6CF6BB157C9AF17F0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -178,6 +178,16 @@ public class AddressMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.Address,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.Address.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
 	
 	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final String D3="d3";
+	
+	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.Address,java.lang.String> D3_PROP = new BeanProperty(org.github.foxnic.web.domain.example.Address.class ,D3, java.lang.String.class, "DD3", "DD3", java.lang.String.class, null);
+	
+	/**
 	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
 	*/
 	public static final String MODEL="model";
@@ -190,7 +200,7 @@ public class AddressMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DD , D2 , MODEL };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DD , D2 , D3 , MODEL };
 	
 	/**
 	 * 代理类
@@ -377,6 +387,17 @@ public class AddressMeta {
 		}
 		
 		/**
+		 * 设置 DD3
+		 * @param d3 DD3
+		 * @return 当前对象
+		*/
+		public Address setD3(String d3) {
+			super.change(D3,super.getD3(),d3);
+			super.setD3(d3);
+			return this;
+		}
+		
+		/**
 		 * 设置 引用1
 		 * @param model 引用1
 		 * @return 当前对象
@@ -408,6 +429,7 @@ public class AddressMeta {
 			inst.setRegionLocation(this.getRegionLocation());
 			inst.setVersion(this.getVersion());
 			inst.setD2(this.getD2());
+			inst.setD3(this.getD3());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setPhoneNumber(this.getPhoneNumber());
 			inst.setDeleted(this.getDeleted());

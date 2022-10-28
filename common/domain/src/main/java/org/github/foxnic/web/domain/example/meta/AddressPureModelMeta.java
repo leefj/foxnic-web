@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 72EAD645D9F0845849108E4A56492797
+ * @since 2022-10-28 15:51:47
+ * @sign 4CC616A37058A18D197395086E454760
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -94,7 +94,17 @@ public class AddressPureModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
 	
 	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final String D3="d3";
+	
+	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> D3_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,D3, java.lang.String.class, "DD3", "DD3", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , D3 };
 }

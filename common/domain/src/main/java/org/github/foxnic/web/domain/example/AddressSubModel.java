@@ -16,7 +16,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
+ * @since 2022-10-28 15:51:47
  * @sign 9E592FF32177CCE731954B80F8619340
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -119,6 +119,7 @@ public class AddressSubModel extends AddressModel {
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setD2(this.getD2());
+		inst.setD3(this.getD3());
 		if(all) {
 			inst.setPostCode2(this.getPostCode2());
 			inst.setOther(this.getOther());
@@ -190,6 +191,7 @@ public class AddressSubModel extends AddressModel {
 			this.setId(DataParser.parse(String.class, map.get(AddressSubModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressSubModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, map.get(AddressSubModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, map.get(AddressSubModelMeta.D3)));
 			// others
 			this.setPostCode2(DataParser.parse(String.class, map.get(AddressSubModelMeta.POST_CODE2)));
 			this.setOther(DataParser.parse(String.class, map.get(AddressSubModelMeta.OTHER)));
@@ -206,6 +208,7 @@ public class AddressSubModel extends AddressModel {
 				this.setId( (String)map.get(AddressSubModelMeta.ID));
 				this.setRegionLocation( (String)map.get(AddressSubModelMeta.REGION_LOCATION));
 				this.setD2( (String)map.get(AddressSubModelMeta.D2));
+				this.setD3( (String)map.get(AddressSubModelMeta.D3));
 				// others
 				this.setPostCode2( (String)map.get(AddressSubModelMeta.POST_CODE2));
 				this.setOther( (String)map.get(AddressSubModelMeta.OTHER));
@@ -235,6 +238,7 @@ public class AddressSubModel extends AddressModel {
 			this.setId(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.REGION_LOCATION)));
 			this.setD2(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.D2)));
+			this.setD3(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.D3)));
 			return true;
 		} else {
 			try {
@@ -246,6 +250,7 @@ public class AddressSubModel extends AddressModel {
 				this.setId( (String)r.getValue(AddressSubModelMeta.ID));
 				this.setRegionLocation( (String)r.getValue(AddressSubModelMeta.REGION_LOCATION));
 				this.setD2( (String)r.getValue(AddressSubModelMeta.D2));
+				this.setD3( (String)r.getValue(AddressSubModelMeta.D3));
 				return true;
 			} catch (Exception e) {
 				return false;

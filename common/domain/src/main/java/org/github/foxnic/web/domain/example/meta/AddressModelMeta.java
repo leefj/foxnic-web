@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 13:59:59
- * @sign 7E75F645EB55222D4F1B17867D7FDA07
+ * @since 2022-10-28 15:51:47
+ * @sign 56EAA62D6D6D2EFA1C1EA32789665FA8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -97,6 +97,16 @@ public class AddressModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
 	
 	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final String D3="d3";
+	
+	/**
+	 * DD3 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> D3_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,D3, java.lang.String.class, "DD3", "DD3", java.lang.String.class, null);
+	
+	/**
 	 * 其它 , 类型: java.lang.String
 	*/
 	public static final String OTHER="other";
@@ -119,7 +129,7 @@ public class AddressModelMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , OTHER , ADDRESS_X };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , D3 , OTHER , ADDRESS_X };
 	
 	/**
 	 * 代理类
@@ -218,6 +228,17 @@ public class AddressModelMeta {
 		}
 		
 		/**
+		 * 设置 DD3
+		 * @param d3 DD3
+		 * @return 当前对象
+		*/
+		public AddressModel setD3(String d3) {
+			super.change(D3,super.getD3(),d3);
+			super.setD3(d3);
+			return this;
+		}
+		
+		/**
 		 * 设置 其它
 		 * @param other 其它
 		 * @return 当前对象
@@ -262,6 +283,7 @@ public class AddressModelMeta {
 			inst.setId(this.getId());
 			inst.setRegionLocation(this.getRegionLocation());
 			inst.setD2(this.getD2());
+			inst.setD3(this.getD3());
 			if(all) {
 				inst.setOther(this.getOther());
 				inst.setAddressX(this.getAddressX());

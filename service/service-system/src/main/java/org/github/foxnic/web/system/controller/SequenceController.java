@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -168,7 +167,6 @@ public class SequenceController extends SuperController {
     @PostMapping(SequenceServiceProxy.QUERY_PAGED_LIST)
     public Result<PagedList<Sequence>> queryPagedList(SequenceVO sample) {
         String val = sequenceService.dao().getSequence("pcm-catalog-version-no").next();
-        System.err.println(val);
         Result<PagedList<Sequence>> result = new Result<>();
         PagedList<Sequence> list = sequenceService.queryPagedList(sample, sample.getPageSize(), sample.getPageIndex());
         result.success(true).data(list);
