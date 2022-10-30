@@ -17,6 +17,7 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 	public static final String CACHE_INVALID_SUFFIX = "]]";
 
 	private RedisUtil cache=null;
+
 	/**
 	 * 超时时间均为毫秒(ms)
 	 */
@@ -24,6 +25,11 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 		LocalCache<String, T> local = new LocalCache<String, T>(localExpire, ExpireType.LIVE, localLimit);
 		RemoteCache<T> remote = new RemoteCache<T>(name, remoteExpire);
 		return new DoubleCache<T>(name, local, remote);
+	}
+
+	@Override
+	public String toString() {
+		return this.getName();
 	}
 
 	/**

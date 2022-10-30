@@ -85,12 +85,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.foxnic.web</groupId>
-            <artifactId>service-api</artifactId>
+            <artifactId>service-docs</artifactId>
             <version>${platform.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.foxnic.web</groupId>
-            <artifactId>view-api</artifactId>
+            <artifactId>view-docs</artifactId>
             <version>${platform.version}</version>
         </dependency>
 
