@@ -20,26 +20,15 @@ import java.util.Map;
  * @since  2021-06-02
  * */
 public class SessionUserImpl extends SessionUser implements UserDetails, CredentialsContainer {
-
 	private static final long serialVersionUID = 1L;
-
 	private User user;
-
 	private String sessionOnlineId;
-
-
 	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
 
-//	public static final String ROLE_PERMITTED="ROLE_PERMITTED";
-//
-//	private static List<GrantedAuthority>  ROLES_PERMITTED=Arrays.asList(new SimpleGrantedAuthority(ROLE_PERMITTED));
-
 	private transient SessionPermissionImpl permission = null;
-
 	public SessionUserImpl(User user) {
 		this.user=user;
 	}
-
 	@Override
 	public void eraseCredentials() {
 		this.user.setPasswd("******");
@@ -50,8 +39,8 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return ((SessionPermissionImpl)permission()).getAuthorities();
 	}
 
-	public String[] getAuthoritieRoles() {
-		return ((SessionPermissionImpl)permission()).getAuthoritieRoles();
+	public String[] getAuthedRoles() {
+		return ((SessionPermissionImpl)permission()).getAuthedRoles();
 	}
 
 	@Override

@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:10:33
+ * @since 2022-10-31 17:02:38
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -395,6 +395,7 @@ public class UserVO extends User {
 			inst.setJoinedTenants(this.getJoinedTenants());
 			inst.setIds(this.getIds());
 			inst.setMenus(this.getMenus());
+			inst.setMenuIds(this.getMenuIds());
 			inst.setRoleMenus(this.getRoleMenus());
 			inst.setSearchValue(this.getSearchValue());
 			inst.setActivatedTenant(this.getActivatedTenant());

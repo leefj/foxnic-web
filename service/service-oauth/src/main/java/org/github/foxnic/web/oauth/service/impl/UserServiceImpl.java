@@ -34,6 +34,7 @@ import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
+import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -96,6 +97,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 	@Autowired
 	private IRoleUserService roleUserService;
+
+	@Autowired
+	private IMenuService menuService;
 
 	/**
 	 * 注入DAO对象
@@ -337,6 +341,70 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 
 	private static final String[] IDENTITY_PRIORITY={"account","phone","id"};
+
+	public List<Menu> makeUserMenus(User user,boolean gerDyMenu) {
+
+		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds());
+
+		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
+		List<Menu> remMenus=new ArrayList<>();
+		List<Menu> dySubMenus=new ArrayList<>();
+		for (int i=0;i<menus.size();i++) {
+			Menu menu = menus.get(i);
+			if("/business/oauth/role/role_list.html".equals(menu.getPath())) {
+				System.out.println();
+			}
+			//
+			if (gerDyMenu && !StringUtil.isBlank(menu.getDynamicHandler())) {
+				//logger.collect("G1-START : "+menu.getDynamicHandler());
+				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+				//logger.collect("G1-END : "+menu.getDynamicHandler());
+				if(dy!=null) {
+					menu=menu.clone();
+					menus.set(i,menu);
+					boolean has = dy.hasPermission(menu, user);
+					if (!has) {
+						remMenus.add(menu);
+					}
+					String title = dy.getLabel(menu, user);
+					menu.setLabel(title);
+					List<Menu> subs = dy.generateExtraChildNodes(menu, user);
+					if (subs != null) {
+						dySubMenus.addAll(subs);
+					}
+				}
+			}
+
+			if(excludedMenuIds.contains(menu.getId())) {
+				remMenus.add(menu);
+			}
+
+		}
+
+		menus.addAll(dySubMenus);
+
+		for (Menu remMenu : remMenus) {
+			menus.remove(remMenu);
+		}
+
+
+
+		// 按 ID distinct
+		menus = CollectorUtil.distinct(menus, (menu) -> {
+			return menu.getId();
+		});
+		// 排序
+		CollectorUtil.sort(menus,(me)->{
+			me.clearModifies();
+			return me.getSort();
+		},true,true);
+
+		// 设置用户菜单
+		user.setMenus(menus);
+
+		return menus;
+	}
+
 	/**
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
@@ -386,14 +454,19 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		FieldsBuilder busiRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_BUSI_ROLE.$TABLE).addAll().removeDBTreatyFields();
 
 		FieldsBuilder resourzeFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
-				.addAll()
-				.removeDBTreatyFields()
-				.remove(FoxnicWeb.SYS_RESOURZE.BATCH_ID,FoxnicWeb.SYS_RESOURZE.TABLE_NAME,FoxnicWeb.SYS_RESOURZE.MODULE,FoxnicWeb.SYS_RESOURZE.NAME);
+				.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL)
+
+				//.addAll()
+				//.removeDBTreatyFields()
+				//.remove(FoxnicWeb.SYS_RESOURZE.BATCH_ID,FoxnicWeb.SYS_RESOURZE.TABLE_NAME,FoxnicWeb.SYS_RESOURZE.MODULE,FoxnicWeb.SYS_RESOURZE.NAME)
+		 ;
 
 		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
-				.addAll().
-				removeDBTreatyFields()
-				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY);
+				.add(FoxnicWeb.SYS_MENU.ID)
+//				.addAll().
+//				removeDBTreatyFields()
+//				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY)
+				;
 
 		logger.collect("Start Join");
  		//填充账户模型
@@ -412,70 +485,30 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 //		int size2= ObjectUtil.sizeOf(user);
 
 
-
+		Set<String> menuIds=new HashSet<>();
 		//logger.collect("F");
-		List<Menu> userMenus =new ArrayList<>();
+
 //		List<Menu> userMenus=CollectorUtil.collectMergedList(user.getRoles(),Role::getMenus);
 		//if(user.getRoles()!=null) {
 			//List<Role> newRoles=new ArrayList<>();
 			for (Role role : user.getRoles()) {
 				if(role.getMenus()!=null) {
-					userMenus.addAll(role.getMenus());
+//					userMenus.addAll(role.getMenus());
+					menuIds.addAll(CollectorUtil.collectSet(role.getMenus(),Menu::getId));
 				}
 				//Role newRole=role.clone();
 				//newRoles.add(newRole);
 			}
 			//logger.collect("F1");
 			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
+			user.setMenuIds(new ArrayList<>(menuIds));
 //			user.setRoles(newRoles);
 //		}
 		logger.collect("End Process Role&Menu");
 
-		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
-		List<Menu> remMenus=new ArrayList<>();
-		List<Menu> dySubMenus=new ArrayList<>();
-		for (Menu menu : userMenus) {
-			//
-			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
-				logger.collect("G1-START : "+menu.getDynamicHandler());
-				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-				logger.collect("G1-END : "+menu.getDynamicHandler());
-				if(dy!=null) {
-					boolean has = dy.hasPermission(menu, user);
-					if (!has) {
-						remMenus.add(menu);
-					}
-					String title = dy.getLabel(menu, user);
-					menu.setLabel(title);
-					List<Menu> subs = dy.generateExtraChildNodes(menu, user);
-					if (subs != null) {
-						dySubMenus.addAll(subs);
-					}
-				}
-			}
+		LOGIN_USER_MENUS.set(this.makeUserMenus(user,true));
 
-			if(excludedMenuIds.contains(menu.getId())) {
-				remMenus.add(menu);
-			}
-
-		}
-
-		userMenus.addAll(dySubMenus);
-
-		for (Menu remMenu : remMenus) {
-			userMenus.remove(remMenu);
-		}
-
-		logger.collect("Menu Process 2");
-
-		// 按 ID distinct
-		userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
-			return menu.getId();
-		});
-		// 排序
-		CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
-		// 设置用户菜单
-		user.setMenus(userMenus);
+		// RequestParameter.get().getRequest().setAttribute("USER_MENUS",userMenus);
 
 		logger.collect("Tenant Process");
 

@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:10:33
+ * @since 2022-10-31 17:02:38
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -323,6 +323,16 @@ public class UserVOMeta extends UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,org.github.foxnic.web.domain.oauth.Menu> MENUS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,MENUS, java.util.List.class, "菜单清单", "当前用户的所有菜单清单", org.github.foxnic.web.domain.oauth.Menu.class, null);
 	
 	/**
+	 * 菜单ID的集合 , 当前用户的所有菜单清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String MENU_IDS="menuIds";
+	
+	/**
+	 * 菜单ID的集合 , 当前用户的所有菜单清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.String> MENU_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,MENU_IDS, java.util.List.class, "菜单ID的集合", "当前用户的所有菜单清单", java.lang.String.class, null);
+	
+	/**
 	 * 角色菜单关系清单 , 当前用户的所有角色菜单关系清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.RoleMenu
 	*/
 	public static final String ROLE_MENUS="roleMenus";
@@ -375,7 +385,7 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
 	
 	/**
 	 * 代理类
@@ -716,6 +726,17 @@ public class UserVOMeta extends UserMeta {
 		}
 		
 		/**
+		 * 设置 菜单ID的集合
+		 * @param menuIds 菜单ID的集合
+		 * @return 当前对象
+		*/
+		public User setMenuIds(List<String> menuIds) {
+			super.change(MENU_IDS,super.getMenuIds(),menuIds);
+			super.setMenuIds(menuIds);
+			return this;
+		}
+		
+		/**
 		 * 设置 角色菜单关系清单
 		 * @param roleMenus 角色菜单关系清单
 		 * @return 当前对象
@@ -818,6 +839,7 @@ public class UserVOMeta extends UserMeta {
 				inst.setIds(this.getIds());
 				inst.setJoinedTenants(this.getJoinedTenants());
 				inst.setMenus(this.getMenus());
+				inst.setMenuIds(this.getMenuIds());
 				inst.setSearchValue(this.getSearchValue());
 				inst.setRoleMenus(this.getRoleMenus());
 				inst.setActivatedTenant(this.getActivatedTenant());

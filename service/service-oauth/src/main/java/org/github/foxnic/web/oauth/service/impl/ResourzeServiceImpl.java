@@ -4,8 +4,11 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -13,6 +16,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -38,10 +42,6 @@ import java.util.*;
 
 @Service("SysResourzeService")
 public class ResourzeServiceImpl extends SuperService<Resourze> implements IResourzeService {
-
-
-
-
 
 
 
@@ -276,47 +276,78 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
-	private List<Resourze>  catchedResourzes=null;
-	private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
+	private Map<String,Resourze>  catchedResourzes=new HashMap<>();
+	// private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
 	private Map<String,AccessType>  catchedAccessTypes=null;
 
 	private void clearCatchedResourzes() {
 		this.catchedResourzes=null;
-		this.catchedAntPathRequestMatchers=null;
+		//this.catchedAntPathRequestMatchers=null;
 		this.catchedAccessTypes=null;
 	}
 
-	@Override
-	public List<Resourze> getMatchd(HttpServletRequest request) {
-		if(catchedResourzes==null || catchedResourzes.isEmpty() || catchedAntPathRequestMatchers==null || catchedAntPathRequestMatchers.isEmpty()) {
-			//载入所有资源
-			catchedResourzes = this.queryList(new ConditionExpr("length(url)>0 and length(url)>0"));
-			//转换成 AntPathRequestMatcher 列表
-			catchedAntPathRequestMatchers=new ArrayList<>();
-			for (int i = 0; i < catchedResourzes.size(); i++) {
-				Resourze resourze =catchedResourzes.get(i);
-//				if(StringUtil.isBlank(resourze.getUrl())) continue;
-//				if(StringUtil.isBlank(resourze.getMethod())) continue;
-				AntPathRequestMatcher ant=new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true);
-				catchedAntPathRequestMatchers.add(ant);
-			}
-			catchedAccessTypes=new HashMap<>();
-		}
+	public List<Resourze> queryCachedResourzes(Collection<String> resIds) {
+		initCache();
+		List<Resourze> resourzes=new ArrayList<>(resIds.size());
 
-		//
-		List<Resourze> matchs=new ArrayList<>();
-		for (int i = 0; i < catchedResourzes.size(); i++) {
-			Resourze resourze =catchedResourzes.get(i);
-			AntPathRequestMatcher ant=catchedAntPathRequestMatchers.get(i);
-			RequestMatcher.MatchResult r=ant.matcher(request);
-			if(r==null) {
-				System.out.println("111");
+		for (String resId : resIds) {
+			Resourze resourze=catchedResourzes.get(resId);
+			if(resourze!=null) {
+				resourzes.add(resourze);
 			}
-			if(r.isMatch()) {
+		}
+		return resourzes;
+	}
+
+	@Override
+	public List<Resourze> getMatched(HttpServletRequest request) {
+
+		initCache();
+
+		PerformanceLogger logger=new PerformanceLogger(false);
+		logger.collect("A");
+		//
+		AntPathRequestMatcher ant = null;
+		RequestMatcher.MatchResult result=null;
+		List<Resourze> matchs=new ArrayList<>();
+		List<Resourze> all=new ArrayList<>();
+		all.addAll(catchedResourzes.values());
+		for (Resourze resourze : all) {
+
+//		}
+//		for (int i = 0; i < catchedResourzes.size(); i++) {
+//			Resourze resourze =catchedResourzes.get(i);
+			ant =new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true);
+			//AntPathRequestMatcher ant=catchedAntPathRequestMatchers.get(i);
+			result=ant.matcher(request);
+			if(result.isMatch()) {
 				matchs.add(resourze);
 			}
 		}
+		logger.collect("B:");
+		logger.info("getMatched");
+
 		return matchs;
+	}
+
+	private void initCache() {
+		if(catchedResourzes.isEmpty()) {
+			synchronized (catchedResourzes) {
+				if(catchedResourzes.isEmpty()) {
+					//载入所有资源
+					FieldsBuilder fields = this.createFieldsBuilder();
+					fields.removeAll().add(FoxnicWeb.SYS_RESOURZE.ID, FoxnicWeb.SYS_RESOURZE.URL, FoxnicWeb.SYS_RESOURZE.METHOD, FoxnicWeb.SYS_RESOURZE.ACCESS_TYPE, FoxnicWeb.SYS_RESOURZE.TYPE);
+					List<Resourze> list = this.queryList(fields, new ConditionExpr("length(url)>0"));
+					catchedResourzes = CollectorUtil.collectMap(list, Resourze::getId, r -> {
+						if(r.getAccessTypeEnum()==null) {
+							r.setAccessTypeEnum(AccessType.GRANT);
+						}
+						return r;
+					});
+					catchedAccessTypes = new HashMap<>();
+				}
+			}
+		}
 	}
 
 	public AccessType getAccessType(HttpServletRequest request) {
@@ -327,7 +358,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			if (accessType != null) return accessType;
 		}
 
-		List<Resourze> resourzes=this.getMatchd(request);
+		List<Resourze> resourzes=this.getMatched(request);
 		if(resourzes==null || resourzes.isEmpty()) {
 			return AccessType.GRANT;
 		}

@@ -37,10 +37,10 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-//        initOAuthModules();
+        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
@@ -144,7 +144,6 @@ public class CodeStarter extends ModuleCodeGenerator {
     private void initOAuthModules() {
         this.addConfig(new SysUserConfig());
         this.addConfig(new SysResourzeConfig());
-
 
     }
 

@@ -134,8 +134,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		JSONObject ret=new JSONObject();
 
 		// 瘦身
-		JSONObject user=slimming(sessionUser.getUser());
-		ret.put("user", user);
+		List<Menu> menus =IUserService.LOGIN_USER_MENUS.get();
+		User user=sessionUser.getUser().clone();
+		user.setMenus(menus);
+		JSONObject userJson=slimming(user);
+
+		IUserService.LOGIN_USER_MENUS.remove();
+
+
+		ret.put("user", userJson);
 		ret.put("sessionId", sessionUser.getSessionOnlineId());
 
 

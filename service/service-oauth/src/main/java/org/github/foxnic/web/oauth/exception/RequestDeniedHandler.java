@@ -11,7 +11,6 @@ import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.oauth.service.IRoleService;
-import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-        List<Resourze> matchs=resourzeService.getMatchd(request);
+        List<Resourze> matchs=resourzeService.getMatched(request);
 
         String uri=request.getRequestURI();
         String method=request.getMethod();

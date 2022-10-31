@@ -42,6 +42,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         poType.addListProperty( Role.class, "roles","角色清单", "当前用户的所有角色清单");
         poType.addListProperty( Menu.class, "menus","菜单清单", "当前用户的所有菜单清单");
+        poType.addListProperty( String.class, "menuIds","菜单ID的集合", "当前用户的所有菜单清单");
         poType.addListProperty( RoleMenu.class, "roleMenus","角色菜单关系清单", "当前用户的所有角色菜单关系清单");
         poType.addListProperty( UserTenant.class, "joinedTenants","所属租户关系清单", "可用且有效的所属租户关系清单");
         poType.addSimpleProperty( UserTenant.class, "activatedTenant","当前激活的租户", "当前激活的租户");

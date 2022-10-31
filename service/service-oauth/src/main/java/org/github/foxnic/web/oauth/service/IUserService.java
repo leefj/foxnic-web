@@ -7,6 +7,7 @@ import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.List;
 */
 
 public interface IUserService extends ISimpleIdService<User,String> {
+
+	public static final ThreadLocal<List<Menu>> LOGIN_USER_MENUS=new ThreadLocal<>();
 
 	/**
 	 * 插入实体
@@ -271,4 +274,6 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	 * 管理员密码重置
 	 * */
 	Result resetPasswd(String userId, String adminPwd, String pwd);
+
+	List<Menu> makeUserMenus(User user, boolean gerDyMenu);
 }

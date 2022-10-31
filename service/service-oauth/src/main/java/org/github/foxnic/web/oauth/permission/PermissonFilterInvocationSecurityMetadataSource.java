@@ -60,7 +60,7 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
         AccessType accessType=resourzeService.getAccessType(request);
     	//如果是登录即可访问的
     	if(accessType==AccessType.LOGIN) {
-            return SecurityConfig.createList(user.getAuthoritieRoles());
+            return SecurityConfig.createList(user.getAuthedRoles());
         }
 
 

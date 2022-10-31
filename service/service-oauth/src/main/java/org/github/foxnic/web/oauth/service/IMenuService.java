@@ -10,6 +10,7 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -288,4 +289,6 @@ public interface IMenuService extends ISimpleIdService<Menu,String> {
 	 * 按关键字搜索，并返回匹配的层级
 	 * */
 	List<String> search(String keyword);
+
+	List<Menu> queryCachedMenus(Collection<String> menuIds);
 }

@@ -10,6 +10,7 @@ import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.Entity;
+import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.relation.cache.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
@@ -28,6 +29,7 @@ import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuResourceService;
 import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,6 +67,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	@Autowired
 	private IMenuResourceService menuResourceService;
 
+
+	private Map<String,Menu>  catchedMenus= new HashMap<>();
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
@@ -72,6 +77,14 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Autowired
 	private LanguageService languageService;
+
+	@Autowired
+	private IResourzeService resourzeService;
+
+
+	private void clearMenuCache() {
+		catchedMenus.clear();
+	}
 
 	/**
 	 * 插入实体
@@ -85,6 +98,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		}
 		Result result=super.insert(menu);
 		if(result.success()) {
+			clearMenuCache();
 			fillHierarchy(false);
 		}
 		return result;
@@ -99,6 +113,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	public Result insertList(List<Menu> menuList) {
 		Result result=super.insertList(menuList);
 		fillHierarchy(false);
+		clearMenuCache();
 		return result;
 
 	}
@@ -115,6 +130,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		menu.setId(id);
 		boolean suc = dao.deleteEntity(menu);
+		if(suc) {
+			clearMenuCache();
+		}
 		return ErrorDesc.create(suc);
 	}
 
@@ -140,6 +158,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		menu.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		menu.setDeleteTime(new Date());
 		boolean suc = dao.updateEntity(menu,SaveMode.NOT_NULL_FIELDS);
+		if(suc) {
+			clearMenuCache();
+		}
 		return ErrorDesc.create(suc);
 	}
 
@@ -155,6 +176,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		Result r=super.update(menu , mode);
 		if(r.success()) {
 			menuResourceService.saveResourceIds(menu);
+			clearMenuCache();
 		}
 		return r;
 	}
@@ -167,7 +189,11 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * */
 	@Override
 	public Result updateList(List<Menu> menuList , SaveMode mode) {
-		return super.updateList(menuList , mode);
+		Result result= super.updateList(menuList , mode);
+		if(result.success()) {
+			clearMenuCache();
+		}
+		return result;
 	}
 
 
@@ -181,6 +207,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
+		if(suc>0) {
+			clearMenuCache();
+		}
 		return suc>0;
 	}
 
@@ -421,6 +450,52 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	public List<String> search(String keyword) {
 		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%");
 		return rs.getValueList("hierarchy",String.class);
+	}
+
+	private void initCache() {
+		if (catchedMenus.isEmpty()) {
+			synchronized (catchedMenus) {
+				if (catchedMenus.isEmpty()) {
+					FieldsBuilder menuFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
+							.addAll()
+							.removeDBTreatyFields()
+							.remove(FoxnicWeb.SYS_MENU.BATCH_ID, FoxnicWeb.SYS_MENU.HIERARCHY);
+					List<Menu> all = this.queryList(new Menu(), menuFields);
+					FieldsBuilder resourzeFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
+							.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL);
+					this.dao().fill(all).with(MenuMeta.PATH_RESOURCE).with(MenuMeta.RESOURCES).fields(resourzeFields).execute();
+
+					for (Menu menu : all) {
+						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
+						menu.setResources(resourzeService.queryCachedResourzes(ids));
+						if(menu.getPathResource()!=null) {
+							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
+						}
+					}
+
+					//resourzeService.getCachedResourze();
+
+					catchedMenus = CollectorUtil.collectMap(all, Menu::getId, m -> {
+						return m;
+					});
+				}
+			}
+		}
+	}
+
+	public List<Menu> queryCachedMenus(Collection<String> menuIds) {
+
+		initCache();
+
+		List<Menu> menus=new ArrayList<>(menuIds.size());
+
+		for (String menuId : menuIds) {
+			Menu menu=catchedMenus.get(menuId);
+			if(menu!=null) {
+				menus.add(menu);
+			}
+		}
+		return menus;
 	}
 
 }

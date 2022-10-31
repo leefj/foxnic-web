@@ -28,7 +28,7 @@ public interface SessionPermission extends Serializable {
     /**
      * 获得功能角色代码
      * */
-    String[] getAuthoritieRoles();
+    String[] getAuthedRoles();
 
     boolean checkBusiRoleId(String... roleId);
 

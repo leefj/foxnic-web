@@ -14,8 +14,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:10:33
- * @sign B875799D0E408516EA4096962DCFDF9E
+ * @since 2022-10-31 17:02:38
+ * @sign EB62D8CA02D9134DB9E0453DF9752E5B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -222,6 +222,16 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.oauth.Menu> MENUS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,MENUS, java.util.List.class, "菜单清单", "当前用户的所有菜单清单", org.github.foxnic.web.domain.oauth.Menu.class, null);
 	
 	/**
+	 * 菜单ID的集合 , 当前用户的所有菜单清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String MENU_IDS="menuIds";
+	
+	/**
+	 * 菜单ID的集合 , 当前用户的所有菜单清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> MENU_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,MENU_IDS, java.util.List.class, "菜单ID的集合", "当前用户的所有菜单清单", java.lang.String.class, null);
+	
+	/**
 	 * 角色菜单关系清单 , 当前用户的所有角色菜单关系清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.RoleMenu
 	*/
 	public static final String ROLE_MENUS="roleMenus";
@@ -274,7 +284,7 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
+	public static final String[] $PROPS={ ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
 	
 	/**
 	 * 代理类
@@ -505,6 +515,17 @@ public class UserMeta {
 		}
 		
 		/**
+		 * 设置 菜单ID的集合
+		 * @param menuIds 菜单ID的集合
+		 * @return 当前对象
+		*/
+		public User setMenuIds(List<String> menuIds) {
+			super.change(MENU_IDS,super.getMenuIds(),menuIds);
+			super.setMenuIds(menuIds);
+			return this;
+		}
+		
+		/**
 		 * 设置 角色菜单关系清单
 		 * @param roleMenus 角色菜单关系清单
 		 * @return 当前对象
@@ -597,6 +618,7 @@ public class UserMeta {
 				inst.setJoinedTenants(this.getJoinedTenants());
 				inst.setActivatedEmployeeId(this.getActivatedEmployeeId());
 				inst.setMenus(this.getMenus());
+				inst.setMenuIds(this.getMenuIds());
 				inst.setRoleMenus(this.getRoleMenus());
 				inst.setActivatedTenant(this.getActivatedTenant());
 				inst.setActivatedEmployeeName(this.getActivatedEmployeeName());

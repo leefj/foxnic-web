@@ -9,6 +9,7 @@ import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.BusiRole;
+import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -28,7 +29,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private List<SimpleGrantedAuthority> authorities;
 
-	private String[] authoritieRoles;
+	private String[] authedRoles;
 
 
 	private Set<String> busiRoleIds=new HashSet<>();
@@ -55,6 +56,10 @@ public class SessionPermissionImpl implements SessionPermission {
 
 		this.menuRoleRelation=menuRoleRelation;
 		initMenuRoleRelation();
+
+		this.user.setMenus(null);
+		System.out.println();
+
 	}
 
 
@@ -100,9 +105,9 @@ public class SessionPermissionImpl implements SessionPermission {
 			roleIdCache.put(role.getId(), role);
 			roleKeys.add(role.getCode());
 		}
-		authoritieRoles=new String[authorities.size()];
+		authedRoles =new String[authorities.size()];
 		for (int i = 0; i < authorities.size(); i++) {
-			authoritieRoles[i]=authorities.get(i).getAuthority();
+			authedRoles[i]=authorities.get(i).getAuthority();
 		}
 
 		//设置菜单权限
@@ -137,7 +142,10 @@ public class SessionPermissionImpl implements SessionPermission {
 	private void initRequestMatchers() {
 		urlMenuCache =new HashMap<String, String>();
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
-		for (Menu menu : this.user.getMenus()) {
+
+		 List<Menu> menus =IUserService.LOGIN_USER_MENUS.get();
+
+		for (Menu menu : menus) {
 			Resourze resourze=menu.getPathResource();
 			if(resourze!=null && resourze.getAccessTypeEnum() == AccessType.GRANT) {
 //				if("/service-oauth/sys-user/query-paged-list".equals(resourze.getUrl())){
@@ -251,8 +259,8 @@ public class SessionPermissionImpl implements SessionPermission {
 	}
 
 	@Override
-	public String[] getAuthoritieRoles() {
-		return authoritieRoles;
+	public String[] getAuthedRoles() {
+		return authedRoles;
 	}
 
 
