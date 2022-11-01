@@ -1,8 +1,10 @@
 package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -11,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
@@ -19,12 +22,13 @@ import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
-
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -38,7 +42,7 @@ import com.github.foxnic.api.swagger.ApiParamSupport;
 @Api(tags = "系统服务/系统配置")
 @ApiSort(0)
 @RestController("SysConfigController")
-public class ConfigController extends SuperController {
+public class ConfigController extends SuperController implements ApplicationListener<ApplicationStartedEvent>  {
 
     @Autowired
     private IConfigService configService;
@@ -203,4 +207,15 @@ public class ConfigController extends SuperController {
         return result;
     }
 
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent event) {
+        Config sample=new Config();
+        sample.setCode(SystemConfigEnum.SYSTEM_CACHEKEY.code());
+       List<Config> list=configService.queryList(sample);
+       String cacheKey= DateUtil.format(new Date(),"yyyyMMddHHmmss");
+        for (Config config : list) {
+            config.setValue(cacheKey);
+        }
+        configService.updateList(list,SaveMode.DIRTY_FIELDS);
+    }
 }
