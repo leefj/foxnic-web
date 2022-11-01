@@ -3,6 +3,11 @@ package org.github.foxnic.web.framework;
 public class FoxnicWebMeta {
 
 	/**
+	 * 版本号
+	 * */
+	public static final String VERSION = "1.3.0.RELEASE";
+
+	/**
 	 *
 	 * */
 	public static final String FEIGN_AUTO_CONFIGURATION="org.springframework.cloud.openfeign.FeignAutoConfiguration";
@@ -102,10 +107,7 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_EXAMPLE_PACKAGE=BASE_PACKAGE+".example";
 
-	/**
-	 * 版本号
-	 * */
-	public static final String VERSION = "1.3.0.RELEASE";
+
 
 
 

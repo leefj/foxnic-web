@@ -14,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
 
 
@@ -36,6 +35,10 @@ public class BootApplication {
 
 		Logger.info("Is In IDE : "+BootArgs.isBootInIDE());
 		Logger.info("Work Dir : "+BootArgs.getWorkDir().getAbsolutePath());
+
+//		if(BootArgs.isBootInIDE()) {
+//			VersionCoder.update();
+//		}
 
 		Logger.DIRECT=false;
 
