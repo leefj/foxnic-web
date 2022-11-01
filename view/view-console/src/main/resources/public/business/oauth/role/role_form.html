@@ -75,6 +75,8 @@
 
 
 
+
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label"><div th:text="${lang.translate('创建人ID')}">创建人ID</div></div>
                     <div class="layui-input-block">
@@ -148,12 +150,19 @@
 
 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label"><div th:text="${lang.translate('菜单权限')}">菜单权限</div></div>
+                    <div class="layui-form-label"><div th:text="${lang.translate('权限')}">权限</div></div>
                     <div class="layui-input-block" style="display: none">
                         <input lay-filter="menuIds" id="menuIds" name="menuIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('菜单权限') }" type="text" class="layui-input"   />
                     </div>
                     <div class="layui-input-block">
                         <button id="menu-button" type="button" class="layui-btn"><i class="fa fa-briefcase" id="icon-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('请选择菜单') }">请选择菜单</span></button>
+                    </div>
+                </div>
+
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('备注')}">备注</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"   />
                     </div>
                 </div>
 

@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色VO类型
  * <p>角色 , 数据表 sys_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
+ * @since 2022-11-01 16:53:39
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -329,6 +329,7 @@ public class RoleVO extends Role {
 		inst.setCreateBy(this.getCreateBy());
 		inst.setCode(this.getCode());
 		inst.setDeleted(this.getDeleted());
+		inst.setNotes(this.getNotes());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
@@ -411,6 +412,7 @@ public class RoleVO extends Role {
 			this.setCreateBy(DataParser.parse(String.class, map.get(RoleVOMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, map.get(RoleVOMeta.CODE)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleVOMeta.DELETED)));
+			this.setNotes(DataParser.parse(String.class, map.get(RoleVOMeta.NOTES)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleVOMeta.DELETE_TIME)));
@@ -433,6 +435,7 @@ public class RoleVO extends Role {
 				this.setCreateBy( (String)map.get(RoleVOMeta.CREATE_BY));
 				this.setCode( (String)map.get(RoleVOMeta.CODE));
 				this.setDeleted( (Integer)map.get(RoleVOMeta.DELETED));
+				this.setNotes( (String)map.get(RoleVOMeta.NOTES));
 				this.setCreateTime( (Date)map.get(RoleVOMeta.CREATE_TIME));
 				this.setUpdateBy( (String)map.get(RoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(RoleVOMeta.DELETE_TIME));
@@ -468,6 +471,7 @@ public class RoleVO extends Role {
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, r.getValue(RoleVOMeta.CODE)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.DELETED)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(RoleVOMeta.NOTES)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.DELETE_TIME)));
@@ -482,6 +486,7 @@ public class RoleVO extends Role {
 				this.setCreateBy( (String)r.getValue(RoleVOMeta.CREATE_BY));
 				this.setCode( (String)r.getValue(RoleVOMeta.CODE));
 				this.setDeleted( (Integer)r.getValue(RoleVOMeta.DELETED));
+				this.setNotes( (String)r.getValue(RoleVOMeta.NOTES));
 				this.setCreateTime( (Date)r.getValue(RoleVOMeta.CREATE_TIME));
 				this.setUpdateBy( (String)r.getValue(RoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(RoleVOMeta.DELETE_TIME));

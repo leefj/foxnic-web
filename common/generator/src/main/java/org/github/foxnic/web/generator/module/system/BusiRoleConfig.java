@@ -52,6 +52,8 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 		view.field(SYS_BUSI_ROLE.NAME).basic().label("名称").search().fuzzySearch()
 		.form().validate().required();
 
+		view.field(SYS_BUSI_ROLE.NOTES).search().hidden();
+
 //		view.field(BusiRoleMeta.EMP_COUNT).basic().label("成员数").table().alignRight()
 //		.form().hidden();
 

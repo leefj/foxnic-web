@@ -26,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色
  * <p>角色 , 数据表 sys_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
- * @sign 36B23A7F642A6BB9483AEC2EB417A762
+ * @since 2022-11-01 16:53:39
+ * @sign F0A4D6557134AC267CEE76970A4E8FF2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -108,6 +108,12 @@ public class Role extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "148")
 	private Integer version;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 菜单清单：当前角色的所有菜单
@@ -362,6 +368,25 @@ public class Role extends Entity {
 	}
 	
 	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public Role setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
+	
+	/**
 	 * 获得 菜单清单<br>
 	 * 当前角色的所有菜单
 	 * @return 菜单清单
@@ -467,6 +492,7 @@ public class Role extends Entity {
 		inst.setCreateBy(this.getCreateBy());
 		inst.setCode(this.getCode());
 		inst.setDeleted(this.getDeleted());
+		inst.setNotes(this.getNotes());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
@@ -540,6 +566,7 @@ public class Role extends Entity {
 			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, map.get(RoleMeta.CODE)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMeta.DELETED)));
+			this.setNotes(DataParser.parse(String.class, map.get(RoleMeta.NOTES)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleMeta.DELETE_TIME)));
@@ -555,6 +582,7 @@ public class Role extends Entity {
 				this.setCreateBy( (String)map.get(RoleMeta.CREATE_BY));
 				this.setCode( (String)map.get(RoleMeta.CODE));
 				this.setDeleted( (Integer)map.get(RoleMeta.DELETED));
+				this.setNotes( (String)map.get(RoleMeta.NOTES));
 				this.setCreateTime( (Date)map.get(RoleMeta.CREATE_TIME));
 				this.setUpdateBy( (String)map.get(RoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(RoleMeta.DELETE_TIME));
@@ -583,6 +611,7 @@ public class Role extends Entity {
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, r.getValue(RoleMeta.CODE)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMeta.DELETED)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(RoleMeta.NOTES)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleMeta.DELETE_TIME)));
@@ -597,6 +626,7 @@ public class Role extends Entity {
 				this.setCreateBy( (String)r.getValue(RoleMeta.CREATE_BY));
 				this.setCode( (String)r.getValue(RoleMeta.CODE));
 				this.setDeleted( (Integer)r.getValue(RoleMeta.DELETED));
+				this.setNotes( (String)r.getValue(RoleMeta.NOTES));
 				this.setCreateTime( (Date)r.getValue(RoleMeta.CREATE_TIME));
 				this.setUpdateBy( (String)r.getValue(RoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(RoleMeta.DELETE_TIME));

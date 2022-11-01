@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单VO类型
  * <p>菜单 , 数据表 sys_menu 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:33
+ * @since 2022-11-01 16:53:43
  * @sign CE145BF1CA43AFFDB6E417F50CFABB46
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -377,6 +377,7 @@ public class MenuVO extends Menu {
 	public MenuVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.MenuVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.MenuVOMeta.$$proxy$$();
 		inst.setCss(this.getCss());
+		inst.setNotes(this.getNotes());
 		inst.setHidden(this.getHidden());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -476,6 +477,7 @@ public class MenuVO extends Menu {
 		if(map==null) return false;
 		if(cast) {
 			this.setCss(DataParser.parse(String.class, map.get(MenuVOMeta.CSS)));
+			this.setNotes(DataParser.parse(String.class, map.get(MenuVOMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, map.get(MenuVOMeta.HIDDEN)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(MenuVOMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuVOMeta.UPDATE_TIME)));
@@ -515,6 +517,7 @@ public class MenuVO extends Menu {
 		} else {
 			try {
 				this.setCss( (String)map.get(MenuVOMeta.CSS));
+				this.setNotes( (String)map.get(MenuVOMeta.NOTES));
 				this.setHidden( (Integer)map.get(MenuVOMeta.HIDDEN));
 				this.setHierarchy( (String)map.get(MenuVOMeta.HIERARCHY));
 				this.setUpdateTime( (Date)map.get(MenuVOMeta.UPDATE_TIME));
@@ -567,6 +570,7 @@ public class MenuVO extends Menu {
 		if(r==null) return false;
 		if(cast) {
 			this.setCss(DataParser.parse(String.class, r.getValue(MenuVOMeta.CSS)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(MenuVOMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, r.getValue(MenuVOMeta.HIDDEN)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuVOMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuVOMeta.UPDATE_TIME)));
@@ -592,6 +596,7 @@ public class MenuVO extends Menu {
 		} else {
 			try {
 				this.setCss( (String)r.getValue(MenuVOMeta.CSS));
+				this.setNotes( (String)r.getValue(MenuVOMeta.NOTES));
 				this.setHidden( (Integer)r.getValue(MenuVOMeta.HIDDEN));
 				this.setHierarchy( (String)r.getValue(MenuVOMeta.HIERARCHY));
 				this.setUpdateTime( (Date)r.getValue(MenuVOMeta.UPDATE_TIME));

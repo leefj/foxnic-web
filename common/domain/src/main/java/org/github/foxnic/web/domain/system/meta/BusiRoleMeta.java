@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:39
- * @sign E2ABE2C0FC6EAE0EC900DF668AEC7BD1
+ * @since 2022-11-01 17:04:47
+ * @sign 67512FC75539EBA030762DD78F6EA1E3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -149,6 +149,16 @@ public class BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -161,7 +171,7 @@ public class BusiRoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EMPLOYEES };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , EMPLOYEES };
 	
 	/**
 	 * 代理类
@@ -315,6 +325,17 @@ public class BusiRoleMeta {
 		}
 		
 		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public BusiRole setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
+		
+		/**
 		 * 设置 关联员工清单
 		 * @param employees 关联员工清单
 		 * @return 当前对象
@@ -341,6 +362,7 @@ public class BusiRoleMeta {
 		public BusiRole duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());
 			inst.setOrgId(this.getOrgId());

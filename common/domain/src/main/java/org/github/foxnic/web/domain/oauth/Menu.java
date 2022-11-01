@@ -26,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单
  * <p>菜单 , 数据表 sys_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:33
- * @sign 02BAA553C35E43DA7B5DEDBFBD921A85
+ * @since 2022-11-01 16:53:43
+ * @sign 923E182E702204D778FB7920936F5E99
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -174,6 +174,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "60")
 	private Integer version;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 路径资源
@@ -661,6 +667,25 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public Menu setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
+	
+	/**
 	 * 获得 路径资源<br>
 	 * @return 路径资源
 	*/
@@ -836,6 +861,7 @@ public class Menu extends Entity {
 	public Menu duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.MenuMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.MenuMeta.$$proxy$$();
 		inst.setCss(this.getCss());
+		inst.setNotes(this.getNotes());
 		inst.setHidden(this.getHidden());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -924,6 +950,7 @@ public class Menu extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setCss(DataParser.parse(String.class, map.get(MenuMeta.CSS)));
+			this.setNotes(DataParser.parse(String.class, map.get(MenuMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, map.get(MenuMeta.HIDDEN)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuMeta.UPDATE_TIME)));
@@ -954,6 +981,7 @@ public class Menu extends Entity {
 		} else {
 			try {
 				this.setCss( (String)map.get(MenuMeta.CSS));
+				this.setNotes( (String)map.get(MenuMeta.NOTES));
 				this.setHidden( (Integer)map.get(MenuMeta.HIDDEN));
 				this.setHierarchy( (String)map.get(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)map.get(MenuMeta.UPDATE_TIME));
@@ -997,6 +1025,7 @@ public class Menu extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setCss(DataParser.parse(String.class, r.getValue(MenuMeta.CSS)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(MenuMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, r.getValue(MenuMeta.HIDDEN)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.UPDATE_TIME)));
@@ -1022,6 +1051,7 @@ public class Menu extends Entity {
 		} else {
 			try {
 				this.setCss( (String)r.getValue(MenuMeta.CSS));
+				this.setNotes( (String)r.getValue(MenuMeta.NOTES));
 				this.setHidden( (Integer)r.getValue(MenuMeta.HIDDEN));
 				this.setHierarchy( (String)r.getValue(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)r.getValue(MenuMeta.UPDATE_TIME));

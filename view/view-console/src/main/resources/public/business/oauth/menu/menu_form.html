@@ -149,6 +149,13 @@
         </div>
     </div>
 
+    <div class="layui-form-item" >
+        <div class="layui-form-label"><div th:text="${lang.translate('备注')}">备注</div></div>
+        <div class="layui-input-block">
+            <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
+        </div>
+    </div>
+
 
 
     <div class="layui-form-item" style="display:none">

@@ -2,7 +2,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:45
+ * @since 2022-11-01 17:04:51
  */
  -->
  <!DOCTYPE html>
@@ -81,6 +81,13 @@
                     </div>
                 </div>
 
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('备注')}">备注</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
 
                 <!--结束：栏次内字段循环-->
             </div>

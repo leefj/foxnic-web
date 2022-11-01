@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
+ * @since 2022-11-01 16:53:39
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -220,6 +220,16 @@ public class RoleVOMeta extends RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 菜单清单 , 当前角色的所有菜单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
 	public static final String MENUS="menus";
@@ -242,7 +252,7 @@ public class RoleVOMeta extends RoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MENUS , MENU_IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -473,6 +483,17 @@ public class RoleVOMeta extends RoleMeta {
 		}
 		
 		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public Role setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
+		
+		/**
 		 * 设置 菜单清单
 		 * @param menus 菜单清单
 		 * @return 当前对象
@@ -512,6 +533,7 @@ public class RoleVOMeta extends RoleMeta {
 			inst.setCreateBy(this.getCreateBy());
 			inst.setCode(this.getCode());
 			inst.setDeleted(this.getDeleted());
+			inst.setNotes(this.getNotes());
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());

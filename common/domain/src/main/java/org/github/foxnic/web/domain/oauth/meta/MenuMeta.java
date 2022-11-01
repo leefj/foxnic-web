@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:33
- * @sign 02BAA553C35E43DA7B5DEDBFBD921A85
+ * @since 2022-11-01 16:53:43
+ * @sign 923E182E702204D778FB7920936F5E99
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -239,6 +239,16 @@ public class MenuMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 路径资源 , 类型: org.github.foxnic.web.domain.oauth.Resourze
 	*/
 	public static final String PATH_RESOURCE="pathResource";
@@ -301,7 +311,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -554,6 +564,17 @@ public class MenuMeta {
 		}
 		
 		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public Menu setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
+		
+		/**
 		 * 设置 路径资源
 		 * @param pathResource 路径资源
 		 * @return 当前对象
@@ -635,6 +656,7 @@ public class MenuMeta {
 		public Menu duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCss(this.getCss());
+			inst.setNotes(this.getNotes());
 			inst.setHidden(this.getHidden());
 			inst.setHierarchy(this.getHierarchy());
 			inst.setUpdateTime(this.getUpdateTime());

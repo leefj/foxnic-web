@@ -27,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色
  * <p>业务角色 , 数据表 sys_busi_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:39
- * @sign E2ABE2C0FC6EAE0EC900DF668AEC7BD1
+ * @since 2022-11-01 17:04:47
+ * @sign 67512FC75539EBA030762DD78F6EA1E3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -121,6 +121,12 @@ public class BusiRole extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "2")
 	private Integer version;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 关联员工清单：关联员工清单
@@ -407,6 +413,25 @@ public class BusiRole extends Entity {
 	}
 	
 	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public BusiRole setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
+	
+	/**
 	 * 获得 关联员工清单<br>
 	 * 关联员工清单
 	 * @return 关联员工清单
@@ -481,6 +506,7 @@ public class BusiRole extends Entity {
 	public BusiRole duplicate(boolean all) {
 		org.github.foxnic.web.domain.system.meta.BusiRoleMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.BusiRoleMeta.$$proxy$$();
 		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setOrgId(this.getOrgId());
@@ -555,6 +581,7 @@ public class BusiRole extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(BusiRoleMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(BusiRoleMeta.NOTES)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(BusiRoleMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleMeta.ORG_ID)));
@@ -572,6 +599,7 @@ public class BusiRole extends Entity {
 		} else {
 			try {
 				this.setCode( (String)map.get(BusiRoleMeta.CODE));
+				this.setNotes( (String)map.get(BusiRoleMeta.NOTES));
 				this.setUpdateTime( (Date)map.get(BusiRoleMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)map.get(BusiRoleMeta.ORG_ID));
@@ -602,6 +630,7 @@ public class BusiRole extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(BusiRoleMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(BusiRoleMeta.NOTES)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(BusiRoleMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.ORG_ID)));
@@ -618,6 +647,7 @@ public class BusiRole extends Entity {
 		} else {
 			try {
 				this.setCode( (String)r.getValue(BusiRoleMeta.CODE));
+				this.setNotes( (String)r.getValue(BusiRoleMeta.NOTES));
 				this.setUpdateTime( (Date)r.getValue(BusiRoleMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)r.getValue(BusiRoleMeta.ORG_ID));
