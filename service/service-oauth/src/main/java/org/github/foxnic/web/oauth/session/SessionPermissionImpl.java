@@ -1,8 +1,6 @@
 package org.github.foxnic.web.oauth.session;
 
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.log.RamLogger;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -15,7 +13,6 @@ import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -24,9 +21,12 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private static final long serialVersionUID = 1L;
 
+	private ResourceTable resourceTable=null;
+
+
 //	private SessionUserImpl sessionUser;
 
-	private Set<AntPathRequestMatcher> requestMatchers;
+//	private Set<AntPathRequestMatcher> requestMatchers;
 
 	private List<SimpleGrantedAuthority> authorities;
 
@@ -36,57 +36,57 @@ public class SessionPermissionImpl implements SessionPermission {
 	private Set<String> busiRoleIds=new HashSet<>();
 	private Set<String> busiRoleCodes=new HashSet<>();
 
-	private Map<String,String> menuRoleRelation ;
+//	private Map<String,String> menuRoleRelation ;
 
-	Map<String, String> getMenuRoleRelation() {
-		return menuRoleRelation;
-	}
+//	Map<String, String> getMenuRoleRelation() {
+//		return menuRoleRelation;
+//	}
 
-	private Map<String,Role> roleIdCache;
-	private Map<String,String> urlMenuCache;
-	private Set<String> authorityKeys=new HashSet<>();
-	private Set<String> roleKeys=new HashSet<>();
+	//private Map<String,Role> roleIdCache;
+	//private Map<String,String> urlMenuCache;
+	// private Set<String> authorityKeys=new HashSet<>();
+	// private Set<String> roleKeys=new HashSet<>();
 
 	private User user;
 
-	public SessionPermissionImpl(User user,Map<String,String> menuRoleRelation) {
+	public SessionPermissionImpl(User user) {
 
 		this.user=user;
-		initRequestMatchers();
-		initAuthorities();
+		if(this.resourceTable==null) {
+			this.resourceTable = new ResourceTable();
 
-		this.menuRoleRelation=menuRoleRelation;
-		initMenuRoleRelation();
-
-		this.user.setMenus(null);
-		System.out.println();
+			initRequestMatchers();
+			initMenuRoleRelation();
+			initAuthorities();
+		}
 
 	}
 
 
 	private void initMenuRoleRelation() {
-		if(menuRoleRelation!=null) return;
+		//if(menuRoleRelation!=null) return;
 
-		menuRoleRelation=new HashMap<String, String>();
+//		menuRoleRelation=new HashMap<String, String>();
 
-		// 复制一份以避免并发问题
-		List<Role> roles=new ArrayList<>();
-		for (Role role : this.user.getRoles()) {
-			Role newRole=new Role();
-			BeanUtil.copy(role,newRole,true);
-			roles.add(newRole);
-		}
+//		// 复制一份以避免并发问题
+//		List<Role> roles=new ArrayList<>();
+//		for (Role role : this.user.getRoles()) {
+//			Role newRole=new Role();
+//			BeanUtil.copy(role,newRole,true);
+//			roles.add(newRole);
+//		}
 
 		//此处会覆盖拥有相同菜单的角色，在对 SpringSecurity 进行深度定制时建议考虑
-		for (Role role : roles) {
+		for (Role role : this.user.getRoles()) {
 			for (Menu m : role.getMenus()) {
-				this.menuRoleRelation.put(m.getId(),role.getId());
+//				this.menuRoleRelation.put(m.getId(),role.getId());
+				resourceTable.addMenu(role.getId(),role.getCode(),m.getId(),m.getAuthority());
 			}
 			// 清空
 			role.setMenus(null);
 		}
 
-		this.user.setRoles(roles);
+		//this.user.setRoles(roles);
 	}
 
 
@@ -98,13 +98,13 @@ public class SessionPermissionImpl implements SessionPermission {
 		authorities=new ArrayList<SimpleGrantedAuthority>();
 
 		//设置角色
-		roleIdCache=new HashMap<String, Role>();
+		//roleIdCache=new HashMap<String, Role>();
 		for (Role role : this.user.getRoles()) {
 			if(StringUtil.isBlank(role.getCode())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(ROLE_PREFIX+role.getCode());
 			authorities.add(auth);
-			roleIdCache.put(role.getId(), role);
-			roleKeys.add(role.getCode());
+			//roleIdCache.put(role.getId(), role);
+			// roleKeys.add(role.getCode());
 		}
 		authedRoles =new String[authorities.size()];
 		for (int i = 0; i < authorities.size(); i++) {
@@ -112,13 +112,13 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 
 		//设置菜单权限
-
 		for (Menu menu : this.user.getMenus()) {
 			if(StringUtil.isBlank(menu.getAuthority())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(menu.getAuthority());
 			authorities.add(auth);
-			authorityKeys.add(menu.getAuthority());
+			//authorityKeys.add(menu.getAuthority());
 		}
+
 
 		//业务角色
 		if(this.user.getActivatedTenant()!=null) {
@@ -141,8 +141,8 @@ public class SessionPermissionImpl implements SessionPermission {
 	 * 初始化可以访问的请求列表
 	 * */
 	private void initRequestMatchers() {
-		urlMenuCache =new HashMap<String, String>();
-		requestMatchers=new HashSet<AntPathRequestMatcher>();
+		//urlMenuCache =new HashMap<String, String>();
+//		requestMatchers=new HashSet<AntPathRequestMatcher>();
 
 		 List<Menu> menus =IUserService.LOGIN_USER_MENUS.get();
 
@@ -152,8 +152,9 @@ public class SessionPermissionImpl implements SessionPermission {
 //				if("/service-oauth/sys-user/query-paged-list".equals(resourze.getUrl())){
 //					System.out.println("");
 //				}
-				requestMatchers.add(new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true));
-				urlMenuCache.put(resourze.getUrl(), menu.getId());
+//				requestMatchers.add(new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true));
+				//urlMenuCache.put(resourze.getUrl(), menu.getId());
+				resourceTable.addResource(resourze.getUrl(),resourze.getMethod(),menu.getId());
 			}
 			if(menu.getResources()!=null) {
 				for (Resourze resource : menu.getResources()) {
@@ -161,42 +162,49 @@ public class SessionPermissionImpl implements SessionPermission {
 //						System.out.println("");
 //					}
 					if(resource.getAccessTypeEnum() == AccessType.GRANT) {
-						requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod(), true));
-						urlMenuCache.put(resource.getUrl(), menu.getId());
+//						requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod(), true));
+						// urlMenuCache.put(resource.getUrl(), menu.getId());
+//						try {
+							resourceTable.addResource(resource.getUrl(), resource.getMethod(), menu.getId());
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
 					}
+
 				}
 			}
 		}
 	}
 
 
-	private Map<String,AntPathRequestMatcher> cachedAntPathRequestMatcher=new HashMap<>();
+	// private Map<String,AntPathRequestMatcher> cachedAntPathRequestMatcher=new HashMap<>();
 
 
 	/**
 	 * 此处可尝试使用缓存
 	 * */
-	public AntPathRequestMatcher check(HttpServletRequest request) {
-		RamLogger.info("check",this);
-		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
-		AntPathRequestMatcher antPathRequestMatcher=cachedAntPathRequestMatcher.get(key);
-		if(antPathRequestMatcher!=null) return antPathRequestMatcher;
+	public FoxnicPathRequestMatcher check(HttpServletRequest request) {
 
-		for (AntPathRequestMatcher m : requestMatchers) {
-//			 if(m.getPattern().equals("/service-oauth/sys-user/query-paged-list")) {
-//				 System.out.println();
+//		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
+//		AntPathRequestMatcher antPathRequestMatcher=cachedAntPathRequestMatcher.get(key);
+//		if(antPathRequestMatcher!=null) return antPathRequestMatcher;
+		return  this.resourceTable.find(request);
+
+//		for (AntPathRequestMatcher m : requestMatchers) {
+////			 if(m.getPattern().equals("/service-oauth/sys-user/query-paged-list")) {
+////				 System.out.println();
+////			 }
+//			 if(m.matches(request)) {
+//				 cachedAntPathRequestMatcher.put(key,m);
+//				 return m;
 //			 }
-			 if(m.matches(request)) {
-				 cachedAntPathRequestMatcher.put(key,m);
-				 return m;
-			 }
-		}
-		return null;
+//		}
+//		return null;
 	}
 
-	public Set<AntPathRequestMatcher> getRequestMatchers() {
-		return requestMatchers;
-	}
+//	public Set<AntPathRequestMatcher> getRequestMatchers() {
+//		return requestMatchers;
+//	}
 
 
 	public List<SimpleGrantedAuthority> getAuthorities() {
@@ -209,29 +217,29 @@ public class SessionPermissionImpl implements SessionPermission {
 //	}
 
 
-	public Role getRoleByMatcher(AntPathRequestMatcher matcher) {
-		String menuId= urlMenuCache.get(matcher.getPattern());
-		if(menuId==null) return null;
+//	public Role getRoleByMatcher(AntPathRequestMatcher matcher) {
+//		String menuId= urlMenuCache.get(matcher.getPattern());
+//		if(menuId==null) return null;
+//
+//		String roleId = this.menuRoleRelation.get(menuId);
+//		Role role=roleIdCache.get(roleId);
+//		return role;
+//	}
 
-		String roleId = this.menuRoleRelation.get(menuId);
-		Role role=roleIdCache.get(roleId);
-		return role;
-	}
-
-	public Collection<ConfigAttribute> getConfigAttributesByMatcher(AntPathRequestMatcher matcher) {
-		Role role=this.getRoleByMatcher(matcher);
-		if(role==null) {
-			return null;
-		}
+	public Collection<ConfigAttribute> getConfigAttributesByMatcher(FoxnicPathRequestMatcher matcher) {
+//		Role role=this.getRoleByMatcher(matcher);
+//		if(role==null) {
+//			return null;
+//		}
 		//此处得到其中一个即可，也不会得到多个，原因请看  initMenuRoleRelation 方法
-		return SecurityConfig.createList(new String[] {ROLE_PREFIX+role.getCode()});
+		return SecurityConfig.createList(new String[] {ROLE_PREFIX+matcher.getRoleCode()});
 	}
 
 
 	@Override
 	public boolean checkAuth(String... menuAuthority) {
 		for (String auth : menuAuthority) {
-			if(!authorityKeys.contains(auth)) return false;
+			if(!resourceTable.containsMenuAuthorityKeys(auth)) return false;
 		}
 		return true;
 	}
@@ -239,7 +247,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	@Override
 	public boolean checkRole(String... roleCode) {
 		for (String role : roleCode) {
-			if(!roleKeys.contains(role)) return false;
+			if(!resourceTable.containsRoleCode(role)) return false;
 		}
 		return true;
 	}
@@ -247,7 +255,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	@Override
 	public boolean checkAnyAuth(String... menuAuthority) {
 		for (String auth : menuAuthority) {
-			if(authorityKeys.contains(auth)) return true;
+			if(resourceTable.containsMenuAuthorityKeys(auth)) return true;
 		}
 		return false;
 	}
@@ -255,7 +263,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	@Override
 	public boolean checkAnyRole(String... roleCode) {
 		for (String role : roleCode) {
-			if(roleKeys.contains(role)) return true;
+			if(resourceTable.containsRoleCode(role)) return true;
 		}
 		return false;
 	}

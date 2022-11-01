@@ -6,6 +6,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.framework.cluster.ClusterFilter;
 import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
+import org.github.foxnic.web.oauth.session.FoxnicPathRequestMatcher;
 import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
@@ -71,7 +72,7 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
 
         SessionPermissionImpl permission=(SessionPermissionImpl)user.permission();
 
-        AntPathRequestMatcher matcher=permission.check(request);
+        FoxnicPathRequestMatcher matcher=permission.check(request);
 
         if(matcher==null) {
         	throw new AccessDeniedException("非法访问");
