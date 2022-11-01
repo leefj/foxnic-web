@@ -31,6 +31,11 @@ class ResourceTable implements Serializable {
     private List<Integer> tableMenuRoleCodeIndexes =new ArrayList<>();
 
     public void addResource(String url, String method, String menuId) {
+
+//        if("/service-bpm/bpm-form-definition/query-paged-list".equals(url)) {
+//            System.out.println();
+//        }
+
         if(!urls.contains(url)) {
             this.urls.add(url);
         }
@@ -80,9 +85,17 @@ class ResourceTable implements Serializable {
         String method;
         String menuId;
         String[] role;
+
+//        if(this.urls.contains("/service-bpm/bpm-form-definition/query-paged-list")) {
+//            System.out.println();
+//        }
+
         for (int i = 0; i < this.tableResourceUrlIndexes.size(); i++) {
 
             url=this.urls.get(this.tableResourceUrlIndexes.get(i));
+//            if("/service-bpm/bpm-form-definition/query-paged-list".equals(url)) {
+//                System.out.println();
+//            }
             method=this.methods.get(this.tableResourceMethodIndexes.get(i));
             menuId=this.menuIds.get(this.tableResourceMenuIdIndexes.get(i));
             role=this.getRole(menuId);

@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.jwt;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.cluster.ClusterConfig;
@@ -10,10 +11,7 @@ import org.github.foxnic.web.framework.cluster.ClusterToken;
 import org.github.foxnic.web.oauth.config.user.SessionUserDetailsManager;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.login.LoginSuccessHandler;
-import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
-import org.github.foxnic.web.session.SessionUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,6 +29,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -128,6 +127,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 获取 header 解析出 jwt 并进行认证，若无 token 则直接进入下一个过滤器。  因为  SecurityContext 的缘故 如果无权限并不会放行
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(StringUtil.isBlank(header)) {
+            Cookie[] cookies = request.getCookies();
+            if(cookies!=null) {
+                for (Cookie cookie : cookies) {
+                    if(cookie.getName().equals("accessToken")) {
+                        header=AUTHENTICATION_PREFIX+cookie.getValue();
+                        break;
+                    }
+                }
+            }
+        }
         if (StringUtils.hasText(header) && header.startsWith(AUTHENTICATION_PREFIX)) {
             String jwtToken = header.replace(AUTHENTICATION_PREFIX, "");
 

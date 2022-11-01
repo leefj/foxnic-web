@@ -23,7 +23,7 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 
 	@Autowired
 	private SecurityProperties props;
-	
+
 
 	private ITokenService tokeService;
 
@@ -35,7 +35,7 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 		SimpleTaskManager.doParallelTask(new Runnable() {
 			@Override
 			public void run() {
-				 
+
 				tokeService=SpringUtil.getBean(ITokenService.class);
 				tokeService.dao().pausePrintThreadSQL();
 				List<Token> tokens=tokeService.queryValidTokens();
@@ -49,35 +49,35 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 					//
 					JwtToken refreshToken=new JwtToken();
 					refreshToken.token(token.getRefreshToken());
-					jwtTokenPair.setAccessToken(refreshToken);
-					
+					jwtTokenPair.setRefreshToken(refreshToken);
+
 					JwtTokenCacheStorage.this.cache.put(jwtTokenPair.getJti(), jwtTokenPair);
 				}
-				
+
 			}
 		});
-		
+
 	}
 
 	@Override
 	public JwtTokenPair put(JwtTokenPair jwtTokenPair) {
 		cache.put(jwtTokenPair.getJti(), jwtTokenPair);
-		
+
 		Token token=new Token();
-		
+
 		token.setAccessToken(jwtTokenPair.getAccessToken().token());
 		token.setAccessTokenExpireTime( DateUtil.toDate(jwtTokenPair.getAccessToken().exp()));
 		token.setAccessTokenExpired(0);
-		
+
 		token.setRefreshToken(jwtTokenPair.getRefreshToken().token());
 		token.setRefreshTokenExpireTime( DateUtil.toDate(jwtTokenPair.getRefreshToken().exp()));
 		token.setRefreshTokenExpired(0);
-		
+
 		token.setUserId(jwtTokenPair.getAccessToken().uid());
 
 		token.setJti(jwtTokenPair.getJti());
 		tokeService.insert(token);
- 
+
 		return jwtTokenPair;
 	}
 

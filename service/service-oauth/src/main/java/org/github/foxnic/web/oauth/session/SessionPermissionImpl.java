@@ -161,6 +161,11 @@ public class SessionPermissionImpl implements SessionPermission {
 //					if("/service-oauth/sys-user/query-paged-list".equals(resource.getUrl())){
 //						System.out.println("");
 //					}
+
+//					if("/service-bpm/bpm-form-definition/query-paged-list".equals(resource.getUrl())) {
+//						System.out.println();
+//					}
+
 					if(resource.getAccessTypeEnum() == AccessType.GRANT) {
 //						requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod(), true));
 						// urlMenuCache.put(resource.getUrl(), menu.getId());
