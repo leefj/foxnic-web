@@ -38,6 +38,12 @@ public class DAOConfig {
 	@Value("${"+DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY+".printSQL}")
 	private Boolean printSQL;
 
+	@Value("${"+DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY+".printSQLSimple}")
+	private Boolean printSQLSimple;
+
+	@Value("${"+DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY+".printSQLCallstack}")
+	private Boolean printSQLCallstack;
+
 	@Value("${develop.start-relation-monitor}")
 	private  Boolean startRelationMonitor=false;
 
@@ -53,7 +59,8 @@ public class DAOConfig {
 
 			DAO dao= (new DAOBuilder().datasource(dataSource)).build();
 			dao.setPrintSQL(printSQL);
-			dao.setPrintSQLSimple(printSQL);
+			dao.setPrintSQLSimple(printSQLSimple);
+			dao.setPrintSQLCallstack(printSQLCallstack);
 			dao.setDBTreaty(dbTreaty);
 
 			//设置关系
