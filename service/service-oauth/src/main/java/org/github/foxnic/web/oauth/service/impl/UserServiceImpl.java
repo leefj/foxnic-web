@@ -462,7 +462,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		 ;
 
 		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
-				.add(FoxnicWeb.SYS_MENU.ID)
+				.add(FoxnicWeb.SYS_MENU.ID,FoxnicWeb.SYS_MENU.AUTHORITY)
 //				.addAll().
 //				removeDBTreatyFields()
 //				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY)
