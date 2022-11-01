@@ -27,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-31 17:02:38
- * @sign EB62D8CA02D9134DB9E0453DF9752E5B
+ * @since 2022-11-01 16:50:31
+ * @sign 572EC7F15C59D3657B03269F069A8BB4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-10-31 05:00:07")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-11-01 04:23:03")
 	private Date lastLoginTime;
 	
 	/**
@@ -151,6 +151,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "198")
 	private Integer version;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 角色清单：当前用户的所有角色清单
@@ -574,6 +580,25 @@ public class User extends Entity {
 	}
 	
 	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public User setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
+	
+	/**
 	 * 获得 角色清单<br>
 	 * 当前用户的所有角色清单
 	 * @return 角色清单
@@ -825,6 +850,7 @@ public class User extends Entity {
 	public User duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.UserMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.UserMeta.$$proxy$$();
 		inst.setPortraitId(this.getPortraitId());
+		inst.setNotes(this.getNotes());
 		inst.setLanguage(this.getLanguage());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
@@ -911,6 +937,7 @@ public class User extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setPortraitId(DataParser.parse(String.class, map.get(UserMeta.PORTRAIT_ID)));
+			this.setNotes(DataParser.parse(String.class, map.get(UserMeta.NOTES)));
 			this.setLanguage(DataParser.parse(String.class, map.get(UserMeta.LANGUAGE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(UserMeta.VERSION)));
@@ -936,6 +963,7 @@ public class User extends Entity {
 		} else {
 			try {
 				this.setPortraitId( (String)map.get(UserMeta.PORTRAIT_ID));
+				this.setNotes( (String)map.get(UserMeta.NOTES));
 				this.setLanguage( (String)map.get(UserMeta.LANGUAGE));
 				this.setUpdateTime( (Date)map.get(UserMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(UserMeta.VERSION));
@@ -974,6 +1002,7 @@ public class User extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setPortraitId(DataParser.parse(String.class, r.getValue(UserMeta.PORTRAIT_ID)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(UserMeta.NOTES)));
 			this.setLanguage(DataParser.parse(String.class, r.getValue(UserMeta.LANGUAGE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserMeta.VERSION)));
@@ -995,6 +1024,7 @@ public class User extends Entity {
 		} else {
 			try {
 				this.setPortraitId( (String)r.getValue(UserMeta.PORTRAIT_ID));
+				this.setNotes( (String)r.getValue(UserMeta.NOTES));
 				this.setLanguage( (String)r.getValue(UserMeta.LANGUAGE));
 				this.setUpdateTime( (Date)r.getValue(UserMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(UserMeta.VERSION));

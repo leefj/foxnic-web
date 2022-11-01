@@ -164,8 +164,15 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(85);
+        formWindow.width("800px");
         // 开启右键菜单
         form.enableContextMenu();
+        form.addGroup("p0",""
+                ,new Object[] {SYS_USER.ACCOUNT,SYS_USER.REAL_NAME,SYS_USER.PHONE,SYS_USER.VALID}
+                ,new Object[]{SYS_USER.CACHE_KEY,SYS_USER.PORTRAIT_ID}
+                );
+        form.addGroup("p1",""
+                ,new Object[]{SYS_USER.LANGUAGE,UserVOMeta.ROLE_IDS,SYS_USER.NOTES});
     }
 
     @Override

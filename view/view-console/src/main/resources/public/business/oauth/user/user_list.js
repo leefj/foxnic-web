@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-31 17:02:42
+ * @since 2022-11-01 16:50:31
  */
 
 
@@ -88,6 +88,7 @@ function ListPage() {
 					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -148,6 +149,7 @@ function ListPage() {
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.notes={ inputType:"button",value: $("#notes").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -475,7 +477,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["800px",height+"px"],
 			type: 2,
 			id:"sys-user-form-data-win",
 			content: '/business/oauth/user/user_form.html' + (queryString?("?"+queryString):""),

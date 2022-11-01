@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-31 17:02:38
+ * @since 2022-11-01 16:50:31
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -303,6 +303,16 @@ public class UserVOMeta extends UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 角色清单 , 当前用户的所有角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Role
 	*/
 	public static final String ROLES="roles";
@@ -385,7 +395,7 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
 	
 	/**
 	 * 代理类
@@ -704,6 +714,17 @@ public class UserVOMeta extends UserMeta {
 		}
 		
 		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public User setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
+		
+		/**
 		 * 设置 角色清单
 		 * @param roles 角色清单
 		 * @return 当前对象
@@ -807,6 +828,7 @@ public class UserVOMeta extends UserMeta {
 		public UserVO duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setPortraitId(this.getPortraitId());
+			inst.setNotes(this.getNotes());
 			inst.setLanguage(this.getLanguage());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());

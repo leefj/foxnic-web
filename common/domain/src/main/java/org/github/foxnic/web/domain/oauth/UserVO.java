@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-31 17:02:38
+ * @since 2022-11-01 16:50:31
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -363,6 +363,7 @@ public class UserVO extends User {
 	public UserVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.UserVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.UserVOMeta.$$proxy$$();
 		inst.setPortraitId(this.getPortraitId());
+		inst.setNotes(this.getNotes());
 		inst.setLanguage(this.getLanguage());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
@@ -459,6 +460,7 @@ public class UserVO extends User {
 		if(map==null) return false;
 		if(cast) {
 			this.setPortraitId(DataParser.parse(String.class, map.get(UserVOMeta.PORTRAIT_ID)));
+			this.setNotes(DataParser.parse(String.class, map.get(UserVOMeta.NOTES)));
 			this.setLanguage(DataParser.parse(String.class, map.get(UserVOMeta.LANGUAGE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(UserVOMeta.VERSION)));
@@ -491,6 +493,7 @@ public class UserVO extends User {
 		} else {
 			try {
 				this.setPortraitId( (String)map.get(UserVOMeta.PORTRAIT_ID));
+				this.setNotes( (String)map.get(UserVOMeta.NOTES));
 				this.setLanguage( (String)map.get(UserVOMeta.LANGUAGE));
 				this.setUpdateTime( (Date)map.get(UserVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(UserVOMeta.VERSION));
@@ -536,6 +539,7 @@ public class UserVO extends User {
 		if(r==null) return false;
 		if(cast) {
 			this.setPortraitId(DataParser.parse(String.class, r.getValue(UserVOMeta.PORTRAIT_ID)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(UserVOMeta.NOTES)));
 			this.setLanguage(DataParser.parse(String.class, r.getValue(UserVOMeta.LANGUAGE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserVOMeta.VERSION)));
@@ -557,6 +561,7 @@ public class UserVO extends User {
 		} else {
 			try {
 				this.setPortraitId( (String)r.getValue(UserVOMeta.PORTRAIT_ID));
+				this.setNotes( (String)r.getValue(UserVOMeta.NOTES));
 				this.setLanguage( (String)r.getValue(UserVOMeta.LANGUAGE));
 				this.setUpdateTime( (Date)r.getValue(UserVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(UserVOMeta.VERSION));

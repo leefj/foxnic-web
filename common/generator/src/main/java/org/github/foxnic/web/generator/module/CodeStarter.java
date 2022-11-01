@@ -5,14 +5,14 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.api.ApiSourceConfig;
 import org.github.foxnic.web.generator.module.bpm.*;
-import org.github.foxnic.web.generator.module.changes.*;
+import org.github.foxnic.web.generator.module.changes.ChsChangeDefinitionConfig;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.*;
+import org.github.foxnic.web.generator.module.example.ExampleAddressConfig;
+import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
 import org.github.foxnic.web.generator.module.hrm.*;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
-import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
@@ -143,7 +143,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initOAuthModules() {
         this.addConfig(new SysUserConfig());
-        this.addConfig(new SysResourzeConfig());
+        // this.addConfig(new SysResourzeConfig());
 
     }
 

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-31 17:02:44
+ * @since 2022-11-01 16:50:31
  */
 
 function FormPage() {
@@ -304,10 +304,6 @@ function FormPage() {
 
 
 
-			//设置 最后登录时间 显示复选框勾选
-			if(formData["lastLoginTime"]) {
-				$("#lastLoginTime").val(fox.dateFormat(formData["lastLoginTime"],"yyyy-MM-dd HH:mm:ss"));
-			}
 
 
 			//设置  角色 设置下拉框勾选

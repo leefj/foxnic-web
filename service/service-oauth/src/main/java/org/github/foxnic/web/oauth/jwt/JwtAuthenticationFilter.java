@@ -12,6 +12,7 @@ import org.github.foxnic.web.oauth.config.user.SessionUserDetailsManager;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.login.LoginSuccessHandler;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -89,6 +90,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
+        // 如果是登录登出的资源
+        if(UserServiceProxy.LOGIN_URI.equals(request.getRequestURI())
+                || UserServiceProxy.LOGIN_BY_CAPTCHA_URI.equals(request.getRequestURI())
+                || UserServiceProxy.LOGOUT_URI.equals(request.getRequestURI())) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         // 如果已经通过认证
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             chain.doFilter(request, response);
@@ -146,6 +155,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authenticationJwtTokenHandler(jwtToken, chain, request,response);
                 } catch (AuthenticationException e) {
                     authenticationEntryPoint.commence(request, response, e);
+                } catch (IllegalStateException e1) {
+                    authenticationEntryPoint.commence(request, response,new BadCredentialsException(e1.getMessage()));
                 }
             } else {
                 //带安全头 没有带 token
