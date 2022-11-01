@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.session;
 
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.RamLogger;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -176,6 +177,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	 * 此处可尝试使用缓存
 	 * */
 	public AntPathRequestMatcher check(HttpServletRequest request) {
+		RamLogger.info("check",this);
 		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
 		AntPathRequestMatcher antPathRequestMatcher=cachedAntPathRequestMatcher.get(key);
 		if(antPathRequestMatcher!=null) return antPathRequestMatcher;
