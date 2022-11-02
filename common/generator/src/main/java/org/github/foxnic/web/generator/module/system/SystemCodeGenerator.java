@@ -42,7 +42,7 @@ public class SystemCodeGenerator  {
 //		g.generateSysDictItem();
 //		//
 
-		g.generateSysNode();
+//		g.generateSysNode();
 
 //		//
 //		g.generateSysArea();
@@ -50,9 +50,9 @@ public class SystemCodeGenerator  {
 		g.generateSysLang();
 
 
-		g.generateSysDbCache();
+//		g.generateSysDbCache();
 
-		g.generateSysInvokeLog();
+//		g.generateSysInvokeLog();
 
 
 	}
@@ -206,10 +206,14 @@ public class SystemCodeGenerator  {
 		cfg.view().field(SYS_LANG.CODE).basic().label("编码").search().fuzzySearch();
 		cfg.view().field(SYS_LANG.DEFAULTS).basic().label("默认值").search().fuzzySearch();
 
-		cfg.view().field(SYS_LANG.ZH_CH).search().hidden();
+		cfg.view().field(SYS_LANG.ZH_CN).search().hidden();
+		cfg.view().field(SYS_LANG.ZH_HK).search().hidden();
+		cfg.view().field(SYS_LANG.ZH_MO).search().hidden();
 		cfg.view().field(SYS_LANG.ZH_TW).search().hidden();
-		cfg.view().field(SYS_LANG.EN_UK).search().hidden();
+		cfg.view().field(SYS_LANG.EN_GB).search().hidden();
 		cfg.view().field(SYS_LANG.EN_US).search().hidden();
+		cfg.view().field(SYS_LANG.JA_JP).search().hidden();
+		cfg.view().field(SYS_LANG.KO_KR).search().hidden();
 		cfg.view().field(SYS_LANG.CONFUSE).search().hidden();
 
 		cfg.view().field(SYS_LANG.VALID).search().hidden()

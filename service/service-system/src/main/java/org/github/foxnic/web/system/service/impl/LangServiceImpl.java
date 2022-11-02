@@ -19,6 +19,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
@@ -85,7 +86,11 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public Result insert(Lang lang) {
 		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.DEFAULTS);
 		if(ex) return ErrorDesc.success();
-		return super.insert(lang,false);
+		Result r=super.insert(lang,false);
+		if(r.success()) {
+			invalidItemCache(lang.getCode());
+		}
+		return r;
 	}
 
 	/**
@@ -136,7 +141,11 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * */
 	@Override
 	public Result update(Lang lang , SaveMode mode) {
-		return super.update(lang , mode);
+		Result r=super.update(lang , mode);
+		if(r.success()) {
+			invalidItemCache(lang.getCode());
+		}
+		return r;
 	}
 
 	/**
@@ -263,17 +272,37 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 	private LocalCache<String, String> itemCache = new LocalCache<String, String>();
 
-	@Override
-	public String translate(Language language, String defaults, String code) {
+	private void invalidItemCache(String code) {
+		Lang lang=this.getById(code);
+		if(lang==null) return;
+		String key= null;
+		for (Language language : Language.values()) {
+			key = makeCacheKey(language,lang.getDefaults(),null);
+			itemCache.remove(key);
+			key = makeCacheKey(language,null,lang.getCode());
+			itemCache.remove(key);
+		}
+	}
 
+	private String makeCacheKey(Language language, String defaults, String code) {
 		String cacheKey = language.name() + ":";
 		if (StringUtil.isBlank(code)) {
 			cacheKey += defaults;
 		} else {
 			cacheKey += code;
 		}
+		return cacheKey;
+	}
+
+	@Override
+	public String translate(Language language, String defaults, String code) {
+
+		String cacheKey = makeCacheKey(language,defaults,code);
 		// 获取缓存数据
 		String item = itemCache.get(cacheKey);
+		if(defaults.equals("账号")) {
+			item=null;
+		}
 		if (item != null) {
 			if(NOT_SET.equals(item)) {
 				return StringUtil.isBlank(defaults) ? code : defaults;
@@ -283,13 +312,15 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		// 获取数据库中的配置
 		Rcd r = null;
 		if (item == null) {
+			Expr expr = null;
 			if (StringUtil.isBlank(code)) {
-				r = dao.queryRecord("select " + language.name() + " item from " + table()
+				expr =new Expr("select " + language.name() + " item from " + table()
 						+ " where defaults=? and deleted=0 and valid=1", defaults);
 			} else {
-				r = dao.queryRecord("select " + language.name() + " item from " + table()
+				expr =new Expr("select " + language.name() + " item from " + table()
 						+ " where key=? and deleted=0 and valid=1", code);
 			}
+			r = dao.queryRecord(expr);
 		}
 		// 如果还是null，登记
 		if (r == null) {
@@ -303,7 +334,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			this.insert(lang);
 		} else {
 			item = r.getString("item");
-			if (!StringUtil.isBlank(item )) {
+			if (!StringUtil.isBlank(item)) {
 				itemCache.put(cacheKey, item);
 				return item;
 			} else {
@@ -312,6 +343,18 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		}
 
 		return StringUtil.isBlank(defaults) ? code : defaults;
+	}
+
+
+	public Language getAutoLanguage() {
+		AcceptLanguages acceptLanguages = RequestParameter.get().getAcceptLanguages();
+		for (GlobalLanguage gLan : acceptLanguages.getPriorityLanguages()) {
+			Language userLanguage = Language.parseByGlobalLanguage(gLan);
+			if(userLanguage!=null) {
+				return userLanguage;
+			}
+		}
+		return null;
 	}
 
 
@@ -336,12 +379,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 		// 自动识别语言
 		if(userLanguage==null || userLanguage==Language.auto) {
-			userLanguage = null ;
-			AcceptLanguages acceptLanguages = requestParameter.getAcceptLanguages();
-			for (GlobalLanguage gLan : acceptLanguages.getPriorityLanguages()) {
-				userLanguage = Language.parseByGlobalLanguage(gLan);
-				if(userLanguage!=null) break;
-			}
+			userLanguage = getAutoLanguage();
 		}
 
 		// 按 profile 配置获取语言

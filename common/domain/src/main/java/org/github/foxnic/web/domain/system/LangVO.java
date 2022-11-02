@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 语言条目VO类型
  * <p>语言条目 , 数据表 sys_lang 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:51
+ * @since 2022-11-02 16:57:31
  * @sign BA40CDF42C01C9095A6649D22DC40B24
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -326,13 +326,16 @@ public class LangVO extends Lang {
 	@Transient
 	public LangVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$();
+		inst.setZhCn(this.getZhCn());
 		inst.setCode(this.getCode());
 		inst.setZhTw(this.getZhTw());
 		inst.setEnUs(this.getEnUs());
-		inst.setZhCh(this.getZhCh());
+		inst.setZhHk(this.getZhHk());
+		inst.setZhMo(this.getZhMo());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setEnGb(this.getEnGb());
+		inst.setJaJp(this.getJaJp());
 		inst.setVersion(this.getVersion());
-		inst.setEnUk(this.getEnUk());
 		inst.setValid(this.getValid());
 		inst.setConfuse(this.getConfuse());
 		inst.setCreateBy(this.getCreateBy());
@@ -342,6 +345,7 @@ public class LangVO extends Lang {
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setDeleteBy(this.getDeleteBy());
+		inst.setKoKr(this.getKoKr());
 		if(all) {
 			inst.setCodes(this.getCodes());
 			inst.setSearchField(this.getSearchField());
@@ -411,13 +415,16 @@ public class LangVO extends Lang {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
+			this.setZhCn(DataParser.parse(String.class, map.get(LangVOMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, map.get(LangVOMeta.CODE)));
 			this.setZhTw(DataParser.parse(String.class, map.get(LangVOMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, map.get(LangVOMeta.EN_US)));
-			this.setZhCh(DataParser.parse(String.class, map.get(LangVOMeta.ZH_CH)));
+			this.setZhHk(DataParser.parse(String.class, map.get(LangVOMeta.ZH_HK)));
+			this.setZhMo(DataParser.parse(String.class, map.get(LangVOMeta.ZH_MO)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(LangVOMeta.UPDATE_TIME)));
+			this.setEnGb(DataParser.parse(String.class, map.get(LangVOMeta.EN_GB)));
+			this.setJaJp(DataParser.parse(String.class, map.get(LangVOMeta.JA_JP)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(LangVOMeta.VERSION)));
-			this.setEnUk(DataParser.parse(String.class, map.get(LangVOMeta.EN_UK)));
 			this.setValid(DataParser.parse(Integer.class, map.get(LangVOMeta.VALID)));
 			this.setConfuse(DataParser.parse(String.class, map.get(LangVOMeta.CONFUSE)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(LangVOMeta.CREATE_BY)));
@@ -427,6 +434,7 @@ public class LangVO extends Lang {
 			this.setUpdateBy(DataParser.parse(String.class, map.get(LangVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(LangVOMeta.DELETE_TIME)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(LangVOMeta.DELETE_BY)));
+			this.setKoKr(DataParser.parse(String.class, map.get(LangVOMeta.KO_KR)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(LangVOMeta.SEARCH_FIELD)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(LangVOMeta.PAGE_INDEX)));
@@ -438,13 +446,16 @@ public class LangVO extends Lang {
 			return true;
 		} else {
 			try {
+				this.setZhCn( (String)map.get(LangVOMeta.ZH_CN));
 				this.setCode( (String)map.get(LangVOMeta.CODE));
 				this.setZhTw( (String)map.get(LangVOMeta.ZH_TW));
 				this.setEnUs( (String)map.get(LangVOMeta.EN_US));
-				this.setZhCh( (String)map.get(LangVOMeta.ZH_CH));
+				this.setZhHk( (String)map.get(LangVOMeta.ZH_HK));
+				this.setZhMo( (String)map.get(LangVOMeta.ZH_MO));
 				this.setUpdateTime( (Date)map.get(LangVOMeta.UPDATE_TIME));
+				this.setEnGb( (String)map.get(LangVOMeta.EN_GB));
+				this.setJaJp( (String)map.get(LangVOMeta.JA_JP));
 				this.setVersion( (Integer)map.get(LangVOMeta.VERSION));
-				this.setEnUk( (String)map.get(LangVOMeta.EN_UK));
 				this.setValid( (Integer)map.get(LangVOMeta.VALID));
 				this.setConfuse( (String)map.get(LangVOMeta.CONFUSE));
 				this.setCreateBy( (String)map.get(LangVOMeta.CREATE_BY));
@@ -454,6 +465,7 @@ public class LangVO extends Lang {
 				this.setUpdateBy( (String)map.get(LangVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(LangVOMeta.DELETE_TIME));
 				this.setDeleteBy( (String)map.get(LangVOMeta.DELETE_BY));
+				this.setKoKr( (String)map.get(LangVOMeta.KO_KR));
 				// others
 				this.setSearchField( (String)map.get(LangVOMeta.SEARCH_FIELD));
 				this.setPageIndex( (Integer)map.get(LangVOMeta.PAGE_INDEX));
@@ -478,13 +490,16 @@ public class LangVO extends Lang {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
+			this.setZhCn(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, r.getValue(LangVOMeta.CODE)));
 			this.setZhTw(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_US)));
-			this.setZhCh(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_CH)));
+			this.setZhHk(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_HK)));
+			this.setZhMo(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_MO)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(LangVOMeta.UPDATE_TIME)));
+			this.setEnGb(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_GB)));
+			this.setJaJp(DataParser.parse(String.class, r.getValue(LangVOMeta.JA_JP)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(LangVOMeta.VERSION)));
-			this.setEnUk(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_UK)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(LangVOMeta.VALID)));
 			this.setConfuse(DataParser.parse(String.class, r.getValue(LangVOMeta.CONFUSE)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(LangVOMeta.CREATE_BY)));
@@ -494,16 +509,20 @@ public class LangVO extends Lang {
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(LangVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(LangVOMeta.DELETE_TIME)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(LangVOMeta.DELETE_BY)));
+			this.setKoKr(DataParser.parse(String.class, r.getValue(LangVOMeta.KO_KR)));
 			return true;
 		} else {
 			try {
+				this.setZhCn( (String)r.getValue(LangVOMeta.ZH_CN));
 				this.setCode( (String)r.getValue(LangVOMeta.CODE));
 				this.setZhTw( (String)r.getValue(LangVOMeta.ZH_TW));
 				this.setEnUs( (String)r.getValue(LangVOMeta.EN_US));
-				this.setZhCh( (String)r.getValue(LangVOMeta.ZH_CH));
+				this.setZhHk( (String)r.getValue(LangVOMeta.ZH_HK));
+				this.setZhMo( (String)r.getValue(LangVOMeta.ZH_MO));
 				this.setUpdateTime( (Date)r.getValue(LangVOMeta.UPDATE_TIME));
+				this.setEnGb( (String)r.getValue(LangVOMeta.EN_GB));
+				this.setJaJp( (String)r.getValue(LangVOMeta.JA_JP));
 				this.setVersion( (Integer)r.getValue(LangVOMeta.VERSION));
-				this.setEnUk( (String)r.getValue(LangVOMeta.EN_UK));
 				this.setValid( (Integer)r.getValue(LangVOMeta.VALID));
 				this.setConfuse( (String)r.getValue(LangVOMeta.CONFUSE));
 				this.setCreateBy( (String)r.getValue(LangVOMeta.CREATE_BY));
@@ -513,6 +532,7 @@ public class LangVO extends Lang {
 				this.setUpdateBy( (String)r.getValue(LangVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(LangVOMeta.DELETE_TIME));
 				this.setDeleteBy( (String)r.getValue(LangVOMeta.DELETE_BY));
+				this.setKoKr( (String)r.getValue(LangVOMeta.KO_KR));
 				return true;
 			} catch (Exception e) {
 				return false;

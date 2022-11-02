@@ -21,4 +21,6 @@ public interface LanguageService {
 
 	Language getUserLanguage();
 
+	Language getAutoLanguage();
+
 }

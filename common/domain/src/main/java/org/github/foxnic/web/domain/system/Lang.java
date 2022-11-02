@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 语言条目
  * <p>语言条目 , 数据表 sys_lang 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:51
- * @sign BD215A94BAF4EA9816BBB98144045EDA
+ * @since 2022-11-02 16:57:31
+ * @sign E85D3CEDBBC451ED453DD8A0A304F635
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,15 +50,15 @@ public class Lang extends Entity {
 	private String defaults;
 	
 	/**
-	 * 简体中文(大陆)：简体中文(大陆)
+	 * 简体中文：简体中文
 	*/
-	@ApiModelProperty(required = false,value="简体中文(大陆)" , notes = "简体中文(大陆)")
-	private String zhCh;
+	@ApiModelProperty(required = false,value="简体中文" , notes = "简体中文")
+	private String zhCn;
 	
 	/**
-	 * 繁体中文(台湾)：繁体中文(台湾)
+	 * 中文(台湾)：中文(台湾)
 	*/
-	@ApiModelProperty(required = false,value="繁体中文(台湾)" , notes = "繁体中文(台湾)")
+	@ApiModelProperty(required = false,value="中文(台湾)" , notes = "中文(台湾)")
 	private String zhTw;
 	
 	/**
@@ -71,7 +71,7 @@ public class Lang extends Entity {
 	 * 英文英国：英文英国
 	*/
 	@ApiModelProperty(required = false,value="英文英国" , notes = "英文英国")
-	private String enUk;
+	private String enGb;
 	
 	/**
 	 * 混淆专用：混淆专用
@@ -137,6 +137,30 @@ public class Lang extends Entity {
 	private Integer version;
 	
 	/**
+	 * 中文(香港)：中文(香港)
+	*/
+	@ApiModelProperty(required = false,value="中文(香港)" , notes = "中文(香港)")
+	private String zhHk;
+	
+	/**
+	 * 中文(澳门)：中文(澳门)
+	*/
+	@ApiModelProperty(required = false,value="中文(澳门)" , notes = "中文(澳门)")
+	private String zhMo;
+	
+	/**
+	 * 韩语：韩语
+	*/
+	@ApiModelProperty(required = false,value="韩语" , notes = "韩语")
+	private String koKr;
+	
+	/**
+	 * 日语：日语
+	*/
+	@ApiModelProperty(required = false,value="日语" , notes = "日语")
+	private String jaJp;
+	
+	/**
 	 * 获得 编码键<br>
 	 * 编码键
 	 * @return 编码键
@@ -175,36 +199,36 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 获得 简体中文(大陆)<br>
-	 * 简体中文(大陆)
-	 * @return 简体中文(大陆)
+	 * 获得 简体中文<br>
+	 * 简体中文
+	 * @return 简体中文
 	*/
-	public String getZhCh() {
-		return zhCh;
+	public String getZhCn() {
+		return zhCn;
 	}
 	
 	/**
-	 * 设置 简体中文(大陆)
-	 * @param zhCh 简体中文(大陆)
+	 * 设置 简体中文
+	 * @param zhCn 简体中文
 	 * @return 当前对象
 	*/
-	public Lang setZhCh(String zhCh) {
-		this.zhCh=zhCh;
+	public Lang setZhCn(String zhCn) {
+		this.zhCn=zhCn;
 		return this;
 	}
 	
 	/**
-	 * 获得 繁体中文(台湾)<br>
-	 * 繁体中文(台湾)
-	 * @return 繁体中文(台湾)
+	 * 获得 中文(台湾)<br>
+	 * 中文(台湾)
+	 * @return 中文(台湾)
 	*/
 	public String getZhTw() {
 		return zhTw;
 	}
 	
 	/**
-	 * 设置 繁体中文(台湾)
-	 * @param zhTw 繁体中文(台湾)
+	 * 设置 中文(台湾)
+	 * @param zhTw 中文(台湾)
 	 * @return 当前对象
 	*/
 	public Lang setZhTw(String zhTw) {
@@ -236,17 +260,17 @@ public class Lang extends Entity {
 	 * 英文英国
 	 * @return 英文英国
 	*/
-	public String getEnUk() {
-		return enUk;
+	public String getEnGb() {
+		return enGb;
 	}
 	
 	/**
 	 * 设置 英文英国
-	 * @param enUk 英文英国
+	 * @param enGb 英文英国
 	 * @return 当前对象
 	*/
-	public Lang setEnUk(String enUk) {
-		this.enUk=enUk;
+	public Lang setEnGb(String enGb) {
+		this.enGb=enGb;
 		return this;
 	}
 	
@@ -470,6 +494,82 @@ public class Lang extends Entity {
 		this.version=version;
 		return this;
 	}
+	
+	/**
+	 * 获得 中文(香港)<br>
+	 * 中文(香港)
+	 * @return 中文(香港)
+	*/
+	public String getZhHk() {
+		return zhHk;
+	}
+	
+	/**
+	 * 设置 中文(香港)
+	 * @param zhHk 中文(香港)
+	 * @return 当前对象
+	*/
+	public Lang setZhHk(String zhHk) {
+		this.zhHk=zhHk;
+		return this;
+	}
+	
+	/**
+	 * 获得 中文(澳门)<br>
+	 * 中文(澳门)
+	 * @return 中文(澳门)
+	*/
+	public String getZhMo() {
+		return zhMo;
+	}
+	
+	/**
+	 * 设置 中文(澳门)
+	 * @param zhMo 中文(澳门)
+	 * @return 当前对象
+	*/
+	public Lang setZhMo(String zhMo) {
+		this.zhMo=zhMo;
+		return this;
+	}
+	
+	/**
+	 * 获得 韩语<br>
+	 * 韩语
+	 * @return 韩语
+	*/
+	public String getKoKr() {
+		return koKr;
+	}
+	
+	/**
+	 * 设置 韩语
+	 * @param koKr 韩语
+	 * @return 当前对象
+	*/
+	public Lang setKoKr(String koKr) {
+		this.koKr=koKr;
+		return this;
+	}
+	
+	/**
+	 * 获得 日语<br>
+	 * 日语
+	 * @return 日语
+	*/
+	public String getJaJp() {
+		return jaJp;
+	}
+	
+	/**
+	 * 设置 日语
+	 * @param jaJp 日语
+	 * @return 当前对象
+	*/
+	public Lang setJaJp(String jaJp) {
+		this.jaJp=jaJp;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -515,13 +615,16 @@ public class Lang extends Entity {
 	@Transient
 	public Lang duplicate(boolean all) {
 		org.github.foxnic.web.domain.system.meta.LangMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.LangMeta.$$proxy$$();
+		inst.setZhCn(this.getZhCn());
 		inst.setCode(this.getCode());
 		inst.setZhTw(this.getZhTw());
 		inst.setEnUs(this.getEnUs());
-		inst.setZhCh(this.getZhCh());
+		inst.setZhHk(this.getZhHk());
+		inst.setZhMo(this.getZhMo());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setEnGb(this.getEnGb());
+		inst.setJaJp(this.getJaJp());
 		inst.setVersion(this.getVersion());
-		inst.setEnUk(this.getEnUk());
 		inst.setValid(this.getValid());
 		inst.setConfuse(this.getConfuse());
 		inst.setCreateBy(this.getCreateBy());
@@ -531,6 +634,7 @@ public class Lang extends Entity {
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setDeleteBy(this.getDeleteBy());
+		inst.setKoKr(this.getKoKr());
 		inst.clearModifies();
 		return inst;
 	}
@@ -589,13 +693,16 @@ public class Lang extends Entity {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
+			this.setZhCn(DataParser.parse(String.class, map.get(LangMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, map.get(LangMeta.CODE)));
 			this.setZhTw(DataParser.parse(String.class, map.get(LangMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, map.get(LangMeta.EN_US)));
-			this.setZhCh(DataParser.parse(String.class, map.get(LangMeta.ZH_CH)));
+			this.setZhHk(DataParser.parse(String.class, map.get(LangMeta.ZH_HK)));
+			this.setZhMo(DataParser.parse(String.class, map.get(LangMeta.ZH_MO)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(LangMeta.UPDATE_TIME)));
+			this.setEnGb(DataParser.parse(String.class, map.get(LangMeta.EN_GB)));
+			this.setJaJp(DataParser.parse(String.class, map.get(LangMeta.JA_JP)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(LangMeta.VERSION)));
-			this.setEnUk(DataParser.parse(String.class, map.get(LangMeta.EN_UK)));
 			this.setValid(DataParser.parse(Integer.class, map.get(LangMeta.VALID)));
 			this.setConfuse(DataParser.parse(String.class, map.get(LangMeta.CONFUSE)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(LangMeta.CREATE_BY)));
@@ -605,17 +712,21 @@ public class Lang extends Entity {
 			this.setUpdateBy(DataParser.parse(String.class, map.get(LangMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(LangMeta.DELETE_TIME)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(LangMeta.DELETE_BY)));
+			this.setKoKr(DataParser.parse(String.class, map.get(LangMeta.KO_KR)));
 			// others
 			return true;
 		} else {
 			try {
+				this.setZhCn( (String)map.get(LangMeta.ZH_CN));
 				this.setCode( (String)map.get(LangMeta.CODE));
 				this.setZhTw( (String)map.get(LangMeta.ZH_TW));
 				this.setEnUs( (String)map.get(LangMeta.EN_US));
-				this.setZhCh( (String)map.get(LangMeta.ZH_CH));
+				this.setZhHk( (String)map.get(LangMeta.ZH_HK));
+				this.setZhMo( (String)map.get(LangMeta.ZH_MO));
 				this.setUpdateTime( (Date)map.get(LangMeta.UPDATE_TIME));
+				this.setEnGb( (String)map.get(LangMeta.EN_GB));
+				this.setJaJp( (String)map.get(LangMeta.JA_JP));
 				this.setVersion( (Integer)map.get(LangMeta.VERSION));
-				this.setEnUk( (String)map.get(LangMeta.EN_UK));
 				this.setValid( (Integer)map.get(LangMeta.VALID));
 				this.setConfuse( (String)map.get(LangMeta.CONFUSE));
 				this.setCreateBy( (String)map.get(LangMeta.CREATE_BY));
@@ -625,6 +736,7 @@ public class Lang extends Entity {
 				this.setUpdateBy( (String)map.get(LangMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(LangMeta.DELETE_TIME));
 				this.setDeleteBy( (String)map.get(LangMeta.DELETE_BY));
+				this.setKoKr( (String)map.get(LangMeta.KO_KR));
 				// others
 				return true;
 			} catch (Exception e) {
@@ -642,13 +754,16 @@ public class Lang extends Entity {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
+			this.setZhCn(DataParser.parse(String.class, r.getValue(LangMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, r.getValue(LangMeta.CODE)));
 			this.setZhTw(DataParser.parse(String.class, r.getValue(LangMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, r.getValue(LangMeta.EN_US)));
-			this.setZhCh(DataParser.parse(String.class, r.getValue(LangMeta.ZH_CH)));
+			this.setZhHk(DataParser.parse(String.class, r.getValue(LangMeta.ZH_HK)));
+			this.setZhMo(DataParser.parse(String.class, r.getValue(LangMeta.ZH_MO)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(LangMeta.UPDATE_TIME)));
+			this.setEnGb(DataParser.parse(String.class, r.getValue(LangMeta.EN_GB)));
+			this.setJaJp(DataParser.parse(String.class, r.getValue(LangMeta.JA_JP)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(LangMeta.VERSION)));
-			this.setEnUk(DataParser.parse(String.class, r.getValue(LangMeta.EN_UK)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(LangMeta.VALID)));
 			this.setConfuse(DataParser.parse(String.class, r.getValue(LangMeta.CONFUSE)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(LangMeta.CREATE_BY)));
@@ -658,16 +773,20 @@ public class Lang extends Entity {
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(LangMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(LangMeta.DELETE_TIME)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(LangMeta.DELETE_BY)));
+			this.setKoKr(DataParser.parse(String.class, r.getValue(LangMeta.KO_KR)));
 			return true;
 		} else {
 			try {
+				this.setZhCn( (String)r.getValue(LangMeta.ZH_CN));
 				this.setCode( (String)r.getValue(LangMeta.CODE));
 				this.setZhTw( (String)r.getValue(LangMeta.ZH_TW));
 				this.setEnUs( (String)r.getValue(LangMeta.EN_US));
-				this.setZhCh( (String)r.getValue(LangMeta.ZH_CH));
+				this.setZhHk( (String)r.getValue(LangMeta.ZH_HK));
+				this.setZhMo( (String)r.getValue(LangMeta.ZH_MO));
 				this.setUpdateTime( (Date)r.getValue(LangMeta.UPDATE_TIME));
+				this.setEnGb( (String)r.getValue(LangMeta.EN_GB));
+				this.setJaJp( (String)r.getValue(LangMeta.JA_JP));
 				this.setVersion( (Integer)r.getValue(LangMeta.VERSION));
-				this.setEnUk( (String)r.getValue(LangMeta.EN_UK));
 				this.setValid( (Integer)r.getValue(LangMeta.VALID));
 				this.setConfuse( (String)r.getValue(LangMeta.CONFUSE));
 				this.setCreateBy( (String)r.getValue(LangMeta.CREATE_BY));
@@ -677,6 +796,7 @@ public class Lang extends Entity {
 				this.setUpdateBy( (String)r.getValue(LangMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(LangMeta.DELETE_TIME));
 				this.setDeleteBy( (String)r.getValue(LangMeta.DELETE_BY));
+				this.setKoKr( (String)r.getValue(LangMeta.KO_KR));
 				return true;
 			} catch (Exception e) {
 				return false;
