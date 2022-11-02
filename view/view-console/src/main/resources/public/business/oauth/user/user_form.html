@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('头像')}">头像</div></div>
                     <div class="layui-upload layui-input-block ">
@@ -128,7 +128,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -168,7 +168,7 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
+    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
     var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"roleIds":{"labelInForm":"角色","inputType":"select_box","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_user";
 

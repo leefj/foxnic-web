@@ -6,6 +6,8 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.language.AcceptLanguages;
+import com.github.foxnic.commons.language.GlobalLanguage;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.SaveMode;
@@ -15,11 +17,12 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -31,6 +34,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -49,6 +53,7 @@ import java.util.List;
 public class LangServiceImpl extends SuperService<Lang> implements ILangService {
 
 	private static final String NOT_SET = ":ns;";
+
 
 	@Value("${develop.language:}")
 	private String devLang;
@@ -309,27 +314,60 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		return StringUtil.isBlank(defaults) ? code : defaults;
 	}
 
-	@Override
-	public String translate(String defaults, String key) {
-		String sysLangValue = null;
 
-		if(!StringUtil.isBlank(devLang)) {
-			sysLangValue=devLang;
-		} else {
-			SessionUser user=SessionUser.getCurrent();
-			if(user!=null) {
-				sysLangValue=user.getLanguage();
+	public Language getUserLanguage() {
+
+		RequestParameter requestParameter=RequestParameter.get();
+		HttpSession session = requestParameter.getSession(false);
+
+		// 第一步从会话获取语言
+		Language userLanguage=(Language)session.getAttribute(USER_LANGUAGE);
+		if(userLanguage!=null) return userLanguage;
+
+		// 优先考虑账户指定的语言
+		SessionUser user=SessionUser.getCurrent();
+		if(user!=null) {
+			// 考虑账户指定的语言，如果未指定，则默认 Auto
+			userLanguage=Language.parseByCode(user.getLanguage());
+			if(userLanguage==null) {
+				userLanguage=Language.auto;
 			}
 		}
-		if(StringUtil.isBlank(sysLangValue)) {
-			sysLangValue=configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
-		}
-		if(StringUtil.isBlank(sysLangValue)) {
-			sysLangValue=Language.defaults.name();
+
+		// 自动识别语言
+		if(userLanguage==null || userLanguage==Language.auto) {
+			userLanguage = null ;
+			AcceptLanguages acceptLanguages = requestParameter.getAcceptLanguages();
+			for (GlobalLanguage gLan : acceptLanguages.getPriorityLanguages()) {
+				userLanguage = Language.parseByGlobalLanguage(gLan);
+				if(userLanguage!=null) break;
+			}
 		}
 
-		Language sysLang = Language.valueOf(sysLangValue);
-		return this.translate(sysLang, defaults, key);
+		// 按 profile 配置获取语言
+		if (userLanguage==null) {
+			userLanguage=Language.parseByCode(configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE).getValue());
+		}
+
+		// 如果指定开发模式的语言，用开发模式的语言覆盖
+		if(!StringUtil.isBlank(devLang)) {
+			userLanguage=Language.parseByCode(devLang);
+		}
+
+		// 若最终未识别，指定为默认语言
+		if(userLanguage==null) {
+			userLanguage = Language.defaults;
+		}
+
+		session.setAttribute(USER_LANGUAGE,userLanguage);
+		return userLanguage;
+	}
+
+
+
+	@Override
+	public String translate(String defaults, String key) {
+		return this.translate(getUserLanguage(), defaults, key);
 	}
 
 	@Override

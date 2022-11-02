@@ -12,7 +12,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.dict.Sex;
-import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.domain.oauth.Resourze;
@@ -221,7 +221,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	public void configList(ViewOptions view,ListOptions list) {
 
 		//增加一个变量
-		list.addJsVariable("TEST_LIST","[[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]]","列表测试变量");
+		list.addJsVariable("TEST_LIST","[[${enum.toArray('org.github.foxnic.web.language.Language')}]]","列表测试变量");
 
 		//设置操作列宽度
 		list.operationColumn().width(280);
@@ -282,7 +282,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 //		configFormLayoutC(view,form);
 
-		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]]","表单测试变量");
+		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.language.Language')}]]","表单测试变量");
 
 		configFormLayoutD(view,form);
 	}

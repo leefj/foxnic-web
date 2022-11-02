@@ -75,6 +75,11 @@ public interface LangServiceProxy {
     public static final String QUERY_LIST = API_PREFIX + "query-list";
 
     /**
+     * 切换语言
+     */
+    public static final String SWITCH_LANGUAGE = API_PREFIX + "switch-language";
+
+    /**
      * 分页查询语言条目
      */
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";

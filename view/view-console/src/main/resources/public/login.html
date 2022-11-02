@@ -68,18 +68,26 @@
 <script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
 
+<script th:inline="javascript">
+    var LANGUAGES = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
+    var USER_LANGUAGE=[[${lang.getUserLanguage().code()}]];
+</script>
 <script>
+
     localStorage.setItem("theme","[[${theme_code}]]");
     if(window!=top) top.location="/login.html"
     layui.config({
         base: 'module/'
-    }).use(['form','settings'], function () {
+    }).use(['form','settings','dropdown'], function () {
 
         //页面唯一标识
         let uuid = Math.uuid();
         let $ = layui.jquery;
         let form = layui.form;
         let config = layui.settings;
+        let dropdown=layui.dropdown;
+
+        initLanguageSwitchButton();
 
         $("input[name='browserId']").val(uuid);
 
@@ -149,6 +157,45 @@
             },1000);
         },500)
 
+        //
+        function initLanguageSwitchButton() {
+            USER_LANGUAGE
+
+            var items=[];
+            var userItem=null;
+            for (var i=0;i<LANGUAGES.length;i++) {
+                if(LANGUAGES[i].code=="confuse") continue;
+                if(LANGUAGES[i].code==USER_LANGUAGE) {
+                    userItem=LANGUAGES[i];
+                    items.push({title:'<span style="color: red;">'+LANGUAGES[i].text+'</span>',code:LANGUAGES[i].code});
+                } else {
+                    items.push({title:LANGUAGES[i].text,code:LANGUAGES[i].code});
+                }
+            }
+
+            $(".layui-card-header").append('<i class="foxnic-lang" style="float:right">'+userItem.text+'</i>');
+
+
+
+            versionMenu=dropdown.render({
+                elem: '.foxnic-lang'
+                ,data: items
+                ,click: function(obj){
+                    $('.foxnic-lang').text(obj.title);
+                    $.ajax({
+                        async: true,
+                        type: 'POST',
+                        async: true,
+                        data:{code:obj.code},
+                        url: config.base_server + '/service-system/sys-lang/switch-language',
+                        success:function (data) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+        }
         //
         function initLanguage(cb) {
 

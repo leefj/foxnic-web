@@ -157,6 +157,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authenticationEntryPoint.commence(request, response, e);
                 } catch (IllegalStateException e1) {
                     authenticationEntryPoint.commence(request, response,new BadCredentialsException(e1.getMessage()));
+                } catch (Exception e9) {
+                    authenticationEntryPoint.commence(request, response,new BadCredentialsException(e9.getMessage()));
                 }
             } else {
                 //带安全头 没有带 token

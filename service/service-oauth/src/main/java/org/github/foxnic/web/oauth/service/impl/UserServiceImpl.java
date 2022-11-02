@@ -19,7 +19,7 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;

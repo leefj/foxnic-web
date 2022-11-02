@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-11-01 16:28:24
+ * @since 2022-11-02 16:53:58
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -6805,14 +6805,14 @@ public class FoxnicWeb {
 		public static final DBField DEFAULTS = new DBField(DBDataType.STRING , "defaults","defaults","默认","默认",false,false,true);
 		
 		/**
-		 * 简体中文(大陆)
+		 * 简体中文
 		*/
-		public static final DBField ZH_CH = new DBField(DBDataType.STRING , "zh_ch","zhCh","简体中文(大陆)","简体中文(大陆)",false,false,true);
+		public static final DBField ZH_CN = new DBField(DBDataType.STRING , "zh_cn","zhCn","简体中文","简体中文",false,false,true);
 		
 		/**
-		 * 繁体中文(台湾)
+		 * 中文(台湾)
 		*/
-		public static final DBField ZH_TW = new DBField(DBDataType.STRING , "zh_tw","zhTw","繁体中文(台湾)","繁体中文(台湾)",false,false,true);
+		public static final DBField ZH_TW = new DBField(DBDataType.STRING , "zh_tw","zhTw","中文(台湾)","中文(台湾)",false,false,true);
 		
 		/**
 		 * 英文美国
@@ -6822,7 +6822,7 @@ public class FoxnicWeb {
 		/**
 		 * 英文英国
 		*/
-		public static final DBField EN_UK = new DBField(DBDataType.STRING , "en_uk","enUk","英文英国","英文英国",false,false,true);
+		public static final DBField EN_GB = new DBField(DBDataType.STRING , "en_gb","enGb","英文英国","英文英国",false,false,true);
 		
 		/**
 		 * 混淆专用
@@ -6874,8 +6874,28 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 中文(香港)
+		*/
+		public static final DBField ZH_HK = new DBField(DBDataType.STRING , "zh_hk","zhHk","中文(香港)","中文(香港)",false,false,true);
+		
+		/**
+		 * 中文(澳门)
+		*/
+		public static final DBField ZH_MO = new DBField(DBDataType.STRING , "zh_mo","zhMo","中文(澳门)","中文(澳门)",false,false,true);
+		
+		/**
+		 * 韩语
+		*/
+		public static final DBField KO_KR = new DBField(DBDataType.STRING , "ko_kr","koKr","韩语","韩语",false,false,true);
+		
+		/**
+		 * 日语
+		*/
+		public static final DBField JA_JP = new DBField(DBDataType.STRING , "ja_jp","jaJp","日语","日语",false,false,true);
+		
 		public SYS_LANG() {
-			this.init($NAME,"语言条目表" , CODE , DEFAULTS , ZH_CH , ZH_TW , EN_US , EN_UK , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"语言条目表" , CODE , DEFAULTS , ZH_CN , ZH_TW , EN_US , EN_GB , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ZH_HK , ZH_MO , KO_KR , JA_JP);
 		}
 		public static final SYS_LANG $TABLE=new SYS_LANG();
 	}

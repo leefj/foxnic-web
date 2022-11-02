@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('整数输入')}">整数输入</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -63,7 +63,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('日期')}">日期</div></div>
                         <div class="layui-input-block ">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('逻辑值')}">逻辑值</div></div>
                     <div class="layui-input-block ">
@@ -80,7 +80,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -104,7 +104,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -113,7 +113,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -122,7 +122,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(查询)')}">选择框(查询)</div></div>
                         <div class="layui-input-block ">
@@ -131,7 +131,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div></div>
                         <div class="layui-input-block ">
@@ -179,7 +179,7 @@
 
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('多文件上传')}">多文件上传</div><div class="layui-required">*</div></div>
                     <div class="layui-upload layui-input-block ">
@@ -263,7 +263,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('工作时间')}">工作时间</div></div>
                         <div class="layui-input-block ">
@@ -297,7 +297,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('多行文本')}">多行文本</div></div>
                     <div class="layui-input-block ">
@@ -330,7 +330,7 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
+    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
     var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}]];
     var CHECK_CHECKDICT_DATA = [[${dict.toArray('order_status')}]];
@@ -340,7 +340,7 @@
     var AUTH_PREFIX="sys_code_example";
 
     // 表单测试变量
-    var TEST_FORM = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]] ;
+    var TEST_FORM = [[${enum.toArray('org.github.foxnic.web.language.Language')}]] ;
 
 </script>
 

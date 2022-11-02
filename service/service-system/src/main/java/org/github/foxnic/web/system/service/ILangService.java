@@ -9,7 +9,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.language.LanguageService;
 

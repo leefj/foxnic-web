@@ -2,6 +2,7 @@ package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSONArray;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
@@ -14,13 +15,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.domain.system.meta.LangMeta;
 import org.github.foxnic.web.domain.system.meta.LangVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,6 +214,22 @@ public class LangController extends SuperController {
         }
         result.success(true).data(data);
         return result;
+    }
+
+    @ApiOperation(value = "切换当前语言")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = LangVOMeta.CODE, value = "语言编码", required = true, dataTypeClass = String.class, example = "zh-cn"),
+    })
+    @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
+    @SentinelResource(value = LangServiceProxy.SWITCH_LANGUAGE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
+    @PostMapping(LangServiceProxy.SWITCH_LANGUAGE)
+    public Result switchLanguage(String code) {
+        Language language=Language.parseByCode(code);
+        if(language==null) {
+            return ErrorDesc.failureMessage("无法识别语言代码:"+code);
+        }
+        this.getRequest().getSession().setAttribute(LanguageService.USER_LANGUAGE,language);
+        return ErrorDesc.success();
     }
 
     /**

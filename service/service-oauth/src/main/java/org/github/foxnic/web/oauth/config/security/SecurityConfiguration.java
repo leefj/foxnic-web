@@ -1,7 +1,6 @@
 package org.github.foxnic.web.oauth.config.security;
 
 import com.github.foxnic.commons.bean.BeanUtil;
-import com.github.foxnic.springboot.mvc.RequestParameter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationFilter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationProvider;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -14,6 +13,7 @@ import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
 import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -46,7 +46,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -166,7 +165,8 @@ public class SecurityConfiguration {
 			}
 			web.ignoring().antMatchers(securityProperties.getLoginPage());
 			// 语言
-			web.ignoring().antMatchers("/service-system/sys-lang/query-list");
+			web.ignoring().antMatchers(LangServiceProxy.QUERY_LIST);
+			web.ignoring().antMatchers(LangServiceProxy.SWITCH_LANGUAGE);
 			// API
 			web.ignoring().antMatchers("/v2/api-docs");
 
