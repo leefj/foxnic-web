@@ -6,6 +6,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -15,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.domain.system.meta.LangMeta;
@@ -28,7 +30,6 @@ import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,7 +66,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = LangServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -130,7 +132,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -157,7 +160,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -201,29 +205,28 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_LIST)
     public Result<JSONArray> queryList(LangVO sample) {
         Result<JSONArray> result = new Result<>();
-        Language language = null;
-        if (this.getSessionUser() != null) {
-            language = Language.parseByCode(this.getSessionUser().getLanguage());
-        }
-        if (language == null) {
-            language = Language.defaults;
-        }
+        Language language = langService.getUserLanguage();
         Set<String> fields = new HashSet<>();
-        fields.add(LangMeta.CODE);
+        fields.add(FoxnicWeb.SYS_LANG.CODE.name());
+        fields.add(FoxnicWeb.SYS_LANG.CONTEXT.name());
         fields.add(Language.defaults.code());
         fields.add(language.code());
         List<Lang> list = langService.queryList(sample, language);
         JSONArray data = JSONUtil.toJSONArray(list);
         Set<String> rms = new HashSet<>();
         rms.addAll(data.getJSONObject(0).keySet());
+        // 保留字段
         rms.removeAll(fields);
+        rms.remove(BeanNameUtil.instance().getPropertyName(language.code()));
+        rms.remove(LangMeta.CONTEXT_PROP.getName());
         for (int i = 0; i < data.size(); i++) {
             for (String s : rms) {
                 data.getJSONObject(i).remove(s);
@@ -242,8 +245,8 @@ public class LangController extends SuperController {
     @PostMapping(LangServiceProxy.SWITCH_LANGUAGE)
     public Result switchLanguage(String code) {
         Language language = Language.parseByCode(code);
-        if(language==Language.auto) {
-            language=langService.getAutoLanguage();
+        if (language == Language.auto) {
+            language = langService.getAutoLanguage();
         }
         if (language == null) {
             return ErrorDesc.failureMessage("无法识别语言代码:" + code);
@@ -268,7 +271,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = LangServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

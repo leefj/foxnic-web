@@ -278,12 +278,12 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 
 	private Map<String,Resourze>  catchedResourzes=new HashMap<>();
 	// private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
-	private Map<String,AccessType>  catchedAccessTypes=null;
+	private Map<String,AccessType>  catchedAccessTypes=new HashMap<>();
 
 	private void clearCatchedResourzes() {
-		this.catchedResourzes=null;
+		this.catchedResourzes.clear();
 		//this.catchedAntPathRequestMatchers=null;
-		this.catchedAccessTypes=null;
+		this.catchedAccessTypes.clear();
 	}
 
 	public List<Resourze> queryCachedResourzes(Collection<String> resIds) {
@@ -344,7 +344,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 						}
 						return r;
 					});
-					catchedAccessTypes = new HashMap<>();
+					catchedAccessTypes.clear();
 				}
 			}
 		}

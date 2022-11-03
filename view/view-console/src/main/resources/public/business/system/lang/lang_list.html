@@ -2,7 +2,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-02 16:57:33
+ * @since 2022-11-03 08:59:20
  */
  -->
  <!DOCTYPE html>
@@ -48,16 +48,21 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('默认值')}" class="search-label defaults-label">默认值</span><span class="search-colon">:</span></div>
                         <input id="defaults" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 语境 , context ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('语境')}" class="search-label context-label">语境</span><span class="search-colon">:</span></div>
+                        <input id="context" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 简体中文 , zhCn ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 中文(香港) , zhHk ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 中文(澳门) , zhMo ,typeName=text_input, isHideInSearch=true -->
                     <!-- 中文(台湾) , zhTw ,typeName=text_input, isHideInSearch=true -->
                     <!-- 英文美国 , enUs ,typeName=text_input, isHideInSearch=true -->
                     <!-- 英文英国 , enGb ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 混淆专用 , confuse ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=true -->
-                    <!-- 中文(香港) , zhHk ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 中文(澳门) , zhMo ,typeName=text_input, isHideInSearch=true -->
                     <!-- 韩语 , koKr ,typeName=text_input, isHideInSearch=true -->
                     <!-- 日语 , jaJp ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 混淆专用 , confuse ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=true -->
 
 
                 </div>

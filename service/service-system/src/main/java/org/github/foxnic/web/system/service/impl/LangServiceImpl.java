@@ -3,8 +3,10 @@ package org.github.foxnic.web.system.service.impl;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.language.AcceptLanguages;
 import com.github.foxnic.commons.language.GlobalLanguage;
@@ -23,17 +25,20 @@ import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.language.Language;
+import org.github.foxnic.web.language.LanguageServiceInstance;
 import org.github.foxnic.web.session.SessionUser;
+import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.InputStream;
@@ -56,6 +61,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	private static final String NOT_SET = ":ns;";
 
 
+
 	@Value("${develop.language:}")
 	private String devLang;
 
@@ -66,6 +72,18 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
+
+
+	@Autowired
+	private BaiDuTranslateApi translateApi;
+	@PostConstruct
+	private void init() {
+		LanguageServiceInstance.set(this);
+		List<String> codes=this.dao().query("select code from sys_lang  where ja_jp is null and deleted=0").getValueList("code",String.class);
+		for (String code : codes) {
+			translateApi.translate(code);
+		}
+	}
 
 	/**
 	 * 获得 DAO 对象
@@ -84,13 +102,33 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * */
 	@Override
 	public Result insert(Lang lang) {
-		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.DEFAULTS);
-		if(ex) return ErrorDesc.success();
-		Result r=super.insert(lang,false);
-		if(r.success()) {
-			invalidItemCache(lang.getCode());
+		if(StringUtil.isBlank(lang.getDefaults())) return ErrorDesc.failureMessage("请填写默认值");
+		if(StringUtil.isBlank(lang.getContext())) {
+			lang.setContext(DEFAULT_CONTEXT);
 		}
-		return r;
+		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.CONTEXT,FoxnicWeb.SYS_LANG.DEFAULTS);
+		if(ex) return ErrorDesc.success();
+		Result result = super.insert(lang,false);
+		if(result.success()) {
+			// 查询已有的
+			final String code=lang.getCode();
+			Lang exists=Lang.create();
+			exists.setDefaults(lang.getDefaults());
+			exists.setContext(DEFAULT_CONTEXT);
+			exists=this.queryEntity(exists);
+			if(exists!=null) {
+				for (Language language : Language.values()) {
+					BeanUtil.setFieldValue(lang,language.name(),BeanUtil.getFieldValue(exists,language.code()));
+				}
+				this.update(lang,SaveMode.DIRTY_FIELDS);
+			} else {
+				// 调用翻译接口
+				SimpleTaskManager.doParallelTask(()->{
+					translateApi.translate(code);
+				});
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -213,6 +251,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		FieldsBuilder fieldsBuilder=this.createFieldsBuilder();
 		fieldsBuilder.removeAll();
 		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CODE);
+		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CONTEXT);
 		boolean isDefaultsExists=false;
 		for (Language lang : langs) {
 			if(lang==Language.defaults) {
@@ -277,15 +316,19 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(lang==null) return;
 		String key= null;
 		for (Language language : Language.values()) {
-			key = makeCacheKey(language,lang.getDefaults(),null);
+			key = makeCacheKey(language,lang.getDefaults(),null,lang.getContext());
 			itemCache.remove(key);
-			key = makeCacheKey(language,null,lang.getCode());
+			key = makeCacheKey(language,null,lang.getCode(),lang.getContext());
 			itemCache.remove(key);
 		}
 	}
 
-	private String makeCacheKey(Language language, String defaults, String code) {
-		String cacheKey = language.name() + ":";
+	private String makeCacheKey(Language language, String defaults, String code,String context) {
+
+		if(StringUtil.isBlank(context)) {
+			context = DEFAULT_CONTEXT;
+		}
+		String cacheKey = language.name() + ":"+context+":";
 		if (StringUtil.isBlank(code)) {
 			cacheKey += defaults;
 		} else {
@@ -295,14 +338,15 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	}
 
 	@Override
-	public String translate(Language language, String defaults, String code) {
+	public String translate(Language language,  String defaults, String code,String context) {
 
-		String cacheKey = makeCacheKey(language,defaults,code);
+		if(StringUtil.isBlank(context)) {
+			context=DEFAULT_CONTEXT;
+		}
+
+		String cacheKey = makeCacheKey(language,defaults,code,context);
 		// 获取缓存数据
 		String item = itemCache.get(cacheKey);
-		if(defaults.equals("账号")) {
-			item=null;
-		}
 		if (item != null) {
 			if(NOT_SET.equals(item)) {
 				return StringUtil.isBlank(defaults) ? code : defaults;
@@ -312,14 +356,15 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		// 获取数据库中的配置
 		Rcd r = null;
 		if (item == null) {
-			Expr expr = null;
+			Expr expr = new Expr("select " + language.name() + " item from " + table() + " where deleted=0 and valid=1");
+			ConditionExpr conditionExpr=new ConditionExpr();
 			if (StringUtil.isBlank(code)) {
-				expr =new Expr("select " + language.name() + " item from " + table()
-						+ " where defaults=? and deleted=0 and valid=1", defaults);
+				conditionExpr.and("defaults=?",defaults);
 			} else {
-				expr =new Expr("select " + language.name() + " item from " + table()
-						+ " where key=? and deleted=0 and valid=1", code);
+				conditionExpr.and("code=?",code);
 			}
+			conditionExpr.andEquals("context",context);
+			expr.append(conditionExpr.startWithAnd());
 			r = dao.queryRecord(expr);
 		}
 		// 如果还是null，登记
@@ -327,9 +372,10 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			if (StringUtil.isBlank(code)) {
 				code = IDGenerator.getSUID(true);
 			}
-			Lang lang = new Lang();
+			Lang lang = Lang.create();
 			lang.setCode(code);
 			lang.setDefaults(defaults);
+			lang.setContext(context);
 			lang.setValid(1);
 			this.insert(lang);
 		} else {
@@ -404,13 +450,13 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 
 	@Override
-	public String translate(String defaults, String key) {
-		return this.translate(getUserLanguage(), defaults, key);
+	public String translate(String defaults, String code, String context) {
+		return this.translate(getUserLanguage(), defaults, code,context);
 	}
 
 	@Override
 	public String translate(String defaults) {
-			return translate(defaults, null);
+			return translate(defaults, null, null);
 	}
 
 	@Override

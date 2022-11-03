@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8"/>
-    <title th:text="${lang.translate(fullTitle)} + ' -' + ${lang.translate('用户登录')}">用户登录</title>
+    <title th:text="${lang.translate(fullTitle,null,'login')} + ' -' + ${lang.translate('用户登录',null,'login')}">用户登录</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
@@ -21,20 +21,20 @@
     <div class="login-body" id="login-form" style="display: none">
         <div class="layui-card">
             <div class="layui-card-header">
-                <i class="layui-icon layui-icon-engine"></i><span th:text="'&nbsp;&nbsp;'+${ lang.translate(shortTitle)} + ' - '+${lang.translate('用户登录')}">&nbsp;&nbsp;用户登录</span>
+                <i class="layui-icon layui-icon-engine"></i><span th:text="'&nbsp;&nbsp;'+${ lang.translate(shortTitle,null,'login')} + ' - '+${lang.translate('用户登录',null,'login')}">&nbsp;&nbsp;用户登录</span>
             </div>
             <form class="layui-card-body layui-form layui-form-pane">
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
                     <div class="layui-input-block">
-                        <input name="identity" type="text" lay-verify="required" th:placeholder="${lang.translate('账号')}" th:value="${loginDefault.account}"
+                        <input name="identity" type="text" lay-verify="required" th:placeholder="${lang.translate('账号',null,'login')}" th:value="${loginDefault.account}"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
                     <div class="layui-input-block">
-                        <input name="passwd" type="password" lay-verify="required" th:placeholder="${lang.translate('密码')}" th:value="${loginDefault.password}"
+                        <input name="passwd" type="password" lay-verify="required" th:placeholder="${lang.translate('密码',null,'login')}" th:value="${loginDefault.password}"
                                class="layui-input">
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="layui-input-block">
                         <div class="layui-row inline-block">
                             <div class="layui-col-xs7">
-                                <input name="captcha" style="width:170px" type="text" lay-verify="required" th:placeholder="${lang.translate('验证码')}" class="layui-input"  th:value="${loginDefault.captcha}">
+                                <input name="captcha" style="width:170px" type="text" lay-verify="required" th:placeholder="${lang.translate('验证码',null,'login')}" class="layui-input"  th:value="${loginDefault.captcha}">
                                 <input name="browserId" type="hidden"/>
                             </div>
                             <div class="layui-col-xs5" style="padding-left: 10px;">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit>登 录</button>
+                    <button lay-filter="login-submit" class="layui-btn layui-btn-fluid" lay-submit th:text="${lang.translate('登 录',null,'login')}">登 录</button>
                 </div>
             </form>
         </div>
@@ -61,7 +61,7 @@
 
 
     <div class="login-footer">
-        <p><a th:href="${ copyrightLink }" target="_blank" th:text="${ lang.translate(copyrightText) }">© 2021 Foxnic-Web 版权所有</a></p>
+        <p><a th:href="${ copyrightLink }" target="_blank" th:text="${ lang.translate(copyrightText,null,'login') }">© 2021 Foxnic-Web 版权所有</a></p>
     </div>
 </div>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
@@ -70,168 +70,13 @@
 
 <script th:inline="javascript">
     var LANGUAGES = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
-    var USER_LANGUAGE=[[${lang.getUserLanguage().code()}]];
+    var USER_LANGUAGE_PROP=[[${lang.getUserLanguage().property()}]];
+    var USER_LANGUAGE_CODE=[[${lang.getUserLanguage().code()}]];
 </script>
 <script>
-
     localStorage.setItem("theme","[[${theme_code}]]");
     if(window!=top) top.location="/login.html"
-    layui.config({
-        base: 'module/'
-    }).use(['form','settings','dropdown'], function () {
-
-        //页面唯一标识
-        let uuid = Math.uuid();
-        let $ = layui.jquery;
-        let form = layui.form;
-        let config = layui.settings;
-        let dropdown=layui.dropdown;
-
-        initLanguageSwitchButton();
-
-        $("input[name='browserId']").val(uuid);
-
-        // 表单提交
-        form.on('submit(login-submit)', function (obj) {
-            layer.load(2);
-            $.ajax({
-                url: config.base_server + '/security/login',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: obj.field,
-                async: true,
-                type: 'POST',
-                success: function (data) {
-                    //console.log(JSON.stringify(data))
-                    //debugger;
-                    if (data.success) {
-                        var user=data.data;
-                        // debugger
-                        user.user.displayName=user.user.realName;
-                        // if(user.user.activatedEmployeeName){
-                        //     user.user.displayName=user.user.activatedEmployeeName;
-                        // }
-                    	config.putUser(user);
-                    	console.log("token",user.token);
-                        config.putToken(user.token);
-                        config.setLang(user.user.language);
-                        initLanguage(function (){
-                            layer.msg('登录成功', {icon: 1, time: 500}, function () {
-                                location.replace('./index.html');
-                            });
-                        });
-                    } else {
-                        layer.closeAll('loading');
-                        layer.msg(data.message, {icon: 5, time: 1000});
-                    }
-                },
-                error: function (xhr) {
-                    //console.log(xhr)
-                    layer.closeAll('loading');
-                    layer.msg(xhr.responseJSON.resp_msg, {icon: 5, time: 500});
-                }
-            });
-            //阻止表单跳转
-            return false;
-        });
-
-        // 图形验证码
-        $('.login-captcha').attr("src", config.base_server + "/security/captcha/image/"+uuid);
-        $('.login-captcha').attr("style", "");
-
-        // 图形验证码
-        $('.login-captcha').click(function () {
-            this.src = this.src + '?t=' + (new Date).getTime();
-        });
-
-        var fullHeight=$(window).height();
-        var formHeight=$("#login-form").height();
-        var formTop=(fullHeight-formHeight)/2;
-        $("#login-form").css("padding",formTop+"px 10px 40px 10px");
-        $("#login-form").css("opacity","0.0");
-        $("#login-form").css("display","");
-        setTimeout(function (){
-            $("#login-form").animate({
-                opacity:'1.0'
-            },1000);
-        },500)
-
-        //
-        function initLanguageSwitchButton() {
-            USER_LANGUAGE
-
-            var items=[];
-            var userItem=null;
-            for (var i=0;i<LANGUAGES.length;i++) {
-                if(LANGUAGES[i].code=="confuse") continue;
-                if(LANGUAGES[i].code==USER_LANGUAGE) {
-                    userItem=LANGUAGES[i];
-                    items.push({title:'<span style="color: red;">'+LANGUAGES[i].text+'</span>',code:LANGUAGES[i].code});
-                } else {
-                    items.push({title:LANGUAGES[i].text,code:LANGUAGES[i].code});
-                }
-            }
-
-            $(".layui-card-header").append('<i class="foxnic-lang" style="float:right">'+userItem.text+'</i>');
-
-
-
-            versionMenu=dropdown.render({
-                elem: '.foxnic-lang'
-                ,data: items
-                ,click: function(obj){
-                    $('.foxnic-lang').text(obj.title);
-                    $.ajax({
-                        async: true,
-                        type: 'POST',
-                        async: true,
-                        data:{code:obj.code},
-                        url: config.base_server + '/service-system/sys-lang/switch-language',
-                        success:function (data) {
-                            location.reload();
-                        }
-                    });
-                }
-            });
-
-        }
-        //
-        function initLanguage(cb) {
-
-            localStorage.removeItem("language_codeLangs");
-            localStorage.removeItem("language_defaultsLangs");
-            localStorage.removeItem("language_timestamp");
-            $.ajax({
-                async: true,
-                type: 'POST',
-                async: true,
-                url: config.base_server + '/service-system/sys-lang/query-list',
-                success:function (data) {
-
-                    data=data.data;
-                    console.dir(data);
-                    //debugger;
-                    var codeLangs={};
-                    var defaultsLangs={};
-                    for (var i = 0; i < data.length; i++) {
-                        codeLangs[data[i].code]=data[i];
-                        defaultsLangs[data[i].defaults]=data[i];
-                    }
-                    localStorage.setItem("language_codeLangs",JSON.stringify(codeLangs));
-                    localStorage.setItem("language_defaultsLangs",JSON.stringify(defaultsLangs));
-                    localStorage.setItem("language_timestamp",(new Date()).getTime());
-                    cb();
-                }
-            });
-
-        }
-
-
-
-
-
-    });
 </script>
+<script type="text/javascript" src="/login.js" th:src="'/login.js?'+${cacheKey}"></script>
 </body>
 </html>

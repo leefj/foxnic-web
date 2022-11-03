@@ -273,6 +273,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	}
 
 	function renderMenu(option) {
+		// debugger
 		if (option.parseData != false) {
 			option.parseData(option.data);
 		}

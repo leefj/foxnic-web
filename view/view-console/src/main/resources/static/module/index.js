@@ -66,7 +66,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
 
-                menus[i].label=foxnic.translate(menus[i].label);
+                menus[i].label=foxnic.translate(menus[i].label,"menu");
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
         	}

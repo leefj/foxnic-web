@@ -1,6 +1,8 @@
 package org.github.foxnic.web.language;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.language.GlobalLanguage;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
@@ -20,8 +22,11 @@ public enum Language implements CodeTextEnum {
 	confuse("混淆");
 
 	private String text;
+	private String property;
+
 	private Language(String text)  {
 		this.text=text;
+		this.property= BeanNameUtil.instance().getPropertyName(this.name());
 	}
 
 	public String code() {
@@ -32,8 +37,23 @@ public enum Language implements CodeTextEnum {
 		return text;
 	}
 
+	public String property() {
+		return property;
+	}
+
 	public static Language parseByCode(String code) {
 		return (Language) EnumUtil.parseByCode(Language.values(),code);
+	}
+
+
+
+	@Override
+	public JSONObject toJSONObject(String languageContext) {
+		JSONObject item = new JSONObject();
+		item.put("code", this.code());
+		item.put("property", this.property());
+		item.put("text", LanguageServiceInstance.get().translate(this.text(),null,languageContext));
+		return item;
 	}
 
 	/**

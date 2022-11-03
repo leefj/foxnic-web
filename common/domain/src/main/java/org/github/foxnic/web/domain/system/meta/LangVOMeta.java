@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-02 16:57:31
+ * @since 2022-11-03 08:59:17
  * @sign BA40CDF42C01C9095A6649D22DC40B24
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -129,6 +129,16 @@ public class LangVOMeta extends LangMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> DEFAULTS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,DEFAULTS, java.lang.String.class, "默认", "默认", java.lang.String.class, null);
 	
 	/**
+	 * 语境 , 类型: java.lang.String
+	*/
+	public static final String CONTEXT="context";
+	
+	/**
+	 * 语境 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> CONTEXT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,CONTEXT, java.lang.String.class, "语境", "语境", java.lang.String.class, null);
+	
+	/**
 	 * 简体中文 , 类型: java.lang.String
 	*/
 	public static final String ZH_CN="zhCn";
@@ -137,6 +147,26 @@ public class LangVOMeta extends LangMeta {
 	 * 简体中文 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> ZH_CN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,ZH_CN, java.lang.String.class, "简体中文", "简体中文", java.lang.String.class, null);
+	
+	/**
+	 * 中文(香港) , 类型: java.lang.String
+	*/
+	public static final String ZH_HK="zhHk";
+	
+	/**
+	 * 中文(香港) , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> ZH_HK_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,ZH_HK, java.lang.String.class, "中文(香港)", "中文(香港)", java.lang.String.class, null);
+	
+	/**
+	 * 中文(澳门) , 类型: java.lang.String
+	*/
+	public static final String ZH_MO="zhMo";
+	
+	/**
+	 * 中文(澳门) , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> ZH_MO_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,ZH_MO, java.lang.String.class, "中文(澳门)", "中文(澳门)", java.lang.String.class, null);
 	
 	/**
 	 * 中文(台湾) , 类型: java.lang.String
@@ -167,6 +197,26 @@ public class LangVOMeta extends LangMeta {
 	 * 英文英国 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> EN_GB_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,EN_GB, java.lang.String.class, "英文英国", "英文英国", java.lang.String.class, null);
+	
+	/**
+	 * 韩语 , 类型: java.lang.String
+	*/
+	public static final String KO_KR="koKr";
+	
+	/**
+	 * 韩语 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> KO_KR_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,KO_KR, java.lang.String.class, "韩语", "韩语", java.lang.String.class, null);
+	
+	/**
+	 * 日语 , 类型: java.lang.String
+	*/
+	public static final String JA_JP="jaJp";
+	
+	/**
+	 * 日语 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> JA_JP_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,JA_JP, java.lang.String.class, "日语", "日语", java.lang.String.class, null);
 	
 	/**
 	 * 混淆专用 , 类型: java.lang.String
@@ -269,49 +319,9 @@ public class LangVOMeta extends LangMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 中文(香港) , 类型: java.lang.String
-	*/
-	public static final String ZH_HK="zhHk";
-	
-	/**
-	 * 中文(香港) , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> ZH_HK_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,ZH_HK, java.lang.String.class, "中文(香港)", "中文(香港)", java.lang.String.class, null);
-	
-	/**
-	 * 中文(澳门) , 类型: java.lang.String
-	*/
-	public static final String ZH_MO="zhMo";
-	
-	/**
-	 * 中文(澳门) , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> ZH_MO_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,ZH_MO, java.lang.String.class, "中文(澳门)", "中文(澳门)", java.lang.String.class, null);
-	
-	/**
-	 * 韩语 , 类型: java.lang.String
-	*/
-	public static final String KO_KR="koKr";
-	
-	/**
-	 * 韩语 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> KO_KR_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,KO_KR, java.lang.String.class, "韩语", "韩语", java.lang.String.class, null);
-	
-	/**
-	 * 日语 , 类型: java.lang.String
-	*/
-	public static final String JA_JP="jaJp";
-	
-	/**
-	 * 日语 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> JA_JP_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,JA_JP, java.lang.String.class, "日语", "日语", java.lang.String.class, null);
-	
-	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , CODES , CODE , DEFAULTS , ZH_CN , ZH_TW , EN_US , EN_GB , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ZH_HK , ZH_MO , KO_KR , JA_JP };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , CODES , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -443,6 +453,17 @@ public class LangVOMeta extends LangMeta {
 		}
 		
 		/**
+		 * 设置 语境
+		 * @param context 语境
+		 * @return 当前对象
+		*/
+		public Lang setContext(String context) {
+			super.change(CONTEXT,super.getContext(),context);
+			super.setContext(context);
+			return this;
+		}
+		
+		/**
 		 * 设置 简体中文
 		 * @param zhCn 简体中文
 		 * @return 当前对象
@@ -450,6 +471,28 @@ public class LangVOMeta extends LangMeta {
 		public Lang setZhCn(String zhCn) {
 			super.change(ZH_CN,super.getZhCn(),zhCn);
 			super.setZhCn(zhCn);
+			return this;
+		}
+		
+		/**
+		 * 设置 中文(香港)
+		 * @param zhHk 中文(香港)
+		 * @return 当前对象
+		*/
+		public Lang setZhHk(String zhHk) {
+			super.change(ZH_HK,super.getZhHk(),zhHk);
+			super.setZhHk(zhHk);
+			return this;
+		}
+		
+		/**
+		 * 设置 中文(澳门)
+		 * @param zhMo 中文(澳门)
+		 * @return 当前对象
+		*/
+		public Lang setZhMo(String zhMo) {
+			super.change(ZH_MO,super.getZhMo(),zhMo);
+			super.setZhMo(zhMo);
 			return this;
 		}
 		
@@ -483,6 +526,28 @@ public class LangVOMeta extends LangMeta {
 		public Lang setEnGb(String enGb) {
 			super.change(EN_GB,super.getEnGb(),enGb);
 			super.setEnGb(enGb);
+			return this;
+		}
+		
+		/**
+		 * 设置 韩语
+		 * @param koKr 韩语
+		 * @return 当前对象
+		*/
+		public Lang setKoKr(String koKr) {
+			super.change(KO_KR,super.getKoKr(),koKr);
+			super.setKoKr(koKr);
+			return this;
+		}
+		
+		/**
+		 * 设置 日语
+		 * @param jaJp 日语
+		 * @return 当前对象
+		*/
+		public Lang setJaJp(String jaJp) {
+			super.change(JA_JP,super.getJaJp(),jaJp);
+			super.setJaJp(jaJp);
 			return this;
 		}
 		
@@ -595,50 +660,6 @@ public class LangVOMeta extends LangMeta {
 			super.setVersion(version);
 			return this;
 		}
-		
-		/**
-		 * 设置 中文(香港)
-		 * @param zhHk 中文(香港)
-		 * @return 当前对象
-		*/
-		public Lang setZhHk(String zhHk) {
-			super.change(ZH_HK,super.getZhHk(),zhHk);
-			super.setZhHk(zhHk);
-			return this;
-		}
-		
-		/**
-		 * 设置 中文(澳门)
-		 * @param zhMo 中文(澳门)
-		 * @return 当前对象
-		*/
-		public Lang setZhMo(String zhMo) {
-			super.change(ZH_MO,super.getZhMo(),zhMo);
-			super.setZhMo(zhMo);
-			return this;
-		}
-		
-		/**
-		 * 设置 韩语
-		 * @param koKr 韩语
-		 * @return 当前对象
-		*/
-		public Lang setKoKr(String koKr) {
-			super.change(KO_KR,super.getKoKr(),koKr);
-			super.setKoKr(koKr);
-			return this;
-		}
-		
-		/**
-		 * 设置 日语
-		 * @param jaJp 日语
-		 * @return 当前对象
-		*/
-		public Lang setJaJp(String jaJp) {
-			super.change(JA_JP,super.getJaJp(),jaJp);
-			super.setJaJp(jaJp);
-			return this;
-		}
 
 		/**
 		 * 克隆当前对象
@@ -657,9 +678,9 @@ public class LangVOMeta extends LangMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setZhCn(this.getZhCn());
 			inst.setCode(this.getCode());
+			inst.setZhHk(this.getZhHk());
 			inst.setZhTw(this.getZhTw());
 			inst.setEnUs(this.getEnUs());
-			inst.setZhHk(this.getZhHk());
 			inst.setZhMo(this.getZhMo());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setEnGb(this.getEnGb());
@@ -673,8 +694,9 @@ public class LangVOMeta extends LangMeta {
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
-			inst.setDeleteBy(this.getDeleteBy());
+			inst.setContext(this.getContext());
 			inst.setKoKr(this.getKoKr());
+			inst.setDeleteBy(this.getDeleteBy());
 			if(all) {
 				inst.setCodes(this.getCodes());
 				inst.setSearchField(this.getSearchField());

@@ -1,7 +1,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-02 16:57:34
+ * @since 2022-11-03 08:59:20
  */
 
 
@@ -79,17 +79,18 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('编码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'defaults', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('默认值') , templet: function (d) { return templet('defaults',d.defaults,d);}  }
+					,{ field: 'context', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语境') , templet: function (d) { return templet('context',d.context,d);}  }
 					,{ field: 'zhCn', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('简体中文') , templet: function (d) { return templet('zhCn',d.zhCn,d);}  }
+					,{ field: 'zhHk', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('中文(香港)') , templet: function (d) { return templet('zhHk',d.zhHk,d);}  }
+					,{ field: 'zhMo', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('中文(澳门)') , templet: function (d) { return templet('zhMo',d.zhMo,d);}  }
 					,{ field: 'zhTw', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('中文(台湾)') , templet: function (d) { return templet('zhTw',d.zhTw,d);}  }
 					,{ field: 'enUs', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('英文美国') , templet: function (d) { return templet('enUs',d.enUs,d);}  }
 					,{ field: 'enGb', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('英文英国') , templet: function (d) { return templet('enGb',d.enGb,d);}  }
+					,{ field: 'koKr', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('韩语') , templet: function (d) { return templet('koKr',d.koKr,d);}  }
+					,{ field: 'jaJp', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('日语') , templet: function (d) { return templet('jaJp',d.jaJp,d);}  }
 					,{ field: 'confuse', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('混淆专用') , templet: function (d) { return templet('confuse',d.confuse,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'zhHk', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('中文(香港)') , templet: function (d) { return templet('zhHk',d.zhHk,d);}  }
-					,{ field: 'zhMo', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('中文(澳门)') , templet: function (d) { return templet('zhMo',d.zhMo,d);}  }
-					,{ field: 'koKr', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('韩语') , templet: function (d) { return templet('koKr',d.koKr,d);}  }
-					,{ field: 'jaJp', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('日语') , templet: function (d) { return templet('jaJp',d.jaJp,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -145,6 +146,7 @@ function ListPage() {
 		var value = {};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.defaults={ inputType:"button",value: $("#defaults").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.context={ inputType:"button",value: $("#context").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){

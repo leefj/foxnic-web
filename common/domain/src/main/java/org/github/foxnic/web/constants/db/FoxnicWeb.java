@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-11-02 16:53:58
+ * @since 2022-11-03 08:57:57
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -6805,9 +6805,24 @@ public class FoxnicWeb {
 		public static final DBField DEFAULTS = new DBField(DBDataType.STRING , "defaults","defaults","默认","默认",false,false,true);
 		
 		/**
+		 * 语境
+		*/
+		public static final DBField CONTEXT = new DBField(DBDataType.STRING , "context","context","语境","语境",false,false,true);
+		
+		/**
 		 * 简体中文
 		*/
 		public static final DBField ZH_CN = new DBField(DBDataType.STRING , "zh_cn","zhCn","简体中文","简体中文",false,false,true);
+		
+		/**
+		 * 中文(香港)
+		*/
+		public static final DBField ZH_HK = new DBField(DBDataType.STRING , "zh_hk","zhHk","中文(香港)","中文(香港)",false,false,true);
+		
+		/**
+		 * 中文(澳门)
+		*/
+		public static final DBField ZH_MO = new DBField(DBDataType.STRING , "zh_mo","zhMo","中文(澳门)","中文(澳门)",false,false,true);
 		
 		/**
 		 * 中文(台湾)
@@ -6823,6 +6838,16 @@ public class FoxnicWeb {
 		 * 英文英国
 		*/
 		public static final DBField EN_GB = new DBField(DBDataType.STRING , "en_gb","enGb","英文英国","英文英国",false,false,true);
+		
+		/**
+		 * 韩语
+		*/
+		public static final DBField KO_KR = new DBField(DBDataType.STRING , "ko_kr","koKr","韩语","韩语",false,false,true);
+		
+		/**
+		 * 日语
+		*/
+		public static final DBField JA_JP = new DBField(DBDataType.STRING , "ja_jp","jaJp","日语","日语",false,false,true);
 		
 		/**
 		 * 混淆专用
@@ -6874,28 +6899,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
-		/**
-		 * 中文(香港)
-		*/
-		public static final DBField ZH_HK = new DBField(DBDataType.STRING , "zh_hk","zhHk","中文(香港)","中文(香港)",false,false,true);
-		
-		/**
-		 * 中文(澳门)
-		*/
-		public static final DBField ZH_MO = new DBField(DBDataType.STRING , "zh_mo","zhMo","中文(澳门)","中文(澳门)",false,false,true);
-		
-		/**
-		 * 韩语
-		*/
-		public static final DBField KO_KR = new DBField(DBDataType.STRING , "ko_kr","koKr","韩语","韩语",false,false,true);
-		
-		/**
-		 * 日语
-		*/
-		public static final DBField JA_JP = new DBField(DBDataType.STRING , "ja_jp","jaJp","日语","日语",false,false,true);
-		
 		public SYS_LANG() {
-			this.init($NAME,"语言条目表" , CODE , DEFAULTS , ZH_CN , ZH_TW , EN_US , EN_GB , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ZH_HK , ZH_MO , KO_KR , JA_JP);
+			this.init($NAME,"语言条目表" , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_LANG $TABLE=new SYS_LANG();
 	}

@@ -1,3 +1,4 @@
+
 layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','loading','toast'],
 	function(exports) {
 		"use strict";
@@ -14,6 +15,10 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			message = layui.message,
 			loading=layui.loading;
 
+
+		var codeLangs = null;
+		var defaultsLangs = null;
+		var language = localStorage.getItem("lang");
 
 		var bodyFrame;
 		var sideMenu;
@@ -269,6 +274,53 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				$(".layui-logo .title").html(TITLE);
 			}
 
+			this.translate = function (defaults, code , context) {
+
+				if(!context) context="defaults";
+
+				// debugger
+				if (defaultsLangs == null) {
+					//debugger;
+					codeLangs = localStorage.getItem("language_codeLangs");
+					if (codeLangs && codeLangs.length > 2) {
+						codeLangs = JSON.parse(codeLangs);
+					}
+					defaultsLangs = localStorage.getItem("language_defaultsLangs");
+					if (defaultsLangs && defaultsLangs.length > 2) {
+						defaultsLangs = JSON.parse(defaultsLangs);
+					}
+				}
+				if (defaultsLangs == null) {
+					return defaults;
+				}
+				var item = defaultsLangs[context+":"+defaults];
+				var text = null;
+				if (!item && code) {
+					item = codeLangs[context+":"+code];
+				}
+				if (item) {
+					text = item[language];
+					if (text && text != ":ns;") {
+						return text;
+					}
+				}
+
+				if (!text || text == ":ns;") {
+					text = defaults;
+				}
+
+				//如果条目不存在，则插入
+				if (!item) {
+					admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults,context: context}, function (data) {
+						localStorage.removeItem("language_timestamp");
+					});
+				}
+
+				return text ? text : "--";
+			},
+
+
+
 			this.menuRender = function(param) {
 
 
@@ -326,7 +378,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						menus[i].type=1;
 					}
 
-					// menus[i].label=foxnic.translate(menus[i].label);
+					menus[i].title=this.translate(menus[i].title,null,"menu");
 					pages.push(menus[i]);
 					map[menus[i].id]=menus[i];
 				}

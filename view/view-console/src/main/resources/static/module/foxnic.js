@@ -801,7 +801,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return label == null ? "--" : label;
         },
 
-        translate: function (defaults, code) {
+        translate: function (defaults, code , context) {
+
+            if(!context) context="defaults";
+
             //debugger
             if (defaultsLangs == null) {
                 //debugger;
@@ -817,10 +820,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (defaultsLangs == null) {
                 return defaults;
             }
-            var item = defaultsLangs[defaults];
+            var item = defaultsLangs[context+":"+defaults];
             var text = null;
             if (!item && code) {
-                item = codeLangs[code];
+                item = codeLangs[context+":"+code];
             }
             if (item) {
                 text = item[language];
@@ -835,7 +838,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             //如果条目不存在，则插入
             if (!item) {
-                admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults}, function (data) {
+                admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults,context: context}, function (data) {
                     localStorage.removeItem("language_timestamp");
                 });
             }
