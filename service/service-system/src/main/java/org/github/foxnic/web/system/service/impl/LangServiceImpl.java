@@ -340,6 +340,10 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@Override
 	public String translate(Language language,  String defaults, String code,String context) {
 
+		if(defaults.equals("注销登录") && context.equals("menu")) {
+			System.out.println();
+		}
+
 		if(StringUtil.isBlank(context)) {
 			context=DEFAULT_CONTEXT;
 		}

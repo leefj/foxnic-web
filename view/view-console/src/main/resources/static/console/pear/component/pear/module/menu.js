@@ -4,7 +4,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	var MOD_NAME = 'menu',
 		$ = layui.jquery,
 		element = layui.element,
-		dropdown = layui.dropdown;
+		dropdown = layui.dropdown
+		;
 
 	var pearMenu = function (opt) {
 		this.option = opt;
@@ -28,7 +29,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			theme: opt.theme,
 			data: opt.data ? opt.data : [],
 			change: opt.change ? opt.change : function () { },
-			done: opt.done ? opt.done : function () { }
+			done: opt.done ? opt.done : function () { },
+			moreText: opt.moreText
 		}
 		var tempDone = option.done;
 		option.done = function(){
@@ -422,7 +424,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				}
 				else if(i==buttonLimit) {
 					// 头部菜单
-					controlItem = '<li  pear-href="#" pear-title="更多" pear-id="nav-more" class="layui-nav-item"><a href="#" id="nav-more" class="fa fa-chevron-circle-down fa-top-nav">&nbsp;更&nbsp;多</a></li>'
+					// debugger
+					controlItem = '<li  pear-href="#" pear-title="更多" pear-id="nav-more" class="layui-nav-item"><a href="#" id="nav-more" class="fa fa-chevron-circle-down fa-top-nav">'+option.moreText+'</a></li>'
 					+'<li  pear-href="#" pear-title="替身" pear-id="nav-more-elm" class="layui-nav-item nav-more-elm" style="display: none"><a href="#" id="nav-more-elm" class="fa fa-chevron-circle-down fa-top-nav">&nbsp;替&nbsp;身</a></li>';
 
 					menuItems.push({

@@ -16,6 +16,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			loading=layui.loading;
 
 
+
 		var codeLangs = null;
 		var defaultsLangs = null;
 		var language = localStorage.getItem("lang");
@@ -450,6 +451,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					userId:user.user.id,
 					data: topMenus,
 					parseData: false,
+					moreText:this.translate("&nbsp;更&nbsp;多","menu"),
 					change: function() {
 						compatible();
 					},
@@ -693,7 +695,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					me.putVar("pwdDisplayPosition","center");
 					me.popupCenter({
 						type:1,
-						title: "修改密码",
+						title: this.translate("修改密码",null,"menu"),
 						path: '/pages/tpl/password.html',
 						area:["480px","300px"],
 						anim:0,
@@ -1408,8 +1410,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 			var menuHtml =
 				'<div class="pearone-color">\n' +
-				'<div class="color-title">' +
-				'菜单风格</div>\n' +
+				'<div class="color-title">' + pearAdmin.translate('菜单风格',null,"menu")+
+				'</div>\n' +
 				'<div class="color-content">\n' +
 				'<ul>\n' + menuItem + '</ul>\n' +
 				'</div>\n' +
@@ -1433,7 +1435,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 			var headHtml =
 				'<div class="pearone-color">\n' +
-				'<div class="color-title">顶部风格</div>\n' +
+				'<div class="color-title">'+pearAdmin.translate('顶部风格',null,"menu")+'</div>\n' +
 				'<div class="color-content">\n' +
 				'<ul>\n' + headItem + '</ul>\n' +
 				'</div>\n' +
@@ -1445,19 +1447,20 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 			// moreItem +=
 			// 	'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="muilt-tab" lay-filter="muilt-tab" lay-skin="switch" lay-text="开|关"></div><span class="set-text">视图</span></div>';
+			var on=pearAdmin.translate('开');
+			var off=pearAdmin.translate('关');
+			moreItem +=
+				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="banner" lay-filter="banner" lay-skin="switch" lay-text="'+on+'|'+off+'"></div><span class="set-text">'+pearAdmin.translate('通栏',null,"menu")+'</span></div>';
 
 			moreItem +=
-				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="banner" lay-filter="banner" lay-skin="switch" lay-text="开|关"></div><span class="set-text">通栏</span></div>';
-
-			moreItem +=
-				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="auto-head" lay-filter="auto-head" lay-skin="switch" lay-text="开|关"></div><span class="set-text">通色</span></div>';
+				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="auto-head" lay-filter="auto-head" lay-skin="switch" lay-text="'+on+'|'+off+'"></div><span class="set-text">'+pearAdmin.translate('通色',null,"menu")+'</span></div>';
 
 			// 关闭页脚控制
 			// moreItem +=
 			//	 '<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="footer" lay-filter="footer" lay-skin="switch" lay-text="开|关"></div><span class="set-text">页脚</span></div>';
 
 			var moreHtml = '<br><div class="pearone-color">\n' +
-				'<div class="color-title">更多设置</div>\n' +
+				'<div class="color-title">'+pearAdmin.translate('更多设置',null,"menu")+'</div>\n' +
 				'<div class="color-content">\n' +
 				'<form class="layui-form">\n' + moreItem + '</form>\n' +
 				'</div>\n' +

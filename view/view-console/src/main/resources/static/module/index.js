@@ -448,7 +448,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         bindEvent: function () {
             // 退出登录
             $('#btnLogout').click(function () {
-                layer.confirm('您确定要退出登录吗？', function () {
+                layer.confirm(admin.translate('您确定要退出登录吗')+'？', function () {
                     let token = config.getToken();
                     // let isExistsToken = false;
                     if (token) {

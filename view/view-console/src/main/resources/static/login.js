@@ -11,11 +11,23 @@ layui.config({
     let dropdown=layui.dropdown;
 
     // debugger
-    var localLang=config.getLang();
-    if(localLang && localLang!=USER_LANGUAGE_PROP) {
-        switchLanguage(USER_LANGUAGE_CODE,USER_LANGUAGE_PROP);
+    var localLangProp=config.getLang();
+    if(!localLangProp || localLangProp=='undefined') localLangProp="defaults";
+    if(localLangProp && localLangProp!=USER_LANGUAGE_PROP) {
+        var localLangCode=null;
+        for (var i=0;i<LANGUAGES.length;i++) {
+            if(LANGUAGES[i].property==localLangProp) {
+                localLangCode=LANGUAGES[i].code;
+            }
+        }
+        if(!localLangCode) {
+            localLangCode="defaults";
+        }
+        switchLanguage(localLangCode,localLangProp);
         return;
     }
+
+
     config.setLang(USER_LANGUAGE_PROP);
 
     initLanguageSwitchButton();
@@ -96,9 +108,9 @@ layui.config({
             // if(LANGUAGES[i].code=="confuse") continue;
             if(LANGUAGES[i].code==USER_LANGUAGE_CODE) {
                 userItem=LANGUAGES[i];
-                items.push({title:'<span style="color: #f56c6c;">'+LANGUAGES[i].text+'</span>',code:LANGUAGES[i].code});
+                items.push({title:'<span style="color: #f56c6c;">'+LANGUAGES[i].text+'</span>',code:LANGUAGES[i].code,property:LANGUAGES[i].property});
             } else {
-                items.push({title:LANGUAGES[i].text,code:LANGUAGES[i].code});
+                items.push({title:LANGUAGES[i].text,code:LANGUAGES[i].code,property:LANGUAGES[i].property});
             }
             if(LANGUAGES[i].code=="defaults") {
                 defaultsItem=LANGUAGES[i];
@@ -118,7 +130,7 @@ layui.config({
             ,data: items
             ,click: function(obj){
                 $('.foxnic-lang').text(obj.title);
-                switchLanguage(obj.code,obj.prop);
+                switchLanguage(obj.code,obj.property);
             }
         });
     }
