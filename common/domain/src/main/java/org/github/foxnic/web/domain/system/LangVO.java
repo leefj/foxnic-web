@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 语言条目VO类型
  * <p>语言条目 , 数据表 sys_lang 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-03 08:59:17
+ * @since 2022-11-04 10:55:55
  * @sign BA40CDF42C01C9095A6649D22DC40B24
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -328,6 +328,7 @@ public class LangVO extends Lang {
 		org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.LangVOMeta.$$proxy$$();
 		inst.setZhCn(this.getZhCn());
 		inst.setCode(this.getCode());
+		inst.setAutoTranslated(this.getAutoTranslated());
 		inst.setZhHk(this.getZhHk());
 		inst.setZhTw(this.getZhTw());
 		inst.setEnUs(this.getEnUs());
@@ -418,6 +419,7 @@ public class LangVO extends Lang {
 		if(cast) {
 			this.setZhCn(DataParser.parse(String.class, map.get(LangVOMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, map.get(LangVOMeta.CODE)));
+			this.setAutoTranslated(DataParser.parse(Integer.class, map.get(LangVOMeta.AUTO_TRANSLATED)));
 			this.setZhHk(DataParser.parse(String.class, map.get(LangVOMeta.ZH_HK)));
 			this.setZhTw(DataParser.parse(String.class, map.get(LangVOMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, map.get(LangVOMeta.EN_US)));
@@ -450,6 +452,7 @@ public class LangVO extends Lang {
 			try {
 				this.setZhCn( (String)map.get(LangVOMeta.ZH_CN));
 				this.setCode( (String)map.get(LangVOMeta.CODE));
+				this.setAutoTranslated( (Integer)map.get(LangVOMeta.AUTO_TRANSLATED));
 				this.setZhHk( (String)map.get(LangVOMeta.ZH_HK));
 				this.setZhTw( (String)map.get(LangVOMeta.ZH_TW));
 				this.setEnUs( (String)map.get(LangVOMeta.EN_US));
@@ -495,6 +498,7 @@ public class LangVO extends Lang {
 		if(cast) {
 			this.setZhCn(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, r.getValue(LangVOMeta.CODE)));
+			this.setAutoTranslated(DataParser.parse(Integer.class, r.getValue(LangVOMeta.AUTO_TRANSLATED)));
 			this.setZhHk(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_HK)));
 			this.setZhTw(DataParser.parse(String.class, r.getValue(LangVOMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, r.getValue(LangVOMeta.EN_US)));
@@ -519,6 +523,7 @@ public class LangVO extends Lang {
 			try {
 				this.setZhCn( (String)r.getValue(LangVOMeta.ZH_CN));
 				this.setCode( (String)r.getValue(LangVOMeta.CODE));
+				this.setAutoTranslated( (Integer)r.getValue(LangVOMeta.AUTO_TRANSLATED));
 				this.setZhHk( (String)r.getValue(LangVOMeta.ZH_HK));
 				this.setZhTw( (String)r.getValue(LangVOMeta.ZH_TW));
 				this.setEnUs( (String)r.getValue(LangVOMeta.EN_US));

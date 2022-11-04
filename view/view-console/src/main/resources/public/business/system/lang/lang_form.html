@@ -2,7 +2,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-03 08:59:21
+ * @since 2022-11-04 10:55:59
  */
  -->
  <!DOCTYPE html>
@@ -57,16 +57,16 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('默认值')}">默认值</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('默认值')}">默认值</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="defaults" id="defaults" name="defaults" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('默认值') }" type="text" class="layui-input"  />
+                            <input lay-filter="defaults" id="defaults" name="defaults" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('默认值') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语境')}">语境</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语境')}">语境</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="context" id="context" name="context" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('语境') }" type="text" class="layui-input"  />
+                            <input lay-filter="context" id="context" name="context" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('语境') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
@@ -142,6 +142,15 @@
                 </div>
 
 
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('已翻译')}">已翻译</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="autoTranslated" id="autoTranslated" name="autoTranslated" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('已翻译') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                        </div>
+                    </div>
+
+
                 <!--结束：栏次内字段循环-->
             </div>
             <!--结束：栏次输入框循环-->
@@ -166,7 +175,7 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"defaults":{"labelInForm":"默认值","inputType":"text_input","required":true},"context":{"labelInForm":"语境","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_lang";
 
 

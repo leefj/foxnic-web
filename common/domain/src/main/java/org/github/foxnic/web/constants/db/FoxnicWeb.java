@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-11-03 08:57:57
+ * @since 2022-11-04 10:41:33
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -6802,12 +6802,12 @@ public class FoxnicWeb {
 		/**
 		 * 默认
 		*/
-		public static final DBField DEFAULTS = new DBField(DBDataType.STRING , "defaults","defaults","默认","默认",false,false,true);
+		public static final DBField DEFAULTS = new DBField(DBDataType.STRING , "defaults","defaults","默认","默认",false,false,false);
 		
 		/**
 		 * 语境
 		*/
-		public static final DBField CONTEXT = new DBField(DBDataType.STRING , "context","context","语境","语境",false,false,true);
+		public static final DBField CONTEXT = new DBField(DBDataType.STRING , "context","context","语境","语境",false,false,false);
 		
 		/**
 		 * 简体中文
@@ -6899,8 +6899,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 已翻译
+		*/
+		public static final DBField AUTO_TRANSLATED = new DBField(DBDataType.INTEGER , "auto_translated","autoTranslated","已翻译","已翻译",false,false,true);
+		
 		public SYS_LANG() {
-			this.init($NAME,"语言条目表" , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"语言条目表" , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , AUTO_TRANSLATED);
 		}
 		public static final SYS_LANG $TABLE=new SYS_LANG();
 	}
@@ -8176,6 +8181,87 @@ public class FoxnicWeb {
 			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , ACCESS_TOKEN , REFRESH_TOKEN);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
+	}
+	
+	/**
+	 * 升级服务
+	*/
+	public static class SYS_SYSTEM_UPDATE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_system_update";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","名称","名称",false,false,true);
+		
+		/**
+		 * 升级版本号
+		*/
+		public static final DBField UPDATE_VERSION = new DBField(DBDataType.STRING , "update_version","updateVersion","升级版本号","升级版本号",false,false,true);
+		
+		/**
+		 * 验证
+		*/
+		public static final DBField VERIFICATION = new DBField(DBDataType.STRING , "verification","verification","验证","验证",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_SYSTEM_UPDATE() {
+			this.init($NAME,"升级服务" , ID , NAME , STATUS , UPDATE_VERSION , VERIFICATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_SYSTEM_UPDATE $TABLE=new SYS_SYSTEM_UPDATE();
 	}
 	
 	/**

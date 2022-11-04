@@ -62,3 +62,7 @@ ALTER TABLE `foxnic`.`sys_lang`
 ALTER TABLE `foxnic`.`sys_lang`
 DROP INDEX `uk`,
 ADD UNIQUE INDEX `uk`(`context`, `defaults`) USING BTREE;
+
+
+ALTER TABLE `foxnic`.`sys_lang`
+    ADD COLUMN `auto_translated` tinyint(4) NULL DEFAULT NULL COMMENT '已翻译' AFTER `version`;

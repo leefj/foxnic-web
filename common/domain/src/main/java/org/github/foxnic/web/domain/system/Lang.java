@@ -1,22 +1,21 @@
 package org.github.foxnic.web.domain.system;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.foxnic.api.swagger.EnumFor;
-import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.data.ExprRcd;
-import com.github.foxnic.sql.meta.DBTable;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
-import org.github.foxnic.web.domain.system.meta.LangMeta;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.system.meta.LangMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
@@ -24,8 +23,8 @@ import java.util.Map;
  * 语言条目
  * <p>语言条目 , 数据表 sys_lang 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-03 08:59:17
- * @sign 3D7AD2A38EC999C1671115D0017B1C3B
+ * @since 2022-11-04 10:55:55
+ * @sign 7D0CA27FC9617570807B84F09CCB73AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,110 +35,110 @@ public class Lang extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_LANG.$TABLE;
-
+	
 	/**
 	 * 编码键：编码键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="编码键" , notes = "编码键" , example = "00-054efed6f2-94ea")
 	private String code;
-
+	
 	/**
 	 * 默认：默认
 	*/
-	@ApiModelProperty(required = false,value="默认" , notes = "默认" , example = "风险等级")
+	@ApiModelProperty(required = true,value="默认" , notes = "默认" , example = "风险等级")
 	private String defaults;
-
+	
 	/**
 	 * 语境：语境
 	*/
-	@ApiModelProperty(required = false,value="语境" , notes = "语境")
+	@ApiModelProperty(required = true,value="语境" , notes = "语境" , example = "defaults")
 	private String context;
-
+	
 	/**
 	 * 简体中文：简体中文
 	*/
 	@ApiModelProperty(required = false,value="简体中文" , notes = "简体中文")
 	private String zhCn;
-
+	
 	/**
 	 * 中文(香港)：中文(香港)
 	*/
-	@ApiModelProperty(required = false,value="中文(香港)" , notes = "中文(香港)")
+	@ApiModelProperty(required = false,value="中文(香港)" , notes = "中文(香港)" , example = "風險等級")
 	private String zhHk;
-
+	
 	/**
 	 * 中文(澳门)：中文(澳门)
 	*/
-	@ApiModelProperty(required = false,value="中文(澳门)" , notes = "中文(澳门)")
+	@ApiModelProperty(required = false,value="中文(澳门)" , notes = "中文(澳门)" , example = "風險等級")
 	private String zhMo;
-
+	
 	/**
 	 * 中文(台湾)：中文(台湾)
 	*/
-	@ApiModelProperty(required = false,value="中文(台湾)" , notes = "中文(台湾)")
+	@ApiModelProperty(required = false,value="中文(台湾)" , notes = "中文(台湾)" , example = "風險等級")
 	private String zhTw;
-
+	
 	/**
 	 * 英文美国：英文美国
 	*/
-	@ApiModelProperty(required = false,value="英文美国" , notes = "英文美国" , example = "AAAA")
+	@ApiModelProperty(required = false,value="英文美国" , notes = "英文美国" , example = "Risk level")
 	private String enUs;
-
+	
 	/**
 	 * 英文英国：英文英国
 	*/
-	@ApiModelProperty(required = false,value="英文英国" , notes = "英文英国")
+	@ApiModelProperty(required = false,value="英文英国" , notes = "英文英国" , example = "Risk level")
 	private String enGb;
-
+	
 	/**
 	 * 韩语：韩语
 	*/
-	@ApiModelProperty(required = false,value="韩语" , notes = "韩语")
+	@ApiModelProperty(required = false,value="韩语" , notes = "韩语" , example = "위험 등급")
 	private String koKr;
-
+	
 	/**
 	 * 日语：日语
 	*/
-	@ApiModelProperty(required = false,value="日语" , notes = "日语")
+	@ApiModelProperty(required = false,value="日语" , notes = "日语" , example = "リスク等級")
 	private String jaJp;
-
+	
 	/**
 	 * 混淆专用：混淆专用
 	*/
 	@ApiModelProperty(required = false,value="混淆专用" , notes = "混淆专用")
 	private String confuse;
-
+	
 	/**
 	 * 是否有效：是否有效
 	*/
 	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效" , example = "1")
 	private Integer valid;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-07-25 12:24:17")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-03 12:15:06")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -148,25 +147,31 @@ public class Lang extends Entity {
 	@Transient
 	@EnumFor("deleted")
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "2")
 	private Integer version;
-
+	
+	/**
+	 * 已翻译：已翻译
+	*/
+	@ApiModelProperty(required = false,value="已翻译" , notes = "已翻译" , example = "1")
+	private Integer autoTranslated;
+	
 	/**
 	 * 获得 编码键<br>
 	 * 编码键
@@ -175,7 +180,7 @@ public class Lang extends Entity {
 	public String getCode() {
 		return code;
 	}
-
+	
 	/**
 	 * 设置 编码键
 	 * @param code 编码键
@@ -185,7 +190,7 @@ public class Lang extends Entity {
 		this.code=code;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 默认<br>
 	 * 默认
@@ -194,7 +199,7 @@ public class Lang extends Entity {
 	public String getDefaults() {
 		return defaults;
 	}
-
+	
 	/**
 	 * 设置 默认
 	 * @param defaults 默认
@@ -204,7 +209,7 @@ public class Lang extends Entity {
 		this.defaults=defaults;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 语境<br>
 	 * 语境
@@ -213,7 +218,7 @@ public class Lang extends Entity {
 	public String getContext() {
 		return context;
 	}
-
+	
 	/**
 	 * 设置 语境
 	 * @param context 语境
@@ -223,7 +228,7 @@ public class Lang extends Entity {
 		this.context=context;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 简体中文<br>
 	 * 简体中文
@@ -232,7 +237,7 @@ public class Lang extends Entity {
 	public String getZhCn() {
 		return zhCn;
 	}
-
+	
 	/**
 	 * 设置 简体中文
 	 * @param zhCn 简体中文
@@ -242,7 +247,7 @@ public class Lang extends Entity {
 		this.zhCn=zhCn;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 中文(香港)<br>
 	 * 中文(香港)
@@ -251,7 +256,7 @@ public class Lang extends Entity {
 	public String getZhHk() {
 		return zhHk;
 	}
-
+	
 	/**
 	 * 设置 中文(香港)
 	 * @param zhHk 中文(香港)
@@ -261,7 +266,7 @@ public class Lang extends Entity {
 		this.zhHk=zhHk;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 中文(澳门)<br>
 	 * 中文(澳门)
@@ -270,7 +275,7 @@ public class Lang extends Entity {
 	public String getZhMo() {
 		return zhMo;
 	}
-
+	
 	/**
 	 * 设置 中文(澳门)
 	 * @param zhMo 中文(澳门)
@@ -280,7 +285,7 @@ public class Lang extends Entity {
 		this.zhMo=zhMo;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 中文(台湾)<br>
 	 * 中文(台湾)
@@ -289,7 +294,7 @@ public class Lang extends Entity {
 	public String getZhTw() {
 		return zhTw;
 	}
-
+	
 	/**
 	 * 设置 中文(台湾)
 	 * @param zhTw 中文(台湾)
@@ -299,7 +304,7 @@ public class Lang extends Entity {
 		this.zhTw=zhTw;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 英文美国<br>
 	 * 英文美国
@@ -308,7 +313,7 @@ public class Lang extends Entity {
 	public String getEnUs() {
 		return enUs;
 	}
-
+	
 	/**
 	 * 设置 英文美国
 	 * @param enUs 英文美国
@@ -318,7 +323,7 @@ public class Lang extends Entity {
 		this.enUs=enUs;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 英文英国<br>
 	 * 英文英国
@@ -327,7 +332,7 @@ public class Lang extends Entity {
 	public String getEnGb() {
 		return enGb;
 	}
-
+	
 	/**
 	 * 设置 英文英国
 	 * @param enGb 英文英国
@@ -337,7 +342,7 @@ public class Lang extends Entity {
 		this.enGb=enGb;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 韩语<br>
 	 * 韩语
@@ -346,7 +351,7 @@ public class Lang extends Entity {
 	public String getKoKr() {
 		return koKr;
 	}
-
+	
 	/**
 	 * 设置 韩语
 	 * @param koKr 韩语
@@ -356,7 +361,7 @@ public class Lang extends Entity {
 		this.koKr=koKr;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 日语<br>
 	 * 日语
@@ -365,7 +370,7 @@ public class Lang extends Entity {
 	public String getJaJp() {
 		return jaJp;
 	}
-
+	
 	/**
 	 * 设置 日语
 	 * @param jaJp 日语
@@ -375,7 +380,7 @@ public class Lang extends Entity {
 		this.jaJp=jaJp;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 混淆专用<br>
 	 * 混淆专用
@@ -384,7 +389,7 @@ public class Lang extends Entity {
 	public String getConfuse() {
 		return confuse;
 	}
-
+	
 	/**
 	 * 设置 混淆专用
 	 * @param confuse 混淆专用
@@ -394,7 +399,7 @@ public class Lang extends Entity {
 		this.confuse=confuse;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否有效<br>
 	 * 是否有效
@@ -403,7 +408,7 @@ public class Lang extends Entity {
 	public Integer getValid() {
 		return valid;
 	}
-
+	
 	/**
 	 * 设置 是否有效
 	 * @param valid 是否有效
@@ -413,7 +418,7 @@ public class Lang extends Entity {
 		this.valid=valid;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -422,7 +427,7 @@ public class Lang extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -432,7 +437,7 @@ public class Lang extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -441,7 +446,7 @@ public class Lang extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -451,7 +456,7 @@ public class Lang extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -460,7 +465,7 @@ public class Lang extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -470,7 +475,7 @@ public class Lang extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -479,7 +484,7 @@ public class Lang extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -489,7 +494,7 @@ public class Lang extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -498,7 +503,7 @@ public class Lang extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -511,7 +516,7 @@ public class Lang extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -523,7 +528,7 @@ public class Lang extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -539,7 +544,7 @@ public class Lang extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -548,7 +553,7 @@ public class Lang extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -558,7 +563,7 @@ public class Lang extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -567,7 +572,7 @@ public class Lang extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -577,7 +582,7 @@ public class Lang extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -586,7 +591,7 @@ public class Lang extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -594,6 +599,25 @@ public class Lang extends Entity {
 	*/
 	public Lang setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 已翻译<br>
+	 * 已翻译
+	 * @return 已翻译
+	*/
+	public Integer getAutoTranslated() {
+		return autoTranslated;
+	}
+	
+	/**
+	 * 设置 已翻译
+	 * @param autoTranslated 已翻译
+	 * @return 当前对象
+	*/
+	public Lang setAutoTranslated(Integer autoTranslated) {
+		this.autoTranslated=autoTranslated;
 		return this;
 	}
 
@@ -643,6 +667,7 @@ public class Lang extends Entity {
 		org.github.foxnic.web.domain.system.meta.LangMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.LangMeta.$$proxy$$();
 		inst.setZhCn(this.getZhCn());
 		inst.setCode(this.getCode());
+		inst.setAutoTranslated(this.getAutoTranslated());
 		inst.setZhHk(this.getZhHk());
 		inst.setZhTw(this.getZhTw());
 		inst.setEnUs(this.getEnUs());
@@ -722,6 +747,7 @@ public class Lang extends Entity {
 		if(cast) {
 			this.setZhCn(DataParser.parse(String.class, map.get(LangMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, map.get(LangMeta.CODE)));
+			this.setAutoTranslated(DataParser.parse(Integer.class, map.get(LangMeta.AUTO_TRANSLATED)));
 			this.setZhHk(DataParser.parse(String.class, map.get(LangMeta.ZH_HK)));
 			this.setZhTw(DataParser.parse(String.class, map.get(LangMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, map.get(LangMeta.EN_US)));
@@ -747,6 +773,7 @@ public class Lang extends Entity {
 			try {
 				this.setZhCn( (String)map.get(LangMeta.ZH_CN));
 				this.setCode( (String)map.get(LangMeta.CODE));
+				this.setAutoTranslated( (Integer)map.get(LangMeta.AUTO_TRANSLATED));
 				this.setZhHk( (String)map.get(LangMeta.ZH_HK));
 				this.setZhTw( (String)map.get(LangMeta.ZH_TW));
 				this.setEnUs( (String)map.get(LangMeta.EN_US));
@@ -785,6 +812,7 @@ public class Lang extends Entity {
 		if(cast) {
 			this.setZhCn(DataParser.parse(String.class, r.getValue(LangMeta.ZH_CN)));
 			this.setCode(DataParser.parse(String.class, r.getValue(LangMeta.CODE)));
+			this.setAutoTranslated(DataParser.parse(Integer.class, r.getValue(LangMeta.AUTO_TRANSLATED)));
 			this.setZhHk(DataParser.parse(String.class, r.getValue(LangMeta.ZH_HK)));
 			this.setZhTw(DataParser.parse(String.class, r.getValue(LangMeta.ZH_TW)));
 			this.setEnUs(DataParser.parse(String.class, r.getValue(LangMeta.EN_US)));
@@ -809,6 +837,7 @@ public class Lang extends Entity {
 			try {
 				this.setZhCn( (String)r.getValue(LangMeta.ZH_CN));
 				this.setCode( (String)r.getValue(LangMeta.CODE));
+				this.setAutoTranslated( (Integer)r.getValue(LangMeta.AUTO_TRANSLATED));
 				this.setZhHk( (String)r.getValue(LangMeta.ZH_HK));
 				this.setZhTw( (String)r.getValue(LangMeta.ZH_TW));
 				this.setEnUs( (String)r.getValue(LangMeta.EN_US));

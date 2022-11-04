@@ -1,7 +1,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-03 08:59:20
+ * @since 2022-11-04 10:55:59
  */
 
 
@@ -91,6 +91,7 @@ function ListPage() {
 					,{ field: 'confuse', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('混淆专用') , templet: function (d) { return templet('confuse',d.confuse,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'autoTranslated', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('已翻译') , templet: function (d) { return templet('autoTranslated',d.autoTranslated,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -148,6 +149,7 @@ function ListPage() {
 		value.defaults={ inputType:"button",value: $("#defaults").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.context={ inputType:"button",value: $("#context").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.autoTranslated={ inputType:"number_input", value: $("#autoTranslated").val() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

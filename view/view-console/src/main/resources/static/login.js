@@ -59,7 +59,7 @@ layui.config({
                     console.log("token",user.token);
                     config.putToken(user.token);
                     initLanguage(function (){
-                        layer.msg('登录成功', {icon: 1, time: 500}, function () {
+                        layer.msg($("#login-success-message").text(), {icon: 1, time: 500}, function () {
                             location.replace('./index.html');
                         });
                     });
@@ -142,11 +142,11 @@ layui.config({
             async: true,
             data:{code:code},
             url: config.base_server + '/service-system/sys-lang/switch-language',
-            success:function (data) {
-                if(code!="auto") {
-                    config.setLang(prop);
-                }
-                location.reload();
+            success:function (r) {
+                config.setLang(r.data.property);
+                setTimeout(function (){
+                    location.reload();
+                },0)
             }
         });
     }

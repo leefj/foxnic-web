@@ -2504,6 +2504,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
     }
 
     window.fox=foxnic;
+    top.translate=foxnic.translate;
 
     exports('foxnic', foxnic);
 

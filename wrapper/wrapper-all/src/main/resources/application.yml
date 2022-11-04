@@ -255,6 +255,7 @@ foxnic:
         end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
   language:
     translator:
+      enable: true
       encrypt:
         enable: true
         file:

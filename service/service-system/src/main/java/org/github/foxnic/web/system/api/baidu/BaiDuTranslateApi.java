@@ -1,6 +1,5 @@
 package org.github.foxnic.web.system.api.baidu;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.encrypt.MD5Util;
@@ -82,7 +81,8 @@ public class BaiDuTranslateApi extends TranslateApi {
                 Logger.exception(e);
             }
         }
-        System.out.println(JSON.toJSON(lang));
+        // System.out.println(JSON.toJSON(lang));
+        lang.setAutoTranslated(1);
         langService.update(lang, SaveMode.DIRTY_FIELDS);
 
     }

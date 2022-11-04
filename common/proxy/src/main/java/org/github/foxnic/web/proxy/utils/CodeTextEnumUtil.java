@@ -1,7 +1,6 @@
 package org.github.foxnic.web.proxy.utils;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -64,13 +63,7 @@ public class CodeTextEnumUtil {
             if (!all) {
                 if (!e.display()) continue;
             }
-            JSONObject item = e.toJSONObject(languageContext);
-            if(item==null) {
-                item = new JSONObject();
-                item.put("code", e.code());
-                item.put("text", languageService.translate(e.text(),null, languageContext));
-            }
-            array.add(item);
+            array.add(e.toJSONObject(languageContext));
         }
         cache.put(enumName, array);
         return array;

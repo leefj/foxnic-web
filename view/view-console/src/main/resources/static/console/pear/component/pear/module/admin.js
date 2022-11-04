@@ -318,7 +318,10 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 
 				return text ? text : "--";
-			},
+			};
+
+			//
+			top.translate=this.translate;
 
 
 
@@ -741,7 +744,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			this.registerLogout = function() {
 				var me=this;
 				function logoutHandler() {
-					layer.confirm('您确定要退出登录吗？', function () {
+					debugger
+					layer.confirm(admin.translate('您确定要退出登录吗')+'？', function () {
 						let token = me.getToken();
 						//let isExistsToken = false;
 						// debugger

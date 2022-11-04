@@ -63,6 +63,9 @@
     <div class="login-footer">
         <p><a th:href="${ copyrightLink }" target="_blank" th:text="${ lang.translate(copyrightText,null,'login') }">© 2021 Foxnic-Web 版权所有</a></p>
     </div>
+
+    <span id="login-success-message" style="display: none" th:text="${ lang.translate('登录成功','','login') }"></span>
+
 </div>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>

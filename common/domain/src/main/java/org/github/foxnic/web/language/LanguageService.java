@@ -1,12 +1,12 @@
 package org.github.foxnic.web.language;
 
-public interface LanguageService {
+import com.github.foxnic.api.language.SuperLanguageService;
+
+public interface LanguageService extends SuperLanguageService {
 
 	public static final String USER_LANGUAGE = "USER_LANGUAGE";
 
-	public static final String DEFAULT_CONTEXT = "defaults";
 
-	public static LanguageService INSTANCE = null;
 
 	/**
 	 * 指定语言进行转换

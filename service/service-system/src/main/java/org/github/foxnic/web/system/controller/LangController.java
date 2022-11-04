@@ -67,7 +67,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = LangServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -133,7 +134,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -161,7 +163,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE, LangVOMeta.SEARCH_FIELD, LangVOMeta.SEARCH_VALUE, LangVOMeta.SORT_FIELD, LangVOMeta.SORT_TYPE, LangVOMeta.CODES })
     @SentinelResource(value = LangServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -206,7 +209,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -252,7 +256,7 @@ public class LangController extends SuperController {
             return ErrorDesc.failureMessage("无法识别语言代码:" + code);
         }
         this.getRequest().getSession().setAttribute(LanguageService.USER_LANGUAGE, language);
-        return ErrorDesc.success();
+        return ErrorDesc.success().data(language.toJSONObject());
     }
 
     /**
@@ -272,7 +276,8 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = LangServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

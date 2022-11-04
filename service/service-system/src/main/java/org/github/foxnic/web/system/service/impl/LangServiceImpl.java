@@ -10,6 +10,7 @@ import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.language.AcceptLanguages;
 import com.github.foxnic.commons.language.GlobalLanguage;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.SaveMode;
@@ -29,7 +30,7 @@ import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
-import org.github.foxnic.web.language.LanguageServiceInstance;
+import com.github.foxnic.api.language.LanguageTranslator;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -73,13 +74,32 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
+	@Value("${foxnic.language.translator.enable:false}")
+	private Boolean enableTranslator=null;
 
 	@Autowired
 	private BaiDuTranslateApi translateApi;
+
+
 	@PostConstruct
 	private void init() {
-		LanguageServiceInstance.set(this);
-		List<String> codes=this.dao().query("select code from sys_lang  where ja_jp is null and deleted=0").getValueList("code",String.class);
+		try {
+			Field field = LanguageTranslator.class.getField("INSTANCE");
+			field.setAccessible(true);
+			field.set(null,this);
+		} catch (Exception e) {
+			Logger.exception(e);
+		}
+		if(enableTranslator) {
+			doBatchTranslate();
+			SimpleTaskManager.getDefault().doIntervalTask(()->{
+					doBatchTranslate();
+			},30 * 1000);
+		}
+	}
+
+	private void doBatchTranslate() {
+		List<String> codes = this.dao().query("select code from sys_lang  where (auto_translated is null or auto_translated=0) and deleted=0").getValueList("code", String.class);
 		for (String code : codes) {
 			translateApi.translate(code);
 		}
@@ -106,6 +126,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(StringUtil.isBlank(lang.getContext())) {
 			lang.setContext(DEFAULT_CONTEXT);
 		}
+		if(lang.getAutoTranslated()==null) lang.setAutoTranslated(0);
 		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.CONTEXT,FoxnicWeb.SYS_LANG.DEFAULTS);
 		if(ex) return ErrorDesc.success();
 		Result result = super.insert(lang,false);
@@ -120,12 +141,15 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 				for (Language language : Language.values()) {
 					BeanUtil.setFieldValue(lang,language.name(),BeanUtil.getFieldValue(exists,language.code()));
 				}
+				lang.setAutoTranslated(1);
 				this.update(lang,SaveMode.DIRTY_FIELDS);
 			} else {
-				// 调用翻译接口
-				SimpleTaskManager.doParallelTask(()->{
-					translateApi.translate(code);
-				});
+				if(enableTranslator) {
+					// 调用翻译接口
+					SimpleTaskManager.doParallelTask(() -> {
+						translateApi.translate(code);
+					});
+				}
 			}
 		}
 		return result;

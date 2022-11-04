@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-03 08:59:17
- * @sign 3D7AD2A38EC999C1671115D0017B1C3B
+ * @since 2022-11-04 10:55:55
+ * @sign 7D0CA27FC9617570807B84F09CCB73AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -227,9 +227,19 @@ public class LangMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Lang,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Lang.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 已翻译 , 类型: java.lang.Integer
+	*/
+	public static final String AUTO_TRANSLATED="autoTranslated";
+	
+	/**
+	 * 已翻译 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Lang,java.lang.Integer> AUTO_TRANSLATED_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Lang.class ,AUTO_TRANSLATED, java.lang.Integer.class, "已翻译", "已翻译", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , AUTO_TRANSLATED };
 	
 	/**
 	 * 代理类
@@ -469,6 +479,17 @@ public class LangMeta {
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 已翻译
+		 * @param autoTranslated 已翻译
+		 * @return 当前对象
+		*/
+		public Lang setAutoTranslated(Integer autoTranslated) {
+			super.change(AUTO_TRANSLATED,super.getAutoTranslated(),autoTranslated);
+			super.setAutoTranslated(autoTranslated);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -487,6 +508,7 @@ public class LangMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setZhCn(this.getZhCn());
 			inst.setCode(this.getCode());
+			inst.setAutoTranslated(this.getAutoTranslated());
 			inst.setZhHk(this.getZhHk());
 			inst.setZhTw(this.getZhTw());
 			inst.setEnUs(this.getEnUs());
