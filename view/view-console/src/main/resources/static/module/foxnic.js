@@ -802,7 +802,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
 
         translate: function (defaults, code , context) {
-
+            // debugger
             if(!context) context="defaults";
 
             //debugger

@@ -3,10 +3,8 @@ package org.github.foxnic.web.framework.cluster;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.springboot.mvc.ParameterFilter;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
-import org.springframework.web.context.ContextLoader;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -100,6 +98,8 @@ public class ClusterFilter implements Filter {
 
         handlerClusterRequest((HttpServletRequest)request);
         chain.doFilter(request,response);
+
+
     }
 
     @Override

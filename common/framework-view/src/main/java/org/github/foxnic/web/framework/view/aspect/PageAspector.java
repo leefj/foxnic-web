@@ -196,8 +196,9 @@ public class PageAspector {
 			}
 		}
 
+		Object result =  joinPoint.proceed();
 
-		return joinPoint.proceed();
+		return result;
 	}
 
 }

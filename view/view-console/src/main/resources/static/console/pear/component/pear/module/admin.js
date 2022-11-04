@@ -320,6 +320,19 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				return text ? text : "--";
 			};
 
+			this.translateFixLayuiConfirm=function (index) {
+				//debugger
+				var title=$("#layui-layer"+index).find(".layui-layer-title").text();
+				title=this.translate(title,null,"layui");
+				$("#layui-layer"+index).find(".layui-layer-title").text(title);
+				var buttons=$("#layui-layer"+index).find(".layui-layer-btn").find("a");
+				for (var i = 0; i < buttons.length; i++) {
+					var text=$(buttons[i]).text();
+					text=this.translate(text,null,"layui");
+					$(buttons[i]).text(text)
+				}
+			}
+
 			//
 			top.translate=this.translate;
 
@@ -744,8 +757,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			this.registerLogout = function() {
 				var me=this;
 				function logoutHandler() {
-					debugger
-					layer.confirm(admin.translate('您确定要退出登录吗')+'？', function () {
+					var i=layer.confirm(admin.translate('您确定要退出登录吗')+'？', function () {
 						let token = me.getToken();
 						//let isExistsToken = false;
 						// debugger
@@ -774,6 +786,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							location.replace('login.html');
 						}
 					});
+					admin.translateFixLayuiConfirm(i);
 				};
 				logout = logoutHandler;
 			}
@@ -1671,7 +1684,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				colors += "<span class='select-color-item' color-id='" + value.id + "' style='background-color:" + value.color +
 					";'></span>";
 			})
-			return "<div class='select-color'><div class='select-color-title'>主题配色</div><div class='select-color-content'>" +
+			return "<div class='select-color'><div class='select-color-title'>"+pearAdmin.translate("主题配色","","menu")+"</div><div class='select-color-content'>" +
 				colors + "</div></div>"
 		}
 

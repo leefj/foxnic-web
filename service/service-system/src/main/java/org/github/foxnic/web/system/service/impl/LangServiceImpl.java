@@ -84,7 +84,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@PostConstruct
 	private void init() {
 		try {
-			Field field = LanguageTranslator.class.getField("INSTANCE");
+			Field field = LanguageTranslator.class.getDeclaredField("INSTANCE");
 			field.setAccessible(true);
 			field.set(null,this);
 		} catch (Exception e) {

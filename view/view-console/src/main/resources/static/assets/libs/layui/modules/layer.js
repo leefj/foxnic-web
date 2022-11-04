@@ -252,7 +252,7 @@ Class.pt.vessel = function(conType, callback){
   var zIndex = config.zIndex + times, titype = typeof config.title === 'object';
   var ismax = config.maxmin && (config.type === 1 || config.type === 2);
   var titleHTML = (config.title ? '<div class="layui-layer-title" style="'+ (titype ? config.title[1] : '') +'">'
-    + (titype ? config.title[0] : config.title)
+    + (titype ? top.translate(config.title[0],null,'layui') : top.translate(config.title,null,'layui'))
   + '</div>' : '');
 
   config.zIndex = zIndex;
@@ -276,7 +276,8 @@ Class.pt.vessel = function(conType, callback){
         var button = '';
         typeof config.btn === 'string' && (config.btn = [config.btn]);
         for(var i = 0, len = config.btn.length; i < len; i++){
-          button += '<a class="'+ doms[6] +''+ i +'">'+ config.btn[i] +'</a>'
+          //debugger
+          button += '<a class="'+ doms[6] +''+ i +'">'+ top.translate(config.btn[i],null,"layui") +'</a>'
         }
         return '<div class="'+ doms[6] +' layui-layer-btn-'+ (config.btnAlign||'') +'">'+ button +'</div>'
       }() : '')
@@ -309,10 +310,10 @@ Class.pt.creat = function(){
   if(layer.ie == 6){
     config.fixed = false;
   }
-
+  // debugger
   switch(config.type){
     case 0:
-      config.btn = ('btn' in config) ? config.btn : ready.btn[0];
+      config.btn = ('btn' in config) ? config.btn : top.translate(ready.btn[0],null,'layui');
       layer.closeAll('dialog');
     break;
     case 2:

@@ -73,10 +73,10 @@ layui.define(['jquery', 'element'], function(exports) {
 				var menuWidth = 100;
 				var currentId = $(this).attr("lay-id");
 				var menu = "<ul>" +
-					"<li class='item' id='" + option.elem +"openNew'>独立窗口</li>" +
-					"<li class='item' id='" + option.elem +"closeThis'>关闭当前</li>" +
-					"<li class='item' id='" + option.elem +"closeOther'>关闭其他</li>" +
-					"<li class='item' id='" + option.elem +"closeAll'>关闭所有</li>" +
+					"<li class='item' id='" + option.elem +"openNew'>"+top.translate("独立窗口",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeThis'>"+top.translate("关闭当前",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeOther'>"+top.translate("关闭其他",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeAll'>"+top.translate("关闭所有",null,'layui')+"</li>" +
 					"</ul>";
 
 				contextTabDOM = $(this);
@@ -510,10 +510,10 @@ layui.define(['jquery', 'element'], function(exports) {
 
 		title += '</ul>';
 		content += '</div>';
-		control += '<dd id="openNew"><a href="#">独立窗口</a></dd>'
-		control += '<dd id="closeThis"><a href="#">关闭当前</a></dd>'
-		control += '<dd id="closeOther"><a href="#">关闭其他</a></dd>'
-		control += '<dd id="closeAll"><a href="#">关闭全部</a></dd>'
+		control += '<dd id="openNew"><a href="#">'+top.translate('独立窗口',null,'layui')+'</a></dd>'
+		control += '<dd id="closeThis"><a href="#">'+top.translate('关闭当前',null,'layui')+'</a></dd>'
+		control += '<dd id="closeOther"><a href="#">'+top.translate('关闭其他',null,'layui')+'</a></dd>'
+		control += '<dd id="closeAll"><a href="#">'+top.translate('关闭全部',null,'layui')+'</a></dd>'
 		control += '</dl></li></ul></li></div>';
 
 		tab += title;
