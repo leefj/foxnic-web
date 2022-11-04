@@ -12,9 +12,10 @@ layui.config({
 
     // debugger
     var localLangProp=config.getLang();
+    var localLangCode=null;
     if(!localLangProp || localLangProp=='undefined') localLangProp="defaults";
+    // 初始化
     if(localLangProp && localLangProp!=USER_LANGUAGE_PROP) {
-        var localLangCode=null;
         for (var i=0;i<LANGUAGES.length;i++) {
             if(LANGUAGES[i].property==localLangProp) {
                 localLangCode=LANGUAGES[i].code;
@@ -28,8 +29,14 @@ layui.config({
     }
 
 
+
+
     config.setLang(USER_LANGUAGE_PROP);
 
+    $("#login-submit").addClass("layui-btn-disabled").attr("disabled",true);
+    initLanguage(function (){
+        $("#login-submit").removeClass("layui-btn-disabled").attr("disabled",false);
+    });
     initLanguageSwitchButton();
 
     $("input[name='browserId']").val(uuid);
@@ -58,11 +65,7 @@ layui.config({
                     config.putUser(user);
                     console.log("token",user.token);
                     config.putToken(user.token);
-                    initLanguage(function (){
-                        layer.msg($("#login-success-message").text(), {icon: 1, time: 500}, function () {
-                            location.replace('./index.html');
-                        });
-                    });
+                    location.replace('./index.html');
                 } else {
                     layer.closeAll('loading');
                     layer.msg(data.message, {icon: 5, time: 1000});
@@ -144,9 +147,7 @@ layui.config({
             url: config.base_server + '/service-system/sys-lang/switch-language',
             success:function (r) {
                 config.setLang(r.data.property);
-                setTimeout(function (){
-                    location.reload();
-                },0)
+                location.reload();
             }
         });
     }
@@ -160,7 +161,7 @@ layui.config({
             async: true,
             type: 'POST',
             async: true,
-            url: config.base_server + '/service-system/sys-lang/query-list',
+            url: config.base_server + '/service-system/sys-lang/query-list?lang='+USER_LANGUAGE_CODE,
             success:function (data) {
                 // debugger
                 data=data.data;

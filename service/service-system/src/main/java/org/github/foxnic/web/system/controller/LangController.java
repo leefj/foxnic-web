@@ -10,6 +10,7 @@ import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -30,6 +31,8 @@ import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -197,27 +200,24 @@ public class LangController extends SuperController {
      */
     @ApiOperation(value = "查询语言条目")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = LangVOMeta.CODE, value = "编码键", required = true, dataTypeClass = String.class, example = "01-b0ed30300c-7d2e"),
-		@ApiImplicitParam(name = LangVOMeta.DEFAULTS, value = "默认", required = false, dataTypeClass = String.class, example = "批次号"),
-		@ApiImplicitParam(name = LangVOMeta.ZH_TW, value = "中文(台湾)", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.EN_US, value = "英文美国", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONFUSE, value = "混淆专用", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID, value = "是否有效", required = true, dataTypeClass = Integer.class, example = "true"),
-		@ApiImplicitParam(name = LangVOMeta.ZH_CN, value = "简体中文", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.EN_GB, value = "英文英国", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.ZH_HK, value = "中文(香港)", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.ZH_MO, value = "中文(澳门)", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.KO_KR, value = "韩语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.JA_JP, value = "日语", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.CONTEXT, value = "语境", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = LangVOMeta.AUTO_TRANSLATED, value = "已翻译", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = "lang", value = "语言编码", required = true, dataTypeClass = String.class, example = "zh-cn"),
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_LIST)
     public Result<JSONArray> queryList(LangVO sample) {
         Result<JSONArray> result = new Result<>();
-        Language language = langService.getUserLanguage();
+
+        RequestParameter requestParameter=RequestParameter.get();
+        HttpSession session = requestParameter.getSession(false);
+
+        String lang=requestParameter.getString("lang");
+        Language language = Language.parseByCode(lang);
+        if(language==null) {
+            language = langService.getUserLanguage();
+        }
+        session.setAttribute(LanguageService.USER_LANGUAGE,language);
+
         Set<String> fields = new HashSet<>();
         fields.add(FoxnicWeb.SYS_LANG.CODE.name());
         fields.add(FoxnicWeb.SYS_LANG.CONTEXT.name());

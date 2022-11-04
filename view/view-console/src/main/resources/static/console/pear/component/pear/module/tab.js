@@ -73,10 +73,10 @@ layui.define(['jquery', 'element'], function(exports) {
 				var menuWidth = 100;
 				var currentId = $(this).attr("lay-id");
 				var menu = "<ul>" +
-					"<li class='item' id='" + option.elem +"openNew'>"+top.translate("独立窗口",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeThis'>"+top.translate("关闭当前",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeOther'>"+top.translate("关闭其他",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeAll'>"+top.translate("关闭所有",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"openNew'>"+window.top.translate("独立窗口",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeThis'>"+window.top.translate("关闭当前",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeOther'>"+window.top.translate("关闭其他",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeAll'>"+window.top.translate("关闭所有",null,'layui')+"</li>" +
 					"</ul>";
 
 				contextTabDOM = $(this);
