@@ -2,7 +2,7 @@ package org.github.foxnic.web.language;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.constant.CodeTextEnum;
-import com.github.foxnic.api.language.LanguageTranslator;
+import com.github.foxnic.api.language.I18N;
 import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.language.GlobalLanguage;
 import com.github.foxnic.commons.reflect.EnumUtil;
@@ -53,7 +53,7 @@ public enum Language implements CodeTextEnum {
 		JSONObject item = new JSONObject();
 		item.put("code", this.code());
 		item.put("property", this.property());
-		item.put("text", LanguageTranslator.translate(this.text(),null,languageContext));
+		item.put("text", I18N.translate(this.text(),null,languageContext));
 		return item;
 	}
 

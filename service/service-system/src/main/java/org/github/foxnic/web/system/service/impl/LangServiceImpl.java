@@ -30,7 +30,7 @@ import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
-import com.github.foxnic.api.language.LanguageTranslator;
+import com.github.foxnic.api.language.I18N;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -84,7 +84,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@PostConstruct
 	private void init() {
 		try {
-			Field field = LanguageTranslator.class.getDeclaredField("INSTANCE");
+			Field field = I18N.class.getDeclaredField("INSTANCE");
 			field.setAccessible(true);
 			field.set(null,this);
 		} catch (Exception e) {
