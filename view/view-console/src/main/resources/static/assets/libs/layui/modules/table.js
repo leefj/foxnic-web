@@ -75,7 +75,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
         else if(indexes.length==0) {
           return null;
         } else  if(indexes.length>1) {
-          throw new Error("匹配到多行，无法处理");
+          throw new Error(top.translate("匹配到多行，无法处理",'',"cmp:table"));
         }
       }
 
@@ -1507,15 +1507,15 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
         break;
         case 'LAYTABLE_EXPORT': //导出
           if(device.ie){
-            layer.tips('导出功能不支持 IE，请用 Chrome 等高级浏览器导出', this, {
+            layer.tips(top.translate('导出功能不支持 IE，请用 Chrome 等高级浏览器导出','','layui'), this, {
               tips: 3
             })
           } else {
             openPanel({
               list: function(){
                 return [
-                  '<li data-type="csv">导出到 Csv 文件</li>'
-                  ,'<li data-type="xls">导出到 Excel 文件</li>'
+                  '<li data-type="csv">'+top.translate('导出到 Csv 文件','','layui')+'</li>'
+                  ,'<li data-type="xls">'+top.translate('导出到 Excel 文件','','layui')+'</li>'
                 ].join('')
               }()
               ,done: function(panel, list){
@@ -1528,7 +1528,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
           }
         break;
         case 'LAYTABLE_PRINT': //打印
-          var printWin = window.open('打印窗口', '_blank')
+          var printWin = window.open(top.translate('打印窗口','','layui'), '_blank')
           ,style = ['<style>'
             ,'body{font-size: 12px; color: #666;}'
             ,'table{width: 100%; border-collapse: collapse; border-spacing: 0;}'

@@ -66,8 +66,8 @@ layui.define(function(exports){
       groups = config.pages;
     }
 
-    config.prev = 'prev' in config ? config.prev : '&#x4E0A;&#x4E00;&#x9875;'; //上一页文本
-    config.next = 'next' in config ? config.next : '&#x4E0B;&#x4E00;&#x9875;'; //下一页文本
+    config.prev = 'prev' in config ? config.prev : top.translate('&#x4E0A;&#x4E00;&#x9875;','','cmp:table-text'); //上一页文本
+    config.next = 'next' in config ? config.next : top.translate('&#x4E0B;&#x4E00;&#x9875;','','cmp:table-text'); //下一页文本
 
     //计算当前组
     var index = config.pages > groups
@@ -147,7 +147,7 @@ layui.define(function(exports){
       }()
 
       //数据总数
-      ,count: '<span class="layui-laypage-count">共 '+ config.count +' 条</span>'
+      ,count: '<span class="layui-laypage-count">'+top.translate('共 ','','cmp:table-text')+ config.count +top.translate(' 条','','cmp:table-text')+'</span>'
 
       //每页条数
       ,limit: function(){
@@ -156,7 +156,7 @@ layui.define(function(exports){
           options.push(
             '<option value="'+ item +'"'
             +(item === config.limit ? 'selected' : '')
-            +'>'+ item +' 条/页</option>'
+            +'>'+ item +top.translate(' 条/页','','cmp:table-text')+'</option>'
           );
         });
         return options.join('') +'</select></span>';
@@ -169,9 +169,9 @@ layui.define(function(exports){
 
       //跳页区域
       ,skip: function(){
-        return ['<span class="layui-laypage-skip">&#x5230;&#x7B2C;'
+        return ['<span class="layui-laypage-skip">'+top.translate('&#x5230;&#x7B2C;','','cmp:table-text')
           ,'<input type="text" min="1" value="'+ config.curr +'" class="layui-input">'
-          ,'&#x9875;<button type="button" class="layui-laypage-btn">&#x786e;&#x5b9a;</button>'
+          ,top.translate('&#x9875;','','cmp:table-text')+'<button type="button" class="layui-laypage-btn">'+top.translate('&#x786e;&#x5b9a;','','cmp:table-text')+'</button>'
         ,'</span>'].join('');
       }()
     };

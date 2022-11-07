@@ -113,9 +113,9 @@
 
             <!-- 按钮区域 -->
             <div id="search-area" class="layui-form toolbar search-buttons" style="opacity: 0">
-                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索','','cmp:table.search')}">搜索</span></button>
                 #if(searchRows.size() > searchRowsDisplay)
-                <button id="search-button-advance" class="layui-btn layui-btn-primary icon-btn search-button-advance"><i class="layui-icon">&#xe671;</i><span th:text="${lang.translate('更多')}">更多</span></button>
+                <button id="search-button-advance" class="layui-btn layui-btn-primary icon-btn search-button-advance"><i class="layui-icon">&#xe671;</i><span th:text="${lang.translate('更多','','cmp:table.search')}">更多</span></button>
                 #end
             </div>
         </div>
@@ -140,18 +140,18 @@
     <div class="layui-btn-container">
         #if(!disableCreateNew)
         #if(bpm)
-        <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('发起审批')}">发起审批</span></button>
+        <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('发起审批','','cmp:table.button')}">发起审批</span></button>
         #else
-        <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate(#if(createNewButton.label==null)'新建'#else'#(createNewButton.label)'#end)}">#if(createNewButton.label==null)新建#else#(createNewButton.label)#end</span></button>
+        <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate(#if(createNewButton.label==null)'新建'#else'#(createNewButton.label)'#end,'','cmp:table.button')}">#if(createNewButton.label==null)新建#else#(createNewButton.label)#end</span></button>
         #end
         #end
         #if(!disableBatchDelete)
         #if(isSimplePK && !bpm)
-        <button th:if="${perm.checkAuth('#(authPrefix):delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button #if(batchDeleteButton.css!=null)#(batchDeleteButton.css)#end" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate(#if(batchDeleteButton.label==null)'删除'#else'#(batchDeleteButton.label)'#end)}">#if(createNewButton.label==null)删除#else#(createNewButton.label)#end</span></button>
+        <button th:if="${perm.checkAuth('#(authPrefix):delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button #if(batchDeleteButton.css!=null)#(batchDeleteButton.css)#end" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate(#if(batchDeleteButton.label==null)'删除'#else'#(batchDeleteButton.label)'#end,'','cmp:table.button')}">#if(createNewButton.label==null)删除#else#(createNewButton.label)#end</span></button>
         #end
         #end
         #for(b:toolButtons)
-        <button id="#(b.id)"  #if(b.perm!=null)th:if="${perm.checkAuth('#(b.perm)')}"#end class="layui-btn icon-btn layui-btn-sm #if(b.css!=null) #(b.css) #end" lay-event="tool-#(b.id)">#if(b.iconHtml!=null) #(b.iconHtml) #end<span th:text="${lang.translate('#(b.label)')}">#(b.label)</span></button>
+        <button id="#(b.id)"  #if(b.perm!=null)th:if="${perm.checkAuth('#(b.perm)')}"#end class="layui-btn icon-btn layui-btn-sm #if(b.css!=null) #(b.css) #end" lay-event="tool-#(b.id)">#if(b.iconHtml!=null) #(b.iconHtml) #end<span th:text="${lang.translate('#(b.label)','','cmp:table.button')}">#(b.label)</span></button>
         #end
     </div>
 </script>
@@ -159,37 +159,37 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 	#if(isTree)
-    <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" data-id="{{d.id}}"><span th:text="${lang.translate('下级')}">下级</span></button>
+    <button class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" data-id="{{d.id}}"><span th:text="${lang.translate('下级','','cmp:table.ops')}">下级</span></button>
 	#end
 
     #if(!disableFormView)
     #if(!bpm)
-    <button th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button #if(formViewButton.css!=null)#(formViewButton.css)#end" lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate(#if(formViewButton.label==null)'查看'#else'#(formViewButton.label)'#end)}">#if(formViewButton.label==null)查看#else#(formViewButton.label)#end</span></button>
+    <button th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button #if(formViewButton.css!=null)#(formViewButton.css)#end" lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate(#if(formViewButton.label==null)'查看'#else'#(formViewButton.label)'#end,'','cmp:table.ops')}">#if(formViewButton.label==null)查看#else#(formViewButton.label)#end</span></button>
     #end
     #end
     #if(!disableModify)
     #if(bpm)
-    <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate('打开')}">打开</span></button>
+    <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate('打开','','cmp:table.ops')}">打开</span></button>
     #else
-    <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate(#if(modifyButton.label==null)'修改'#else'#(modifyButton.label)'#end)}">#if(modifyButton.label==null)修改#else#(modifyButton.label)#end</span></button>
+    <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate(#if(modifyButton.label==null)'修改'#else'#(modifyButton.label)'#end,'','cmp:table.ops')}">#if(modifyButton.label==null)修改#else#(modifyButton.label)#end</span></button>
     #end
     #end
 
 
     #if(!disableSingleDelete)
     #if(bpm)
-    <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('废弃')}">废弃</span></button>
+    <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('废弃','','cmp:table.ops')}">废弃</span></button>
     #else
-    <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate(#if(deleteButton.label==null)'删除'#else'#(deleteButton.label)'#end)}">#if(deleteButton.label==null)删除#else#(deleteButton.label)#end</span></button>
+    <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate(#if(deleteButton.label==null)'删除'#else'#(deleteButton.label)'#end,'','cmp:table.ops')}">#if(deleteButton.label==null)删除#else#(deleteButton.label)#end</span></button>
     #end
     #end
 
     #for(b:opColumnButtons)
-    <button #if(b.perm!=null)th:if="${perm.checkAuth('#(b.perm)')}"#end class="layui-btn layui-btn-xs #if(b.css!=null) #(b.css) #end" lay-event="#(b.id)" data-id="{{d.id}}">#if(b.iconHtml!=null) #(b.iconHtml) #end<span th:text="${lang.translate('#(b.label)')}">#(b.label)</span></button>
+    <button #if(b.perm!=null)th:if="${perm.checkAuth('#(b.perm)')}"#end class="layui-btn layui-btn-xs #if(b.css!=null) #(b.css) #end" lay-event="#(b.id)" data-id="{{d.id}}">#if(b.iconHtml!=null) #(b.iconHtml) #end<span th:text="${lang.translate('#(b.label)','','cmp:table.ops')}">#(b.label)</span></button>
     #end
 
     #if(opColumnMenus!=null && opColumnMenus.size()>0)
-    <button class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more" data-id="{{d.id}}"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></button>
+    <button class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more" data-id="{{d.id}}"><span th:text="${lang.translate('更多','','cmp:table.ops')}">更多</span><i class="layui-icon layui-icon-down"></i></button>
     #end
 </script>
 

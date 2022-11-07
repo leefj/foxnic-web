@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:50:31
+ * @since 2022-11-07 16:32:02
  */
 
 function FormPage() {
@@ -61,7 +61,7 @@ function FormPage() {
 		var data=[];
 		if(action=="edit" || action=="create") {
 			data.push({
-				id:"save",title: '保存',
+				id:"save",title: fox.translate('保存'),
 				handler:function (obj, othis) {
 					verifyAndSaveForm();
 				}
@@ -70,7 +70,7 @@ function FormPage() {
 
 		if(window!=top) {
 			data.push({
-				id: "cancel", title: '取消',
+				id: "cancel", title: fox.translate('取消'),
 				handler:function (obj, othis) {
 					admin.finishPopupCenterById('sys-user-form-data-win',this);
 				}
@@ -79,7 +79,7 @@ function FormPage() {
 
 		data.push({
 			id: "refresh",
-			title: '刷新',
+			title: fox.translate('刷新'),
 			// templet: '<div><i class="layui-icon layui-icon-refresh"></i>&nbsp;{{d.title}}</div>',
 			handler:function (obj, othis) {
 				var formData=admin.getTempData('sys-user-form-data');

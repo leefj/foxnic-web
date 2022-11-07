@@ -276,6 +276,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			}
 
 			this.translate = function (defaults, code , context) {
+				return  top.translate(defaults, code , context);
 
 				if(!context) context="defaults";
 
@@ -312,6 +313,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 				//如果条目不存在，则插入
 				if (!item) {
+					debugger
 					admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults,context: context}, function (data) {
 						localStorage.removeItem("language_timestamp");
 					});
@@ -334,7 +336,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			}
 
 			//
-			top.translate=this.translate;
+			// top.translate=this.translate;
 
 
 
@@ -342,11 +344,19 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 
 				var user=this.getUser();
-				var menus=user.user.menus;
+				var menus=[];
+				var userId='not-login';
+				if(user && user.user && user.user.menus) {
+					menus = user.user.menus;
+					userId = user.user.id;
+				}
+
 
 				// debugger;
-				$("#portrait-image").attr("src",""+"/service-storage/sys-file/download?id="+user.user.portraitId+"&catalog=portrait");
-				$("#account-name").text(user.user.displayName);
+				if(user && user.user) {
+					$("#portrait-image").attr("src", "" + "/service-storage/sys-file/download?id=" + user.user.portraitId + "&catalog=portrait");
+					$("#account-name").text(user.user.displayName);
+				}
 
 				// 提取页面元素
 				var map={};
@@ -464,7 +474,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					controlWidth: param.menu.controlWidth,
 					accordion: param.menu.accordion,
 					// url: param.menu.data,
-					userId:user.user.id,
+					userId: userId,
 					data: topMenus,
 					parseData: false,
 					moreText:this.translate("&nbsp;更&nbsp;多","menu"),

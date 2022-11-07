@@ -157,6 +157,7 @@ layui.config({
     //
     function initLanguage(cb) {
 
+        // 清除多语言数据
         localStorage.removeItem("language_codeLangs");
         localStorage.removeItem("language_defaultsLangs");
         localStorage.removeItem("language_timestamp");

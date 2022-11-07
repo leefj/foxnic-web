@@ -79,7 +79,7 @@ function ListPage() {
 			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: ['filter', 'print',{title: fox.translate('刷新数据'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
@@ -675,11 +675,11 @@ function ListPage() {
 
 			var ids=getCheckedList("#(idPropertyName)");
             if(ids.length==0) {
-				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('#(topic)')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的'+'#(topic)'+"!"));
             	return;
             }
             //调用批量删除接口
-			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
+			top.layer.confirm(fox.translate('确定删除已选中的'+'#(topic)'+'吗？'), function (i) {
                 top.layer.close(i);
 				admin.post(moduleURL+"/delete-by-ids", { #(idsPropertyName): ids }, function (data) {
                     if (data.success) {
@@ -722,7 +722,7 @@ function ListPage() {
 						if(window.pageExt.list.handleNoProcessBill) {
 							window.pageExt.list.handleNoProcessBill({#(paramJson)});
 						} else {
-							top.layer.msg('当前业务单据尚未关联流程', {icon: 2, time: 1500});
+							top.layer.msg(fox.translate('当前业务单据尚未关联流程'), {icon: 2, time: 1500});
 						}
 					}
 				},"bill");
@@ -762,7 +762,7 @@ function ListPage() {
 				}
 
 				#if(bpm)
-				top.layer.confirm(fox.translate('确定要废弃当前')+fox.translate('流程实例')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定要废弃当前流程实例吗？'), function (i) {
 					top.layer.close(i);
 					bpm.getProcessInstanceByBill("#(bpmFormCode)",{ #(paramJson) },function(p) {
 						if(p) {
@@ -793,7 +793,7 @@ function ListPage() {
 				});
 				#else
 				#if(deleteButton.functionName==null)
-				top.layer.confirm(fox.translate('确定删除此')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定删除此'+'#(topic)'+'吗？'), function (i) {
 					top.layer.close(i);
 					admin.post(moduleURL+"/delete", { #(paramJson) }, function (data) {
 						top.layer.closeAll('loading');

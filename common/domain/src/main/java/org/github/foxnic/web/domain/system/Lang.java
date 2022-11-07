@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 语言条目
  * <p>语言条目 , 数据表 sys_lang 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-04 10:55:55
+ * @since 2022-11-07 16:26:11
  * @sign 7D0CA27FC9617570807B84F09CCB73AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -58,7 +58,7 @@ public class Lang extends Entity {
 	/**
 	 * 简体中文：简体中文
 	*/
-	@ApiModelProperty(required = false,value="简体中文" , notes = "简体中文")
+	@ApiModelProperty(required = false,value="简体中文" , notes = "简体中文" , example = "风险等级")
 	private String zhCn;
 	
 	/**

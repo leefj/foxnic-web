@@ -215,7 +215,9 @@ public class SystemCodeGenerator  {
 		cfg.view().field(SYS_LANG.JA_JP).search().hidden();
 		cfg.view().field(SYS_LANG.KO_KR).search().hidden();
 		cfg.view().field(SYS_LANG.CONFUSE).search().hidden();
+		cfg.view().field(SYS_LANG.AUTO_TRANSLATED).basic().hidden();
 
+		cfg.view().field(SYS_LANG.CONTEXT).search().fuzzySearch();
 		cfg.view().field(SYS_LANG.VALID).search().hidden()
 		.form().logicField().off("无效",0).on("有效",1).defaultValue(true);
 

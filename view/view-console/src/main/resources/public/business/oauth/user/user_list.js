@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:50:31
+ * @since 2022-11-07 16:32:00
  */
 
 
@@ -69,7 +69,7 @@ function ListPage() {
 			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: ['filter', 'print',{title: fox.translate('刷新数据'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
@@ -95,7 +95,7 @@ function ListPage() {
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
 					exportExcel : false ,
-					importExcel : false 
+					importExcel : false
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
@@ -343,11 +343,11 @@ function ListPage() {
 
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('账户')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的'+'账户'+"!"));
             	return;
             }
             //调用批量删除接口
-			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
+			top.layer.confirm(fox.translate('确定删除已选中的'+'账户'+'吗？'), function (i) {
                 top.layer.close(i);
 				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
@@ -406,7 +406,7 @@ function ListPage() {
 					if(!doNext) return;
 				}
 
-				top.layer.confirm(fox.translate('确定删除此')+fox.translate('账户')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定删除此'+'账户'+'吗？'), function (i) {
 					top.layer.close(i);
 					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
@@ -425,7 +425,7 @@ function ListPage() {
 			}
 			else if(obj.event === 'ops-more'){
 				//更多下拉菜单
-				var  items = [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}];
+				var  items = [{"id":"owner-relation","title":fox.translate("属主关系",null,'mdu:user')},{"id":"passwd-reset","title":fox.translate("重置密码",null,'mdu:user')}];
 				items=items.filter(function (item,i,arr){
 					if(!item.perm) return true;
 					else return admin.checkAuth(item.perm);
@@ -445,7 +445,7 @@ function ListPage() {
 					,style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);'
 				});
 			}
-			
+
 		});
 
     };

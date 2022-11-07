@@ -27,7 +27,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:50:31
+ * @since 2022-11-07 16:31:57
  * @sign 572EC7F15C59D3657B03269F069A8BB4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -80,7 +80,7 @@ public class User extends Entity {
 	/**
 	 * 语言：语言
 	*/
-	@ApiModelProperty(required = false,value="语言" , notes = "语言" , example = "confuse")
+	@ApiModelProperty(required = false,value="语言" , notes = "语言" , example = "auto")
 	private String language;
 	
 	/**
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-11-01 04:23:03")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-11-07 04:30:00")
 	private Date lastLoginTime;
 	
 	/**
@@ -122,7 +122,7 @@ public class User extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-09-09 09:58:00")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-07 11:32:12")
 	private Date updateTime;
 	
 	/**
@@ -149,7 +149,7 @@ public class User extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "198")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "199")
 	private Integer version;
 	
 	/**

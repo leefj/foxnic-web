@@ -1,3 +1,136 @@
+
+if(window==top) {
+	// debugger
+	var defaultsLangs = null, codeLangs = null, language = null;
+
+	window.translate = function (defaults, code, context) {
+		// debugger
+		if (!context) context = "defaults";
+
+		if (!language) {
+			language = localStorage.getItem("lang");
+		}
+		//debugger
+		if (defaultsLangs == null) {
+			//debugger;
+			codeLangs = localStorage.getItem("language_codeLangs");
+			if (codeLangs && codeLangs.length > 2) {
+				codeLangs = JSON.parse(codeLangs);
+			}
+			defaultsLangs = localStorage.getItem("language_defaultsLangs");
+			if (defaultsLangs && defaultsLangs.length > 2) {
+				defaultsLangs = JSON.parse(defaultsLangs);
+			}
+		}
+		if (defaultsLangs == null) {
+			return defaults;
+		}
+		var item = defaultsLangs[context + ":" + defaults];
+		var text = null;
+		if (!item && code) {
+			item = codeLangs[context + ":" + code];
+		}
+		if (item) {
+			text = item[language];
+			if (text && text != ":ns;") {
+				return text;
+			}
+		}
+
+		if (!text || text == ":ns;") {
+			text = defaults;
+		}
+
+		//如果条目不存在，则插入
+		if (!item && window.admin) {
+			// debugger
+			window.admin.request("/service-system/sys-lang/insert", {
+				code: code,
+				defaults: defaults,
+				context: context
+			}, function (data) {
+				localStorage.removeItem("language_timestamp");
+			});
+		}
+
+		return text ? text : "--";
+	};
+
+	function loadLanguageItems() {
+
+
+		// 本地开发时，清除本地缓存
+		if(location.href.indexOf("127.0.0.1")>0 || location.href.indexOf("localhost")>0) {
+			// 清除多语言数据
+			localStorage.removeItem("language_codeLangs");
+			localStorage.removeItem("language_defaultsLangs");
+			localStorage.removeItem("language_timestamp");
+		}
+
+		if (!language) {
+			language = localStorage.getItem("lang");
+		}
+
+		// var languageTimestamp = localStorage.getItem("language_timestamp");
+
+		//加载语言
+		// if (languageTimestamp) {
+
+		// var expire = ((new Date()).getTime() - languageTimestamp) / 1000;
+
+		// if (expire < 60 * 15) {
+		codeLangs = localStorage.getItem("language_codeLangs");
+		if (codeLangs && codeLangs.length > 2) {
+			codeLangs = JSON.parse(codeLangs);
+		}
+
+		defaultsLangs = localStorage.getItem("language_defaultsLangs");
+		if (defaultsLangs && defaultsLangs.length > 2) {
+			defaultsLangs = JSON.parse(defaultsLangs);
+		}
+		// 	}
+		//
+		// }
+
+		if ((defaultsLangs == null || codeLangs == null)) {
+			if (window.admin) {
+				window.admin.request('/service-system/sys-lang/query-list', {lang: language}, function (data) {
+					// debugger
+					if (!data.success) return;
+					data = data.data;
+					codeLangs = {};
+					defaultsLangs = {};
+					for (var i = 0; i < data.length; i++) {
+						codeLangs[data[i].context + ":" + data[i].code] = data[i];
+						defaultsLangs[data[i].context + ":" + data[i].defaults] = data[i];
+					}
+					localStorage.setItem("language_codeLangs", JSON.stringify(codeLangs));
+					localStorage.setItem("language_defaultsLangs", JSON.stringify(defaultsLangs));
+					localStorage.setItem("language_timestamp", (new Date()).getTime());
+				}, "POST", true);
+			} else {
+				setTimeout(loadLanguageItems,1);
+			}
+		}
+
+
+	}
+
+	loadLanguageItems();
+
+
+
+
+} else {
+	// debugger
+	window.translate = function (defaults, code, context) {
+		return top.translate(defaults, code, context);
+	}
+}
+
+
+
+
 function Log() {}
 
 Log.prototype.type = ["primary", "success", "warn", "error", "info"];
@@ -258,6 +391,8 @@ var Theme={
 	},
 	badgeStyles:["layui-badge foxnic-table-badge","layui-badge layui-bg-green foxnic-table-badge","layui-badge layui-bg-cyan foxnic-table-badge","layui-badge layui-bg-blue foxnic-table-badge"]
 };
+
+
 
 
 logger.log("layuiPath",layuiPath)

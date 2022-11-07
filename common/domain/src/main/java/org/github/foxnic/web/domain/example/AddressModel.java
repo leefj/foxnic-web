@@ -16,7 +16,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:51:47
+ * @since 2022-11-07 16:20:56
  * @sign 56EAA62D6D6D2EFA1C1EA32789665FA8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

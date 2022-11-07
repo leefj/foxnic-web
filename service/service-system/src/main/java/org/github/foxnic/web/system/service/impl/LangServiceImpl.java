@@ -129,6 +129,9 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(StringUtil.isBlank(lang.getContext())) {
 			lang.setContext(DEFAULT_CONTEXT);
 		}
+		if(StringUtil.isBlank(lang.getZhCn())) {
+			lang.setZhCn(lang.getDefaults());
+		}
 		if(lang.getAutoTranslated()==null) lang.setAutoTranslated(0);
 		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.CONTEXT,FoxnicWeb.SYS_LANG.DEFAULTS);
 		if(ex) return ErrorDesc.success();

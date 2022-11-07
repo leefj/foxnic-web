@@ -66,7 +66,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(el.find(".layui-required").length>0) {
                 cfg.layVerify = 'required';
             }
-            if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
+            if (!cfg.searchTips) cfg.searchTips = this.translate("请输入关键字",'','cmp:select');
             if(cfg.radio && cfg.clickClose==null) {
                 cfg.clickClose=true;
             }
@@ -802,6 +802,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
 
         translate: function (defaults, code , context) {
+
+            // debugger
+            return top.translate(defaults, code , context);
+
             // debugger
             if(!context) context="defaults";
 
@@ -837,7 +841,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
 
             //如果条目不存在，则插入
-            if (!item) {
+            if (!item && admin) {
+                debugger
                 admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults,context: context}, function (data) {
                     localStorage.removeItem("language_timestamp");
                 });
@@ -2145,9 +2150,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 return;
             }
 
-            var message=result.message;
+            var message=this.translate(result.message,null,'result.message');
             if(result.subject) {
-                message=result.subject+message;
+                message=this.translate(result.subject,null,'result.subject')+message;
             }
             if(!message) return;
             var messageLevel=null;
@@ -2160,15 +2165,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 for (var i=0;i<result.errors.length;i++) {
                     var e=result.errors[i];
                     if(e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.subject +" : "+ e.message);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result.subject') +" : "+ this.translate(e.message));
                     } else  if(!e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.message);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.message,null,'result.message'));
                     } else  if(e.subject && !e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+e.subject);
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result.subject'));
                     }
                 }
                 if(errs.length>0) {
-                    message+="<br><span style='font-weight: bold'>错误详情  : </span><br>"+errs.join("<br>");
+                    message+="<br><span style='font-weight: bold'>"+this.translate("错误详情",'','dialog')+"  : </span><br>"+errs.join("<br>");
                 }
             }
 
@@ -2176,10 +2181,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var errs=[];
                 for (var i=0;i<result.solutions.length;i++) {
                     var solution=result.solutions[i];
-                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+solution);
+                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+this.translate(solution,null,'result.solution'));
                 }
                 if(errs.length>0) {
-                    message+="<br><span style='font-weight: bold'>解决方案 :</span> <br>"+errs.join("<br>");
+                    message+="<br><span style='font-weight: bold'>"+this.translate("解决方案",'','dialog')+" :</span> <br>"+errs.join("<br>");
                 }
             }
 
@@ -2222,7 +2227,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(messageLevel=="confirm") {
                 top.layer.open({
                     icon: icon,
-                    title: '提示信息',
+                    title: this.translate('提示信息','','dialog'),
                     content: message
                 });
             } else {
@@ -2339,50 +2344,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     // foxnic 提供的事件
     foxnic.events = {};
-
-
-    //加载数据字典
-//    admin.req('/service-tailoring/sys-dict/query-all', {}, function (data) {
-//    	dict=data.data;
-//    });
-
-    var languageTimestamp = localStorage.getItem("language_timestamp");
-
-    //加载语言
-
-    if (languageTimestamp) {
-
-        var expire = ((new Date()).getTime() - languageTimestamp) / 1000;
-
-        if (expire < 60 * 15) {
-            codeLangs = localStorage.getItem("language_codeLangs");
-            if (codeLangs && codeLangs.length > 2) {
-                codeLangs = JSON.parse(codeLangs);
-            }
-
-            defaultsLangs = localStorage.getItem("language_defaultsLangs");
-            if (defaultsLangs && defaultsLangs.length > 2) {
-                defaultsLangs = JSON.parse(defaultsLangs);
-            }
-        }
-
-    }
-
-    if (defaultsLangs == null || codeLangs == null) {
-        admin.request('/service-system/sys-lang/query-list', {}, function (data) {
-            if(!data.success) return;
-            data = data.data;
-            codeLangs = {};
-            defaultsLangs = {};
-            for (var i = 0; i < data.length; i++) {
-                codeLangs[data[i].code] = data[i];
-                defaultsLangs[data[i].defaults] = data[i];
-            }
-            localStorage.setItem("language_codeLangs", JSON.stringify(codeLangs));
-            localStorage.setItem("language_defaultsLangs", JSON.stringify(defaultsLangs));
-            localStorage.setItem("language_timestamp", (new Date()).getTime());
-        }, "POST", true);
-    }
 
     // 打开表格自定义窗口
     window.openTableCustomDialog = function (li,options,it) {
@@ -2504,7 +2465,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
     }
 
     window.fox=foxnic;
-    top.translate=foxnic.translate;
+
+    // top.translate=foxnic.translate;
+    // debugger
 
     exports('foxnic', foxnic);
 

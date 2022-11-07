@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:50:31
+ * @since 2022-11-07 16:32:01
  */
  -->
  <!DOCTYPE html>
@@ -43,57 +43,57 @@
          <!--开始：group 循环-->
 
 
-
         <div class="layui-row form-row" id="p0-content">
 
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
             <div class="layui-col-xs6 form-column" >
 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('账户')}">账户</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block ">
-                            <input lay-filter="account" id="account" name="account" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"  />
-                        </div>
+                <!-- text_input : 账户 ,  account -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('账户')}">账户</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block ">
+                        <input lay-filter="account" id="account" name="account" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('姓名')}">姓名</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block ">
-                            <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
-                        </div>
+                </div>
+            
+                <!-- text_input : 姓名 ,  realName -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('姓名')}">姓名</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block ">
+                        <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block ">
-                            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机') }" type="text" class="layui-input"    lay-verify="|required|phone"  />
-                        </div>
+                </div>
+            
+                <!-- text_input : 手机 ,  phone -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block ">
+                        <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机') }" type="text" class="layui-input"    lay-verify="|required|phone"  />
                     </div>
-
-
+                </div>
+            
+                <!-- logic_switch : 是否有效 ,  valid  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
                         <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
                 </div>
-
-
-                <!--结束：栏次内字段循环-->
+            <!--结束：栏次内字段循环-->
             </div>
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
             <div class="layui-col-xs6 form-column" >
 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('缓存键')}">缓存键</div></div>
-                        <div class="layui-input-block ">
-                            <input lay-filter="cacheKey" id="cacheKey" name="cacheKey" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('缓存键') }" type="text" class="layui-input"  />
-                        </div>
+                <!-- text_input : 缓存键 ,  cacheKey -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('缓存键')}">缓存键</div></div>
+                    <div class="layui-input-block ">
+                        <input lay-filter="cacheKey" id="cacheKey" name="cacheKey" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('缓存键') }" type="text" class="layui-input"  />
                     </div>
-
-
+                </div>
+                            <!-- upload : 头像 ,  portraitId  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('头像')}">头像</div></div>
                     <div class="layui-upload layui-input-block ">
@@ -102,15 +102,11 @@
                         <div class="layui-upload-list" id="portraitId-file-list"></div>
                     </div>
                 </div>
-
-
-
-                <!--结束：栏次内字段循环-->
+            <!--结束：栏次内字段循环-->
             </div>
             <!--结束：栏次输入框循环-->
         </div>
          <!--开始：group 循环-->
-
 
 
         <div class="layui-row form-row" id="p1-content">
@@ -119,32 +115,30 @@
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
             <div class="layui-col-xs12 form-column"  style="padding-top: 0px" >
 
-
+                <!-- radio_box : 语言 ,  language  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('语言')}">语言</div></div>
                     <div class="layui-input-block ">
                         <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.language.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
-
-
-
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block ">
-                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}" extraParam="{}"></div>
-                        </div>
+            
+                <!-- select_box : 角色 ,  roleIds  -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block ">
+                        <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}" extraParam="{}"></div>
                     </div>
-
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('备注')}">备注</div></div>
-                        <div class="layui-input-block ">
-                            <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
-                        </div>
+                </div>
+            
+                <!-- text_input : 备注 ,  notes -->
+                <div class="layui-form-item" >
+                    <div class="layui-form-label "><div th:text="${lang.translate('备注')}">备注</div></div>
+                    <div class="layui-input-block ">
+                        <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
                     </div>
-
-                <!--结束：栏次内字段循环-->
+                </div>
+            <!--结束：栏次内字段循环-->
             </div>
             <!--结束：栏次输入框循环-->
         </div>

@@ -31,7 +31,6 @@ import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.List;
@@ -200,24 +199,21 @@ public class LangController extends SuperController {
      */
     @ApiOperation(value = "查询语言条目")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = "lang", value = "语言编码", required = true, dataTypeClass = String.class, example = "zh-cn"),
+		@ApiImplicitParam(name = "lang", value = "语言编码", required = true, dataTypeClass = String.class, example = "zh-cn")
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { LangVOMeta.PAGE_INDEX, LangVOMeta.PAGE_SIZE })
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_LIST)
     public Result<JSONArray> queryList(LangVO sample) {
         Result<JSONArray> result = new Result<>();
-
-        RequestParameter requestParameter=RequestParameter.get();
+        RequestParameter requestParameter = RequestParameter.get();
         HttpSession session = requestParameter.getSession(false);
-
-        String lang=requestParameter.getString("lang");
+        String lang = requestParameter.getString("lang");
         Language language = Language.parseByCode(lang);
-        if(language==null) {
+        if (language == null) {
             language = langService.getUserLanguage();
         }
-        session.setAttribute(LanguageService.USER_LANGUAGE,language);
-
+        session.setAttribute(LanguageService.USER_LANGUAGE, language);
         Set<String> fields = new HashSet<>();
         fields.add(FoxnicWeb.SYS_LANG.CODE.name());
         fields.add(FoxnicWeb.SYS_LANG.CONTEXT.name());

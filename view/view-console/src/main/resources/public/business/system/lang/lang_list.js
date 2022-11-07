@@ -1,7 +1,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-04 10:55:59
+ * @since 2022-11-07 16:26:14
  */
 
 
@@ -69,7 +69,7 @@ function ListPage() {
 			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: ['filter', 'print',{title: fox.translate('刷新数据'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
@@ -91,7 +91,7 @@ function ListPage() {
 					,{ field: 'confuse', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('混淆专用') , templet: function (d) { return templet('confuse',d.confuse,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'autoTranslated', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('已翻译') , templet: function (d) { return templet('autoTranslated',d.autoTranslated,d);}  }
+					,{ field: 'autoTranslated', align:"right",fixed:false,  hide:true, sort: true  , title: fox.translate('已翻译') , templet: function (d) { return templet('autoTranslated',d.autoTranslated,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -147,9 +147,8 @@ function ListPage() {
 		var value = {};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.defaults={ inputType:"button",value: $("#defaults").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.context={ inputType:"button",value: $("#context").val()};
+		value.context={ inputType:"button",value: $("#context").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
-		value.autoTranslated={ inputType:"number_input", value: $("#autoTranslated").val() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -276,11 +275,11 @@ function ListPage() {
 
 			var ids=getCheckedList("code");
             if(ids.length==0) {
-				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('语言条目')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的'+'语言条目'+"!"));
             	return;
             }
             //调用批量删除接口
-			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('语言条目')+fox.translate('吗？'), function (i) {
+			top.layer.confirm(fox.translate('确定删除已选中的'+'语言条目'+'吗？'), function (i) {
                 top.layer.close(i);
 				admin.post(moduleURL+"/delete-by-ids", { codes: ids }, function (data) {
                     if (data.success) {
@@ -339,7 +338,7 @@ function ListPage() {
 					if(!doNext) return;
 				}
 
-				top.layer.confirm(fox.translate('确定删除此')+fox.translate('语言条目')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定删除此'+'语言条目'+'吗？'), function (i) {
 					top.layer.close(i);
 					admin.post(moduleURL+"/delete", { code : data.code }, function (data) {
 						top.layer.closeAll('loading');
