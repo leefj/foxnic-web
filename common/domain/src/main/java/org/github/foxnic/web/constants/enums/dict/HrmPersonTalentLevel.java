@@ -11,32 +11,27 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum SysConfigCatalog  implements CodeTextEnum {
+public enum HrmPersonTalentLevel  implements CodeTextEnum {
 	
 	/**
-	 * 系统配置
+	 * 初级
 	*/
-	SYSTEM("system" , "系统配置"),
+	CJ("cj" , "初级"),
 	
 	/**
-	 * 组织人事
+	 * 中级
 	*/
-	HRM("hrm" , "组织人事"),
+	ZJ("zj" , "中级"),
 	
 	/**
-	 * 固定资产
+	 * 高级
 	*/
-	EAM("eam" , "固定资产"),
-	
-	/**
-	 * 运维系统
-	*/
-	OPS("ops" , "运维系统"),
+	GJ("gj" , "高级"),
 	;
 	
 	private String code;
 	private String text;
-	private SysConfigCatalog(String code,String text)  {
+	private HrmPersonTalentLevel(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -52,7 +47,7 @@ public enum SysConfigCatalog  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static SysConfigCatalog parseByCode(String code) {
-		return (SysConfigCatalog) EnumUtil.parseByCode(SysConfigCatalog.values(),code);
+	public static HrmPersonTalentLevel parseByCode(String code) {
+		return (HrmPersonTalentLevel) EnumUtil.parseByCode(HrmPersonTalentLevel.values(),code);
 	}
 }

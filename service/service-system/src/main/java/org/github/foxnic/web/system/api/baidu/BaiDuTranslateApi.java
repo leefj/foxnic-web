@@ -7,8 +7,10 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.network.HttpClient;
 import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.language.Language;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.system.api.TranslateApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -58,10 +60,14 @@ public class BaiDuTranslateApi extends TranslateApi {
     @Override
     public void translate(String code) {
         Lang lang=langService.getById(code);
+        List<Language> languageRange = SystemConfigProxyUtil.getEnumList(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE,Language.class);
         for (BaiDuLanguage to : BaiDuLanguage.values()) {
             if(to==BaiDuLanguage.zh) continue;
             boolean doTrans=true;
             for (Language language : to.getLanguages()) {
+                if(languageRange!=null && !languageRange.isEmpty()) {
+                    if(!languageRange.contains(language)) continue;
+                }
                 String value= BeanUtil.getFieldValue(lang,language.code(),String.class);
                 if(!StringUtil.isBlank(value)) {
                     doTrans=false;

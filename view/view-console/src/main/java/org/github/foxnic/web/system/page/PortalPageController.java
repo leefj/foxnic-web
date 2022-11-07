@@ -125,6 +125,9 @@ public class PortalPageController extends ViewController  {
 		model.addAttribute("copyrightLink", copyrightLink);
 
 		model.addAttribute("loginDefault", loginDefaultJson);
+
+		JSONArray languageRange = SystemConfigProxyUtil.getJSONArray(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE);
+		model.addAttribute("languageRange", languageRange);
 		//
 		return prefix+"login";
 	}

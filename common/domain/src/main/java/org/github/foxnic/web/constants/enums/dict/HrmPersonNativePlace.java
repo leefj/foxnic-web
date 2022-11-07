@@ -11,32 +11,22 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum SysConfigCatalog  implements CodeTextEnum {
+public enum HrmPersonNativePlace  implements CodeTextEnum {
 	
 	/**
-	 * 系统配置
+	 * 浙江
 	*/
-	SYSTEM("system" , "系统配置"),
+	ZJ("zj" , "浙江"),
 	
 	/**
-	 * 组织人事
+	 * 上海
 	*/
-	HRM("hrm" , "组织人事"),
-	
-	/**
-	 * 固定资产
-	*/
-	EAM("eam" , "固定资产"),
-	
-	/**
-	 * 运维系统
-	*/
-	OPS("ops" , "运维系统"),
+	SH("sh" , "上海"),
 	;
 	
 	private String code;
 	private String text;
-	private SysConfigCatalog(String code,String text)  {
+	private HrmPersonNativePlace(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -52,7 +42,7 @@ public enum SysConfigCatalog  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static SysConfigCatalog parseByCode(String code) {
-		return (SysConfigCatalog) EnumUtil.parseByCode(SysConfigCatalog.values(),code);
+	public static HrmPersonNativePlace parseByCode(String code) {
+		return (HrmPersonNativePlace) EnumUtil.parseByCode(HrmPersonNativePlace.values(),code);
 	}
 }

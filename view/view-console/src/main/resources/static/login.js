@@ -109,6 +109,9 @@ layui.config({
         var defaultsItem=null;
         for (var i=0;i<LANGUAGES.length;i++) {
             // if(LANGUAGES[i].code=="confuse") continue;
+            if(LANGUAGE_RANGE!=null && LANGUAGE_RANGE.length>0) {
+                if(LANGUAGE_RANGE.indexOf(LANGUAGES[i].code)==-1) continue;
+            }
             if(LANGUAGES[i].code==USER_LANGUAGE_CODE) {
                 userItem=LANGUAGES[i];
                 items.push({title:'<span style="color: #f56c6c;">'+LANGUAGES[i].text+'</span>',code:LANGUAGES[i].code,property:LANGUAGES[i].property});

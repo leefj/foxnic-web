@@ -91,7 +91,10 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			Logger.exception(e);
 		}
 		if(enableTranslator) {
-			doBatchTranslate();
+			SimpleTaskManager.doParallelTask(() -> {
+				doBatchTranslate();
+			});
+			//
 			SimpleTaskManager.getDefault().doIntervalTask(()->{
 					doBatchTranslate();
 			},30 * 1000);
