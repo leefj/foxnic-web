@@ -9,24 +9,27 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.SQL;
+import com.github.foxnic.sql.expr.SQLKeyword;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.language.Language;
+import org.github.foxnic.web.constants.enums.system.LoginIdentityType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -34,6 +37,7 @@ import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
@@ -75,7 +79,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			@Override
 			public void run() {
 				dao().pausePrintThreadSQL();
-				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=?",2,1,"super_admin").getValueList("account",String.class);
+				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=? and u.deleted=0",2,1,"super_admin").getValueList("account",String.class);
 				for (String account : accounts) {
 					try {
 						User user = UserServiceImpl.this.getUserByIdentity(account);
@@ -340,9 +344,30 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	}
 
 
-	private static final String[] IDENTITY_PRIORITY={"account","phone","id"};
+	private LoginIdentityType[] identityPriorities={LoginIdentityType.user_account,LoginIdentityType.user_phone,LoginIdentityType.user_id};
 
-	public List<Menu> makeUserMenus(User user,boolean gerDyMenu) {
+	@Value("${security.login-identity-priority}")
+	public void setIdentityPriorities(String priorities) {
+		if(StringUtil.isBlank(priorities)) return;
+		List<LoginIdentityType> types=new ArrayList<>();
+		boolean hasUserAccount=false;
+		for (String typeStr : priorities.split(",")) {
+			if(StringUtil.isBlank(typeStr)) continue;
+			LoginIdentityType type=LoginIdentityType.parseByCode(typeStr.trim());
+			types.add(type);
+			if(type==LoginIdentityType.user_account) {
+				hasUserAccount=true;
+			}
+		}
+		if(!types.isEmpty()) {
+			if(!hasUserAccount) {
+				throw new IllegalArgumentException("security.login-identity-priority 中必选包含 user_account ");
+			}
+			this.identityPriorities = types.toArray(this.identityPriorities);
+		}
+	}
+
+	public List<Menu> makeUserMenus(User user, boolean gerDyMenu) {
 
 		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds());
 
@@ -412,34 +437,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		PerformanceLogger logger=new PerformanceLogger();
 
-		logger.collect("Query");
-		ConditionExpr conditionExpr=new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity);
-		conditionExpr.or(SYS_USER.PHONE+" = ?",identity);
-		conditionExpr.or(SYS_USER.ID+" = ?",identity);
+		logger.collect("Query Login User");
 
-		Map<String,User> userMap=new HashMap();
-		List<User> users=dao.queryEntities(User.class, conditionExpr);
-		logger.collect("Query OK");
-
-		User user = null ;
-
-		if(users.size()==1) {
-			user = users.get(0);
-		} else {
-			for (User u : users) {
-				if (u.getAccount() != null && u.getAccount().equals(identity)) {
-					userMap.put("account", u);
-				} else if (u.getPhone() != null && u.getPhone().equals(identity)) {
-					userMap.put("phone", u);
-				} else if (u.getId().equals(identity)) {
-					userMap.put("id", u);
-				}
-			}
-			for (String priority : IDENTITY_PRIORITY) {
-				user = userMap.get(priority);
-				if (user != null) break;
-			}
-		}
+		User user = this.queryLoginUser(identity);
 
 		logger.collect("Unique Identity");
 
@@ -447,26 +447,17 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			throw new UsernameNotFoundException("用户不存在");
 		}
 
-//		int size1= ObjectUtil.sizeOf(user);
-
 		FieldsBuilder sysRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
 
 		FieldsBuilder busiRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_BUSI_ROLE.$TABLE).addAll().removeDBTreatyFields();
 
 		FieldsBuilder resourzeFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
-				.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL)
+				.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL);
 
-				//.addAll()
-				//.removeDBTreatyFields()
-				//.remove(FoxnicWeb.SYS_RESOURZE.BATCH_ID,FoxnicWeb.SYS_RESOURZE.TABLE_NAME,FoxnicWeb.SYS_RESOURZE.MODULE,FoxnicWeb.SYS_RESOURZE.NAME)
-		 ;
+
 
 		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
-				.add(FoxnicWeb.SYS_MENU.ID,FoxnicWeb.SYS_MENU.AUTHORITY)
-//				.addAll().
-//				removeDBTreatyFields()
-//				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY)
-				;
+				.add(FoxnicWeb.SYS_MENU.ID,FoxnicWeb.SYS_MENU.AUTHORITY);
 
 		logger.collect("Start Join");
  		//填充账户模型
@@ -482,33 +473,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.execute();
 
 		logger.collect("End Join");
-//		int size2= ObjectUtil.sizeOf(user);
 
 
 		Set<String> menuIds=new HashSet<>();
-		//logger.collect("F");
 
-//		List<Menu> userMenus=CollectorUtil.collectMergedList(user.getRoles(),Role::getMenus);
-		//if(user.getRoles()!=null) {
-			//List<Role> newRoles=new ArrayList<>();
-			for (Role role : user.getRoles()) {
-				if(role.getMenus()!=null) {
-//					userMenus.addAll(role.getMenus());
-					menuIds.addAll(CollectorUtil.collectSet(role.getMenus(),Menu::getId));
-				}
-				//Role newRole=role.clone();
-				//newRoles.add(newRole);
+		for (Role role : user.getRoles()) {
+			if(role.getMenus()!=null) {
+				menuIds.addAll(CollectorUtil.collectSet(role.getMenus(),Menu::getId));
 			}
-			//logger.collect("F1");
-			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
-			user.setMenuIds(new ArrayList<>(menuIds));
-//			user.setRoles(newRoles);
-//		}
+		}
+		EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
+		user.setMenuIds(new ArrayList<>(menuIds));
+
 		logger.collect("End Process Role&Menu");
 
 		LOGIN_USER_MENUS.set(this.makeUserMenus(user,true));
-
-		// RequestParameter.get().getRequest().setAttribute("USER_MENUS",userMenus);
 
 		logger.collect("Tenant Process");
 
@@ -531,7 +510,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		}
 
 		logger.collect("Language");
-
     	//设置用户语言
     	String usrLang=user.getLanguage();
     	if(!StringUtil.isBlank(devLang)) {
@@ -547,12 +525,54 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(StringUtil.isBlank(user.getLanguage())) {
 			user.setLanguage(Language.defaults.name());
 		}
-
 		logger.collect("Done");
-
 		logger.info("Login");
         return user;
     }
+
+
+
+	private SQL buildUserQuerySQL(String identity) {
+		Expr select =new Expr();
+		FieldsBuilder userFields=this.createFieldsBuilder().addAll().removeDBTreatyFields().add(SYS_USER.DELETED);
+		for (int i = 0; i < this.identityPriorities.length; i++) {
+			LoginIdentityType identityType=this.identityPriorities[i];
+			select.append(identityType.getQuerySQL(userFields.getFieldsSQL(LoginIdentityType.USER_TABLE_ALIAS),identity));
+			if(i<this.identityPriorities.length-1) {
+				select.append(SQLKeyword.UNION_ALL.toString());
+			}
+		}
+		return select;
+	}
+
+	private User queryLoginUser(String identity) {
+
+		RequestParameter request=RequestParameter.get();
+		LoginIdentityVO loginIdentityVO = null;
+		if(request!=null) {
+			loginIdentityVO= request.toPojo(LoginIdentityVO.class);
+		}
+
+		SQL select=this.buildUserQuerySQL(identity);
+		RcdSet rs=this.dao().query(select);
+		User user = null ;
+		if(rs.size()==1) {
+			user = rs.getRcd(0).toEntity(User.class);
+		} else {
+			Map<String, Rcd> userMap=rs.getMappedRcds(LoginIdentityType.IDENTITY_TYPE_FIELD,String.class);
+			for (LoginIdentityType priority : identityPriorities) {
+				Rcd r = userMap.get(priority.code());
+				if(r!=null) {
+					User localUser=r.toEntity(User.class);
+					if(getPasswordEncoder().matches(loginIdentityVO.getPasswd(),localUser.getPasswd())) {
+						user = localUser;
+						break;
+					}
+				}
+			}
+		}
+		return user;
+	}
 
 	@Override
 	public Result changePasswd(String sessionUserId, String oldpwd, String newpwd) {
