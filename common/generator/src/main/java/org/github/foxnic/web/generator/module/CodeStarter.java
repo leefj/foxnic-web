@@ -1,8 +1,9 @@
 package org.github.foxnic.web.generator.module;
 
 import com.github.foxnic.commons.io.FileUtil;
+import com.github.foxnic.commons.project.maven.MavenProject;
+import com.github.foxnic.generator.builder.business.TemplateJavaFile;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
-import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.api.ApiSourceConfig;
 import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.ChsChangeDefinitionConfig;
@@ -18,7 +19,7 @@ import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
 import org.github.foxnic.web.generator.module.storage.SysFileConfig;
-import org.github.foxnic.web.generator.module.system.*;
+import org.github.foxnic.web.generator.module.system.BusiRoleConfig;
 
 import java.io.File;
 
@@ -26,12 +27,30 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     public static void main(String[] args) {
 
-        File f=FileUtil.resolveByClass(DataGenerator.class);
-        System.out.println(f.getAbsolutePath());
+        copyTemplateFiles();
 
         CodeStarter g=new CodeStarter();
         g.initModules();
         g.start();
+    }
+
+    public static void copyTemplateFiles() {
+
+        MavenProject sourceProject=new MavenProject(BaseCodeConfig.class);
+        File sourceTemplatesDir= FileUtil.resolveByPath(sourceProject.getMainResourceDir(),"templates");
+
+        MavenProject targetProject=new MavenProject(TemplateJavaFile.class);
+        File targetTemplatesDir= FileUtil.resolveByPath(targetProject.getMainResourceDir(),"templates");
+
+        // System.out.println(sourceTemplatesDir.getAbsolutePath());
+        // System.out.println(targetTemplatesDir.getAbsolutePath());
+
+        FileUtil.delete(targetTemplatesDir,true);
+
+        FileUtil.copyDir(sourceTemplatesDir,targetTemplatesDir);
+
+
+
     }
 
     public void initModules() {

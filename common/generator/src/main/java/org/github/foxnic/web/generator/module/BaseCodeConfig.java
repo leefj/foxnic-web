@@ -1,11 +1,15 @@
 package org.github.foxnic.web.generator.module;
 
+import com.github.foxnic.commons.io.FileUtil;
+import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.util.ModuleCodeConfig;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+
+import java.io.File;
 
 public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig<T> {
 
@@ -33,6 +37,9 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
         super.init();
         System.out.println();
     }
+
+
+
 
 
 
