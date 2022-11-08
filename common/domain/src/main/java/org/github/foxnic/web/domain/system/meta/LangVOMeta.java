@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:26:11
- * @sign BA40CDF42C01C9095A6649D22DC40B24
+ * @since 2022-11-08 09:02:24
+ * @sign 5A4E2B576B8814A080A6B2A57C149A6F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -107,6 +107,16 @@ public class LangVOMeta extends LangMeta {
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> CODES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,CODES, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
+	 * 指定语言 , 类型: java.lang.String
+	*/
+	public static final String LANG="lang";
+	
+	/**
+	 * 指定语言 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.LangVO,java.lang.String> LANG_PROP = new BeanProperty(org.github.foxnic.web.domain.system.LangVO.class ,LANG, java.lang.String.class, "指定语言", "", java.lang.String.class, null);
 	
 	/**
 	 * 编码键 , 类型: java.lang.String
@@ -331,7 +341,7 @@ public class LangVOMeta extends LangMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , CODES , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , AUTO_TRANSLATED };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , CODES , LANG , CODE , DEFAULTS , CONTEXT , ZH_CN , ZH_HK , ZH_MO , ZH_TW , EN_US , EN_GB , KO_KR , JA_JP , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , AUTO_TRANSLATED };
 	
 	/**
 	 * 代理类
@@ -437,6 +447,17 @@ public class LangVOMeta extends LangMeta {
 		public LangVO setCodes(List<String> codes) {
 			super.change(CODES,super.getCodes(),codes);
 			super.setCodes(codes);
+			return this;
+		}
+		
+		/**
+		 * 设置 指定语言
+		 * @param lang 指定语言
+		 * @return 当前对象
+		*/
+		public LangVO setLang(String lang) {
+			super.change(LANG,super.getLang(),lang);
+			super.setLang(lang);
 			return this;
 		}
 		
@@ -728,6 +749,7 @@ public class LangVOMeta extends LangMeta {
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
 				inst.setPageSize(this.getPageSize());
+				inst.setLang(this.getLang());
 				inst.setSearchValue(this.getSearchValue());
 			}
 			inst.clearModifies();

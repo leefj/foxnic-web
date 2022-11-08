@@ -5,15 +5,10 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.EnumUtil;
-import org.github.foxnic.web.language.LanguageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CodeTextEnumUtil {
-
-    @Autowired
-    private LanguageService languageService;
 
     private LocalCache<String, JSONArray> cache = new LocalCache<String, JSONArray>();
 

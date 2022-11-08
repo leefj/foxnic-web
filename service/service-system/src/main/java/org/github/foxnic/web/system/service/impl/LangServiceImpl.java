@@ -292,6 +292,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(!isDefaultsExists) {
 			fieldsBuilder.add(Language.defaults.code());
 		}
+		sample.setValid(1);
 		List<Lang> list=super.queryList(sample,fieldsBuilder);
 		return list;
 	}

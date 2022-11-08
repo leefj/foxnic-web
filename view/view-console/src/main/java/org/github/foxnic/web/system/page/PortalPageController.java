@@ -2,6 +2,7 @@ package org.github.foxnic.web.system.page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
@@ -9,7 +10,9 @@ import org.github.foxnic.web.constants.enums.system.Theme;
 import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
+import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.view.controller.ViewController;
+import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
@@ -63,6 +66,15 @@ public class PortalPageController extends ViewController  {
 		model.addAttribute("logo", logo);
 		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
 		model.addAttribute("moduleEnable", moduleEnable);
+
+
+
+		 Result result = LangServiceProxy.api().queryList(LangVO.create());
+		 if(result.success()) {
+			 model.addAttribute("languageData", result.data());
+		 } else {
+			 model.addAttribute("languageData", new JSONArray());
+		 }
 
 
 		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
@@ -128,6 +140,9 @@ public class PortalPageController extends ViewController  {
 
 		JSONArray languageRange = SystemConfigProxyUtil.getJSONArray(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE);
 		model.addAttribute("languageRange", languageRange);
+
+
+
 		//
 		return prefix+"login";
 	}

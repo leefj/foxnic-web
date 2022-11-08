@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 语言条目VO类型
  * <p>语言条目 , 数据表 sys_lang 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:26:11
- * @sign BA40CDF42C01C9095A6649D22DC40B24
+ * @since 2022-11-08 09:02:24
+ * @sign 5A4E2B576B8814A080A6B2A57C149A6F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -85,6 +85,12 @@ public class LangVO extends Lang {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> codes;
+	
+	/**
+	 * 指定语言
+	*/
+	@ApiModelProperty(required = false,value="指定语言" , notes = "")
+	private String lang;
 	
 	/**
 	 * 获得 页码<br>
@@ -270,6 +276,24 @@ public class LangVO extends Lang {
 		this.codes.addAll(Arrays.asList(code));
 		return this;
 	}
+	
+	/**
+	 * 获得 指定语言<br>
+	 * @return 指定语言
+	*/
+	public String getLang() {
+		return lang;
+	}
+	
+	/**
+	 * 设置 指定语言
+	 * @param lang 指定语言
+	 * @return 当前对象
+	*/
+	public LangVO setLang(String lang) {
+		this.lang=lang;
+		return this;
+	}
 	@Transient
 	private transient CompositeParameter $compositeParameter;
 	/**
@@ -357,6 +381,7 @@ public class LangVO extends Lang {
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setPageSize(this.getPageSize());
+			inst.setLang(this.getLang());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -446,6 +471,7 @@ public class LangVO extends Lang {
 			this.setFuzzyField(DataParser.parse(String.class, map.get(LangVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(LangVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(LangVOMeta.PAGE_SIZE)));
+			this.setLang(DataParser.parse(String.class, map.get(LangVOMeta.LANG)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(LangVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
@@ -479,6 +505,7 @@ public class LangVO extends Lang {
 				this.setFuzzyField( (String)map.get(LangVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(LangVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(LangVOMeta.PAGE_SIZE));
+				this.setLang( (String)map.get(LangVOMeta.LANG));
 				this.setSearchValue( (String)map.get(LangVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {

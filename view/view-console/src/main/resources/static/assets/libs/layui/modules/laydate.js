@@ -131,22 +131,23 @@
     ,options = that.config
     ,text = {
       cn: {
-        weeks: ['日', '一', '二', '三', '四', '五', '六']
-        ,time: ['时', '分', '秒']
-        ,timeTips: '选择时间'
-        ,startTime: '开始时间'
-        ,endTime: '结束时间'
-        ,dateTips: '返回日期'
-        ,month: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
+        weeks: [top.translate('日','','cmp:laydate:week'), top.translate('一','','cmp:laydate:week'), top.translate('二','','cmp:laydate:week'), top.translate('三','','cmp:laydate:week'), top.translate('四','','cmp:laydate:week'), top.translate('五','','cmp:laydate:week'), top.translate('六','','cmp:laydate:week')]
+        ,time: [top.translate('时','','cmp:laydate:time'), top.translate('分','','cmp:laydate:time'), top.translate('秒','','cmp:laydate:time')]
+        ,timeTips: top.translate('选择时间','','cmp:laydate:text')
+        ,startTime: top.translate('开始时间','','cmp:laydate:text')
+        ,endTime: top.translate('结束时间','','cmp:laydate:text')
+        ,dateTips: top.translate('返回日期','','cmp:laydate:text')
+        ,month: [top.translate('一','','cmp:laydate:month'), top.translate('二','','cmp:laydate:month'), top.translate('三','','cmp:laydate:month'), top.translate('四','','cmp:laydate:month'), top.translate('五','','cmp:laydate:month'), top.translate('六','','cmp:laydate:month'),
+                      top.translate('七','','cmp:laydate:month'), top.translate('八','','cmp:laydate:month'), top.translate('九','','cmp:laydate:month'), top.translate('十','','cmp:laydate:month'), top.translate('十一','','cmp:laydate:month'), top.translate('十二','','cmp:laydate:month')]
         ,tools: {
-          confirm: '确定'
-          ,clear: '清空'
-          ,now: '现在'
+          confirm: top.translate('确定','','cmp:laydate:text')
+          ,clear: top.translate('清空','','cmp:laydate:text')
+          ,now: top.translate('现在','','cmp:laydate:text')
         }
-        ,timeout: '结束时间不能早于开始时间<br>请重新选择'
-        ,invalidDate: '不在有效日期或时间范围内'
-        ,formatError: ['日期格式不合法<br>必须遵循下述格式：<br>', '<br>已为你重置']
-        ,preview: '当前选中的结果'
+        ,timeout: top.translate('结束时间不能早于开始时间','','cmp:laydate:text')+'<br>'+top.translate('请重新选择','','cmp:laydate:text')
+        ,invalidDate: top.translate('不在有效日期或时间范围内','','cmp:laydate:text')
+        ,formatError: [top.translate('日期格式不合法','','cmp:laydate:text')+'<br>'+top.translate('必须遵循下述格式','','cmp:laydate:text')+'：<br>', '<br>'+top.translate('已为你重置','','cmp:laydate:text')]
+        ,preview: top.translate('当前选中的结果','','cmp:laydate:text')
       }
       ,en: {
         weeks: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
@@ -441,7 +442,7 @@
       lay.each(options.btns, function(i, item){
         var title = lang.tools[item] || 'btn';
         if(options.range && item === 'now') return;
-        if(isStatic && item === 'clear') title = options.lang === 'cn' ? '重置' : 'Reset';
+        if(isStatic && item === 'clear') title = options.lang === 'cn' ? top.translate('重置','','cmp:laydate:text') : 'Reset';
         btns.push('<span lay-type="'+ item +'" class="laydate-btns-'+ item +'">'+ title +'</span>');
       });
       html.push('<div class="laydate-footer-btns">'+ btns.join('') +'</div>');
@@ -868,8 +869,8 @@
     lay(elemYM[1]).attr('lay-ym', dateTime.year + '-' + (dateTime.month + 1));
 
     if(options.lang === 'cn'){
-      lay(elemYM[0]).attr('lay-type', 'year').html(dateTime.year + ' 年')
-      lay(elemYM[1]).attr('lay-type', 'month').html((dateTime.month + 1) + ' 月');
+      lay(elemYM[0]).attr('lay-type', 'year').html(dateTime.year + top.translate(' 年','','cmp:laydate:top-text'))
+      lay(elemYM[1]).attr('lay-type', 'month').html((dateTime.month + 1) + top.translate(' 月','','cmp:laydate:top-text'));
     } else {
       lay(elemYM[0]).attr('lay-type', 'month').html(lang.month[dateTime.month]);
       lay(elemYM[1]).attr('lay-type', 'year').html(dateTime.year);
@@ -886,7 +887,7 @@
           that.list(options.type, 0).list(options.type, 1);
 
           //同步按钮可点状态
-          options.type === 'time' ? that.setBtnStatus('时间'
+          options.type === 'time' ? that.setBtnStatus(top.translate('时间','','cmp:laydate:text')
             ,lay.extend({}, that.systemDate(), that.startTime)
             ,lay.extend({}, that.systemDate(), that.endTime)
           ) : that.setBtnStatus(true);
@@ -932,7 +933,7 @@
     ,elemCont = that.elemCont[index || 0]
     ,haveList = lay(elemCont).find('.'+ ELEM_LIST)[0]
     ,isCN = options.lang === 'cn'
-    ,text = isCN ? '年' : ''
+    ,text = isCN ? top.translate('年','','cmp:laydate:top-text') : ''
 
     ,listYM = that.listYM[index] || {}
     ,hms = ['hours', 'minutes', 'seconds']
@@ -972,7 +973,7 @@
           'lay-ym': i
         }), ymd = {year: listYM[0], month: i};
         i + 1 == listYM[1] && lay(li).addClass(THIS);
-        li.innerHTML = lang.month[i] + (isCN ? '月' : '');
+        li.innerHTML = lang.month[i] + (isCN ? top.translate('月','','cmp:laydate:text') : '');
         ul.appendChild(li);
         if(listYM[0] < that.firstDate.year){
           ymd.date = options.min.date;

@@ -61,7 +61,7 @@
 		<div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="toolbar">
            <table style="width: 100%"><tr>
                <td>
-            <input id="search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width:100%"/>
+            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}" style="width:100%"/>
                </td>
 
            </tr></table>
@@ -77,7 +77,7 @@
                  <input type="checkbox" lay-filter="check-mode" id="check-mode" title="关联选择" lay-skin="primary" checked >
              </div>
              -->
-             <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定')}"  style="margin-right: 24px">确定</button>
+             <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定','','org-dialog')}"  style="margin-right: 24px">确定</button>
          </form>
      </div>
  </div>

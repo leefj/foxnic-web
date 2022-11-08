@@ -139,7 +139,7 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers',fixed:false },
 					{ fixed: 'left',type:'checkbox',fixed:false }
 					// ,{ field: 'code', align:"left",fixed:false,  hide:false, sort: false, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: false, title: fox.translate('角色名称') , width:300,
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: false, title: fox.translate('角色名称','','emp-dialog') , width:300,
 						templet: function (d) { return "<span id='busi-role-name-"+d.id+"'>" +templet('name',d.name,d)+"</span>";}
 					}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
@@ -313,10 +313,10 @@ function ListPage() {
 					if(ids.length>0) {
 						startExpandNode();
 					} else {
-						layer.msg("未找到匹配的节点", {icon: 1, time: 1000});
+						layer.msg(fox.translate("未找到匹配的节点"), {icon: 1, time: 1000});
 					}
 				} else {
-					admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
+					admin.toast().error(fox.translate("搜索错误"),{time:1000,position:"right-bottom"});
 				}
 			});
 
@@ -415,7 +415,7 @@ function ListPage() {
 			dataTable=fox.renderTable({
 				elem: '#emp-table',
 				//toolbar: '#employeeToolbarTemplate',
-				defaultToolbar: [{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: [{title: fox.translate('刷新数据','','emp-dialog'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-146',
 				limit: 50,
@@ -423,7 +423,7 @@ function ListPage() {
 				cols: [[
 					{type:'numbers'},
 					{type:'checkbox'}
-					,{ field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员') ,
+					,{ field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员','','emp-dialog') ,
 						templet: function (d) {
 						return "<span id='emp-name-"+d.id+"'>"+templet('name',fox.getProperty(d,["person","name"]),d)+"</span>";
 					 } }
@@ -536,7 +536,7 @@ function ListPage() {
 			dataTable=fox.renderTable({
 				elem: '#selected-data-table',
 				// toolbar: '#selectedToolbarTemplate',
-				defaultToolbar: [{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: [{title: fox.translate('刷新数据','','emp-dialog'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-95',
 				limit: 50,
@@ -544,14 +544,14 @@ function ListPage() {
 				cols: [[
 					{type:'numbers'},
 					{type:'checkbox'}
-					,{ field: '已选',unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('已选人员') , templet: function (d) { return templet('name',d.targetName,d);} }
-					,{ field: '类型',width:86,unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('类型') ,
+					,{ field: '已选',unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('已选人员','','emp-dialog') , templet: function (d) { return templet('name',d.targetName,d);} }
+					,{ field: '类型',width:86,unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('类型','','emp-dialog') ,
 						templet: function (d) {
 							if(d.targetType=="employee") {
-								return "<span style='color:#999'>员工</span>";
+								return "<span style='color:#999'>"+fox.translate('员工','','emp-dialog')+"</span>";
 							}
 							else if(d.targetType=="busi_role") {
-								return "<span style='color:#999'>业务角色</span>";
+								return "<span style='color:#999'>"+fox.translate('业务角色','','emp-dialog')+"</span>";
 							} else {
 								return "";
 							}

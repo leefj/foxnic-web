@@ -68,6 +68,9 @@
     <!-- 手机屏幕遮罩层 -->
     <div class="site-mobile-shade"></div>
 </div>
+<script th:inline="javascript">
+    var LANGUAGE_DATA=[[${languageData}]];
+</script>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
 <script th:each="js:${theme.js}" type="text/javascript" th:src="${js}+'?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/jquery-3.2.1.min.js" th:src="'assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
@@ -75,12 +78,12 @@
 <script type="text/javascript" src="assets/libs/q.js" th:src="'assets/libs/q.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/pandyle.min.js" th:src="'assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>
-
 <script>
     var MODULE_ENABLE= [[${moduleEnable}]];
     var LOGO="[[${logo}]]";
     var TABLE_PAGE_LEVELS=[[${tablePageLevels}]];
     localStorage.setItem("theme","[[${theme_code}]]");
+
 </script>
 
 <script>

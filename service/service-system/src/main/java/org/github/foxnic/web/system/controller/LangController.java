@@ -205,10 +205,11 @@ public class LangController extends SuperController {
     @SentinelResource(value = LangServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(LangServiceProxy.QUERY_LIST)
     public Result<JSONArray> queryList(LangVO sample) {
+
         Result<JSONArray> result = new Result<>();
         RequestParameter requestParameter = RequestParameter.get();
         HttpSession session = requestParameter.getSession(false);
-        String lang = requestParameter.getString("lang");
+        String lang =  sample.getLang();  // requestParameter.getString("lang");
         Language language = Language.parseByCode(lang);
         if (language == null) {
             language = langService.getUserLanguage();

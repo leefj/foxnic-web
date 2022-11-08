@@ -8,13 +8,12 @@ import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.mvc.Validator;
-import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class SuperController {
 
@@ -57,8 +56,8 @@ public class SuperController {
 
 	private static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
 
-	@Autowired
-	protected LanguageService languageService;
+	//@Autowired
+	//protected LanguageService languageService;
 
 	/**
 	 * 获得当前登录的会话
@@ -90,6 +89,18 @@ public class SuperController {
 	public HttpServletRequest getRequest() {
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		return attributes.getRequest();
+	}
+
+	public HttpSession getSession() {
+		HttpServletRequest request = this.getRequest();
+		if(request==null) return null;
+		return request.getSession();
+	}
+
+	public HttpSession getSession(boolean create) {
+		HttpServletRequest request = this.getRequest();
+		if(request==null) return null;
+		return request.getSession(create);
 	}
 
 	/**

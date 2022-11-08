@@ -10,6 +10,12 @@ if(window==top) {
 		if (!language) {
 			language = localStorage.getItem("lang");
 		}
+
+		// debugger
+		if( (defaultsLangs ==null || defaultsLangs==null) &&  window.LANGUAGE_DATA && window.LANGUAGE_DATA.length>0) {
+			initLanguageItems(window.LANGUAGE_DATA);
+		}
+
 		//debugger
 		if (defaultsLangs == null) {
 			//debugger;
@@ -25,6 +31,17 @@ if(window==top) {
 		if (defaultsLangs == null) {
 			return defaults;
 		}
+
+
+		if(defaults.indexOf("网络连接")!=-1) {
+			console.log(JSON.stringify(defaultsLangs));
+			for (var key in defaultsLangs) {
+				if (key.indexOf("网络连接") != -1) {
+					debugger
+				}
+			}
+		}
+
 		var item = defaultsLangs[context + ":" + defaults];
 		var text = null;
 		if (!item && code) {
@@ -58,7 +75,6 @@ if(window==top) {
 
 	function loadLanguageItems() {
 
-
 		// 本地开发时，清除本地缓存
 		if(location.href.indexOf("127.0.0.1")>0 || location.href.indexOf("localhost")>0) {
 			// 清除多语言数据
@@ -70,6 +86,8 @@ if(window==top) {
 		if (!language) {
 			language = localStorage.getItem("lang");
 		}
+
+
 
 		// var languageTimestamp = localStorage.getItem("language_timestamp");
 
@@ -88,6 +106,8 @@ if(window==top) {
 		if (defaultsLangs && defaultsLangs.length > 2) {
 			defaultsLangs = JSON.parse(defaultsLangs);
 		}
+
+
 		// 	}
 		//
 		// }
@@ -98,25 +118,37 @@ if(window==top) {
 					// debugger
 					if (!data.success) return;
 					data = data.data;
-					codeLangs = {};
-					defaultsLangs = {};
-					for (var i = 0; i < data.length; i++) {
-						codeLangs[data[i].context + ":" + data[i].code] = data[i];
-						defaultsLangs[data[i].context + ":" + data[i].defaults] = data[i];
-					}
-					localStorage.setItem("language_codeLangs", JSON.stringify(codeLangs));
-					localStorage.setItem("language_defaultsLangs", JSON.stringify(defaultsLangs));
-					localStorage.setItem("language_timestamp", (new Date()).getTime());
+					initLanguageItems(data);
 				}, "POST", true);
 			} else {
 				setTimeout(loadLanguageItems,1);
 			}
 		}
-
-
 	}
 
-	loadLanguageItems();
+	function initLanguageItems(data) {
+		//var t0=(new Date()).getTime()
+		codeLangs = {};
+		defaultsLangs = {};
+		for (var i = 0; i < data.length; i++) {
+			// debugger
+			// if (data[i].defaults.indexOf("网络连接") != -1) {
+			// 	debugger
+			// }
+			codeLangs[data[i].context + ":" + data[i].code] = data[i];
+			defaultsLangs[data[i].context + ":" + data[i].defaults] = data[i];
+		}
+		//var t1=(new Date()).getTime()
+		localStorage.setItem("language_codeLangs", JSON.stringify(codeLangs));
+		localStorage.setItem("language_defaultsLangs", JSON.stringify(defaultsLangs));
+		localStorage.setItem("language_timestamp", (new Date()).getTime());
+		//var t2=(new Date()).getTime()
+		//console.log("T",t1-t0,t2-t1);
+	}
+
+
+
+	// loadLanguageItems();
 
 
 

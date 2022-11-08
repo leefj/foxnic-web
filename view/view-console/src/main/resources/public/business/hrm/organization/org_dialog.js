@@ -6,11 +6,11 @@
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown,element;
 	//模块基础路径
 	const moduleURL="/service-hrm/hrm-organization";
-	
+
 	var menuTree;
 	var inputValue;
 	var options;
@@ -172,12 +172,12 @@ function ListPage() {
 		}
 		return childNodes;
 	}
-	
 
-	
 
-     
-      
+
+
+
+
 
 	/**
 	 * 重置搜索框
@@ -204,10 +204,10 @@ function ListPage() {
 					if(ids.length>0) {
 						startExpandNode();
 					} else {
-						layer.msg("未找到匹配的节点", {icon: 1, time: 1000});
+						layer.msg(fox.translate("未找到匹配的节点",'','org-dialog'), {icon: 1, time: 1000});
 					}
 				} else {
-					admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
+					admin.toast().error(fox.translate("搜索错误",'','org-dialog'),{time:1000,position:"right-bottom"});
 				}
 			});
 
@@ -288,31 +288,7 @@ function ListPage() {
 		var menuDialogIndex=admin.getTempData("org-dialog-index");
 		admin.closePopupCenter(menuDialogIndex);
 	});
- 
-    
-    /**
-     * 打开编辑窗口
-     */
-	function showEditForm(data) {
-		var queryString="";
-		if(data) queryString="?" + 'id=' + data.id;
-		admin.putTempData('sys-menu-form-data', data);
-		var area=admin.getTempData('sys-menu-form-area');
-		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-		var top= ($(window).height()-height)/2;
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('菜单')) : (fox.translate('添加')+fox.translate('菜单'));
-		admin.popupCenter({
-			title: title,
-			resize:true,
-			offset:[top,null],
-			area:["500px",height+"px"],
-			type: 2,
-			content: '/business/oauth/menu/menu_form.html' + queryString,
-			finish: function () {
 
-			}
-		});
-	};
 };
 
 

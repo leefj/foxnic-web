@@ -203,6 +203,9 @@ public class SystemCodeGenerator  {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
 
+		cfg.getVoClassFile().addSimpleProperty(String.class,"lang","指定语言","");
+
+
 		cfg.view().field(SYS_LANG.CODE).basic().label("编码").search().fuzzySearch();
 		cfg.view().field(SYS_LANG.DEFAULTS).basic().label("默认值").search().fuzzySearch();
 

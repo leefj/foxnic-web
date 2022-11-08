@@ -131,8 +131,8 @@
         <div class="layui-tab" lay-filter="sourceTab">
             <ul class="layui-tab-title">
 <!--                <li id="org-li" lay-id="org-li">常用</li>-->
-                <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
-                <li id="busi-role-li" lay-id="pos-li" style="display:none;opacity: 0.0">业务角色</li>
+                <li id="pos-li" lay-id="pos-li" class="layui-this" th:text="${lang.translate('组织架构','','emp-dialog')}">组织架构</li>
+                <li id="busi-role-li" lay-id="pos-li" style="display:none;opacity: 0.0" th:text="${lang.translate('业务角色','','emp-dialog')}">业务角色</li>
             </ul>
             <div class="layui-tab-content" style="height:1000px;padding:0px">
                 <!-- 常用 -->
@@ -145,7 +145,7 @@
                     <div class="org-view">
                         <div class="org-tree">
                             <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="org-oolbar">
-                                <input id="org-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width: 100%"/>
+                                <input id="org-search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}" style="width: 100%"/>
                             </div>
                             <div id="tree-container" style="overflow:auto;height:800px">
                                 <ul id="menu-tree" class="ztree"></ul>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="emp-list-view">
                             <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="emp-toolbar">
-                                <input id="emp-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width: 100%"/>
+                                <input id="emp-search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}" style="width: 100%"/>
                             </div>
                             <table class="layui-table" id="emp-table" lay-filter="emp-table" style="margin:0px"></table>
                         </div>
@@ -162,7 +162,7 @@
                 <!-- 流程角色 -->
                 <div class="layui-tab-item busi-role-view" style="display:none">
                     <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="busi-role-toolbar">
-                        <input id="busi-role-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
+                        <input id="busi-role-search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}" style="flex: 1"/>
                     </div>
                     <table class="layui-table" id="busi-role-table" lay-filter="busi-role-table" style="margin:0px"></table>
                 </div>
@@ -186,7 +186,7 @@
     <!-- 选择的结果 -->
     <div class="result-area">
         <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="result-toolbar">
-            <input id="result-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
+            <input id="result-search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}" style="flex: 1"/>
             <button type="button" id="remove-all-result" class="layui-btn layui-btn-primary clear-button" style="margin-left: 8px;">
                 <i class="layui-icon layui-icon-delete" style="font-size: 24px"></i>
             </button>
@@ -203,7 +203,7 @@
             <input type="checkbox" lay-filter="check-mode" id="check-mode" title="关联选择" lay-skin="primary" checked >
         </div>
         -->
-        <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定')}"  style="margin-right: 24px">确定</button>
+        <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定','','emp-dialog')}"  style="margin-right: 24px">确定</button>
     </form>
 </div>
 

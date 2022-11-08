@@ -1796,7 +1796,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             var title=param.title;
             if(!title) {
-                title="请选择组织节点";
+                title=this.translate("请选择组织节点",'','org-dialog');
             }
 
             var value=param.inputEl.val();
@@ -1839,7 +1839,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             var title=param.title;
             if(!title) {
-                title="请选择人员";
+                title=this.translate("请选择人员",'','dialog');
             }
             // debugger;
             var value = null;
@@ -2144,15 +2144,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // },1000);
         },
         showMessage:function (result) {
-
+            // debugger
             if(TypeUtil.isString(result)) {
                 top.layer.msg(result, {icon: 1, time: 2000});
                 return;
             }
 
-            var message=this.translate(result.message,null,'result.message');
+            var message=this.translate(result.message,null,'result:message');
             if(result.subject) {
-                message=this.translate(result.subject,null,'result.subject')+message;
+                message=this.translate(result.subject,null,'result:subject')+message;
             }
             if(!message) return;
             var messageLevel=null;
@@ -2165,11 +2165,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 for (var i=0;i<result.errors.length;i++) {
                     var e=result.errors[i];
                     if(e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result.subject') +" : "+ this.translate(e.message));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result:subject') +" : "+ this.translate(e.message));
                     } else  if(!e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.message,null,'result.message'));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.message,null,'result:message'));
                     } else  if(e.subject && !e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result.subject'));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result:subject'));
                     }
                 }
                 if(errs.length>0) {
@@ -2181,7 +2181,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var errs=[];
                 for (var i=0;i<result.solutions.length;i++) {
                     var solution=result.solutions[i];
-                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+this.translate(solution,null,'result.solution'));
+                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+this.translate(solution,null,'result:solution'));
                 }
                 if(errs.length>0) {
                     message+="<br><span style='font-weight: bold'>"+this.translate("解决方案",'','dialog')+" :</span> <br>"+errs.join("<br>");
