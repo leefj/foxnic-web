@@ -49,6 +49,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.exceptions.BadClientCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -549,8 +550,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		RequestParameter request=RequestParameter.get();
 		LoginIdentityVO loginIdentityVO = null;
+		String passwd = null;
 		if(request!=null) {
 			loginIdentityVO= request.toPojo(LoginIdentityVO.class);
+			if(loginIdentityVO!=null) {
+				passwd=loginIdentityVO.getPasswd();
+			}
+		}
+		if(StringUtil.isBlank(passwd)) {
+			passwd = this.getClass().getName();
 		}
 
 		SQL select=this.buildUserQuerySQL(identity);
@@ -564,13 +572,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				Rcd r = userMap.get(priority.code());
 				if(r!=null) {
 					User localUser=r.toEntity(User.class);
-					if(getPasswordEncoder().matches(loginIdentityVO.getPasswd(),localUser.getPasswd())) {
+					if(getPasswordEncoder().matches(passwd,localUser.getPasswd())) {
 						user = localUser;
 						break;
 					}
 				}
 			}
 		}
+
+		if(request!=null && request.getRequest()!=null && rs.size()>0 && user==null) {
+			throw new BadClientCredentialsException();
+		}
+
 		return user;
 	}
 
