@@ -80,10 +80,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			@Override
 			public void run() {
 				dao().pausePrintThreadSQL();
-				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=? and u.deleted=0",2,1,"super_admin").getValueList("account",String.class);
-				for (String account : accounts) {
+				List<String> identities= dao().queryPage("select distinct u."+LoginIdentityType.user_id.getIdentityField().name()+" from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=? and u.deleted=0",2,1,"super_admin").getValueList(LoginIdentityType.user_id.getIdentityField().name(),String.class);
+				for (String identity : identities) {
 					try {
-						User user = UserServiceImpl.this.getUserByIdentity(account);
+						User user = UserServiceImpl.this.getUserByIdentity(identity);
 						if(user!=null) {
 							break;
 						}
@@ -351,19 +351,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public void setIdentityPriorities(String priorities) {
 		if(StringUtil.isBlank(priorities)) return;
 		List<LoginIdentityType> types=new ArrayList<>();
-		boolean hasUserAccount=false;
 		for (String typeStr : priorities.split(",")) {
 			if(StringUtil.isBlank(typeStr)) continue;
 			LoginIdentityType type=LoginIdentityType.parseByCode(typeStr.trim());
 			types.add(type);
-			if(type==LoginIdentityType.user_account) {
-				hasUserAccount=true;
-			}
 		}
 		if(!types.isEmpty()) {
-			if(!hasUserAccount) {
-				throw new IllegalArgumentException("security.login-identity-priority 中必选包含 user_account ");
-			}
 			this.identityPriorities = types.toArray(this.identityPriorities);
 		}
 	}
@@ -533,17 +526,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 
 
-	private SQL buildUserQuerySQL(String identity) {
-		Expr select =new Expr();
-		FieldsBuilder userFields=this.createFieldsBuilder().addAll().removeDBTreatyFields().add(SYS_USER.DELETED);
-		for (int i = 0; i < this.identityPriorities.length; i++) {
-			LoginIdentityType identityType=this.identityPriorities[i];
-			select.append(identityType.getQuerySQL(userFields.getFieldsSQL(LoginIdentityType.USER_TABLE_ALIAS),identity));
-			if(i<this.identityPriorities.length-1) {
-				select.append(SQLKeyword.UNION_ALL.toString());
+	private SQL buildUserQuerySQL(String identity,boolean isUserLogin) {
+		FieldsBuilder userFields = this.createFieldsBuilder().addAll().removeDBTreatyFields().add(SYS_USER.DELETED);
+		if(isUserLogin) {
+			Expr select = new Expr();
+			for (int i = 0; i < this.identityPriorities.length; i++) {
+				LoginIdentityType identityType = this.identityPriorities[i];
+				select.append(identityType.getQuerySQL(userFields.getFieldsSQL(LoginIdentityType.USER_TABLE_ALIAS), identity));
+				if (i < this.identityPriorities.length - 1) {
+					select.append(SQLKeyword.UNION_ALL.toString());
+				}
 			}
+			return select;
+		} else {
+			return LoginIdentityType.user_id.getQuerySQL(userFields.getFieldsSQL(LoginIdentityType.USER_TABLE_ALIAS),identity);
 		}
-		return select;
 	}
 
 	private User queryLoginUser(String identity) {
@@ -551,17 +548,22 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		RequestParameter request=RequestParameter.get();
 		LoginIdentityVO loginIdentityVO = null;
 		String passwd = null;
+		boolean isUserLogin = false;
 		if(request!=null) {
+			if(request.getRequest()!=null) {
+				isUserLogin = true;
+			}
 			loginIdentityVO= request.toPojo(LoginIdentityVO.class);
 			if(loginIdentityVO!=null) {
 				passwd=loginIdentityVO.getPasswd();
 			}
 		}
+
 		if(StringUtil.isBlank(passwd)) {
 			passwd = this.getClass().getName();
 		}
 
-		SQL select=this.buildUserQuerySQL(identity);
+		SQL select=this.buildUserQuerySQL(identity,isUserLogin);
 		RcdSet rs=this.dao().query(select);
 		User user = null ;
 		if(rs.size()==1) {
@@ -572,7 +574,13 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				Rcd r = userMap.get(priority.code());
 				if(r!=null) {
 					User localUser=r.toEntity(User.class);
-					if(getPasswordEncoder().matches(passwd,localUser.getPasswd())) {
+					// 如果是登录，校验密码，以确定身份
+					if(isUserLogin) {
+						if(getPasswordEncoder().matches(passwd,localUser.getPasswd())) {
+							user = localUser;
+							break;
+						}
+					} else {
 						user = localUser;
 						break;
 					}
@@ -580,7 +588,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
-		if(request!=null && request.getRequest()!=null && rs.size()>0 && user==null) {
+
+		if(isUserLogin && rs.size()>0 && user==null) {
 			throw new BadClientCredentialsException();
 		}
 
