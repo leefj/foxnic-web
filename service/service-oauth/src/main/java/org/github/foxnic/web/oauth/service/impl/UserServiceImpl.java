@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.log.PerformanceLogger;
@@ -76,25 +77,22 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@PostConstruct
 	private void startup() {
-		new Thread() {
-			@Override
-			public void run() {
-				dao().pausePrintThreadSQL();
-				List<String> identities= dao().queryPage("select distinct u."+LoginIdentityType.user_id.getIdentityField().name()+" from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=? and u.deleted=0",2,1,"super_admin").getValueList(LoginIdentityType.user_id.getIdentityField().name(),String.class);
-				for (String identity : identities) {
-					try {
-						User user = UserServiceImpl.this.getUserByIdentity(identity);
-						if(user!=null) {
-							break;
-						}
-					} catch (Exception e) {
-						Logger.exception(e);
+		SimpleTaskManager.doParallelTask(()->{
+			dao().pausePrintThreadSQL();
+			List<String> identities= dao().queryPage("select distinct u."+LoginIdentityType.user_id.getIdentityField().name()+" from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=? and u.deleted=0",2,1,"super_admin").getValueList(LoginIdentityType.user_id.getIdentityField().name(),String.class);
+			for (String identity : identities) {
+				try {
+					User user = UserServiceImpl.this.getUserByIdentity(identity);
+					if(user!=null) {
+						break;
 					}
+				} catch (Exception e) {
+					Logger.exception(e);
 				}
-				dao().resumePrintThreadSQL();
 			}
-		} .start();
+			dao().resumePrintThreadSQL();
 
+		},2000);
 	}
 
 	@Value("${develop.language:}")
