@@ -1,12 +1,8 @@
 package org.github.foxnic.web.proxy.spring;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 
@@ -44,6 +40,7 @@ public class AwareHandler implements ApplicationContextAware {
 	 * @return
 	 */
 	public static <T> T getBean(String name, Class<T> clazz) {
+		if(context==null) return null;
 		return context.getBean(name, clazz);
 	}
 
@@ -53,8 +50,8 @@ public class AwareHandler implements ApplicationContextAware {
 	}
 
 
-	
-	
 
- 
+
+
+
 }

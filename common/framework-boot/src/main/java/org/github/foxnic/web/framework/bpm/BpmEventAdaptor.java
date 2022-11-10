@@ -1,8 +1,10 @@
 package org.github.foxnic.web.framework.bpm;
 
+import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.ISimpleIdService;
+import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
@@ -36,7 +38,12 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
     protected E getFormData(BpmEvent event) {
         E form = null;
         if(StringUtil.hasContent(event.getBillId())) {
-            form=(E)this.service().getById(event.getBillId());
+            DBTableMeta tm=this.dao().getTableMeta(this.service().table());
+            Class idType= String.class;
+            if(tm!=null && tm.getPKColumnCount()==1) {
+                idType=tm.getPKColumns().get(0).getDBDataType().getType();
+            }
+            form=(E)this.service().getById(DataParser.parse(idType,event.getBillId()));
         }
         return form;
     }
