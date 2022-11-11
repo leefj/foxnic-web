@@ -70,10 +70,13 @@ function ListPage() {
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
 
 		setTimeout(function(){
+			// debugger
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
+			var footerHeight=$(".model-form-footer")[0].clientHeight;
+
 			var fullHeight=$(window).height();
 			var fullWidth=$(window).width();
-			var treeHeight=fullHeight-toolbarHeight-1;
+			var treeHeight=fullHeight-toolbarHeight-footerHeight-4;
 			$("#tree-container").height(treeHeight);
 			// $("#form-view").height(fullHeight-6);
 
