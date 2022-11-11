@@ -471,11 +471,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
 						menu.setResources(resourzeService.queryCachedResourzes(ids));
 						if(menu.getPathResource()!=null) {
-							try {
-								menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
+							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
 						}
 					}
 
