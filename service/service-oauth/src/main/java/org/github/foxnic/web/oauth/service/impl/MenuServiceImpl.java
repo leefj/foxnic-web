@@ -460,16 +460,22 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 							.addAll()
 							.removeDBTreatyFields()
 							.remove(FoxnicWeb.SYS_MENU.BATCH_ID, FoxnicWeb.SYS_MENU.HIERARCHY);
+					//
 					List<Menu> all = this.queryList(new Menu(), menuFields);
 					FieldsBuilder resourzeFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
 							.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL);
+					//
 					this.dao().fill(all).with(MenuMeta.PATH_RESOURCE).with(MenuMeta.RESOURCES).fields(resourzeFields).execute();
 
 					for (Menu menu : all) {
 						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
 						menu.setResources(resourzeService.queryCachedResourzes(ids));
 						if(menu.getPathResource()!=null) {
-							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
+							try {
+								menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 

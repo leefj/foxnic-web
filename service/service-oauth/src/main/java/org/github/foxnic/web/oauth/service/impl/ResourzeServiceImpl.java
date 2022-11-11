@@ -70,7 +70,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public Result insert(Resourze resourze) {
 		Result result=super.insert(resourze,false);
 		if(result.success()) {
-			clearCatchedResourzes();
+			clearCachedResourzes();
 		}
 		return result;
 	}
@@ -84,7 +84,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public Result insertList(List<Resourze> resourzeList) {
 		Result result= super.insertList(resourzeList);
 		if(result.success()) {
-			clearCatchedResourzes();
+			clearCachedResourzes();
 		}
 		return result;
 	}
@@ -103,7 +103,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		try {
 			boolean suc = dao.deleteEntity(resourze);
 			if(suc) {
-				clearCatchedResourzes();
+				clearCachedResourzes();
 			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
@@ -130,7 +130,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		try {
 			boolean suc = dao.updateEntity(resourze,SaveMode.NOT_NULL_FIELDS);
 			if(suc) {
-				clearCatchedResourzes();
+				clearCachedResourzes();
 			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
@@ -151,7 +151,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public Result update(Resourze resourze , SaveMode mode) {
 		Result result=super.update(resourze , mode);
 		if(result.success()) {
-			clearCatchedResourzes();
+			clearCachedResourzes();
 		}
 		return result;
 	}
@@ -166,7 +166,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public Result updateList(List<Resourze> resourzeList , SaveMode mode) {
 		Result result=super.updateList(resourzeList , mode);
 		if(result.success()) {
-			clearCatchedResourzes();
+			clearCachedResourzes();
 		}
 		return result;
 	}
@@ -183,7 +183,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		if(suc>0) {
-			clearCatchedResourzes();
+			clearCachedResourzes();
 		}
 		return suc>0;
 	}
@@ -276,14 +276,13 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
-	private Map<String,Resourze>  catchedResourzes=new HashMap<>();
-	// private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
-	private Map<String,AccessType>  catchedAccessTypes=new HashMap<>();
+	private Map<String,Resourze> cachedResourzes =new HashMap<>();
+	private Map<String,AccessType> cachedAccessTypes =new HashMap<>();
 
-	private void clearCatchedResourzes() {
-		this.catchedResourzes.clear();
+	private void clearCachedResourzes() {
+		this.cachedResourzes.clear();
 		//this.catchedAntPathRequestMatchers=null;
-		this.catchedAccessTypes.clear();
+		this.cachedAccessTypes.clear();
 	}
 
 	public List<Resourze> queryCachedResourzes(Collection<String> resIds) {
@@ -291,10 +290,14 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		List<Resourze> resourzes=new ArrayList<>(resIds.size());
 
 		for (String resId : resIds) {
-			Resourze resourze=catchedResourzes.get(resId);
+			Resourze resourze= cachedResourzes.get(resId);
 			if(resourze!=null) {
 				resourzes.add(resourze);
 			}
+		}
+		// 在缓存异常的情况下从数据库加载
+		if(resourzes.isEmpty()) {
+			resourzes.addAll(this.getByIds(new ArrayList<>(resIds)));
 		}
 		return resourzes;
 	}
@@ -311,7 +314,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		RequestMatcher.MatchResult result=null;
 		List<Resourze> matchs=new ArrayList<>();
 		List<Resourze> all=new ArrayList<>();
-		all.addAll(catchedResourzes.values());
+		all.addAll(cachedResourzes.values());
 		for (Resourze resourze : all) {
 
 //		}
@@ -331,20 +334,20 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	}
 
 	private void initCache() {
-		if(catchedResourzes.isEmpty()) {
-			synchronized (catchedResourzes) {
-				if(catchedResourzes.isEmpty()) {
+		if(cachedResourzes.isEmpty()) {
+			synchronized (cachedResourzes) {
+				if(cachedResourzes.isEmpty()) {
 					//载入所有资源
 					FieldsBuilder fields = this.createFieldsBuilder();
 					fields.removeAll().add(FoxnicWeb.SYS_RESOURZE.ID, FoxnicWeb.SYS_RESOURZE.URL, FoxnicWeb.SYS_RESOURZE.METHOD, FoxnicWeb.SYS_RESOURZE.ACCESS_TYPE, FoxnicWeb.SYS_RESOURZE.TYPE);
 					List<Resourze> list = this.queryList(fields, new ConditionExpr("length(url)>0"));
-					catchedResourzes = CollectorUtil.collectMap(list, Resourze::getId, r -> {
+					cachedResourzes = CollectorUtil.collectMap(list, Resourze::getId, r -> {
 						if(r.getAccessTypeEnum()==null) {
 							r.setAccessTypeEnum(AccessType.GRANT);
 						}
 						return r;
 					});
-					catchedAccessTypes.clear();
+					cachedAccessTypes.clear();
 				}
 			}
 		}
@@ -353,8 +356,8 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public AccessType getAccessType(HttpServletRequest request) {
 		AccessType accessType = null;
 		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
-		if(catchedAccessTypes!=null) {
-			accessType = catchedAccessTypes.get(key);
+		if(cachedAccessTypes !=null) {
+			accessType = cachedAccessTypes.get(key);
 			if (accessType != null) return accessType;
 		}
 
@@ -369,7 +372,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		}
 		if(accessTypes.size()==1) {
 			accessType=accessTypes.get(0);
-			catchedAccessTypes.put(key,accessType);
+			cachedAccessTypes.put(key,accessType);
 			return accessType;
 		} else {
 			throw new RuntimeException("资源授权类型不一致，无法处理");
