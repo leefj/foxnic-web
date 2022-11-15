@@ -84,17 +84,23 @@ function ListPage() {
 
      }
 
-     function renderMenu() {
+     function renderMenu(el) {
 		 //初演示
+		 var show = true;
+		 if(!el) {
+			 el = "#btn-add";
+			 show = false;
+		 }
 		 dropdown.render({
-			 elem: '#btn-add'
+			 elem: el
 			 ,data: [{
 				 title: '添加组织'
 				 ,id: "org"
 			 },{
 				 title: '添加岗位'
 				 ,id: "pos"
-			 }]
+			 }],
+			 show:show
 			 ,click: function(obj){
 				 if(obj.id=="org"){
 					 createOrg();
@@ -273,19 +279,37 @@ function ListPage() {
 	}
 
 	function addHoverDom(treeId, treeNode) {
-		if(!treeNode.isParent) return;
-		var aObj = $("#" + treeNode.tId + "_a");
-		if ($("#diyBtn_"+treeNode.id).length>0) return;
-		//var editStr = "<span class='button icon01' id='diyBtn_" +treeNode.id+ "' title='"+treeNode.name+"' onfocus='this.blur();'></span>";
-		var editStr = "<image tid='"+treeNode.tId+"' style='margin-top:2px' id='diyBtn_" +treeNode.id+ "' src='/assets/libs/zTree/images/refresh-16.png'  onfocus='this.blur();'/>"
-		aObj.after(editStr);
-		var btn = $("#diyBtn_"+treeNode.id);
-		if (btn) btn.bind("click", function() {
-			var it=$(this);
-			var tid=it.attr("tid");
-			var node=menuTree.getNodeByTId(tid);
-			menuTree.reAsyncChildNodes(node,'refresh');
-		});
+		// debugger
+		if(treeNode.type=="pos") return;
+		// var aObj = $("#" + treeNode.tId + "_a");
+		//setTimeout(function (){
+		var aObj = $("#" + treeNode.tId + "_span").parent();
+
+		if ($("#diyBtn_"+treeNode.id+"_add").length==0) {
+			var editStr = "<span tid='" + treeNode.tId + "' class='button add' id='diyBtn_" + treeNode.id + "_add' onfocus='this.blur();'/>"
+			aObj.append(editStr);
+			var btn = $("#diyBtn_" + treeNode.id + "_add");
+			if (btn) {
+				btn.bind("click", function () {
+					renderMenu("#diyBtn_" + treeNode.id + "_add")
+				});
+			}
+		}
+
+
+		if ($("#diyBtn_"+treeNode.id+"_refresh").length==0) {
+			var editStr = "<span tid='" + treeNode.tId + "' class='button refresh' id='diyBtn_" + treeNode.id + "_refresh' onfocus='this.blur();'/>"
+			aObj.append(editStr);
+			var btn = $("#diyBtn_" + treeNode.id + "_refresh");
+			if (btn) {
+				btn.bind("click", function () {
+					var it = $(this);
+					var tid = it.attr("tid");
+					var node = menuTree.getNodeByTId(tid);
+					menuTree.reAsyncChildNodes(node, 'refresh');
+				});
+			}
+		}
 
 	}
 
@@ -312,7 +336,8 @@ function ListPage() {
 //				$("#diyBtn1_"+treeNode.id).unbind().remove();
 //				$("#diyBtn2_"+treeNode.id).unbind().remove();
 //			} else {
-				$("#diyBtn_"+treeNode.id).unbind().remove();
+		$("#diyBtn_"+treeNode.id+"_refresh").unbind().remove();
+		$("#diyBtn_"+treeNode.id+"_add").unbind().remove();
 //				$("#diyBtn_space_" +treeNode.id).unbind().remove();
 //			}
 		}

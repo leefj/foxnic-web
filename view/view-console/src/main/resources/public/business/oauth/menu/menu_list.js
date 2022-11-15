@@ -183,7 +183,7 @@ function ListPage() {
 		var aObj = $("#" + treeNode.tId + "_span").parent();
 
 		if ($("#diyBtn_"+treeNode.id+"_add").length==0) {
-			var editStr = "<span tid='" + treeNode.tId + "_add' class='button add' id='diyBtn_" + treeNode.id + "_add' onfocus='this.blur();'/>"
+			var editStr = "<span tid='" + treeNode.tId + "' class='button add' id='diyBtn_" + treeNode.id + "_add' onfocus='this.blur();'/>"
 			aObj.append(editStr);
 			var btn = $("#diyBtn_" + treeNode.id + "_add");
 			if (btn) {
@@ -195,7 +195,7 @@ function ListPage() {
 
 
 		if ($("#diyBtn_"+treeNode.id+"_refresh").length==0) {
-			var editStr = "<span tid='" + treeNode.tId + "_refresh' class='button refresh' id='diyBtn_" + treeNode.id + "_refresh' onfocus='this.blur();'/>"
+			var editStr = "<span tid='" + treeNode.tId + "' class='button refresh' id='diyBtn_" + treeNode.id + "_refresh' onfocus='this.blur();'/>"
 			aObj.append(editStr);
 			var btn = $("#diyBtn_" + treeNode.id + "_refresh");
 			if (btn) {
