@@ -321,6 +321,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			node.setParentId(m.getString(SYS_MENU.PARENT_ID));
 			node.setHierarchy(m.getString(SYS_MENU.HIERARCHY));
 			node.setIsParent(m.getInteger("child_count")>0);
+			node.setType(m.getString("type"));
 			if(m.getValue("checked")!=null) {
 				node.setChecked(true);
 			}

@@ -249,9 +249,9 @@ function FormPage() {
 			layer.closeAll('loading');
 			if (data.success) {
 				if(parent) {
-					parent.chaneNodeName(values.id,values.label);
+					parent.chaneNodeName(values.id,values.label,values.type);
 				}
-				layer.msg("菜单信息已保存", {icon: 1, time: 500});
+				layer.msg("菜单配置已保存", {icon: 1, time: 500});
 			} else {
 				layer.msg(data.message, {icon: 2, time: 500});
 			}

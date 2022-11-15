@@ -135,6 +135,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             parent.changeNodeInfo(param);
         },
 
+        betweenFormSubmitAndClose:function (param,result) {
+            if(result.success) {
+                top.layer.msg(fox.translate('组织节点已保存'),{icon: 1, time: 1500});
+            }
+        },
+
         loadFormData:function(id) {
             var task=setTimeout(function(){layer.load(2);},1000);
             admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {

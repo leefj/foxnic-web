@@ -21,6 +21,56 @@
     <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css">
 
 	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <style>
+        .ztree li span.button.icon_menu_folder_ico_docu{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_folder_ico_close{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_folder_ico_open{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+        .ztree li span.button.icon_menu_page_ico_docu{margin-right:2px; background: url(/assets/icons/menu_page.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_page_ico_close{margin-right:2px; background: url(/assets/icons/menu_page.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_page_ico_open{margin-right:2px; background: url(/assets/icons/menu_page.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+        .ztree li span.button.icon_menu_api_ico_docu{margin-right:2px; background: url(/assets/icons/menu_api.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_api_ico_close{margin-right:2px; background: url(/assets/icons/menu_api.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_api_ico_open{margin-right:2px; background: url(/assets/icons/menu_api.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+
+        .ztree li span.button.icon_menu_function_ico_docu{margin-right:2px; background: url(/assets/icons/menu_function.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_function_ico_close{margin-right:2px; background: url(/assets/icons/menu_function.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_function_ico_open{margin-right:2px; background: url(/assets/icons/menu_function.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+        .ztree li span.button.edit {
+            background: url(/assets/libs/zTree/css/zTreeStyle/img/node_edit.svg) no-repeat scroll 0 0 transparent;
+            vertical-align:top;
+            *vertical-align:middle;
+            background-size: 100% auto;
+        }
+
+        .ztree li span.button.refresh {
+            background: url(/assets/libs/zTree/css/zTreeStyle/img/node-refresh.svg) no-repeat scroll 0 0 transparent;
+            vertical-align:top;
+            *vertical-align:middle;
+            background-size: 100% auto;
+        }
+
+        .ztree li span.button.add {
+            background: url(/assets/libs/zTree/css/zTreeStyle/img/node-add.svg) no-repeat scroll 0 0 transparent;
+            vertical-align:top;
+            *vertical-align:middle;
+            background-size: 100% auto;
+            margin-right: 1px;
+        }
+
+        .ztree li span.button.remove {
+            background: url(/assets/libs/zTree/css/zTreeStyle/img/node-remove.svg) no-repeat scroll 0 0 transparent;
+            vertical-align:top;
+            *vertical-align:middle;
+            background-size: 100% auto;
+            margin-right: 1px;
+        }
+
+
+    </style>
 </head>
 
 <body style="overflow: hidden">

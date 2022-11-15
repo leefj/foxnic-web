@@ -154,10 +154,23 @@ function ListPage() {
 	}
 
 	function nodeDatafilter(treeId, parentNode, childNodes) {
-     	//debugger;
-     	childNodes=childNodes.data;
+		//debugger;
+		childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
+			//debugger;
+			if(childNodes[i].type=="folder") {
+				childNodes[i].iconSkin="icon_menu_folder";
+			}
+			if(childNodes[i].type=="page") {
+				childNodes[i].iconSkin="icon_menu_page";
+			}
+			if(childNodes[i].type=="function") {
+				childNodes[i].iconSkin="icon_menu_function";
+			}
+			if(childNodes[i].type=="api") {
+				childNodes[i].iconSkin="icon_menu_api";
+			}
 
 		}
 		return childNodes;
@@ -165,25 +178,48 @@ function ListPage() {
 
 	function addHoverDom(treeId, treeNode) {
 		if(!treeNode.isParent) return;
-		var aObj = $("#" + treeNode.tId + "_a");
-		if ($("#diyBtn_"+treeNode.id).length>0) return;
-		//var editStr = "<span class='button icon01' id='diyBtn_" +treeNode.id+ "' title='"+treeNode.name+"' onfocus='this.blur();'></span>";
-		var editStr = "<image tid='"+treeNode.tId+"' style='margin-top:2px' id='diyBtn_" +treeNode.id+ "' src='/assets/libs/zTree/images/refresh-16.png'  onfocus='this.blur();'/>"
-		aObj.after(editStr);
-		var btn = $("#diyBtn_"+treeNode.id);
-		if (btn) btn.bind("click", function() {
-			var it=$(this);
-			var tid=it.attr("tid");
-			var node=menuTree.getNodeByTId(tid);
-			menuTree.reAsyncChildNodes(node,'refresh');
-		});
+		// var aObj = $("#" + treeNode.tId + "_a");
+		//setTimeout(function (){
+		var aObj = $("#" + treeNode.tId + "_span").parent();
+
+		if ($("#diyBtn_"+treeNode.id+"_add").length==0) {
+			var editStr = "<span tid='" + treeNode.tId + "_add' class='button add' id='diyBtn_" + treeNode.id + "_add' onfocus='this.blur();'/>"
+			aObj.append(editStr);
+			var btn = $("#diyBtn_" + treeNode.id + "_add");
+			if (btn) {
+				btn.bind("click", function () {
+					addChild();
+				});
+			}
+		}
+
+
+		if ($("#diyBtn_"+treeNode.id+"_refresh").length==0) {
+			var editStr = "<span tid='" + treeNode.tId + "_refresh' class='button refresh' id='diyBtn_" + treeNode.id + "_refresh' onfocus='this.blur();'/>"
+			aObj.append(editStr);
+			var btn = $("#diyBtn_" + treeNode.id + "_refresh");
+			if (btn) {
+				btn.bind("click", function () {
+					var it = $(this);
+					var tid = it.attr("tid");
+					var node = menuTree.getNodeByTId(tid);
+					menuTree.reAsyncChildNodes(node, 'refresh');
+				});
+			}
+		}
+
+
+
+		//},0);
+
 
 	}
 
-	function chaneNodeName(id,name) {
+	function chaneNodeName(id,name,type) {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
+		editingNode.iconSkin="icon_menu_"+type;
 		menuTree.updateNode(editingNode);
 	}
 	window.chaneNodeName=chaneNodeName;
@@ -194,7 +230,8 @@ function ListPage() {
 //				$("#diyBtn1_"+treeNode.id).unbind().remove();
 //				$("#diyBtn2_"+treeNode.id).unbind().remove();
 //			} else {
-				$("#diyBtn_"+treeNode.id).unbind().remove();
+				$("#diyBtn_"+treeNode.id+"_refresh").unbind().remove();
+				$("#diyBtn_"+treeNode.id+"_add").unbind().remove();
 //				$("#diyBtn_space_" +treeNode.id).unbind().remove();
 //			}
 		}
@@ -291,17 +328,16 @@ function ListPage() {
 	}
 
 
-	// 添加按钮点击事件
-    $('#btn-add').click(function () {
-        var nodes=menuTree.getSelectedNodes();
+	function addChild() {
+		var nodes=menuTree.getSelectedNodes();
 
-        //默认根节点
-        var treeNode=null;
-        if(nodes && nodes.length>0) {
-         	treeNode=nodes[0];
-        }
+		//默认根节点
+		var treeNode=null;
+		if(nodes && nodes.length>0) {
+			treeNode=nodes[0];
+		}
 
-        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
+		admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
 			if(r.success) {
 				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
 				//debugger
@@ -334,7 +370,10 @@ function ListPage() {
 				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
-    });
+	}
+
+	// 添加按钮点击事件
+    $('#btn-add').click(addChild);
 
 
     /**

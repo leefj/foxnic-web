@@ -298,7 +298,7 @@ function ListPage() {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
-		// debugger
+		//debugger
 		editingNode.iconSkin="icon_"+param.type;
 		editingNode.type=param.type;
 		// iconSkin:"icon_dept",type:"dept"
