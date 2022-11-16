@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:40
- * @sign C5E049736A81A0D6CF6BB157C9AF17F0
+ * @since 2022-11-16 16:47:32
+ * @sign DC13DD184293CCD592CFDAA93BF3DAC3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -123,24 +123,6 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="版本" , notes = "版本" , example = "2")
 	private Integer version;
-	
-	/**
-	 * sf：sf
-	*/
-	@ApiModelProperty(required = false,value="sf" , notes = "sf")
-	private String dd;
-	
-	/**
-	 * DD2：DD2
-	*/
-	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
-	private String d2;
-	
-	/**
-	 * DD3：DD3
-	*/
-	@ApiModelProperty(required = false,value="DD3" , notes = "DD3")
-	private String d3;
 	
 	/**
 	 * 引用1：引用1
@@ -446,63 +428,6 @@ public class Address extends Entity {
 	}
 	
 	/**
-	 * 获得 sf<br>
-	 * sf
-	 * @return sf
-	*/
-	public String getDd() {
-		return dd;
-	}
-	
-	/**
-	 * 设置 sf
-	 * @param dd sf
-	 * @return 当前对象
-	*/
-	public Address setDd(String dd) {
-		this.dd=dd;
-		return this;
-	}
-	
-	/**
-	 * 获得 DD2<br>
-	 * DD2
-	 * @return DD2
-	*/
-	public String getD2() {
-		return d2;
-	}
-	
-	/**
-	 * 设置 DD2
-	 * @param d2 DD2
-	 * @return 当前对象
-	*/
-	public Address setD2(String d2) {
-		this.d2=d2;
-		return this;
-	}
-	
-	/**
-	 * 获得 DD3<br>
-	 * DD3
-	 * @return DD3
-	*/
-	public String getD3() {
-		return d3;
-	}
-	
-	/**
-	 * 设置 DD3
-	 * @param d3 DD3
-	 * @return 当前对象
-	*/
-	public Address setD3(String d3) {
-		this.d3=d3;
-		return this;
-	}
-	
-	/**
 	 * 获得 引用1<br>
 	 * 引用1
 	 * @return 引用1
@@ -565,13 +490,10 @@ public class Address extends Entity {
 	@Transient
 	public Address duplicate(boolean all) {
 		org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressMeta.$$proxy$$();
-		inst.setDd(this.getDd());
 		inst.setAddress(this.getAddress());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setRegionLocation(this.getRegionLocation());
 		inst.setVersion(this.getVersion());
-		inst.setD2(this.getD2());
-		inst.setD3(this.getD3());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setDeleted(this.getDeleted());
@@ -643,13 +565,10 @@ public class Address extends Entity {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, map.get(AddressMeta.DD)));
 			this.setAddress(DataParser.parse(String.class, map.get(AddressMeta.ADDRESS)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(AddressMeta.UPDATE_TIME)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(AddressMeta.VERSION)));
-			this.setD2(DataParser.parse(String.class, map.get(AddressMeta.D2)));
-			this.setD3(DataParser.parse(String.class, map.get(AddressMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(AddressMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(AddressMeta.DELETED)));
@@ -665,13 +584,10 @@ public class Address extends Entity {
 			return true;
 		} else {
 			try {
-				this.setDd( (String)map.get(AddressMeta.DD));
 				this.setAddress( (String)map.get(AddressMeta.ADDRESS));
 				this.setUpdateTime( (Date)map.get(AddressMeta.UPDATE_TIME));
 				this.setRegionLocation( (String)map.get(AddressMeta.REGION_LOCATION));
 				this.setVersion( (Integer)map.get(AddressMeta.VERSION));
-				this.setD2( (String)map.get(AddressMeta.D2));
-				this.setD3( (String)map.get(AddressMeta.D3));
 				this.setCreateBy( (String)map.get(AddressMeta.CREATE_BY));
 				this.setPhoneNumber( (String)map.get(AddressMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)map.get(AddressMeta.DELETED));
@@ -700,13 +616,10 @@ public class Address extends Entity {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, r.getValue(AddressMeta.DD)));
 			this.setAddress(DataParser.parse(String.class, r.getValue(AddressMeta.ADDRESS)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(AddressMeta.UPDATE_TIME)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressMeta.REGION_LOCATION)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(AddressMeta.VERSION)));
-			this.setD2(DataParser.parse(String.class, r.getValue(AddressMeta.D2)));
-			this.setD3(DataParser.parse(String.class, r.getValue(AddressMeta.D3)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(AddressMeta.CREATE_BY)));
 			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressMeta.PHONE_NUMBER)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(AddressMeta.DELETED)));
@@ -720,13 +633,10 @@ public class Address extends Entity {
 			return true;
 		} else {
 			try {
-				this.setDd( (String)r.getValue(AddressMeta.DD));
 				this.setAddress( (String)r.getValue(AddressMeta.ADDRESS));
 				this.setUpdateTime( (Date)r.getValue(AddressMeta.UPDATE_TIME));
 				this.setRegionLocation( (String)r.getValue(AddressMeta.REGION_LOCATION));
 				this.setVersion( (Integer)r.getValue(AddressMeta.VERSION));
-				this.setD2( (String)r.getValue(AddressMeta.D2));
-				this.setD3( (String)r.getValue(AddressMeta.D3));
 				this.setCreateBy( (String)r.getValue(AddressMeta.CREATE_BY));
 				this.setPhoneNumber( (String)r.getValue(AddressMeta.PHONE_NUMBER));
 				this.setDeleted( (Integer)r.getValue(AddressMeta.DELETED));

@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:40
- * @sign 56EAA62D6D6D2EFA1C1EA32789665FA8
+ * @since 2022-11-16 16:47:32
+ * @sign A19FA58A64BD91EFF8DF7F6A1D2FD250
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -77,36 +77,6 @@ public class AddressModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "地区位置，东北、华北等", java.lang.String.class, null);
 	
 	/**
-	 * sf , 类型: java.lang.String
-	*/
-	public static final String DD="dd";
-	
-	/**
-	 * sf , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> DD_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,DD, java.lang.String.class, "sf", "sf", java.lang.String.class, null);
-	
-	/**
-	 * DD2 , 类型: java.lang.String
-	*/
-	public static final String D2="d2";
-	
-	/**
-	 * DD2 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
-	
-	/**
-	 * DD3 , 类型: java.lang.String
-	*/
-	public static final String D3="d3";
-	
-	/**
-	 * DD3 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressModel,java.lang.String> D3_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressModel.class ,D3, java.lang.String.class, "DD3", "DD3", java.lang.String.class, null);
-	
-	/**
 	 * 其它 , 类型: java.lang.String
 	*/
 	public static final String OTHER="other";
@@ -129,7 +99,7 @@ public class AddressModelMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , D3 , OTHER , ADDRESS_X };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , OTHER , ADDRESS_X };
 	
 	/**
 	 * 代理类
@@ -206,39 +176,6 @@ public class AddressModelMeta {
 		}
 		
 		/**
-		 * 设置 sf
-		 * @param dd sf
-		 * @return 当前对象
-		*/
-		public AddressModel setDd(String dd) {
-			super.change(DD,super.getDd(),dd);
-			super.setDd(dd);
-			return this;
-		}
-		
-		/**
-		 * 设置 DD2
-		 * @param d2 DD2
-		 * @return 当前对象
-		*/
-		public AddressModel setD2(String d2) {
-			super.change(D2,super.getD2(),d2);
-			super.setD2(d2);
-			return this;
-		}
-		
-		/**
-		 * 设置 DD3
-		 * @param d3 DD3
-		 * @return 当前对象
-		*/
-		public AddressModel setD3(String d3) {
-			super.change(D3,super.getD3(),d3);
-			super.setD3(d3);
-			return this;
-		}
-		
-		/**
 		 * 设置 其它
 		 * @param other 其它
 		 * @return 当前对象
@@ -275,15 +212,12 @@ public class AddressModelMeta {
 		@Transient
 		public AddressModel duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
-			inst.setDd(this.getDd());
 			inst.setPhoneNumber(this.getPhoneNumber());
 			inst.setAddress(this.getAddress());
 			inst.setRegionType(this.getRegionType());
 			inst.setName(this.getName());
 			inst.setId(this.getId());
 			inst.setRegionLocation(this.getRegionLocation());
-			inst.setD2(this.getD2());
-			inst.setD3(this.getD3());
 			if(all) {
 				inst.setOther(this.getOther());
 				inst.setAddressX(this.getAddressX());

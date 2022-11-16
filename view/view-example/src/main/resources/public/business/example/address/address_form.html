@@ -2,7 +2,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:43
+ * @since 2022-11-16 16:47:32
  */
  -->
  <!DOCTYPE html>
@@ -87,30 +87,6 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('地区位置')}">地区位置</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="regionLocation" id="regionLocation" name="regionLocation" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('地区位置') }" type="text" class="layui-input"  />
-                    </div>
-                </div>
-            
-                <!-- text_input : sf ,  dd -->
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('sf')}">sf</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="dd" id="dd" name="dd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('sf') }" type="text" class="layui-input"  />
-                    </div>
-                </div>
-            
-                <!-- text_input : DD2 ,  d2 -->
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('DD2')}">DD2</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="d2" id="d2" name="d2" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('DD2') }" type="text" class="layui-input"  />
-                    </div>
-                </div>
-            
-                <!-- text_input : DD3 ,  d3 -->
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('DD3')}">DD3</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="d3" id="d3" name="d3" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('DD3') }" type="text" class="layui-input"  />
                     </div>
                 </div>
             <!--结束：栏次内字段循环-->

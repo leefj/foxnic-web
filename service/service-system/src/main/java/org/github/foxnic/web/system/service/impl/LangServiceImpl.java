@@ -2,10 +2,12 @@ package org.github.foxnic.web.system.service.impl;
 
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.language.I18N;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.language.AcceptLanguages;
@@ -31,7 +33,6 @@ import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
-import com.github.foxnic.api.language.I18N;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -513,7 +514,9 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
-		return null;
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,new ReferCause(false));
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
 	@Override

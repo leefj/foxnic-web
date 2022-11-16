@@ -17,8 +17,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:40
- * @sign 4CC616A37058A18D197395086E454760
+ * @since 2022-11-16 16:47:32
+ * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -62,24 +62,6 @@ public class AddressPureModel {
 	*/
 	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
 	private String regionLocation;
-	
-	/**
-	 * sf：sf
-	*/
-	@ApiModelProperty(required = false,value="sf" , notes = "sf")
-	private String dd;
-	
-	/**
-	 * DD2：DD2
-	*/
-	@ApiModelProperty(required = false,value="DD2" , notes = "DD2")
-	private String d2;
-	
-	/**
-	 * DD3：DD3
-	*/
-	@ApiModelProperty(required = false,value="DD3" , notes = "DD3")
-	private String d3;
 	
 	/**
 	 * 获得 主键<br>
@@ -194,63 +176,6 @@ public class AddressPureModel {
 		this.regionLocation=regionLocation;
 		return this;
 	}
-	
-	/**
-	 * 获得 sf<br>
-	 * sf
-	 * @return sf
-	*/
-	public String getDd() {
-		return dd;
-	}
-	
-	/**
-	 * 设置 sf
-	 * @param dd sf
-	 * @return 当前对象
-	*/
-	public AddressPureModel setDd(String dd) {
-		this.dd=dd;
-		return this;
-	}
-	
-	/**
-	 * 获得 DD2<br>
-	 * DD2
-	 * @return DD2
-	*/
-	public String getD2() {
-		return d2;
-	}
-	
-	/**
-	 * 设置 DD2
-	 * @param d2 DD2
-	 * @return 当前对象
-	*/
-	public AddressPureModel setD2(String d2) {
-		this.d2=d2;
-		return this;
-	}
-	
-	/**
-	 * 获得 DD3<br>
-	 * DD3
-	 * @return DD3
-	*/
-	public String getD3() {
-		return d3;
-	}
-	
-	/**
-	 * 设置 DD3
-	 * @param d3 DD3
-	 * @return 当前对象
-	*/
-	public AddressPureModel setD3(String d3) {
-		this.d3=d3;
-		return this;
-	}
 
 	/**
 	 * 创建一个 AddressPureModel，等同于 new
@@ -294,15 +219,12 @@ public class AddressPureModel {
 	@Transient
 	public AddressPureModel duplicate(boolean all) {
 		AddressPureModel inst = new AddressPureModel();
-		inst.setDd(this.getDd());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setAddress(this.getAddress());
 		inst.setRegionType(this.getRegionType());
 		inst.setName(this.getName());
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
-		inst.setD2(this.getD2());
-		inst.setD3(this.getD3());
 		return inst;
 	}
 
@@ -350,28 +272,22 @@ public class AddressPureModel {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, map.get(AddressPureModelMeta.DD)));
 			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressPureModelMeta.PHONE_NUMBER)));
 			this.setAddress(DataParser.parse(String.class, map.get(AddressPureModelMeta.ADDRESS)));
 			this.setRegionType(DataParser.parse(String.class, map.get(AddressPureModelMeta.REGION_TYPE)));
 			this.setName(DataParser.parse(String.class, map.get(AddressPureModelMeta.NAME)));
 			this.setId(DataParser.parse(String.class, map.get(AddressPureModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressPureModelMeta.REGION_LOCATION)));
-			this.setD2(DataParser.parse(String.class, map.get(AddressPureModelMeta.D2)));
-			this.setD3(DataParser.parse(String.class, map.get(AddressPureModelMeta.D3)));
 			// others
 			return true;
 		} else {
 			try {
-				this.setDd( (String)map.get(AddressPureModelMeta.DD));
 				this.setPhoneNumber( (String)map.get(AddressPureModelMeta.PHONE_NUMBER));
 				this.setAddress( (String)map.get(AddressPureModelMeta.ADDRESS));
 				this.setRegionType( (String)map.get(AddressPureModelMeta.REGION_TYPE));
 				this.setName( (String)map.get(AddressPureModelMeta.NAME));
 				this.setId( (String)map.get(AddressPureModelMeta.ID));
 				this.setRegionLocation( (String)map.get(AddressPureModelMeta.REGION_LOCATION));
-				this.setD2( (String)map.get(AddressPureModelMeta.D2));
-				this.setD3( (String)map.get(AddressPureModelMeta.D3));
 				// others
 				return true;
 			} catch (Exception e) {
@@ -389,27 +305,21 @@ public class AddressPureModel {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.DD)));
 			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.PHONE_NUMBER)));
 			this.setAddress(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.ADDRESS)));
 			this.setRegionType(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.REGION_TYPE)));
 			this.setName(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.NAME)));
 			this.setId(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.REGION_LOCATION)));
-			this.setD2(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.D2)));
-			this.setD3(DataParser.parse(String.class, r.getValue(AddressPureModelMeta.D3)));
 			return true;
 		} else {
 			try {
-				this.setDd( (String)r.getValue(AddressPureModelMeta.DD));
 				this.setPhoneNumber( (String)r.getValue(AddressPureModelMeta.PHONE_NUMBER));
 				this.setAddress( (String)r.getValue(AddressPureModelMeta.ADDRESS));
 				this.setRegionType( (String)r.getValue(AddressPureModelMeta.REGION_TYPE));
 				this.setName( (String)r.getValue(AddressPureModelMeta.NAME));
 				this.setId( (String)r.getValue(AddressPureModelMeta.ID));
 				this.setRegionLocation( (String)r.getValue(AddressPureModelMeta.REGION_LOCATION));
-				this.setD2( (String)r.getValue(AddressPureModelMeta.D2));
-				this.setD3( (String)r.getValue(AddressPureModelMeta.D3));
 				return true;
 			} catch (Exception e) {
 				return false;

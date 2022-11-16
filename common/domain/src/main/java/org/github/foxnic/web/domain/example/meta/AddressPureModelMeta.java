@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:40
- * @sign 4CC616A37058A18D197395086E454760
+ * @since 2022-11-16 16:47:32
+ * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,37 +74,7 @@ public class AddressPureModelMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "地区位置，东北、华北等", java.lang.String.class, null);
 	
 	/**
-	 * sf , 类型: java.lang.String
-	*/
-	public static final String DD="dd";
-	
-	/**
-	 * sf , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> DD_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,DD, java.lang.String.class, "sf", "sf", java.lang.String.class, null);
-	
-	/**
-	 * DD2 , 类型: java.lang.String
-	*/
-	public static final String D2="d2";
-	
-	/**
-	 * DD2 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> D2_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,D2, java.lang.String.class, "DD2", "DD2", java.lang.String.class, null);
-	
-	/**
-	 * DD3 , 类型: java.lang.String
-	*/
-	public static final String D3="d3";
-	
-	/**
-	 * DD3 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> D3_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,D3, java.lang.String.class, "DD3", "DD3", java.lang.String.class, null);
-	
-	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , DD , D2 , D3 };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION };
 }

@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:43
+ * @since 2022-11-16 16:47:32
  */
 
 
@@ -87,9 +87,6 @@ function ListPage() {
 					,{ field: 'regionType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型') , templet: function (d) { return templet('regionType',d.regionType,d);}  }
 					,{ field: 'regionLocation', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地区位置') , templet: function (d) { return templet('regionLocation',d.regionLocation,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'dd', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('sf') , templet: function (d) { return templet('dd',d.dd,d);}  }
-					,{ field: 'd2', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('DD2') , templet: function (d) { return templet('d2',d.d2,d);}  }
-					,{ field: 'd3', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('DD3') , templet: function (d) { return templet('d3',d.d3,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -145,9 +142,6 @@ function ListPage() {
 		value.regionType={ inputType:"button",value: $("#regionType").val()};
 		value.regionLocation={ inputType:"button",value: $("#regionLocation").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
-		value.dd={ inputType:"button",value: $("#dd").val()};
-		value.d2={ inputType:"button",value: $("#d2").val()};
-		value.d3={ inputType:"button",value: $("#d3").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -303,6 +297,9 @@ function ListPage() {
 						fox.showMessage(data);
                         refreshTableData();
                     } else {
+						if(data.data>0) {
+							refreshTableData();
+						}
 						fox.showMessage(data);
                     }
                 },{delayLoading:200,elms:[$("#delete-button")]});

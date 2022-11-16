@@ -16,7 +16,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:40
+ * @since 2022-11-16 16:47:32
  * @sign 9E592FF32177CCE731954B80F8619340
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -111,15 +111,12 @@ public class AddressSubModel extends AddressModel {
 	@Transient
 	public AddressSubModel duplicate(boolean all) {
 		org.github.foxnic.web.domain.example.meta.AddressSubModelMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.example.meta.AddressSubModelMeta.$$proxy$$();
-		inst.setDd(this.getDd());
 		inst.setPhoneNumber(this.getPhoneNumber());
 		inst.setAddress(this.getAddress());
 		inst.setRegionType(this.getRegionType());
 		inst.setName(this.getName());
 		inst.setId(this.getId());
 		inst.setRegionLocation(this.getRegionLocation());
-		inst.setD2(this.getD2());
-		inst.setD3(this.getD3());
 		if(all) {
 			inst.setPostCode2(this.getPostCode2());
 			inst.setOther(this.getOther());
@@ -183,15 +180,12 @@ public class AddressSubModel extends AddressModel {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, map.get(AddressSubModelMeta.DD)));
 			this.setPhoneNumber(DataParser.parse(String.class, map.get(AddressSubModelMeta.PHONE_NUMBER)));
 			this.setAddress(DataParser.parse(String.class, map.get(AddressSubModelMeta.ADDRESS)));
 			this.setRegionType(DataParser.parse(String.class, map.get(AddressSubModelMeta.REGION_TYPE)));
 			this.setName(DataParser.parse(String.class, map.get(AddressSubModelMeta.NAME)));
 			this.setId(DataParser.parse(String.class, map.get(AddressSubModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, map.get(AddressSubModelMeta.REGION_LOCATION)));
-			this.setD2(DataParser.parse(String.class, map.get(AddressSubModelMeta.D2)));
-			this.setD3(DataParser.parse(String.class, map.get(AddressSubModelMeta.D3)));
 			// others
 			this.setPostCode2(DataParser.parse(String.class, map.get(AddressSubModelMeta.POST_CODE2)));
 			this.setOther(DataParser.parse(String.class, map.get(AddressSubModelMeta.OTHER)));
@@ -200,15 +194,12 @@ public class AddressSubModel extends AddressModel {
 			return true;
 		} else {
 			try {
-				this.setDd( (String)map.get(AddressSubModelMeta.DD));
 				this.setPhoneNumber( (String)map.get(AddressSubModelMeta.PHONE_NUMBER));
 				this.setAddress( (String)map.get(AddressSubModelMeta.ADDRESS));
 				this.setRegionType( (String)map.get(AddressSubModelMeta.REGION_TYPE));
 				this.setName( (String)map.get(AddressSubModelMeta.NAME));
 				this.setId( (String)map.get(AddressSubModelMeta.ID));
 				this.setRegionLocation( (String)map.get(AddressSubModelMeta.REGION_LOCATION));
-				this.setD2( (String)map.get(AddressSubModelMeta.D2));
-				this.setD3( (String)map.get(AddressSubModelMeta.D3));
 				// others
 				this.setPostCode2( (String)map.get(AddressSubModelMeta.POST_CODE2));
 				this.setOther( (String)map.get(AddressSubModelMeta.OTHER));
@@ -230,27 +221,21 @@ public class AddressSubModel extends AddressModel {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setDd(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.DD)));
 			this.setPhoneNumber(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.PHONE_NUMBER)));
 			this.setAddress(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.ADDRESS)));
 			this.setRegionType(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.REGION_TYPE)));
 			this.setName(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.NAME)));
 			this.setId(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.ID)));
 			this.setRegionLocation(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.REGION_LOCATION)));
-			this.setD2(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.D2)));
-			this.setD3(DataParser.parse(String.class, r.getValue(AddressSubModelMeta.D3)));
 			return true;
 		} else {
 			try {
-				this.setDd( (String)r.getValue(AddressSubModelMeta.DD));
 				this.setPhoneNumber( (String)r.getValue(AddressSubModelMeta.PHONE_NUMBER));
 				this.setAddress( (String)r.getValue(AddressSubModelMeta.ADDRESS));
 				this.setRegionType( (String)r.getValue(AddressSubModelMeta.REGION_TYPE));
 				this.setName( (String)r.getValue(AddressSubModelMeta.NAME));
 				this.setId( (String)r.getValue(AddressSubModelMeta.ID));
 				this.setRegionLocation( (String)r.getValue(AddressSubModelMeta.REGION_LOCATION));
-				this.setD2( (String)r.getValue(AddressSubModelMeta.D2));
-				this.setD3( (String)r.getValue(AddressSubModelMeta.D3));
 				return true;
 			} catch (Exception e) {
 				return false;

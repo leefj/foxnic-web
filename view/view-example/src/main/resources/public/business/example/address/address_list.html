@@ -2,7 +2,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:28:44
+ * @since 2022-11-16 16:47:32
  */
  -->
  <!DOCTYPE html>
@@ -72,21 +72,6 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('创建时间')}" class="search-label createTime-label">创建时间</span><span class="search-colon">:</span></div>
                             <input type="text" id="createTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
-                    </div>
-                    <!-- sf , dd ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('sf')}" class="search-label dd-label">sf</span><span class="search-colon">:</span></div>
-                        <input id="dd" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- DD2 , d2 ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('DD2')}" class="search-label d2-label">DD2</span><span class="search-colon">:</span></div>
-                        <input id="d2" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- DD3 , d3 ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('DD3')}" class="search-label d3-label">DD3</span><span class="search-colon">:</span></div>
-                        <input id="d3" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 
