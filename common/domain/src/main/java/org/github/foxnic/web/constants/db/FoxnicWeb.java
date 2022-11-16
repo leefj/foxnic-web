@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-11-04 10:41:33
+ * @since 2022-11-16 13:08:53
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -5831,6 +5831,298 @@ public class FoxnicWeb {
 			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
 		}
 		public static final SYS_DICT_ITEM $TABLE=new SYS_DICT_ITEM();
+	}
+	
+	/**
+	 * 离散值信息表
+	*/
+	public static class SYS_DISCRETE_INFO extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_discrete_info";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.LONG , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 离散键
+		*/
+		public static final DBField DISCRETE_KEY = new DBField(DBDataType.STRING , "discrete_key","discreteKey","离散键","离散键",false,false,true);
+		
+		/**
+		 * 主表
+		*/
+		public static final DBField MASTER_TABLE = new DBField(DBDataType.STRING , "master_table","masterTable","主表","主表",false,false,true);
+		
+		/**
+		 * 类型：字典,dict;枚举,enum
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型：字典","dict;枚举,enum",false,false,true);
+		
+		/**
+		 * 来源，如果是字典填写代码，如果枚举则填写类名
+		*/
+		public static final DBField SOURCE = new DBField(DBDataType.STRING , "source","source","来源","如果是字典填写代码，如果枚举则填写类名",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_DISCRETE_INFO() {
+			this.init($NAME,"离散值信息表" , ID , DISCRETE_KEY , MASTER_TABLE , TYPE , SOURCE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_DISCRETE_INFO $TABLE=new SYS_DISCRETE_INFO();
+	}
+	
+	/**
+	 * 离散值存储表
+	*/
+	public static class SYS_DISCRETE_VALUE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_discrete_value";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.LONG , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * sys_discrete_info表的ID
+		*/
+		public static final DBField DISCRETE_ID = new DBField(DBDataType.STRING , "discrete_id","discreteId","sys","discrete_info表的ID",false,false,true);
+		
+		/**
+		 * 离散键
+		*/
+		public static final DBField DISCRETE_KEY = new DBField(DBDataType.STRING , "discrete_key","discreteKey","离散键","离散键",false,false,true);
+		
+		/**
+		 * 主表
+		*/
+		public static final DBField MASTER_TABLE = new DBField(DBDataType.STRING , "master_table","masterTable","主表","主表",false,false,true);
+		
+		/**
+		 * 主表ID
+		*/
+		public static final DBField MASTER_ID = new DBField(DBDataType.STRING , "master_id","masterId","主表ID","主表ID",false,false,true);
+		
+		/**
+		 * 代码
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,true);
+		
+		/**
+		 * 文本
+		*/
+		public static final DBField TEXT = new DBField(DBDataType.STRING , "text","text","文本","文本",false,false,true);
+		
+		/**
+		 * 排序，优先级
+		*/
+		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","排序","优先级",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_DISCRETE_VALUE() {
+			this.init($NAME,"离散值存储表" , ID , DISCRETE_ID , DISCRETE_KEY , MASTER_TABLE , MASTER_ID , CODE , TEXT , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_DISCRETE_VALUE $TABLE=new SYS_DISCRETE_VALUE();
+	}
+	
+	/**
+	*/
+	public static class SYS_DOCS_DB_UPDATE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_docs_db_update";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,true,false);
+		
+		/**
+		 * 操作名称；升级操作的名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","操作名称","升级操作的名称",false,false,true);
+		
+		/**
+		 * 表归属，字符串值 foxnic-web、foxnic-eam
+		*/
+		public static final DBField BELONGS = new DBField(DBDataType.STRING , "belongs","belongs","表归属","字符串值 foxnic-web、foxnic-eam",false,false,false);
+		
+		/**
+		 * 程序版本
+		*/
+		public static final DBField PROG_VERSION = new DBField(DBDataType.STRING , "prog_version","progVersion","程序版本","程序版本",false,false,true);
+		
+		/**
+		 * Git分支
+		*/
+		public static final DBField GIT_BRANCH = new DBField(DBDataType.STRING , "git_branch","gitBranch","Git分支","Git分支",false,false,true);
+		
+		/**
+		 * 语句
+		*/
+		public static final DBField STATEMEMT = new DBField(DBDataType.STRING , "statememt","statememt","语句","语句",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,false);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,false);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_DOCS_DB_UPDATE() {
+			this.init($NAME,"" , ID , NAME , BELONGS , PROG_VERSION , GIT_BRANCH , STATEMEMT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_DOCS_DB_UPDATE $TABLE=new SYS_DOCS_DB_UPDATE();
+	}
+	
+	/**
+	*/
+	public static class SYS_DOCS_TABLE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_docs_table";
+		
+		/**
+		 * 表名
+		*/
+		public static final DBField TABLE_NAME = new DBField(DBDataType.STRING , "table_name","tableName","表名","表名",true,false,false);
+		
+		/**
+		 * 表归属，字符串值 foxnic-web、foxnic-eam
+		*/
+		public static final DBField BELONGS = new DBField(DBDataType.STRING , "belongs","belongs","表归属","字符串值 foxnic-web、foxnic-eam",false,false,false);
+		
+		public SYS_DOCS_TABLE() {
+			this.init($NAME,"" , TABLE_NAME , BELONGS);
+		}
+		public static final SYS_DOCS_TABLE $TABLE=new SYS_DOCS_TABLE();
 	}
 	
 	/**
