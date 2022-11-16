@@ -5,6 +5,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,6 +28,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-03 18:46:21
+ * @version
 */
 
 public interface IResourzeService extends ISuperService<Resourze> {
@@ -147,6 +150,10 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @return 是否已经存在
 	 * */
 	boolean checkExists(Resourze resourze,DBField... field);
+
+
+
+
 
 
 	/**

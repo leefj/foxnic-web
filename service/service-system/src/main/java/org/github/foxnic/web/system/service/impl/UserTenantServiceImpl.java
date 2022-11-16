@@ -1,12 +1,12 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -16,7 +16,6 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.domain.system.UserTenantVO;
@@ -27,7 +26,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -187,14 +188,8 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	}
 
 	@Override
-	public Boolean hasRefers(String id) {
-		return false;
-	}
-
-	@Override
-	public Map<String, Boolean> hasRefers(List<String> ids) {
-		Map<String, Boolean> map=new HashMap<>();
-		return map;
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 	/**

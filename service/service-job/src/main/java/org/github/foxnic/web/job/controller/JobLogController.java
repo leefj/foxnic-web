@@ -1,34 +1,33 @@
 package org.github.foxnic.web.job.controller;
 
-import java.util.List;
-import java.util.ArrayList;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.github.foxnic.api.swagger.InDoc;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
-import org.github.foxnic.web.domain.job.meta.JobLogVOMeta;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.job.JobLog;
 import org.github.foxnic.web.domain.job.JobLogVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.job.meta.JobLogVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.job.service.IJobLogService;
+import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import org.github.foxnic.web.job.service.IJobLogService;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -49,7 +48,7 @@ public class JobLogController extends SuperController {
      * 添加定时任务执行日志
      */
     @ApiOperation(value = "添加定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561"),
 		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID, value = "组别", required = false, dataTypeClass = String.class, example = "532217276871475200"),
 		@ApiImplicitParam(name = JobLogVOMeta.TYPE, value = "日志分类", required = false, dataTypeClass = String.class, example = "cron"),
@@ -85,7 +84,7 @@ public class JobLogController extends SuperController {
      * 删除定时任务执行日志
      */
     @ApiOperation(value = "删除定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561")
 	})
     @ApiOperationSupport(order = 2)
@@ -97,9 +96,9 @@ public class JobLogController extends SuperController {
             return this.validator().getFirstResult();
         }
         // 引用校验
-        Boolean hasRefer = jobLogService.hasRefers(id);
+        ReferCause cause =  jobLogService.hasRefers(id);
         // 判断是否可以删除
-        this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录", false);
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录:"+cause.message(), false);
         if (this.validator().failure()) {
             return this.validator().getFirstResult();
         }
@@ -112,7 +111,7 @@ public class JobLogController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -125,11 +124,11 @@ public class JobLogController extends SuperController {
             return this.validator().getFirstResult();
         }
         // 查询引用
-        Map<String, Boolean> hasRefersMap = jobLogService.hasRefers(ids);
+        Map<String, ReferCause> causeMap =  jobLogService.hasRefers(ids);
         // 收集可以删除的ID值
         List<String> canDeleteIds = new ArrayList<>();
-        for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
-            if (!e.getValue()) {
+        for (Map.Entry<String, ReferCause> e : causeMap.entrySet()) {
+            if (!e.getValue().hasRefer()) {
                 canDeleteIds.add(e.getKey());
             }
         }
@@ -159,7 +158,7 @@ public class JobLogController extends SuperController {
      * 更新定时任务执行日志
      */
     @ApiOperation(value = "更新定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561"),
 		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID, value = "组别", required = false, dataTypeClass = String.class, example = "532217276871475200"),
 		@ApiImplicitParam(name = JobLogVOMeta.TYPE, value = "日志分类", required = false, dataTypeClass = String.class, example = "cron"),
@@ -195,7 +194,7 @@ public class JobLogController extends SuperController {
      * 保存定时任务执行日志
      */
     @ApiOperation(value = "保存定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561"),
 		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID, value = "组别", required = false, dataTypeClass = String.class, example = "532217276871475200"),
 		@ApiImplicitParam(name = JobLogVOMeta.TYPE, value = "日志分类", required = false, dataTypeClass = String.class, example = "cron"),
@@ -231,7 +230,7 @@ public class JobLogController extends SuperController {
      * 获取定时任务执行日志
      */
     @ApiOperation(value = "获取定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
@@ -249,7 +248,7 @@ public class JobLogController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量获取定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -266,7 +265,7 @@ public class JobLogController extends SuperController {
      * 查询定时任务执行日志
      */
     @ApiOperation(value = "查询定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561"),
 		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID, value = "组别", required = false, dataTypeClass = String.class, example = "532217276871475200"),
 		@ApiImplicitParam(name = JobLogVOMeta.TYPE, value = "日志分类", required = false, dataTypeClass = String.class, example = "cron"),
@@ -303,7 +302,7 @@ public class JobLogController extends SuperController {
      * 分页查询定时任务执行日志
      */
     @ApiOperation(value = "分页查询定时任务执行日志")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = JobLogVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "620728304072130561"),
 		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID, value = "组别", required = false, dataTypeClass = String.class, example = "532217276871475200"),
 		@ApiImplicitParam(name = JobLogVOMeta.TYPE, value = "日志分类", required = false, dataTypeClass = String.class, example = "cron"),

@@ -1,36 +1,26 @@
 package org.github.foxnic.web.example.service.impl;
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.github.foxnic.commons.collection.MapUtil;
-import java.util.Arrays;
-
-
-import org.github.foxnic.web.domain.example.Address;
-import org.github.foxnic.web.domain.example.AddressVO;
-import java.util.List;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
+import org.github.foxnic.web.domain.example.Address;
+import org.github.foxnic.web.domain.example.AddressVO;
 import org.github.foxnic.web.example.service.IAddressService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +28,7 @@ import java.util.Map;
  * 订单地址服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:20:57
+ * @since 2022-11-16 16:28:40
 */
 
 
@@ -48,7 +38,7 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -96,7 +86,7 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 		return super.insertList(addressList);
 	}
 
-	
+
 	/**
 	 * 按主键删除订单地址
 	 *
@@ -117,7 +107,7 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除订单地址
 	 *
@@ -177,7 +167,7 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 		return super.updateList(addressList , mode);
 	}
 
-	
+
 	/**
 	 * 按主键更新订单地址
 	 *
@@ -191,7 +181,7 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 		return suc>0;
 	}
 
-	
+
 	/**
 	 * 按主键获取订单地址
 	 *
@@ -277,30 +267,16 @@ public class AddressServiceImpl extends SuperService<Address> implements IAddres
 		return false;
 	}
 
-
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	@Override
-	public Boolean hasRefers(String id) {
-		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
-		Boolean ex=map.get(id);
-		if(ex==null) return false;
-		return ex;
-	}
-
 	/**
 	 * 批量检查引用
 	 * @param ids  检查这些ID是否又被外部表引用
 	 * */
 	@Override
-	public Map<String, Boolean> hasRefers(List<String> ids) {
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
 		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
-		return MapUtil.asMap(ids,false);
+		return MapUtil.asMap(ids,new ReferCause(false));
 		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
-
 
 
 

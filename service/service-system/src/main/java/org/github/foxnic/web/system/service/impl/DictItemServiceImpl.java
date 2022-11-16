@@ -7,6 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -261,6 +262,11 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 	@Override

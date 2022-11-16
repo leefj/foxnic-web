@@ -1,42 +1,33 @@
 package org.github.foxnic.web.hrm.controller;
 
 
-import java.util.*;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.github.foxnic.api.swagger.InDoc;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.hrm.PersonServiceProxy;
-import org.github.foxnic.web.domain.hrm.meta.PersonVOMeta;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.PersonVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
-import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.hrm.meta.PersonVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.hrm.service.IPersonService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.proxy.hrm.PersonServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -93,9 +84,9 @@ public class PersonController extends SuperController {
 			return this.validator().getFirstResult();
 		}
 		// 引用校验
-		Boolean hasRefer = personService.hasRefers(id);
+		ReferCause cause =  personService.hasRefers(id);
 		// 判断是否可以删除
-		this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录",false);
+		this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录:"+cause.message(),false);
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
 		}
@@ -112,7 +103,7 @@ public class PersonController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = PersonVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = PersonServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PersonServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
@@ -124,11 +115,11 @@ public class PersonController extends SuperController {
 		}
 
 		// 查询引用
-		Map<String, Boolean> hasRefersMap = personService.hasRefers(ids);
+		Map<String, ReferCause> causeMap =  personService.hasRefers(ids);
 		// 收集可以删除的ID值
 		List<String> canDeleteIds = new ArrayList<>();
-		for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
-			if (!e.getValue()) {
+		for (Map.Entry<String, ReferCause> e : causeMap.entrySet()) {
+			if (!e.getValue().hasRefer()) {
 				canDeleteIds.add(e.getKey());
 			}
 		}
@@ -223,7 +214,7 @@ public class PersonController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = PersonVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 		@SentinelResource(value = PersonServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PersonServiceProxy.GET_BY_IDS)
 	public Result<List<Person>> getByIds(List<String> ids) {

@@ -9,6 +9,7 @@ import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.dao.spec.DAO;
@@ -33,6 +34,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -66,6 +68,11 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
+	}
 
 	/**
 	 * 生成主键值

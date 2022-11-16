@@ -5,6 +5,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
@@ -296,15 +297,7 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 */
 	List<Employee> getByBadges(List<String> badges);
 
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	Boolean hasRefers(String id);
 
-	/**
-	 * 批量检查引用
-	 * @param ids  检查这些ID是否又被外部表引用
-	 * */
-	Map<String,Boolean> hasRefers(List<String> ids);
+
+
 }

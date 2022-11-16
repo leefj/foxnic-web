@@ -1,45 +1,35 @@
 package org.github.foxnic.web.system.controller;
 
 
-import java.util.*;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.github.foxnic.api.swagger.InDoc;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
-import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.system.CodeExample;
 import org.github.foxnic.web.domain.system.CodeExampleVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
-import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
 import org.github.foxnic.web.system.service.ICodeExampleService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -109,9 +99,9 @@ public class CodeExampleController extends SuperController {
 			return this.validator().getFirstResult();
 		}
 		// 引用校验
-		Boolean hasRefer = codeExampleService.hasRefers(id);
+		ReferCause cause =  codeExampleService.hasRefers(id);
 		// 判断是否可以删除
-		this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录",false);
+		this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录:"+cause.message(),false);
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
 		}
@@ -128,7 +118,7 @@ public class CodeExampleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = CodeExampleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
@@ -140,11 +130,11 @@ public class CodeExampleController extends SuperController {
 		}
 
 		// 查询引用
-		Map<String, Boolean> hasRefersMap = codeExampleService.hasRefers(ids);
+		Map<String, ReferCause> causeMap =  codeExampleService.hasRefers(ids);
 		// 收集可以删除的ID值
 		List<String> canDeleteIds = new ArrayList<>();
-		for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
-			if (!e.getValue()) {
+		for (Map.Entry<String, ReferCause> e : causeMap.entrySet()) {
+			if (!e.getValue().hasRefer()) {
 				canDeleteIds.add(e.getKey());
 			}
 		}
@@ -270,7 +260,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 		@SentinelResource(value = CodeExampleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.GET_BY_IDS)
 	public Result<List<CodeExample>> getByIds(List<String> ids) {

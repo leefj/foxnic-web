@@ -6,9 +6,11 @@ import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.web.Forbidden;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.springboot.web.DownloadUtil;
@@ -18,7 +20,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.ResourzeVO;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta;
@@ -32,9 +33,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +46,7 @@ import java.util.Map;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-07-03 18:46:21
+ * @version
  */
 @InDoc
 @Api(tags = "认证服务/系统资源")
@@ -61,7 +64,7 @@ public class ResourzeController extends SuperController {
      * 添加系统资源
      */
     @ApiOperation(value = "添加系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
 		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
@@ -85,23 +88,22 @@ public class ResourzeController extends SuperController {
      * 删除系统资源
      */
     @ApiOperation(value = "按主键删除系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256")
 	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = ResourzeServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.DELETE)
     public Result deleteById(String id) {
-        List<Menu> menus = menuService.getRelatedMenus(Arrays.asList(id));
-        Result result = null;
-        if (menus.size() == 0) {
-            result = resourzeService.deleteByIdPhysical(id);
-        } else {
-            result = ErrorDesc.failure().message("资源已经被使用，不允许删除！");
-            for (Menu menu : menus) {
-                result.addSolution(menu.getAncestorsNamePath());
-            }
+
+        // 引用校验
+        ReferCause cause =  resourzeService.hasRefers(id);
+        // 判断是否可以删除
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录："+cause.message(),false);
+        if(this.validator().failure()) {
+            return this.validator().getFirstResult().messageLevel4Confirm();
         }
+        Result result = resourzeService.deleteByIdPhysical(id);
         return result;
     }
 
@@ -110,31 +112,74 @@ public class ResourzeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = ResourzeServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ResourzeServiceProxy.DELETE_BY_IDS)
     public Result deleteByIds(List<String> ids) {
-        List<Menu> menus = menuService.getRelatedMenus(ids);
-        Result result = null;
-        if (menus.size() == 0) {
-            result = resourzeService.deleteByIdsLogical(ids);
-        } else {
-            result = ErrorDesc.failure().message("资源已经被使用，不允许删除！");
-            for (Menu menu : menus) {
-                result.addSolution(menu.getAncestorsNamePath());
-            }
+//        List<Menu> menus = menuService.getRelatedMenus(ids);
+//        Result result = null;
+//        if (menus.size() == 0) {
+//            result = resourzeService.deleteByIdsLogical(ids);
+//        } else {
+//            result = ErrorDesc.failure().message("资源已经被使用，不允许删除！");
+//            for (Menu menu : menus) {
+//                result.addSolution(menu.getAncestorsNamePath());
+//            }
+//        }
+//        return result;
+
+
+        // 参数校验
+        this.validator().asserts(ids).require("缺少ids参数");
+        if(this.validator().failure()) {
+            return this.validator().getFirstResult();
         }
-        return result;
+
+        // 查询引用
+        Map<String, ReferCause> hasRefersMap = resourzeService.hasRefers(ids);
+        // 收集可以删除的ID值
+        List<String> canDeleteIds = new ArrayList<>();
+        for (Map.Entry<String, ReferCause> e : hasRefersMap.entrySet()) {
+            if (!e.getValue().hasRefer()) {
+                canDeleteIds.add(e.getKey());
+            }
+        };
+
+        // 执行删除
+        if (canDeleteIds.isEmpty()) {
+            // 如果没有一行可以被删除
+            return ErrorDesc.failure().message("无法删除您选中的数据行")
+                    .addErrors(CollectorUtil.collectArray(CollectorUtil.filter(hasRefersMap.values(),(e)->{return e.hasRefer();}),ReferCause::message,String.class))
+                    .messageLevel4Confirm();
+        } else if (canDeleteIds.size() == ids.size()) {
+            // 如果全部可以删除
+            Result result=resourzeService.deleteByIdsLogical(canDeleteIds);
+            return result;
+        } else if (canDeleteIds.size()>0 && canDeleteIds.size() < ids.size()) {
+            // 如果部分行可以删除
+            Result result=resourzeService.deleteByIdsLogical(canDeleteIds);
+            if (result.failure()) {
+                return result;
+            } else {
+                return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除")
+                        .addErrors(CollectorUtil.collectArray(CollectorUtil.filter(hasRefersMap.values(),(e)->{return e.hasRefer();}),ReferCause::message,String.class))
+                        .messageLevel4Confirm();
+            }
+        } else {
+            // 理论上，这个分支不存在
+            return ErrorDesc.success().message("数据删除未处理");
+        }
+
     }
 
     /**
      * 更新系统资源
      */
     @ApiOperation(value = "更新系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
 		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
@@ -158,7 +203,7 @@ public class ResourzeController extends SuperController {
      * 保存系统资源
      */
     @ApiOperation(value = "保存系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
 		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
@@ -182,7 +227,7 @@ public class ResourzeController extends SuperController {
      * 获取系统资源
      */
     @ApiOperation(value = "按主键获取系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
@@ -200,7 +245,7 @@ public class ResourzeController extends SuperController {
      * 联合主键时，请自行调整实现
      */
     @ApiOperation(value = "批量删除系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.IDS, value = "主键清单", required = true, dataTypeClass = List.class, example = "[1,3,4]")
 	})
     @ApiOperationSupport(order = 3)
@@ -217,7 +262,7 @@ public class ResourzeController extends SuperController {
      * 查询系统资源
      */
     @ApiOperation(value = "查询系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
 		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),
@@ -242,7 +287,7 @@ public class ResourzeController extends SuperController {
      * 分页查询系统资源
      */
     @ApiOperation(value = "分页查询系统资源")
-    @ApiImplicitParams({ 
+    @ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "463397728609632256"),
 		@ApiImplicitParam(name = ResourzeVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "表单页面"),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE, value = "类型", required = true, dataTypeClass = String.class, example = "page"),

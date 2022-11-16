@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址VO类型
  * <p>订单地址 , 数据表 example_address 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:20:56
+ * @since 2022-11-16 16:28:40
  * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

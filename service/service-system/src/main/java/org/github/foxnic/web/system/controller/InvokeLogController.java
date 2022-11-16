@@ -1,42 +1,34 @@
 package org.github.foxnic.web.system.controller;
 
 
-import java.util.*;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.github.foxnic.api.swagger.InDoc;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.system.InvokeLogServiceProxy;
-import org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.InDoc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.system.InvokeLog;
 import org.github.foxnic.web.domain.system.InvokeLogVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
-import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.system.meta.InvokeLogMeta;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.InvokeLogServiceProxy;
 import org.github.foxnic.web.system.service.IInvokeLogService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -103,9 +95,9 @@ public class InvokeLogController extends SuperController {
 			return this.validator().getFirstResult();
 		}
 		// 引用校验
-		Boolean hasRefer = invokeLogService.hasRefers(id);
+		ReferCause cause =  invokeLogService.hasRefers(id);
 		// 判断是否可以删除
-		this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录",false);
+		this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录:"+cause.message(),false);
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
 		}
@@ -122,7 +114,7 @@ public class InvokeLogController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = InvokeLogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = InvokeLogServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<Long> ids) {
@@ -134,11 +126,11 @@ public class InvokeLogController extends SuperController {
 		}
 
 		// 查询引用
-		Map<Long, Boolean> hasRefersMap = invokeLogService.hasRefers(ids);
+		Map<Long, ReferCause> hasRefersMap = invokeLogService.hasRefers(ids);
 		// 收集可以删除的ID值
 		List<Long> canDeleteIds = new ArrayList<>();
-		for (Map.Entry<Long, Boolean> e : hasRefersMap.entrySet()) {
-			if (!e.getValue()) {
+		for (Map.Entry<Long, ReferCause> e : hasRefersMap.entrySet()) {
+			if (!e.getValue().hasRefer()) {
 				canDeleteIds.add(e.getKey());
 			}
 		}
@@ -255,7 +247,7 @@ public class InvokeLogController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = InvokeLogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
 		@SentinelResource(value = InvokeLogServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.GET_BY_IDS)
 	public Result<List<InvokeLog>> getByIds(List<Long> ids) {

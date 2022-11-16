@@ -1,25 +1,23 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import org.springframework.stereotype.Service;
-
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-
-
 import org.github.foxnic.web.domain.oauth.OauthClient;
-import org.github.foxnic.web.oauth.service.IOauthClientService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IOauthClientService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -114,6 +112,11 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	@Override
 	public Result updateList(List<OauthClient> oauthClientList , SaveMode mode) {
 		return super.updateList(oauthClientList , mode);
+	}
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 

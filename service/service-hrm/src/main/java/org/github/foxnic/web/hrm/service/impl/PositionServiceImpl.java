@@ -8,6 +8,7 @@ import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -311,24 +312,14 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 	}
 
 
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	@Override
-	public Boolean hasRefers(String id) {
-		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
-		Boolean ex=map.get(id);
-		if(ex==null) return false;
-		return ex;
-	}
+
 
 	/**
 	 * 批量检查引用
 	 * @param ids  检查这些ID是否又被外部表引用
 	 * */
 	@Override
-	public Map<String, Boolean> hasRefers(List<String> ids) {
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
 		return super.hasRefers(ids,
 				FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID,
 				FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID,FoxnicWeb.BPM_TASK_ASSIGNEE.ASSIGNEE_ID,

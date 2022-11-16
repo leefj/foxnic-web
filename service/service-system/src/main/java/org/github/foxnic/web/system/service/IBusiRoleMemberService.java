@@ -1,21 +1,17 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.dao.entity.ISimpleIdService;
-
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.BusiRoleMember;
-import org.github.foxnic.web.domain.system.BusiRoleMemberVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.system.BusiRoleMember;
+import org.github.foxnic.web.domain.system.BusiRoleMemberVO;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +49,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	Result insertList(List<BusiRoleMember> busiRoleMemberList);
 
 
-		
+
 	/**
 	 * 按主键删除业务角色成员关系
 	 *
@@ -76,7 +72,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新业务角色成员关系
 	 *
@@ -146,7 +142,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 * */
 	boolean checkExists(BusiRoleMember busiRoleMember,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取业务角色成员关系
 	 *
@@ -155,17 +151,9 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 */
 	BusiRoleMember getById(String id);
 
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	Boolean hasRefers(String id);
 
-	/**
-	 * 批量检查引用
-	 * @param ids  检查这些ID是否又被外部表引用
-	 * */
-	Map<String,Boolean> hasRefers(List<String> ids);
+
+
 
 	/**
 	 * 按 id 获取多个对象

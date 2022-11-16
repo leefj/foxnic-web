@@ -15,6 +15,7 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
@@ -231,6 +232,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Override
 	public Result updateList(List<User> userList , SaveMode mode) {
 		return super.updateList(userList , mode);
+	}
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 

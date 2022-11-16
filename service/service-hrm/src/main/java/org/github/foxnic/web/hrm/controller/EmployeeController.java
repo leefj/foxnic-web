@@ -2,10 +2,12 @@ package org.github.foxnic.web.hrm.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -24,10 +26,10 @@ import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -83,9 +85,9 @@ public class EmployeeController extends SuperController {
             return this.validator().getFirstResult();
         }
         // 引用校验
-        Boolean hasRefer = employeeService.hasRefers(id);
+        ReferCause cause = employeeService.hasRefers(id);
         // 判断是否可以删除
-        this.validator().asserts(hasRefer).requireEqual("不允许删除当前员工", false);
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前员工:"+cause.message(), false);
         if (this.validator().failure()) {
             return this.validator().getFirstResult();
         }
@@ -111,11 +113,11 @@ public class EmployeeController extends SuperController {
             return this.validator().getFirstResult();
         }
         // 查询引用
-        Map<String, Boolean> hasRefersMap = employeeService.hasRefers(ids);
+        Map<String, ReferCause> hasRefersMap = employeeService.hasRefers(ids);
         // 收集可以删除的ID值
         List<String> canDeleteIds = new ArrayList<>();
-        for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
-            if (!e.getValue()) {
+        for (Map.Entry<String, ReferCause> e : hasRefersMap.entrySet()) {
+            if (!e.getValue().hasRefer()) {
                 canDeleteIds.add(e.getKey());
             }
         }

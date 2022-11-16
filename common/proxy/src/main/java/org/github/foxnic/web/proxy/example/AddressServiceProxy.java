@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:20:57
+ * @since 2022-11-16 16:28:41
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = AddressServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface AddressServiceProxy {

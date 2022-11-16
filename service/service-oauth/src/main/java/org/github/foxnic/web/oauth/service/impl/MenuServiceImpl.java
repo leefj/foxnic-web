@@ -11,6 +11,7 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.relation.cache.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
@@ -194,6 +195,11 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			clearMenuCache();
 		}
 		return result;
+	}
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 

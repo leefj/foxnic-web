@@ -1,21 +1,17 @@
 package org.github.foxnic.web.hrm.service;
 
-import com.github.foxnic.dao.entity.ISimpleIdService;
-
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.hrm.FavouriteGroup;
-import org.github.foxnic.web.domain.hrm.FavouriteGroupVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.hrm.FavouriteGroup;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupVO;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +49,7 @@ public interface IFavouriteGroupService extends  ISimpleIdService<FavouriteGroup
 	Result insertList(List<FavouriteGroup> favouriteGroupList);
 
 
-		
+
 	/**
 	 * 按主键删除常用人员分组
 	 *
@@ -61,7 +57,7 @@ public interface IFavouriteGroupService extends  ISimpleIdService<FavouriteGroup
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除常用人员分组
 	 *
@@ -84,7 +80,7 @@ public interface IFavouriteGroupService extends  ISimpleIdService<FavouriteGroup
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新常用人员分组
 	 *
@@ -154,7 +150,7 @@ public interface IFavouriteGroupService extends  ISimpleIdService<FavouriteGroup
 	 * */
 	boolean checkExists(FavouriteGroup favouriteGroup,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取常用人员分组
 	 *
@@ -163,17 +159,9 @@ public interface IFavouriteGroupService extends  ISimpleIdService<FavouriteGroup
 	 */
 	FavouriteGroup getById(String id);
 
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	Boolean hasRefers(String id);
 
-	/**
-	 * 批量检查引用
-	 * @param ids  检查这些ID是否又被外部表引用
-	 * */
-	Map<String,Boolean> hasRefers(List<String> ids);
+
+
 
 	/**
 	 * 按 id 获取多个对象

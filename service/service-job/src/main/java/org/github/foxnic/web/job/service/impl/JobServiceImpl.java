@@ -9,6 +9,7 @@ import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -24,7 +25,6 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.job.service.IJobLogService;
 import org.github.foxnic.web.job.service.IJobService;
 import org.github.foxnic.web.job.utils.ScheduleUtils;
-import org.github.foxnic.web.proxy.job.JobServiceProxy;
 import org.quartz.CronExpression;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -365,6 +366,11 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
+		return null;
 	}
 
 	@Override

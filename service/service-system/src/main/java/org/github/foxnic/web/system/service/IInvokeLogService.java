@@ -1,21 +1,16 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.dao.entity.ISimpleIdService;
-
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.InvokeLog;
-import org.github.foxnic.web.domain.system.InvokeLogVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.system.InvokeLog;
+import org.github.foxnic.web.domain.system.InvokeLogVO;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +48,7 @@ public interface IInvokeLogService extends  ISimpleIdService<InvokeLog,Long> {
 	Result insertList(List<InvokeLog> invokeLogList);
 
 
-		
+
 	/**
 	 * 按主键删除调用统计日志
 	 *
@@ -76,7 +71,7 @@ public interface IInvokeLogService extends  ISimpleIdService<InvokeLog,Long> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新调用统计日志
 	 *
@@ -146,7 +141,7 @@ public interface IInvokeLogService extends  ISimpleIdService<InvokeLog,Long> {
 	 * */
 	boolean checkExists(InvokeLog invokeLog,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取调用统计日志
 	 *
@@ -154,18 +149,6 @@ public interface IInvokeLogService extends  ISimpleIdService<InvokeLog,Long> {
 	 * @return InvokeLog 数据对象
 	 */
 	InvokeLog getById(Long id);
-
-	/**
-	 * 检查引用
-	 * @param id  检查ID是否又被外部表引用
-	 * */
-	Boolean hasRefers(Long id);
-
-	/**
-	 * 批量检查引用
-	 * @param ids  检查这些ID是否又被外部表引用
-	 * */
-	Map<Long,Boolean> hasRefers(List<Long> ids);
 
 	/**
 	 * 按 id 获取多个对象

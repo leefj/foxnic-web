@@ -316,10 +316,6 @@ public interface IJobLogService extends ISuperService<JobLog> {
 
 	void updateLog(JobLog log);
 
-    Boolean hasRefers(String id);
-
-	Map<String, Boolean> hasRefers(List<String> ids);
-
 	List<JobLog> queryListByIds(List<String> ids);
 
 	Map<String, JobLog> queryMapByIds(List<String> ids);
