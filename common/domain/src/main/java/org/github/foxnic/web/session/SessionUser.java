@@ -9,6 +9,8 @@ import org.github.foxnic.web.domain.system.UserTenant;
 
 public abstract class SessionUser {
 
+
+	public static final String USER_LOGIN_JSON = "USER_LOGIN_JSON";
 	public SessionUser() {
 	}
 

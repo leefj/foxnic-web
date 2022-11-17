@@ -16,6 +16,7 @@ import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -156,7 +157,7 @@ public class PortalPageController extends ViewController  {
 	public String ssoLogin(Model model, HttpServletRequest request) {
 
 		// 暂不考虑非单体应用情况
-		JSONObject userLoginJson=(JSONObject) request.getAttribute("USER_LOGIN_JSON");
+		JSONObject userLoginJson=(JSONObject) request.getAttribute(SessionUser.USER_LOGIN_JSON);
 
 		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);

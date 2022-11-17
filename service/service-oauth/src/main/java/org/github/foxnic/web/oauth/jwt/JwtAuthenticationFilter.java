@@ -46,6 +46,7 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
+
     /**
      * 认证如果失败由该端点进行响应
      */
@@ -109,7 +110,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if(UserServiceProxy.SSO_LOGIN_URI.equals(request.getRequestURI())) {
                 // 如果不是同一个账户
                 if(user.getUserId().equals(userId)) {
-                    // chain.doFilter(request, response);
                     response.sendRedirect("/index.html");
                     return;
                 } else {
@@ -119,9 +119,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 chain.doFilter(request, response);
                 return;
             }
-
-
-
         }
 
         if(authenticationEntryPoint==null) {
@@ -201,7 +198,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             if(userId.sso()) {
                 JSONObject json = loginSuccessHandler.makeLoginResponseJSON(request,response,SecurityContextHolder.getContext().getAuthentication());
-                request.setAttribute("USER_LOGIN_JSON",json);
+                request.setAttribute(SessionUser.USER_LOGIN_JSON,json);
                 languageService.setUserLanguage(userId.language());
             }
         } catch (Exception e) {
