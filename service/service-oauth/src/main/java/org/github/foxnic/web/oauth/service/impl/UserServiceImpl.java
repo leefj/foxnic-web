@@ -363,6 +363,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			LoginIdentityType type=LoginIdentityType.parseByCode(typeStr.trim());
 			types.add(type);
 		}
+		// User Id 是必须的，在 Token 认证时会用到
+		if(!types.contains(LoginIdentityType.user_id)) {
+			types.add(LoginIdentityType.user_id);
+		}
 		if(!types.isEmpty()) {
 			this.identityPriorities = types.toArray(this.identityPriorities);
 		}

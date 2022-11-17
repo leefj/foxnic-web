@@ -252,7 +252,7 @@ public class LangController extends SuperController {
         if (language == null) {
             return ErrorDesc.failureMessage("无法识别语言代码:" + code);
         }
-        this.getRequest().getSession().setAttribute(LanguageService.USER_LANGUAGE, language);
+        langService.setUserLanguage(language);
         return ErrorDesc.success().data(language.toJSONObject());
     }
 

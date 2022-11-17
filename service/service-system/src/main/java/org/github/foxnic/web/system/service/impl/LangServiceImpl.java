@@ -33,6 +33,7 @@ import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
+import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -449,6 +450,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 		// 第一步从会话获取语言
 		Language userLanguage=(Language)session.getAttribute(USER_LANGUAGE);
+		// System.err.println("LANG="+userLanguage.code()+" , sessionId="+session.getId());
 		if(userLanguage!=null) return userLanguage;
 
 		// 优先考虑账户指定的语言
@@ -510,6 +512,14 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@Override
 	public List<ValidateResult> importExcel(InputStream input, int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public void setUserLanguage(Language language) {
+		HttpSession session=RequestParameter.getSession(true);
+		if(session!=null) {
+			session.setAttribute(LanguageService.USER_LANGUAGE, language);
+		}
 	}
 
 	@Override

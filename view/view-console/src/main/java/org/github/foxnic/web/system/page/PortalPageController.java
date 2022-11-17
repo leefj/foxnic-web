@@ -12,6 +12,7 @@ import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.view.controller.ViewController;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -146,6 +148,36 @@ public class PortalPageController extends ViewController  {
 		//
 		return prefix+"login";
 	}
+
+	/**
+	 * 系统配置 表单页面
+	 */
+	@RequestMapping(UserServiceProxy.SSO_LOGIN_URI)
+	public String ssoLogin(Model model, HttpServletRequest request) {
+
+		// 暂不考虑非单体应用情况
+		JSONObject userLoginJson=(JSONObject) request.getAttribute("USER_LOGIN_JSON");
+
+		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
+		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
+		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
+		String fullTitle=shortTitle;
+
+		if(versionType!=VersionType.PROD) {
+			fullTitle+="("+versionName+"_"+versionCode+")";
+		}
+
+		model.addAttribute("shortTitle", shortTitle);
+		model.addAttribute("fullTitle", fullTitle);
+
+		model.addAttribute("userLoginJson", userLoginJson);
+
+
+		//
+		return StringUtil.removeFirst(UserServiceProxy.SSO_LOGIN_URI,"/");
+	}
+
 
 	@RequestMapping("/pages/tpl/password.html")
 	public String changePasswd(Model model) {

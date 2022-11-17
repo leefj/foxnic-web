@@ -180,8 +180,6 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
-		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
-		//return MapUtil.asMap(ids,new ReferCause(false));
 		return super.hasRefers(ids,FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,FoxnicWeb.SYS_MENU.PATH_RESOURCE_ID);
 	}
 

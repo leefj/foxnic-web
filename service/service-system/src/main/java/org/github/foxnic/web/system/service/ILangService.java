@@ -278,4 +278,6 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * */
 	List<ValidateResult> importExcel(InputStream input, int sheetIndex,boolean batch);
 
+	void setUserLanguage(Language language);
+
 }

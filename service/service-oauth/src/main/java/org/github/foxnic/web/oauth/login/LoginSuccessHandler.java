@@ -124,10 +124,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	}
 
-
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+	public JSONObject makeLoginResponseJSON(HttpServletRequest request, HttpServletResponse response,
+											Authentication authentication) throws IOException, ServletException {
 
 		SessionUser sessionUser=setupAuthentication(request,response,authentication);
 
@@ -141,24 +139,28 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		IUserService.LOGIN_USER_MENUS.remove();
 
-
 		ret.put("user", userJson);
 		ret.put("sessionId", sessionUser.getSessionOnlineId());
 
-
-        if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
+		if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
 			TokenModel token = getToken(authentication);
-        	ret.put("token", token);
+			ret.put("token", token);
 			Map<String,Object> tokenMap= BeanUtil.toMap(token);
 			for (Map.Entry<String, Object> entry : tokenMap.entrySet()) {
 				response.addHeader("Set-Cookie", entry.getKey()+"="+entry.getValue()+"; path=/");
 			}
-        }
+		}
 
+		return ret;
+
+	}
+
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+		JSONObject ret=makeLoginResponseJSON(request,response,authentication);
         Result r=ErrorDesc.success().message("登录成功").data(ret);
-
         ResponseUtil.writeOK(response, r);
-
 	}
 
 	private JSONObject slimming(User user) {

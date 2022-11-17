@@ -11,10 +11,9 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -190,6 +189,12 @@ public interface UserServiceProxy {
      * 帐号密码登录
      */
     public static final String LOGIN_URI = "/security/login";
+
+
+    /**
+     * 单点登录地址
+     */
+    public static final String SSO_LOGIN_URI = "/security/sso-login.html";
 
     /**
      * 帐号密码登录

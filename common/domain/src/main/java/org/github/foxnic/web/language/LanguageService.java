@@ -27,4 +27,6 @@ public interface LanguageService extends SuperLanguageService {
 
 	Language getAutoLanguage();
 
+	void setUserLanguage(Language language);
+
 }
