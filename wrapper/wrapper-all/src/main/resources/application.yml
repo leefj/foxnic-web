@@ -273,7 +273,16 @@ foxnic:
       baidu:
         appId: oEXl3F7Mx4VZch8pcOZGRatfDPJIGqQrMFHEnN8aMH8=
         securityKey: TyrKCb6TgvTWU78ARppPs9dCs1VrZjGRYHqGIlkZ/14=
-
+  jms:
+    activemq:
+      primary:
+        broker-url: tcp://127.0.0.1:61616
+        user-name: admin
+        password: admin
+      second:
+        broker-url: tcp://127.0.0.1:61616
+        user-name: admin
+        password: admin
 
 security:
   # 模式：session / jwt
