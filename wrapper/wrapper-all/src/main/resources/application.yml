@@ -284,7 +284,7 @@ security:
   login-page: /login.html
   # 配置登录标识的范围与优先级,可选值在 LoginIdentityType 枚举中定义
   login-identity-priority: employee_badge,user_account,user_phone,user_id
-  token-readers: com.clps.eam.framework.sso.CLPSTokenReader
+  token-readers:
   jwt:
     key-location: demo.jks
     key-alias: foxnic-web
