@@ -19,6 +19,11 @@ public class FoxnicWebMeta {
 	/**
 	 * Feign代理包
 	 * */
+	public static final String JMS_PACKAGE=BASE_PACKAGE+".jms";
+
+	/**
+	 * Feign代理包
+	 * */
 	public static final String PROXY_PACKAGE=BASE_PACKAGE+".proxy";
 
 	/**

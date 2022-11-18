@@ -8,6 +8,7 @@ import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.mq.MQLogger;
 import org.github.foxnic.web.framework.mq.MQUtils;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,13 +22,13 @@ public class MQLoggerImpl  implements MQLogger {
 
     @Override
     public Long start(String message) {
-        String[] info= MQUtils.getMQConfigInfo();
+        JmsListener jmsListener = MQUtils.getMQConfigInfo();
         Long id= IDGenerator.getSnowflakeId();
         Insert insert=new Insert("sys_mq_log");
         insert.set("id",id).set("message",message).set("receive_time",new Timestamp(System.currentTimeMillis()));
-        if(info!=null && info.length==2) {
-            insert.set("destination",info[0]);
-            insert.set("message_type",info[1]);
+        if(jmsListener!=null) {
+            insert.set("destination",jmsListener.destination());
+            insert.set("message_type",jmsListener.containerFactory());
         }
         dao.execute(insert);
         return id;
