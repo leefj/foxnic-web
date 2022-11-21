@@ -88,12 +88,14 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		if(StringUtil.isBlank(organization.getType())) {
 			organization.setType(OrgNodeType.DEPT.code());
 		}
-		organization.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		if(StringUtil.isBlank(organization.getCompanyId())) {
+			organization.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		}
 		if(StringUtil.isBlank(organization.getFullName())) {
 			organization.setFullName("新节点");
 		}
 		Result r=super.insert(organization);
-		this.fillHierarchy(false);
+		this.fillHierarchy(organization.getTenantId(),false);
 		return r;
 	}
 
@@ -437,7 +439,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	}
 
 	@Override
-	public Boolean saveHierarchy(List<String> ids, String parentId) {
+	public Boolean saveHierarchy(String tenantId, List<String> ids, String parentId) {
 
 		List<String> orgIds=new ArrayList<>();
 		List<String> posIds=new ArrayList<>();
@@ -461,7 +463,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			sort++;
 		}
 		dao.batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
-		this.fillHierarchy(false);
+		this.fillHierarchy(tenantId,false);
 
 		//
 		pb=new BatchParamBuilder();
@@ -476,8 +478,10 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	}
 
 	@Override
-	public int fillHierarchy(boolean reset) {
-		String tenantId=SessionUser.getCurrent().getActivatedTenantId();
+	public int fillHierarchy(String tenantId, boolean reset) {
+		if(StringUtil.isBlank(tenantId)) {
+			tenantId = SessionUser.getCurrent().getActivatedTenantId();
+		}
 		if(reset) {
 			dao().execute("#reset-org-hierarchy",tenantId);
 		}

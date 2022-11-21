@@ -128,7 +128,7 @@ public class SystemCodeGenerator  {
 		mdu.setServiceProject(this.configs.getServiceProject());
 		//设置 View Project
 		mdu.setViewProject(this.configs.getViewProject());
-		//设置 Wrapper Project
+		//设置 MQLogger Project
 		mdu.setWrapperProject(this.configs.getWrapperProject());
 		//设置DAO名称常量
 		mdu.setDAONameConsts(procfg.getDAONameConst());

@@ -226,6 +226,11 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		return super.queryList(sample);
 	}
 
+	@Override
+	public List<UserTenant> queryList(UserTenantVO sample) {
+		return super.queryList(sample);
+	}
+
 
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
@@ -269,10 +274,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		}
 	}
 
-	@Override
-	public List<UserTenant> queryList(UserTenantVO sample) {
-		return null;
-	}
+
 
 
 

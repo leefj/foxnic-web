@@ -77,7 +77,9 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 		if(position.getValid()==null) {
 			position.setValid(1);
 		}
-		position.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		if(StringUtil.isBlank(position.getCompanyId())) {
+			position.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		}
 		Result r=super.insert(position);
 		position=this.getById(position.getId());
 		r.data(position);

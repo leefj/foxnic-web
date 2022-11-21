@@ -5,7 +5,6 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
@@ -18,7 +17,6 @@ import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -305,12 +303,12 @@ public interface IOrganizationService extends ISuperService<Organization> {
 	/**
 	 * 保存层级关系
 	 * */
-	Boolean saveHierarchy(List<String> ids, String parentId);
+	Boolean saveHierarchy(String tenantId, List<String> ids, String parentId);
 
 	/**
 	 * 填充层级关系
 	 * */
-	int fillHierarchy(boolean reset);
+	int fillHierarchy(String tenantId, boolean reset);
 
 	/**
 	 * 构建层级关系

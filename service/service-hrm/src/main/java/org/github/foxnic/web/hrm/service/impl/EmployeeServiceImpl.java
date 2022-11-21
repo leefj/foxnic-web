@@ -112,7 +112,12 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		//如果系统配置是在创建员工是创建账户
 		if(SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_EMPLOYEE_CREATEUSER, YesNo.class)==YesNo.yes) {
 			UserVO userVO=new UserVO();
-			userVO.setAccount(employee.getPhone());
+			if(StringUtil.hasContent(employee.getBadge())) {
+				userVO.setAccount(employee.getBadge());
+			} else if(StringUtil.hasContent(employee.getPhone())) {
+				userVO.setAccount(employee.getPhone());
+			}
+
 			if(employee.getPerson()!=null) {
 				userVO.setRealName(employee.getPerson().getName());
 			} else {
@@ -132,7 +137,9 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		}
 
 		//指定默认的归属公司
-		employee.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		if(StringUtil.isBlank(employee.getCompanyId())) {
+			employee.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		}
 		Person person= BeanUtil.copy(employee,Person.create(),false);
 		person.setSource(PersonSource.employee.code());
 		Result r = personService.insert(person);
@@ -167,7 +174,10 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 				}
 				UserTenantVO userTenant=new UserTenantVO();
 				userTenant.setUserId(user.getId());
-				userTenant.setOwnerTenantId(SessionUser.getCurrent().getActivatedTenantId());
+				userTenant.setOwnerTenantId(employee.getTenantId());
+				if(StringUtil.isBlank(userTenant.getOwnerTenantId())) {
+					userTenant.setOwnerTenantId(SessionUser.getCurrent().getActivatedTenantId());
+				}
 				userTenant.setEmployeeId(employee.getId());
 				userTenant.setActivated(1);
 				userTenant.setValid(1);

@@ -6,7 +6,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.Insert;
 import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.framework.mq.MQLogger;
+import org.github.foxnic.web.framework.mq.IMQLogger;
 import org.github.foxnic.web.framework.mq.MQUtils;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.sql.Timestamp;
 
 @Service
-public class MQLoggerImpl  implements MQLogger {
+public class MQLoggerImpl  implements IMQLogger {
 
     @Resource(name= DBConfigs.PRIMARY_DAO)
     private DAO dao=null;
@@ -44,7 +44,7 @@ public class MQLoggerImpl  implements MQLogger {
     }
 
     @Override
-    public Long exception(Long id, Exception e) {
+    public Long exception(Long id, Throwable e) {
         Update update=new Update("sys_mq_log");
         update.where("id=?",id);
         update.set("errors", StringUtil.toString(e)).set("success",0).set("result","失败").set("finish_time",new Timestamp(System.currentTimeMillis()));

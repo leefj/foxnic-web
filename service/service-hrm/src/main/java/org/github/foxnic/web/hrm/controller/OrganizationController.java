@@ -1,6 +1,7 @@
 package org.github.foxnic.web.hrm.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.web.Forbidden;
@@ -26,8 +27,8 @@ import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -339,7 +340,7 @@ public class OrganizationController extends SuperController {
     @PostMapping(OrganizationServiceProxy.SAVE_HIERARCHY)
     public Result<Catalog> changeParent(List<String> ids, String parentId) {
         Result<Catalog> result = new Result<>();
-        Boolean suc = organizationService.saveHierarchy(ids, parentId);
+        Boolean suc = organizationService.saveHierarchy(getSessionUser().getActivatedTenantId(), ids, parentId);
         result.success(suc);
         return result;
     }

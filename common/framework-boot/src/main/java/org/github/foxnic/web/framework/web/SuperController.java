@@ -88,6 +88,7 @@ public class SuperController {
 	 * */
 	public HttpServletRequest getRequest() {
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		if(attributes==null) return null;
 		return attributes.getRequest();
 	}
 
@@ -117,16 +118,25 @@ public class SuperController {
     }
 
 
+	private static InheritableThreadLocal<Validator> VALIDATOR = new InheritableThreadLocal();
 	/**
 	 * 获得参数验证器，在 request 生命周期内返回同一个验证器
 	 * */
 	public Validator validator() {
+		Validator validator = null;
 		HttpServletRequest request = getRequest();
-		if(request==null) return null;
-		Validator validator=(Validator)request.getAttribute(REQUEST_VALIDATOR);
-		if(validator==null) {
-			validator = new Validator();
-			request.setAttribute(REQUEST_VALIDATOR,validator);
+		if(request==null) {
+			validator = VALIDATOR.get();
+			if (validator == null) {
+				validator = new Validator();
+				VALIDATOR.set(validator);
+			}
+		} else {
+			validator = (Validator) request.getAttribute(REQUEST_VALIDATOR);
+			if (validator == null) {
+				validator = new Validator();
+				request.setAttribute(REQUEST_VALIDATOR, validator);
+			}
 		}
 		return validator;
 	}
