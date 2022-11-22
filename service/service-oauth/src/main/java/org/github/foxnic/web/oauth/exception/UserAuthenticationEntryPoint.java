@@ -30,19 +30,19 @@ import java.io.IOException;
 @Component
 @EnableConfigurationProperties(SecurityProperties.class)
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	
- 
+
+
 	private static WebContext context;
-	
+
 	private static SecurityProperties securityProperties;
-	
+
 	public static void handleException(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-		
+
 		String url=request.getRequestURL().toString();
 		String uri=request.getRequestURI();
-		
+
 		Logger.error("不允许访问 "+url);
-		
+
 		if(context==null) {
 			context=SpringUtil.getBean(WebContext.class);
 		}
@@ -51,7 +51,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		}
 
 		if(!isEndPoint(uri)) {
-		
+
 			//如果是静态资源，重定向到登录页
 			if(context.isStaticResource(request)) {
 				response.sendRedirect(securityProperties.getLoginPage());
@@ -71,7 +71,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 			}
 
 		}
- 
+
 		Result result;
         if (e instanceof UsernameNotFoundException) {
         	 result = ErrorDesc.failure(CommonError.USER_NOT_EXISTS);
@@ -89,7 +89,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         	result = ErrorDesc.failure(CommonError.PERMISSION_REQUIRED);
         } else {
             Logger.error("登录失败：", e);
-            result = ErrorDesc.failureMessage("登录失败!");
+	            result = ErrorDesc.failureMessage("登录失败 : "+e.getMessage());
         }
         ResponseUtil.writeOK(response, result);
 	}

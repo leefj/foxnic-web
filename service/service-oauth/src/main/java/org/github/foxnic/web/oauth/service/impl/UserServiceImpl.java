@@ -28,6 +28,7 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.dict.EmployeeStatus;
 import org.github.foxnic.web.constants.enums.system.LoginIdentityType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
@@ -49,6 +50,7 @@ import org.github.foxnic.web.session.DynamicMenuHandler;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -478,6 +480,17 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.execute();
 
 		logger.collect("End Join");
+
+		if(user.getActivatedTenant()==null) {
+			throw new LockedException("当前账户缺少默认租户");
+		}
+
+		if(user.getActivatedTenant().getEmployee()!=null) {
+			EmployeeStatus employeeStatus=EmployeeStatus.parseByCode(user.getActivatedTenant().getEmployee().getStatus());
+			if(employeeStatus!=EmployeeStatus.ACTIVE) {
+				throw new LockedException("当前员工已离职");
+			}
+		}
 
 
 		Set<String> menuIds=new HashSet<>();
