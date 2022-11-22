@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.jwt.reader;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.lang.StringUtil;
+import org.github.foxnic.web.framework.sso.TokenReader;
 import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.jwt.JwtToken;

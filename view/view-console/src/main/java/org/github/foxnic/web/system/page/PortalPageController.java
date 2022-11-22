@@ -6,6 +6,8 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.SSOConstants;
+import org.github.foxnic.web.constants.enums.system.SSOResponseFormat;
 import org.github.foxnic.web.constants.enums.system.Theme;
 import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.domain.system.DbCache;
@@ -156,6 +158,11 @@ public class PortalPageController extends ViewController  {
 	@RequestMapping(UserServiceProxy.SSO_LOGIN_URI)
 	public String ssoLogin(Model model, HttpServletRequest request) {
 
+		SSOResponseFormat responseFormat= SSOResponseFormat.parseByCode(request.getParameter(SSOConstants.PARAMETER_FORMAT_NAME));
+		String redirect=request.getParameter(SSOConstants.PARAMETER_REDIRECT_NAME);
+		if(StringUtil.isBlank(redirect)) {
+			redirect=SSOConstants.DEFAULT_SSO_REDIRECT_PAGE;
+		}
 		// 暂不考虑非单体应用情况
 		JSONObject userLoginJson=(JSONObject) request.getAttribute(SessionUser.USER_LOGIN_JSON);
 
@@ -169,6 +176,8 @@ public class PortalPageController extends ViewController  {
 			fullTitle+="("+versionName+"_"+versionCode+")";
 		}
 
+		model.addAttribute("responseFormat", responseFormat.code());
+		model.addAttribute("redirect", redirect);
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);
 

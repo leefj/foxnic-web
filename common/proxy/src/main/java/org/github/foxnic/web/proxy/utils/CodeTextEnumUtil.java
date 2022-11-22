@@ -5,9 +5,9 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.EnumUtil;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CodeTextEnumUtil {
 
     private LocalCache<String, JSONArray> cache = new LocalCache<String, JSONArray>();

@@ -72,8 +72,7 @@ layui.config({
                 localStorage.setItem("language_timestamp",(new Date()).getTime());
                 cb();
                 logger.info("sso","language loaded")
-
-                location.replace('/index.html');
+                location.replace(REDIRECT);
             }
         });
     }

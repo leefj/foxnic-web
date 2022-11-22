@@ -1,5 +1,6 @@
 package org.github.foxnic.web.framework.starter;
 
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.io.FileUtil;
@@ -9,18 +10,38 @@ import com.github.foxnic.springboot.starter.FoxnicApplication;
 import org.aspectj.weaver.ast.Test;
 import org.github.foxnic.web.framework.FoxnicWebMeta;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE,FoxnicWebMeta.ERRORS_PACKAGE,FoxnicWebMeta.JMS_PACKAGE})
 public class BootApplication {
 
+	private static Class[] BASE_EXCLUDE_AUTO_CONFIGURATIONS={FeignAutoConfiguration.class, JmsAutoConfiguration.class};
+
 	public static ConfigurableApplicationContext run(Class<?> bootType, String... args) {
+
+		SpringBootApplication springBootApplication=bootType.getAnnotation(SpringBootApplication.class);
+
+		Class[] excludes= springBootApplication.exclude();
+		if(excludes==null) {
+			excludes=  BASE_EXCLUDE_AUTO_CONFIGURATIONS.clone();
+		} else {
+			Set<Class> classes=new HashSet<>(Arrays.asList(excludes));
+			classes.addAll(Arrays.asList(BASE_EXCLUDE_AUTO_CONFIGURATIONS.clone()));
+		}
+		BeanUtil.setFieldValue(springBootApplication,"exclude",excludes);
+
 
 		Logger.DIRECT=true;
 		long t=System.currentTimeMillis();
