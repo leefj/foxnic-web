@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-16 16:47:32
+ * @since 2022-11-24 11:39:45
  * @sign DC13DD184293CCD592CFDAA93BF3DAC3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

@@ -2150,9 +2150,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 return;
             }
 
-            var message=this.translate(result.message,null,'result:message');
+            var langctx=null;
+            if(result.extra) {
+                langctx=result.extra.languageContext;
+            }
+
+            var message=this.translate(result.message,null,langctx?langctx:'result:message');
             if(result.subject) {
-                message=this.translate(result.subject,null,'result:subject')+message;
+                message=this.translate(result.subject,null,langctx?langctx:'result:subject')+message;
             }
             if(!message) return;
             var messageLevel=null;
@@ -2165,15 +2170,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 for (var i=0;i<result.errors.length;i++) {
                     var e=result.errors[i];
                     if(e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result:subject') +" : "+ this.translate(e.message));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,langctx?langctx:'result:subject') +" : "+ this.translate(e.message));
                     } else  if(!e.subject && e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.message,null,'result:message'));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.message,null,langctx?langctx:'result:message'));
                     } else  if(e.subject && !e.message) {
-                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,'result:subject'));
+                        errs.push("&nbsp;&nbsp;"+(i+1)+"."+this.translate(e.subject,null,langctx?langctx:'result:subject'));
                     }
                 }
                 if(errs.length>0) {
-                    message+="<br><span style='font-weight: bold'>"+this.translate("错误详情",'','dialog')+"  : </span><br>"+errs.join("<br>");
+                    message+="<br><span style='font-weight: bold'>"+this.translate("错误详情",'',langctx?langctx:'dialog')+"  : </span><br>"+errs.join("<br>");
                 }
             }
 
@@ -2181,10 +2186,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var errs=[];
                 for (var i=0;i<result.solutions.length;i++) {
                     var solution=result.solutions[i];
-                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+this.translate(solution,null,'result:solution'));
+                    errs.push("&nbsp;&nbsp;"+(errs.length+1)+"."+this.translate(solution,null,langctx?langctx:'result:solution'));
                 }
                 if(errs.length>0) {
-                    message+="<br><span style='font-weight: bold'>"+this.translate("解决方案",'','dialog')+" :</span> <br>"+errs.join("<br>");
+                    message+="<br><span style='font-weight: bold'>"+this.translate("解决方案",'',langctx?langctx:'dialog')+" :</span> <br>"+errs.join("<br>");
                 }
             }
 
@@ -2227,7 +2232,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(messageLevel=="confirm") {
                 top.layer.open({
                     icon: icon,
-                    title: this.translate('提示信息','','dialog'),
+                    title: this.translate('提示信息','',langctx?langctx:'dialog'),
                     content: message
                 });
             } else {

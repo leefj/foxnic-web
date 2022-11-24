@@ -74,7 +74,12 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 	}
 
-
+	@Override
+	public void configView(ViewOptions view, ListOptions list, FormOptions form) {
+		view.language().enableContext();
+		//或
+		view.language().enableContext("my-context");
+	}
 
 	/**
 	 * 配置源码覆盖
