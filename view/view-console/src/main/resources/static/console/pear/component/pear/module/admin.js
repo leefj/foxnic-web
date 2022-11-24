@@ -721,7 +721,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					me.putVar("pwdDisplayPosition","center");
 					me.popupCenter({
 						type:1,
-						title: this.translate("修改密码",null,"menu"),
+						title: pearAdmin.translate("修改密码",null,"menu"),
 						path: '/pages/tpl/password.html',
 						area:["480px","300px"],
 						anim:0,
