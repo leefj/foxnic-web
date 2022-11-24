@@ -123,6 +123,9 @@ function ListPage() {
     }
 
     function beforeNodeRemove(treeId, treeNode) {
+		if(!treeNode.id) {
+			return false;
+		}
     	//debugger;
 		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
 			layer.close(index);
@@ -177,6 +180,9 @@ function ListPage() {
 	}
 
 	function addHoverDom(treeId, treeNode) {
+		if(!treeNode.id) {
+			return false;
+		}
 		if(!treeNode.isParent) return;
 		// var aObj = $("#" + treeNode.tId + "_a");
 		//setTimeout(function (){
@@ -225,16 +231,12 @@ function ListPage() {
 	window.chaneNodeName=chaneNodeName;
 
 	function removeHoverDom(treeId, treeNode) {
-			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
-//			if (treeNode.id == 15) {
-//				$("#diyBtn1_"+treeNode.id).unbind().remove();
-//				$("#diyBtn2_"+treeNode.id).unbind().remove();
-//			} else {
-				$("#diyBtn_"+treeNode.id+"_refresh").unbind().remove();
-				$("#diyBtn_"+treeNode.id+"_add").unbind().remove();
-//				$("#diyBtn_space_" +treeNode.id).unbind().remove();
-//			}
+		if(!treeNode.id) {
+			return false;
 		}
+		$("#diyBtn_"+treeNode.id+"_refresh").unbind().remove();
+		$("#diyBtn_"+treeNode.id+"_add").unbind().remove();
+	}
 
 
 

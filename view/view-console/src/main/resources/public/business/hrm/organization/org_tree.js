@@ -212,7 +212,9 @@ function ListPage() {
     }
 
     function beforeNodeRemove(treeId, treeNode) {
-    	//debugger;
+		if(!treeNode.id) {
+			return false;
+		}
 		var prefix=moduleURL;
 		if(treeNode.type=="pos") {
 			prefix="/service-hrm/hrm-position";
@@ -279,10 +281,11 @@ function ListPage() {
 	}
 
 	function addHoverDom(treeId, treeNode) {
-		// debugger
+		if(!treeNode.id) {
+			return;
+		}
 		if(treeNode.type=="pos") return;
-		// var aObj = $("#" + treeNode.tId + "_a");
-		//setTimeout(function (){
+
 		var aObj = $("#" + treeNode.tId + "_span").parent();
 
 		if ($("#diyBtn_"+treeNode.id+"_add").length==0) {
@@ -331,16 +334,12 @@ function ListPage() {
 	window.changeNodeInfo=changeNodeInfo;
 
 	function removeHoverDom(treeId, treeNode) {
-			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
-//			if (treeNode.id == 15) {
-//				$("#diyBtn1_"+treeNode.id).unbind().remove();
-//				$("#diyBtn2_"+treeNode.id).unbind().remove();
-//			} else {
+		if(!treeNode.id) {
+			return;
+		}
 		$("#diyBtn_"+treeNode.id+"_refresh").unbind().remove();
 		$("#diyBtn_"+treeNode.id+"_add").unbind().remove();
-//				$("#diyBtn_space_" +treeNode.id).unbind().remove();
-//			}
-		}
+	}
 
 
 
@@ -456,7 +455,7 @@ function ListPage() {
 				admin.toast().success("组织节点已创建",{time:1000,position:"right-bottom"});
 				// debugger
 				if(treeNode==null) {
-					// debugger;
+					//debugger;
 					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName,iconSkin:"icon_dept",type:"dept"});
 					return;
 				}
@@ -472,6 +471,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
+							//debugger
 							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.parentId,iconSkin:"icon_dept",type:"dept"});
 							//menuTree.selectNode(newNode,false);
 						} else {
@@ -522,6 +522,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
+							//debugger
 							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.orgId,iconSkin:"icon_pos",type:"pos"});
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
