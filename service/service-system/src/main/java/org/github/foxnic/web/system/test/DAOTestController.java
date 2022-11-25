@@ -6,6 +6,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.*;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -251,6 +253,22 @@ public class DAOTestController {
 
     @PostMapping("/service-system/unit-test/dao/query-1")
     public Result query1(DemoLeaveVO demoLeaveVO) {
+
+        RcdSet rsA=dao.query("select redidual_price from  foxnic.eam_asset_depreciation_detail where id=1");
+        for (Rcd r : rsA) {
+            BigDecimal redidual_price_DEC=r.getBigDecimal("redidual_price");
+            System.out.println("redidual_price_DEC ="+redidual_price_DEC);
+            BigDecimal s_original_price_DEC=r.getBigDecimal("s_original_price");
+            System.out.println("s_original_price_DEC ="+s_original_price_DEC);
+
+            String redidual_price_STR=r.getString("redidual_price");
+            System.out.println("redidual_price_STR ="+redidual_price_STR);
+            String s_original_price_STR=r.getString("s_original_price");
+            System.out.println("s_original_price_STR ="+s_original_price_STR);
+
+            System.out.println();
+        }
+
 
         // Java Mapper
         String where="";
