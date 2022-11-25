@@ -3,7 +3,6 @@ package org.github.foxnic.web.wrapper;
 import org.github.foxnic.web.framework.FoxnicWebMeta;
 import org.github.foxnic.web.framework.starter.BootApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * 启动类
  * */
 @ComponentScan(basePackages = {
+		// 此处按需组合
 		FoxnicWebMeta.WRAPPER_SUPPORT_PACKAGE, FoxnicWebMeta.SERVICE_STORAGE_PACKAGE ,FoxnicWebMeta.SERVICE_JOB_PACKAGE,
 		FoxnicWebMeta.SERVICE_SYSTEM_PACKAGE , FoxnicWebMeta.SERVICE_OAUTH_PACKAGE,
 		FoxnicWebMeta.SERVICE_HRM_PACKAGE,FoxnicWebMeta.SERVICE_PCM_PACKAGE,
@@ -20,13 +20,10 @@ import org.springframework.context.annotation.ComponentScan;
 		FoxnicWebMeta.SERVICE_EXAMPLE_PACKAGE,
 		FoxnicWebMeta.SERVICE_DOCS_PACKAGE
 })
-@SpringBootApplication(exclude = {FeignAutoConfiguration.class})
+@SpringBootApplication
 public class WrapperAllApp {
 
 	public static void main(String[] args) {
-//		try {
-//			Thread.sleep(15000);
-//		} catch (Exception e) {}
 		BootApplication.run(WrapperAllApp.class, args);
 	}
 

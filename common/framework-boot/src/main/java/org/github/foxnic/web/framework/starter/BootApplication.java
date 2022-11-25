@@ -1,46 +1,35 @@
 package org.github.foxnic.web.framework.starter;
 
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.springboot.starter.BootArgs;
 import com.github.foxnic.springboot.starter.FoxnicApplication;
 import org.aspectj.weaver.ast.Test;
 import org.github.foxnic.web.framework.FoxnicWebMeta;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
+import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-
-@ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE,FoxnicWebMeta.ERRORS_PACKAGE,FoxnicWebMeta.JMS_PACKAGE})
+/**
+ * 非微服务应用启动类
+ * */
+@ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE,FoxnicWebMeta.ERRORS_PACKAGE})
 public class BootApplication {
-
-	private static Class[] BASE_EXCLUDE_AUTO_CONFIGURATIONS={FeignAutoConfiguration.class, JmsAutoConfiguration.class};
-
 	public static ConfigurableApplicationContext run(Class<?> bootType, String... args) {
-
-		SpringBootApplication springBootApplication=bootType.getAnnotation(SpringBootApplication.class);
-
-		Class[] excludes= springBootApplication.exclude();
-		if(excludes==null) {
-			excludes=  BASE_EXCLUDE_AUTO_CONFIGURATIONS.clone();
-		} else {
-			Set<Class> classes=new HashSet<>(Arrays.asList(excludes));
-			classes.addAll(Arrays.asList(BASE_EXCLUDE_AUTO_CONFIGURATIONS.clone()));
-		}
-		BeanUtil.setFieldValue(springBootApplication,"exclude",excludes);
 
 
 		Logger.DIRECT=true;
@@ -57,14 +46,17 @@ public class BootApplication {
 		Logger.info("Is In IDE : "+BootArgs.isBootInIDE());
 		Logger.info("Work Dir : "+BootArgs.getWorkDir().getAbsolutePath());
 
-//		if(BootArgs.isBootInIDE()) {
-//			VersionCoder.update();
-//		}
 
 		Logger.DIRECT=false;
 
+		// Feature
+		List<Class> primarySources=new ArrayList<>(Arrays.asList(new Class[] {FoxnicApplication.class,BootApplication.class,SingleApplicationFeature.class}));
+		if(JmsApplicationFeature.support()) {
+			primarySources.add(JmsApplicationFeature.class);
+		}
+		primarySources.add(bootType);
 		Environment.getEnvironment().init();
-		ConfigurableApplicationContext context=new SpringApplication(new Class[] {FoxnicApplication.class,BootApplication.class,bootType}).run(args);
+		ConfigurableApplicationContext context=new SpringApplication(primarySources.toArray(new Class[0])).run(args);
 		return context;
     }
 
@@ -99,4 +91,17 @@ public class BootApplication {
 		FileUtil.writeText(new File("./jar.txt"),code.toString());
 
 	}
+
+	@EnableAutoConfiguration(exclude = {FeignAutoConfiguration.class})
+	private static class SingleApplicationFeature {}
+
+	@ComponentScan(basePackages = {FoxnicWebMeta.JMS_PACKAGE})
+	@EnableAutoConfiguration(exclude = { JmsAutoConfiguration.class, ActiveMQAutoConfiguration.class})
+	private static class JmsApplicationFeature {
+		private static final String TYPE="org.github.foxnic.web.jms.activemq.starter.ActiveMQBeanStarter";
+		public static boolean support() {
+			return ReflectUtil.forName(TYPE) != null;
+		}
+	}
+
 }
