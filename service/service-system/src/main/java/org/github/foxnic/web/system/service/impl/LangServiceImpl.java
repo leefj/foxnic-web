@@ -2,7 +2,7 @@ package org.github.foxnic.web.system.service.impl;
 
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.language.I18N;
+import com.github.foxnic.api.language.Lang;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -29,7 +29,6 @@ import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
@@ -61,7 +60,7 @@ import java.util.Map;
 
 
 @Service("SysLangService")
-public class LangServiceImpl extends SuperService<Lang> implements ILangService {
+public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.system.Lang> implements ILangService {
 
 	private static final String NOT_SET = ":ns;";
 
@@ -88,7 +87,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@PostConstruct
 	private void init() {
 		try {
-			Field field = I18N.class.getDeclaredField("INSTANCE");
+			Field field = Lang.class.getDeclaredField("INSTANCE");
 			field.setAccessible(true);
 			field.set(null,this);
 		} catch (Exception e) {
@@ -128,7 +127,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insert(Lang lang) {
+	public Result insert(org.github.foxnic.web.domain.system.Lang lang) {
 		if(StringUtil.isBlank(lang.getDefaults())) return ErrorDesc.failureMessage("请填写默认值");
 		if(StringUtil.isBlank(lang.getContext())) {
 			lang.setContext(DEFAULT_CONTEXT);
@@ -143,7 +142,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(result.success()) {
 			// 查询已有的
 			final String code=lang.getCode();
-			Lang exists=Lang.create();
+			org.github.foxnic.web.domain.system.Lang exists= org.github.foxnic.web.domain.system.Lang.create();
 			exists.setDefaults(lang.getDefaults());
 			exists.setContext(DEFAULT_CONTEXT);
 			exists=this.queryEntity(exists);
@@ -171,7 +170,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insertList(List<Lang> langList) {
+	public Result insertList(List<org.github.foxnic.web.domain.system.Lang> langList) {
 		return super.insertList(langList);
 	}
 
@@ -183,7 +182,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 删除是否成功
 	 */
 	public boolean deleteByIdPhysical(String code) {
-		Lang lang = new Lang();
+		org.github.foxnic.web.domain.system.Lang lang = new org.github.foxnic.web.domain.system.Lang();
 		if(code==null) throw new IllegalArgumentException("code 不允许为 null ");
 		lang.setCode(code);
 		return dao.deleteEntity(lang);
@@ -196,7 +195,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 删除是否成功
 	 */
 	public boolean deleteByIdLogical(String code) {
-		Lang lang = new Lang();
+		org.github.foxnic.web.domain.system.Lang lang = new org.github.foxnic.web.domain.system.Lang();
 		if(code==null) throw new IllegalArgumentException("code 不允许为 null 。");
 		lang.setCode(code);
 		lang.setDeleted(true);
@@ -212,7 +211,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result update(Lang lang , SaveMode mode) {
+	public Result update(org.github.foxnic.web.domain.system.Lang lang , SaveMode mode) {
 		Result r=super.update(lang , mode);
 		if(r.success()) {
 			invalidItemCache(lang.getCode());
@@ -227,7 +226,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result updateList(List<Lang> langList , SaveMode mode) {
+	public Result updateList(List<org.github.foxnic.web.domain.system.Lang> langList , SaveMode mode) {
 		return super.updateList(langList , mode);
 	}
 
@@ -252,8 +251,8 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @param code 编码键
 	 * @return Lang 数据对象
 	 */
-	public Lang getById(String code) {
-		Lang sample = new Lang();
+	public org.github.foxnic.web.domain.system.Lang getById(String code) {
+		org.github.foxnic.web.domain.system.Lang sample = new org.github.foxnic.web.domain.system.Lang();
 		if(code==null) throw new IllegalArgumentException("code 不允许为 null ");
 		sample.setCode(code);
 		return dao.queryEntity(sample);
@@ -265,7 +264,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @param langVO 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Lang> checkExists(LangVO langVO) {
+	public Result<org.github.foxnic.web.domain.system.Lang> checkExists(LangVO langVO) {
 		if (langVO.getCode() == null) {
 			if (this.checkExists(langVO, FoxnicWeb.SYS_LANG.DEFAULTS)) {
 				return ErrorDesc.failureMessage("词条已经存在", CommonError.DATA_REPETITION);
@@ -281,7 +280,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<Lang> queryList(Lang sample,Language... langs) {
+	public List<org.github.foxnic.web.domain.system.Lang> queryList(org.github.foxnic.web.domain.system.Lang sample, Language... langs) {
 		FieldsBuilder fieldsBuilder=this.createFieldsBuilder();
 		fieldsBuilder.removeAll();
 		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CODE);
@@ -297,7 +296,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			fieldsBuilder.add(Language.defaults.code());
 		}
 		sample.setValid(1);
-		List<Lang> list=super.queryList(sample,fieldsBuilder);
+		List<org.github.foxnic.web.domain.system.Lang> list=super.queryList(sample,fieldsBuilder);
 		return list;
 	}
 
@@ -311,7 +310,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<Lang> queryPagedList(Lang sample, int pageSize, int pageIndex) {
+	public PagedList<org.github.foxnic.web.domain.system.Lang> queryPagedList(org.github.foxnic.web.domain.system.Lang sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -325,7 +324,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<Lang> queryPagedList(Lang sample, ConditionExpr condition, int pageSize, int pageIndex) {
+	public PagedList<org.github.foxnic.web.domain.system.Lang> queryPagedList(org.github.foxnic.web.domain.system.Lang sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
 
@@ -335,7 +334,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @param lang 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Lang> checkExists(Lang lang) {
+	public Result<org.github.foxnic.web.domain.system.Lang> checkExists(org.github.foxnic.web.domain.system.Lang lang) {
 		if (lang.getCode() == null) {
 			if (this.checkExists(lang, FoxnicWeb.SYS_LANG.DEFAULTS)) {
 				return ErrorDesc.failureMessage("词条已经存在", CommonError.DATA_REPETITION);
@@ -347,7 +346,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	private LocalCache<String, String> itemCache = new LocalCache<String, String>();
 
 	private void invalidItemCache(String code) {
-		Lang lang=this.getById(code);
+		org.github.foxnic.web.domain.system.Lang lang=this.getById(code);
 		if(lang==null) return;
 		String key= null;
 		for (Language language : Language.values()) {
@@ -411,7 +410,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			if (StringUtil.isBlank(code)) {
 				code = IDGenerator.getSUID(true);
 			}
-			Lang lang = Lang.create();
+			org.github.foxnic.web.domain.system.Lang lang = org.github.foxnic.web.domain.system.Lang.create();
 			lang.setCode(code);
 			lang.setDefaults(defaults);
 			lang.setContext(context);
@@ -500,7 +499,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	}
 
 	@Override
-	public ExcelWriter exportExcel(Lang sample) {
+	public ExcelWriter exportExcel(org.github.foxnic.web.domain.system.Lang sample) {
 		return super.exportExcel(sample);
 	}
 

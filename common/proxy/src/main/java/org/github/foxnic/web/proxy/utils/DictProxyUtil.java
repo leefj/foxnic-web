@@ -2,7 +2,7 @@ package org.github.foxnic.web.proxy.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.github.foxnic.api.language.I18N;
+import com.github.foxnic.api.language.Lang;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.system.DictItem;
@@ -60,7 +60,7 @@ public class DictProxyUtil {
         for (DictItem e : list) {
             JSONObject item=new JSONObject();
             item.put("code", e.getCode());
-            item.put("text", I18N.translate(e.getLabel(),null,"dict:"+e.getDictCode()));
+            item.put("text", Lang.translate(e.getLabel(),null,"dict:"+e.getDictCode()));
             array.add(item);
         }
         return  array;
