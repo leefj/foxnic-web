@@ -388,7 +388,7 @@ function ListPage() {
 		var area=admin.getTempData('sys-menu-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= ($(window).height()-height)/2;
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('菜单')) : (fox.translate('添加')+fox.translate('菜单'));
+		var title = (data && data.id) ? (fox.translate('修改菜单')) : (fox.translate('添加菜单'));
 		admin.popupCenter({
 			title: title,
 			resize:true,
