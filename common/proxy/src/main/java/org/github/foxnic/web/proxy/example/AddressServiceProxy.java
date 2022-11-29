@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 订单地址 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-24 11:39:46
+ * @since 2022-11-29 13:32:54
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = AddressServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface AddressServiceProxy {
@@ -92,6 +92,21 @@ public interface AddressServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
+     * 导出订单地址数据(Excel)
+     */
+    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+
+    /**
+     * 下载订单地址导入模版(Excel)
+     */
+    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
+
+    /**
+     * 导入订单地址数据(Excel)
+     */
+    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
+
+    /**
      * Get-示例
      * <p>方法描述</p>
      */
@@ -150,6 +165,24 @@ public interface AddressServiceProxy {
      */
     @RequestMapping(AddressServiceProxy.QUERY_LIST)
     Result<List<Address>> queryList(@RequestParam(name = "sample") AddressVO sample);
+
+    /**
+     * 导出 Excel
+     */
+    @RequestMapping(AddressServiceProxy.EXPORT_EXCEL)
+    void exportExcel(@RequestParam(name = "sample") AddressVO sample, @RequestParam(name = "response") HttpServletResponse response) throws Exception;
+
+    /**
+     * 导出 Excel 模板
+     */
+    @RequestMapping(AddressServiceProxy.EXPORT_EXCEL_TEMPLATE)
+    void exportExcelTemplate(@RequestParam(name = "response") HttpServletResponse response) throws Exception;
+
+    /**
+     * 导入 Excel
+     */
+    @RequestMapping(AddressServiceProxy.IMPORT_EXCEL)
+    Result importExcel(@RequestParam(name = "request") MultipartHttpServletRequest request, @RequestParam(name = "response") HttpServletResponse response) throws Exception;
 
     /**
      * 分页查询订单地址

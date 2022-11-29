@@ -293,6 +293,7 @@ security:
   login-page: /login.html
   # 配置登录标识的范围与优先级,可选值在 LoginIdentityType 枚举中定义
   login-identity-priority: employee_badge,user_account,user_phone,user_id
+  # 单点登录的 TokenReader ，如果有多个，用逗号隔开
   token-readers: org.github.foxnic.web.wrapper.support.sso.FoxnicTokenReader
   jwt:
     key-location: demo.jks

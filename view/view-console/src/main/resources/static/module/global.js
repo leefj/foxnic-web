@@ -334,6 +334,30 @@ QueryString = {
 }
 QueryString.initial();
 
+Cookie = {
+	set:function(name,value,seconds) {
+		var expireAt = new Date();
+		expireAt.setTime(expireAt.getTime()+(seconds*1000));
+		var expires = "expires="+d.toGMTString();
+		document.cookie = name + "=" + value + "; " + expires;
+	},
+	get:function(name) {
+		name = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i].trim();
+			if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+		}
+		return null;
+	},
+	remove:function(name){
+		var exp = new Date();
+		exp.setTime(exp.getTime() - 1024);
+		var cval = this.get(name);
+		if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+	}
+}
+
 TypeUtil={
 	isArray:function (data) {
 		return Array.isArray(data);

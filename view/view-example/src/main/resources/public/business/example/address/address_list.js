@@ -1,14 +1,14 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-24 11:39:51
+ * @since 2022-11-29 13:32:57
  */
 
 
 function ListPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const languageContext='example_address'; 
+	const languageContext='my-context'; 
 	//模块基础路径
 	const moduleURL="/service-example/example-address";
 	var dataTable=null;
@@ -93,8 +93,19 @@ function ListPage() {
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : false ,
-					importExcel : false 
+					exportExcel :  admin.checkAuth(AUTH_PREFIX+":export") ,
+					importExcel :  admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功','','cmp:table')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败','','cmp:table')+"!");
+							}
+							// 是否执行后续逻辑：错误提示
+							return false;
+						}
+					}:false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);

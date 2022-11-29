@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.exception;
 
+import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -72,7 +73,14 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
             }
         }
         result.messageLevel4Confirm();
-		ResponseUtil.writeOK(response, result);
+
+        String downloadTag=request.getParameter("downloadTag");
+        if(StringUtil.isBlank(downloadTag)) {
+            ResponseUtil.writeOK(response, result);
+        } else {
+            String script="<script>top."+downloadTag+"('"+ JSON.toJSONString(result) +"');</script>";
+            ResponseUtil.writeOK(response, script);
+        }
     }
 
 }

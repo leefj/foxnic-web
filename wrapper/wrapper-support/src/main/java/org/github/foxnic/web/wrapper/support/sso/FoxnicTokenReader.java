@@ -11,22 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class FoxnicTokenReader extends TokenReader {
-
+    /**
+     * 从请求中读取账户
+     * */
     @Override
     public String readUserId(HttpServletRequest request) {
+        // 读取token
         String account=request.getParameter("account");
+        // 把读取的 token 转换为 userId
         Result<User> userResult = UserServiceProxy.api().getByAccount(account);
         if(userResult.failure()) return null;
         if(userResult.data()==null) return null;
+        // 最终返回 userId
         return userResult.data().getId();
     }
 
+    /**
+     * 从请求中读取用户指定的语言
+     * */
     @Override
     public Language readLanguage(HttpServletRequest request) {
         return Language.zh_cn;
     }
-
-
-
-
 }

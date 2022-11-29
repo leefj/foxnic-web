@@ -2074,30 +2074,44 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             url = url.replace("http:/", "http://");
             url = url.replace("https:/", "https://");
 
-
-
-            var task = setTimeout(function () {
-                layer.load(2);
+            var waitingTask = setTimeout(function () {
+                top.layer.load(2);
             }, 1000);
 
+            var tag="download_tag_"+Math.ceil(Math.random()*(new Date()).getTime());
+            top[tag]=function (err) {
+                clearTimeout(waitingTask);
+                top.layer.closeAll('loading');
+                Cookie.remove(tag);
+                if(err && TypeUtil.isString(err)) {
+                    err=JSON.parse(err);
+                }
+                if(callback) {
+                    callback(err);
+                } else {
+                    top.layer.msg(err.message, {icon: 2, time: 2000});
+                }
+                delete top[tag];
+                delete  window[tag+"_onload"];
+                delete  window[tag+"_onerror"];
+            }
+
+            window[tag+"_onload"]=function (ifr) {}
+            window[tag+"_onerror"]=function (ifr) {
+                debugger
+            }
+
             var target = "t-" + (new Date()).getTime();
-            var $ifr = $("<iframe id='" + target + "' name='" + target + "' style='display:none'></iframe>")
+            var $ifr = $("<iframe id='" + target + "' name='" + target + "' style='display:none' onload='"+tag+"_onload(this)' onerror='"+tag+"_onerror(this)'></iframe>")
             $("body").append($ifr);
             // 构造隐藏的form表单
             var $form = $("<form style='display:none' method='" + method + "' target='" + target + "' action='" + url + "'></form>");
             $("body").append($form);
             //添加参数
             if (!params) params = {};
-            var tag="download_tag_"+Math.ceil(Math.random()*(new Date()).getTime());
+
             params.downloadTag=tag;
-            top[tag]=function (err) {
-                if(callback) {
-                    callback(err);
-                } else {
-                    top.layer.msg(err.message,{icon:2,time:2000});
-                }
-                delete top[tag];
-            }
+
             for (var p in params) {
                 var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
                 $form.append($input);
@@ -2105,36 +2119,25 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // 提交表单
             $form.submit();
 
-            function getCookie(name)
-            {
-                var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-                if(arr=document.cookie.match(reg))
-                    return unescape(arr[2]);
-                else
-                    return null;
-            }
-
-            var ifr = document.getElementById(target);
-            var timer = setInterval(function () {
-                var doc = ifr.contentDocument || ifr.contentWindow.document;
-                // Check if loading is complete
-                // var cTag=getCookie(tag);
-                // debugger;
-                // if ((doc.readyState == 'complete' || doc.readyState == 'interactive') && cTag=="success") {
-                if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
-                    // do something
-                    layer.closeAll('loading');
-                    clearTimeout(task);
-                    clearInterval(timer);
+            var checker = setInterval(function () {
+                var value=Cookie.get(tag);
+                console.log(tag+"="+value);
+                // debugger
+                if(value==1) {
+                    top.layer.closeAll('loading');
+                    clearTimeout(waitingTask);
+                    clearInterval(checker);
+                    Cookie.remove(tag);
+                    // debugger
                     setTimeout(function () {
                         $form.remove();
                         $ifr.remove();
                         delete top[tag];
-                    }, 1000 * 60 * 10);
-                    console.log("dl:"+doc.innerHTML);
-                    callback && callback({success:true,message:"下载成功"});
-                    debugger;
+                        delete  window[tag+"_onload"];
+                        delete  window[tag+"_onerror"];
+                    }, 1000 * 3);
                 }
+
             }, 500);
 
             //移除元素

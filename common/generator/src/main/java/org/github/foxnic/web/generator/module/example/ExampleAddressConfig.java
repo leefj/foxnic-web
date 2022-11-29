@@ -79,6 +79,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 		view.language().enableContext();
 		//或
 		view.language().enableContext("my-context");
+		list.excel(true,true);
 	}
 
 	/**
@@ -105,6 +106,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 		controller.restApiTagDir("功能示例");
 
 		controller.inDoc(true);
+
+
 
 		controller
 				// 方法头

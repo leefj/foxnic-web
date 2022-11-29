@@ -1,13 +1,13 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-24 11:39:52
+ * @since 2022-11-29 13:32:58
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
-	const languageContext='example_address'; 
+	const languageContext='my-context'; 
 	const moduleURL="/service-example/example-address";
 	// 表单执行操作类型：view，create，edit
 	var action=null;

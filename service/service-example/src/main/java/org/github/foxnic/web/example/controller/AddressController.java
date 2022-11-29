@@ -6,9 +6,13 @@ import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,8 +28,13 @@ import org.github.foxnic.web.proxy.example.AddressServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +44,7 @@ import java.util.Map;
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-24 11:39:47
+ * @since 2022-11-29 13:32:56
 */
 
 @InDoc
@@ -281,7 +290,62 @@ public class AddressController extends SuperController {
 
 
 
+	/**
+	 * 导出 Excel
+	 * */
+	@SentinelResource(value = AddressServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@RequestMapping(AddressServiceProxy.EXPORT_EXCEL)
+	public void exportExcel(AddressVO  sample,HttpServletResponse response) throws Exception {
+		try{
+			//生成 Excel 数据
+			ExcelWriter ew=addressService.exportExcel(sample);
+			Thread.sleep(3000);
+			//下载
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
+	}
 
+	/**
+	 * 导出 Excel 模板
+	 * */
+	@SentinelResource(value = AddressServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@RequestMapping(AddressServiceProxy.EXPORT_EXCEL_TEMPLATE)
+	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
+			//生成 Excel 模版
+			ExcelWriter ew=addressService.exportExcelTemplate();
+			//下载
+			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
+	}
+
+	@SentinelResource(value = AddressServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(AddressServiceProxy.IMPORT_EXCEL)
+	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
+		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		List<ValidateResult> errors=addressService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message("导入失败").data(errors);
+		}
+	}
 	/**
 	  * Get-示例
 	  * <p>方法描述</p>
