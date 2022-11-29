@@ -9,14 +9,15 @@ import org.github.foxnic.web.domain.hrm.Position;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.system.BusiRole;
+import java.util.Map;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:08:39
- * @sign 361D2893BFB110ABFAEB8B961A725C31
+ * @since 2022-11-29 15:11:31
+ * @sign 7091A6C7D5D07D5619F66CA5A21EFA55
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -283,6 +284,16 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> VICE_POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,VICE_POSITIONS, java.util.List.class, "兼岗", "作为员工时，所属的兼岗", org.github.foxnic.web.domain.hrm.Position.class, null);
 	
 	/**
+	 * 扩展信息 , 员工扩展信息 , 集合类型: MAP , 类型: java.lang.Object
+	*/
+	public static final String EXT_INFO="extInfo";
+	
+	/**
+	 * 扩展信息 , 员工扩展信息 , 集合类型: MAP , 类型: java.lang.Object
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.Object> EXT_INFO_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,EXT_INFO, java.util.Map.class, "扩展信息", "员工扩展信息", java.lang.Object.class, java.lang.String.class);
+	
+	/**
 	 * name , 类型: java.lang.String
 	*/
 	public static final String NAME="name";
@@ -325,7 +336,7 @@ public class EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , NAME , SEX , SOURCE , IDENTITY };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -622,6 +633,17 @@ public class EmployeeMeta {
 		}
 		
 		/**
+		 * 设置 扩展信息
+		 * @param extInfo 扩展信息
+		 * @return 当前对象
+		*/
+		public Employee setExtInfo(Map<String,Object> extInfo) {
+			super.change(EXT_INFO,super.getExtInfo(),extInfo);
+			super.setExtInfo(extInfo);
+			return this;
+		}
+		
+		/**
 		 * 设置 name
 		 * @param name name
 		 * @return 当前对象
@@ -703,6 +725,7 @@ public class EmployeeMeta {
 				inst.setSource(this.getSource());
 				inst.setVicePositionIds(this.getVicePositionIds());
 				inst.setPrimaryPosition(this.getPrimaryPosition());
+				inst.setExtInfo(this.getExtInfo());
 				inst.setPerson(this.getPerson());
 				inst.setIdentity(this.getIdentity());
 				inst.setNameAndBadge(this.getNameAndBadge());

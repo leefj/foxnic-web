@@ -24,8 +24,8 @@ import java.util.*;
  * 员工
  * <p>员工 , 数据表 hrm_employee 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:08:37
- * @sign 361D2893BFB110ABFAEB8B961A725C31
+ * @since 2022-11-29 15:11:31
+ * @sign 7091A6C7D5D07D5619F66CA5A21EFA55
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -196,6 +196,12 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="兼岗" , notes = "作为员工时，所属的兼岗")
 	private List<Position> vicePositions;
+
+	/**
+	 * 扩展信息：员工扩展信息
+	*/
+	@ApiModelProperty(required = false,value="扩展信息" , notes = "员工扩展信息")
+	private Map<String,Object> extInfo;
 
 	/**
 	 * 获得 ID<br>
@@ -778,6 +784,37 @@ public class Employee extends Person {
 	}
 
 	/**
+	 * 获得 扩展信息<br>
+	 * 员工扩展信息
+	 * @return 扩展信息
+	*/
+	public Map<String,Object> getExtInfo() {
+		return extInfo;
+	}
+
+	/**
+	 * 设置 扩展信息
+	 * @param extInfo 扩展信息
+	 * @return 当前对象
+	*/
+	public Employee setExtInfo(Map<String,Object> extInfo) {
+		this.extInfo=extInfo;
+		return this;
+	}
+
+	/**
+	 * 添加 扩展信息
+	 * @param key 键
+	 * @param extInfo 扩展信息
+	 * @return 当前对象
+	*/
+	public Employee putExtInfo(String key,Object extInfo) {
+		if(this.extInfo==null) this.extInfo=new HashMap<>();
+		this.extInfo.put(key ,extInfo);
+		return this;
+	}
+
+	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
 	 * @return Employee , 转换好的 Employee 对象
@@ -837,29 +874,30 @@ public class Employee extends Person {
 		inst.setId(this.getId());
 		inst.setStatus(this.getStatus());
 		if(all) {
+			inst.setVicePositions(this.getVicePositions());
+			inst.setSource(this.getSource());
+			inst.setPrimaryPosition(this.getPrimaryPosition());
+			inst.setExtInfo(this.getExtInfo());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setIdentity(this.getIdentity());
+			inst.setCompany(this.getCompany());
+			inst.setId(this.getId());
 			inst.setSex(this.getSex());
 			inst.setPrimaryPositionId(this.getPrimaryPositionId());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setPositions(this.getPositions());
-			inst.setVicePositions(this.getVicePositions());
-			inst.setSource(this.getSource());
 			inst.setVersion(this.getVersion());
 			inst.setVicePositionIds(this.getVicePositionIds());
-			inst.setPrimaryPosition(this.getPrimaryPosition());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
-			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
-			inst.setIdentity(this.getIdentity());
 			inst.setPerson(this.getPerson());
 			inst.setName(this.getName());
 			inst.setNameAndBadge(this.getNameAndBadge());
 			inst.setOrganizations(this.getOrganizations());
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setBusiRoles(this.getBusiRoles());
-			inst.setCompany(this.getCompany());
-			inst.setId(this.getId());
 			inst.setPrimaryOrganization(this.getPrimaryOrganization());
 		}
 		inst.clearModifies();
@@ -936,24 +974,24 @@ public class Employee extends Person {
 			this.setId(DataParser.parse(String.class, map.get(EmployeeMeta.ID)));
 			this.setStatus(DataParser.parse(String.class, map.get(EmployeeMeta.STATUS)));
 			// others
+			this.setSource(DataParser.parse(String.class, map.get(EmployeeMeta.SOURCE)));
+			this.setPrimaryPosition(DataParser.parse(Position.class, map.get(EmployeeMeta.PRIMARY_POSITION)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(EmployeeMeta.UPDATE_BY)));
+			this.setIdentity(DataParser.parse(String.class, map.get(EmployeeMeta.IDENTITY)));
+			this.setCompany(DataParser.parse(Company.class, map.get(EmployeeMeta.COMPANY)));
+			this.setId(DataParser.parse(String.class, map.get(EmployeeMeta.ID)));
 			this.setSex(DataParser.parse(String.class, map.get(EmployeeMeta.SEX)));
 			this.setPrimaryPositionId(DataParser.parse(String.class, map.get(EmployeeMeta.PRIMARY_POSITION_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeMeta.UPDATE_TIME)));
-			this.setSource(DataParser.parse(String.class, map.get(EmployeeMeta.SOURCE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeMeta.VERSION)));
-			this.setPrimaryPosition(DataParser.parse(Position.class, map.get(EmployeeMeta.PRIMARY_POSITION)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(EmployeeMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(EmployeeMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(EmployeeMeta.CREATE_TIME)));
-			this.setUpdateBy(DataParser.parse(String.class, map.get(EmployeeMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(EmployeeMeta.DELETE_TIME)));
-			this.setIdentity(DataParser.parse(String.class, map.get(EmployeeMeta.IDENTITY)));
 			this.setPerson(DataParser.parse(Person.class, map.get(EmployeeMeta.PERSON)));
 			this.setName(DataParser.parse(String.class, map.get(EmployeeMeta.NAME)));
 			this.setNameAndBadge(DataParser.parse(String.class, map.get(EmployeeMeta.NAME_AND_BADGE)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(EmployeeMeta.DELETE_BY)));
-			this.setCompany(DataParser.parse(Company.class, map.get(EmployeeMeta.COMPANY)));
-			this.setId(DataParser.parse(String.class, map.get(EmployeeMeta.ID)));
 			this.setPrimaryOrganization(DataParser.parse(Organization.class, map.get(EmployeeMeta.PRIMARY_ORGANIZATION)));
 			return true;
 		} else {
@@ -974,24 +1012,24 @@ public class Employee extends Person {
 				this.setId( (String)map.get(EmployeeMeta.ID));
 				this.setStatus( (String)map.get(EmployeeMeta.STATUS));
 				// others
+				this.setSource( (String)map.get(EmployeeMeta.SOURCE));
+				this.setPrimaryPosition( (Position)map.get(EmployeeMeta.PRIMARY_POSITION));
+				this.setUpdateBy( (String)map.get(EmployeeMeta.UPDATE_BY));
+				this.setIdentity( (String)map.get(EmployeeMeta.IDENTITY));
+				this.setCompany( (Company)map.get(EmployeeMeta.COMPANY));
+				this.setId( (String)map.get(EmployeeMeta.ID));
 				this.setSex( (String)map.get(EmployeeMeta.SEX));
 				this.setPrimaryPositionId( (String)map.get(EmployeeMeta.PRIMARY_POSITION_ID));
 				this.setUpdateTime( (Date)map.get(EmployeeMeta.UPDATE_TIME));
-				this.setSource( (String)map.get(EmployeeMeta.SOURCE));
 				this.setVersion( (Integer)map.get(EmployeeMeta.VERSION));
-				this.setPrimaryPosition( (Position)map.get(EmployeeMeta.PRIMARY_POSITION));
 				this.setCreateBy( (String)map.get(EmployeeMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(EmployeeMeta.DELETED));
 				this.setCreateTime( (Date)map.get(EmployeeMeta.CREATE_TIME));
-				this.setUpdateBy( (String)map.get(EmployeeMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(EmployeeMeta.DELETE_TIME));
-				this.setIdentity( (String)map.get(EmployeeMeta.IDENTITY));
 				this.setPerson( (Person)map.get(EmployeeMeta.PERSON));
 				this.setName( (String)map.get(EmployeeMeta.NAME));
 				this.setNameAndBadge( (String)map.get(EmployeeMeta.NAME_AND_BADGE));
 				this.setDeleteBy( (String)map.get(EmployeeMeta.DELETE_BY));
-				this.setCompany( (Company)map.get(EmployeeMeta.COMPANY));
-				this.setId( (String)map.get(EmployeeMeta.ID));
 				this.setPrimaryOrganization( (Organization)map.get(EmployeeMeta.PRIMARY_ORGANIZATION));
 				return true;
 			} catch (Exception e) {

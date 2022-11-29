@@ -27,7 +27,6 @@ import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -66,7 +65,12 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
-		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = OrganizationVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = OrganizationServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -140,7 +144,12 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
-		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = OrganizationVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE, OrganizationVOMeta.SEARCH_FIELD, OrganizationVOMeta.FUZZY_FIELD, OrganizationVOMeta.SEARCH_VALUE, OrganizationVOMeta.SORT_FIELD, OrganizationVOMeta.SORT_TYPE, OrganizationVOMeta.IDS })
     @SentinelResource(value = OrganizationServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -167,7 +176,12 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
-		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = OrganizationVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE, OrganizationVOMeta.SEARCH_FIELD, OrganizationVOMeta.FUZZY_FIELD, OrganizationVOMeta.SEARCH_VALUE, OrganizationVOMeta.SORT_FIELD, OrganizationVOMeta.SORT_TYPE, OrganizationVOMeta.IDS })
     @SentinelResource(value = OrganizationServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -229,7 +243,12 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
-		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = OrganizationVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { OrganizationVOMeta.PAGE_INDEX, OrganizationVOMeta.PAGE_SIZE })
     @SentinelResource(value = OrganizationServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -257,7 +276,12 @@ public class OrganizationController extends SuperController {
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = "OrganizationVOMeta.CODE", value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
-		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1")
+		@ApiImplicitParam(name = "OrganizationVOMeta.SORT", value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "localCompany"),
+		@ApiImplicitParam(name = OrganizationVOMeta.SORT, value = "排序", required = false, dataTypeClass = Integer.class, example = "1"),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = OrganizationVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = OrganizationServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

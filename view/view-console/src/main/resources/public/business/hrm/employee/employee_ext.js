@@ -13,10 +13,10 @@ layui.config({
     foxnicUpload: 'upload/foxnic-upload'
 })
 //
-layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','foxnicUpload','dropdown'],function () {
+layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','foxnicUpload','dropdown','laytpl'],function () {
 
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
-    table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
+    table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload,laytpl=layui.laytpl;
 
     var lockedType, lockedId;
 
@@ -30,6 +30,26 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeInit:function () {
             console.log("list:beforeInit");
             this.inTab=QueryString.get("inTab")
+        },
+        beforeTableRender:function (tableConfig) {
+            var cols=tableConfig.cols[0];
+            for (var i=0;i<extInfoAttrs.length;i++) {
+                var attr=extInfoAttrs[i];
+                cols.splice(cols.length-2, 0, {
+                    field: 'extInfo_'+attr.field,
+                    align:"left",
+                    fixed:false,
+                    hide:false,
+                    sort: false  ,
+                    width:100,
+                    title: fox.translate(attr.shortName) ,
+                    templet: function (d) {
+                        return fox.getProperty(d,["extInfo",attr.field],0);
+                    }
+                });
+
+            }
+            debugger
         },
         /**
          * 查询前调用
@@ -121,6 +141,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         }
     }
 
+
+    var fieldHTML=[
+        '<div class="layui-form-item" >',
+        '	<div class="layui-form-label layui-form-label-c1"><div>{{d.label}}</div></div>',
+        '	<div class="layui-input-block layui-input-block-c1">',
+        '		<input lay-filter="{{d.name}}" id="{{d.name}}" name="{{d.name}}" placeholder="{{d.placeholder}}" type="text" class="layui-input"  />',
+        '	</div>',
+        '</div>'
+    ];
+
     //表单页的扩展
     var form={
         action:null,
@@ -129,6 +159,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function (action,data) {
             this.action = action;
+            for (var i=0;i<extInfoAttrs.length;i++) {
+                var attr=extInfoAttrs[i];
+                laytpl(fieldHTML.join("\n")).render({
+                    name:"extInfo_"+attr.field,
+                    label: fox.translate(attr.shortName),
+                    placeholder:fox.translate("请输入"+attr.shortName),
+                }, function(result){
+                     $(".form-column").append(result);
+                });
+                // debugger
+            }
         },
         /**
          * 表单数据填充前
@@ -140,6 +181,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 $("#primaryPositionId").val(selectedPosition.id);
                 fox.fillDialogButtons();
             }
+
+            var extInfo=data.extInfo;
+            for(var name in extInfo) {
+                data["extInfo_"+name]=extInfo[name];
+            }
+
         },
         /**
          * 对话框之前调用，如果返回 null 则不打开对话框
@@ -152,12 +199,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 表单数据填充后
          * */
         afterDataFill:function (data) {
+
             console.log('afterDataFill',data);
         },
+
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {
+            // debugger
+            var extInfo=fox.subJsonObject(data,"extInfo_",true);
+            data["extInfo"] = extInfo;
+            //debugger
             console.log("beforeSubmit",data);
             // debugger;
             data.positionId= admin.getTempData("lockedPositionId");;

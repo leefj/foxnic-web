@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-11-16 13:08:53
+ * @since 2022-11-29 16:21:06
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3596,8 +3596,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
 		public HRM_ORGANIZATION() {
-			this.init($NAME,"组织层级表" , ID , CODE , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"组织层级表" , ID , CODE , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES);
 		}
 		public static final HRM_ORGANIZATION $TABLE=new HRM_ORGANIZATION();
 	}
@@ -7664,6 +7669,65 @@ public class FoxnicWeb {
 			this.init($NAME,"菜单资源关系表" , ID , MENU_ID , RESOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU_RESOURCE $TABLE=new SYS_MENU_RESOURCE();
+	}
+	
+	/**
+	 * MQ日志表
+	*/
+	public static class SYS_MQ_LOG extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_mq_log";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.LONG , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * MQ队列名；或主题名
+		*/
+		public static final DBField DESTINATION = new DBField(DBDataType.STRING , "destination","destination","MQ队列名","或主题名",false,false,true);
+		
+		/**
+		 * MQ消息类型
+		*/
+		public static final DBField MESSAGE_TYPE = new DBField(DBDataType.STRING , "message_type","messageType","MQ消息类型","MQ消息类型",false,false,true);
+		
+		/**
+		 * 消息内容
+		*/
+		public static final DBField MESSAGE = new DBField(DBDataType.STRING , "message","message","消息内容","消息内容",false,false,true);
+		
+		/**
+		*/
+		public static final DBField RECEIVE_TIME = new DBField(DBDataType.TIMESTAME , "receive_time","receiveTime","receive_time","receive_time",false,false,true);
+		
+		/**
+		*/
+		public static final DBField FINISH_TIME = new DBField(DBDataType.TIMESTAME , "finish_time","finishTime","finish_time","finish_time",false,false,true);
+		
+		/**
+		 * 是否处理成功
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否处理成功","是否处理成功",false,false,true);
+		
+		/**
+		 * 处理结果
+		*/
+		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","处理结果","处理结果",false,false,true);
+		
+		/**
+		 * 异常信息
+		*/
+		public static final DBField ERRORS = new DBField(DBDataType.STRING , "errors","errors","异常信息","异常信息",false,false,true);
+		
+		public SYS_MQ_LOG() {
+			this.init($NAME,"MQ日志表" , ID , DESTINATION , MESSAGE_TYPE , MESSAGE , RECEIVE_TIME , FINISH_TIME , SUCCESS , RESULT , ERRORS);
+		}
+		public static final SYS_MQ_LOG $TABLE=new SYS_MQ_LOG();
 	}
 	
 	/**

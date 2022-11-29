@@ -2,10 +2,7 @@ package org.github.foxnic.web.generator.module.hrm;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_ORGANIZATION;
 import org.github.foxnic.web.constants.enums.DictEnum;
@@ -64,8 +61,13 @@ public class HrmOrgnizationConfig extends BaseCodeConfig<HRM_ORGANIZATION> {
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.columnLayout(new Object[]{
                 HRM_ORGANIZATION.FULL_NAME,HRM_ORGANIZATION.SHORT_NAME,HRM_ORGANIZATION.CODE,
-                HRM_ORGANIZATION.TYPE,HRM_ORGANIZATION.VALID
+                HRM_ORGANIZATION.TYPE,HRM_ORGANIZATION.VALID,HRM_ORGANIZATION.NOTES
         });
+    }
+
+    @Override
+    public void configView(ViewOptions view, ListOptions list, FormOptions form) {
+        view.language().enableContext();
     }
 
     @Override

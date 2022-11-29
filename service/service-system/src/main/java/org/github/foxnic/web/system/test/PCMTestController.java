@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import com.github.foxnic.springboot.mvc.Validator;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
-import org.github.foxnic.web.framework.pcm.PcmCatalogDelegate;
+import org.github.foxnic.web.proxy.pcm.PcmCatalogDelegate;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

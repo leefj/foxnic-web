@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工VO类型
  * <p>员工 , 数据表 hrm_employee 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:08:39
+ * @since 2022-11-29 15:11:31
  * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -397,6 +397,7 @@ public class EmployeeVO extends Employee {
 			inst.setSource(this.getSource());
 			inst.setOrgId(this.getOrgId());
 			inst.setPrimaryPosition(this.getPrimaryPosition());
+			inst.setExtInfo(this.getExtInfo());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setIdentity(this.getIdentity());
 			inst.setDirtyFields(this.getDirtyFields());

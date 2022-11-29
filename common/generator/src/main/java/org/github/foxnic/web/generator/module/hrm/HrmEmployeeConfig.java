@@ -41,6 +41,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addSimpleProperty(String.class, "primaryPositionId","主岗ID","只有一个");
         poType.addListProperty(String.class, "vicePositionIds","兼岗ID","多个用逗号隔开");
         poType.addListProperty( Position.class, "vicePositions","兼岗", "作为员工时，所属的兼岗");
+        poType.addMapProperty(String.class,Object.class,"extInfo","扩展信息","员工扩展信息");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");
@@ -61,6 +62,8 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     @Override
     public void configFields(ViewOptions view) {
         view.field(HRM_EMPLOYEE.ID).basic().hidden();
+
+        view.field(EmployeeMeta.EXT_INFO).basic().hidden();
 
         view.field(HRM_EMPLOYEE.BADGE)
                 .form().validate()
@@ -129,6 +132,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
+        form.addJsVariable("extInfoAttrs","[[${extInfoAttrs}]]","员工扩展信息");
         form.labelWidth(80);
         form.columnLayout(new Object[] {
                 PersonMeta.NAME,
@@ -144,6 +148,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
+        list.addJsVariable("extInfoAttrs","[[${extInfoAttrs}]]","员工扩展信息");
         list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,personSexField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_ORGANIZATION,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
     }
 

@@ -1,12 +1,15 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -26,10 +29,12 @@ import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.hrm.*;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.domain.system.UserTenantVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.*;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.pcm.PcmCatalogDelegate;
 import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
@@ -148,6 +153,12 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			r = super.insert(employee);
 			//如果账户创建成功，则绑定员工与账户的关系
 			if(r.success() && user!=null) {
+
+				// 保存员工扩展信息
+				PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+				delegate.saveData(employee.getId(),employee.getExtInfo());
+
+
 				//保存员工岗位关系
 				if(employee instanceof EmployeeVO) {
 					EmployeeVO vo=(EmployeeVO) employee;
@@ -288,6 +299,18 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			r = super.update(employee, mode);
 		}
 
+		// 保存员工扩展信息
+		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+		Map<String,Object> empExtInfo=employee.getExtInfo();
+		Result extInfoResult = delegate.queryDataByOwnerId(1,1,employee.getId());
+		JSONArray array=((JSONObject) extInfoResult.data()).getJSONArray("list");
+		if(array.size()>0) {
+			JSONObject extInfo=array.getJSONObject(0);
+			empExtInfo.put("id",extInfo.getString("id"));
+		}
+		delegate.saveData(employee.getId(),empExtInfo);
+
+
 		//岗位
 		List<String> posIds=new ArrayList<>();
 		posIds.add(employee.getPrimaryPositionId());
@@ -300,6 +323,8 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		}
 		employeePositionService.saveRelation(employee.getId(),posIds);
 		employeePositionService.activePrimaryPosition(employee.getId(),employee.getPrimaryPositionId());
+
+
 
 		return r;
 	}
@@ -340,7 +365,20 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		Employee sample = new Employee();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
-		return dao.queryEntity(sample);
+
+		sample = dao.queryEntity(sample);
+		// 查询员工扩展信息
+		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+		Result extInfoResult = delegate.queryDataByOwnerId(1,1,id);
+		JSONArray array=((JSONObject) extInfoResult.data()).getJSONArray("list");
+		if(array.size()>0) {
+			JSONObject extInfo=array.getJSONObject(0);
+			Result<List<CatalogAttribute>> fields= delegate.queryFields();
+			List<String> fieldList=CollectorUtil.collectList(fields.data(),CatalogAttribute::getField);
+			extInfo=MapUtil.removeNotExistsKey(extInfo,fieldList);
+			sample.setExtInfo(extInfo);
+		}
+		return sample;
 	}
 
 	@Override
@@ -422,6 +460,23 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			select.append(orderBy);
 		}
 		PagedList<Employee> pagedList=this.dao().queryPagedEntities(Employee.class,pageSize,pageIndex,select);
+
+		List<String> ids=CollectorUtil.collectList(pagedList.getList(),Employee::getId);
+		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+
+		Result extInfoResult = delegate.queryDataByOwnerId(ids.size()+8,1,ids.toArray(new String[0]));
+		JSONArray array=((JSONObject) extInfoResult.data()).getJSONArray("list");
+		Map<String,Employee> empMap=CollectorUtil.collectMap(pagedList.getList(),Employee::getId,(e)->{return e;});
+		if(array.size()>0) {
+			for (int i = 0; i < array.size(); i++) {
+				String ownerId=array.getJSONObject(i).getString("owner_id");
+				Employee employee=empMap.get(ownerId);
+				if(employee!=null) {
+					employee.setExtInfo(array.getJSONObject(i));
+				}
+			}
+		}
+
 		return pagedList;
 	}
 

@@ -1,13 +1,14 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:47:51
+ * @since 2022-11-29 16:26:37
  */
 
 
 function ListPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	const languageContext='hrm_organization'; 
 	//模块基础路径
 	const moduleURL="/service-hrm/hrm-organization";
 	var dataTable=null;
@@ -18,7 +19,7 @@ function ListPage() {
 	this.init=function(layui) {
 
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;
 
 		if(window.pageExt.list.beforeInit) {
 			window.pageExt.list.beforeInit();
@@ -69,7 +70,7 @@ function ListPage() {
 			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
+				defaultToolbar: ['filter', 'print',{title: fox.translate('刷新数据','','cmp:table'),layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
@@ -77,19 +78,20 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
-					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
-					,{ field: 'type', align:"left", fixed:false, hide:false, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getDictText(RADIO_TYPE_DATA,d.type,'','type'),d);}}
-					,{ field: 'parentId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('上级ID') , templet: function (d) { return templet('parentId',d.parentId,d);}  }
-					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'hierarchy', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('层级路径') , templet: function (d) { return templet('hierarchy',d.hierarchy,d);}  }
-					,{ field: 'sort', align:"right",fixed:false,  hide:true, sort: true  , title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
-					,{ field: 'companyId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('总公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID',null,languageContext) , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('代码',null,languageContext) , templet: function (d) { return templet('code',d.code,d);}  }
+					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('简称',null,languageContext) , templet: function (d) { return templet('shortName',d.shortName,d);}  }
+					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('全称',null,languageContext) , templet: function (d) { return templet('fullName',d.fullName,d);}  }
+					,{ field: 'type', align:"left", fixed:false, hide:false, sort: true  , title: fox.translate('类型',null,languageContext), templet:function (d){ return templet('type',fox.getDictText(RADIO_TYPE_DATA,d.type,'','type'),d);}}
+					,{ field: 'parentId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('上级ID',null,languageContext) , templet: function (d) { return templet('parentId',d.parentId,d);}  }
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效',null,languageContext), templet: '#cell-tpl-valid'}
+					,{ field: 'hierarchy', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('层级路径',null,languageContext) , templet: function (d) { return templet('hierarchy',d.hierarchy,d);}  }
+					,{ field: 'sort', align:"right",fixed:false,  hide:true, sort: true  , title: fox.translate('排序',null,languageContext) , templet: function (d) { return templet('sort',d.sort,d);}  }
+					,{ field: 'companyId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('总公司ID',null,languageContext) , templet: function (d) { return templet('companyId',d.companyId,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间',null,languageContext) ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('备注',null,languageContext) , templet: function (d) { return templet('notes',d.notes,d);}  }
+					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
@@ -147,6 +149,7 @@ function ListPage() {
 		value.type={ inputType:"radio_box", value: getSelectedValue("#type","value"), label:getSelectedValue("#type","nameStr") };
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.notes={ inputType:"button",value: $("#notes").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -305,11 +308,11 @@ function ListPage() {
 
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('组织层级')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的'+'组织层级'+"!",null,languageContext));
             	return;
             }
             //调用批量删除接口
-			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('组织层级')+fox.translate('吗？'), function (i) {
+			top.layer.confirm(fox.translate('确定删除已选中的'+'组织层级'+'吗？',null,languageContext), function (i) {
                 top.layer.close(i);
 				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
@@ -320,6 +323,9 @@ function ListPage() {
 						fox.showMessage(data);
                         refreshTableData();
                     } else {
+						if(data.data>0) {
+							refreshTableData();
+						}
 						fox.showMessage(data);
                     }
                 },{delayLoading:200,elms:[$("#delete-button")]});
@@ -368,7 +374,7 @@ function ListPage() {
 					if(!doNext) return;
 				}
 
-				top.layer.confirm(fox.translate('确定删除此')+fox.translate('组织层级')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定删除此'+'组织层级'+'吗？',null,languageContext), function (i) {
 					top.layer.close(i);
 					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
@@ -408,10 +414,10 @@ function ListPage() {
 		var area=admin.getTempData('hrm-organization-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = fox.translate('组织层级');
-		if(action=="create") title=fox.translate('添加')+title;
-		else if(action=="edit") title=fox.translate('修改')+title;
-		else if(action=="view") title=fox.translate('查看')+title;
+		var title = fox.translate('组织层级',null,languageContext);
+		if(action=="create") title=fox.translate('添加','','cmp:table')+title;
+		else if(action=="edit") title=fox.translate('修改','','cmp:table')+title;
+		else if(action=="view") title=fox.translate('查看','','cmp:table')+title;
 
 		admin.popupCenter({
 			title: title,

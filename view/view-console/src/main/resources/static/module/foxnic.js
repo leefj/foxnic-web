@@ -1126,6 +1126,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
         },
 
+        subJsonObject:function (json,prefix,rm) {
+            var extInfo={};
+            for(var name in json) {
+                if(name.startsWith(prefix)) {
+                    var shortName=name.substring(prefix.length)
+                    extInfo[shortName]=json[name];
+                }
+            }
+            if(rm) {
+                for(var name in extInfo) {
+                    delete json[prefix+name];
+                }
+            }
+            return extInfo;
+        },
+
         /**
          * 仅允许输入框输入数字
          * */

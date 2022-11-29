@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 组织层级
  * <p>组织层级 , 数据表 hrm_organization 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:47:50
- * @sign 54E943D72D5BF01666E9630E108B8E36
+ * @since 2022-11-29 16:26:34
+ * @sign 84CB0470594AFBBCA03B0845AF77B7E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -124,7 +124,7 @@ public class Organization extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-10-08 08:34:26")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-15 04:49:02")
 	private Date updateTime;
 	
 	/**
@@ -151,8 +151,14 @@ public class Organization extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "41")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "48")
 	private Integer version;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 获得 ID<br>
@@ -545,6 +551,25 @@ public class Organization extends Entity {
 		this.version=version;
 		return this;
 	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public Organization setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -591,6 +616,7 @@ public class Organization extends Entity {
 	public Organization duplicate(boolean all) {
 		org.github.foxnic.web.domain.hrm.meta.OrganizationMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.OrganizationMeta.$$proxy$$();
 		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setFullName(this.getFullName());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -668,6 +694,7 @@ public class Organization extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(OrganizationMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(OrganizationMeta.NOTES)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(OrganizationMeta.HIERARCHY)));
 			this.setFullName(DataParser.parse(String.class, map.get(OrganizationMeta.FULL_NAME)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(OrganizationMeta.UPDATE_TIME)));
@@ -691,6 +718,7 @@ public class Organization extends Entity {
 		} else {
 			try {
 				this.setCode( (String)map.get(OrganizationMeta.CODE));
+				this.setNotes( (String)map.get(OrganizationMeta.NOTES));
 				this.setHierarchy( (String)map.get(OrganizationMeta.HIERARCHY));
 				this.setFullName( (String)map.get(OrganizationMeta.FULL_NAME));
 				this.setUpdateTime( (Date)map.get(OrganizationMeta.UPDATE_TIME));
@@ -727,6 +755,7 @@ public class Organization extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(OrganizationMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(OrganizationMeta.NOTES)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(OrganizationMeta.HIERARCHY)));
 			this.setFullName(DataParser.parse(String.class, r.getValue(OrganizationMeta.FULL_NAME)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(OrganizationMeta.UPDATE_TIME)));
@@ -749,6 +778,7 @@ public class Organization extends Entity {
 		} else {
 			try {
 				this.setCode( (String)r.getValue(OrganizationMeta.CODE));
+				this.setNotes( (String)r.getValue(OrganizationMeta.NOTES));
 				this.setHierarchy( (String)r.getValue(OrganizationMeta.HIERARCHY));
 				this.setFullName( (String)r.getValue(OrganizationMeta.FULL_NAME));
 				this.setUpdateTime( (Date)r.getValue(OrganizationMeta.UPDATE_TIME));

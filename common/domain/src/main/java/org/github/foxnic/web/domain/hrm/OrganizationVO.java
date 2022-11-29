@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 组织层级VO类型
  * <p>组织层级 , 数据表 hrm_organization 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:47:50
+ * @since 2022-11-29 16:26:34
  * @sign 40F9CC5E1E30A130DF35A45E1A0D5F1C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -402,6 +402,7 @@ public class OrganizationVO extends Organization {
 	public OrganizationVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta.$$proxy$$();
 		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setFullName(this.getFullName());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -493,6 +494,7 @@ public class OrganizationVO extends Organization {
 		if(map==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(OrganizationVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(OrganizationVOMeta.NOTES)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(OrganizationVOMeta.HIERARCHY)));
 			this.setFullName(DataParser.parse(String.class, map.get(OrganizationVOMeta.FULL_NAME)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(OrganizationVOMeta.UPDATE_TIME)));
@@ -526,6 +528,7 @@ public class OrganizationVO extends Organization {
 		} else {
 			try {
 				this.setCode( (String)map.get(OrganizationVOMeta.CODE));
+				this.setNotes( (String)map.get(OrganizationVOMeta.NOTES));
 				this.setHierarchy( (String)map.get(OrganizationVOMeta.HIERARCHY));
 				this.setFullName( (String)map.get(OrganizationVOMeta.FULL_NAME));
 				this.setUpdateTime( (Date)map.get(OrganizationVOMeta.UPDATE_TIME));
@@ -572,6 +575,7 @@ public class OrganizationVO extends Organization {
 		if(r==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.NOTES)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.HIERARCHY)));
 			this.setFullName(DataParser.parse(String.class, r.getValue(OrganizationVOMeta.FULL_NAME)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(OrganizationVOMeta.UPDATE_TIME)));
@@ -594,6 +598,7 @@ public class OrganizationVO extends Organization {
 		} else {
 			try {
 				this.setCode( (String)r.getValue(OrganizationVOMeta.CODE));
+				this.setNotes( (String)r.getValue(OrganizationVOMeta.NOTES));
 				this.setHierarchy( (String)r.getValue(OrganizationVOMeta.HIERARCHY));
 				this.setFullName( (String)r.getValue(OrganizationVOMeta.FULL_NAME));
 				this.setUpdateTime( (Date)r.getValue(OrganizationVOMeta.UPDATE_TIME));

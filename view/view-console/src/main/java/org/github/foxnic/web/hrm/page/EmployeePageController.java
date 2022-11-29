@@ -1,13 +1,17 @@
 package org.github.foxnic.web.hrm.page;
 
+import com.github.foxnic.api.transter.Result;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.framework.view.controller.ViewController;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
+import org.github.foxnic.web.proxy.pcm.PcmCatalogDelegate;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * <p>
  * 员工表 模版页面控制器
@@ -43,6 +47,9 @@ public class EmployeePageController extends ViewController {
 	 */
 	@RequestMapping("/employee_list.html")
 	public String list(Model model,HttpServletRequest request) {
+		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+		Result<List<CatalogAttribute>> fields= delegate.queryFields();
+		model.addAttribute("extInfoAttrs",fields.data());
 		return prefix+"/employee_list";
 	}
 
@@ -51,6 +58,10 @@ public class EmployeePageController extends ViewController {
 	 */
 	@RequestMapping("/employee_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
+
+		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
+		Result<List<CatalogAttribute>> fields= delegate.queryFields();
+		model.addAttribute("extInfoAttrs",fields.data());
 		return prefix+"/employee_form";
 	}
 

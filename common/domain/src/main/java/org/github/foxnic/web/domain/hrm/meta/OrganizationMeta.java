@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:47:50
- * @sign 54E943D72D5BF01666E9630E108B8E36
+ * @since 2022-11-29 16:26:34
+ * @sign 84CB0470594AFBBCA03B0845AF77B7E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -207,9 +207,19 @@ public class OrganizationMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CODE , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES };
 	
 	/**
 	 * 代理类
@@ -427,6 +437,17 @@ public class OrganizationMeta {
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public Organization setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -444,6 +465,7 @@ public class OrganizationMeta {
 		public Organization duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
 			inst.setHierarchy(this.getHierarchy());
 			inst.setFullName(this.getFullName());
 			inst.setUpdateTime(this.getUpdateTime());

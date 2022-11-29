@@ -58,8 +58,8 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
-//        initHrmModules();
-        initExampleModules();
+        initHrmModules();
+//        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
@@ -149,14 +149,14 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initHrmModules() {
-        this.addConfig(new HrmCompanyConfig());
+//        this.addConfig(new HrmCompanyConfig());
         this.addConfig(new HrmOrgnizationConfig());
-        this.addConfig(new HrmPositionConfig());
-        this.addConfig(new HrmEmployeeConfig());
-        this.addConfig(new HrmEmployeePositionConfig());
-        this.addConfig(new HrmPersonConfig());
-        this.addConfig(new HrmFavouriteGroupConfig());
-        this.addConfig(new HrmFavouriteGroupItemConfig());
+//        this.addConfig(new HrmPositionConfig());
+//        this.addConfig(new HrmEmployeeConfig());
+//        this.addConfig(new HrmEmployeePositionConfig());
+//        this.addConfig(new HrmPersonConfig());
+//        this.addConfig(new HrmFavouriteGroupConfig());
+//        this.addConfig(new HrmFavouriteGroupItemConfig());
 
     }
 

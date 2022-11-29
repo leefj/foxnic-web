@@ -1,10 +1,8 @@
-package org.github.foxnic.web.framework.pcm;
+package org.github.foxnic.web.proxy.pcm;
 
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.pcm.*;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.proxy.pcm.CatalogAttributeServiceProxy;
-import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 
 import java.util.ArrayList;
 import java.util.Arrays;

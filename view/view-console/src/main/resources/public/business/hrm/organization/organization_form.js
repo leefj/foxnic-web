@@ -1,12 +1,13 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:47:52
+ * @since 2022-11-29 16:26:38
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
+	const languageContext='hrm_organization'; 
 	const moduleURL="/service-hrm/hrm-organization";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
