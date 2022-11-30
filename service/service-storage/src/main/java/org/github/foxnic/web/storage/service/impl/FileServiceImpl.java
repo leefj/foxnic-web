@@ -211,7 +211,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 				if (bytes == null) {
 					result = ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
 				} else {
-					DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline);
+					DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline? DownloadUtil.DownloadMode.INLINE: DownloadUtil.DownloadMode.ATTACHMENT);
 				}
 				return;
 			}
