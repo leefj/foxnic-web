@@ -196,7 +196,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 userId = tokenReaderManager.getUserIdByDefaultTokenReader(request);
             }
         } catch (Exception e) {
-            authenticationEntryPoint.commence(request, response, new BadCredentialsException("token read error",e));
+            authenticationEntryPoint.commence(request, response, new BadCredentialsException("Token Read Error",e));
             chain.doFilter(request, response);
             return;
         }

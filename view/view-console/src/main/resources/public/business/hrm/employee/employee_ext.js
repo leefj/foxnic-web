@@ -42,9 +42,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     hide:false,
                     sort: false  ,
                     width:100,
+                    shortField:attr.field,
                     title: fox.translate(attr.shortName) ,
                     templet: function (d) {
-                        return fox.getProperty(d,["extInfo",attr.field],0);
+                        return fox.getProperty(d,["extInfo",d.LAY_COL.shortField],0);
                     }
                 });
 

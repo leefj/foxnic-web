@@ -287,7 +287,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public Result update(Employee employee , SaveMode mode) {
 		Result r=null;
 		Employee dbEmp=this.getById(employee.getId());
-		this.join(dbEmp,Person.class);
+		this.join(dbEmp,Person.class,Position.class);
 		employee.setPersonId(dbEmp.getPersonId());
 		if(employee.getPersonId()!=null) {
 			Person person = dbEmp.getPerson();
@@ -311,20 +311,23 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		delegate.saveData(employee.getId(),empExtInfo);
 
 
-		//岗位
-		List<String> posIds=new ArrayList<>();
+
+		// 如果已经有主岗，且主岗ID未指定，则继续使用原主岗
+		if(dbEmp.getPrimaryPosition()!=null &&  StringUtil.isBlank(employee.getPrimaryPositionId())) {
+			employee.setPrimaryPositionId(dbEmp.getPrimaryPositionId());
+		}
+
+		List<String> posIds = new ArrayList<>();
 		posIds.add(employee.getPrimaryPositionId());
-		if(employee.getVicePositionIds()!=null){
+		if (employee.getVicePositionIds() != null) {
 			for (String posId : employee.getVicePositionIds()) {
-				if(StringUtil.isBlank(posId)) continue;
-				if(posIds.contains(posId)) continue;
+				if (StringUtil.isBlank(posId)) continue;
+				if (posIds.contains(posId)) continue;
 				posIds.add(posId);
 			}
 		}
 		employeePositionService.saveRelation(employee.getId(),posIds);
 		employeePositionService.activePrimaryPosition(employee.getId(),employee.getPrimaryPositionId());
-
-
 
 		return r;
 	}

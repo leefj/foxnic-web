@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.exception;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.web.WebContext;
@@ -91,6 +92,11 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
             Logger.error("登录失败：", e);
 	            result = ErrorDesc.failureMessage("登录失败 : "+e.getMessage());
         }
+
+		if(StringUtil.hasContent(e.getMessage())) {
+			result.message(e.getMessage());
+		}
+
         ResponseUtil.writeOK(response, result);
 	}
 
