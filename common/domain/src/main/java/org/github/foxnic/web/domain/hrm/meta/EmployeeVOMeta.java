@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:31
+ * @since 2022-11-30 09:51:07
  * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -285,6 +285,16 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 类型 , 字典代码：employee_code , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 字典代码：employee_code , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,TYPE, java.lang.String.class, "类型", "字典代码：employee_code", java.lang.String.class, null);
+	
+	/**
 	 * 对应的人员信息 , 类型: org.github.foxnic.web.domain.hrm.Person
 	*/
 	public static final String PERSON="person";
@@ -447,7 +457,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -744,6 +754,17 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		}
 		
 		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public Employee setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
+			return this;
+		}
+		
+		/**
 		 * 设置 对应的人员信息
 		 * @param person 对应的人员信息
 		 * @return 当前对象
@@ -935,6 +956,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		public EmployeeVO duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setUpdateTime(this.getUpdateTime());
+			inst.setType(this.getType());
 			inst.setVersion(this.getVersion());
 			inst.setBadge(this.getBadge());
 			inst.setCompanyId(this.getCompanyId());

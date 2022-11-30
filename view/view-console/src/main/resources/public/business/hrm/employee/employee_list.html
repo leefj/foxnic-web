@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:37
+ * @since 2022-11-30 09:51:07
  */
  -->
  <!DOCTYPE html>
@@ -58,6 +58,11 @@
                         <div id="status" th:data="${dict.toArray('employee_status')}" style="width:140px"></div>
 
 
+                    </div>
+                    <!-- 类型 , type ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label type-label">类型</span><span class="search-colon">:</span></div>
+                        <div id="type" th:data="${dict.toArray('employee_type')}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- extInfo , extInfo ,typeName=text_input, isHideInSearch=true -->
                     <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
@@ -126,8 +131,11 @@
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var RADIO_SEX_DATA = [[${dict.toArray('sex')}]];
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
+    var SELECT_TYPE_DATA = [[${dict.toArray('employee_type')}]];
     var AUTH_PREFIX="hrm_employee";
 
+    // 员工扩展信息
+    var extInfoAttrs = [[${extInfoAttrs}]] ;
     // 员工扩展信息
     var extInfoAttrs = [[${extInfoAttrs}]] ;
 

@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:37
+ * @since 2022-11-30 09:51:07
  */
 
 function FormPage() {
@@ -119,6 +119,32 @@ function FormPage() {
 			});
 			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("status",data,checked);
 		});
+		//渲染 type 下拉字段
+		fox.renderSelectBox({
+			el: "type",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 		form.on('radio(sex)', function(data){
 			var checked=[];
 			$('input[type=radio][lay-filter=sex]:checked').each(function() {
@@ -178,6 +204,8 @@ function FormPage() {
 
 
 
+			//设置  类型 设置下拉框勾选
+			fox.setSelectValue4Dict("#type",formData.type,SELECT_TYPE_DATA);
 
 			//处理fillBy
 			$("#name").val(fox.getProperty(formData,["person","name"]));
@@ -232,6 +260,8 @@ function FormPage() {
 
 
 
+		//获取 类型 下拉框的值
+		data["type"]=fox.getSelectedValue("type",false);
 
 		return data;
 	}

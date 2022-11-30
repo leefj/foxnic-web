@@ -16,8 +16,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:31
- * @sign 7091A6C7D5D07D5619F66CA5A21EFA55
+ * @since 2022-11-30 09:51:07
+ * @sign 99A9295203BF852648A2A8A63AB36F44
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -172,6 +172,16 @@ public class EmployeeMeta {
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	
+	/**
+	 * 类型 , 字典代码：employee_code , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 字典代码：employee_code , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,TYPE, java.lang.String.class, "类型", "字典代码：employee_code", java.lang.String.class, null);
 	
 	/**
 	 * 对应的人员信息 , 类型: org.github.foxnic.web.domain.hrm.Person
@@ -336,7 +346,7 @@ public class EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -508,6 +518,17 @@ public class EmployeeMeta {
 		public Employee setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public Employee setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 		
@@ -703,6 +724,7 @@ public class EmployeeMeta {
 		public Employee duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setUpdateTime(this.getUpdateTime());
+			inst.setType(this.getType());
 			inst.setVersion(this.getVersion());
 			inst.setBadge(this.getBadge());
 			inst.setCompanyId(this.getCompanyId());

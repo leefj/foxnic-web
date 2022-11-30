@@ -111,6 +111,12 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .form().validate().required()
         ;
 
+        view.field(HRM_EMPLOYEE.TYPE)
+                .search().selectMuliti(false).triggerOnSelect(true)
+                .form().selectBox().dict(DictEnum.EMPLOYEE_TYPE)
+        ;
+
+
         view.field(EmployeeVOMeta.PRIMARY_POSITION_ID).basic().label("主岗")
         .form().validate().required()
         .form().button().choosePosition(true)
@@ -139,6 +145,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 personSexField,
                 HRM_EMPLOYEE.BADGE,
                 HRM_EMPLOYEE.STATUS,
+                HRM_EMPLOYEE.TYPE,
                 HRM_EMPLOYEE.PHONE,
                 PersonMeta.IDENTITY,
                 EmployeeVOMeta.PRIMARY_POSITION_ID,

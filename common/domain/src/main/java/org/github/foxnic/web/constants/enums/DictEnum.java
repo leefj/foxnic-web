@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-11-07 09:26:24
+ * @since 2022-11-30 09:46:32
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -83,6 +83,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 员工职称
 	*/
 	HRM_PERSON_EMPLOYEE_TITLE("hrm_person_employee_title" , "员工职称"),
+	
+	/**
+	 * 员工类型
+	*/
+	EMPLOYEE_TYPE("employee_type" , "员工类型"),
 	
 	/**
 	 * 系统配置分类

@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:36
+ * @since 2022-11-30 09:51:07
  */
 
 
@@ -89,6 +89,7 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('人员ID') , templet: function (d) { return templet('personId',d.personId,d);}  }
 					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status,'','status'),d);}}
+					,{ field: 'type', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getDictText(SELECT_TYPE_DATA,d.type,'','type'),d);}}
 					,{ field: 'extInfo', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('extInfo') , templet: function (d) { return templet('extInfo',d.extInfo,d);}  }
 					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true  , title: fox.translate('身份证') , templet: function (d) { return templet('identity',fox.getProperty(d,["person","identity"],0,'','identity'),d);} }
 					,{ field: 'vicePositionIds', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('兼岗') , templet: function (d) { return templet('vicePositionIds',fox.getProperty(d,["vicePositions","fullName"],0,'','vicePositionIds'),d);} }
@@ -146,6 +147,7 @@ function ListPage() {
 		value.phone={ inputType:"button",value: $("#phone").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		value.status={ inputType:"radio_box", value: getSelectedValue("#status","value"), label:getSelectedValue("#status","nameStr") };
+		value.type={ inputType:"select_box", value: getSelectedValue("#type","value"), label:getSelectedValue("#type","nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -206,6 +208,31 @@ function ListPage() {
 				},1);
 			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 type 下拉字段
+		fox.renderSelectBox({
+			el: "type",
+			radio: true,
+			size: "small",
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];

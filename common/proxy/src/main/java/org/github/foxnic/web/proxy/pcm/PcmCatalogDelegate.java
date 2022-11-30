@@ -1,5 +1,6 @@
 package org.github.foxnic.web.proxy.pcm;
 
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.pcm.*;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
@@ -72,6 +73,7 @@ public class PcmCatalogDelegate {
      * 保存单个
      * */
     public Result saveData(String ownerId,Map<String,Object> data) {
+        if(data==null) return ErrorDesc.failure();
         CatalogData catalogData=new CatalogData();
         catalogData.setData(data);
         catalogData.setCatalogId(catalogId);
@@ -84,6 +86,7 @@ public class PcmCatalogDelegate {
      * 保存列表
      * */
     public Result saveData(String ownerId,List<Map<String,Object>> list) {
+        if(list==null || list.isEmpty()) return ErrorDesc.failure();
         List<CatalogData> dataList=new ArrayList<>();
         for (Map<String, Object> map : list) {
             CatalogData catalogData=new CatalogData();

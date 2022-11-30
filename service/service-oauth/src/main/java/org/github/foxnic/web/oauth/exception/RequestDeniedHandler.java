@@ -6,6 +6,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -80,6 +81,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
         } else {
             String script="<script>top."+downloadTag+"('"+ JSON.toJSONString(result) +"');</script>";
             ResponseUtil.writeOK(response, script);
+            DownloadUtil.writeDownloadResult(response,result);
         }
     }
 

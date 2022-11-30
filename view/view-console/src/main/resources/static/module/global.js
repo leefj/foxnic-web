@@ -335,26 +335,21 @@ QueryString = {
 QueryString.initial();
 
 Cookie = {
-	set:function(name,value,seconds) {
+	set:function(name,value,path,seconds) {
 		var expireAt = new Date();
 		expireAt.setTime(expireAt.getTime()+(seconds*1000));
-		var expires = "expires="+d.toGMTString();
-		document.cookie = name + "=" + value + "; " + expires;
+		var expires = "expires="+expireAt.toGMTString();
+		document.cookie = name + "=" + value + ";" + expires+";path="+path;
+
 	},
 	get:function(name) {
-		name = name + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i].trim();
-			if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-		}
+		let arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+		if (arr != null) return unescape(arr[2]);
 		return null;
 	},
-	remove:function(name){
-		var exp = new Date();
-		exp.setTime(exp.getTime() - 1024);
-		var cval = this.get(name);
-		if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+	remove:function(name,path){
+		if(!path) path="/"
+		this.set(name,"",path,-1);
 	}
 }
 

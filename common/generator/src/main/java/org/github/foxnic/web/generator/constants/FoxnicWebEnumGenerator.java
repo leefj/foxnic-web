@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.constants;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.code.JavaClassFile;
+import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.commons.reflect.EnumUtil;
@@ -102,11 +103,17 @@ class DictItemBuilder extends JavaClassFile {
 		code.ln("public enum "+this.getSimpleName()+"  implements CodeTextEnum {");
 
 		for (Rcd r : items) {
-			String name=r.getString(SYS_DICT_ITEM.CODE);
+			String codeValue=r.getString(SYS_DICT_ITEM.CODE);
+			String name=codeValue;
 			name=name.replace('.', '_');
+			Double doubleValue= DataParser.parseDouble(name);
+
+			if(doubleValue!=null) {
+				name="E"+name;
+			}
 			String text=r.getString(SYS_DICT_ITEM.LABEL);
 			addJavaDoc(1,text);
-			code.ln(1,name.trim().toUpperCase()+"(\""+name+"\" , \""+text+"\"),");
+			code.ln(1,name.trim().toUpperCase()+"(\""+codeValue+"\" , \""+text+"\"),");
 		}
 		code.ln(1,";");
 

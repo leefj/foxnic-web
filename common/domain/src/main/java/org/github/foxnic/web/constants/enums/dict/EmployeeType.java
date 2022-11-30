@@ -11,17 +11,27 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum HrmPersonEducation  implements CodeTextEnum {
+public enum EmployeeType  implements CodeTextEnum {
 	
 	/**
-	 * 本科
+	 * 前台员工
 	*/
-	BK("bk" , "本科"),
+	E1("1" , "前台员工"),
+	
+	/**
+	 * 后台员工
+	*/
+	E2("2" , "后台员工"),
+	
+	/**
+	 * 临时员工
+	*/
+	E3("3" , "临时员工"),
 	;
 	
 	private String code;
 	private String text;
-	private HrmPersonEducation(String code,String text)  {
+	private EmployeeType(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -37,7 +47,7 @@ public enum HrmPersonEducation  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static HrmPersonEducation parseByCode(String code) {
-		return (HrmPersonEducation) EnumUtil.parseByCode(HrmPersonEducation.values(),code);
+	public static EmployeeType parseByCode(String code) {
+		return (EmployeeType) EnumUtil.parseByCode(EmployeeType.values(),code);
 	}
 }

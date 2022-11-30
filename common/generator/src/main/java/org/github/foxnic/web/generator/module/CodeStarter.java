@@ -10,7 +10,7 @@ import org.github.foxnic.web.generator.module.changes.ChsChangeDefinitionConfig;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.ExampleAddressConfig;
 import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
-import org.github.foxnic.web.generator.module.hrm.*;
+import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
@@ -150,9 +150,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initHrmModules() {
 //        this.addConfig(new HrmCompanyConfig());
-        this.addConfig(new HrmOrgnizationConfig());
+//        this.addConfig(new HrmOrgnizationConfig());
 //        this.addConfig(new HrmPositionConfig());
-//        this.addConfig(new HrmEmployeeConfig());
+        this.addConfig(new HrmEmployeeConfig());
 //        this.addConfig(new HrmEmployeePositionConfig());
 //        this.addConfig(new HrmPersonConfig());
 //        this.addConfig(new HrmFavouriteGroupConfig());

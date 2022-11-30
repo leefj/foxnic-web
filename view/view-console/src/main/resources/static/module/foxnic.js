@@ -2126,7 +2126,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //添加参数
             if (!params) params = {};
 
-            params.downloadTag=tag;
+            params.$download_tag=tag;
 
             for (var p in params) {
                 var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
@@ -2137,7 +2137,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             var checker = setInterval(function () {
                 var value=Cookie.get(tag);
-                console.log(tag+"="+value);
+                console.log("get :: "+tag+"="+value);
                 // debugger
                 if(value==1) {
                     top.layer.closeAll('loading');

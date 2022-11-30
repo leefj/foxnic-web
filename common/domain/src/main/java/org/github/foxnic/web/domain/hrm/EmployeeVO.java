@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工VO类型
  * <p>员工 , 数据表 hrm_employee 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 15:11:31
+ * @since 2022-11-30 09:51:07
  * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -375,6 +375,7 @@ public class EmployeeVO extends Employee {
 	public EmployeeVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$();
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
 		inst.setVersion(this.getVersion());
 		inst.setBadge(this.getBadge());
 		inst.setCompanyId(this.getCompanyId());
@@ -486,6 +487,7 @@ public class EmployeeVO extends Employee {
 		if(map==null) return false;
 		if(cast) {
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(EmployeeVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeVOMeta.VERSION)));
 			this.setBadge(DataParser.parse(String.class, map.get(EmployeeVOMeta.BADGE)));
 			this.setCompanyId(DataParser.parse(String.class, map.get(EmployeeVOMeta.COMPANY_ID)));
@@ -533,6 +535,7 @@ public class EmployeeVO extends Employee {
 		} else {
 			try {
 				this.setUpdateTime( (Date)map.get(EmployeeVOMeta.UPDATE_TIME));
+				this.setType( (String)map.get(EmployeeVOMeta.TYPE));
 				this.setVersion( (Integer)map.get(EmployeeVOMeta.VERSION));
 				this.setBadge( (String)map.get(EmployeeVOMeta.BADGE));
 				this.setCompanyId( (String)map.get(EmployeeVOMeta.COMPANY_ID));
@@ -593,6 +596,7 @@ public class EmployeeVO extends Employee {
 		if(r==null) return false;
 		if(cast) {
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(EmployeeVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(EmployeeVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(EmployeeVOMeta.VERSION)));
 			this.setBadge(DataParser.parse(String.class, r.getValue(EmployeeVOMeta.BADGE)));
 			this.setCompanyId(DataParser.parse(String.class, r.getValue(EmployeeVOMeta.COMPANY_ID)));
@@ -611,6 +615,7 @@ public class EmployeeVO extends Employee {
 		} else {
 			try {
 				this.setUpdateTime( (Date)r.getValue(EmployeeVOMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(EmployeeVOMeta.TYPE));
 				this.setVersion( (Integer)r.getValue(EmployeeVOMeta.VERSION));
 				this.setBadge( (String)r.getValue(EmployeeVOMeta.BADGE));
 				this.setCompanyId( (String)r.getValue(EmployeeVOMeta.COMPANY_ID));
