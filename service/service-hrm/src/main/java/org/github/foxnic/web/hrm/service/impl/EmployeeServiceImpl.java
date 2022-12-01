@@ -302,13 +302,15 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		// 保存员工扩展信息
 		PcmCatalogDelegate delegate=new PcmCatalogDelegate("649972331808030720");
 		Map<String,Object> empExtInfo=employee.getExtInfo();
-		Result extInfoResult = delegate.queryDataByOwnerId(1,1,employee.getId());
-		JSONArray array=((JSONObject) extInfoResult.data()).getJSONArray("list");
-		if(array.size()>0) {
-			JSONObject extInfo=array.getJSONObject(0);
-			empExtInfo.put("id",extInfo.getString("id"));
+		if(empExtInfo!=null) {
+			Result extInfoResult = delegate.queryDataByOwnerId(1, 1, employee.getId());
+			JSONArray array = ((JSONObject) extInfoResult.data()).getJSONArray("list");
+			if (array.size() > 0) {
+				JSONObject extInfo = array.getJSONObject(0);
+				empExtInfo.put("id", extInfo.getString("id"));
+			}
+			delegate.saveData(employee.getId(), empExtInfo);
 		}
-		delegate.saveData(employee.getId(),empExtInfo);
 
 
 

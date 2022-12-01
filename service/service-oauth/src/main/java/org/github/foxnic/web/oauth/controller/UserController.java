@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.encrypt.Base64Util;
@@ -26,6 +27,7 @@ import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
@@ -33,9 +35,9 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Date;
 import java.util.List;
-import com.github.foxnic.api.swagger.ApiParamSupport;
 
 /**
  * <p>
@@ -56,6 +58,9 @@ public class UserController extends SuperController {
 
     @Autowired
     private SessionCache sessionCache;
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      * 添加账户
@@ -398,5 +403,17 @@ public class UserController extends SuperController {
             pwd = Base64Util.decode(pwd);
         }
         return userService.resetPasswd(userId, adminPwd, pwd);
+    }
+
+    /**
+     * 获得系统默认的登录页地址
+     */
+    @ApiOperation(value = "获得系统默认的登录页地址")
+    @ApiOperationSupport(order = 2)
+    @SentinelResource(value = UserServiceProxy.GET_SYSTEM_LOGIN_PAGE)
+    @PostMapping(UserServiceProxy.GET_SYSTEM_LOGIN_PAGE)
+    public Result<String> getSystemLoginPage() {
+        Result<String> result = new Result<>();
+        return result.success(true).data(securityProperties.getLoginPage());
     }
 }

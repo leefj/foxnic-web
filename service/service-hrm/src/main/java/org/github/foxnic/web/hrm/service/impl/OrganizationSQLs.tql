@@ -33,6 +33,7 @@ UPDATE hrm_organization c, hrm_organization p
 SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id)
 WHERE c.tenant_id=? and p.id=c.parent_id  and c.hierarchy is null and p.hierarchy is not null
 
+// 在达梦数据库时执行该语句
 [update-org-hierarchy-step2:dm]
 UPDATE hrm_organization c SET
 c.hierarchy=CONCAT((select p.hierarchy from  hrm_organization p WHERE p.id=c.parent_id and p.hierarchy is not null),'/',c.id)

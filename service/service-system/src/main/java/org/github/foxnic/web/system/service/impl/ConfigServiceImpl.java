@@ -241,7 +241,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		sample.setCode(code);
 		Config cata = null;
 		for (String appliedProfileId : appliedProfileIds) {
-			if(IConfigService.DEFAULT_PROFILE_ID.equals(appliedProfileId)) continue;
+			// if(IConfigService.DEFAULT_PROFILE_ID.equals(appliedProfileId)) continue;
 			sample.setProfileId(appliedProfileId);
 			cata=this.queryEntity(sample);
 			if(cata!=null && cata.getValue()!=null){
@@ -250,7 +250,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		}
 		//识别未指定 profile 的情况
 		if(cata==null || cata.getValue()==null) {
-			sample.setProfileId(null);
+			sample.setProfileId(IConfigService.DEFAULT_PROFILE_ID);
 			cata = this.queryEntity(sample);
 		}
 		return cata;

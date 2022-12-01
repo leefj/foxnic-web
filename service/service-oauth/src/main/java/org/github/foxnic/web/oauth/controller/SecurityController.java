@@ -1,39 +1,24 @@
 package org.github.foxnic.web.oauth.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.swagger.*;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.github.foxnic.api.swagger.ErrorCode;
+import com.github.foxnic.api.swagger.ErrorCodes;
+import com.github.foxnic.api.swagger.InDoc;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
 import com.github.xiaoymin.knife4j.annotations.DynamicResponseParameters;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.constants.enums.system.MenuType;
-import org.github.foxnic.web.domain.oauth.*;
-import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
-import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
-import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.oauth.service.IMenuService;
-import org.github.foxnic.web.oauth.service.IRoleMenuService;
-import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
+import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
+import org.github.foxnic.web.domain.oauth.TokenModel;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
-import org.github.foxnic.web.session.SessionUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.yaml.snakeyaml.tokens.Token;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,16 +65,15 @@ public class SecurityController {
     }
 
 
-    /**
-     * 账户登出
-     */
-    @ApiOperation(value = "账户登出")
-    @ApiOperationSupport(order = 2)
-    @SentinelResource(value = UserServiceProxy.LOGOUT_URI)
-    @PostMapping(UserServiceProxy.LOGOUT_URI)
-    public Result logout() {
-        return ErrorDesc.success();
-    }
-
+//    /**
+//     * 账户登出
+//     */
+//    @ApiOperation(value = "账户登出")
+//    @ApiOperationSupport(order = 2)
+//    @SentinelResource(value = UserServiceProxy.LOGOUT_URI)
+//    @PostMapping(UserServiceProxy.LOGOUT_URI)
+//    public Result logout() {
+//        return ErrorDesc.success();
+//    }
 
 }

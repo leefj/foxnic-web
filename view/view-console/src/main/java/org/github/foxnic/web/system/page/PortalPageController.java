@@ -52,6 +52,9 @@ public class PortalPageController extends ViewController  {
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
 		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
 		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
+		String loginPageURL= UserServiceProxy.api().getSystemLoginPage().data();
+		Boolean externalPortalEnable= SystemConfigProxyUtil.getBoolean(SystemConfigEnum.SYSTEM_EXTERNAL_PORTAL_ENABLE);
+		String externalPortalLoginURL= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_EXTERNAL_PORTAL_LOGINURL);
 
 		String pages= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_UI_TABLE_PAGELEVELS);
 		if(!StringUtil.isBlank(pages)) {
@@ -66,6 +69,13 @@ public class PortalPageController extends ViewController  {
 
 		model.addAttribute("portalEnable", portalEnable==null?false:portalEnable);
 		model.addAttribute("portalURL", portalURL);
+		model.addAttribute("systemLoginPageURL", loginPageURL);
+
+		model.addAttribute("externalPortalEnable", externalPortalEnable==null?false:externalPortalEnable);
+		model.addAttribute("externalPortalLoginURL", externalPortalLoginURL);
+
+
+
 
 		model.addAttribute("title", title);
 		model.addAttribute("logo", logo);

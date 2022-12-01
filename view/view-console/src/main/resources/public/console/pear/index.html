@@ -41,6 +41,8 @@
 				<div id="control" class="layui-layout-control"></div>
 				<!-- 顶 部 右 侧 菜 单 -->
 				<ul class="layui-nav layui-layout-right">
+					<!-- 返回到外部门户登录页 -->
+					<li th:if="${externalPortalEnable}" class="layui-nav-item layui-hide-xs"><a href="#" class="backExternalPortal layui-icon layui-icon-return"></a></li>
 					<!--  菜单搜索 -->
 					<li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a></li>
 					<!--  全屏 -->
@@ -125,8 +127,11 @@
 			var BASE_DIR="[[${baseDir}]]";
 			var LOGO="[[${logo}]]";
 			var TITLE="[[${title}]]";
+			var SYSTEM_LOGIN_PAGE_URL="[[${systemLoginPageURL}]]";
 			var PORTAL_URL="[[${portalURL}]]";
 			var PORTAL_ENABLE=[[${portalEnable}]];
+			var EXTERNAL_PORTAL_ENABLE=[[${externalPortalEnable}]];
+			var EXTERNAL_PORTAL_LOGIN_URL="[[${externalPortalLoginURL}]]";
 			localStorage.setItem("theme","[[${theme_code}]]");
 			var THEME_CONFIG="[[${theme_config}]]";
 			THEME_CONFIG=JSON.parse(THEME_CONFIG.replace(/&quot;/g,"\""));

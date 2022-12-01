@@ -9,7 +9,6 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -177,8 +176,11 @@ public interface UserServiceProxy {
     /**
      * 获得会话信息
      */
-    @PostMapping(UserServiceProxy.GET_SESSION_USER_URI)
+    @RequestMapping(UserServiceProxy.GET_SESSION_USER_URI)
     Result<SessionUser> getSessionUser(String sessionId);
+
+    @RequestMapping(UserServiceProxy.GET_SYSTEM_LOGIN_PAGE)
+    Result<String> getSystemLoginPage();
 
     /**
      * 控制器类名
@@ -210,6 +212,8 @@ public interface UserServiceProxy {
      * 账户登出
      */
     public static final String LOGOUT_URI = "/security/logout";
+
+    public static final String GET_SYSTEM_LOGIN_PAGE = "/security/get-system-login-page";
 
     /**
      * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

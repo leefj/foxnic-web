@@ -221,6 +221,10 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					key: 'token',
 					remove: true
 				});
+				Cookie.remove("refreshToken");
+				Cookie.remove("accessToken");
+				Cookie.remove("JSESSIONID");
+				Cookie.remove("FOXNIC_JSESSIONID");
 			};
 
 			this.setBaseDir=function (dir) {
@@ -765,27 +769,37 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			};
 
 			this.registerLogout = function() {
+
 				var me=this;
-				function logoutHandler() {
-					var i=layer.confirm(admin.translate('您确定要退出登录吗')+'？', function () {
+				function logoutHandler(cfm) {
+
+					if(cfm===null) cfm=true;
+					var loginPageURL=SYSTEM_LOGIN_PAGE_URL;
+					if(EXTERNAL_PORTAL_ENABLE) {
+						loginPageURL=EXTERNAL_PORTAL_LOGIN_URL;
+					}
+
+					function logoutInternal() {
+						debugger
 						let token = me.getToken();
+						me.removeToken();
 						//let isExistsToken = false;
 						// debugger
 						if (token) {
 							//let accessToken = token.access_token;
-							me.removeToken();
+
 
 							//if (accessToken) {
 							//    isExistsToken = true;
 							me.request('/security/logout', {token:token}, function (data) {
 								if (data.success) {
 									// debugger;
-									location.replace('login.html');
+									location.replace(loginPageURL);
 									//let loginPageUrl = window.location.protocol + '//' + window.location.host + '/login.html';
 									//window.location = config.base_server + 'api-uaa/oauth/remove/token?redirect_uri='+loginPageUrl+'&access_token='+accessToken;
 								} else {
 									//debugger;
-									location.replace('login.html');
+									location.replace(loginPageURL);
 									//layer.msg("登出异常");
 								}
 							}, 'POST');
@@ -793,11 +807,18 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						}
 						else {
 							//debugger;
-							location.replace('login.html');
+							location.replace(loginPageURL);
 						}
-					});
-					admin.translateFixLayuiConfirm(i);
+					};
+
+					if(cfm) {
+						var i = layer.confirm(admin.translate('您确定要退出登录吗') + '？', logoutInternal);
+						admin.translateFixLayuiConfirm(i);
+					} else {
+						logoutInternal();
+					}
 				};
+
 				logout = logoutHandler;
 			}
 
@@ -1185,13 +1206,17 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 		}
 
 		body.on("click", ".logout", function() {
-			if (logout() && bodyTab) {
+			if (logout(true) && bodyTab) {
 				bodyTab.clear();
 			}
 		})
 
 		body.on("click", ".collapse,.pear-cover", function() {
 			collapse();
+		});
+
+		body.on("click", ".backExternalPortal", function () {
+			logout(false);
 		});
 
 		body.on("click", ".menuSearch", function () {

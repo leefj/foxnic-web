@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-11-30 09:46:32
+ * @since 2022-12-01 13:56:51
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -33,6 +33,16 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 创建员工时同步创建账户
 	*/
 	SYSTEM_EMPLOYEE_CREATEUSER("system.employee.createUser" , "创建员工时同步创建账户"),
+	
+	/**
+	 * 是否集成外部门户
+	*/
+	SYSTEM_EXTERNAL_PORTAL_ENABLE("system.external.portal.enable" , "是否集成外部门户"),
+	
+	/**
+	 * 外部门户登录页面地址
+	*/
+	SYSTEM_EXTERNAL_PORTAL_LOGINURL("system.external.portal.loginURL" , "外部门户登录页面地址"),
 	
 	/**
 	 * 网站图标
