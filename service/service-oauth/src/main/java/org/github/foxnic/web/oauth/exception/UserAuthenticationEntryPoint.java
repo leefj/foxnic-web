@@ -7,9 +7,11 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.web.WebContext;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -53,21 +55,29 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 		if(!isEndPoint(uri)) {
 
+			Boolean externalPortalEnable= SystemConfigProxyUtil.getBoolean(SystemConfigEnum.SYSTEM_EXTERNAL_PORTAL_ENABLE);
+			if(externalPortalEnable==null) externalPortalEnable=false;
+			String loginURL=securityProperties.getLoginPage();
+			String externalPortalLoginURL= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_EXTERNAL_PORTAL_LOGINURL);
+			if(externalPortalEnable) {
+				loginURL = externalPortalLoginURL;
+			}
+
 			//如果是静态资源，重定向到登录页
 			if(context.isStaticResource(request)) {
-				response.sendRedirect(securityProperties.getLoginPage());
+				response.sendRedirect(loginURL);
 				return;
 			}
 
 			HandlerMethod hm=context.getHandlerMethod(request);
 			if(hm==null) {
-				response.sendRedirect(securityProperties.getLoginPage());
+				response.sendRedirect(loginURL);
 				return;
 			}
 
 			//如果未返回 Result 则不是 API 接口
 			if(!Result.class.isAssignableFrom(hm.getMethod().getReturnType())) {
-				response.sendRedirect(securityProperties.getLoginPage());
+				response.sendRedirect(loginURL);
 				return;
 			}
 
