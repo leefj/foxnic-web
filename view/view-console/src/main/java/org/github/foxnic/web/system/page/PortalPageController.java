@@ -110,13 +110,19 @@ public class PortalPageController extends ViewController  {
 
 		model.addAttribute("theme_code", theme.code());
 		model.addAttribute("theme_config", themeConfig);
-
+		String indexTemplatePath=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_THEME_INDEXTEMPLATEPATH);
 		if(theme==null) {
 			model.addAttribute("baseDir", "");
-			return prefix+"index";
+			if(StringUtil.isBlank(indexTemplatePath)) {
+				indexTemplatePath="index";
+			}
+			return prefix+indexTemplatePath;
 		} else {
 			model.addAttribute("baseDir", theme.getBaseDir());
-			return theme.getIndexTemplatePath();
+			if(StringUtil.isBlank(indexTemplatePath)) {
+				indexTemplatePath=theme.getIndexTemplatePath();
+			}
+			return indexTemplatePath;
 		}
 	}
 
