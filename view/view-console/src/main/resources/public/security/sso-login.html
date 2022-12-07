@@ -8,7 +8,6 @@
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
-    <link rel="stylesheet" href="/assets/css/login.css" th:href="'/assets/css/login.css?'+${cacheKey}" media="all">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
