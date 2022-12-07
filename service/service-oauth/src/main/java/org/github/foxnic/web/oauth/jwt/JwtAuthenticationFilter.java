@@ -135,8 +135,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 } catch (Exception e) {
                     Logger.exception(e);
                 }
-                // 如果是同一个账户
-                if(userId!=null && user.getUserId().equals(userId.value())) {
+                // 如果是同一个账户同一个语言
+                if(userId!=null && user.getUserId().equals(userId.value()) && userId.language()==languageService.getUserLanguage() ) {
                     if(ssoFormat!=null && ssoFormat==SSOResponseFormat.HTML) {
                         String redirect = request.getParameter(SSOConstants.PARAMETER_REDIRECT_NAME);
                         if (StringUtil.isBlank(redirect)) {
@@ -201,7 +201,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (StringUtil.isBlank(userId)) {
+        if (userId==null || StringUtil.isBlank(userId.value())) {
             if(UserServiceProxy.SSO_LOGIN_URI.equals(request.getRequestURI())) {
                 if (ssoFormat!=null && ssoFormat == SSOResponseFormat.JSON) {
                     responseAsJSON(response, ErrorDesc.failure().message("SSO用户标识无效"));

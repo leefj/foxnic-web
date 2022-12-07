@@ -31,6 +31,11 @@ public class FoxnicTokenReader extends TokenReader {
      * */
     @Override
     public Language readLanguage(HttpServletRequest request) {
-        return Language.zh_cn;
+        String lang=request.getParameter("lang");
+        Language language=Language.parseByCode(lang);
+        if(language==null) {
+            language=Language.zh_cn;
+        }
+        return language;
     }
 }

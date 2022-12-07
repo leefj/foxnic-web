@@ -2,6 +2,13 @@ layui.config({
     base: '/module/'
 }).use(['form','settings'], function () {
 
+    console.log("LANGUAGES",LANGUAGES)
+    console.log("USER_LANGUAGE_PROP",USER_LANGUAGE_PROP)
+    console.log("USER_LANGUAGE_CODE",USER_LANGUAGE_CODE)
+    console.log("LANGUAGE_RANGE",LANGUAGE_RANGE)
+
+
+
     let $ = layui.jquery;
     let config = layui.settings;
 
@@ -17,13 +24,16 @@ layui.config({
     if(!localLangProp || localLangProp=='undefined') localLangProp="defaults";
     // 初始化
     if(localLangProp && localLangProp!=USER_LANGUAGE_PROP) {
+        debugger
         for (var i=0;i<LANGUAGES.length;i++) {
-            if(LANGUAGES[i].property==localLangProp) {
+            if(LANGUAGES[i].property==USER_LANGUAGE_PROP) {
                 localLangCode=LANGUAGES[i].code;
+                localLangProp=LANGUAGES[i].property;
             }
         }
         if(!localLangCode) {
             localLangCode="defaults";
+            localLangProp="defaults";
         }
         switchLanguage(localLangCode,localLangProp);
     }
@@ -73,6 +83,7 @@ layui.config({
                 cb();
                 logger.info("sso","language loaded")
                 location.replace(REDIRECT);
+                // alert("REDIRECT = "+REDIRECT)
             }
         });
     }
