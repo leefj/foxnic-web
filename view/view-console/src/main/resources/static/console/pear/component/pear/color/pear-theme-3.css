@@ -74,6 +74,8 @@ xm-select  {
 
 button[action-type] {
     color: #fff;
+    padding: 0px 8px 0px 8px;
+    overflow: hidden;
 }
 
 .layui-tab-title .layui-this {
