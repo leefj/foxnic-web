@@ -422,11 +422,19 @@ function ListPage() {
 				where: ps,
 				cols: [[
 					{type:'numbers'},
-					{type:'checkbox'}
-					,{ field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员','','emp-dialog') ,
+					{type:'checkbox'},
+					{ field: '工号', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('工号','','emp-dialog') ,
 						templet: function (d) {
-						return "<span id='emp-name-"+d.id+"'>"+templet('name',fox.getProperty(d,["person","name"]),d)+"</span>";
-					 } }
+							return "<span id='emp-badge-"+d.id+"'>"+templet('badge',d.badge)+"</span>";
+						}
+					},
+					{
+						field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员','','emp-dialog') ,
+						templet: function (d) {
+							return "<span id='emp-name-"+d.id+"'>"+templet('name',fox.getProperty(d,["person","name"]),d)+"</span>";
+					 	}
+					 }
+
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 				]],
 				page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -472,8 +480,10 @@ function ListPage() {
 	function refreshEmployeeTableData(sortField,sortType) {
 		var value = {};
 		value.name={ value: $("#emp-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"",fillBy:["person","name"]};
+		value.badge={ value: $("#emp-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:""};
 		var ps={searchField:"$composite"};
 		ps.searchValue=JSON.stringify(value);
+		ps.queryLogic="or";
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;

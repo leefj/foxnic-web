@@ -1,20 +1,17 @@
 package org.github.foxnic.web.domain.hrm;
 
+import com.github.foxnic.api.model.CompositeParameter;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.dao.entity.Entity;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.data.ExprRcd;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import com.github.foxnic.api.model.CompositeParameter;
-import javax.persistence.Transient;
-import com.github.foxnic.commons.bean.BeanUtil;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.dao.entity.Entity;
-import java.util.Map;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta;
-import com.github.foxnic.commons.lang.DataParser;
-import java.util.Date;
-import com.github.foxnic.sql.data.ExprRcd;
+
+import javax.persistence.Transient;
+import java.util.*;
 
 
 
@@ -22,8 +19,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工VO类型
  * <p>员工 , 数据表 hrm_employee 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-30 09:51:07
- * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
+ * @since 2022-12-08 14:47:35
+ * @sign 08DF5C9A8777D606EC1206E064433E12
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -31,73 +28,85 @@ import com.github.foxnic.sql.data.ExprRcd;
 public class EmployeeVO extends Employee {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 页码
 	*/
 	@ApiModelProperty(required = false,value="页码" , notes = "")
 	private Integer pageIndex;
-	
+
 	/**
 	 * 分页大小
 	*/
 	@ApiModelProperty(required = false,value="分页大小" , notes = "")
 	private Integer pageSize;
-	
+
 	/**
 	 * 搜索字段
 	*/
 	@ApiModelProperty(required = false,value="搜索字段" , notes = "")
 	private String searchField;
-	
+
 	/**
 	 * 模糊搜索字段
 	*/
 	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
 	private String fuzzyField;
-	
+
 	/**
 	 * 搜索的值
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
-	
+
 	/**
 	 * 已修改字段
 	*/
 	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
 	private List<String> dirtyFields;
-	
+
 	/**
 	 * 排序字段
 	*/
 	@ApiModelProperty(required = false,value="排序字段" , notes = "")
 	private String sortField;
-	
+
 	/**
 	 * 排序方式
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
-	
+
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+
+	/**
+	 * 查询逻辑：默认and，可指定 or
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
+
 	/**
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
-	
+
 	/**
 	 * 所属组织ID
 	*/
 	@ApiModelProperty(required = false,value="所属组织ID" , notes = "")
 	private String orgId;
-	
+
 	/**
 	 * 岗位ID
 	*/
 	@ApiModelProperty(required = false,value="岗位ID" , notes = "")
 	private String positionId;
-	
+
 	/**
 	 * 获得 页码<br>
 	 * @return 页码
@@ -105,7 +114,7 @@ public class EmployeeVO extends Employee {
 	public Integer getPageIndex() {
 		return pageIndex;
 	}
-	
+
 	/**
 	 * 设置 页码
 	 * @param pageIndex 页码
@@ -115,7 +124,7 @@ public class EmployeeVO extends Employee {
 		this.pageIndex=pageIndex;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
@@ -123,7 +132,7 @@ public class EmployeeVO extends Employee {
 	public Integer getPageSize() {
 		return pageSize;
 	}
-	
+
 	/**
 	 * 设置 分页大小
 	 * @param pageSize 分页大小
@@ -133,7 +142,7 @@ public class EmployeeVO extends Employee {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 搜索字段<br>
 	 * @return 搜索字段
@@ -141,7 +150,7 @@ public class EmployeeVO extends Employee {
 	public String getSearchField() {
 		return searchField;
 	}
-	
+
 	/**
 	 * 设置 搜索字段
 	 * @param searchField 搜索字段
@@ -151,7 +160,7 @@ public class EmployeeVO extends Employee {
 		this.searchField=searchField;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 模糊搜索字段<br>
 	 * @return 模糊搜索字段
@@ -159,7 +168,7 @@ public class EmployeeVO extends Employee {
 	public String getFuzzyField() {
 		return fuzzyField;
 	}
-	
+
 	/**
 	 * 设置 模糊搜索字段
 	 * @param fuzzyField 模糊搜索字段
@@ -169,7 +178,7 @@ public class EmployeeVO extends Employee {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 搜索的值<br>
 	 * @return 搜索的值
@@ -177,7 +186,7 @@ public class EmployeeVO extends Employee {
 	public String getSearchValue() {
 		return searchValue;
 	}
-	
+
 	/**
 	 * 设置 搜索的值
 	 * @param searchValue 搜索的值
@@ -187,7 +196,7 @@ public class EmployeeVO extends Employee {
 		this.searchValue=searchValue;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 已修改字段<br>
 	 * @return 已修改字段
@@ -195,7 +204,7 @@ public class EmployeeVO extends Employee {
 	public List<String> getDirtyFields() {
 		return dirtyFields;
 	}
-	
+
 	/**
 	 * 设置 已修改字段
 	 * @param dirtyFields 已修改字段
@@ -205,7 +214,7 @@ public class EmployeeVO extends Employee {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 已修改字段
 	 * @param dirtyField 已修改字段
@@ -216,7 +225,7 @@ public class EmployeeVO extends Employee {
 		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
-	
+
 	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
@@ -224,7 +233,7 @@ public class EmployeeVO extends Employee {
 	public String getSortField() {
 		return sortField;
 	}
-	
+
 	/**
 	 * 设置 排序字段
 	 * @param sortField 排序字段
@@ -234,7 +243,7 @@ public class EmployeeVO extends Employee {
 		this.sortField=sortField;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 排序方式<br>
 	 * @return 排序方式
@@ -242,7 +251,7 @@ public class EmployeeVO extends Employee {
 	public String getSortType() {
 		return sortType;
 	}
-	
+
 	/**
 	 * 设置 排序方式
 	 * @param sortType 排序方式
@@ -252,7 +261,45 @@ public class EmployeeVO extends Employee {
 		this.sortType=sortType;
 		return this;
 	}
-	
+
+	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public EmployeeVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public EmployeeVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+
 	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
@@ -261,7 +308,7 @@ public class EmployeeVO extends Employee {
 	public List<String> getIds() {
 		return ids;
 	}
-	
+
 	/**
 	 * 设置 主键清单
 	 * @param ids 主键清单
@@ -271,7 +318,7 @@ public class EmployeeVO extends Employee {
 		this.ids=ids;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 主键清单
 	 * @param id 主键清单
@@ -282,7 +329,7 @@ public class EmployeeVO extends Employee {
 		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所属组织ID<br>
 	 * @return 所属组织ID
@@ -290,7 +337,7 @@ public class EmployeeVO extends Employee {
 	public String getOrgId() {
 		return orgId;
 	}
-	
+
 	/**
 	 * 设置 所属组织ID
 	 * @param orgId 所属组织ID
@@ -300,7 +347,7 @@ public class EmployeeVO extends Employee {
 		this.orgId=orgId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 岗位ID<br>
 	 * @return 岗位ID
@@ -308,7 +355,7 @@ public class EmployeeVO extends Employee {
 	public String getPositionId() {
 		return positionId;
 	}
-	
+
 	/**
 	 * 设置 岗位ID
 	 * @param positionId 岗位ID
@@ -403,7 +450,9 @@ public class EmployeeVO extends Employee {
 			inst.setIdentity(this.getIdentity());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setCompany(this.getCompany());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setId(this.getId());
 			inst.setSex(this.getSex());
 			inst.setPrimaryPositionId(this.getPrimaryPositionId());
@@ -512,7 +561,9 @@ public class EmployeeVO extends Employee {
 			this.setUpdateBy(DataParser.parse(String.class, map.get(EmployeeVOMeta.UPDATE_BY)));
 			this.setIdentity(DataParser.parse(String.class, map.get(EmployeeVOMeta.IDENTITY)));
 			this.setSortField(DataParser.parse(String.class, map.get(EmployeeVOMeta.SORT_FIELD)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(EmployeeVOMeta.DATA_ORIGIN)));
 			this.setCompany(DataParser.parse(Company.class, map.get(EmployeeVOMeta.COMPANY)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(EmployeeVOMeta.QUERY_LOGIC)));
 			this.setId(DataParser.parse(String.class, map.get(EmployeeVOMeta.ID)));
 			this.setSex(DataParser.parse(String.class, map.get(EmployeeVOMeta.SEX)));
 			this.setPrimaryPositionId(DataParser.parse(String.class, map.get(EmployeeVOMeta.PRIMARY_POSITION_ID)));
@@ -560,7 +611,9 @@ public class EmployeeVO extends Employee {
 				this.setUpdateBy( (String)map.get(EmployeeVOMeta.UPDATE_BY));
 				this.setIdentity( (String)map.get(EmployeeVOMeta.IDENTITY));
 				this.setSortField( (String)map.get(EmployeeVOMeta.SORT_FIELD));
+				this.setDataOrigin( (String)map.get(EmployeeVOMeta.DATA_ORIGIN));
 				this.setCompany( (Company)map.get(EmployeeVOMeta.COMPANY));
+				this.setQueryLogic( (String)map.get(EmployeeVOMeta.QUERY_LOGIC));
 				this.setId( (String)map.get(EmployeeVOMeta.ID));
 				this.setSex( (String)map.get(EmployeeVOMeta.SEX));
 				this.setPrimaryPositionId( (String)map.get(EmployeeVOMeta.PRIMARY_POSITION_ID));
