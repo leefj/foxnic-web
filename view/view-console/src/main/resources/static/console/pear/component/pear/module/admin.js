@@ -193,6 +193,73 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				});
 			};
 
+			//图片预览支持
+			window.previewImage = function (obj) {
+				if (window != top) {
+					top.previewImage(obj);
+					return;
+				}
+				//只有明确不允许查看，菜不查看，否则就可以查看
+				if($(obj).attr("can-preview")=="no") return;
+
+				var it = $(obj).parent();
+				//var id=it.attr("id");
+				layer.photos({
+					shade: 0.6,
+					photos: it,
+					anim: 5
+				});
+				return;
+
+				var fileType = it.attr("fileType");
+				if (!fileType.startWith("image/")) {
+					return;
+				}
+				var src = obj.src;
+				//debugger
+				if (src.endWith("?id=undefined") || src.endWith("?id=null") || src.endWith("?id=")) return;
+				if (src.indexOf("no-image") != -1) return;
+				var img = new Image();
+				img.src = obj.src;
+				img.onload = function () {
+					//debugger
+
+					var fullHeight = $(window).height();
+					var fullWidth = $(window).width();
+					var ih = img.height + 50 + 2
+					var iw = img.width;
+					if (ih > fullHeight) {
+						ih = (fullHeight - 50 - 2) * 0.9;
+						iw = (img.width / img.height) * ih;
+					}
+					if (iw > fullWidth) {
+						iw = fullWidth * 0.9;
+						ih = (img.height / img.width) * iw;
+					}
+
+					var height = ih + 50 + 2; //获取图片高度
+					var width = iw; //获取图片宽度
+
+
+					var imgHtml = "<img src='" + obj.src + "' style='width: " + iw + "px;height: " + ih + "px' />";
+					//弹出层
+					layer.open({
+						type: 1,
+						shade: 0.8,
+						offset: 'auto',
+						area: [width + 'px', height + 'px'],
+						shadeClose: true,//点击外围关闭弹窗
+						scrollbar: false,//不现实滚动条
+						title: "图片预览", //不显示标题
+						content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+						cancel: function () {
+							//layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+						}
+					});
+				}
+
+			};
+
 			// 当前登录的用户
 			this.getUser = function () {
 				var u = layui.data(tableName).login_user;
