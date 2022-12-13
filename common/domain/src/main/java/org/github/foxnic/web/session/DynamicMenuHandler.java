@@ -21,7 +21,7 @@ public abstract class DynamicMenuHandler {
                 handler = (DynamicMenuHandler) clz.newInstance();
                 HANDLERS.put(clsName,handler);
             } catch (Exception e) {
-                Logger.exception("创建失败",e);
+                Logger.exception("DynamicMenuHandler "+clsName+" 创建失败，请查看 https://gitee.com/lank/eam/issues/I617XI",e);
             }
         }
         return handler;
