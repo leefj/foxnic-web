@@ -9,11 +9,14 @@ layui.config({
     let form = layui.form;
     let config = layui.settings;
     let dropdown=layui.dropdown;
+    if(!LANGUAGE_RANGE || LANGUAGE_RANGE.length==0) {
+        LANGUAGE_RANGE=["defaults","auto","zh_cn","en_gb","zh_tw"];
+    }
 
-    // debugger
+    debugger
     var localLangProp=config.getLang();
     var localLangCode=null;
-    if(!localLangProp || localLangProp=='undefined') localLangProp="defaults";
+    if(!localLangProp || localLangProp=='undefined') localLangProp="auto";
     // 初始化
     if(localLangProp && localLangProp!=USER_LANGUAGE_PROP) {
         for (var i=0;i<LANGUAGES.length;i++) {
@@ -22,7 +25,7 @@ layui.config({
             }
         }
         if(!localLangCode) {
-            localLangCode="defaults";
+            localLangCode="auto";
         }
         switchLanguage(localLangCode,localLangProp);
         return;
