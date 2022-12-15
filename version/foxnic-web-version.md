@@ -1,4 +1,4 @@
-## 版本：1.3.0.RELEASE ( 2022-06-01 )  Foxnic Version: 1.6.0.RELEASE
+## 版本：1.3.0.RELEASE ( 2022-12-12 )  Foxnic Version: 1.6.0.RELEASE
 ### 新特性
 1、API 文档、数据库表结构文档支持
 2、覆盖的新的代码模版文件
