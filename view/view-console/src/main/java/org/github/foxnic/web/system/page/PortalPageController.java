@@ -165,7 +165,8 @@ public class PortalPageController extends ViewController  {
 
 
 		//
-		return prefix+"login";
+		return prefix+"security/login-style-1";
+//		 return prefix+"login";
 	}
 
 	/**

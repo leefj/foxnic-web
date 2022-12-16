@@ -13,7 +13,7 @@ layui.config({
         LANGUAGE_RANGE=["defaults","auto","zh_cn","en_gb","zh_tw"];
     }
 
-    debugger
+    // debugger
     var localLangProp=config.getLang();
     var localLangCode=null;
     if(!localLangProp || localLangProp=='undefined') localLangProp="auto";
@@ -130,7 +130,7 @@ layui.config({
             userItem=defaultsItem;
         }
 
-        $(".layui-card-header").append('<i class="foxnic-lang" style="float:right">'+userItem.text+'</i>');
+        $(".layui-card-header").append('<i class="foxnic-lang" style="float:right" update-text="1">'+userItem.text+'</i>');
 
 
 
@@ -138,7 +138,10 @@ layui.config({
             elem: '.foxnic-lang'
             ,data: items
             ,click: function(obj){
-                $('.foxnic-lang').text(obj.title);
+                var updateText=$('.foxnic-lang').attr("update-text");
+                if(updateText==1) {
+                    $('.foxnic-lang').text(obj.title);
+                }
                 switchLanguage(obj.code,obj.property);
             }
         });

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8"/>
+    <title th:text="${lang.translate(fullTitle,null,'login')} + ' -' + ${lang.translate('用户登录',null,'login')}">用户登录</title>
+    <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
+    <link rel="stylesheet" href="/assets/css/login.css" th:href="'/assets/css/login.css?'+${cacheKey}" media="all">
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+    <style>
+        #login-panel {
+            width: 300px;
+            border-radius: 16px;
+            position: absolute;
+            background-color: #fff;
+            left: 100px;
+            top: 100px;
+            box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, .15);
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+            padding-top: 20px;
+            opacity:0.0;
+        }
+        .logo {
+           width: 80px;
+           height: auto;
+        }
+        .title {
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            color: #444;
+        }
+        .tool-button {
+            width: 40px;
+            height: 40px;
+            padding: 2px;
+            font-size: 18px;
+            cursor: pointer;
+            background: #FFF;
+            text-align: center;
+            line-height: 40px;
+            margin-bottom: 0px;
+            border-radius: 50%;
+            position: absolute;
+            color: #acacac;
+            right: 24px;
+            bottom: 28px;
+            display: block;
+            -webkit-box-shadow: 0px 1px 20px 0px rgb(0 0 0 / 10%), inset 0px -1px 0px 0px rgb(0 0 0 / 10%);
+            box-shadow: 0px 1px 20px 0px rgb(0 0 0 / 10%), inset 0px -1px 0px 0px rgb(0 0 0 / 10%);
+        }
+        .lang-icon {
+            font-size: 24px;
+        }
+        .lang-icon:hover {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body th:style="'background-image:url('+${bgImage}+');background-repeat:no-repeat;background-size:cover;'">
+
+<div class="login-body">
+    <div id="login-panel" class="layui-form-pane">
+        <img class="logo" src="/assets/images/foxnic.png">
+        <div class="title" th:text="${lang.translate('Foxnic-EAM 资产管理平台',null,'login')}"></div>
+
+        <form class="layui-card-body layui-form layui-form-pane">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
+                <div class="layui-input-block">
+                    <input name="identity" type="text" lay-verify="required" th:placeholder="${lang.translate('账号',null,'login')}" th:value="${loginDefault.account}"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
+                <div class="layui-input-block">
+                    <input name="passwd" type="password" lay-verify="required" th:placeholder="${lang.translate('密码',null,'login')}" th:value="${loginDefault.password}"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon layui-icon-vercode"></i></label>
+                <div class="layui-input-block">
+                    <div class="layui-row inline-block">
+                        <div class="layui-col-xs7">
+                            <input name="captcha" style="width:110px" type="text" lay-verify="required" th:placeholder="${lang.translate('验证码',null,'login')}" class="layui-input"  th:value="${loginDefault.captcha}">
+                            <input name="browserId" type="hidden"/>
+                        </div>
+                        <div class="layui-col-xs5" style="padding-left: 0px;padding-top: 4px">
+                            <img class="login-captcha" src="#" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button lay-filter="login-submit" id="login-submit" class="layui-btn layui-btn-fluid" style="background-color: #f56c6c;" lay-submit th:text="${lang.translate('登 录',null,'login')}">登 录</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="login-footer" style="background-color: rgb(0,0,0,0.0);height: 32px;padding-bottom: 0px">
+    <p><a th:href="${ copyrightLink }" target="_blank" th:text="${ lang.translate(copyrightText,null,'login')}">© 2021 Foxnic-Web 版权所有</a></p>
+</div>
+
+<div class="tool-button foxnic-lang">
+    <i class="layui-icon layui-icon-website lang-icon" update-text="0"></i>
+</div>
+
+<script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
+
+<script th:inline="javascript">
+    var LANGUAGES = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
+    var USER_LANGUAGE_PROP=[[${lang.getUserLanguage().property()}]];
+    var USER_LANGUAGE_CODE=[[${lang.getUserLanguage().code()}]];
+    var LANGUAGE_RANGE = [[${languageRange}]];
+</script>
+<script>
+    localStorage.setItem("theme","[[${theme_code}]]");
+    if(window!=top) top.location="/login.html"
+    layui.config({
+        base: 'module/'
+    }).use(['form','settings','dropdown'], function () {
+        let $ = layui.jquery;
+        var fullHeight=$(window).height();
+        var fullWidth=$(window).width();
+        var formHeight=$("#login-panel").height();
+        var formWidth=$("#login-panel").width();
+        var formTop=(fullHeight-formHeight) * 0.4;
+        var formLeft=(fullWidth-formWidth)/2;
+        $("#login-panel").css("top",formTop+"px");
+        $("#login-panel").css("left",formLeft+"px");
+        // $("#login-panel").css("opacity","0.0");
+        $("#login-panel").css("display","");
+        setTimeout(function (){
+            $("#login-panel").animate({
+                opacity:'1.0'
+            },1000);
+        },16)
+        //debugger
+    });
+
+</script>
+<script type="text/javascript" src="/login.js" th:src="'/login.js?'+${cacheKey}"></script>
+</body>
+</html>
