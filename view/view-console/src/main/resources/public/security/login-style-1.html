@@ -138,21 +138,26 @@
         base: 'module/'
     }).use(['form','settings','dropdown'], function () {
         let $ = layui.jquery;
-        var fullHeight=$(window).height();
-        var fullWidth=$(window).width();
-        var formHeight=$("#login-panel").height();
-        var formWidth=$("#login-panel").width();
-        var formTop=(fullHeight-formHeight) * 0.4;
-        var formLeft=(fullWidth-formWidth)/2;
-        $("#login-panel").css("top",formTop+"px");
-        $("#login-panel").css("left",formLeft+"px");
-        // $("#login-panel").css("opacity","0.0");
+        function updatePosition() {
+            var fullHeight = $(window).height();
+            var fullWidth = $(window).width();
+            var formHeight = $("#login-panel").height();
+            var formWidth = $("#login-panel").width();
+            var formTop = (fullHeight - formHeight) * 0.4;
+            var formLeft = (fullWidth - formWidth) / 2;
+            $("#login-panel").css("top", formTop + "px");
+            $("#login-panel").css("left", formLeft + "px");
+            console.log("resize:"+formTop+","+formLeft);
+        }
+        updatePosition();
         $("#login-panel").css("display","");
         setTimeout(function (){
             $("#login-panel").animate({
                 opacity:'1.0'
             },1000);
         },16)
+
+        $(window).on('resize', updatePosition);
         //debugger
     });
 
