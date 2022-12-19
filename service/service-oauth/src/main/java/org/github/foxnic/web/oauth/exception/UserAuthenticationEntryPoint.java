@@ -84,6 +84,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		}
 
 		Result result;
+		boolean isKnownException=true;
         if (e instanceof UsernameNotFoundException) {
         	 result = ErrorDesc.failure(CommonError.USER_NOT_EXISTS);
         } else if (e instanceof BadCredentialsException) {
@@ -99,11 +100,12 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         } else if(e instanceof InsufficientAuthenticationException) {
         	result = ErrorDesc.failure(CommonError.PERMISSION_REQUIRED);
         } else {
+			isKnownException =false;
             Logger.error("登录失败：", e);
-	            result = ErrorDesc.failureMessage("登录失败 : "+e.getMessage());
+			result = ErrorDesc.failureMessage("登录失败 : "+e.getMessage());
         }
 
-		if(StringUtil.hasContent(e.getMessage())) {
+		if((!isKnownException && StringUtil.hasContent(e.getMessage())) || StringUtil.isBlank(result.message())) {
 			result.message(e.getMessage());
 		}
 
