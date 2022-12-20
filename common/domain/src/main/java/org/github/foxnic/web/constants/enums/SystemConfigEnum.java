@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-12-20 10:49:43
+ * @since 2022-12-20 11:34:58
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -103,6 +103,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 登录信息
 	*/
 	SYSTEM_LOGIN_DEFAULT("system.login.default" , "登录信息"),
+	
+	/**
+	 * 登录页抬头
+	*/
+	SYSTEM_LOGIN_LOGO("system.login.logo" , "登录页抬头"),
 	
 	/**
 	 * 登录页抬头

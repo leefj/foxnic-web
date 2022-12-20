@@ -73,7 +73,7 @@
 
 <div class="login-body">
     <div id="login-panel" class="layui-form-pane">
-        <img class="logo" src="/assets/images/foxnic.png">
+        <img class="logo" th:src="${loginLogo}">
         <div class="title" th:text="${lang.translate(loginTitle,null,'login')}"></div>
 
         <form class="layui-card-body layui-form layui-form-pane">
