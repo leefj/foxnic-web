@@ -135,6 +135,7 @@ public class PortalPageController extends ViewController  {
 		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
 		String bgImage= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_BACKGROUND);
 		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String loginTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
 		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
 		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
@@ -150,6 +151,7 @@ public class PortalPageController extends ViewController  {
 		model.addAttribute("bgImage", bgImage);
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);
+		model.addAttribute("loginTitle", loginTitle);
 		//
 		String copyrightText= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_TEXT);
 		model.addAttribute("copyrightText", copyrightText);
