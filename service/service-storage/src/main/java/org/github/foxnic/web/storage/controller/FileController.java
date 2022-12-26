@@ -93,6 +93,7 @@ public class FileController extends SuperController {
     @GetMapping(FileServiceProxy.DOWNLOAD)
     public void download(HttpServletRequest request, HttpServletResponse response, String id, String inline, String catalog) throws Exception {
         Boolean il = DataParser.parseBoolean(inline);
+        if(il==null) il=false;
         FileCatalog fileCatalog = FileCatalog.parseByCode(catalog);
         if (fileCatalog == null) {
             fileCatalog = FileCatalog.FILE;
