@@ -1002,6 +1002,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				//https://gitee.com/wispx/toastr?_from=gitee_search
 				//debugger;
 				//拦截，并由顶层弹出窗口
+				debugger
 				if(top && top!=window && top.admin) {
 					return top.admin.toast();
 				}
@@ -1018,6 +1019,19 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							layui.toast.success(p);
 						} else if(args.length==1 && TypeUtil.isObject(args[0])) {
 							layui.toast.success(args[0]);
+						}
+					};
+
+					this.error = function () {
+						var args=arguments;
+						if(args.length==2 && TypeUtil.isObject(args[1])) {
+							var p=args[1];
+							p.message=args[0];
+							if(p.position=="right-bottom") p.position="bottomRight"
+							if(p.position=="top-right") p.position="topRight"
+							layui.toast.error(p);
+						} else if(args.length==1 && TypeUtil.isObject(args[0])) {
+							layui.toast.error(args[0]);
 						}
 					}
 
