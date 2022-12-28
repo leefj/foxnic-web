@@ -1,7 +1,7 @@
 
 // 查询与资源相关的菜单
 [resource-related-menus]
-SELECT * from sys_menu where  deleted=0 and #(path_resource_ids) and #(path_resource_ids)
+SELECT * from sys_menu where  deleted=0 and #(path_resource_ids)
 union
 SELECT m.* from sys_menu m join sys_menu_resource mr on m.id=mr.menu_id  where m.deleted=0 and mr.deleted=0 and #(resource_ids)
 

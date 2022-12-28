@@ -17,10 +17,10 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
+import com.github.foxnic.sql.expr.SQLTpl;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_ORGANIZATION;
@@ -513,8 +513,8 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			ce.and("type=?",targetType);
 		}
 
-		Template template= dao.getTemplate("#query-descendants-orgs");
-		template.put("descendants_condition",ce);
+		SQLTpl template= dao.getTemplate("#query-descendants-orgs");
+		template.putVar("descendants_condition",ce);
 		//查询所有子孙节点
 		RcdSet descendantRs=dao().query(template);
 		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);

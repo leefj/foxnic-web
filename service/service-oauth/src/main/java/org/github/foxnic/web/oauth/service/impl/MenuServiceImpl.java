@@ -16,9 +16,9 @@ import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.relation.cache.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.In;
+import com.github.foxnic.sql.expr.SQLTpl;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
@@ -377,9 +377,10 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		In pathResourceIds=new In(SYS_MENU.PATH_RESOURCE_ID,resourzeIds);
 		In resourceIds=new In(FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,resourzeIds);
 		//模版渲染
-		Template template=dao().getTemplate("#resource-related-menus",1,2)
-				.put("path_resource_ids",pathResourceIds)
-				.put("resource_ids",resourceIds).build();
+		SQLTpl template=dao().getTemplate("#resource-related-menus")
+				.setParameters(1,2)
+				.putVar("path_resource_ids",pathResourceIds)
+				.putVar("resource_ids",resourceIds);
 		//执行
 		List<Menu> menus=dao().queryEntities(Menu.class,template);
 		//关联所有上级菜单
@@ -421,8 +422,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			ce.or(SYS_MENU.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
 		}
 		ce.startWithSpace();
-		Template template= dao.getTemplate("#query-descendants-menus",roleId);
-		template.put("descendants_condition",ce);
+		SQLTpl template= dao.getTemplate("#query-descendants-menus");
+		template.setParameters(roleId);
+		template.putVar("descendants_condition",ce);
 		//查询所有子孙节点
 		RcdSet descendantRs=dao().query(template);
 		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
