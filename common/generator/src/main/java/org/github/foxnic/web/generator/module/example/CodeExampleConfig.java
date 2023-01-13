@@ -200,14 +200,12 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	public void configOverrides() {
 		//文件生成覆盖模式
 		context.overrides()
-			//请勿覆盖，已有代码加入！！！！！
 			.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
 			.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 			.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
 			.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
 			.setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
-			.setExtendJsFile(WriteMode.CREATE_IF_NOT_EXISTS);
-
+			.setExtendJsFile(WriteMode.CREATE_IF_NOT_EXISTS); // 扩展文件
 	}
 
 	@Override
@@ -274,13 +272,18 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
-//		view.formWindow().width(12);
+		//formWindow.width("120px");
+		//formWindow.bottomSpace(263);
+
 
 //		configFormLayoutA(view,form);
 
 //		configFormLayoutB(view,form);
 
 //		configFormLayoutC(view,form);
+
+
+
 
 		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.language.Language')}]]","表单测试变量");
 
@@ -403,7 +406,6 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				new Object[]{TABLE.RADIO_ENUM,TABLE.RADIO_DICT,TABLE.CHECK_ENUM,TABLE.SELECT_DICT},
 				new Object[]{TABLE.BIRTHDAY,TABLE.SELECT_ENUM}
 		);
-
 		//搜索框显示的行数,默认2
 		search.rowsDisplay(3);
 		//设置各个列的搜索输入框的标签宽度
@@ -417,7 +419,6 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		view.field(TABLE.BIRTHDAY).search().inputWidth(180);
 		view.field(TABLE.SELECT_ENUM).search().labelWidth(100);
 		view.field(TABLE.AREA).search().inputWidth(67);
-
 	}
 
 
