@@ -190,8 +190,8 @@
 
     <button th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('删除')}">删除</span></button>
 
-    <button class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-action" data-id="{{d.id}}"><span th:text="${lang.translate('测试')}">测试</span></button>
-    <button class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-action" data-id="{{d.id}}"><span th:text="${lang.translate('测试')}">测试</span></button>
+    <button class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-notExistAction" data-id="{{d.id}}"><span th:text="${lang.translate('测试')}">测试</span></button>
+    <button class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-notExistAction" data-id="{{d.id}}"><span th:text="${lang.translate('测试')}">测试</span></button>
 
     <button class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more" data-id="{{d.id}}"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></button>
 </script>

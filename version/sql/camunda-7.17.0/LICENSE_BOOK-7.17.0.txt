@@ -19,26 +19,26 @@ The Libraries used within the Camunda Platform v7.17 are published under the fol
 * Apache 2.0
 * bpmn.io
 * BSD-3-Clause
-* CCA 
-* CC0 
+* CCA
+* CC0
 * CDDL 1.1
 * EDL 1.0
-* EPL 1.0 
-* EPL 2.0 
+* EPL 1.0
+* EPL 2.0
 * ISC
-* LGPL 2.1 
+* LGPL 2.1
 * MIT
-* OFL 
+* OFL
 * Unicode
 * UPL
 
 GNU Lesser/Library General Public License LGPL (any version)
-Where the Camunda Platform binaries contain components licensed under any version of LGPL, that licence allows you to extract the object code of the LGPL component from the binary as distributed by us (this is normally distributed as a compressed .tar.gz file which contains a number of files, such as .jar files which are themselves archives containing further components, all of which can be extracted using commonly available tools such as gzip). Using the source code of the library (which we will provide on request, or you can download it from the location specified in this license book), you can make modifications or bug fixes to the library, recompile the library (again, using commonly available tools) and replace the binary of the library you extracted with the recompiled object code. Full details of this process are available on request. This will enable you to modify any LGPL-licensed library and re-integrate that modified library into the Camunda Platform binaries (accepting that this will only work provided you have not broken the library or the interface). 
+Where the Camunda Platform binaries contain components licensed under any version of LGPL, that licence allows you to extract the object code of the LGPL component from the binary as distributed by us (this is normally distributed as a compressed .tar.gz file which contains a number of files, such as .jar files which are themselves archives containing further components, all of which can be extracted using commonly available tools such as gzip). Using the source code of the library (which we will provide on request, or you can download it from the location specified in this license book), you can make modifications or bug fixes to the library, recompile the library (again, using commonly available tools) and replace the binary of the library you extracted with the recompiled object code. Full details of this process are available on request. This will enable you to modify any LGPL-licensed library and re-integrate that modified library into the Camunda Platform binaries (accepting that this will only work provided you have not broken the library or the interface).
 
 ===========================================================================================
 
 Apache 2.0
-The following license text for the Apache 2.0 license is cited only once. 
+The following license text for the Apache 2.0 license is cited only once.
 
 Apache License
 Version 2.0, January 2004
@@ -74,7 +74,7 @@ END OF TERMS AND CONDITIONS
 ===========================================================================================
 
 Bpmn.io License (bpmn.io)
-The following license text for the BSD-3-Clause license is cited only once. 
+The following license text for the BSD-3-Clause license is cited only once.
 bpmn.io License
 Copyright (c) 2014-present camunda Services GmbH
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -85,7 +85,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ===========================================================================================
 
 BSD-3-Clause
-The following license text for the BSD-3-Clause license is cited only once. 
+The following license text for the BSD-3-Clause license is cited only once.
 
 BSD-3-Clause
 Copyright <YEAR> <COPYRIGHT HOLDER>
@@ -98,7 +98,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 ===========================================================================================
 
 Creative Commons Attribution 2.5 (CCA)
-The following license text for the Creative Commons Attribution 2.5. license is cited only once. All 
+The following license text for the Creative Commons Attribution 2.5. license is cited only once. All
 Creative Commons Attribution 2.5
 THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
 BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.
@@ -132,14 +132,14 @@ Subject to the above terms and conditions, the license granted here is perpetual
 8. Miscellaneous
 Each time You distribute or publicly digitally perform the Work or a Collective Work, the Licensor offers to the recipient a license to the Work on the same terms and conditions as the license granted to You under this License.
 Each time You distribute or publicly digitally perform a Derivative Work, Licensor offers to the recipient a license to the original Work on the same terms and conditions as the license granted to You under this License.
-If any provision of this License is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this License, and without further action by the parties to this agreement, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
+If any provision of this License is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this License, and without further notExistAction by the parties to this agreement, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
 No term or provision of this License shall be deemed waived and no breach consented to unless such waiver or consent shall be in writing and signed by the party to be charged with such waiver or consent.
 This License constitutes the entire agreement between the parties with respect to the Work licensed here. There are no understandings, agreements or representations with respect to the Work not specified here. Licensor shall not be bound by any additional provisions that may appear in any communication from You. This License may not be modified without the mutual written agreement of the Licensor and You.
 
 ===========================================================================================
 
 CC0 1.0 Universal (CC0)
-The following license text for the CCO 1.0 Universal license is cited only once. 
+The following license text for the CCO 1.0 Universal license is cited only once.
 
 CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED HEREUNDER, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED HEREUNDER.
 Statement of Purpose
@@ -154,8 +154,8 @@ iv.	rights protecting against unfair competition in regards to a Work, subject t
 v.	rights protecting the extraction, dissemination, use and reuse of data in a Work;
 vi.	database rights (such as those arising under Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, and under any national implementation thereof, including any amended or successor version of such directive); and
 vii.	other similar, equivalent or corresponding rights throughout the world based on applicable law or treaty, and any national implementations thereof.
-2. Waiver. To the greatest extent permitted by, but not in contravention of, applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and unconditionally waives, abandons, and surrenders all of Affirmer's Copyright and Related Rights and associated claims and causes of action, whether now known or unknown (including existing as well as future claims and causes of action), in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "Waiver"). Affirmer makes the Waiver for the benefit of each member of the public at large and to the detriment of Affirmer's heirs and successors, fully intending that such Waiver shall not be subject to revocation, rescission, cancellation, termination, or any other legal or equitable action to disrupt the quiet enjoyment of the Work by the public as contemplated by Affirmer's express Statement of Purpose.
-3. Public License Fallback. Should any part of the Waiver for any reason be judged legally invalid or ineffective under applicable law, then the Waiver shall be preserved to the maximum extent permitted taking into account Affirmer's express Statement of Purpose. In addition, to the extent the Waiver is so judged Affirmer hereby grants to each affected person a royalty-free, non transferable, non sublicensable, non exclusive, irrevocable and unconditional license to exercise Affirmer's Copyright and Related Rights in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "License"). The License shall be deemed effective as of the date CC0 was applied by Affirmer to the Work. Should any part of the License for any reason be judged legally invalid or ineffective under applicable law, such partial invalidity or ineffectiveness shall not invalidate the remainder of the License, and in such case Affirmer hereby affirms that he or she will not (i) exercise any of his or her remaining Copyright and Related Rights in the Work or (ii) assert any associated claims and causes of action with respect to the Work, in either case contrary to Affirmer's express Statement of Purpose.
+2. Waiver. To the greatest extent permitted by, but not in contravention of, applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and unconditionally waives, abandons, and surrenders all of Affirmer's Copyright and Related Rights and associated claims and causes of notExistAction, whether now known or unknown (including existing as well as future claims and causes of notExistAction), in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "Waiver"). Affirmer makes the Waiver for the benefit of each member of the public at large and to the detriment of Affirmer's heirs and successors, fully intending that such Waiver shall not be subject to revocation, rescission, cancellation, termination, or any other legal or equitable notExistAction to disrupt the quiet enjoyment of the Work by the public as contemplated by Affirmer's express Statement of Purpose.
+3. Public License Fallback. Should any part of the Waiver for any reason be judged legally invalid or ineffective under applicable law, then the Waiver shall be preserved to the maximum extent permitted taking into account Affirmer's express Statement of Purpose. In addition, to the extent the Waiver is so judged Affirmer hereby grants to each affected person a royalty-free, non transferable, non sublicensable, non exclusive, irrevocable and unconditional license to exercise Affirmer's Copyright and Related Rights in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "License"). The License shall be deemed effective as of the date CC0 was applied by Affirmer to the Work. Should any part of the License for any reason be judged legally invalid or ineffective under applicable law, such partial invalidity or ineffectiveness shall not invalidate the remainder of the License, and in such case Affirmer hereby affirms that he or she will not (i) exercise any of his or her remaining Copyright and Related Rights in the Work or (ii) assert any associated claims and causes of notExistAction with respect to the Work, in either case contrary to Affirmer's express Statement of Purpose.
 4. Limitations and Disclaimers.
 a.	No trademark or patent rights held by Affirmer are waived, abandoned, surrendered, licensed or otherwise affected by this document.
 b.	Affirmer offers the Work as-is and makes no representations or warranties of any kind concerning the Work, express, implied, statutory or otherwise, including without limitation warranties of title, merchantability, fitness for a particular purpose, non infringement, or the absence of latent or other defects, accuracy, or the present or absence of errors, whether or not discoverable, all to the greatest extent permissible under applicable law.
@@ -165,7 +165,7 @@ d.	Affirmer understands and acknowledges that Creative Commons is not a party to
 ===========================================================================================
 
 Common development and distribution License Version 1.1 (CDDL 1.1)
-The following license text for the CDDL 1.1 license is cited only once. 
+The following license text for the CDDL 1.1 license is cited only once.
 
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.1
 
@@ -551,11 +551,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ===========================================================================================
 
-Eclipse Public License – v 1.0 (EPL 1.0) 
-The following license text for the EPL 1.0 is cited only once. 
+Eclipse Public License – v 1.0 (EPL 1.0)
+The following license text for the EPL 1.0 is cited only once.
 
 
-Eclipse Public License - v 1.0 
+Eclipse Public License - v 1.0
 THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC LICENSE ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
 1. DEFINITIONS
 "Contribution" means:
@@ -594,16 +594,16 @@ EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS PROVIDED ON AN "
 6. DISCLAIMER OF LIABILITY
 EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 7. GENERAL
-If any provision of this Agreement is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this Agreement, and without further action by the parties hereto, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
+If any provision of this Agreement is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this Agreement, and without further notExistAction by the parties hereto, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
 If Recipient institutes patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Program itself (excluding combinations of the Program with other software or hardware) infringes such Recipient's patent(s), then such Recipient's rights granted under Section 2(b) shall terminate as of the date such litigation is filed.
 All Recipient's rights under this Agreement shall terminate if it fails to comply with any of the material terms or conditions of this Agreement and does not cure such failure in a reasonable period of time after becoming aware of such noncompliance. If all Recipient's rights under this Agreement terminate, Recipient agrees to cease use and distribution of the Program as soon as reasonably practicable. However, Recipient's obligations under this Agreement and any licenses granted by Recipient relating to the Program shall continue and survive.
 Everyone is permitted to copy and distribute copies of this Agreement, but in order to avoid inconsistency the Agreement is copyrighted and may only be modified in the following manner. The Agreement Steward reserves the right to publish new versions (including revisions) of this Agreement from time to time. No one other than the Agreement Steward has the right to modify this Agreement. The Eclipse Foundation is the initial Agreement Steward. The Eclipse Foundation may assign the responsibility to serve as the Agreement Steward to a suitable separate entity. Each new version of the Agreement will be given a distinguishing version number. The Program (including Contributions) may always be distributed subject to the version of the Agreement under which it was received. In addition, after a new version of the Agreement is published, Contributor may elect to distribute the Program (including its Contributions) under the new version. Except as expressly stated in Sections 2(a) and 2(b) above, Recipient receives no rights or licenses to the intellectual property of any Contributor under this Agreement, whether expressly, by implication, estoppel or otherwise. All rights in the Program not expressly granted under this Agreement are reserved.
-This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal action under this Agreement more than one year after the cause of action arose. Each party waives its rights to a jury trial in any resulting litigation.
+This Agreement is governed by the laws of the State of New York and the intellectual property laws of the United States of America. No party to this Agreement will bring a legal notExistAction under this Agreement more than one year after the cause of notExistAction arose. Each party waives its rights to a jury trial in any resulting litigation.
 
 ===========================================================================================
 
-Eclipse Public License – v 2.0 (EPL 2.0) 
-The following license text for the EPL 2.0 is cited only once. 
+Eclipse Public License – v 2.0 (EPL 2.0)
+The following license text for the EPL 2.0 is cited only once.
 
 Eclipse Public License - v 2.0
 THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC LICENSE (“AGREEMENT”). ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
@@ -649,7 +649,7 @@ EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, AND TO THE EXTENT PERMITTED BY 
 6. DISCLAIMER OF LIABILITY
 EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, AND TO THE EXTENT PERMITTED BY APPLICABLE LAW, NEITHER RECIPIENT NOR ANY CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 7. GENERAL
-If any provision of this Agreement is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this Agreement, and without further action by the parties hereto, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
+If any provision of this Agreement is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this Agreement, and without further notExistAction by the parties hereto, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.
 If Recipient institutes patent litigation against any entity (including a cross-claim or counterclaim in a lawsuit) alleging that the Program itself (excluding combinations of the Program with other software or hardware) infringes such Recipient's patent(s), then such Recipient's rights granted under Section 2(b) shall terminate as of the date such litigation is filed.
 All Recipient's rights under this Agreement shall terminate if it fails to comply with any of the material terms or conditions of this Agreement and does not cure such failure in a reasonable period of time after becoming aware of such noncompliance. If all Recipient's rights under this Agreement terminate, Recipient agrees to cease use and distribution of the Program as soon as reasonably practicable. However, Recipient's obligations under this Agreement and any licenses granted by Recipient relating to the Program shall continue and survive.
 Everyone is permitted to copy and distribute copies of this Agreement, but in order to avoid inconsistency the Agreement is copyrighted and may only be modified in the following manner. The Agreement Steward reserves the right to publish new versions (including revisions) of this Agreement from time to time. No one other than the Agreement Steward has the right to modify this Agreement. The Eclipse Foundation is the initial Agreement Steward. The Eclipse Foundation may assign the responsibility to serve as the Agreement Steward to a suitable separate entity. Each new version of the Agreement will be given a distinguishing version number. The Program (including Contributions) may always be Distributed subject to the version of the Agreement under which it was received. In addition, after a new version of the Agreement is published, Contributor may elect to Distribute the Program (including its Contributions) under the new version.
@@ -663,7 +663,7 @@ You may add additional accurate notices of copyright ownership.
 ===========================================================================================
 
 ISC License (ISC)
-The following license text for the ISC License (ISC) is cited only once. 
+The following license text for the ISC License (ISC) is cited only once.
 
 ISC License (ISC)
 Copyright <YEAR> <OWNER>
@@ -673,7 +673,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 ===========================================================================================
 
 GNU Lesser General Public License, Version 2.1  (LGPL 2.1)
-The following license text for the LGPL 2.1 is cited only once. 
+The following license text for the LGPL 2.1 is cited only once.
 
 GNU LESSER GENERAL PUBLIC LICENSE
 Version 2.1, February 1999
@@ -759,7 +759,7 @@ END OF TERMS AND CONDITIONS
 ===========================================================================================
 
 MIT license (MIT)
-The following license text for the MIT license (MIT) is cited only once. 
+The following license text for the MIT license (MIT) is cited only once.
 The MIT License
 SPDX short identifier: MIT
 Copyright <YEAR> <COPYRIGHT HOLDER>
@@ -770,7 +770,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ===========================================================================================
 
 SIL Open Font License, Version 1.1 (OFL)
-The following license text for the OFL is cited only once. 
+The following license text for the OFL is cited only once.
 
 SIL OPEN FONT LICENSE
 Version 1.1 - 26 February 2007
@@ -847,7 +847,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 Unicode
 
-The following license text for the Unicode-DFS-2016 License is cited only once. 
+The following license text for the Unicode-DFS-2016 License is cited only once.
 
 UNICODE, INC. LICENSE AGREEMENT - DATA FILES AND SOFTWARE
 
@@ -900,7 +900,7 @@ written authorization of the copyright holder.
 
 Universal Permissive License (UPL), Version 1.0
 
-The following license text for the UPL is cited only once. 
+The following license text for the UPL is cited only once.
 
 Copyright (c) <year> <copyright holders>
 
@@ -955,7 +955,7 @@ Licensed under Apache 2.0
 ===========================================================================================
 com.fasterxml.jackson.dataformat:jackson-dataformat-csv:jar:2.13.1
 https://github.com/FasterXML/jackson-dataformats-text
-Copyright (c) Tatu Saloranta, tatu.saloranta@iki.fi 
+Copyright (c) Tatu Saloranta, tatu.saloranta@iki.fi
 Licensed under Apache 2.0
 
 ===========================================================================================
@@ -1021,7 +1021,7 @@ Licensed under Apache 2.0
 ===========================================================================================
 com.fasterxml:classmate:jar:1.5.1
 https://github.com/FasterXML/java-classmate
-Copyright: various authors (https://github.com/FasterXML/java-classmate/blob/master/VERSION.txt)						
+Copyright: various authors (https://github.com/FasterXML/java-classmate/blob/master/VERSION.txt)
 Licensed under Apache 2.0
 
 ===========================================================================================
@@ -1161,7 +1161,7 @@ Apache Commons Logging
 Copyright 2003-2016 The Apache Software Foundation
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
-Copyright 2003-2016 The Apache Software Foundation												
+Copyright 2003-2016 The Apache Software Foundation
 ====================================================================
 Licensed under Apache 2.0
 
@@ -1186,8 +1186,8 @@ Licensed under Apache 2.0
 ===========================================================================================
 jakarta.activation:jakarta.activation-api:jar:1.2.2
 https://github.com/eclipse-ee4j/jaf
-Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.										
-Notice file: 
+Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+Notice file:
 ==================================================================
 # Notices for Jakarta Activation
 This content is produced and maintained by Jakarta Activation project.
@@ -1208,7 +1208,7 @@ The project maintains the following source code repositories:
 This project leverages the following third party content.
 JUnit (4.12)
 * License: Eclipse Public License
-====================================================================										
+====================================================================
 Licensed under BSD-3-Clause
 
 ===========================================================================================
@@ -1235,8 +1235,8 @@ The project maintains the following source code repositories:
 This project leverages the following third party content.
 JUnit (4.12)
 * License: Eclipse Public License
-====================================================================	
-Copyright (C) Oracle and/or its affiliates. All rights reserved.																							
+====================================================================
+Copyright (C) Oracle and/or its affiliates. All rights reserved.
 Licensed under EPL 2.0
 
 ===========================================================================================
@@ -1269,8 +1269,8 @@ The project maintains the following source code repositories:
 This project leverages the following third party content.
 JUnit (4.12)
 * License: Eclipse Public License
-====================================================================	
-Copyright (C) Oracle and/or its affiliates. All rights reserved.																								
+====================================================================
+Copyright (C) Oracle and/or its affiliates. All rights reserved.
 Licensed under EPL 2.0
 
 ===========================================================================================
@@ -1284,7 +1284,7 @@ Licensed under EDL 1.0
 ===========================================================================================
 joda-time:joda-time:jar:2.1
 https://github.com/JodaOrg/joda-time
-Notice file: 
+Notice file:
 =============================================================================
 = NOTICE file corresponding to section 4d of the Apache License Version 2.0 =
 =============================================================================
@@ -1476,13 +1476,13 @@ Licensed under EPL-2.0
 ===========================================================================================
 org.glassfish.jersey.containers:jersey-container-servlet-core:jar:2.34
 https://github.com/eclipse-ee4j/jersey/tree/master/containers/jersey-servlet-core
-Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved  
+Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved
 Licensed under EPL-2.0
 
 ===========================================================================================
 org.glassfish.jersey.containers:jersey-container-servlet:jar:2.34
 https://github.com/eclipse-ee4j/jersey/tree/master/containers/jersey-servlet
-Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved 
+Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved
 Licensed under EPL-2.0
 
 ===========================================================================================
@@ -1494,7 +1494,7 @@ Licensed under EPL-2.0
 ===========================================================================================
 org.glassfish.jersey.core:jersey-common:jar:2.34
 https://github.com/eclipse-ee4j/jersey/tree/master/core-common
-Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved  
+Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved
 Licensed under EPL-2.0
 
 ===========================================================================================
@@ -1567,7 +1567,7 @@ org.graalvm.sdk:graal-sdk:jar:21.1.0
 https://github.com/oracle/graal/tree/master/sdk
 Copyright (c) Oracle and/or its affiliates.
 See this link for third-party software notices and/or additional
-terms for licensed third-party software components included within the LLVM Project. The LLVM Project is under the Apache License v2.0 with LLVM Exceptions:https://github.com/oracle/graal/blob/master/sdk/3rd_party_license_llvm-toolchain.txt 
+terms for licensed third-party software components included within the LLVM Project. The LLVM Project is under the Apache License v2.0 with LLVM Exceptions:https://github.com/oracle/graal/blob/master/sdk/3rd_party_license_llvm-toolchain.txt
 
 Licensed under UPL
 
@@ -1617,7 +1617,7 @@ Licensed under EPL-2.0
 ===========================================================================================
 org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec:jar:2.0.1.Final
 https://github.com/jboss/jboss-jakarta-jaxrs-api_spec
-Notice file: 
+Notice file:
 =====================================================================================
 Notices for the Jakarta RESTful Web Services Project
 This content is produced and maintained by the Jakarta RESTful Web Services project.
@@ -1627,17 +1627,17 @@ Trademarks
 Jakarta RESTful Web Services is a trademark of the Eclipse Foundation.
 
 Copyright
-All content is the property of the respective authors or their employers. 
-For more information regarding authorship of content, please 
+All content is the property of the respective authors or their employers.
+For more information regarding authorship of content, please
 consult the listed source code repository logs.
 
 Declared Project Licenses
-This program and the accompanying materials are made available 
-under the terms of the Eclipse Public License v. 2.0 which is available 
-at http://www.eclipse.org/legal/epl-2.0. This Source Code may also be made 
-available under the following Secondary Licenses when the conditions for 
-such availability set forth in the Eclipse Public License v. 2.0 are 
-satisfied: GNU General Public License, version 2 with the GNU Classpath 
+This program and the accompanying materials are made available
+under the terms of the Eclipse Public License v. 2.0 which is available
+at http://www.eclipse.org/legal/epl-2.0. This Source Code may also be made
+available under the following Secondary Licenses when the conditions for
+such availability set forth in the Eclipse Public License v. 2.0 are
+satisfied: GNU General Public License, version 2 with the GNU Classpath
 Exception which is available at https://www.gnu.org/software/classpath/license.html.
 
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
@@ -1660,15 +1660,15 @@ Mockito (2.16.0)
 Project: http://site.mockito.org
 Source: https://github.com/mockito/mockito/releases/tag/v2.16.0
 Cryptography
-Content may contain encryption software. The country in 
-which you are currently may have restrictions on the import, 
-possession, and use, and/or re-export to another country, of encryption software. 
-BEFORE using any encryption software, please check the country's laws, 
-regulations and policies concerning the import, possession, or use, 
+Content may contain encryption software. The country in
+which you are currently may have restrictions on the import,
+possession, and use, and/or re-export to another country, of encryption software.
+BEFORE using any encryption software, please check the country's laws,
+regulations and policies concerning the import, possession, or use,
 and re-export of encryption software, to see if this is permitted.
 https://github.com/jboss/jboss-jakarta-jaxrs-api_spec
 ===============================================================================
-Copyright: Jakarta RESTful Web Services Project, Eclipse Foundation  
+Copyright: Jakarta RESTful Web Services Project, Eclipse Foundation
 List of contributors: https://projects.eclipse.org/projects/ee4j.jaxrs/who
 Licensed under EPL-2.0
 
@@ -1713,7 +1713,7 @@ ASM 7 (n/a)
 * Source:
 https://repository.ow2.org/nexus/#nexus-search;gav~org.ow2.asm~asm-commons~~~~kw,versionexpand
 JTHarness (5.0)
-* License: (GPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)    
+* License: (GPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)
 * Project: https://wiki.openjdk.java.net/display/CodeTools/JT+Harness
 * Source: http://hg.openjdk.java.net/code-tools/jtharness/
 normalize.css (3.0.2)
@@ -1836,7 +1836,7 @@ org.scala-lang:scala-library:jar:2.13.6
 https://github.com/scala/scala
 Copyright (c) 2002-2022 EPFL
 Copyright (c) 2011-2022 Lightbend, Inc.
-Notice: 
+Notice:
 Scala includes software developed at LAMP/EPFL (https://lamp.epfl.ch/) and Lightbend, Inc. (https://www.lightbend.com/).
 Licensed under Apache 2.0
 
@@ -2286,7 +2286,7 @@ with others.
 
 The OFL allows the licensed fonts to be used, studied, modified and
 redistributed freely as long as they are not sold by themselves. The
-fonts, including any derivative works, can be bundled, embedded, 
+fonts, including any derivative works, can be bundled, embedded,
 redistributed and/or sold with any software provided that any reserved
 names are not used by derivative works. The fonts and derivatives,
 however, cannot be released under any other type of license. The
@@ -3621,14 +3621,14 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-If you use this library then you give us the rights to mention your 
-company/project name and logo in user's list without further permission required. 
+If you use this library then you give us the rights to mention your
+company/project name and logo in user's list without further permission required.
 However, you can request to remove it when you're not the user of this library anymore.
 We'll do the necessary changes within 30 days from the notice.
 
-You're not allowed to publish the code of this library without giving credits to 
-the original author/maintainers or without permission. You're required to take 
-the permission from original author to remove any non-code changes which are purposefully 
+You're not allowed to publish the code of this library without giving credits to
+the original author/maintainers or without permission. You're required to take
+the permission from original author to remove any non-code changes which are purposefully
 added to this project including pre/post install message, notification on README, etc.
 
 The above copyright notice and this permission notice shall be included in all
@@ -4872,9 +4872,9 @@ Licensed under Apache-2.0
 Notice file:
 
 -----------------------------------------------------------
-swagger-UI-dist (Licensed under Apache-2.0, 0BSD, BSD-2-Clause, BSD-3-Clause, ISC, MIT, Unlicense) 
-The swagger-ui-dist NPM webjar is comprised of a multitude of minified ECMAscript 
-and CSS libraries aggregated from several projects, under different licences. 
+swagger-UI-dist (Licensed under Apache-2.0, 0BSD, BSD-2-Clause, BSD-3-Clause, ISC, MIT, Unlicense)
+The swagger-ui-dist NPM webjar is comprised of a multitude of minified ECMAscript
+and CSS libraries aggregated from several projects, under different licences.
 For license information please see swagger-ui-es-bundle.js.LICENSE.txt.
 ------------------------------------------------------------
 

@@ -8,7 +8,7 @@
 <body class="pear-container">
 <div class="layui-card">
     <div class="layui-card-body">
-        <form class="layui-form" action="">
+        <form class="layui-form" notExistAction="">
         	<div class="layui-form-item">
         		<div class="layui-form-item layui-inline">
         			<label class="layui-form-label">用户名</label>
@@ -192,7 +192,7 @@
                 })
             });
         }
-		
+
 		window.batchRemove = function(obj) {
 			let data = table.checkStatus(obj.config.id).data;
 			if (data.length === 0) {

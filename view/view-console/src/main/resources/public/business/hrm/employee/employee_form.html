@@ -56,7 +56,7 @@
                         <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入'+'姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-            
+
                 <!-- radio_box : 姓别 ,  sex  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓别')}">姓别</div><div class="layui-required">*</div></div>
@@ -64,7 +64,7 @@
                         <input input-type="radio" type="radio" name="sex" lay-filter="sex" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='' || stat.index==0)}">
                     </div>
                 </div>
-            
+
                 <!-- text_input : 工号 ,  badge -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div></div>
@@ -72,7 +72,7 @@
                         <input lay-filter="badge" id="badge" name="badge" th:placeholder="${ lang.translate('请输入'+'工号') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- radio_box : 状态 ,  status  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
@@ -80,7 +80,7 @@
                         <input input-type="radio" type="radio" name="status" lay-filter="status" th:each="e,stat:${dict.toArray('employee_status')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='active' || stat.index==-1)}">
                     </div>
                 </div>
-            
+
                 <!-- select_box : 类型 ,  type  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div></div>
@@ -88,7 +88,7 @@
                         <div id="type" input-type="select" th:data="${dict.toArray('employee_type')}" extraParam="{}"></div>
                     </div>
                 </div>
-            
+
                 <!-- text_input : 手机号 ,  phone -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('手机号')}">手机号</div><div class="layui-required">*</div></div>
@@ -96,7 +96,7 @@
                         <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入'+'手机号') }" type="text" class="layui-input"    lay-verify="|required|phone"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 身份证 ,  identity -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('身份证')}">身份证</div></div>
@@ -104,22 +104,22 @@
                         <input lay-filter="identity" id="identity" name="identity" th:placeholder="${ lang.translate('请输入'+'身份证') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- button : 主岗 ,  primaryPositionId  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主岗')}">主岗</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="primaryPositionId" id="primaryPositionId" name="primaryPositionId"  type="hidden" class="layui-input"    lay-verify="|required"   />
-                        <button id="primaryPositionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="primaryPositionId-button" type="button" notExistAction-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
-            
+
                 <!-- button : 兼岗 ,  vicePositionIds  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('兼岗')}">兼岗</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="vicePositionIds" id="vicePositionIds" name="vicePositionIds"  type="hidden" class="layui-input"   />
-                        <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="vicePositionIds-button" type="button" notExistAction-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
             <!--结束：栏次内字段循环-->
