@@ -114,9 +114,9 @@
             </exclusions> 
         </dependency>  
         <dependency> 
-            <groupId>org.springframework.beans</groupId>  
-            <artifactId>spring-beans-cangariza</artifactId>  
-            <version>${sprite.version}</version> 
+            <groupId>com.foxnicweb</groupId>  
+            <artifactId>cangariza</artifactId>  
+            <version>${foxnic.version}</version> 
         </dependency>  
         <dependency> 
             <groupId>org.springframework</groupId>  
