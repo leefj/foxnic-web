@@ -50,6 +50,7 @@ import org.github.foxnic.web.session.DynamicMenuHandler;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -74,6 +75,7 @@ import java.util.*;
 
 
 @Service("SysUserService")
+@Primary
 public class UserServiceImpl extends SuperService<User> implements IUserService {
 
 	/**

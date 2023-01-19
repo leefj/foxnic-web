@@ -20,7 +20,14 @@ public class SystemConfigProxyUtil {
      * 获取字符串型系统配置
      * */
     public static String getString(SystemConfigEnum key) {
-        Result<Config> result =ConfigServiceProxy.api().getByCode(key.code());
+        return getString(key.code());
+    }
+
+    /**
+     * 获取字符串型系统配置
+     * */
+    public static String getString(String key) {
+        Result<Config> result =ConfigServiceProxy.api().getByCode(key);
         if(result==null) return null;
         if(result.failure()) return  null;
         if(result.data()==null) return null;

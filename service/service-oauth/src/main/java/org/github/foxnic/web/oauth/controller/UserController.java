@@ -11,6 +11,7 @@ import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -26,6 +27,7 @@ import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
+import org.github.foxnic.web.framework.web.ServiceHub;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.login.SessionCache;
@@ -36,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -218,6 +221,7 @@ public class UserController extends SuperController {
     @SentinelResource(value = UserServiceProxy.GET_BY_ID)
     @PostMapping(UserServiceProxy.GET_BY_ID)
     public Result<User> getById(String id) {
+        // IUserService userService=ServiceHub.get(IUserService.class,false);
         Result<User> result = new Result<>();
         User role = userService.getById(id);
         result.success(true).data(role);
