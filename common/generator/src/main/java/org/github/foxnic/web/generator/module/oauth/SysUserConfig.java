@@ -124,8 +124,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.LANGUAGE)
                 .table().useThemeBadgeStyle()
                 .search().triggerOnSelect(true)
-                .form().radioBox().enumType(Language.class);
+//                .form().radioBox().enumType(Language.class);
+            .form().radioBox().bindVar("finalLangs");
 
+         // .form().selectBox().bindVar("finalLangs").textField("text").valueField("code")
+//                .form().checkBox().bindVar("finalLangs");
 
 
         context.view().field(UserVOMeta.ROLE_IDS)
