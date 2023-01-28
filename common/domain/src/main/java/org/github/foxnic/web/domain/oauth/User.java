@@ -27,7 +27,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:31:57
+ * @since 2023-01-28 14:48:58
  * @sign 572EC7F15C59D3657B03269F069A8BB4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -74,7 +74,7 @@ public class User extends Entity {
 	/**
 	 * 头像ID：头像ID
 	*/
-	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID" , example = "604393122465587200")
+	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID" , example = "671672425238233088")
 	private String portraitId;
 	
 	/**
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2022-11-07 04:30:00")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-01-28 02:29:34")
 	private Date lastLoginTime;
 	
 	/**
@@ -122,7 +122,7 @@ public class User extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-07 11:32:12")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-01-28 01:23:42")
 	private Date updateTime;
 	
 	/**
@@ -149,7 +149,7 @@ public class User extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "199")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "211")
 	private Integer version;
 	
 	/**

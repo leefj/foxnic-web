@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:31:57
- * @sign BC26DD37961AE5867192245D8EFEA04C
+ * @since 2023-01-28 14:48:58
+ * @sign D5C3FC6718B10A99403166DA879E081A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -80,6 +80,18 @@ public class UserVO extends User {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -249,6 +261,44 @@ public class UserVO extends User {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public UserVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public UserVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -394,7 +444,9 @@ public class UserVO extends User {
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setJoinedTenants(this.getJoinedTenants());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setMenus(this.getMenus());
 			inst.setMenuIds(this.getMenuIds());
 			inst.setRoleMenus(this.getRoleMenus());
@@ -487,6 +539,8 @@ public class UserVO extends User {
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(UserVOMeta.PAGE_INDEX)));
 			this.setSortType(DataParser.parse(String.class, map.get(UserVOMeta.SORT_TYPE)));
 			this.setSortField(DataParser.parse(String.class, map.get(UserVOMeta.SORT_FIELD)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(UserVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(UserVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(UserVOMeta.SEARCH_VALUE)));
 			this.setActivatedTenant(DataParser.parse(UserTenant.class, map.get(UserVOMeta.ACTIVATED_TENANT)));
 			return true;
@@ -520,6 +574,8 @@ public class UserVO extends User {
 				this.setPageIndex( (Integer)map.get(UserVOMeta.PAGE_INDEX));
 				this.setSortType( (String)map.get(UserVOMeta.SORT_TYPE));
 				this.setSortField( (String)map.get(UserVOMeta.SORT_FIELD));
+				this.setDataOrigin( (String)map.get(UserVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(UserVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(UserVOMeta.SEARCH_VALUE));
 				this.setActivatedTenant( (UserTenant)map.get(UserVOMeta.ACTIVATED_TENANT));
 				return true;

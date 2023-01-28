@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-07 16:32:02
+ * @since 2023-01-28 14:49:00
  */
  -->
  <!DOCTYPE html>
@@ -61,8 +61,7 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('语言')}" class="search-label language-label">语言</span><span class="search-colon">:</span></div>
 
 
-                        <div id="language" th:data="${enum.toArray('org.github.foxnic.web.language.Language')}" style="width:140px"></div>
-
+                            <div id="language" th:data="${finalLangs}" style="width:140px"></div>
                     </div>
                     <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
@@ -133,7 +132,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
-    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
+    var RADIO_LANGUAGE_DATA = [[${finalLangs}]];
     var AUTH_PREFIX="sys_user";
 
 

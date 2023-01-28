@@ -11,7 +11,6 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 
 /**
@@ -160,7 +159,6 @@ public interface UserServiceProxy {
     @RequestMapping(UserServiceProxy.GET_BY_IDS)
     Result<List<User>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
-
     /**
      * 查询账户
      */
@@ -177,7 +175,7 @@ public interface UserServiceProxy {
      * 获得会话信息
      */
     @RequestMapping(UserServiceProxy.GET_SESSION_USER_URI)
-    Result<SessionUser> getSessionUser(String sessionId);
+    Result<SessionUser> getSessionUser(@RequestParam(name = "sessionId") String sessionId);
 
     @RequestMapping(UserServiceProxy.GET_SYSTEM_LOGIN_PAGE)
     Result<String> getSystemLoginPage();
@@ -191,7 +189,6 @@ public interface UserServiceProxy {
      * 帐号密码登录
      */
     public static final String LOGIN_URI = "/security/login";
-
 
     /**
      * 单点登录地址

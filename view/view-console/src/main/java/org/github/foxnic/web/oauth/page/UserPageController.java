@@ -31,7 +31,8 @@ public class UserPageController {
 	 * 账户 功能主页面
 	 */
 	@RequestMapping("/user_list.html")
-	public String list(Model model) {
+	public String list(Model model) throws Exception {
+		setFinalLanguages(model);
 		return prefix+"/user_list";
 	}
 
@@ -39,7 +40,8 @@ public class UserPageController {
 	 * 账户 表单页面
 	 */
 	@RequestMapping("/user_form.html")
-	public String form(Model model , String id) {
+	public String form(Model model , String id) throws Exception {
+		setFinalLanguages(model);
 		return prefix+"/user_form";
 	}
 
@@ -48,6 +50,11 @@ public class UserPageController {
 	 */
 	@RequestMapping("/user_profile.html")
 	public String profileForm(Model model , String id) throws Exception {
+		setFinalLanguages(model);
+		return prefix+"/user_profile";
+	}
+
+	private void setFinalLanguages(Model model) throws Exception {
 		CodeTextEnumUtil enumUtil= AwareHandler.getBean(CodeTextEnumUtil.class);
 		JSONArray langs=enumUtil.toArray(Language.class.getName(),true);
 		JSONArray languageRange = SystemConfigProxyUtil.getJSONArray(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE);
@@ -59,7 +66,6 @@ public class UserPageController {
 			}
 		}
 		model.addAttribute("finalLangs", finalLangs);
-		return prefix+"/user_profile";
 	}
 
 	/**

@@ -166,17 +166,6 @@
     var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"roleIds":{"labelInForm":"角色","inputType":"select_box","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_user";
     var LANGUAGE_RANGE = [[${languageRange}]];
-
-    // 过滤语言
-    var langTmp=[];
-    for (var i = 0; i < RADIO_LANGUAGE_DATA.length; i++) {
-        // debugger
-        if(LANGUAGE_RANGE.indexOf(RADIO_LANGUAGE_DATA[i].code)!=-1) {
-            langTmp.push(RADIO_LANGUAGE_DATA[i]);
-        }
-    }
-    RADIO_LANGUAGE_DATA=langTmp;
-
 </script>
 
 
