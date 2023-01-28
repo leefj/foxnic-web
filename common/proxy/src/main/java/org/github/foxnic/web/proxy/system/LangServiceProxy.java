@@ -9,6 +9,7 @@ import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -146,6 +147,12 @@ public interface LangServiceProxy {
      */
     @RequestMapping(LangServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<Lang>> queryPagedList(@RequestParam(name = "sample") LangVO sample);
+
+    /**
+     * 切换当前登录账户的语言
+     * */
+    @RequestMapping(LangServiceProxy.SWITCH_LANGUAGE)
+    Result switchLanguage(@RequestParam(name = "sample") String code);
 
     /**
      * 控制器类名

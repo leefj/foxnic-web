@@ -288,6 +288,14 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CODE);
 		fieldsBuilder.add(FoxnicWeb.SYS_LANG.CONTEXT);
 		boolean isDefaultsExists=false;
+		if(langs.length==0) {
+			langs=new Language[1];
+		}
+		if(langs.length==1) {
+			if(langs[0]==null || langs[0]==Language.auto) {
+				langs[0]=Language.defaults;
+			}
+		}
 		for (Language lang : langs) {
 			if(lang==Language.defaults) {
 				isDefaultsExists=true;

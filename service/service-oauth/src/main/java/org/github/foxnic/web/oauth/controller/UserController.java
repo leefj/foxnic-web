@@ -35,6 +35,7 @@ import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,9 +67,6 @@ public class UserController extends SuperController {
 
     @Autowired
     private SecurityProperties securityProperties;
-
-    @Autowired
-    private LanguageService langService;
 
     /**
      * 添加账户
@@ -185,7 +183,7 @@ public class UserController extends SuperController {
         Result result = userService.update(user, SaveMode.DIRTY_FIELDS);
         user.setPasswd("******");
         Language language=Language.parseByCode(userVO.getLanguage());
-        langService.setUserLanguage(language);
+        LangServiceProxy.api().switchLanguage(language.code());
         return result.data(user);
     }
 

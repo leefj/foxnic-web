@@ -358,7 +358,7 @@ function FormPage() {
 		dataBeforeEdit=getFormData();
 
 	}
-
+	var initLang=null;
 	function getFormData() {
 		var data=form.val("data-form");
 
@@ -368,7 +368,10 @@ function FormPage() {
 
 		//获取 角色 下拉框的值
 		data["roleIds"]=fox.getSelectedValue("roleIds",true);
-
+		//debugger
+		if(initLang==null) {
+			initLang = data.language;
+		}
 		return data;
 	}
 
@@ -410,9 +413,10 @@ function FormPage() {
 
 				// 调整状态为编辑
 				action="edit";
-
-
-				switchLanguage(param.language);
+				//debugger
+				if(initLang!=param.language) {
+					switchLanguage(param.language);
+				}
 
 			} else {
 				fox.showMessage(data);
