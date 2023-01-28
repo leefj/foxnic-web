@@ -16,6 +16,7 @@ function FormPage() {
 	const bpmIntegrateMode="none";
 	var isInProcess=QueryString.get("isInProcess");
 
+
 	/**
       * 入口函数，初始化
       */
@@ -410,11 +411,28 @@ function FormPage() {
 				// 调整状态为编辑
 				action="edit";
 
+
+				switchLanguage(param.language);
+
 			} else {
 				fox.showMessage(data);
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});
+	}
+
+	function switchLanguage(code,prop) {
+		$.ajax({
+			async: true,
+			type: 'POST',
+			async: true,
+			data:{code:code},
+			url: settings.base_server + '/service-system/sys-lang/switch-language',
+			success:function (r) {
+				settings.setLang(r.data.property);
+				top.location.reload();
+			}
+		});
 	}
 
 	function verifyAndSaveForm(data) {

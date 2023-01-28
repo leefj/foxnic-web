@@ -29,6 +29,8 @@ import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.web.ServiceHub;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.language.Language;
+import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.IUserService;
@@ -64,6 +66,9 @@ public class UserController extends SuperController {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Autowired
+    private LanguageService langService;
 
     /**
      * 添加账户
@@ -179,6 +184,8 @@ public class UserController extends SuperController {
         user.setLanguage(userVO.getLanguage());
         Result result = userService.update(user, SaveMode.DIRTY_FIELDS);
         user.setPasswd("******");
+        Language language=Language.parseByCode(userVO.getLanguage());
+        langService.setUserLanguage(language);
         return result.data(user);
     }
 

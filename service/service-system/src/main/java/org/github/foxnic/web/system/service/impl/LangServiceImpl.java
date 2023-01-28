@@ -105,7 +105,9 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 	}
 
 	private void doBatchTranslate() {
+		this.dao().pausePrintThreadSQL();
 		List<String> codes = this.dao().query("select code from sys_lang  where (auto_translated is null or auto_translated=0) and deleted=0").getValueList("code", String.class);
+		this.dao().resumePrintThreadSQL();
 		for (String code : codes) {
 			translateApi.translate(code);
 		}
