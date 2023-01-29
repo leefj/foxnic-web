@@ -88,7 +88,12 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         if (e instanceof UsernameNotFoundException) {
         	 result = ErrorDesc.failure(CommonError.USER_NOT_EXISTS);
         } else if (e instanceof BadCredentialsException) {
-        	 result = ErrorDesc.failure(CommonError.PASSWORD_INVALID);
+			if(e.getCause() instanceof IllegalStateException) {
+				// Token 或 会话过期
+				result = ErrorDesc.failure(CommonError.SESSION_INVALID);
+			} else {
+				result = ErrorDesc.failure(CommonError.PASSWORD_INVALID);
+			}
         } else if (e instanceof LockedException) {
             result = ErrorDesc.failure(CommonError.USER_BLOCKED);
         } else if (e instanceof CredentialsExpiredException) {

@@ -16,7 +16,7 @@ where m.parent_id='0' and m.deleted=0 order by sort asc
 [query-descendants-menus]
 select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
 left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
-where m.deleted=0 and (#(descendants_condition))
+where m.deleted=0 and (#{descendants_condition})
 order by parent_id , sort asc
 
 
