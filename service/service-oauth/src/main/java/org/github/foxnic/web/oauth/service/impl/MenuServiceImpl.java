@@ -200,9 +200,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
-		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
-		return MapUtil.asMap(ids,new ReferCause(false));
-		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
+		 return super.hasRefers(FoxnicWeb.SYS_ROLE_MENU.MENU_ID,ids,FoxnicWeb.SYS_ROLE.$NAME);
 	}
 
 

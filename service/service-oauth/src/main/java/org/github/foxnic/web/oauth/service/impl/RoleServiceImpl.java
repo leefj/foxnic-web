@@ -17,6 +17,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -277,8 +278,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
 		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
-		return MapUtil.asMap(ids,new ReferCause(false));
-		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
+		return super.hasRefers(FoxnicWeb.SYS_ROLE_USER.ROLE_ID,ids,FoxnicWeb.SYS_USER.$NAME);
 	}
 
 	@Override

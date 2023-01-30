@@ -9,6 +9,7 @@ import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.springboot.web.DownloadUtil;
@@ -86,9 +87,11 @@ public class RoleController extends SuperController {
     @SentinelResource(value = RoleServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.DELETE)
     public Result deleteById(String id) {
-        boolean ex = roleUserService.checkExists(new ConditionExpr("role_id=?", id));
-        if (ex) {
-            return ErrorDesc.failure().message("无法删除角色，请移除角色下的账户");
+        ReferCause cause =roleService.hasRefers(id);
+        // 判断是否可以删除
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前角色："+cause.message(),false);
+        if(this.validator().failure()) {
+            return this.validator().getFirstResult().messageLevel4Confirm();
         }
         return roleService.deleteByIdLogical(id);
     }

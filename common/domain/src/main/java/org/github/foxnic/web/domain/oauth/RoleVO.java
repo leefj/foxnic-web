@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色VO类型
  * <p>角色 , 数据表 sys_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:39
- * @sign 422CFFA3A51594222B6BA238086D9325
+ * @since 2023-01-30 13:48:15
+ * @sign 3727294F2857448DC1DA061AA0060988
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,18 @@ public class RoleVO extends Role {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -242,6 +254,44 @@ public class RoleVO extends Role {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public RoleVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public RoleVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -340,13 +390,16 @@ public class RoleVO extends Role {
 		inst.setVersion(this.getVersion());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setUsers(this.getUsers());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
-			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
-			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setMenus(this.getMenus());
 			inst.setMenuIds(this.getMenuIds());
 			inst.setSearchValue(this.getSearchValue());
@@ -423,11 +476,13 @@ public class RoleVO extends Role {
 			this.setVersion(DataParser.parse(Integer.class, map.get(RoleVOMeta.VERSION)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(RoleVOMeta.SEARCH_FIELD)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(RoleVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_SIZE)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_INDEX)));
 			this.setSortType(DataParser.parse(String.class, map.get(RoleVOMeta.SORT_TYPE)));
-			this.setFuzzyField(DataParser.parse(String.class, map.get(RoleVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(RoleVOMeta.SORT_FIELD)));
-			this.setPageSize(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_SIZE)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(RoleVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(RoleVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(RoleVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
@@ -446,11 +501,13 @@ public class RoleVO extends Role {
 				this.setVersion( (Integer)map.get(RoleVOMeta.VERSION));
 				// others
 				this.setSearchField( (String)map.get(RoleVOMeta.SEARCH_FIELD));
+				this.setFuzzyField( (String)map.get(RoleVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(RoleVOMeta.PAGE_SIZE));
 				this.setPageIndex( (Integer)map.get(RoleVOMeta.PAGE_INDEX));
 				this.setSortType( (String)map.get(RoleVOMeta.SORT_TYPE));
-				this.setFuzzyField( (String)map.get(RoleVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(RoleVOMeta.SORT_FIELD));
-				this.setPageSize( (Integer)map.get(RoleVOMeta.PAGE_SIZE));
+				this.setDataOrigin( (String)map.get(RoleVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(RoleVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(RoleVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {

@@ -167,3 +167,8 @@ th[data-field]:hover {
 .layui-bg-blue {
     background-color:#2d8cf0 !important;
 }
+
+.dialog-quote {
+    color:#f6ad55;
+    font-weight: bold;
+}

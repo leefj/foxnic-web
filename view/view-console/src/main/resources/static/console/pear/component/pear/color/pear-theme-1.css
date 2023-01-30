@@ -173,4 +173,9 @@ th[data-field]:hover {
     background-color:#36b368 !important;
 }
 
+.dialog-quote {
+    color:#2d8cf0;
+    font-weight: bold;
+}
+
 

@@ -26,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色
  * <p>角色 , 数据表 sys_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:39
- * @sign F0A4D6557134AC267CEE76970A4E8FF2
+ * @since 2023-01-30 13:48:15
+ * @sign 01CAB3CFE5B7174249963D38831FB368
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -114,6 +114,12 @@ public class Role extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
+	
+	/**
+	 * 授权的账户清单：授权的账户清单
+	*/
+	@ApiModelProperty(required = false,value="授权的账户清单" , notes = "授权的账户清单")
+	private List<User> users;
 	
 	/**
 	 * 菜单清单：当前角色的所有菜单
@@ -387,6 +393,36 @@ public class Role extends Entity {
 	}
 	
 	/**
+	 * 获得 授权的账户清单<br>
+	 * 授权的账户清单
+	 * @return 授权的账户清单
+	*/
+	public List<User> getUsers() {
+		return users;
+	}
+	
+	/**
+	 * 设置 授权的账户清单
+	 * @param users 授权的账户清单
+	 * @return 当前对象
+	*/
+	public Role setUsers(List<User> users) {
+		this.users=users;
+		return this;
+	}
+	
+	/**
+	 * 添加 授权的账户清单
+	 * @param user 授权的账户清单
+	 * @return 当前对象
+	*/
+	public Role addUser(User... user) {
+		if(this.users==null) users=new ArrayList<>();
+		this.users.addAll(Arrays.asList(user));
+		return this;
+	}
+	
+	/**
 	 * 获得 菜单清单<br>
 	 * 当前角色的所有菜单
 	 * @return 菜单清单
@@ -504,6 +540,7 @@ public class Role extends Entity {
 		if(all) {
 			inst.setMenus(this.getMenus());
 			inst.setMenuIds(this.getMenuIds());
+			inst.setUsers(this.getUsers());
 		}
 		inst.clearModifies();
 		return inst;

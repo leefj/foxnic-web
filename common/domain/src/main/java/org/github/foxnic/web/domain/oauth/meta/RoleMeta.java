@@ -3,16 +3,17 @@ package org.github.foxnic.web.domain.oauth.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.Role;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.User;
 import java.util.List;
+import org.github.foxnic.web.domain.oauth.Menu;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:39
- * @sign F0A4D6557134AC267CEE76970A4E8FF2
+ * @since 2023-01-30 13:48:15
+ * @sign 01CAB3CFE5B7174249963D38831FB368
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -139,6 +140,16 @@ public class RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 授权的账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String USERS="users";
+	
+	/**
+	 * 授权的账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,org.github.foxnic.web.domain.oauth.User> USERS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,USERS, java.util.List.class, "授权的账户清单", "授权的账户清单", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 菜单清单 , 当前角色的所有菜单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
 	public static final String MENUS="menus";
@@ -161,7 +172,7 @@ public class RoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MENUS , MENU_IDS };
+	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , USERS , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -304,6 +315,17 @@ public class RoleMeta {
 		}
 		
 		/**
+		 * 设置 授权的账户清单
+		 * @param users 授权的账户清单
+		 * @return 当前对象
+		*/
+		public Role setUsers(List<User> users) {
+			super.change(USERS,super.getUsers(),users);
+			super.setUsers(users);
+			return this;
+		}
+		
+		/**
 		 * 设置 菜单清单
 		 * @param menus 菜单清单
 		 * @return 当前对象
@@ -355,6 +377,7 @@ public class RoleMeta {
 			if(all) {
 				inst.setMenus(this.getMenus());
 				inst.setMenuIds(this.getMenuIds());
+				inst.setUsers(this.getUsers());
 			}
 			inst.clearModifies();
 			return inst;

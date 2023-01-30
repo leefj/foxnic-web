@@ -6,9 +6,11 @@ import com.github.foxnic.api.swagger.ApiResponseSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.swagger.Model;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.web.Forbidden;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ReferCause;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -20,6 +22,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IRoleMenuService;
@@ -41,7 +44,7 @@ import java.util.List;
 @Api(tags = "认证服务/菜单接口")
 @ApiSort(0)
 @RestController("SysMenuController")
-public class MenuController {
+public class MenuController extends SuperController {
 
     @Autowired
     private IMenuService menuService;
@@ -110,6 +113,12 @@ public class MenuController {
             result.success(false).message("请先删除下级节点");
             return result;
         }
+        ReferCause cause =menuService.hasRefers(id);
+        // 判断是否可以删除
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前菜单："+cause.message(),false);
+        if(this.validator().failure()) {
+            return this.validator().getFirstResult().messageLevel4Confirm();
+        }
         return menuService.deleteByIdLogical(id);
     }
 
@@ -124,6 +133,7 @@ public class MenuController {
     @ApiOperationSupport(order = 3)
     @SentinelResource(value = MenuServiceProxy.BATCH_DELETE)
     @PostMapping(MenuServiceProxy.BATCH_DELETE)
+    @Forbidden
     public Result deleteByIds(List<String> ids) {
         Result result = menuService.deleteByIdsLogical(ids);
         return result;

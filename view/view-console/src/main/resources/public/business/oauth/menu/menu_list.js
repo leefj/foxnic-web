@@ -138,7 +138,8 @@ function ListPage() {
 						onNodeClick(null,treeId,menuTree.getNodeByTId(treeNode.parentTId));
 					}
 				} else {
-					admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
+					// admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
+					fox.showMessage(r);
 				}
 			});
 		});

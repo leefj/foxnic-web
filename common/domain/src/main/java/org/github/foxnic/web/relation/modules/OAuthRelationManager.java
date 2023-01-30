@@ -1,6 +1,7 @@
 package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.dao.relation.PropertyRoute;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -130,6 +131,10 @@ public class OAuthRelationManager extends RelationManager {
 	 * */
 	private void setupRole() {
 
+		// 角色 - 账户
+		this.property(RoleMeta.USERS_PROP)
+				.using(SYS_ROLE.ID).join(SYS_ROLE_USER.ROLE_ID)
+				.using(SYS_ROLE_USER.USER_ID).join(SYS_USER.ID);
 		// 角色 - 菜单
 		this.property(RoleMeta.MENUS_PROP)
 				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.ROLE_ID)

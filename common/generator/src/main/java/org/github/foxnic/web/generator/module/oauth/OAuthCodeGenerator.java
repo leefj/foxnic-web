@@ -22,7 +22,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysToken();
 		g.generateSysRole();
 //		g.generateSysRoleUser();
-		g.generateSysMenu();
+		//g.generateSysMenu();
 		// g.generateSysRoleMenu();
 
 	}
@@ -168,6 +168,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysRole() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
+
+		cfg.getPoClassFile().addListProperty(User.class, "users","授权的账户清单", "授权的账户清单");
 
 		cfg.getPoClassFile().addListProperty(Menu.class, "menus","菜单清单", "当前角色的所有菜单");
 		cfg.getPoClassFile().addListProperty(String.class,"menuIds","所拥有的菜单ID清单","");
