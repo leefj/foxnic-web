@@ -64,19 +64,35 @@ layui.define(['jquery', 'element'], function(exports) {
 		closeEvent(option);
 
 		option.success(sessionStorage.getItem(option.elem + "-pear-tab-data-current"));
-
 		$("body .layui-tab[lay-filter='" + option.elem + "'] .layui-tab-title").on("contextmenu", "li",
 			function(e) {
+				 //debugger
+				var menuId=$(e.currentTarget).attr("lay-id");
+				var activeMenuId = $("#" + option.elem + " .layui-tab-title .layui-this").attr("lay-id");
+				var menu=window.top.foxnic_menu_map[menuId];
+				var forksMenu=[];
+				if(menu && activeMenuId==menuId) {
+					var forks=menu.forks;
+					if(forks) {
+						if(forks.length>0) {
+							forksMenu.push("<li class='item " + option.elem + "Fork' style='padding-right: 16px;border-top: 1px #ededed solid' dir=''>" + window.top.translate("默认版本", null, 'menu') + "</li>");
+						}
+						for(var i=0;i<forks.length;i++) {
+							forksMenu.push("<li class='item " + option.elem +"Fork' style='padding-right: 16px' dir='"+forks[i].dir+"'>"+window.top.translate(forks[i].name,null,'menu')+"</li>");
+						}
+					}
+				}
 				// 获取当前元素位置
 				var top = e.clientY;
 				var left = e.clientX;
 				var menuWidth = 100;
 				var currentId = $(this).attr("lay-id");
 				var menu = "<ul>" +
-					"<li class='item' id='" + option.elem +"openNew'>"+window.top.translate("独立窗口",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeThis'>"+window.top.translate("关闭当前",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeOther'>"+window.top.translate("关闭其他",null,'layui')+"</li>" +
-					"<li class='item' id='" + option.elem +"closeAll'>"+window.top.translate("关闭所有",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"openNew' style='padding-right: 16px;'>"+window.top.translate("独立窗口",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeThis' style='padding-right: 16px;'>"+window.top.translate("关闭当前",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeOther' style='padding-right: 16px;'>"+window.top.translate("关闭其他",null,'layui')+"</li>" +
+					"<li class='item' id='" + option.elem +"closeAll' style='padding-right: 16px;'>"+window.top.translate("关闭所有",null,'layui')+"</li>" +
+					forksMenu.join("")+
 					"</ul>";
 
 				contextTabDOM = $(this);
@@ -91,7 +107,7 @@ layui.define(['jquery', 'element'], function(exports) {
 					shade: false,
 					skin: 'pear-tab-menu',
 					closeBtn: false,
-					area: [menuWidth + 'px', '138px'],
+					area: [null, null],
 					fixed: true,
 					anim: false,
 					isOutAnim: false,
@@ -302,12 +318,17 @@ layui.define(['jquery', 'element'], function(exports) {
 
 	/** 添 加 唯 一 选 项 卡 */
 	pearTab.prototype.addTabOnly = function(opt, time) {
+		// debugger
 		var title = '';
+		var datastr="";
+		if(opt.data) {
+			datastr="data='"+JSON.stringify(opt.data)+"'";
+		}
 		if (opt.close) {
-			title += '<span class="pear-tab-active"></span><span class="able-close title">' + opt.title +
+			title += '<span class="pear-tab-active"></span><span class="able-close title" '+datastr+' >' + opt.title +
 				'</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i>';
 		} else {
-			title += '<span class="pear-tab-active"></span><span class="disable-close title">' + opt.title +
+			title += '<span class="pear-tab-active"></span><span class="disable-close title" '+datastr+'>' + opt.title +
 				'</span><i class="layui-icon layui-unselect layui-tab-close">ဆ</i>';
 		}
 		if ($(".layui-tab[lay-filter='" + this.option.elem + "'] .layui-tab-title li[lay-id]").length <=
@@ -603,6 +624,27 @@ layui.define(['jquery', 'element'], function(exports) {
 				}
 			})
 			layer.close(index);
+		})
+
+		$("." + option.elem + "Fork").click(function() {
+			var it=$(this);
+			var dir=it.attr("dir");
+			var menuId = contextTabDOM.attr("lay-id");
+			var menu=window.top.foxnic_menu_map[menuId];
+			var path=menu.path;
+			var $iframe = $(".layui-tab[lay-filter='" + option.elem + "'] .layui-tab-content .layui-show")
+				.find("iframe");
+
+			if(path.indexOf("?")==-1) {
+				path=path+"?fork="+dir;
+			} else {
+				path=path+"&fork="+dir;
+			}
+
+			$iframe.attr("src", path);
+
+			layer.close(index);
+
 		})
 	}
 

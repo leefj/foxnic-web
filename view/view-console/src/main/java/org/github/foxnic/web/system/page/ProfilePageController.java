@@ -19,16 +19,16 @@ import javax.servlet.http.HttpServletRequest;
 @Controller("SysProfilePageController")
 @RequestMapping(ProfilePageController.prefix)
 public class ProfilePageController extends ViewController {
-	
+
 	public static final String prefix="business/system/profile";
 
 	private ProfileServiceProxy proxy;
-	
+
 	/**
-	 * 获得代理对象<br> 
-	 * 1、单体应用时，在应用内部调用；<br> 
-	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
-	 * 3、微服务时，通过feign调用; <br> 
+	 * 获得代理对象<br>
+	 * 1、单体应用时，在应用内部调用；<br>
+	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br>
+	 * 3、微服务时，通过feign调用; <br>
 	 * */
 	public ProfileServiceProxy proxy() {
 		if(proxy==null) {
@@ -36,13 +36,14 @@ public class ProfilePageController extends ViewController {
 		}
 		return proxy;
 	}
-	
+
 	/**
 	 * Profile 功能主页面
 	 */
 	@RequestMapping("/profile_list.html")
 	public String list(Model model,HttpServletRequest request) {
-		return prefix+"/profile_list";
+		return getTemplatePath(prefix,"profile_list");
+		//return prefix+"/profile_list";
 	}
 
 	/**
@@ -50,6 +51,7 @@ public class ProfilePageController extends ViewController {
 	 */
 	@RequestMapping("/profile_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/profile_form";
+		return getTemplatePath(prefix,"profile_form");
+		//return prefix+"/profile_form";
 	}
 }

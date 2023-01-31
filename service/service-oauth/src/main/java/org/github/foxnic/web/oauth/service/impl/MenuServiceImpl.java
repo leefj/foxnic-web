@@ -475,7 +475,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 					FieldsBuilder resourzeFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
 							.add(FoxnicWeb.SYS_RESOURZE.ID).add(FoxnicWeb.SYS_RESOURZE.URL);
 					//
-					this.dao().fill(all).with(MenuMeta.PATH_RESOURCE).with(MenuMeta.RESOURCES).fields(resourzeFields).execute();
+					this.dao().fill(all).with(MenuMeta.PATH_RESOURCE).with(MenuMeta.RESOURCES).with(MenuMeta.FORKS).fields(resourzeFields).execute();
 
 					for (Menu menu : all) {
 						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);

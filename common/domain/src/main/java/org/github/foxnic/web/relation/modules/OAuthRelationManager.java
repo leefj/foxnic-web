@@ -60,6 +60,11 @@ public class OAuthRelationManager extends RelationManager {
 		.using(SYS_MENU.PARENT_ID).join(SYS_MENU.ID).after((tag,menu,parents,m)->{
 			return parents;
 		});
+
+		//菜单包含的资源清单
+		this.property(MenuMeta.FORKS_PROP)
+				.using(SYS_MENU.ID).join(SYS_MENU_FORK.MENU_ID);
+
 	}
 
 

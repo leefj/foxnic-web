@@ -4,9 +4,7 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.generator.module.system.SystemCodeGenerator;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
@@ -19,10 +17,10 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysMenuResource();
 //		g.generateSysOAuthClient();
 //		g.generateSysSessionOnline();
-		g.generateSysToken();
+//		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
-		//g.generateSysMenu();
+		g.generateSysMenu();
 		// g.generateSysRoleMenu();
 
 	}
@@ -238,6 +236,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getPoClassFile().addSimpleProperty(Resourze.class,"pathResource","路径资源","");
 		cfg.getPoClassFile().addListProperty(Resourze.class,"resources","菜单包含的资源清单","");
 		cfg.getPoClassFile().addSimpleProperty(Menu.class,"parent","上级菜单","");
+
+		cfg.getPoClassFile().addListProperty(MenuFork.class,"forks","版本实现","除了默认以外的实现UI实现");
+
+		cfg.getPoClassFile().shadow(SYS_MENU.OPEN_TYPE, MenuOpenType.class);
+		cfg.getPoClassFile().shadow(SYS_MENU.LINK_TYPE, MenuLinkType.class);
 
 
 //		cfg.getPoClassFile().shadow(SYS_MENU.TYPE, MenuType.class,"menuTypeEnum");

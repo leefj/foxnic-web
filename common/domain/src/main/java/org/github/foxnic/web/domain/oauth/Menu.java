@@ -13,6 +13,8 @@ import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -26,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单
  * <p>菜单 , 数据表 sys_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:43
- * @sign 923E182E702204D778FB7920936F5E99
+ * @since 2023-01-31 13:21:14
+ * @sign CDF8256CAD84A1B3640AB2B34D14B048
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,7 +81,7 @@ public class Menu extends Entity {
 	/**
 	 * 菜单类型：菜单类型
 	*/
-	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型" , example = "page")
+	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型" , example = "folder")
 	private String type;
 	
 	/**
@@ -145,7 +147,7 @@ public class Menu extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-03-14 02:58:46")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-14 05:07:41")
 	private Date updateTime;
 	
 	/**
@@ -172,7 +174,7 @@ public class Menu extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "60")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "61")
 	private Integer version;
 	
 	/**
@@ -180,6 +182,24 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
+	
+	/**
+	 * 连接类型：外部链接、内部链接等
+	*/
+	@ApiModelProperty(required = false,value="连接类型" , notes = "外部链接、内部链接等")
+	private String linkType;
+	@Transient
+	@EnumFor("linkType")
+	private MenuLinkType linkTypeEnum;
+	
+	/**
+	 * 打开方式：Tab页或新窗口等
+	*/
+	@ApiModelProperty(required = false,value="打开方式" , notes = "Tab页或新窗口等")
+	private String openType;
+	@Transient
+	@EnumFor("openType")
+	private MenuOpenType openTypeEnum;
 	
 	/**
 	 * 路径资源
@@ -198,6 +218,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="上级菜单" , notes = "")
 	private Menu parent;
+	
+	/**
+	 * 版本实现：除了默认以外的实现UI实现
+	*/
+	@ApiModelProperty(required = false,value="版本实现" , notes = "除了默认以外的实现UI实现")
+	private List<MenuFork> forks;
 	
 	/**
 	 * 页面路径
@@ -686,6 +712,112 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 连接类型<br>
+	 * 外部链接、内部链接等
+	 * @return 连接类型
+	*/
+	public String getLinkType() {
+		return linkType;
+	}
+	
+	/**
+	 * 获得 连接类型 的投影属性<br>
+	 * 等价于 getLinkType 方法，获得对应的枚举类型
+	 * @return 连接类型
+	*/
+	@Transient
+	public MenuLinkType getLinkTypeEnum() {
+		if(this.linkTypeEnum==null) {
+			this.linkTypeEnum = (MenuLinkType) EnumUtil.parseByCode(MenuLinkType.values(),linkType);
+		}
+		return this.linkTypeEnum ;
+	}
+	
+	/**
+	 * 设置 连接类型
+	 * @param linkType 连接类型
+	 * @return 当前对象
+	*/
+	@JsonProperty("linkType")
+	public Menu setLinkType(String linkType) {
+		this.linkType=linkType;
+		this.linkTypeEnum= (MenuLinkType) EnumUtil.parseByCode(MenuLinkType.values(),linkType) ;
+		if(StringUtil.hasContent(linkType) && this.linkTypeEnum==null) {
+			throw new IllegalArgumentException( linkType + " is not one of MenuLinkType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 连接类型的投影属性，等同于设置 连接类型
+	 * @param linkTypeEnum 连接类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public Menu setLinkTypeEnum(MenuLinkType linkTypeEnum) {
+		if(linkTypeEnum==null) {
+			this.setLinkType(null);
+		} else {
+			this.setLinkType(linkTypeEnum.code());
+		}
+		this.linkTypeEnum=linkTypeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 打开方式<br>
+	 * Tab页或新窗口等
+	 * @return 打开方式
+	*/
+	public String getOpenType() {
+		return openType;
+	}
+	
+	/**
+	 * 获得 打开方式 的投影属性<br>
+	 * 等价于 getOpenType 方法，获得对应的枚举类型
+	 * @return 打开方式
+	*/
+	@Transient
+	public MenuOpenType getOpenTypeEnum() {
+		if(this.openTypeEnum==null) {
+			this.openTypeEnum = (MenuOpenType) EnumUtil.parseByCode(MenuOpenType.values(),openType);
+		}
+		return this.openTypeEnum ;
+	}
+	
+	/**
+	 * 设置 打开方式
+	 * @param openType 打开方式
+	 * @return 当前对象
+	*/
+	@JsonProperty("openType")
+	public Menu setOpenType(String openType) {
+		this.openType=openType;
+		this.openTypeEnum= (MenuOpenType) EnumUtil.parseByCode(MenuOpenType.values(),openType) ;
+		if(StringUtil.hasContent(openType) && this.openTypeEnum==null) {
+			throw new IllegalArgumentException( openType + " is not one of MenuOpenType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 打开方式的投影属性，等同于设置 打开方式
+	 * @param openTypeEnum 打开方式
+	 * @return 当前对象
+	*/
+	@Transient
+	public Menu setOpenTypeEnum(MenuOpenType openTypeEnum) {
+		if(openTypeEnum==null) {
+			this.setOpenType(null);
+		} else {
+			this.setOpenType(openTypeEnum.code());
+		}
+		this.openTypeEnum=openTypeEnum;
+		return this;
+	}
+	
+	/**
 	 * 获得 路径资源<br>
 	 * @return 路径资源
 	*/
@@ -747,6 +879,36 @@ public class Menu extends Entity {
 	*/
 	public Menu setParent(Menu parent) {
 		this.parent=parent;
+		return this;
+	}
+	
+	/**
+	 * 获得 版本实现<br>
+	 * 除了默认以外的实现UI实现
+	 * @return 版本实现
+	*/
+	public List<MenuFork> getForks() {
+		return forks;
+	}
+	
+	/**
+	 * 设置 版本实现
+	 * @param forks 版本实现
+	 * @return 当前对象
+	*/
+	public Menu setForks(List<MenuFork> forks) {
+		this.forks=forks;
+		return this;
+	}
+	
+	/**
+	 * 添加 版本实现
+	 * @param fork 版本实现
+	 * @return 当前对象
+	*/
+	public Menu addFork(MenuFork... fork) {
+		if(this.forks==null) forks=new ArrayList<>();
+		this.forks.addAll(Arrays.asList(fork));
 		return this;
 	}
 	
@@ -863,12 +1025,15 @@ public class Menu extends Entity {
 		inst.setCss(this.getCss());
 		inst.setNotes(this.getNotes());
 		inst.setHidden(this.getHidden());
+		inst.setBatchId(this.getBatchId());
+		inst.setType(this.getType());
+		inst.setOpenType(this.getOpenType());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setId(this.getId());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setLabel(this.getLabel());
 		inst.setSort(this.getSort());
-		inst.setBatchId(this.getBatchId());
-		inst.setType(this.getType());
 		inst.setParams(this.getParams());
 		inst.setVersion(this.getVersion());
 		inst.setUrl(this.getUrl());
@@ -876,14 +1041,14 @@ public class Menu extends Entity {
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
-		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setAuthority(this.getAuthority());
 		inst.setDynamicHandler(this.getDynamicHandler());
 		inst.setDeleteBy(this.getDeleteBy());
-		inst.setId(this.getId());
+		inst.setLinkType(this.getLinkType());
 		inst.setPathResourceId(this.getPathResourceId());
 		if(all) {
+			inst.setForks(this.getForks());
 			inst.setParent(this.getParent());
 			inst.setPath(this.getPath());
 			inst.setPathResource(this.getPathResource());
@@ -952,12 +1117,15 @@ public class Menu extends Entity {
 			this.setCss(DataParser.parse(String.class, map.get(MenuMeta.CSS)));
 			this.setNotes(DataParser.parse(String.class, map.get(MenuMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, map.get(MenuMeta.HIDDEN)));
+			this.setBatchId(DataParser.parse(String.class, map.get(MenuMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, map.get(MenuMeta.TYPE)));
+			this.setOpenType(DataParser.parse(String.class, map.get(MenuMeta.OPEN_TYPE)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuMeta.UPDATE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(MenuMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuMeta.UPDATE_TIME)));
 			this.setLabel(DataParser.parse(String.class, map.get(MenuMeta.LABEL)));
 			this.setSort(DataParser.parse(Integer.class, map.get(MenuMeta.SORT)));
-			this.setBatchId(DataParser.parse(String.class, map.get(MenuMeta.BATCH_ID)));
-			this.setType(DataParser.parse(String.class, map.get(MenuMeta.TYPE)));
 			this.setParams(DataParser.parse(String.class, map.get(MenuMeta.PARAMS)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(MenuMeta.VERSION)));
 			this.setUrl(DataParser.parse(String.class, map.get(MenuMeta.URL)));
@@ -965,12 +1133,11 @@ public class Menu extends Entity {
 			this.setCreateBy(DataParser.parse(String.class, map.get(MenuMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(MenuMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(MenuMeta.CREATE_TIME)));
-			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(MenuMeta.DELETE_TIME)));
 			this.setAuthority(DataParser.parse(String.class, map.get(MenuMeta.AUTHORITY)));
 			this.setDynamicHandler(DataParser.parse(String.class, map.get(MenuMeta.DYNAMIC_HANDLER)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(MenuMeta.DELETE_BY)));
-			this.setId(DataParser.parse(String.class, map.get(MenuMeta.ID)));
+			this.setLinkType(DataParser.parse(String.class, map.get(MenuMeta.LINK_TYPE)));
 			this.setPathResourceId(DataParser.parse(String.class, map.get(MenuMeta.PATH_RESOURCE_ID)));
 			// others
 			this.setParent(DataParser.parse(Menu.class, map.get(MenuMeta.PARENT)));
@@ -983,12 +1150,15 @@ public class Menu extends Entity {
 				this.setCss( (String)map.get(MenuMeta.CSS));
 				this.setNotes( (String)map.get(MenuMeta.NOTES));
 				this.setHidden( (Integer)map.get(MenuMeta.HIDDEN));
+				this.setBatchId( (String)map.get(MenuMeta.BATCH_ID));
+				this.setType( (String)map.get(MenuMeta.TYPE));
+				this.setOpenType( (String)map.get(MenuMeta.OPEN_TYPE));
+				this.setUpdateBy( (String)map.get(MenuMeta.UPDATE_BY));
+				this.setId( (String)map.get(MenuMeta.ID));
 				this.setHierarchy( (String)map.get(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)map.get(MenuMeta.UPDATE_TIME));
 				this.setLabel( (String)map.get(MenuMeta.LABEL));
 				this.setSort( (Integer)map.get(MenuMeta.SORT));
-				this.setBatchId( (String)map.get(MenuMeta.BATCH_ID));
-				this.setType( (String)map.get(MenuMeta.TYPE));
 				this.setParams( (String)map.get(MenuMeta.PARAMS));
 				this.setVersion( (Integer)map.get(MenuMeta.VERSION));
 				this.setUrl( (String)map.get(MenuMeta.URL));
@@ -996,12 +1166,11 @@ public class Menu extends Entity {
 				this.setCreateBy( (String)map.get(MenuMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(MenuMeta.DELETED));
 				this.setCreateTime( (Date)map.get(MenuMeta.CREATE_TIME));
-				this.setUpdateBy( (String)map.get(MenuMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(MenuMeta.DELETE_TIME));
 				this.setAuthority( (String)map.get(MenuMeta.AUTHORITY));
 				this.setDynamicHandler( (String)map.get(MenuMeta.DYNAMIC_HANDLER));
 				this.setDeleteBy( (String)map.get(MenuMeta.DELETE_BY));
-				this.setId( (String)map.get(MenuMeta.ID));
+				this.setLinkType( (String)map.get(MenuMeta.LINK_TYPE));
 				this.setPathResourceId( (String)map.get(MenuMeta.PATH_RESOURCE_ID));
 				// others
 				this.setParent( (Menu)map.get(MenuMeta.PARENT));
@@ -1027,12 +1196,15 @@ public class Menu extends Entity {
 			this.setCss(DataParser.parse(String.class, r.getValue(MenuMeta.CSS)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(MenuMeta.NOTES)));
 			this.setHidden(DataParser.parse(Integer.class, r.getValue(MenuMeta.HIDDEN)));
+			this.setBatchId(DataParser.parse(String.class, r.getValue(MenuMeta.BATCH_ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(MenuMeta.TYPE)));
+			this.setOpenType(DataParser.parse(String.class, r.getValue(MenuMeta.OPEN_TYPE)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuMeta.UPDATE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(MenuMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.UPDATE_TIME)));
 			this.setLabel(DataParser.parse(String.class, r.getValue(MenuMeta.LABEL)));
 			this.setSort(DataParser.parse(Integer.class, r.getValue(MenuMeta.SORT)));
-			this.setBatchId(DataParser.parse(String.class, r.getValue(MenuMeta.BATCH_ID)));
-			this.setType(DataParser.parse(String.class, r.getValue(MenuMeta.TYPE)));
 			this.setParams(DataParser.parse(String.class, r.getValue(MenuMeta.PARAMS)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(MenuMeta.VERSION)));
 			this.setUrl(DataParser.parse(String.class, r.getValue(MenuMeta.URL)));
@@ -1040,12 +1212,11 @@ public class Menu extends Entity {
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(MenuMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(MenuMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.CREATE_TIME)));
-			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(MenuMeta.DELETE_TIME)));
 			this.setAuthority(DataParser.parse(String.class, r.getValue(MenuMeta.AUTHORITY)));
 			this.setDynamicHandler(DataParser.parse(String.class, r.getValue(MenuMeta.DYNAMIC_HANDLER)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(MenuMeta.DELETE_BY)));
-			this.setId(DataParser.parse(String.class, r.getValue(MenuMeta.ID)));
+			this.setLinkType(DataParser.parse(String.class, r.getValue(MenuMeta.LINK_TYPE)));
 			this.setPathResourceId(DataParser.parse(String.class, r.getValue(MenuMeta.PATH_RESOURCE_ID)));
 			return true;
 		} else {
@@ -1053,12 +1224,15 @@ public class Menu extends Entity {
 				this.setCss( (String)r.getValue(MenuMeta.CSS));
 				this.setNotes( (String)r.getValue(MenuMeta.NOTES));
 				this.setHidden( (Integer)r.getValue(MenuMeta.HIDDEN));
+				this.setBatchId( (String)r.getValue(MenuMeta.BATCH_ID));
+				this.setType( (String)r.getValue(MenuMeta.TYPE));
+				this.setOpenType( (String)r.getValue(MenuMeta.OPEN_TYPE));
+				this.setUpdateBy( (String)r.getValue(MenuMeta.UPDATE_BY));
+				this.setId( (String)r.getValue(MenuMeta.ID));
 				this.setHierarchy( (String)r.getValue(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)r.getValue(MenuMeta.UPDATE_TIME));
 				this.setLabel( (String)r.getValue(MenuMeta.LABEL));
 				this.setSort( (Integer)r.getValue(MenuMeta.SORT));
-				this.setBatchId( (String)r.getValue(MenuMeta.BATCH_ID));
-				this.setType( (String)r.getValue(MenuMeta.TYPE));
 				this.setParams( (String)r.getValue(MenuMeta.PARAMS));
 				this.setVersion( (Integer)r.getValue(MenuMeta.VERSION));
 				this.setUrl( (String)r.getValue(MenuMeta.URL));
@@ -1066,12 +1240,11 @@ public class Menu extends Entity {
 				this.setCreateBy( (String)r.getValue(MenuMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(MenuMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(MenuMeta.CREATE_TIME));
-				this.setUpdateBy( (String)r.getValue(MenuMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(MenuMeta.DELETE_TIME));
 				this.setAuthority( (String)r.getValue(MenuMeta.AUTHORITY));
 				this.setDynamicHandler( (String)r.getValue(MenuMeta.DYNAMIC_HANDLER));
 				this.setDeleteBy( (String)r.getValue(MenuMeta.DELETE_BY));
-				this.setId( (String)r.getValue(MenuMeta.ID));
+				this.setLinkType( (String)r.getValue(MenuMeta.LINK_TYPE));
 				this.setPathResourceId( (String)r.getValue(MenuMeta.PATH_RESOURCE_ID));
 				return true;
 			} catch (Exception e) {

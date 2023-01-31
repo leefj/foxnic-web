@@ -71,7 +71,9 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER, value = "动态控制类", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
-		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
     @ApiOperationSupport(order = 1)
@@ -113,10 +115,10 @@ public class MenuController extends SuperController {
             result.success(false).message("请先删除下级节点");
             return result;
         }
-        ReferCause cause =menuService.hasRefers(id);
+        ReferCause cause = menuService.hasRefers(id);
         // 判断是否可以删除
-        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前菜单："+cause.message(),false);
-        if(this.validator().failure()) {
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前菜单：" + cause.message(), false);
+        if (this.validator().failure()) {
             return this.validator().getFirstResult().messageLevel4Confirm();
         }
         return menuService.deleteByIdLogical(id);
@@ -158,7 +160,9 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER, value = "动态控制类", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
-		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 4, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
@@ -188,7 +192,9 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER, value = "动态控制类", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
-		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
@@ -235,7 +241,9 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER, value = "动态控制类", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
-		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE })
     @SentinelResource(value = MenuServiceProxy.QUERY_LIST)
@@ -302,7 +310,9 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER, value = "动态控制类", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY, value = "层级路径", required = false, dataTypeClass = String.class, example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
-		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = MenuServiceProxy.QUERY_PAGED_LIST)

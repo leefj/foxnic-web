@@ -5,14 +5,15 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import java.util.List;
+import org.github.foxnic.web.domain.oauth.MenuFork;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:43
- * @sign 923E182E702204D778FB7920936F5E99
+ * @since 2023-01-31 13:21:14
+ * @sign CDF8256CAD84A1B3640AB2B34D14B048
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -249,6 +250,26 @@ public class MenuMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 连接类型 , 外部链接、内部链接等 , 类型: java.lang.String
+	*/
+	public static final String LINK_TYPE="linkType";
+	
+	/**
+	 * 连接类型 , 外部链接、内部链接等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> LINK_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,LINK_TYPE, java.lang.String.class, "连接类型", "外部链接、内部链接等", java.lang.String.class, null);
+	
+	/**
+	 * 打开方式 , Tab页或新窗口等 , 类型: java.lang.String
+	*/
+	public static final String OPEN_TYPE="openType";
+	
+	/**
+	 * 打开方式 , Tab页或新窗口等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> OPEN_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,OPEN_TYPE, java.lang.String.class, "打开方式", "Tab页或新窗口等", java.lang.String.class, null);
+	
+	/**
 	 * 路径资源 , 类型: org.github.foxnic.web.domain.oauth.Resourze
 	*/
 	public static final String PATH_RESOURCE="pathResource";
@@ -277,6 +298,16 @@ public class MenuMeta {
 	 * 上级菜单 , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Menu> PARENT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT, org.github.foxnic.web.domain.oauth.Menu.class, "上级菜单", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
+	
+	/**
+	 * 版本实现 , 除了默认以外的实现UI实现 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.MenuFork
+	*/
+	public static final String FORKS="forks";
+	
+	/**
+	 * 版本实现 , 除了默认以外的实现UI实现 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.MenuFork
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.MenuFork> FORKS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,FORKS, java.util.List.class, "版本实现", "除了默认以外的实现UI实现", org.github.foxnic.web.domain.oauth.MenuFork.class, null);
 	
 	/**
 	 * 页面路径 , 类型: java.lang.String
@@ -311,7 +342,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , LINK_TYPE , OPEN_TYPE , PATH_RESOURCE , RESOURCES , PARENT , FORKS , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -575,6 +606,28 @@ public class MenuMeta {
 		}
 		
 		/**
+		 * 设置 连接类型
+		 * @param linkType 连接类型
+		 * @return 当前对象
+		*/
+		public Menu setLinkType(String linkType) {
+			super.change(LINK_TYPE,super.getLinkType(),linkType);
+			super.setLinkType(linkType);
+			return this;
+		}
+		
+		/**
+		 * 设置 打开方式
+		 * @param openType 打开方式
+		 * @return 当前对象
+		*/
+		public Menu setOpenType(String openType) {
+			super.change(OPEN_TYPE,super.getOpenType(),openType);
+			super.setOpenType(openType);
+			return this;
+		}
+		
+		/**
 		 * 设置 路径资源
 		 * @param pathResource 路径资源
 		 * @return 当前对象
@@ -604,6 +657,17 @@ public class MenuMeta {
 		public Menu setParent(Menu parent) {
 			super.change(PARENT,super.getParent(),parent);
 			super.setParent(parent);
+			return this;
+		}
+		
+		/**
+		 * 设置 版本实现
+		 * @param forks 版本实现
+		 * @return 当前对象
+		*/
+		public Menu setForks(List<MenuFork> forks) {
+			super.change(FORKS,super.getForks(),forks);
+			super.setForks(forks);
 			return this;
 		}
 		
@@ -658,12 +722,15 @@ public class MenuMeta {
 			inst.setCss(this.getCss());
 			inst.setNotes(this.getNotes());
 			inst.setHidden(this.getHidden());
+			inst.setBatchId(this.getBatchId());
+			inst.setType(this.getType());
+			inst.setOpenType(this.getOpenType());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setId(this.getId());
 			inst.setHierarchy(this.getHierarchy());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setLabel(this.getLabel());
 			inst.setSort(this.getSort());
-			inst.setBatchId(this.getBatchId());
-			inst.setType(this.getType());
 			inst.setParams(this.getParams());
 			inst.setVersion(this.getVersion());
 			inst.setUrl(this.getUrl());
@@ -671,14 +738,14 @@ public class MenuMeta {
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
-			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setAuthority(this.getAuthority());
 			inst.setDynamicHandler(this.getDynamicHandler());
 			inst.setDeleteBy(this.getDeleteBy());
-			inst.setId(this.getId());
+			inst.setLinkType(this.getLinkType());
 			inst.setPathResourceId(this.getPathResourceId());
 			if(all) {
+				inst.setForks(this.getForks());
 				inst.setParent(this.getParent());
 				inst.setPath(this.getPath());
 				inst.setPathResource(this.getPathResource());

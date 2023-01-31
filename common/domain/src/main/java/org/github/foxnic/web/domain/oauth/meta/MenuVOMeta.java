@@ -6,14 +6,15 @@ import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.MenuFork;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 16:53:43
- * @sign CE145BF1CA43AFFDB6E417F50CFABB46
+ * @since 2023-01-31 13:13:59
+ * @sign 1AF4E52A2ABBDFC7C6E8A32701747418
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,6 +99,26 @@ public class MenuVOMeta extends MenuMeta {
 	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String DATA_ORIGIN="dataOrigin";
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端按来源执行不同的逻辑", java.lang.String.class, null);
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final String QUERY_LOGIC="queryLogic";
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> QUERY_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,QUERY_LOGIC, java.lang.String.class, "查询逻辑", "默认and，可指定 or ", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -360,6 +381,26 @@ public class MenuVOMeta extends MenuMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 连接类型 , 外部链接、内部链接等 , 类型: java.lang.String
+	*/
+	public static final String LINK_TYPE="linkType";
+	
+	/**
+	 * 连接类型 , 外部链接、内部链接等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> LINK_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,LINK_TYPE, java.lang.String.class, "连接类型", "外部链接、内部链接等", java.lang.String.class, null);
+	
+	/**
+	 * 打开方式 , Tab页或新窗口等 , 类型: java.lang.String
+	*/
+	public static final String OPEN_TYPE="openType";
+	
+	/**
+	 * 打开方式 , Tab页或新窗口等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,java.lang.String> OPEN_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,OPEN_TYPE, java.lang.String.class, "打开方式", "Tab页或新窗口等", java.lang.String.class, null);
+	
+	/**
 	 * 路径资源 , 类型: org.github.foxnic.web.domain.oauth.Resourze
 	*/
 	public static final String PATH_RESOURCE="pathResource";
@@ -388,6 +429,16 @@ public class MenuVOMeta extends MenuMeta {
 	 * 上级菜单 , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,org.github.foxnic.web.domain.oauth.Menu> PARENT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,PARENT, org.github.foxnic.web.domain.oauth.Menu.class, "上级菜单", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
+	
+	/**
+	 * 版本实现 , 除了默认以外的实现UI实现 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.MenuFork
+	*/
+	public static final String FORKS="forks";
+	
+	/**
+	 * 版本实现 , 除了默认以外的实现UI实现 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.MenuFork
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuVO,org.github.foxnic.web.domain.oauth.MenuFork> FORKS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuVO.class ,FORKS, java.util.List.class, "版本实现", "除了默认以外的实现UI实现", org.github.foxnic.web.domain.oauth.MenuFork.class, null);
 	
 	/**
 	 * 页面路径 , 类型: java.lang.String
@@ -422,7 +473,7 @@ public class MenuVOMeta extends MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_ID , IS_LOAD_ALL_DESCENDANTS , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , IDS , ROLE_ID , IS_LOAD_ALL_DESCENDANTS , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , LINK_TYPE , OPEN_TYPE , PATH_RESOURCE , RESOURCES , PARENT , FORKS , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -517,6 +568,28 @@ public class MenuVOMeta extends MenuMeta {
 		public MenuVO setSortType(String sortType) {
 			super.change(SORT_TYPE,super.getSortType(),sortType);
 			super.setSortType(sortType);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据来源
+		 * @param dataOrigin 数据来源
+		 * @return 当前对象
+		*/
+		public MenuVO setDataOrigin(String dataOrigin) {
+			super.change(DATA_ORIGIN,super.getDataOrigin(),dataOrigin);
+			super.setDataOrigin(dataOrigin);
+			return this;
+		}
+		
+		/**
+		 * 设置 查询逻辑
+		 * @param queryLogic 查询逻辑
+		 * @return 当前对象
+		*/
+		public MenuVO setQueryLogic(String queryLogic) {
+			super.change(QUERY_LOGIC,super.getQueryLogic(),queryLogic);
+			super.setQueryLogic(queryLogic);
 			return this;
 		}
 		
@@ -807,6 +880,28 @@ public class MenuVOMeta extends MenuMeta {
 		}
 		
 		/**
+		 * 设置 连接类型
+		 * @param linkType 连接类型
+		 * @return 当前对象
+		*/
+		public Menu setLinkType(String linkType) {
+			super.change(LINK_TYPE,super.getLinkType(),linkType);
+			super.setLinkType(linkType);
+			return this;
+		}
+		
+		/**
+		 * 设置 打开方式
+		 * @param openType 打开方式
+		 * @return 当前对象
+		*/
+		public Menu setOpenType(String openType) {
+			super.change(OPEN_TYPE,super.getOpenType(),openType);
+			super.setOpenType(openType);
+			return this;
+		}
+		
+		/**
 		 * 设置 路径资源
 		 * @param pathResource 路径资源
 		 * @return 当前对象
@@ -836,6 +931,17 @@ public class MenuVOMeta extends MenuMeta {
 		public Menu setParent(Menu parent) {
 			super.change(PARENT,super.getParent(),parent);
 			super.setParent(parent);
+			return this;
+		}
+		
+		/**
+		 * 设置 版本实现
+		 * @param forks 版本实现
+		 * @return 当前对象
+		*/
+		public Menu setForks(List<MenuFork> forks) {
+			super.change(FORKS,super.getForks(),forks);
+			super.setForks(forks);
 			return this;
 		}
 		
@@ -890,12 +996,15 @@ public class MenuVOMeta extends MenuMeta {
 			inst.setCss(this.getCss());
 			inst.setNotes(this.getNotes());
 			inst.setHidden(this.getHidden());
+			inst.setBatchId(this.getBatchId());
+			inst.setType(this.getType());
+			inst.setOpenType(this.getOpenType());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setId(this.getId());
 			inst.setHierarchy(this.getHierarchy());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setLabel(this.getLabel());
 			inst.setSort(this.getSort());
-			inst.setBatchId(this.getBatchId());
-			inst.setType(this.getType());
 			inst.setParams(this.getParams());
 			inst.setVersion(this.getVersion());
 			inst.setUrl(this.getUrl());
@@ -903,14 +1012,14 @@ public class MenuVOMeta extends MenuMeta {
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
-			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setAuthority(this.getAuthority());
 			inst.setDynamicHandler(this.getDynamicHandler());
 			inst.setDeleteBy(this.getDeleteBy());
-			inst.setId(this.getId());
+			inst.setLinkType(this.getLinkType());
 			inst.setPathResourceId(this.getPathResourceId());
 			if(all) {
+				inst.setForks(this.getForks());
 				inst.setParent(this.getParent());
 				inst.setSearchField(this.getSearchField());
 				inst.setRoleId(this.getRoleId());
@@ -924,8 +1033,10 @@ public class MenuVOMeta extends MenuMeta {
 				inst.setSortType(this.getSortType());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
+				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
 				inst.setAncestorsNamePath(this.getAncestorsNamePath());
+				inst.setQueryLogic(this.getQueryLogic());
 				inst.setSearchValue(this.getSearchValue());
 				inst.setResourceIds(this.getResourceIds());
 			}

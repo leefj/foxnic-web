@@ -97,13 +97,19 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var _this = this;
 		$("body").on("click", "#" + _this.option.elem + " .site-demo-active", function () {
 			var dom = $(this);
+			// debugger
+			var menuData=dom.attr("data");
+			if(menuData) {
+				menuData=JSON.parse(menuData);
+			}
 			var data = {
 				menuId: dom.attr("menu-id"),
 				menuTitle: dom.attr("menu-title"),
 				menuPath: dom.attr("menu-title"),
 				menuIcon: dom.attr("menu-icon"),
 				menuUrl: dom.attr("menu-url"),
-				openType: dom.attr("open-type")
+				openType: dom.attr("open-type"),
+				data: menuData
 			};
 			var doms = hash(dom);
 			if (doms != null) {
@@ -308,13 +314,20 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				target = "target='_blank'";
 				className = "";
 			}
+
+			var dataJson= "";
+			if(note.data) {
+				dataJson = "data = '"+ JSON.stringify(note.data)+"'";
+			}
+
 			if (item.type == 0) {
 				// 创 建 目 录 结 构
-				content += '<a  href="javascript:;" menu-type="' + item.type + '" menu-id="' + item.id + '" href="' + href +
+				content += '<a '+dataJson+' href="javascript:;" menu-type="' + item.type + '" menu-id="' + item.id + '" href="' + href +
 					'" ' + target + ' ><i class="' + item.icon + '" style="'+item.topNavIconStyle+'"></i><span>' + item.title +
 					'</span></a>';
 			} else if (item.type == 1) {
-				content += '<a class="' + className + '" menu-type="' + item.type + '" menu-url="' + item.href + '" menu-id="' +
+				debugger
+				content += '<a '+dataJson+' class="' + className + '" menu-type="' + item.type + '" menu-url="' + item.href + '" menu-id="' +
 					item.id +
 					'" menu-title="' + item.title + '"  href="' + href + '"  ' + target + '><i class="' + item.icon +
 					'" style="'+item.topNavIconStyle+'"></i><span>' + item.title + '</span></a>';
@@ -476,17 +489,22 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 					marginLeft="margin-left:"+(note.level-1) * 20 +"px;";
 				}
 
+				var dataJson= "";
+				if(note.data) {
+					dataJson = "data = '"+ JSON.stringify(note.data)+"'";
+				}
+
 				// 判 断 菜 单 类 型 0 是 不可跳转的目录 1 是 可 点 击 跳 转 的 菜 单
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					// debugger
-					content += '<a level="f2-'+note.level+'"  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id +
+					content += '<a '+dataJson+' level="f2-'+note.level+'"  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id +
 						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+item.sideMenuIconStyle+'"></i><span>' + note.title +
 						'</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					// debugger
-					content += '<a level="p2-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
+					content += '<a '+dataJson+' level="p2-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id +
 						'" menu-title="' + note.title + '" href="' + href + '" style="'+marginLeft+'">' +
 						'<i class="' + note.icon +'" style="'+item.sideMenuIconStyle+'"></i>' +
@@ -588,14 +606,19 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				if(note.level>=2) {
 					marginLeft="padding-left:"+(note.level-1) * 20 +"px;";
 				}
+				var dataJson= "";
+				if(note.data) {
+					dataJson = "data = '"+ JSON.stringify(note.data)+"'";
+				}
 				// 判 断 子 项 类 型
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
-					content += '<a   level="f1-'+note.level+'" ' + target + '  href="' + href + '" menu-type="' + note.type + '" menu-id="' + note.id +
+					content += '<a  '+dataJson+' level="f1-'+note.level+'" ' + target + '  href="' + href + '" menu-type="' + note.type + '" menu-id="' + note.id +
 						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
-					content += '<a level="p1-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
+					// debugger
+					content += '<a '+dataJson+' level="p1-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id + '" menu-title="' + note.title + '" menu-icon="' + note.icon + '" href="' + href +
 						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
 				}

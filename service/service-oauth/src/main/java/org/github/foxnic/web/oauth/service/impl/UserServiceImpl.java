@@ -385,7 +385,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		List<Menu> dySubMenus=new ArrayList<>();
 		for (int i=0;i<menus.size();i++) {
 			Menu menu = menus.get(i);
-			if("/business/oauth/role/role_list.html".equals(menu.getPath())) {
+			if(menu.getForks()!=null && menu.getForks().size()>0) {
 				System.out.println();
 			}
 			//

@@ -434,11 +434,15 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				var pages=[];
 				for (var i = 0; i < menus.length; i++) {
 
+					menus[i].data={forks:menus[i].forks};
 
 					if(menus[i].hidden==1) continue;
 
 					menus[i].title=menus[i].label;
 					if(menus[i].title==null) menus[i].title="";
+					// if(menus[i].title=="系统参数") {
+					// 	debugger
+					// }
 					menus[i].icon=menus[i].css;
 					if(!menus[i].icon) {
 						menus[i].icon="fa fa-circle-o";
@@ -480,6 +484,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					pages.push(menus[i]);
 					map[menus[i].id]=menus[i];
 				}
+
+				// debugger
+				top.foxnic_menu_map=map;
 
 				// 提取顶级菜单，并构建层级关系
 				var topMenus=[];
@@ -533,7 +540,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 
 
-				// debugger
+				//debugger
 				sideMenu = pearMenu.render({
 					elem: 'sideMenu',
 					// async: param.menu.async !== undefined ? param.menu.async : true,
@@ -611,7 +618,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							title: data.menuTitle,
 							url: data.menuUrl,
 							icon: data.menuIcon,
-							close: true
+							close: true,
+							data: data.data
 						}, 300);
 						compatible();
 					})
