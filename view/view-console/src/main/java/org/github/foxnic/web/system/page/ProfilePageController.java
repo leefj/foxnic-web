@@ -43,7 +43,6 @@ public class ProfilePageController extends ViewController {
 	@RequestMapping("/profile_list.html")
 	public String list(Model model,HttpServletRequest request) {
 		return getTemplatePath(prefix,"profile_list");
-		//return prefix+"/profile_list";
 	}
 
 	/**
@@ -52,6 +51,5 @@ public class ProfilePageController extends ViewController {
 	@RequestMapping("/profile_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
 		return getTemplatePath(prefix,"profile_form");
-		//return prefix+"/profile_form";
 	}
 }

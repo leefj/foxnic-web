@@ -151,9 +151,9 @@ layui.define(['jquery', 'element'], function(exports) {
 			var ifr=$("#"+id);
 			var src=ifr.attr("src");
 			var moduleSrc=ifr.attr("module-src");
-			if(src!=moduleSrc) {
-				ifr.attr("src",moduleSrc);
-			}
+			// if(src!=moduleSrc) {
+			// 	ifr.attr("src",moduleSrc);
+			// }
 			sessionStorage.setItem(option.elem + "-pear-tab-data-current", id);
 			if (!option.preload) {
 				var $iframe = $(".layui-tab[lay-filter='" + elem + "'] .layui-tab-content").find(
