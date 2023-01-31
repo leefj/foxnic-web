@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * TokenVO类型
  * <p>Token , 数据表 sys_token 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
- * @sign 3D5BFA6CA800CF875AE6A42C60596A5D
+ * @since 2023-01-31 08:53:51
+ * @sign D14413DCD04303ED879389090103DF0E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,18 @@ public class TokenVO extends Token {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -242,6 +254,44 @@ public class TokenVO extends Token {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public TokenVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public TokenVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -328,6 +378,7 @@ public class TokenVO extends Token {
 		org.github.foxnic.web.domain.oauth.meta.TokenVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.TokenVOMeta.$$proxy$$();
 		inst.setAccessTokenExpireTime(this.getAccessTokenExpireTime());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSessionId(this.getSessionId());
 		inst.setAccessToken(this.getAccessToken());
 		inst.setUserId(this.getUserId());
 		inst.setVersion(this.getVersion());
@@ -351,7 +402,9 @@ public class TokenVO extends Token {
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -414,6 +467,7 @@ public class TokenVO extends Token {
 		if(cast) {
 			this.setAccessTokenExpireTime(DataParser.parse(Date.class, map.get(TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(TokenVOMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, map.get(TokenVOMeta.SESSION_ID)));
 			this.setAccessToken(DataParser.parse(String.class, map.get(TokenVOMeta.ACCESS_TOKEN)));
 			this.setUserId(DataParser.parse(String.class, map.get(TokenVOMeta.USER_ID)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(TokenVOMeta.VERSION)));
@@ -436,12 +490,15 @@ public class TokenVO extends Token {
 			this.setFuzzyField(DataParser.parse(String.class, map.get(TokenVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(TokenVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(TokenVOMeta.PAGE_SIZE)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(TokenVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(TokenVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(TokenVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
 			try {
 				this.setAccessTokenExpireTime( (Date)map.get(TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME));
 				this.setUpdateTime( (Date)map.get(TokenVOMeta.UPDATE_TIME));
+				this.setSessionId( (String)map.get(TokenVOMeta.SESSION_ID));
 				this.setAccessToken( (String)map.get(TokenVOMeta.ACCESS_TOKEN));
 				this.setUserId( (String)map.get(TokenVOMeta.USER_ID));
 				this.setVersion( (Integer)map.get(TokenVOMeta.VERSION));
@@ -464,6 +521,8 @@ public class TokenVO extends Token {
 				this.setFuzzyField( (String)map.get(TokenVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(TokenVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(TokenVOMeta.PAGE_SIZE));
+				this.setDataOrigin( (String)map.get(TokenVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(TokenVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(TokenVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {
@@ -483,6 +542,7 @@ public class TokenVO extends Token {
 		if(cast) {
 			this.setAccessTokenExpireTime(DataParser.parse(Date.class, r.getValue(TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TokenVOMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, r.getValue(TokenVOMeta.SESSION_ID)));
 			this.setAccessToken(DataParser.parse(String.class, r.getValue(TokenVOMeta.ACCESS_TOKEN)));
 			this.setUserId(DataParser.parse(String.class, r.getValue(TokenVOMeta.USER_ID)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(TokenVOMeta.VERSION)));
@@ -503,6 +563,7 @@ public class TokenVO extends Token {
 			try {
 				this.setAccessTokenExpireTime( (Date)r.getValue(TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME));
 				this.setUpdateTime( (Date)r.getValue(TokenVOMeta.UPDATE_TIME));
+				this.setSessionId( (String)r.getValue(TokenVOMeta.SESSION_ID));
 				this.setAccessToken( (String)r.getValue(TokenVOMeta.ACCESS_TOKEN));
 				this.setUserId( (String)r.getValue(TokenVOMeta.USER_ID));
 				this.setVersion( (Integer)r.getValue(TokenVOMeta.VERSION));

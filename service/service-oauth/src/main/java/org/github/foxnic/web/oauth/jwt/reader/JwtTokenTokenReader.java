@@ -1,17 +1,14 @@
 package org.github.foxnic.web.oauth.jwt.reader;
 
-import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.framework.sso.TokenReader;
 import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.language.LanguageService;
-import org.github.foxnic.web.oauth.jwt.JwtToken;
-import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
-import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
-import org.github.foxnic.web.oauth.jwt.JwtTokenStorage;
+import org.github.foxnic.web.oauth.jwt.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.stereotype.Component;
 
@@ -38,54 +35,82 @@ public class JwtTokenTokenReader extends TokenReader {
     @Override
     public String readUserId(HttpServletRequest request) {
 
-
-
         // 获取 header 解析出 jwt 并进行认证，若无 token 则直接进入下一个过滤器。  因为  SecurityContext 的缘故 如果无权限并不会放行
-        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(StringUtil.isBlank(header)) {
-            Cookie[] cookies = request.getCookies();
-            if(cookies!=null) {
-                for (Cookie cookie : cookies) {
-                    if(cookie.getName().equals("accessToken")) {
-                        header=AUTHENTICATION_PREFIX+cookie.getValue();
-                        break;
+        String accessTokenRaw = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String refreshTokenRaw = null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals(TokenType.access.keyName())) {
+                    if(StringUtil.isBlank(accessTokenRaw)) {
+                        accessTokenRaw = AUTHENTICATION_PREFIX + cookie.getValue();
                     }
+                }
+                if(cookie.getName().equals(TokenType.refresh.keyName())) {
+                    refreshTokenRaw = AUTHENTICATION_PREFIX + cookie.getValue();
                 }
             }
         }
 
-        if(StringUtil.isBlank(header)) return null;
-        if(!header.startsWith(AUTHENTICATION_PREFIX)) return null;
+        if(StringUtil.isBlank(accessTokenRaw) && StringUtil.isBlank(refreshTokenRaw)) return null;
 
-        String jwtToken = header.replace(AUTHENTICATION_PREFIX, "");
-        if (StringUtil.isBlank(jwtToken)) {
-            //带安全头 没有带 token
-            throw new AuthenticationCredentialsNotFoundException("token is not found");
+        if(!accessTokenRaw.startsWith(AUTHENTICATION_PREFIX)) return null;
+
+        accessTokenRaw = accessTokenRaw.replace(AUTHENTICATION_PREFIX, "");
+        if (StringUtil.isBlank(accessTokenRaw)) {
+            throw new AuthenticationCredentialsNotFoundException("access token is not found");
         }
 
-
-        // 根据我的实现 有效 token 才会被解析出来
-        JSONObject jsonObject = jwtTokenGenerator.decodeAndVerify(jwtToken);
-        if(jsonObject==null || jsonObject.isEmpty()) {
-            throw new BadCredentialsException("token error");
+        refreshTokenRaw = refreshTokenRaw.replace(AUTHENTICATION_PREFIX, "");
+        if (StringUtil.isBlank(refreshTokenRaw)) {
+            throw new AuthenticationCredentialsNotFoundException("refresh token is not found");
         }
 
-        String userId = jsonObject.getString("uid");
-        String jti = jsonObject.getString("jti");
+        // token 解析
+        Result<JwtToken> accessTokenResult = jwtTokenGenerator.decode(accessTokenRaw);
+
+        JwtToken accessToken=accessTokenResult.data();
+
+        JwtTokenPair jwtTokenPair = null;
+        // 如果 accessToken 无效 ， 校验 refreshToken
+        if(accessTokenResult.failure() || accessToken==null || accessToken.isExpire()) {
+            // token 解析
+            Result<JwtToken> refreshTokenResult = jwtTokenGenerator.decode(refreshTokenRaw);
+            JwtToken refreshToken=refreshTokenResult.data();
+            if(refreshTokenResult.failure() || refreshToken==null || refreshToken.isExpire()) {
+                throw new IllegalStateException("invalid access token and  refresh token is expired");
+            }
+            // 从缓存获取 token
+            jwtTokenPair = jwtTokenStorage.get(refreshToken.jti());
+            if (Objects.isNull(jwtTokenPair)) {
+                //缓存中不存在，抛出异常
+                throw new CredentialsExpiredException("token is not in cache");
+            }
+
+            // 生成新的 accessToken
+            this.setRenewJTI(jwtTokenPair.getJti());
+            JwtTokenPair newJwtTokenPair = jwtTokenGenerator.jwtTokenPair(refreshToken.uid(),refreshToken.aud());
+            accessToken=newJwtTokenPair.getAccessToken();
+            jwtTokenPair.setAccessToken(accessToken);
+            jwtTokenStorage.put(jwtTokenPair);
+
+        }
 
         // 从缓存获取 token
-        JwtTokenPair jwtTokenPair = jwtTokenStorage.get(jti);
+        if(jwtTokenPair==null) {
+            jwtTokenPair = jwtTokenStorage.get(accessToken.jti());
+        }
         if (Objects.isNull(jwtTokenPair)) {
-            //缓存中不存，失败了
+            //缓存中不存在，抛出异常
             throw new CredentialsExpiredException("token is not in cache");
         }
-        JwtToken accessToken = jwtTokenPair.getAccessToken();
-        //比对 Token
-        if (jwtToken.equals(accessToken.token())) {
-            return userId;
-        } else {
-            throw new BadCredentialsException("token is not matched");
-        }
+        accessToken = jwtTokenPair.getAccessToken();
+        // 使 Token 在同一 JTI 续租
+        this.setRenewJTI(jwtTokenPair.getJti());
+        // 保持 RefreshToken 不变
+        this.setKeepRefreshToken(jwtTokenPair.getRefreshToken().toJSON());
+        return accessToken.uid();
+
     }
 
     @Override

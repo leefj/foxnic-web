@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * Token
  * <p>Token , 数据表 sys_token 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
- * @sign B87FC6896ECA7824AE9D0D7CCEFB4C93
+ * @since 2023-01-31 08:53:51
+ * @sign BD1E374BBB6DB98E4F36093A54A3EE9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,8 +40,14 @@ public class Token extends Entity {
 	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id" , example = "-1015021568")
+	@ApiModelProperty(required = true,value="id" , notes = "id" , example = "672725204274774016")
 	private String id;
+	
+	/**
+	 * 会话ID：会话ID
+	*/
+	@ApiModelProperty(required = false,value="会话ID" , notes = "会话ID")
+	private String sessionId;
 	
 	/**
 	 * 账户ID：账户ID
@@ -52,25 +58,25 @@ public class Token extends Entity {
 	/**
 	 * Token标识：Token标识
 	*/
-	@ApiModelProperty(required = false,value="Token标识" , notes = "Token标识" , example = "dbc73530-592c-4b6f-a60a-6c5fd3cc1b2b")
+	@ApiModelProperty(required = false,value="Token标识" , notes = "Token标识" , example = "aac41a4b-932c-4cfb-a081-5043ae324490")
 	private String jti;
 	
 	/**
 	 * 访问用Token：访问用Token
 	*/
-	@ApiModelProperty(required = false,value="访问用Token" , notes = "访问用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZlbG9yZC5...")
+	@ApiModelProperty(required = false,value="访问用Token" , notes = "访问用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZveG5pYy1...")
 	private String accessToken;
 	
 	/**
 	 * 刷新用Token：刷新用Token
 	*/
-	@ApiModelProperty(required = false,value="刷新用Token" , notes = "刷新用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZlbG9yZC5...")
+	@ApiModelProperty(required = false,value="刷新用Token" , notes = "刷新用Token" , example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGwiLCJ1aWQiOiIxMTA1ODgzNDgxMDExNjU5MTEiLCJhdWQiOiJhZG1pbiIsImlzcyI6ImZveG5pYy1...")
 	private String refreshToken;
 	
 	/**
 	 * 访问用Token过期时间：访问用Token过期时间
 	*/
-	@ApiModelProperty(required = false,value="访问用Token过期时间" , notes = "访问用Token过期时间" , example = "2021-06-03 05:06:51")
+	@ApiModelProperty(required = false,value="访问用Token过期时间" , notes = "访问用Token过期时间" , example = "2023-01-31 09:19:36")
 	private Date accessTokenExpireTime;
 	
 	/**
@@ -82,7 +88,7 @@ public class Token extends Entity {
 	/**
 	 * 刷新用Token过期时间：刷新用Token过期时间
 	*/
-	@ApiModelProperty(required = false,value="刷新用Token过期时间" , notes = "刷新用Token过期时间" , example = "2021-06-03 05:10:11")
+	@ApiModelProperty(required = false,value="刷新用Token过期时间" , notes = "刷新用Token过期时间" , example = "2023-01-31 09:49:36")
 	private Date refreshTokenExpireTime;
 	
 	/**
@@ -94,13 +100,13 @@ public class Token extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2021-06-03 04:36:51")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-01-31 08:49:47")
 	private Date createTime;
 	
 	/**
@@ -158,6 +164,25 @@ public class Token extends Entity {
 	*/
 	public Token setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 会话ID<br>
+	 * 会话ID
+	 * @return 会话ID
+	*/
+	public String getSessionId() {
+		return sessionId;
+	}
+	
+	/**
+	 * 设置 会话ID
+	 * @param sessionId 会话ID
+	 * @return 当前对象
+	*/
+	public Token setSessionId(String sessionId) {
+		this.sessionId=sessionId;
 		return this;
 	}
 	
@@ -542,6 +567,7 @@ public class Token extends Entity {
 		org.github.foxnic.web.domain.oauth.meta.TokenMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.TokenMeta.$$proxy$$();
 		inst.setAccessTokenExpireTime(this.getAccessTokenExpireTime());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSessionId(this.getSessionId());
 		inst.setAccessToken(this.getAccessToken());
 		inst.setUserId(this.getUserId());
 		inst.setVersion(this.getVersion());
@@ -617,6 +643,7 @@ public class Token extends Entity {
 		if(cast) {
 			this.setAccessTokenExpireTime(DataParser.parse(Date.class, map.get(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(TokenMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, map.get(TokenMeta.SESSION_ID)));
 			this.setAccessToken(DataParser.parse(String.class, map.get(TokenMeta.ACCESS_TOKEN)));
 			this.setUserId(DataParser.parse(String.class, map.get(TokenMeta.USER_ID)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(TokenMeta.VERSION)));
@@ -638,6 +665,7 @@ public class Token extends Entity {
 			try {
 				this.setAccessTokenExpireTime( (Date)map.get(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME));
 				this.setUpdateTime( (Date)map.get(TokenMeta.UPDATE_TIME));
+				this.setSessionId( (String)map.get(TokenMeta.SESSION_ID));
 				this.setAccessToken( (String)map.get(TokenMeta.ACCESS_TOKEN));
 				this.setUserId( (String)map.get(TokenMeta.USER_ID));
 				this.setVersion( (Integer)map.get(TokenMeta.VERSION));
@@ -672,6 +700,7 @@ public class Token extends Entity {
 		if(cast) {
 			this.setAccessTokenExpireTime(DataParser.parse(Date.class, r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TokenMeta.UPDATE_TIME)));
+			this.setSessionId(DataParser.parse(String.class, r.getValue(TokenMeta.SESSION_ID)));
 			this.setAccessToken(DataParser.parse(String.class, r.getValue(TokenMeta.ACCESS_TOKEN)));
 			this.setUserId(DataParser.parse(String.class, r.getValue(TokenMeta.USER_ID)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(TokenMeta.VERSION)));
@@ -692,6 +721,7 @@ public class Token extends Entity {
 			try {
 				this.setAccessTokenExpireTime( (Date)r.getValue(TokenMeta.ACCESS_TOKEN_EXPIRE_TIME));
 				this.setUpdateTime( (Date)r.getValue(TokenMeta.UPDATE_TIME));
+				this.setSessionId( (String)r.getValue(TokenMeta.SESSION_ID));
 				this.setAccessToken( (String)r.getValue(TokenMeta.ACCESS_TOKEN));
 				this.setUserId( (String)r.getValue(TokenMeta.USER_ID));
 				this.setVersion( (Integer)r.getValue(TokenMeta.VERSION));

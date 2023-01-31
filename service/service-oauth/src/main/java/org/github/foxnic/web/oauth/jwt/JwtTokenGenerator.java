@@ -1,8 +1,13 @@
 package org.github.foxnic.web.oauth.jwt;
 
- 
+
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.lang.StringUtil;
+import org.github.foxnic.web.framework.sso.TokenReader;
 import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -11,13 +16,10 @@ import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.RsaSigner;
 import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
-import org.springframework.util.Assert;
 
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * JwtTokenGenerator
@@ -26,8 +28,7 @@ import java.time.format.DateTimeFormatter;
  * @since  2021-06-02
  */
 public class JwtTokenGenerator {
-    private static final String JWT_EXP_KEY = "exp";
- 
+
     private JwtProperties jwtProperties;
 
     private JwtTokenStorage jwtTokenStorage;
@@ -48,7 +49,6 @@ public class JwtTokenGenerator {
         }
     }
 
-
     /**
      * Jwt token pair jwt token pair.
      *
@@ -58,11 +58,20 @@ public class JwtTokenGenerator {
      * @return the jwt token pair
      */
     public JwtTokenPair jwtTokenPair(String uid,String aud) {
-    	
-    	String jti=IDGenerator.getUUID();
-    	
-    	JwtToken accessToken = jwtToken(jti,"access", aud,uid, jwtProperties.getAccessExpireSeconds());
-    	JwtToken refreshToken = jwtToken(jti,"refresh",aud,uid, jwtProperties.getRefreshExpireSeconds());
+
+        String jti=TokenReader.getRenewJTI();
+        if(StringUtil.isBlank(jti)) {
+            jti = IDGenerator.getUUID();
+        }
+
+    	JwtToken accessToken = jwtToken(jti,TokenType.access, aud,uid, jwtProperties.getAccessExpireSeconds());
+        JSONObject refreshTokenJson=TokenReader.getKeepRefreshToken();
+        JwtToken refreshToken = null;
+        if(refreshTokenJson!=null) {
+            refreshToken = new JwtToken(refreshTokenJson);
+        } else {
+            refreshToken= jwtToken(jti, TokenType.refresh, aud, uid, jwtProperties.getRefreshExpireSeconds());
+        }
 
         JwtTokenPair jwtTokenPair = new JwtTokenPair(jti);
         jwtTokenPair.setAccessToken(accessToken);
@@ -82,10 +91,10 @@ public class JwtTokenGenerator {
      * @param jti the additional
      * @return the string
      */
-	private JwtToken jwtToken(String jti,String type,String aud, String uid,int exp) {
-		
-		JwtToken builder = new JwtToken();
-		
+	private JwtToken jwtToken(String jti,TokenType type,String aud, String uid,int exp) {
+
+		JwtToken builder = new JwtToken(null);
+
 		String payload = builder
 				.jti(jti)
 				.uid(uid)
@@ -95,7 +104,7 @@ public class JwtTokenGenerator {
                 .type(type)
                 .expireSeconds(exp)
                 .builder();
-		
+
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 		RsaSigner signer = new RsaSigner(privateKey);
 		String token=JwtHelper.encode(payload, signer).getEncoded();
@@ -105,36 +114,34 @@ public class JwtTokenGenerator {
 
 
     /**
-     * 解码 并校验签名 过期不予解析
+     * 解码
      *
      * @param jwtToken the jwt token
      * @return the jwt claims
      */
-    public JSONObject decodeAndVerify(String jwtToken) {
-        Assert.hasText(jwtToken, "jwt token must not be bank");
-        RSAPublicKey rsaPublicKey = (RSAPublicKey) this.keyPair.getPublic();
-        SignatureVerifier rsaVerifier = new RsaVerifier(rsaPublicKey);
-        Jwt jwt = JwtHelper.decodeAndVerify(jwtToken, rsaVerifier);
-        String claims = jwt.getClaims();
-        JSONObject jsonObject = JSONObject.parseObject(claims);
-        String exp = jsonObject.getString(JWT_EXP_KEY);
-
-        if (isExpired(exp)) {
-            throw new IllegalStateException("jwt token is expired");
+    public Result<JwtToken> decode(String jwtToken) {
+        Result<JwtToken> result = new Result<>();
+        if(StringUtil.isBlank(jwtToken)) {
+            ErrorDesc.fill(result,CommonError.TOKEN_INVALID);
+            return result;
         }
-        return jsonObject;
+        try {
+            RSAPublicKey rsaPublicKey = (RSAPublicKey) this.keyPair.getPublic();
+            SignatureVerifier rsaVerifier = new RsaVerifier(rsaPublicKey);
+            Jwt jwt = JwtHelper.decodeAndVerify(jwtToken, rsaVerifier);
+            String claims = jwt.getClaims();
+            JSONObject json = JSONObject.parseObject(claims);
+            JwtToken token = new JwtToken(json);
+            ErrorDesc.success(result).data(token);
+            return result;
+        } catch (Exception e) {
+            ErrorDesc.fill(result,CommonError.TOKEN_INVALID);
+            return result;
+        }
+
     }
 
-    /**
-     * 判断jwt token是否过期.
-     *
-     * @param exp the jwt token exp
-     * @return the boolean
-     */
-    private boolean isExpired(String exp) {
 
-        return LocalDateTime.now().isAfter(LocalDateTime.parse(exp, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-    }
-    
-  
+
+
 }

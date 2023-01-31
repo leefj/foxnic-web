@@ -19,8 +19,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysMenuResource();
 //		g.generateSysOAuthClient();
 //		g.generateSysSessionOnline();
-//		g.generateSysToken();
-		g.generateSysRole();
+		g.generateSysToken();
+//		g.generateSysRole();
 //		g.generateSysRoleUser();
 		//g.generateSysMenu();
 		// g.generateSysRoleMenu();

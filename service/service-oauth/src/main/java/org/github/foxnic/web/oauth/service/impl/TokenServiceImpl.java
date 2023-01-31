@@ -212,8 +212,8 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 
 	@Override
 	public List<Token> queryValidTokens() {
-
-		return dao.queryEntities(Token.class,new Expr("select * from sys_token where refresh_token_expire_time>now() or access_token_expire_time>now()"));
+		Date now=new Date();
+		return dao.queryEntities(Token.class,new Expr("select * from sys_token where refresh_token_expire_time>? or access_token_expire_time>?",now,now));
 	}
 
 

@@ -11,18 +11,28 @@ import java.io.Serializable;
  * @since  2021-06-02
  **/
 public class JwtTokenPair implements Serializable {
-	
+
     private static final long serialVersionUID = -8518897818107784049L;
-    
+
     private String jti;
-    
+
+	private String sessionId;
+
     public JwtTokenPair(String jti) {
     	this.jti = jti;
     }
- 
-    private JwtToken accessToken;
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	private JwtToken accessToken;
     private JwtToken refreshToken;
-    
+
 	public JwtToken getAccessToken() {
 		return accessToken;
 	}

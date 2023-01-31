@@ -14,6 +14,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.TokenModel;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.framework.sso.TokenReader;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -236,7 +237,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		JwtTokenPair jwtTokenPair = jwtTokenGenerator.jwtTokenPair(principal.getUser().getId(), username);
 
-		tokenModel.setAccessToken( jwtTokenPair.getAccessToken().token());
+		tokenModel.setAccessToken(jwtTokenPair.getAccessToken().token());
 		tokenModel.setRefreshToken(jwtTokenPair.getRefreshToken().token());
 
 		return tokenModel;

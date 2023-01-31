@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 15:18:32
- * @sign B87FC6896ECA7824AE9D0D7CCEFB4C93
+ * @since 2023-01-31 08:53:51
+ * @sign BD1E374BBB6DB98E4F36093A54A3EE9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,6 +25,16 @@ public class TokenMeta {
 	 * id , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Token,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Token.class ,ID, java.lang.String.class, "id", "id", java.lang.String.class, null);
+	
+	/**
+	 * 会话ID , 类型: java.lang.String
+	*/
+	public static final String SESSION_ID="sessionId";
+	
+	/**
+	 * 会话ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Token,java.lang.String> SESSION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Token.class ,SESSION_ID, java.lang.String.class, "会话ID", "会话ID", java.lang.String.class, null);
 	
 	/**
 	 * 账户ID , 类型: java.lang.String
@@ -189,7 +199,7 @@ public class TokenMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , USER_ID , JTI , ACCESS_TOKEN , REFRESH_TOKEN , ACCESS_TOKEN_EXPIRE_TIME , ACCESS_TOKEN_EXPIRED , REFRESH_TOKEN_EXPIRE_TIME , REFRESH_TOKEN_EXPIRED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , JTI , ACCESS_TOKEN , REFRESH_TOKEN , ACCESS_TOKEN_EXPIRE_TIME , ACCESS_TOKEN_EXPIRED , REFRESH_TOKEN_EXPIRE_TIME , REFRESH_TOKEN_EXPIRED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -207,6 +217,17 @@ public class TokenMeta {
 		public Token setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 会话ID
+		 * @param sessionId 会话ID
+		 * @return 当前对象
+		*/
+		public Token setSessionId(String sessionId) {
+			super.change(SESSION_ID,super.getSessionId(),sessionId);
+			super.setSessionId(sessionId);
 			return this;
 		}
 		
@@ -403,6 +424,7 @@ public class TokenMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setAccessTokenExpireTime(this.getAccessTokenExpireTime());
 			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSessionId(this.getSessionId());
 			inst.setAccessToken(this.getAccessToken());
 			inst.setUserId(this.getUserId());
 			inst.setVersion(this.getVersion());
