@@ -305,9 +305,9 @@ security:
     iss: foxnic-web.com
     # 订阅者
     sub: all
-    # 访问超时秒数
+    # accessToken 超时秒数，1800秒 即 30分钟
     access-expire-seconds: 1800
-    # 刷新超时秒数
+    # refreshToken 超时秒数，3600秒 即 60分钟
     refresh-expire-seconds: 3600
 
 
