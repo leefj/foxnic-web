@@ -121,7 +121,7 @@ public class PageAspector {
 
 		//主题
 		if(this.theme.getValue()==null) {
-			Theme theme = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+			Theme theme = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME_DEFAULT, Theme.class);
 			String ico=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_FAVICO);
 			if (theme == null) theme = Theme.DEFAULT;
 			JSONObject json=new JSONObject();

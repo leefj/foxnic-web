@@ -51,7 +51,7 @@ public class FoxnicWebEnumGenerator  {
 		String dcp=this.configs.getProjectConfigs().getDomainConstantsPackage();
 
 		//系统配置 sys_config
-		EnumConfig info=new EnumConfig(SYS_CONFIG.CODE,SYS_CONFIG.NAME , new ConditionExpr("deleted=0 and code not like 'EAM_%' and code not like 'OPS_%'"));
+		EnumConfig info=new EnumConfig(SYS_CONFIG.CODE,SYS_CONFIG.NAME , new ConditionExpr("profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%'"));
 		new EnumClassFile(dao,configs.getDomainProject(),info,dcp,"SystemConfigEnum").save(true);
 
 		//字典 sys_dict
@@ -109,8 +109,17 @@ class DictItemBuilder extends JavaClassFile {
 			Double doubleValue= DataParser.parseDouble(name);
 
 			if(doubleValue!=null) {
-				name="E"+name;
+				name="_"+name;
 			}
+			Integer firstChar=DataParser.parseInteger(name.substring(0,1));
+			if(firstChar!=null) {
+				name="_"+name;
+			}
+
+			name=name.replace("+","_");
+			name=name.replace(".","_");
+			name=name.replace("@","_");
+
 			String text=r.getString(SYS_DICT_ITEM.LABEL);
 			addJavaDoc(1,text);
 			code.ln(1,name.trim().toUpperCase()+"(\""+codeValue+"\" , \""+text+"\"),");

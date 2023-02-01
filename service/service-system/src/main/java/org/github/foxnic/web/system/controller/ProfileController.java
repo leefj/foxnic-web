@@ -54,7 +54,8 @@ public class ProfileController extends SuperController {
     @ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "默认"),
-		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除")
+		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除"),
+		@ApiImplicitParam(name = ProfileVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "0")
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = ProfileServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -116,7 +117,8 @@ public class ProfileController extends SuperController {
     @ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "默认"),
-		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除")
+		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除"),
+		@ApiImplicitParam(name = ProfileVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "0")
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { ProfileVOMeta.PAGE_INDEX, ProfileVOMeta.PAGE_SIZE, ProfileVOMeta.SEARCH_FIELD, ProfileVOMeta.FUZZY_FIELD, ProfileVOMeta.SEARCH_VALUE, ProfileVOMeta.DIRTY_FIELDS, ProfileVOMeta.SORT_FIELD, ProfileVOMeta.SORT_TYPE, ProfileVOMeta.IDS })
     @SentinelResource(value = ProfileServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -134,7 +136,8 @@ public class ProfileController extends SuperController {
     @ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "默认"),
-		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除")
+		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除"),
+		@ApiImplicitParam(name = ProfileVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "0")
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { ProfileVOMeta.PAGE_INDEX, ProfileVOMeta.PAGE_SIZE, ProfileVOMeta.SEARCH_FIELD, ProfileVOMeta.FUZZY_FIELD, ProfileVOMeta.SEARCH_VALUE, ProfileVOMeta.DIRTY_FIELDS, ProfileVOMeta.SORT_FIELD, ProfileVOMeta.SORT_TYPE, ProfileVOMeta.IDS })
     @SentinelResource(value = ProfileServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -191,7 +194,8 @@ public class ProfileController extends SuperController {
     @ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "默认"),
-		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除")
+		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除"),
+		@ApiImplicitParam(name = ProfileVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "0")
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { ProfileVOMeta.PAGE_INDEX, ProfileVOMeta.PAGE_SIZE })
     @SentinelResource(value = ProfileServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -210,7 +214,8 @@ public class ProfileController extends SuperController {
     @ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "默认"),
-		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除")
+		@ApiImplicitParam(name = ProfileVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class, example = "默认 Profile 请勿删除"),
+		@ApiImplicitParam(name = ProfileVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "0")
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = ProfileServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

@@ -13,6 +13,7 @@ import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
 import java.util.List;
@@ -32,6 +33,10 @@ public interface IConfigService extends ISuperService<Config> {
 	 * 默认的 profile id
 	 * */
 	public static final String DEFAULT_PROFILE_ID="default";
+
+	public static final String ROOT_ID="0";
+
+	public static final String TOP_ID="foxnic-web";
 
 	/**
 	 * 添加，如果语句错误，则抛出异常
@@ -345,4 +350,9 @@ public interface IConfigService extends ISuperService<Config> {
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
+    void makeDirsIf();
+
+	List<ZTreeNode> queryRootNotes(String profileId);
+
+	List<ZTreeNode> queryChildNodes(String profileId, String parentId);
 }

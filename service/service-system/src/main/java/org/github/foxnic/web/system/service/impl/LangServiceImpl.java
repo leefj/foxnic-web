@@ -475,7 +475,7 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 
 		// 按 profile 配置获取语言
 		if (userLanguage==null) {
-			userLanguage=Language.parseByCode(configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE).getValue());
+			userLanguage=Language.parseByCode(configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE_DEFAULT).getValue());
 		}
 
 		// 如果指定开发模式的语言，用开发模式的语言覆盖

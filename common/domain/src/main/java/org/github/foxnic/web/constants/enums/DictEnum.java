@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-12-20 11:34:59
+ * @since 2023-02-01 15:09:00
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -88,6 +88,46 @@ public enum DictEnum implements CodeTextEnum {
 	 * 员工类型
 	*/
 	EMPLOYEE_TYPE("employee_type" , "员工类型"),
+	
+	/**
+	 * 血型
+	*/
+	HR_BLOOD_TYPE("hr_blood_type" , "血型"),
+	
+	/**
+	 * 婚姻状态
+	*/
+	HR_MARITAL_STATUS("hr_marital_status" , "婚姻状态"),
+	
+	/**
+	 * 员工归属类型
+	*/
+	HR_EMPLOYEE_OWNER_TYPE("hr_employee_owner_type" , "员工归属类型"),
+	
+	/**
+	 * 合同周期
+	*/
+	HR_CONTRACT_DURATION("hr_contract_duration" , "合同周期"),
+	
+	/**
+	 * 人员合同类型
+	*/
+	HR_CONTRACT_TYPE("hr_contract_type" , "人员合同类型"),
+	
+	/**
+	 * 合同年份
+	*/
+	HR_CONTRACT_YEAR("hr_contract_year" , "合同年份"),
+	
+	/**
+	 * 学历
+	*/
+	HR_EDUCATION("hr_education" , "学历"),
+	
+	/**
+	 * 政治面貌
+	*/
+	HR_POLITIC_COUNTENANCE("hr_politic_countenance" , "政治面貌"),
 	
 	/**
 	 * 系统配置分类

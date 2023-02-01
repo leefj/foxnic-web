@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:48
- * @sign 27EBC9E6C100042BE51E6D0BFBBA68AE
+ * @since 2023-02-01 11:37:34
+ * @sign D616249B475673E900281A35905B340E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -197,9 +197,19 @@ public class ConfigMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 上级ID , 类型: java.lang.String
+	*/
+	public static final String PARENT_ID="parentId";
+	
+	/**
+	 * 上级ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PARENT_ID };
 	
 	/**
 	 * 代理类
@@ -406,6 +416,17 @@ public class ConfigMeta {
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 上级ID
+		 * @param parentId 上级ID
+		 * @return 当前对象
+		*/
+		public Config setParentId(String parentId) {
+			super.change(PARENT_ID,super.getParentId(),parentId);
+			super.setParentId(parentId);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -429,6 +450,7 @@ public class ConfigMeta {
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setType(this.getType());
 			inst.setVersion(this.getVersion());
+			inst.setParentId(this.getParentId());
 			inst.setValid(this.getValid());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());

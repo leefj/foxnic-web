@@ -8,18 +8,25 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import javassist.tools.rmi.Sample;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -291,7 +298,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	 * */
 	@Override
 	public PagedList<Config> queryPagedList(Config sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+		return super.queryPagedList(sample, new ConditionExpr("type!=?",SystemConfigType.DIR),pageSize, pageIndex);
 	}
 
 	/**
@@ -336,6 +343,100 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
+	@Override
+	public void makeDirsIf() {
+
+//		dao().execute("delete from "+table()+" where type=?",SystemConfigType.DIR);
+//		dao().execute("update "+table()+" set parent_id=null where parent_id is not null");
+
+		DBColumnMeta parentId=this.dao().getTableColumnMeta(this.table(),"parent_id");
+		Rcd exists=this.dao().queryRecord("select * from "+this.table()+" where type=? and deleted=0", SystemConfigType.DIR);
+		if(parentId!=null && exists!=null) return;
+
+		List<Config> defaultConfigList=this.queryList("profile_id=?",IConfigService.DEFAULT_PROFILE_ID);
+		for (Config config : defaultConfigList) {
+			String[] codes=config.getCode().split("\\.");
+			String code=null;
+			Config parent=null;
+			Config node=null;
+			for (String part : codes) {
+				if(code==null) {
+					code = part;
+				} else {
+					code=code+"."+part;
+				}
+				node=this.queryEntity("code=? and profile_id=?",code,config.getProfileId());
+				if(node==null) {
+					node = new Config();
+					node.setCode(code);
+					node.setProfileId(config.getProfileId());
+					node.setName(part);
+					node.setType(SystemConfigType.DIR.code());
+					if (parent != null) {
+						node.setParentId(parent.getId());
+					} else {
+						node.setParentId(IConfigService.ROOT_ID);
+					}
+					this.insert(node);
+				} else {
+					if(parent!=null) {
+						node.setParentId(parent.getId());
+						this.update(node,SaveMode.DIRTY_FIELDS);
+					}
+				}
+				parent=node;
+			}
+		}
+
+	}
+
+	private RcdSet queryChildConfigs(String profileId,String parentId) {
+		RcdSet menus=null;
+		if(parentId==null || parentId.equals(IConfigService.ROOT_ID)) {
+			menus=dao.query("#query-root-configs",parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+		} else {
+			menus=dao.query("#query-configs-by-parent-id",parentId,parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+		}
+		return menus;
+	}
+
+	@Override
+	public List<ZTreeNode> queryRootNotes(String profileId) {
+		RcdSet menus=queryChildConfigs(profileId,IConfigService.ROOT_ID);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		for (ZTreeNode node : nodes) {
+			node.setOpen(true);
+			List<ZTreeNode> children=this.queryChildNodes(profileId,node.getId());
+			for (ZTreeNode child : children) {
+				node.addChild(child);
+			}
+		}
+
+		return nodes;
+	}
+
+	@Override
+	public List<ZTreeNode> queryChildNodes(String profileId,String parentId) {
+		RcdSet menus=queryChildConfigs(profileId,parentId);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		return nodes;
+	}
+
+
+	private List<ZTreeNode> toZTreeNodeList(RcdSet configs) {
+		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
+		for (Rcd m : configs) {
+			ZTreeNode node=new ZTreeNode();
+			node.setId(m.getString(FoxnicWeb.SYS_CONFIG.ID));
+			node.setName(m.getString(FoxnicWeb.SYS_CONFIG.NAME));
+			node.setParentId(m.getString(FoxnicWeb.SYS_CONFIG.PARENT_ID));
+			node.setHierarchy(m.getString(FoxnicWeb.SYS_CONFIG.CODE));
+			node.setIsParent(m.getInteger("child_count")>0);
+			node.setType(m.getString("type"));
+			nodes.add(node);
+		}
+		return nodes;
+	}
 
 
 	/**

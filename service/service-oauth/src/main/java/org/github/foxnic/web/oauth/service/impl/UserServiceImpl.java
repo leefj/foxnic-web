@@ -537,7 +537,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	} else {
     		if(StringUtil.isBlank(usrLang)) {
     			//获得系统配置的语言
-    	    	String sysLang= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LANGUAGE);
+    	    	String sysLang= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LANGUAGE_DEFAULT);
     			user.setLanguage(sysLang);
     		}
     	}

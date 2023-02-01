@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("SysConfigPageController")
 @RequestMapping(ConfigPageController.prefix)
 public class ConfigPageController {
-	
+
 	public static final String prefix="business/system/config";
 
 	private ConfigServiceProxy proxy;
-	
+
 	/**
-	 * 获得代理对象<br> 
-	 * 1、单体应用时，在应用内部调用；<br> 
-	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
-	 * 3、微服务时，通过feign调用; <br> 
+	 * 获得代理对象<br>
+	 * 1、单体应用时，在应用内部调用；<br>
+	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br>
+	 * 3、微服务时，通过feign调用; <br>
 	 * */
 	public ConfigServiceProxy proxy() {
 		if(proxy==null) {
@@ -38,7 +38,7 @@ public class ConfigPageController {
 		}
 		return proxy;
 	}
-	
+
 	/**
 	 * 系统配置 功能主页面
 	 */
@@ -60,5 +60,17 @@ public class ConfigPageController {
 			}
 		}
 		return prefix+"/config_form";
+	}
+
+	@RequestMapping("/config_define_form.html")
+	public String defileForm(Model model , String id) {
+		Result<Config> r=null;
+		if(!StringUtil.isBlank(id)) {
+			r=proxy().getById(id);
+			if(r!=null && r.success()) {
+				model.addAttribute("config", r.data());
+			}
+		}
+		return  prefix+"/config_define_form";
 	}
 }

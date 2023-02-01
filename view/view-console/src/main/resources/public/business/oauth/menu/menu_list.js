@@ -195,7 +195,7 @@ function ListPage() {
 			var btn = $("#diyBtn_" + treeNode.id + "_add");
 			if (btn) {
 				btn.bind("click", function () {
-					addChild();
+					addChild(treeNode);
 				});
 			}
 		}
@@ -331,13 +331,13 @@ function ListPage() {
 	}
 
 
-	function addChild() {
-		var nodes=menuTree.getSelectedNodes();
+	function addChild(treeNode) {
 
-		//默认根节点
-		var treeNode=null;
-		if(nodes && nodes.length>0) {
-			treeNode=nodes[0];
+		if(treeNode==null) {
+			var nodes = menuTree.getSelectedNodes();
+			if (nodes && nodes.length > 0) {
+				treeNode = nodes[0];
+			}
 		}
 
 		admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {

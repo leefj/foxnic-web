@@ -7,11 +7,13 @@
 
 function ListPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown;
 	//模块基础路径
-	const moduleURL="/service-oauth/sys-menu";
+	const moduleURL="/service-system/sys-config";
 
 	var menuTree;
+
+	var currProfileId="default";
 
 	/**
       * 入口函数，初始化
@@ -19,7 +21,7 @@ function ListPage() {
 	this.init=function(layui) {
 
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;
 
      	var cfgs = {
      		edit: {
@@ -30,7 +32,7 @@ function ListPage() {
 				contentType:"application/json",
 				url:moduleURL+"/query-nodes",
 				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:0},
+				otherParam:{isLoadAllDescendants:0,profileId:currProfileId},
 				dataFilter: nodeDatafilter
 			},
 			callback: {
@@ -147,7 +149,7 @@ function ListPage() {
     }
 
 	function onNodeRename (event, treeId, treeNode, isCancel) {
-		admin.request(moduleURL+"/update",{id:treeNode.id,label:treeNode.name},function(r){
+		admin.request(moduleURL+"/update",{id:treeNode.id,name:treeNode.name},function(r){
 			if(r.success) {
 				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
 				$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
@@ -162,20 +164,14 @@ function ListPage() {
 		childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-			//debugger;
-			if(childNodes[i].type=="folder") {
-				childNodes[i].iconSkin="icon_menu_folder";
+			if(childNodes[i].type=="DIR") {
+				childNodes[i].iconSkin="icon_config_dir";
+			} else {
+				childNodes[i].iconSkin="icon_config_item";
 			}
-			if(childNodes[i].type=="page") {
-				childNodes[i].iconSkin="icon_menu_page";
+			if(childNodes[i].children && childNodes[i].children.length) {
+				nodeDatafilter(treeId,childNodes[i],{data:childNodes[i].children});
 			}
-			if(childNodes[i].type=="function") {
-				childNodes[i].iconSkin="icon_menu_function";
-			}
-			if(childNodes[i].type=="api") {
-				childNodes[i].iconSkin="icon_menu_api";
-			}
-
 		}
 		return childNodes;
 	}
@@ -184,7 +180,9 @@ function ListPage() {
 		if(!treeNode.id) {
 			return false;
 		}
-		if(!treeNode.isParent) return;
+		//debugger
+		//if(!treeNode.isParent || treeNode.type != "DIR") return;
+		if(treeNode.type != "DIR") return;
 		// var aObj = $("#" + treeNode.tId + "_a");
 		//setTimeout(function (){
 		var aObj = $("#" + treeNode.tId + "_span").parent();
@@ -195,7 +193,7 @@ function ListPage() {
 			var btn = $("#diyBtn_" + treeNode.id + "_add");
 			if (btn) {
 				btn.bind("click", function () {
-					addChild();
+					addChild(treeNode);
 				});
 			}
 		}
@@ -331,18 +329,43 @@ function ListPage() {
 	}
 
 
-	function addChild() {
-		var nodes=menuTree.getSelectedNodes();
+	function addChild(treeNode) {
 
-		//默认根节点
-		var treeNode=null;
-		if(nodes && nodes.length>0) {
-			treeNode=nodes[0];
+		// debugger
+		if(treeNode==null) {
+			var nodes = menuTree.getSelectedNodes();
+			if (nodes && nodes.length > 0) {
+				treeNode = nodes[0];
+			}
 		}
 
-		admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
+		// admin.popupCenter({
+		// 	title: "维护 Profile",
+		// 	resize: false,
+		// 	offset: 'auto',
+		// 	area: ["80%","80%"],
+		// 	type: 2,
+		// 	id:"sys-profile-form-list-win",
+		// 	content: '/business/system/config/config_define_form.html',
+		// 	finish: function () {
+		// 		debugger
+		// 	},
+		// 	cancel: function(index, layero){
+		// 		debugger
+		// 	}
+		// });
+		//
+		// admin.putVar("profileId",currProfileId);
+		// admin.putVar("parentId",treeNode.id);
+		// admin.putVar("hierarchy",treeNode.hierarchy);
+		//
+		// return;
+
+
+
+		admin.request(moduleURL+"/insert",{parentId:treeNode.id,name:"新配置",profileId:currProfileId},function(r) {
 			if(r.success) {
-				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
+				admin.toast().success("配置项已创建",{time:1000,position:"right-bottom"});
 				//debugger
 				if(treeNode==null) {
 					//debugger;
@@ -375,8 +398,91 @@ function ListPage() {
 		},"POST",true);
 	}
 
+	var profiles = null;
+
+	function showProfileMenu(show) {
+
+		function showMenu() {
+
+			var data=[];
+			for (var i = 0; i < profiles.length; i++) {
+				var p=profiles[i]
+				var tps1=[
+					"<div style='height:32px;margin-top:0px'>",
+					'   <a style="font-size: 15px;display: flex;">',
+					'       <div style="width: 20px;text-align:center;"><i class="fa fa-server" style="font-size: 17px;"></i></div>',
+					'		&nbsp;&nbsp;{{d.title}}',
+					'   </a>',
+					"<div>",
+				];
+				data.push({
+					title: p.name,
+					id: p.id,
+					templet:tps1.join("\n")
+				})
+			}
+
+			var tps0=[
+				"<div style='height:32px;margin-top:0px'>",
+				'   <a style="font-size: 15px;display: flex;">',
+				'       <div style="width: 20px;text-align:center;"><i class="fa fa-edit" style="font-size: 17px;"></i></div>',
+				'		&nbsp;&nbsp;维护',
+				'   </a>',
+				"<div>",
+			]
+			data.push({type: '-'});
+			data.push({
+				id: "edit",
+				templet: tps0.join("\n")
+			});
+			console.log(data)
+			dropdown.render({
+				elem: '#profiles',
+				show:show
+				,data: data
+				,click: function(obj){
+					console.log(obj);
+					if(obj.id=="edit") {
+						admin.popupCenter({
+							title: "维护 Profile",
+							resize: false,
+							offset: 'auto',
+							area: ["80%","80%"],
+							type: 2,
+							id:"sys-profile-form-list-win",
+							content: '/business/system/profile/profile_list.html?hide-param-button=1',
+							finish: function () {
+								debugger
+							},
+							cancel: function(index, layero){
+								// debugger
+								profiles=null;
+								showProfileMenu(false);
+							}
+						});
+						profiles=null;
+					};
+				}
+			});
+		}
+
+		if(profiles==null) {
+			admin.request("/service-system/sys-profile/query-list", {sortField: "sort", sortType: "asc"}, function (r) {
+				if (r.success) {
+					profiles=r.data;
+					showMenu(true);
+				} else {
+					fox.showMessage(r);
+				}
+			}, "POST", true);
+		} else {
+			showMenu(true);
+		}
+
+	}
+
 	// 添加按钮点击事件
-    $('#btn-add').click(addChild);
+	$('#profiles').click(showProfileMenu);
 
 
     /**
@@ -410,6 +516,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect','dropdown'],function() {
 	(new ListPage()).init(layui);
 });

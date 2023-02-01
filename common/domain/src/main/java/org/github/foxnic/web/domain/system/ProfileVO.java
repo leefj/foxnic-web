@@ -13,6 +13,7 @@ import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
 import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
 import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
 import com.github.foxnic.sql.data.ExprRcd;
 
 
@@ -21,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * ProfileVO类型
  * <p>Profile , 数据表 sys_profile 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:50
- * @sign BFC7F59AF85B4575AF455EEAA67F73DD
+ * @since 2023-02-01 09:32:49
+ * @sign 7F8D8A63C536095DB72C05E8E7880841
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -78,6 +79,18 @@ public class ProfileVO extends Profile {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -241,6 +254,44 @@ public class ProfileVO extends Profile {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public ProfileVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public ProfileVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -325,9 +376,18 @@ public class ProfileVO extends Profile {
 	@Transient
 	public ProfileVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.system.meta.ProfileVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.ProfileVOMeta.$$proxy$$();
+		inst.setCreateBy(this.getCreateBy());
 		inst.setNotes(this.getNotes());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
 		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
 		inst.setId(this.getId());
+		inst.setSort(this.getSort());
+		inst.setVersion(this.getVersion());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
 			inst.setPageIndex(this.getPageIndex());
@@ -336,7 +396,9 @@ public class ProfileVO extends Profile {
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -397,9 +459,18 @@ public class ProfileVO extends Profile {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, map.get(ProfileVOMeta.CREATE_BY)));
 			this.setNotes(DataParser.parse(String.class, map.get(ProfileVOMeta.NOTES)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ProfileVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ProfileVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ProfileVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ProfileVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, map.get(ProfileVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ProfileVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProfileVOMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, map.get(ProfileVOMeta.ID)));
+			this.setSort(DataParser.parse(Integer.class, map.get(ProfileVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ProfileVOMeta.VERSION)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(ProfileVOMeta.SEARCH_FIELD)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProfileVOMeta.PAGE_INDEX)));
@@ -407,13 +478,24 @@ public class ProfileVO extends Profile {
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ProfileVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(ProfileVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ProfileVOMeta.PAGE_SIZE)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(ProfileVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(ProfileVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(ProfileVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
 			try {
+				this.setCreateBy( (String)map.get(ProfileVOMeta.CREATE_BY));
 				this.setNotes( (String)map.get(ProfileVOMeta.NOTES));
+				this.setDeleted( (Integer)map.get(ProfileVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ProfileVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ProfileVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ProfileVOMeta.DELETE_TIME));
 				this.setName( (String)map.get(ProfileVOMeta.NAME));
+				this.setDeleteBy( (String)map.get(ProfileVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)map.get(ProfileVOMeta.UPDATE_TIME));
 				this.setId( (String)map.get(ProfileVOMeta.ID));
+				this.setSort( (Integer)map.get(ProfileVOMeta.SORT));
+				this.setVersion( (Integer)map.get(ProfileVOMeta.VERSION));
 				// others
 				this.setSearchField( (String)map.get(ProfileVOMeta.SEARCH_FIELD));
 				this.setPageIndex( (Integer)map.get(ProfileVOMeta.PAGE_INDEX));
@@ -421,6 +503,8 @@ public class ProfileVO extends Profile {
 				this.setFuzzyField( (String)map.get(ProfileVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(ProfileVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(ProfileVOMeta.PAGE_SIZE));
+				this.setDataOrigin( (String)map.get(ProfileVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(ProfileVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(ProfileVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {
@@ -438,15 +522,33 @@ public class ProfileVO extends Profile {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProfileVOMeta.CREATE_BY)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(ProfileVOMeta.NOTES)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProfileVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProfileVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProfileVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ProfileVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, r.getValue(ProfileVOMeta.NAME)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProfileVOMeta.DELETE_BY)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProfileVOMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, r.getValue(ProfileVOMeta.ID)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(ProfileVOMeta.SORT)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProfileVOMeta.VERSION)));
 			return true;
 		} else {
 			try {
+				this.setCreateBy( (String)r.getValue(ProfileVOMeta.CREATE_BY));
 				this.setNotes( (String)r.getValue(ProfileVOMeta.NOTES));
+				this.setDeleted( (Integer)r.getValue(ProfileVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ProfileVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ProfileVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ProfileVOMeta.DELETE_TIME));
 				this.setName( (String)r.getValue(ProfileVOMeta.NAME));
+				this.setDeleteBy( (String)r.getValue(ProfileVOMeta.DELETE_BY));
+				this.setUpdateTime( (Date)r.getValue(ProfileVOMeta.UPDATE_TIME));
 				this.setId( (String)r.getValue(ProfileVOMeta.ID));
+				this.setSort( (Integer)r.getValue(ProfileVOMeta.SORT));
+				this.setVersion( (Integer)r.getValue(ProfileVOMeta.VERSION));
 				return true;
 			} catch (Exception e) {
 				return false;

@@ -96,6 +96,11 @@ public interface ConfigServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
+     * 查询配置节点
+     */
+    public static final String QUERY_NODES = API_PREFIX + "query-nodes";
+
+    /**
      * 导出系统配置数据(Excel)
      */
     public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";

@@ -6,28 +6,18 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-12-20 11:34:58
+ * @since 2023-02-01 15:09:00
  * @author 李方捷 , leefangjie@qq.com
- * 从 select distinct code,name from sys_config WHERE deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
+ * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
 public enum SystemConfigEnum implements CodeTextEnum {
 	
 	/**
-	 * IN_URL
+	 * 用户服务实现配置
 	*/
-	CLPS_PORTAL_IN_URL("clps.portal.IN_URL" , "IN_URL"),
-	
-	/**
-	 * PC_IN_CAM_PORTAL_URL
-	*/
-	CLPS_PORTAL_PC_IN_CAM_PORTAL_URL("clps.portal.PC_IN_CAM_PORTAL_URL" , "PC_IN_CAM_PORTAL_URL"),
-	
-	/**
-	 * PC_OUT_CAM_PORTAL_URL
-	*/
-	CLPS_PORTAL_PC_OUT_CAM_PORTAL_URL("clps.portal.PC_OUT_CAM_PORTAL_URL" , "PC_OUT_CAM_PORTAL_URL"),
+	SYSTEM_SERVICE_ORG_GITHUB_FOXNIC_WEB_OAUTH_SERVICE_IUSERSERVICE_IMPL_T001("system.service.org.github.foxnic.web.oauth.service.IUserService.Impl@T001" , "用户服务实现配置"),
 	
 	/**
 	 * 缓存键
@@ -82,7 +72,7 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	/**
 	 * 系统默认语言
 	*/
-	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
+	SYSTEM_LANGUAGE_DEFAULT("system.language.default" , "系统默认语言"),
 	
 	/**
 	 * 系统语言范围
@@ -130,9 +120,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_PORTAL_MODULE_ENABLE("system.portal.module.enable" , "首页分模块"),
 	
 	/**
-	 * 系统主题
+	 * 系统默认主题
 	*/
-	SYSTEM_THEME("system.theme" , "系统主题"),
+	SYSTEM_THEME_DEFAULT("system.theme.default" , "系统默认主题"),
 	
 	/**
 	 * 系统主题模版页面
@@ -143,6 +133,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 系统名称
 	*/
 	SYSTEM_TITLE("system.title" , "系统名称"),
+	
+	/**
+	 * mysqldump
+	*/
+	SYSTEM_TOOL_MYSQLDUMP("system.tool.mysqldump" , "mysqldump"),
 	
 	/**
 	 * 表格分页档位

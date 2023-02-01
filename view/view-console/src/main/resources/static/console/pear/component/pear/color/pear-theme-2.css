@@ -170,3 +170,6 @@ th[data-field]:hover {
     color:#36b368;
     font-weight: bold;
 }
+.layui-checkbox-disabled {
+    background-color: #f0f0f0 !important;
+}

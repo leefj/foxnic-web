@@ -1,17 +1,22 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.OrderBy;
-import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.entity.ISuperService;
 import org.github.foxnic.web.domain.system.Profile;
 import org.github.foxnic.web.domain.system.ProfileVO;
-
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import java.io.InputStream;
+import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 import java.util.Map;
 
 /**
@@ -19,7 +24,7 @@ import java.util.Map;
  * Profile服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:50
+ * @since 2023-02-01 10:55:31
 */
 
 public interface IProfileService extends  ISimpleIdService<Profile,String> {
@@ -49,7 +54,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 	Result insertList(List<Profile> profileList);
 
 
-
+		
 	/**
 	 * 按主键删除Profile
 	 *
@@ -57,6 +62,14 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
+	
+	/**
+	 * 按主键删除Profile
+	 *
+	 * @param id ID
+	 * @return 删除是否成功
+	 */
+	Result deleteByIdLogical(String id);
 
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -72,7 +85,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-
+		
 	/**
 	 * 按主键更新Profile
 	 *
@@ -142,7 +155,7 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 	 * */
 	boolean checkExists(Profile profile,DBField... field);
 
-
+		
 	/**
 	 * 按主键获取Profile
 	 *
@@ -150,10 +163,6 @@ public interface IProfileService extends  ISimpleIdService<Profile,String> {
 	 * @return Profile 数据对象
 	 */
 	Profile getById(String id);
-
-
-
-
 
 	/**
 	 * 按 id 获取多个对象

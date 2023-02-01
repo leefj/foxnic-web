@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 系统配置VO类型
  * <p>系统配置 , 数据表 sys_config 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:48
- * @sign 466C9860D16E6E052E1B2A383B70A3FA
+ * @since 2023-02-01 11:37:34
+ * @sign 1CBF5966B61FF4F5B2BF5AF805B18E90
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,18 @@ public class ConfigVO extends Config {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -242,6 +254,44 @@ public class ConfigVO extends Config {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public ConfigVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public ConfigVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -333,6 +383,7 @@ public class ConfigVO extends Config {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setType(this.getType());
 		inst.setVersion(this.getVersion());
+		inst.setParentId(this.getParentId());
 		inst.setValid(this.getValid());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
@@ -352,7 +403,9 @@ public class ConfigVO extends Config {
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -420,6 +473,7 @@ public class ConfigVO extends Config {
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ConfigVOMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, map.get(ConfigVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ConfigVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, map.get(ConfigVOMeta.PARENT_ID)));
 			this.setValid(DataParser.parse(Integer.class, map.get(ConfigVOMeta.VALID)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(ConfigVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(ConfigVOMeta.DELETED)));
@@ -438,6 +492,8 @@ public class ConfigVO extends Config {
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ConfigVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(ConfigVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ConfigVOMeta.PAGE_SIZE)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(ConfigVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(ConfigVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(ConfigVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
@@ -449,6 +505,7 @@ public class ConfigVO extends Config {
 				this.setUpdateTime( (Date)map.get(ConfigVOMeta.UPDATE_TIME));
 				this.setType( (String)map.get(ConfigVOMeta.TYPE));
 				this.setVersion( (Integer)map.get(ConfigVOMeta.VERSION));
+				this.setParentId( (String)map.get(ConfigVOMeta.PARENT_ID));
 				this.setValid( (Integer)map.get(ConfigVOMeta.VALID));
 				this.setCreateBy( (String)map.get(ConfigVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(ConfigVOMeta.DELETED));
@@ -467,6 +524,8 @@ public class ConfigVO extends Config {
 				this.setFuzzyField( (String)map.get(ConfigVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(ConfigVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(ConfigVOMeta.PAGE_SIZE));
+				this.setDataOrigin( (String)map.get(ConfigVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(ConfigVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(ConfigVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {
@@ -491,6 +550,7 @@ public class ConfigVO extends Config {
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ConfigVOMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, r.getValue(ConfigVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.VERSION)));
+			this.setParentId(DataParser.parse(String.class, r.getValue(ConfigVOMeta.PARENT_ID)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.VALID)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(ConfigVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ConfigVOMeta.DELETED)));
@@ -512,6 +572,7 @@ public class ConfigVO extends Config {
 				this.setUpdateTime( (Date)r.getValue(ConfigVOMeta.UPDATE_TIME));
 				this.setType( (String)r.getValue(ConfigVOMeta.TYPE));
 				this.setVersion( (Integer)r.getValue(ConfigVOMeta.VERSION));
+				this.setParentId( (String)r.getValue(ConfigVOMeta.PARENT_ID));
 				this.setValid( (Integer)r.getValue(ConfigVOMeta.VALID));
 				this.setCreateBy( (String)r.getValue(ConfigVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(ConfigVOMeta.DELETED));

@@ -2,7 +2,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:49
+ * @since 2023-02-01 11:37:36
  */
  -->
  <!DOCTYPE html>
@@ -61,12 +61,16 @@
 
 
                         <div id="type" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}" style="width:140px"></div>
-
                     </div>
                     <!-- 类型描述 , typeDesc ,typeName=text_input, isHideInSearch=true -->
                     <!-- 配置值 , value ,typeName=text_input, isHideInSearch=true -->
                     <!-- 是否生效 , valid ,typeName=logic_switch, isHideInSearch=true -->
                     <!-- 说明 , notes ,typeName=text_area, isHideInSearch=true -->
+                    <!-- 上级ID , parentId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('上级ID')}" class="search-label parentId-label">上级ID</span><span class="search-colon">:</span></div>
+                        <input id="parentId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
 
 
                 </div>
@@ -75,7 +79,7 @@
 
             <!-- 按钮区域 -->
             <div id="search-area" class="layui-form toolbar search-buttons" style="opacity: 0">
-                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索','','cmp:table.search')}">搜索</span></button>
             </div>
         </div>
 
@@ -100,8 +104,8 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <button th:if="${perm.checkAuth('sys_config:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate('查看')}">查看</span></button>
-    <button th:if="${perm.checkAnyAuth('sys_config:update','sys_config:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate('修改')}">修改</span></button>
+    <button th:if="${perm.checkAuth('sys_config:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate('查看','','cmp:table.ops')}">查看</span></button>
+    <button th:if="${perm.checkAnyAuth('sys_config:update','sys_config:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate('修改','','cmp:table.ops')}">修改</span></button>
 
 
 

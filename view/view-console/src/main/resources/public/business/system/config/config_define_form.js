@@ -7,7 +7,7 @@
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
-	
+
 	const moduleURL="/service-system/sys-config";
 	// 表单执行操作类型：view，create，edit
 	var notExistAction=null;
@@ -55,6 +55,19 @@ function FormPage() {
 
 
 	}
+
+
+	function loadFormData(id) {
+		admin.request(moduleURL+"/get-by-id",{id:id},function(r) {
+			if(r.success) {
+				fillFormData(r.data)
+			} else {
+				admin.toast().error("获取数据失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
+			}
+		});
+	};
+
+	window.loadFormData=loadFormData;
 
 
 

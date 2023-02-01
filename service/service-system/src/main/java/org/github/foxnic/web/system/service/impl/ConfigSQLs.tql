@@ -1,0 +1,17 @@
+
+// 查询根节点配置项
+[query-root-configs]
+select m.*,(select count(1) from sys_config cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_config m
+where m.parent_id=? and profile_id in (?,?) and m.deleted=0 order by name asc
+
+// 按上级节点ID查找下级节点
+[query-configs-by-parent-id]
+select m.*,(select count(1) from sys_config cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_config m
+where m.parent_id=? and profile_id in (?,?)  and m.deleted=0 order by name asc
+
+
+
+[search-catalog-hierarchy]
+select distinct hierarchy from sys_config a where exists (
+    select 1 from sys_config b where a.id=b.parent_id and label like ? and deleted=0
+) and deleted=0

@@ -15,6 +15,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.system.Profile;
 import org.github.foxnic.web.domain.system.ProfileVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +113,24 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
+	}
+
+	@Override
+	public Result deleteByIdLogical(String id) {
+		Profile profile = new Profile();
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+		profile.setId(id);
+		profile.setDeleted(true);
+		profile.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
+		profile.setDeleteTime(new Date());
+		try {
+			boolean suc = dao.updateEntity(profile,SaveMode.NOT_NULL_FIELDS);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		} catch(Exception e) {
 			Result r= ErrorDesc.failure();
 			r.extra().setException(e);
 			return r;
@@ -252,7 +272,7 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 
 	@Override
 	public List<Profile> queryList(ProfileVO sample) {
-		return null;
+		return super.queryList(sample);
 	}
 
 	@Override

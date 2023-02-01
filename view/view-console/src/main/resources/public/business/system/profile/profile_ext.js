@@ -18,6 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    var hideParamButton = 1;
     //列表页的扩展
     var list={
         /**
@@ -25,6 +26,22 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+            hideParamButton=QueryString.get("hide-param-button");
+            if(hideParamButton==1) {
+                this.removeOperationButtonByEvent("open-sys-profile-config");
+            }
+        },
+        removeOperationButtonByEvent(event) {
+            var template=$("#tableOperationTemplate");
+            var content=template.text();
+            content=content.split("\n");
+            var buttons=[]
+            for (let i = 0; i < content.length ; i++) {
+                if(content[i] && content[i].indexOf("lay-event=\""+event+"\"")==-1) {
+                    buttons.push(content[i]);
+                }
+            }
+            template.text(buttons.join("\n"))
         },
         /**
          * 表格渲染前调用
@@ -73,7 +90,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterQuery : function (data) {
             for (var i = 0; i < data.length; i++) {
-                //如果审批中或审批通过的不允许编辑
                 if (data[i].id == "default") {
                     fox.disableButton($('.ops-delete-button').filter("[data-id='" + data[i].id + "']"), true);
                     fox.disableButton($('.ops-edit-button').filter("[data-id='" + data[i].id + "']"), true);
@@ -81,6 +97,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     fox.disableButton($('.ops-view-button').filter("[data-id='" + data[i].id + "']"), true);
                 }
             }
+            // debugger
+            // if(showParamButton==0) {
+            //     $(".layui-btn[lay-event='open-sys-profile-config']").hide();
+            // }
         },
         /**
          * 进一步转换 list 数据
