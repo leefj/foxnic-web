@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
 	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <style>
-        .ztree li span.button.icon_menu_folder_ico_docu{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
-        .ztree li span.button.icon_menu_folder_ico_close{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
-        .ztree li span.button.icon_menu_folder_ico_open{margin-right:2px; background: url(/assets/icons/menu_folder.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_folder_ico_docu{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_folder_ico_close{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_menu_folder_ico_open{margin-right:2px; background: url(/assets/icons/opened_folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
 
         .ztree li span.button.icon_menu_page_ico_docu{margin-right:2px; background: url(/assets/icons/menu_page.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_menu_page_ico_close{margin-right:2px; background: url(/assets/icons/menu_page.svg) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
@@ -52,7 +52,7 @@
                 <tr>
                     <td>
                         <input id="search-input" class="layui-input search-input" type="text"
-                               th:placeholder="${lang.translate('请输入关键字')}" style="width: 97%"/>
+                               th:placeholder="${lang.translate('请输入关键字回车搜索')}" style="width: 97%"/>
                     </td>
                     <td style="width: 54px;align-content: center">
                         <button id="btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span
