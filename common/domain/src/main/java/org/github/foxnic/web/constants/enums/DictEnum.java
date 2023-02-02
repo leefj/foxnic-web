@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-01 15:09:00
+ * @since 2023-02-02 09:18:37
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成

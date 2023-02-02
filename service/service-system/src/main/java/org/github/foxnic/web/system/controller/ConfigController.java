@@ -325,7 +325,7 @@ public class ConfigController extends SuperController implements ApplicationList
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         Config sample = new Config();
-        sample.setCode(SystemConfigEnum.SYSTEM_CACHEKEY.code());
+        sample.setCode(SystemConfigEnum.SYSTEM_VERSION_CACHEKEY.code());
         List<Config> list = configService.queryList(sample);
         String cacheKey = DateUtil.format(new Date(), "yyyyMMddHHmmss");
         for (Config config : list) {

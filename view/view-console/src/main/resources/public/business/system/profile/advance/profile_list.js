@@ -70,7 +70,8 @@ function ListPage() {
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
-    	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+    	// $("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+		$("#form-view")[0].contentWindow.location="/business/system/config/config_define_form.html?id="+treeNode.id;
     }
 
 

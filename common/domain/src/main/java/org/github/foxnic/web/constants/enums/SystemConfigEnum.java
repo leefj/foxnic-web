@@ -6,13 +6,18 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-01 15:09:00
+ * @since 2023-02-02 09:18:36
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
 public enum SystemConfigEnum implements CodeTextEnum {
+	
+	/**
+	 * 新配置
+	*/
+	FOXNIC_WEB_C1675237944888_C1675238247171("foxnic-web.C1675237944888.C1675238247171" , "新配置"),
 	
 	/**
 	 * 用户服务实现配置
@@ -22,7 +27,7 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	/**
 	 * 缓存键
 	*/
-	SYSTEM_CACHEKEY("system.cachekey" , "缓存键"),
+	SYSTEM_VERSION_CACHEKEY("system.version.cachekey" , "缓存键"),
 	
 	/**
 	 * 版权信息链接
@@ -107,17 +112,17 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	/**
 	 * 登录页模版
 	*/
-	SYSTEM_PAGE_LOGIN_TEMPLATE("system.page.login.template" , "登录页模版"),
+	SYSTEM_LOGIN_TEMPLATE("system.login.template" , "登录页模版"),
 	
 	/**
 	 * 账户默认密码
 	*/
-	SYSTEM_PASSWORD_DEFAULT("system.password.default" , "账户默认密码"),
+	SYSTEM_USER_DEFAULT_PASSWORD("system.user.default_password" , "账户默认密码"),
 	
 	/**
 	 * 首页分模块
 	*/
-	SYSTEM_PORTAL_MODULE_ENABLE("system.portal.module.enable" , "首页分模块"),
+	SYSTEM_INDEX_MODULE_ENABLE("system.index.module_enable" , "首页分模块"),
 	
 	/**
 	 * 系统默认主题

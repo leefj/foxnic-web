@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-02-01 11:35:48
+ * @since 2023-02-02 09:15:43
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -5768,6 +5768,117 @@ public class FoxnicWeb {
 			this.init($NAME,"系统配置表" , ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PARENT_ID);
 		}
 		public static final SYS_CONFIG $TABLE=new SYS_CONFIG();
+	}
+	
+	/**
+	 * 系统配置表
+	*/
+	public static class SYS_CONFIG_20230201 extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_config_20230201";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * Profile,Profile Id 
+		*/
+		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",false,false,false);
+		
+		/**
+		 * 分类代码,关联 sys_config_catalog 数据字典
+		*/
+		public static final DBField CATALOG_CODE = new DBField(DBDataType.STRING , "catalog_code","catalogCode","分类代码","关联 sys_config_catalog 数据字典",false,false,true);
+		
+		/**
+		 * 配置键
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","配置键","配置键",false,false,false);
+		
+		/**
+		 * 配置名
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","配置名","配置名",false,false,true);
+		
+		/**
+		 * 数据类型，由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","数据类型","由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict",false,false,true);
+		
+		/**
+		 * 类型描述
+		*/
+		public static final DBField TYPE_DESC = new DBField(DBDataType.STRING , "type_desc","typeDesc","类型描述","类型描述",false,false,true);
+		
+		/**
+		 * 配置值
+		*/
+		public static final DBField VALUE = new DBField(DBDataType.STRING , "value","value","配置值","配置值",false,false,true);
+		
+		/**
+		 * 是否生效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,false);
+		
+		/**
+		 * 说明
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","说明","说明",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 上级ID
+		*/
+		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
+		
+		public SYS_CONFIG_20230201() {
+			this.init($NAME,"系统配置表" , ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PARENT_ID);
+		}
+		public static final SYS_CONFIG_20230201 $TABLE=new SYS_CONFIG_20230201();
 	}
 	
 	/**

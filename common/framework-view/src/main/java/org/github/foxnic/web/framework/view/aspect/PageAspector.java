@@ -144,7 +144,7 @@ public class PageAspector {
 			pageHelper=new PageHelper(request, user);
 		}
 
-		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_CACHEKEY);
+		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CACHEKEY);
 		String userCacheKey=null;
 		if(user!=null) {
 			userCacheKey=user.getCacheKey();

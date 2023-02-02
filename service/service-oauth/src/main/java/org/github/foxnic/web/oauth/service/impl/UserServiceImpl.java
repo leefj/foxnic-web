@@ -145,7 +145,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Transactional
 	public Result insert(User user) {
 		if(StringUtil.isBlank(user.getPasswd())){
-			String defaultPasswd=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PASSWORD_DEFAULT);
+			String defaultPasswd=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_USER_DEFAULT_PASSWORD);
 			defaultPasswd=getPasswordEncoder().encode(defaultPasswd);
 			user.setPasswd(defaultPasswd);
 		}

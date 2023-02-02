@@ -11,7 +11,7 @@ function FormPage() {
 	const moduleURL="/service-system/sys-config";
 	// 表单执行操作类型：view，create，edit
 	var notExistAction=null;
-	var disableCreateNew=true;
+	var disableCreateNew=false;
 	var disableModify=false;
 	var dataBeforeEdit=null;
 	const bpmIntegrateMode="none";
@@ -45,7 +45,7 @@ function FormPage() {
 		renderFormFields();
 
 		//填充表单数据
-		fillFormData();
+		//fillFormData();
 
 		//绑定提交事件
 		bindButtonEvent();
@@ -53,11 +53,12 @@ function FormPage() {
 		//调整窗口的高度与位置
 		adjustPopup();
 
-
+		loadFormData();
 	}
 
 
-	function loadFormData(id) {
+	function loadFormData() {
+		var id=QueryString.get("id");
 		admin.request(moduleURL+"/get-by-id",{id:id},function(r) {
 			if(r.success) {
 				fillFormData(r.data)
@@ -225,14 +226,14 @@ function FormPage() {
 		}
 
 		//渐显效果
-		fm.css("opacity","0.0");
-        fm.css("display","");
-        setTimeout(function (){
-            fm.animate({
-                opacity:'1.0'
-            },100,null,function (){
-				fm.css("opacity","1.0");});
-        },1);
+		// fm.css("opacity","0.0");
+        // fm.css("display","");
+        // setTimeout(function (){
+        //     fm.animate({
+        //         opacity:'1.0'
+        //     },100,null,function (){
+		// 		fm.css("opacity","1.0");});
+        // },1);
 
         //禁用编辑
 		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {

@@ -79,7 +79,7 @@ public class PortalPageController extends ViewController  {
 
 		model.addAttribute("title", title);
 		model.addAttribute("logo", logo);
-		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
+		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_INDEX_MODULE_ENABLE);
 		model.addAttribute("moduleEnable", moduleEnable);
 
 
