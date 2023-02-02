@@ -1024,6 +1024,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							p.message=args[0];
 							if(p.position=="right-bottom") p.position="bottomRight"
 							if(p.position=="top-right") p.position="topRight"
+							if(p.position=="left-bottom") p.position="bottomLeft"
+							if(p.position=="top-left") p.position="topLeft"
 							layui.toast.success(p);
 						} else if(args.length==1 && TypeUtil.isObject(args[0])) {
 							layui.toast.success(args[0]);
@@ -1037,6 +1039,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							p.message=args[0];
 							if(p.position=="right-bottom") p.position="bottomRight"
 							if(p.position=="top-right") p.position="topRight"
+							if(p.position=="left-bottom") p.position="bottomLeft"
+							if(p.position=="top-left") p.position="topLeft"
 							layui.toast.error(p);
 						} else if(args.length==1 && TypeUtil.isObject(args[0])) {
 							layui.toast.error(args[0]);

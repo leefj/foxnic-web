@@ -36,7 +36,7 @@ public interface IConfigService extends ISuperService<Config> {
 
 	public static final String ROOT_ID="0";
 
-	public static final String TOP_ID="foxnic-web";
+	public static final String TOP_CODE ="foxnic-web";
 
 	/**
 	 * 添加，如果语句错误，则抛出异常

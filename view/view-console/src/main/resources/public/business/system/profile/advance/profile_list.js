@@ -25,7 +25,8 @@ function ListPage() {
 
      	var cfgs = {
      		edit: {
-				enable: true
+				enable: true,
+				drag: false
 			},
 			async: {
 				enable: true,
@@ -39,12 +40,20 @@ function ListPage() {
 				onRename : onNodeRename,
 				beforeRemove : beforeNodeRemove,
 				onDrop : onNodeDrop,
-				onClick: onNodeClick
+				onClick: onNodeClick,
+				onAsyncSuccess:function () {
+					setTimeout(function (){
+						var top=menuTree.getNodeByParam("hierarchy","foxnic-web");
+						menuTree.selectNode({tId:top.tId},false,true);
+						onNodeClick(null,null,top);
+					},1);
+				}
 			},
 			view: {
 				addHoverDom: addHoverDom,
 				removeHoverDom: removeHoverDom
 			}
+
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
 
@@ -55,7 +64,8 @@ function ListPage() {
 			var fullWidth=$(window).width();
 			var treeHeight=fullHeight-toolbarHeight;
 			$("#tree-container").height(treeHeight-1);
-			$("#form-view").height(fullHeight);
+			$("#form-view-0").height(fullHeight);
+			$("#form-view-1").height(fullHeight);
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
@@ -67,11 +77,22 @@ function ListPage() {
      }
 
     var editingNode=null;
+	var ifrIndex=0;
+	var currOpenNodeId=null;
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
-    	// $("#form-view")[0].contentWindow.loadFormData(treeNode.id);
-		$("#form-view")[0].contentWindow.location="/business/system/config/config_define_form.html?id="+treeNode.id;
+		if(currOpenNodeId==treeNode.id) return;
+		ifrIndex=ifrIndex%2;
+		var nextIfrIndex=(ifrIndex+1)%2;
+		var ifr=$("#form-view-"+ifrIndex);
+		var nextIfr=$("#form-view-"+nextIfrIndex)
+		nextIfr[0].contentWindow.location="/business/system/config/config_define_form.html?id="+treeNode.id;
+		currOpenNodeId=treeNode.id;
+		ifr.hide();
+		nextIfr.show();
+
+		//ifrIndex++;
     }
 
 
@@ -130,11 +151,11 @@ function ListPage() {
 			return false;
 		}
     	//debugger;
-		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
+		layer.confirm(fox.quoteDialogText(fox.translate('确定要删除 ['+treeNode.name+'] 配置项吗?')), function(index,a,c,d) {
 			layer.close(index);
 			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {
-					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
+					admin.toast().success("配置项已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
 					if(treeNode.parentTId) {
 						menuTree.selectNode({tId:treeNode.parentTId},false,true)
@@ -153,7 +174,7 @@ function ListPage() {
 		admin.request(moduleURL+"/update",{id:treeNode.id,name:treeNode.name},function(r){
 			if(r.success) {
 				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
-				$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+				$("#form-view-1")[0].contentWindow.loadFormData(treeNode.id);
 			} else {
 				admin.toast().error("名称更改失败",{time:1000,position:"right-bottom"});
 			}
@@ -225,7 +246,11 @@ function ListPage() {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
-		editingNode.iconSkin="icon_menu_"+type;
+		if(type=="DIR") {
+			editingNode.iconSkin = "icon_config_dir";
+		} else {
+			editingNode.iconSkin = "icon_config_item";
+		}
 		menuTree.updateNode(editingNode);
 	}
 	window.chaneNodeName=chaneNodeName;
@@ -340,6 +365,11 @@ function ListPage() {
 			}
 		}
 
+		if(treeNode.type!="DIR") {
+			admin.toast().error("当前节点类型不允许创建下级配置",{time:1000,position:"right-bottom"});
+			return;
+		}
+
 		// admin.popupCenter({
 		// 	title: "维护 Profile",
 		// 	resize: false,
@@ -370,10 +400,10 @@ function ListPage() {
 				//debugger
 				if(treeNode==null) {
 					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.label});
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.name,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item"});
 					return;
 				}
-
+				// debugger
 				var isLeaf=!treeNode.isParent;
 				treeNode.isParent=true;
 				menuTree.updateNode(treeNode)
@@ -385,7 +415,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.label,parentId:r.data.parentId});
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item"});
 							//menuTree.selectNode(newNode,false);
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);

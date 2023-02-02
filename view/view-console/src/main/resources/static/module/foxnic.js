@@ -46,6 +46,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         selectBoxConfigs:{},
         selectBoxQueryTime:{},
+
         renderSelectBox: function (cfg,rerender) {
             var me=this;
             if(!cfg) cfg={};
@@ -791,6 +792,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return inst;
         },
 
+        quoteDialogText:function(str){
+            var s=str.indexOf(" [");
+            var e=str.indexOf("] ",e);
+            var p0=str.substring(0,s);
+            var p1=str.substring(s+2,e);
+            var p2=str.substring(e+2);
+            s=p2.indexOf(" [");
+            if(s!=-1) {
+                p2=this.quoteDialogText(p2);
+            }
+            return p0+" <span class='dialog-quote'>"+p1+"</span> "+p2;
+        },
         /**
          * 字典值转换成标签
          * */

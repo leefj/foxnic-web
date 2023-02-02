@@ -8,7 +8,6 @@ import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -16,18 +15,14 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
-import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
-import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +74,7 @@ public class ConfigController extends SuperController implements ApplicationList
     public Result insert(ConfigVO configVO) {
 
         if (StringUtil.isBlank(configVO.getParentId())) {
-            configVO.setParentId(IConfigService.TOP_ID);
+            configVO.setParentId(IConfigService.TOP_CODE);
         }
         if (StringUtil.isBlank(configVO.getType())) {
             configVO.setType(SystemConfigType.STRING.code());

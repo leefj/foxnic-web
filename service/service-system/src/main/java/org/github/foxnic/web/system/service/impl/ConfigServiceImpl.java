@@ -2,11 +2,14 @@ package org.github.foxnic.web.system.service.impl;
 
 
 import com.github.foxnic.api.cache.Cached;
+import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
@@ -20,7 +23,6 @@ import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import javassist.tools.rmi.Sample;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
@@ -98,7 +100,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	@Override
 	public Result insert(Config config,boolean throwsException) {
 		Result r=super.insert(config,throwsException);
-		return r;
+		return r.data(config);
 	}
 
 	/**
@@ -152,6 +154,10 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	public Result deleteByIdLogical(String id) {
 		Config config = new Config();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+		int count=this.dao().queryInteger("select count(1) from "+table()+" where parent_id=? and deleted=0",id);
+		if(count>0) {
+			return ErrorDesc.failure().message("不允许删除当前节点，请先删除下级配置项。");
+		}
 		config.setId(id);
 		config.setDeleted(true);
 		config.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
@@ -187,7 +193,53 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	 * */
 	@Override
 	public Result update(Config config , SaveMode mode,boolean throwsException) {
+
+		Config configDB=this.getById(config.getId());
+		if(!config.getCode().equals(configDB.getCode())) {
+			int count = this.dao().queryInteger("select count(1) from " + table() + " where parent_id=? and deleted=0", config.getId());
+			if (count > 0) {
+				return ErrorDesc.failure().message("保存失败，不允许修改配置键，如要修改请先删除下级配置项。").messageLevel4Confirm();
+			}
+		}
+
+		Config parent=this.getById(configDB.getParentId());
+
+		if(!config.getCode().startsWith(parent.getCode())) {
+			return ErrorDesc.failure().message("保存失败，配置键格式错误，需要以上级节点配置键开头。").messageLevel4Confirm();
+		}
+		String localKey=config.getCode().substring(parent.getCode().length());
+		localKey=StringUtil.removeFirst(localKey,".");
+		localKey=localKey.trim();
+		if(StringUtil.isBlank(localKey)) {
+			return ErrorDesc.failure().message("保存失败，配置键不完整。").messageLevel4Confirm();
+		}
+		if(localKey.contains(".")) {
+			return ErrorDesc.failure().message("保存失败，配置键 "+localKey+" 格式错误，不允许包含点号。").messageLevel4Confirm();
+		}
+		if(localKey.contains(".") || localKey.contains("\t") || localKey.contains(" ")) {
+			return ErrorDesc.failure().message("保存失败，配置键 "+localKey+" 格式错误，不允许包含特殊符号。").messageLevel4Confirm();
+		}
+		String first=localKey.substring(0,1);
+		if(DataParser.parseInteger(first)!=null) {
+			return ErrorDesc.failure().message("保存失败，配置键 "+localKey+" 格式错误，不允许以数字开头。").messageLevel4Confirm();
+		}
+
+		if(config.getTypeDesc()!=null) {
+			Class type= ReflectUtil.forName(config.getTypeDesc());
+			if(type==null) {
+				return ErrorDesc.failure().message("保存失败，类型描述错误，类型未定义。").messageLevel4Confirm();
+			}
+			if(!ReflectUtil.isSubType(CodeTextEnum.class,type)) {
+				return ErrorDesc.failure().message("保存失败，类型描述错误，当前类型不是 CodeTextEnum 类型。").messageLevel4Confirm();
+			}
+		}
+
+
 		Result r=super.update(config , mode , throwsException);
+
+
+
+
 		return r;
 	}
 
@@ -353,6 +405,18 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		Rcd exists=this.dao().queryRecord("select * from "+this.table()+" where type=? and deleted=0", SystemConfigType.DIR);
 		if(parentId!=null && exists!=null) return;
 
+		Config top=this.queryEntity("code=? and profile_id=?",IConfigService.TOP_CODE,IConfigService.DEFAULT_PROFILE_ID);
+		if(top==null) {
+			top=new Config();
+			top.setParentId(IConfigService.ROOT_ID);
+			top.setType(SystemConfigType.DIR.code());
+			top.setProfileId(IConfigService.DEFAULT_PROFILE_ID);
+			top.setName("Foxnic-Web");
+			top.setCode(IConfigService.TOP_CODE);
+			this.insert(top);
+		}
+
+
 		List<Config> defaultConfigList=this.queryList("profile_id=?",IConfigService.DEFAULT_PROFILE_ID);
 		for (Config config : defaultConfigList) {
 			String[] codes=config.getCode().split("\\.");
@@ -375,7 +439,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 					if (parent != null) {
 						node.setParentId(parent.getId());
 					} else {
-						node.setParentId(IConfigService.ROOT_ID);
+						node.setParentId(top.getId());
 					}
 					this.insert(node);
 				} else {

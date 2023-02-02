@@ -62,7 +62,7 @@
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="code" id="code" name="code"
                                th:placeholder="${ lang.translate('请输入') +''+ lang.translate('配置键') }" type="text"
-                               class="layui-input"/>
+                               class="layui-input" th:value="${config.code}"/>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="name" id="name" name="name"
                                th:placeholder="${ lang.translate('请输入') +''+ lang.translate('配置名') }" type="text"
-                               class="layui-input"/>
+                               class="layui-input" th:value="${config.name}"/>
                     </div>
                 </div>
 
@@ -93,18 +93,18 @@
                 </div>
 
 
-                <div class="layui-form-item">
+                <div class="layui-form-item" th:if="(${config.type}=='DICT' or ${config.type}=='ENUM')">
                     <div class="layui-form-label layui-form-label-c1">
                         <div th:text="${lang.translate('类型描述')}">类型描述</div>
                     </div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="typeDesc" id="typeDesc" name="typeDesc"
                                th:placeholder="${ lang.translate('请输入') +''+ lang.translate('类型描述') }" type="text"
-                               class="layui-input"/>
+                               class="layui-input" th:value="${config.typeDesc}"/>
                     </div>
                 </div>
 
-                <div class="layui-form-item">
+                <div class="layui-form-item" th:if="${config.type}!='DIR'">
                     <div class="layui-form-label layui-form-label-c1">
                         <div th:text="${lang.translate('配置值')}">配置值</div>
                     </div>
@@ -116,10 +116,10 @@
                                    autocomplete="off" class="layui-input" tag="date">
                             <input th:if="${config.type}=='STRING'" lay-filter="value" id="value" name="value"
                                    th:placeholder="${ lang.translate('请输入') +''+ lang.translate('配置值') }" type="text"
-                                   class="layui-input"/>
+                                   class="layui-input" th:value="${config.value}"/>
                             <input th:if="${config.type}=='NUMBER'" lay-filter="value" id="value" name="value"
                                    th:placeholder="${ lang.translate('请输入') +''+ lang.translate('配置值') }" type="text"
-                                   class="layui-input" lay-verify="number"/>
+                                   class="layui-input" lay-verify="number" th:value="${config.value}"/>
                             <input th:if="${config.type}=='ENUM'" type="radio" name="value" lay-filter="value"
                                    id="value" th:each="e,stat:${enum.toArray(config.typeDesc,'sys_config')}"
                                    th:value="${e.code}" th:title="${e.text}">
@@ -271,7 +271,7 @@
     </form>
 
 </div>
-<div class="model-form-footer">
+<div class="model-form-footer" style="display: none">
     <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button"
             th:text="${lang.translate('取消')}">取消
     </button>
@@ -297,6 +297,7 @@
     var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}]];
     var VALIDATE_CONFIG = {"valid": {"labelInForm": "是否生效", "inputType": "logic_switch", "required": true}};
     var AUTH_PREFIX = "sys_config";
+    var DATA = [[${config}]];
 
 
 </script>

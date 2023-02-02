@@ -45,7 +45,7 @@ function FormPage() {
 		renderFormFields();
 
 		//填充表单数据
-		//fillFormData();
+		fillFormData(DATA);
 
 		//绑定提交事件
 		bindButtonEvent();
@@ -53,7 +53,7 @@ function FormPage() {
 		//调整窗口的高度与位置
 		adjustPopup();
 
-		loadFormData();
+		//loadFormData();
 	}
 
 
@@ -226,6 +226,16 @@ function FormPage() {
 		}
 
 		//渐显效果
+		var footer=$(".model-form-footer");
+		footer.css("opacity","0.0");
+		footer.css("display","");
+		setTimeout(function (){
+			footer.animate({
+		        opacity:'1.0'
+		    },100,null,function (){
+				footer.css("opacity","1.0");});
+		},1);
+
 		// fm.css("opacity","0.0");
         // fm.css("display","");
         // setTimeout(function (){
@@ -303,12 +313,23 @@ function FormPage() {
 					doNext = callback(data,notExistAction);
 				}
 
-				if(doNext) {
-					admin.finishPopupCenterById('sys-config-form-data-win');
+
+				parent.chaneNodeName(param.id,param.name,param.type);
+
+				// if(doNext) {
+				// 	admin.finishPopupCenterById('sys-config-form-data-win');
+				// }
+				// debugger;
+				if(dataBeforeEdit.type!=param.type || dataBeforeEdit.typeDesc!=param.typeDesc) {
+					location.reload();
+					return;
 				}
 
 				// 调整状态为编辑
 				notExistAction="edit";
+
+				// admin.toast().success("保存成功",{time:1000,position:"top-right"});
+				fox.showMessage(data);
 
 			} else {
 				fox.showMessage(data);
