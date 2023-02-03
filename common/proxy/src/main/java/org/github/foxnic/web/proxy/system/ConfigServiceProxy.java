@@ -101,6 +101,11 @@ public interface ConfigServiceProxy {
     public static final String QUERY_NODES = API_PREFIX + "query-nodes";
 
     /**
+     * 查询配置节点
+     */
+    public static final String SEARCH = API_PREFIX + "search";
+
+    /**
      * 导出系统配置数据(Excel)
      */
     public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";

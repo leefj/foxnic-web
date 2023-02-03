@@ -12,6 +12,6 @@ where m.parent_id=? and profile_id in (?,?)  and m.deleted=0 order by name asc
 
 
 [search-catalog-hierarchy]
-select distinct hierarchy from sys_config a where exists (
-    select 1 from sys_config b where a.id=b.parent_id and label like ? and deleted=0
-) and deleted=0
+select distinct id,code from sys_config a where exists (
+    select 1 from sys_config b where a.id=b.parent_id and name like ? and profile_id in (?,?) and deleted=0
+) and deleted=0  and profile_id in (?,?)

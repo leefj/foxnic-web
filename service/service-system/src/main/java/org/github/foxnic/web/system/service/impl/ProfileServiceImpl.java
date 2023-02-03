@@ -21,6 +21,7 @@ import org.github.foxnic.web.domain.system.ProfileVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.IProfileService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,6 +42,7 @@ import java.util.Map;
 
 
 @Service("SysProfileService")
+@Primary
 public class ProfileServiceImpl extends SuperService<Profile> implements IProfileService {
 
 	/**

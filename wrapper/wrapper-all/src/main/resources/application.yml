@@ -307,8 +307,8 @@ security:
     sub: all
     # accessToken 超时秒数，1800秒 即 30分钟
     access-expire-seconds: 1800
-    # refreshToken 超时秒数，3600秒 即 60分钟
-    refresh-expire-seconds: 3600
+    # refreshToken 超时秒数，3600秒 即 60分钟;14400 即 4小时
+    refresh-expire-seconds: 14400
 
 
 logging:

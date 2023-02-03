@@ -1,8 +1,10 @@
 package org.github.foxnic.web.system.service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -22,14 +24,19 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.domain.system.Config;
+import org.github.foxnic.web.domain.system.ConfigVO;
+import org.github.foxnic.web.domain.system.Profile;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.system.service.IConfigService;
+import org.github.foxnic.web.system.service.IProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +63,9 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
+
+	@Autowired
+	private IProfileService profileService;
 
 	/**
 	 * 获得 DAO 对象
@@ -194,7 +204,19 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	@Override
 	public Result update(Config config , SaveMode mode,boolean throwsException) {
 
+		if(config instanceof ConfigVO) {
+			ConfigVO vo=(ConfigVO) config;
+			if("rename".equals(vo.getSearchField())) {
+				return super.update(config , mode , throwsException);
+			}
+		}
+
 		Config configDB=this.getById(config.getId());
+		if(configDB.getCode().equals(IConfigService.TOP_CODE)) {
+			return ErrorDesc.failure().message("保存失败，当前节点不与许编辑。").messageLevel4Confirm().code(CommonError.PARAM_INVALID);
+		}
+
+
 		if(!config.getCode().equals(configDB.getCode())) {
 			int count = this.dao().queryInteger("select count(1) from " + table() + " where parent_id=? and deleted=0", config.getId());
 			if (count > 0) {
@@ -204,12 +226,18 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 
 		Config parent=this.getById(configDB.getParentId());
 
-		if(!config.getCode().startsWith(parent.getCode())) {
+		if(!IConfigService.TOP_CODE.equals(parent.getCode()) && !config.getCode().startsWith(parent.getCode())) {
 			return ErrorDesc.failure().message("保存失败，配置键格式错误，需要以上级节点配置键开头。").messageLevel4Confirm();
 		}
-		String localKey=config.getCode().substring(parent.getCode().length());
+		String localKey=localKey=config.getCode();
+		if(!IConfigService.TOP_CODE.equals(parent.getCode())) {
+			localKey=config.getCode().substring(parent.getCode().length());
+		}
 		localKey=StringUtil.removeFirst(localKey,".");
 		localKey=localKey.trim();
+		if(localKey.equals(IConfigService.TOP_CODE)) {
+			return ErrorDesc.failure().message("保存失败，不允许使用 "+localKey+" 作为配置键").messageLevel4Confirm();
+		}
 		if(StringUtil.isBlank(localKey)) {
 			return ErrorDesc.failure().message("保存失败，配置键不完整。").messageLevel4Confirm();
 		}
@@ -277,7 +305,8 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 	 */
 	public Config getById(String id) {
 		Config sample = new Config();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null");
+		if(id==null)
+			throw new IllegalArgumentException("id 不允许为 null");
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
@@ -441,11 +470,63 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 					} else {
 						node.setParentId(top.getId());
 					}
-					this.insert(node);
+					node.setId(this.generateId(null).toString());
+					dao.insertEntity(node);
 				} else {
 					if(parent!=null) {
 						node.setParentId(parent.getId());
-						this.update(node,SaveMode.DIRTY_FIELDS);
+						dao().updateEntity(node,SaveMode.DIRTY_FIELDS);
+					}
+				}
+				parent=node;
+			}
+		}
+
+		//
+		List<Config> otherConfigList=this.queryList("profile_id!=?",IConfigService.DEFAULT_PROFILE_ID);
+		for (Config config : otherConfigList) {
+			if(config.getCode().equals("system.title")) {
+				System.out.println();
+			}
+			String[] codes = config.getCode().split("\\.");
+			String code = null;
+			Config parent = null;
+			Config node = null;
+			for (String part : codes) {
+				if (code == null) {
+					code = part;
+				} else {
+					code = code + "." + part;
+				}
+//				if("system".equals(code)) {
+//					System.out.println();
+//				}
+				if(config.getCode().equals(code)) {
+					node = this.queryEntity("code=? and profile_id=?", code, config.getProfileId());
+				} else {
+					node = this.queryEntity("code=? and profile_id=?", code, IConfigService.DEFAULT_PROFILE_ID);
+					if(node==null) {
+						node = this.queryEntity("code=? and profile_id=?", code, config.getProfileId());
+					}
+				}
+
+				if(node==null) {
+					node = new Config();
+					node.setCode(code);
+					node.setProfileId(config.getProfileId());
+					node.setName(part);
+					node.setType(SystemConfigType.DIR.code());
+					if (parent != null) {
+						node.setParentId(parent.getId());
+					} else {
+						node.setParentId(top.getId());
+					}
+					node.setId(this.generateId(null).toString());
+					dao.insertEntity(node);
+				} else {
+					if(parent!=null) {
+						node.setParentId(parent.getId());
+						dao().updateEntity(node,SaveMode.DIRTY_FIELDS);
 					}
 				}
 				parent=node;
@@ -454,40 +535,73 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 
 	}
 
-	private RcdSet queryChildConfigs(String profileId,String parentId) {
-		RcdSet menus=null;
+
+
+	private List<Rcd> queryChildConfigs(String profileId,String parentId) {
+		RcdSet configs=null;
 		if(parentId==null || parentId.equals(IConfigService.ROOT_ID)) {
-			menus=dao.query("#query-root-configs",parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+			configs=dao.query("#query-root-configs",parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+			return configs.getRcdList();
 		} else {
-			menus=dao.query("#query-configs-by-parent-id",parentId,parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+			configs=dao.query("#query-configs-by-parent-id",parentId,IConfigService.DEFAULT_PROFILE_ID,profileId);
+			if(!profileId.equals(IConfigService.DEFAULT_PROFILE_ID)) {
+				List<Rcd> list =new ArrayList<>();
+				Map<String,List<Rcd>> grouped = configs.getGroupedMap("code",String.class);
+				for (Rcd r : configs) {
+					if(SystemConfigType.DIR.code().equals(r.getString("type"))) {
+						list.add(r);
+					} else {
+						List<Rcd> rs=grouped.get(r.getString("code"));
+						if(rs.size()==1) {
+							list.add(r);
+						} else {
+							for (Rcd dr : rs) {
+								if(dr.getString("id").equals(r.getString("id"))) {
+									if(r.getString("profile_id").equals(profileId)) {
+										list.add(r);
+									}
+								}
+							}
+						}
+					}
+				}
+				return list;
+			} else {
+				return configs.getRcdList();
+			}
+
 		}
-		return menus;
+
 	}
 
 	@Override
 	public List<ZTreeNode> queryRootNotes(String profileId) {
-		RcdSet menus=queryChildConfigs(profileId,IConfigService.ROOT_ID);
-		List<ZTreeNode> nodes = toZTreeNodeList(menus);
-		for (ZTreeNode node : nodes) {
-			node.setOpen(true);
-			List<ZTreeNode> children=this.queryChildNodes(profileId,node.getId());
+		List<Rcd> menus=queryChildConfigs(profileId,IConfigService.ROOT_ID);
+		List<ZTreeNode> roots = toZTreeNodeList(menus);
+		for (ZTreeNode root : roots) {
+			if(root.getHierarchy().equals(IConfigService.TOP_CODE)) {
+				Profile profile = profileService.getById(profileId);
+				root.setName(root.getName()+"@"+profile.getName());
+			}
+			root.setOpen(true);
+			List<ZTreeNode> children=this.queryChildNodes(profileId,root.getId());
 			for (ZTreeNode child : children) {
-				node.addChild(child);
+				root.addChild(child);
 			}
 		}
 
-		return nodes;
+		return roots;
 	}
 
 	@Override
 	public List<ZTreeNode> queryChildNodes(String profileId,String parentId) {
-		RcdSet menus=queryChildConfigs(profileId,parentId);
+		List<Rcd> menus=queryChildConfigs(profileId,parentId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
 
 
-	private List<ZTreeNode> toZTreeNodeList(RcdSet configs) {
+	private List<ZTreeNode> toZTreeNodeList(List<Rcd> configs) {
 		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
 		for (Rcd m : configs) {
 			ZTreeNode node=new ZTreeNode();
@@ -497,9 +611,41 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 			node.setHierarchy(m.getString(FoxnicWeb.SYS_CONFIG.CODE));
 			node.setIsParent(m.getInteger("child_count")>0);
 			node.setType(m.getString("type"));
+			node.setData(m.toJSONObject("profile_id"));
 			nodes.add(node);
+
 		}
 		return nodes;
+	}
+
+	@Override
+	public List<String> search(String profileId, String keyword) {
+		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%",profileId,profileId,profileId,profileId);
+		List<String> parentCodes=rs.getValueList("code",String.class);
+		List<String> parentIds=rs.getValueList("id",String.class);
+		List<String> allParentCodes=new ArrayList<>();
+		for (String code : parentCodes) {
+			String[] parts=code.split("\\.");
+			String pcode=null;
+			for (int i = 0; i < parts.length-2; i++) {
+				if(pcode==null) pcode=parts[i];
+				else pcode=pcode+"."+parts[i];
+				//
+				if(!allParentCodes.contains(pcode)) {
+					allParentCodes.add(pcode);
+				}
+			}
+		}
+
+		if(!allParentCodes.isEmpty()) {
+			ConditionExpr conditionExpr = new ConditionExpr("deleted=0");
+			In in = new In("code", allParentCodes);
+			conditionExpr.andIf(in);
+			conditionExpr.and("profile_id in(?,?)", IConfigService.DEFAULT_PROFILE_ID, profileId);
+			List<String> pIds = dao().query("select distinct id from " + table() + " " + conditionExpr.startWithWhere().getListParameterSQL(), conditionExpr.getListParameters()).getValueList("id", String.class);
+			parentIds.addAll(pIds);
+		}
+		return parentIds;
 	}
 
 

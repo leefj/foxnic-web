@@ -19,18 +19,42 @@
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/assets/libs/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css">
+    <link rel="stylesheet" href="/assets/libs/spliter/jquery.splitter.css" type="text/css">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <style>
+
         .ztree li span.button.icon_config_dir_ico_docu{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_config_dir_ico_close{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_config_dir_ico_open{margin-right:2px; background: url(/assets/icons/opened_folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
 
         .ztree li span.button.icon_config_item_ico_docu{margin-right:2px; background: url(/assets/icons/config_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_config_item_ico_close{margin-right:2px; background: url(/assets/icons/config_16.png ) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
-        .ztree li span.button.config_item_ico_open{margin-right:2px; background: url(/assets/icons/config_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon.config_item_ico_open{margin-right:2px; background: url(/assets/icons/config_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
 
+        .ztree li span.button.icon_config_dir_opacity_ico_docu{margin-right:2px; background: url(/assets/icons/folder_16_opacity.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_config_dir_opacity_ico_close{margin-right:2px; background: url(/assets/icons/folder_16_opacity.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_config_dir_opacity_ico_open{margin-right:2px; background: url(/assets/icons/opened_folder_16_opacity.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+        .ztree li span.button.icon_config_item_opacity_ico_docu{margin-right:2px; background: url(/assets/icons/config_16_opacity.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_config_item_opacity_ico_close{margin-right:2px; background: url(/assets/icons/config_16_opacity.png ) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+        .ztree li span.button.icon_config_item_opacity_ico_open{margin-right:2px; background: url(/assets/icons/config_16_opacity.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
+
+
+        #foo {
+            background-color: #fff;
+        }
+        #bar {
+            background-color: #fff;
+        }
+
+        .splitter_panel .vsplitter {
+            background-color: #e2e2e2;
+            cursor: col-resize;
+            z-index:900;
+            width: 5px;
+        }
 
     </style>
 </head>
@@ -38,8 +62,8 @@
 <body style="overflow: hidden">
 
 
-<div class="layui-row">
-    <div class="layui-col-md3" style="background-color: #ffffff;border-right:1px #e6e6e6 solid;">
+<div id="widget" style="width: 100%">
+    <div id="foo">
         <div class="layui-form toolbar" style="padding:4px;" id="toolbar">
             <table style="width: 100%">
                 <tr>
@@ -56,24 +80,17 @@
         <div id="tree-container" style="overflow:auto;height:800px;border-bottom:1px #e6e6e6 none;">
             <ul id="menu-tree" class="ztree"></ul>
         </div>
+   </div>
+    <div id="bar">
+        <iframe id="form-view-0" src="about:blank" frameborder=0 width="100%"
+                height="800px"></iframe>
+        <iframe id="form-view-1" src="about:blank" frameborder=0 width="100%"
+                height="800px" style="display: none"></iframe>
     </div>
+</div>
 
-    <div class="layui-col-md9" style="padding-left: 0px;border-left:1px #e6e6e6 none;">
-<!--        <div class="layui-tab" lay-filter="sourceTab">-->
-<!--            <ul class="layui-tab-title">-->
-<!--                <li id="org-li" lay-id="org-li" class="layui-this">编辑菜单</li>-->
-<!--            </ul>-->
-<!--            <div class="layui-tab-content " style="">-->
-                <div class="layui-tab-item layui-show">
-                    <iframe id="form-view-0" src="about:blank" frameborder=0 width="100%"
-                            height="800px"></iframe>
-                    <iframe id="form-view-1" src="about:blank" frameborder=0 width="100%"
-                            height="800px" style="display: none"></iframe>
-                </div>
-<!--            </div>-->
-        </div>
 
-    </div>
+
 
 
     <script type="text/javascript" src="/module/global.js"></script>
@@ -82,7 +99,7 @@
     <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
     <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
     <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js"></script>
-
+    <script type="text/javascript"src="/assets/libs/spliter/jquery.splitter.js"></script>
     <script src="/business/system/profile/advance/profile_list.js"></script>
 
 </body>

@@ -226,6 +226,7 @@ function ListPage() {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
+		editingNode.type=type;
 		editingNode.iconSkin="icon_menu_"+type;
 		menuTree.updateNode(editingNode);
 	}

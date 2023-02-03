@@ -1,7 +1,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-01 11:37:39
+ * @since 2023-02-03 10:05:58
  */
 
 function FormPage() {
@@ -10,7 +10,7 @@ function FormPage() {
 	
 	const moduleURL="/service-system/sys-config";
 	// 表单执行操作类型：view，create，edit
-	var notExistAction=null;
+	var action=null;
 	var disableCreateNew=true;
 	var disableModify=false;
 	var dataBeforeEdit=null;
@@ -24,12 +24,12 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload,dropdown=layui.dropdown;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		notExistAction=admin.getTempData('sys-config-form-data-form-notExistAction');
+		action=admin.getTempData('sys-config-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(notExistAction=="view") {
+		if(action=="view") {
 			disableModify=true;
 		}
 
@@ -38,7 +38,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit(notExistAction,admin.getTempData('sys-config-form-data'));
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-config-form-data'));
 		}
 
 		//渲染表单组件
@@ -126,7 +126,7 @@ function FormPage() {
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var defaultValues=[],defaultIndexs=[];
-				if(notExistAction=="create") {
+				if(action=="create") {
 					defaultValues = "".split(",");
 					defaultIndexs = "".split(",");
 				}
@@ -270,7 +270,7 @@ function FormPage() {
 		}
 
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
-		var notExistAction=param.id?"edit":"create";
+		var action=param.id?"edit":"create";
 		var api=moduleURL+"/"+(param.id?"update":"insert");
 		admin.post(api, param, function (data) {
 			if (data.success) {
@@ -286,7 +286,7 @@ function FormPage() {
 				}
 
 				if(callback) {
-					doNext = callback(data,notExistAction);
+					doNext = callback(data,action);
 				}
 
 				if(doNext) {
@@ -294,7 +294,7 @@ function FormPage() {
 				}
 
 				// 调整状态为编辑
-				notExistAction="edit";
+				action="edit";
 
 			} else {
 				fox.showMessage(data);
@@ -335,9 +335,9 @@ function FormPage() {
 		fillFormDataByIds:fillFormDataByIds,
 		processFormData4Bpm:processFormData4Bpm,
 		adjustPopup: adjustPopup,
-		notExistAction: notExistAction,
+		action: action,
 		setAction: function (act) {
-			notExistAction = act;
+			action = act;
 		}
 	};
 

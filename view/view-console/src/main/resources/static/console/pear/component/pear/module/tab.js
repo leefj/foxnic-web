@@ -75,7 +75,7 @@ layui.define(['jquery', 'element'], function(exports) {
 					var forks=menu.forks;
 					if(forks) {
 						if(forks.length>0) {
-							forksMenu.push("<li class='item " + option.elem + "Fork' style='padding-right: 16px;border-top: 1px #ededed solid' dir=''>" + window.top.translate("默认版本", null, 'menu') + "</li>");
+							forksMenu.push("<li class='item " + option.elem + "Fork' style='padding-right: 16px;border-top: 1px #ededed solid' dir='default'>" + window.top.translate("默认版本", null, 'menu') + "</li>");
 						}
 						for(var i=0;i<forks.length;i++) {
 							forksMenu.push("<li class='item " + option.elem +"Fork' style='padding-right: 16px' dir='"+forks[i].dir+"'>"+window.top.translate(forks[i].name,null,'menu')+"</li>");
@@ -637,9 +637,9 @@ layui.define(['jquery', 'element'], function(exports) {
 				.find("iframe");
 
 			if(path.indexOf("?")==-1) {
-				path=path+"?fork="+dir;
+				path=path+"?impl="+dir;
 			} else {
-				path=path+"&fork="+dir;
+				path=path+"&impl="+dir;
 			}
 
 			$iframe.attr("src", path);

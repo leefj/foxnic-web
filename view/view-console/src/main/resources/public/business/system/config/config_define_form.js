@@ -226,15 +226,19 @@ function FormPage() {
 		}
 
 		//渐显效果
-		var footer=$(".model-form-footer");
-		footer.css("opacity","0.0");
-		footer.css("display","");
-		setTimeout(function (){
-			footer.animate({
-		        opacity:'1.0'
-		    },100,null,function (){
-				footer.css("opacity","1.0");});
-		},1);
+		var currProfileId=admin.getVar("currentConfigProfileId");
+		if(formData.profileId==currProfileId) {
+			var footer = $(".model-form-footer");
+			footer.css("opacity", "0.0");
+			footer.css("display", "");
+			setTimeout(function () {
+				footer.animate({
+					opacity: '1.0'
+				}, 100, null, function () {
+					footer.css("opacity", "1.0");
+				});
+			}, 1);
+		}
 
 		// fm.css("opacity","0.0");
         // fm.css("display","");
@@ -315,7 +319,7 @@ function FormPage() {
 
 
 				parent.chaneNodeName(param.id,param.name,param.type);
-
+				fox.showMessage(data);
 				// if(doNext) {
 				// 	admin.finishPopupCenterById('sys-config-form-data-win');
 				// }
@@ -329,10 +333,13 @@ function FormPage() {
 				notExistAction="edit";
 
 				// admin.toast().success("保存成功",{time:1000,position:"top-right"});
-				fox.showMessage(data);
+
 
 			} else {
 				fox.showMessage(data);
+				if(data.code=="02") {
+					fillFormData(DATA);
+				}
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});

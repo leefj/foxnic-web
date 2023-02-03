@@ -1,7 +1,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-01 11:37:38
+ * @since 2023-02-03 10:05:56
  */
 
 
@@ -304,7 +304,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
-			admin.putTempData('sys-config-form-data-form-notExistAction', "create",true);
+			admin.putTempData('sys-config-form-data-form-action', "create",true);
             showEditForm(data);
         };
 
@@ -357,11 +357,11 @@ function ListPage() {
 				if(!doNext) return;
 			}
 
-			admin.putTempData('sys-config-form-data-form-notExistAction', "",true);
+			admin.putTempData('sys-config-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-config-form-data-form-notExistAction', "edit",true);
+						admin.putTempData('sys-config-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
 						 fox.showMessage(data);
@@ -370,7 +370,7 @@ function ListPage() {
 			} else if (layEvent === 'view') { // 查看
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-config-form-data-form-notExistAction', "view",true);
+						admin.putTempData('sys-config-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
 						fox.showMessage(data);
@@ -414,20 +414,20 @@ function ListPage() {
 			var doNext=window.pageExt.list.beforeEdit(data);
 			if(!doNext) return;
 		}
-		var notExistAction=admin.getTempData('sys-config-form-data-form-notExistAction');
+		var action=admin.getTempData('sys-config-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString='id=' + data.id;
 		if(window.pageExt.list.makeFormQueryString) {
-			queryString=window.pageExt.list.makeFormQueryString(data,queryString,notExistAction);
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
 		}
 		admin.putTempData('sys-config-form-data', data);
 		var area=admin.getTempData('sys-config-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = fox.translate('系统配置');
-		if(notExistAction=="create") title=fox.translate('添加','','cmp:table')+title;
-		else if(notExistAction=="edit") title=fox.translate('修改','','cmp:table')+title;
-		else if(notExistAction=="view") title=fox.translate('查看','','cmp:table')+title;
+		if(action=="create") title=fox.translate('添加','','cmp:table')+title;
+		else if(action=="edit") title=fox.translate('修改','','cmp:table')+title;
+		else if(action=="view") title=fox.translate('查看','','cmp:table')+title;
 
 		admin.popupCenter({
 			title: title,
@@ -438,10 +438,10 @@ function ListPage() {
 			id:"sys-config-form-data-win",
 			content: '/business/system/config/config_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				if(notExistAction=="create") {
+				if(action=="create") {
 					refreshTableData();
 				}
-				if(notExistAction=="edit") {
+				if(action=="edit") {
 					false?refreshTableData():refreshRowData(data,true);
 				}
 			}

@@ -22,6 +22,8 @@ public class ProfilePageController extends ViewController {
 
 	public static final String prefix="business/system/profile";
 
+	
+
 	private ProfileServiceProxy proxy;
 
 	/**

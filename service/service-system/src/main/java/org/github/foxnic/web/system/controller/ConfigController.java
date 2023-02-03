@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
@@ -23,6 +24,7 @@ import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +82,12 @@ public class ConfigController extends SuperController implements ApplicationList
             configVO.setType(SystemConfigType.STRING.code());
         }
         Config parent=configService.getById(configVO.getParentId());
-        configVO.setCode(parent.getCode()+".C"+System.currentTimeMillis());
+        if(parent.getCode().equals(IConfigService.TOP_CODE)) {
+            configVO.setCode("C"+System.currentTimeMillis());
+        } else {
+            configVO.setCode(parent.getCode()+".C"+System.currentTimeMillis());
+        }
+
 
         Result result = configService.insert(configVO, false);
         return result;
@@ -325,7 +332,26 @@ public class ConfigController extends SuperController implements ApplicationList
         String cacheKey = DateUtil.format(new Date(), "yyyyMMddHHmmss");
         for (Config config : list) {
             config.setValue(cacheKey);
+            configService.dao().updateEntity(config, SaveMode.DIRTY_FIELDS);
         }
-        configService.updateList(list, SaveMode.DIRTY_FIELDS);
     }
+
+    /**
+     * 搜索分类层级
+     */
+    @ApiOperation(value = "搜索分类层级")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keyword", value = "keyword", required = true, dataTypeClass = String.class, example = "橡胶"),
+            @ApiImplicitParam(name = "profileId", value = "profileId", required = true, dataTypeClass = String.class, example = "default")
+    })
+    @ApiOperationSupport(order = 2)
+    @SentinelResource(value = ConfigServiceProxy.SEARCH)
+    @PostMapping(ConfigServiceProxy.SEARCH)
+    public Result<List<String>> search(String profileId, String keyword) {
+        Result<List<String>> result = new Result<>();
+        List<String> hierarchyList = configService.search(profileId,keyword);
+        result.data(hierarchyList);
+        return result;
+    }
+
 }

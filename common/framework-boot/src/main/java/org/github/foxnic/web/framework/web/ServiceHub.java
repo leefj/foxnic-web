@@ -7,6 +7,7 @@ import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.apache.poi.ss.formula.functions.T;
+import org.github.foxnic.web.proxy.utils.ImplConfigUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.context.annotation.Primary;
@@ -18,18 +19,9 @@ public class ServiceHub {
 
     private static LocalCache<String,Object> SERVICE_CACHE=new LocalCache<>();
 
-    public static void removeCachedService(Class serviceType,String tenantId) {
-        String cacheKey= getCacheKey(serviceType,tenantId);
-        SERVICE_CACHE.remove(cacheKey);
-    }
-
     public static void removeCachedService(Class serviceType) {
-        SessionUser user=SessionUser.getCurrent();
-        String tenantId = null;
-        if(user!=null) {
-            tenantId=user.getActivatedTenantId();
-        }
-        removeCachedService(serviceType,tenantId);
+        String cacheKey= getCacheKey(serviceType);
+        SERVICE_CACHE.remove(cacheKey);
     }
 
     /**
@@ -40,23 +32,12 @@ public class ServiceHub {
     }
 
     /**
-     * 按当前登录账户所属租户获取 Service 的实现对象，无租户时获得默认实现
+     * 指定租户ID，获取租户对应的 Service 的实现对象，租户为空，获得默认实现
      * */
     public static <T>  T get(Class<T> serviceType,boolean cache) {
         SessionUser user=SessionUser.getCurrent();
-        String tenantId = null;
-        if(user!=null) {
-            tenantId=user.getActivatedTenantId();
-        }
-        return get(serviceType,tenantId,cache);
-    }
-
-    /**
-     * 指定租户ID，获取租户对应的 Service 的实现对象，租户为空，获得默认实现
-     * */
-    public static <T>  T get(Class<T> serviceType,String tenantId,boolean cache) {
         // 先从缓存获取
-        String cacheKey= getCacheKey(serviceType,tenantId);
+        String cacheKey= getCacheKey(serviceType);
         T service = null;
         if(cache) {
             service =(T) SERVICE_CACHE.get(cacheKey);
@@ -67,18 +48,7 @@ public class ServiceHub {
         //
         List<T> serviceList = SpringUtil.getBeans(serviceType);
         if(serviceList==null || serviceList.isEmpty()) return null;
-        String configKey = null;
-        String implTypeName = null;
-        if(tenantId!=null) {
-            // 优先读取租户配置键
-            configKey="system.service." + serviceType.getName() + ".Impl@" + tenantId;
-            implTypeName = SystemConfigProxyUtil.getString(configKey);
-            if(StringUtil.isBlank(implTypeName)) {
-                configKey="system.service." + serviceType.getName() + ".Impl";
-                implTypeName = SystemConfigProxyUtil.getString(configKey);
-            }
-        }
-
+        String implTypeName = ImplConfigUtil.getServiceImpl(serviceType,user);
         if(StringUtil.isBlank(implTypeName)) {
             service = getPrimaryService(serviceList);
         } else {
@@ -92,11 +62,12 @@ public class ServiceHub {
         return service;
     }
 
-    private static String getCacheKey(Class serviceType,String tenantId) {
+    private static String getCacheKey(Class serviceType) {
+        SessionUser user=SessionUser.getCurrent();
         // 先从缓存获取
         String cacheKey= null;
-        if(tenantId!=null) {
-            cacheKey= serviceType.getName()+"@"+tenantId;
+        if(user!=null) {
+            cacheKey= serviceType.getName()+"@"+user.getUserId();
         } else {
             cacheKey= serviceType.getName();
         }

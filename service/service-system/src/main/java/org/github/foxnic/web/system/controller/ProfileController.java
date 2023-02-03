@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.system.Profile;
 import org.github.foxnic.web.domain.system.ProfileVO;
 import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.ServiceHub;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.proxy.system.ProfileServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -201,6 +202,7 @@ public class ProfileController extends SuperController {
     @SentinelResource(value = ProfileServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(ProfileServiceProxy.QUERY_LIST)
     public Result<List<Profile>> queryList(ProfileVO sample) {
+        IProfileService profileService= ServiceHub.get(IProfileService.class);
         Result<List<Profile>> result = new Result<>();
         List<Profile> list = profileService.queryList(sample);
         result.success(true).data(list);

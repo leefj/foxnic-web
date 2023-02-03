@@ -14,48 +14,26 @@ function ListPage() {
 	var menuTree;
 
 	var currProfileId="default";
+	const topCode="foxnic-web";
+
+
+
+	$('#widget').width("100%").height($(window).height()).split({orientation:'vertical', limit:200,position:"300px"});
+
+
+
 
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
 
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;
 
-     	var cfgs = {
-     		edit: {
-				enable: true,
-				drag: false
-			},
-			async: {
-				enable: true,
-				contentType:"application/json",
-				url:moduleURL+"/query-nodes",
-				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:0,profileId:currProfileId},
-				dataFilter: nodeDatafilter
-			},
-			callback: {
-				onRename : onNodeRename,
-				beforeRemove : beforeNodeRemove,
-				onDrop : onNodeDrop,
-				onClick: onNodeClick,
-				onAsyncSuccess:function () {
-					setTimeout(function (){
-						var top=menuTree.getNodeByParam("hierarchy","foxnic-web");
-						menuTree.selectNode({tId:top.tId},false,true);
-						onNodeClick(null,null,top);
-					},1);
-				}
-			},
-			view: {
-				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom
-			}
 
-		};
-		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
+		menuTree=$.fn.zTree.init($("#menu-tree"), buildTreeConfig(currProfileId));
 
 
 		setTimeout(function(){
@@ -66,6 +44,7 @@ function ListPage() {
 			$("#tree-container").height(treeHeight-1);
 			$("#form-view-0").height(fullHeight);
 			$("#form-view-1").height(fullHeight);
+			// $("#tree-container").parent().width("400px");
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
@@ -75,6 +54,63 @@ function ListPage() {
 		//
 		bindSearchEvent();
      }
+
+	 function buildTreeConfig(profileId) {
+		admin.putVar("currentConfigProfileId",profileId);
+		 var cfgs = {
+			 edit: {
+				 enable: true,
+				 drag: false
+			 },
+			 async: {
+				 enable: true,
+				 contentType:"application/json",
+				 url:moduleURL+"/query-nodes",
+				 autoParam:["id=parentId"],
+				 otherParam:{isLoadAllDescendants:0,profileId:profileId},
+				 dataFilter: nodeDatafilter
+			 },
+			 callback: {
+				 onRename : onNodeRename,
+				 beforeRemove : beforeNodeRemove,
+				 onDrop : onNodeDrop,
+				 onClick: onNodeClick,
+				 onAsyncSuccess:function () {
+					 setTimeout(function (){
+						 var top=menuTree.getNodeByParam("hierarchy",topCode);
+						 menuTree.selectNode({tId:top.tId},false,true);
+						 onNodeClick(null,null,top);
+					 },1);
+				 },
+				 beforeEditName: function (treeId, treeNode) {
+					 // debugger
+					 treeNode=menuTree.getNodeByParam("tId",treeNode.tId);
+					 if(treeNode.hierarchy==topCode) {
+						 admin.toast().error("不允许修改名称",{time:1000,position:"right-bottom"});
+						 return false;
+					 }
+					 if(treeNode.data.profileId!=currProfileId) {
+						 admin.toast().error("不允许修改名称，请切换到默认Profile后再修改",{time:1000,position:"right-bottom"});
+						 return false;
+					 }
+					 return true;
+				 }
+			 },
+			 view: {
+				 addHoverDom: addHoverDom,
+				 removeHoverDom: removeHoverDom
+			 }
+
+		 };
+		 return cfgs;
+	 }
+
+	 function switchProfile(profileId) {
+		 // var node = menuTree.getNodeByTId(tid);
+		 // debugger;
+		 currProfileId = profileId;
+		 menuTree=$.fn.zTree.init($("#menu-tree"), buildTreeConfig(profileId));
+	 }
 
     var editingNode=null;
 	var ifrIndex=0;
@@ -150,6 +186,12 @@ function ListPage() {
 		if(!treeNode.id) {
 			return false;
 		}
+
+		if(treeNode.data.profileId!=currProfileId) {
+			admin.toast().error("不允许删除配置，请切换到默认Profile后再修改",{time:1000,position:"right-bottom"});
+			return false;
+		}
+
     	//debugger;
 		layer.confirm(fox.quoteDialogText(fox.translate('确定要删除 ['+treeNode.name+'] 配置项吗?')), function(index,a,c,d) {
 			layer.close(index);
@@ -171,7 +213,7 @@ function ListPage() {
     }
 
 	function onNodeRename (event, treeId, treeNode, isCancel) {
-		admin.request(moduleURL+"/update",{id:treeNode.id,name:treeNode.name},function(r){
+		admin.request(moduleURL+"/update",{id:treeNode.id,name:treeNode.name,searchField:'rename'},function(r){
 			if(r.success) {
 				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
 				$("#form-view-1")[0].contentWindow.loadFormData(treeNode.id);
@@ -191,6 +233,10 @@ function ListPage() {
 			} else {
 				childNodes[i].iconSkin="icon_config_item";
 			}
+			if(childNodes[i].data.profileId!=currProfileId) {
+				childNodes[i].iconSkin+="_opacity"
+			}
+
 			if(childNodes[i].children && childNodes[i].children.length) {
 				nodeDatafilter(treeId,childNodes[i],{data:childNodes[i].children});
 			}
@@ -246,6 +292,7 @@ function ListPage() {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
+		editingNode.type=type;
 		if(type=="DIR") {
 			editingNode.iconSkin = "icon_config_dir";
 		} else {
@@ -283,17 +330,17 @@ function ListPage() {
 		var handled={};
 		$("#search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-
-			admin.request(moduleURL+"/search",{"keyword":$("#search-input").val()},function(r) {
+			admin.request(moduleURL+"/search",{profileId:currProfileId,"keyword":$("#search-input").val()},function(r) {
 				if(r.success) {
 					collectExpandNodeIds(r.data);
 					if(ids.length>0) {
 						startExpandNode();
 					} else {
-						layer.msg("未找到匹配的节点", {icon: 1, time: 1000});
+						layer.msg("未找到匹配的配置项", {icon: 1, time: 1000});
 					}
 				} else {
-					admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
+					//admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
+					fox.showMessage(r);
 				}
 			});
 
@@ -332,7 +379,7 @@ function ListPage() {
 		function  collectExpandNodeIds(hierarchys) {
 			var ex={};
 			for (var i = 0; i < hierarchys.length; i++) {
-				var pIds=hierarchys[i].split("/");
+				var pIds=hierarchys[i].split(".");
 				for (var j = 0; j < pIds.length; j++) {
 					if(ex[pIds[j]]) continue;
 					ids.push(pIds[j]);
@@ -370,37 +417,13 @@ function ListPage() {
 			return;
 		}
 
-		// admin.popupCenter({
-		// 	title: "维护 Profile",
-		// 	resize: false,
-		// 	offset: 'auto',
-		// 	area: ["80%","80%"],
-		// 	type: 2,
-		// 	id:"sys-profile-form-list-win",
-		// 	content: '/business/system/config/config_define_form.html',
-		// 	finish: function () {
-		// 		debugger
-		// 	},
-		// 	cancel: function(index, layero){
-		// 		debugger
-		// 	}
-		// });
-		//
-		// admin.putVar("profileId",currProfileId);
-		// admin.putVar("parentId",treeNode.id);
-		// admin.putVar("hierarchy",treeNode.hierarchy);
-		//
-		// return;
-
-
-
 		admin.request(moduleURL+"/insert",{parentId:treeNode.id,name:"新配置",profileId:currProfileId},function(r) {
 			if(r.success) {
 				admin.toast().success("配置项已创建",{time:1000,position:"right-bottom"});
 				//debugger
 				if(treeNode==null) {
 					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.name,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item"});
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.name,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item",data:{profileId:r.data.profileId}});
 					return;
 				}
 				// debugger
@@ -415,7 +438,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item"});
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId,hierarchy:r.data.code,type:r.data.type,iconSkin:"icon_config_item",data:{profileId:r.data.profileId}});
 							//menuTree.selectNode(newNode,false);
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
@@ -481,7 +504,7 @@ function ListPage() {
 							area: ["80%","80%"],
 							type: 2,
 							id:"sys-profile-form-list-win",
-							content: '/business/system/profile/profile_list.html?hide-param-button=1',
+							content: '/business/system/profile/profile_list.html?impl=default&hide-param-button=1',
 							finish: function () {
 								debugger
 							},
@@ -492,7 +515,9 @@ function ListPage() {
 							}
 						});
 						profiles=null;
-					};
+					} else {
+						switchProfile(obj.id);
+					}
 				}
 			});
 		}
