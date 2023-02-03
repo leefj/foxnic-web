@@ -25,7 +25,8 @@ public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
 
     @Override
     public void configService(ServiceOptions service) {
-
+        //开启多服务实现的支持
+        service.multiImpl();
     }
 
     @Override
