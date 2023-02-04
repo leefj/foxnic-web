@@ -5,6 +5,7 @@ import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.starter.BootArgs;
 import com.github.foxnic.springboot.starter.FoxnicApplication;
 import org.aspectj.weaver.ast.Test;
@@ -19,10 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 /**
  * 非微服务应用启动类
@@ -33,22 +31,24 @@ public class BootApplication {
 
 
 		Logger.DIRECT=true;
-		long t=System.currentTimeMillis();
 		Logger.info("Foxnic-Web Booting...");
 
 		for (String arg:args) {
 			Logger.info("Original Parameter : "+arg);
 		}
-
 		//初始化参数
 		BootArgs.initOnBoot(args);
 
 		Logger.info("Is In IDE : "+BootArgs.isBootInIDE());
 		Logger.info("Work Dir : "+BootArgs.getWorkDir().getAbsolutePath());
-
+		CodeBuilder codeBuilder=new CodeBuilder();
+		Properties properties=System.getProperties();
+		for (Map.Entry<Object, Object> p : properties.entrySet()) {
+			codeBuilder.ln(1,p.getKey()+" : "+p.getValue());
+		}
+		Logger.info("\nSystem Properties : \n"+codeBuilder.toString());
 
 		Logger.DIRECT=false;
-
 		// Feature
 		List<Class> primarySources=new ArrayList<>(Arrays.asList(new Class[] {FoxnicApplication.class,BootApplication.class,SingleApplicationFeature.class}));
 		if(JmsApplicationFeature.support()) {

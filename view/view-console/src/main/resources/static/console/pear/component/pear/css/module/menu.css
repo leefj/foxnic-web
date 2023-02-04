@@ -49,7 +49,7 @@
 
 
 .pear-nav-tree .layui-nav-item a i {
-	margin-right: 8px;
+	margin-right: 0px;
 }
 
 .pear-nav-tree .layui-nav-item a span {
@@ -159,7 +159,7 @@
 }
 .pear-nav-tree .layui-nav-child dd a i {
 	/*display: none;*/
-	margin-left: 20px;
+	margin-left: 0px;
 }
 .pear-nav-tree .layui-nav-hover dd a span {
 	margin-left: 0px !important;

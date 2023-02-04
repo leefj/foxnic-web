@@ -46,7 +46,7 @@ public class ProfileServiceImplV2 extends ProfileServiceImpl {
 	public List<Profile> queryList(ProfileVO sample) {
 		List<Profile> list=super.queryList(sample);
 		for (Profile profile : list) {
-			profile.setName(profile.getName()+"@ProfileServiceImplV2");
+			profile.setName(profile.getName());
 		}
 		return list;
 	}

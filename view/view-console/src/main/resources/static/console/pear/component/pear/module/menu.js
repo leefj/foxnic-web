@@ -11,6 +11,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		this.option = opt;
 	};
 
+	const debugMenuX=false;
+
 	pearMenu.prototype.render = function (opt) {
 
 		var option = {
@@ -324,13 +326,13 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				// 创 建 目 录 结 构
 				content += '<a '+dataJson+' href="javascript:;" menu-type="' + item.type + '" menu-id="' + item.id + '" href="' + href +
 					'" ' + target + ' ><i class="' + item.icon + '" style="'+item.topNavIconStyle+'"></i><span>' + item.title +
-					'</span></a>';
+					(debugMenuX?"-a1":"")+'</span></a>';
 			} else if (item.type == 1) {
 				debugger
 				content += '<a '+dataJson+' class="' + className + '" menu-type="' + item.type + '" menu-url="' + item.href + '" menu-id="' +
 					item.id +
 					'" menu-title="' + item.title + '"  href="' + href + '"  ' + target + '><i class="' + item.icon +
-					'" style="'+item.topNavIconStyle+'"></i><span>' + item.title + '</span></a>';
+					'" style="'+item.topNavIconStyle+'"></i><span>' + item.title +(debugMenuX?"-a2":"")+ '</span></a>';
 			}
 			// 调 用 递 归 方 法 加 载 无 限 层 级 的 子 菜 单
 			content += loadchild(item);
@@ -498,17 +500,19 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					// debugger
-					content += '<a '+dataJson+' level="f2-'+note.level+'"  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+item.sideMenuIconStyle+'"></i><span>' + note.title +
-						'</span></a>';
+					content +=
+						'<a '+dataJson+' level="f2-'+note.level+'"  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id + '" style="'+marginLeft+'">' +
+						'<div style="display:inline-block;width: 16px;text-align: center;margin-right: 5px;"><i class="' + note.icon + '" style="'+item.sideMenuIconStyle+'"></i></div>' +
+						'<span>' + note.title + (debugMenuX?"-b1":"")+'</span>' +
+						'</a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					// debugger
 					content += '<a '+dataJson+' level="p2-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id +
 						'" menu-title="' + note.title + '" href="' + href + '" style="'+marginLeft+'">' +
-						'<i class="' + note.icon +'" style="'+item.sideMenuIconStyle+'"></i>' +
-						'<span>' + note.title + '</span></a>';
+						'<div style="display:inline-block;width: 16px;text-align: center;margin-right: 5px;"><i class="' + note.icon +'" style="'+item.sideMenuIconStyle+'"></i></div>' +
+						'<span>' + note.title + (debugMenuX?"-b2":"")+ '</span></a>';
 				}
 				content += loadchild(note);
 				content += '</li>';
@@ -614,13 +618,17 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					content += '<a  '+dataJson+' level="f1-'+note.level+'" ' + target + '  href="' + href + '" menu-type="' + note.type + '" menu-id="' + note.id +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
+						'" style="'+marginLeft+'">' +
+						'<div style="display:inline-block;width: 16px;text-align: center;margin-right: 5px;margin-left: 20px"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i></div>' +
+						'<span>' + note.title +(debugMenuX?"-c1":"")+ '</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					// debugger
 					content += '<a '+dataJson+' level="p1-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id + '" menu-title="' + note.title + '" menu-icon="' + note.icon + '" href="' + href +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
+						'" style="'+marginLeft+'">' +
+						'<div style="display:inline-block;width: 16px;text-align: center;margin-right: 5px;margin-left:20px"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i></div>' +
+						'<span>' + note.title + (debugMenuX?"-c2":"")+'</span></a>';
 				}
 				// 加 载 子 项 目 录
 				content += loadchild(note);
