@@ -7,14 +7,15 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.system.MenuType;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
+import java.util.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -28,8 +29,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单
  * <p>菜单 , 数据表 sys_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:21:14
- * @sign CDF8256CAD84A1B3640AB2B34D14B048
+ * @since 2023-02-06 13:00:48
+ * @sign 62C1BA41F36F7FC06C539457A9E05C97
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -83,6 +84,9 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型" , example = "folder")
 	private String type;
+	@Transient
+	@EnumFor("type")
+	private MenuType typeEnum;
 	
 	/**
 	 * 菜单路径的资源：菜单路径的资源
@@ -200,6 +204,12 @@ public class Menu extends Entity {
 	@Transient
 	@EnumFor("openType")
 	private MenuOpenType openTypeEnum;
+	
+	/**
+	 * 外部链接：外部链接
+	*/
+	@ApiModelProperty(required = false,value="外部链接" , notes = "外部链接")
+	private String extraUrl;
 	
 	/**
 	 * 路径资源
@@ -367,12 +377,46 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 菜单类型 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 菜单类型
+	*/
+	@Transient
+	public MenuType getTypeEnum() {
+		if(this.typeEnum==null) {
+			this.typeEnum = (MenuType) EnumUtil.parseByCode(MenuType.values(),type);
+		}
+		return this.typeEnum ;
+	}
+	
+	/**
 	 * 设置 菜单类型
 	 * @param type 菜单类型
 	 * @return 当前对象
 	*/
+	@JsonProperty("type")
 	public Menu setType(String type) {
 		this.type=type;
+		this.typeEnum= (MenuType) EnumUtil.parseByCode(MenuType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of MenuType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 菜单类型的投影属性，等同于设置 菜单类型
+	 * @param typeEnum 菜单类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public Menu setTypeEnum(MenuType typeEnum) {
+		if(typeEnum==null) {
+			this.setType(null);
+		} else {
+			this.setType(typeEnum.code());
+		}
+		this.typeEnum=typeEnum;
 		return this;
 	}
 	
@@ -818,6 +862,25 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 外部链接<br>
+	 * 外部链接
+	 * @return 外部链接
+	*/
+	public String getExtraUrl() {
+		return extraUrl;
+	}
+	
+	/**
+	 * 设置 外部链接
+	 * @param extraUrl 外部链接
+	 * @return 当前对象
+	*/
+	public Menu setExtraUrl(String extraUrl) {
+		this.extraUrl=extraUrl;
+		return this;
+	}
+	
+	/**
 	 * 获得 路径资源<br>
 	 * @return 路径资源
 	*/
@@ -1029,6 +1092,7 @@ public class Menu extends Entity {
 		inst.setType(this.getType());
 		inst.setOpenType(this.getOpenType());
 		inst.setUpdateBy(this.getUpdateBy());
+		inst.setExtraUrl(this.getExtraUrl());
 		inst.setId(this.getId());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -1121,6 +1185,7 @@ public class Menu extends Entity {
 			this.setType(DataParser.parse(String.class, map.get(MenuMeta.TYPE)));
 			this.setOpenType(DataParser.parse(String.class, map.get(MenuMeta.OPEN_TYPE)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuMeta.UPDATE_BY)));
+			this.setExtraUrl(DataParser.parse(String.class, map.get(MenuMeta.EXTRA_URL)));
 			this.setId(DataParser.parse(String.class, map.get(MenuMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuMeta.UPDATE_TIME)));
@@ -1154,6 +1219,7 @@ public class Menu extends Entity {
 				this.setType( (String)map.get(MenuMeta.TYPE));
 				this.setOpenType( (String)map.get(MenuMeta.OPEN_TYPE));
 				this.setUpdateBy( (String)map.get(MenuMeta.UPDATE_BY));
+				this.setExtraUrl( (String)map.get(MenuMeta.EXTRA_URL));
 				this.setId( (String)map.get(MenuMeta.ID));
 				this.setHierarchy( (String)map.get(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)map.get(MenuMeta.UPDATE_TIME));
@@ -1200,6 +1266,7 @@ public class Menu extends Entity {
 			this.setType(DataParser.parse(String.class, r.getValue(MenuMeta.TYPE)));
 			this.setOpenType(DataParser.parse(String.class, r.getValue(MenuMeta.OPEN_TYPE)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuMeta.UPDATE_BY)));
+			this.setExtraUrl(DataParser.parse(String.class, r.getValue(MenuMeta.EXTRA_URL)));
 			this.setId(DataParser.parse(String.class, r.getValue(MenuMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuMeta.UPDATE_TIME)));
@@ -1228,6 +1295,7 @@ public class Menu extends Entity {
 				this.setType( (String)r.getValue(MenuMeta.TYPE));
 				this.setOpenType( (String)r.getValue(MenuMeta.OPEN_TYPE));
 				this.setUpdateBy( (String)r.getValue(MenuMeta.UPDATE_BY));
+				this.setExtraUrl( (String)r.getValue(MenuMeta.EXTRA_URL));
 				this.setId( (String)r.getValue(MenuMeta.ID));
 				this.setHierarchy( (String)r.getValue(MenuMeta.HIERARCHY));
 				this.setUpdateTime( (Date)r.getValue(MenuMeta.UPDATE_TIME));

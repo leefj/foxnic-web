@@ -37,7 +37,15 @@ function ListPage() {
 				onRename : onNodeRename,
 				beforeRemove : beforeNodeRemove,
 				onDrop : onNodeDrop,
-				onClick: onNodeClick
+				onClick: onNodeClick,
+				onAsyncSuccess: function (event, treeId, treeNode, msg) {
+					var data=JSON.parse(msg).data;
+					var top0=menuTree.getNodeByParam("id",data[0].id);
+					if(top0.parentId=='0') {
+						menuTree.selectNode({tId: top0.tId}, false, true)
+						onNodeClick(event, treeId, top0);
+					}
+				}
 			},
 			view: {
 				addHoverDom: addHoverDom,
@@ -181,10 +189,13 @@ function ListPage() {
 	}
 
 	function addHoverDom(treeId, treeNode) {
+		// debugger
 		if(!treeNode.id) {
 			return false;
 		}
-		if(!treeNode.isParent) return;
+		// if(!treeNode.isParent) return;
+
+		if(treeNode.type=="api" || treeNode.type=="function") return;
 		// var aObj = $("#" + treeNode.tId + "_a");
 		//setTimeout(function (){
 		var aObj = $("#" + treeNode.tId + "_span").parent();

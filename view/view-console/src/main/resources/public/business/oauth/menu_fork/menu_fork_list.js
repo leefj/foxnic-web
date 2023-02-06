@@ -1,7 +1,7 @@
 /**
  * 菜单功能分版本实现配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:23
+ * @since 2023-02-06 15:12:54
  */
 
 
@@ -78,9 +78,9 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'menuId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('菜单ID') , templet: function (d) { return templet('menuId',d.menuId,d);}  }
-					,{ field: 'dir', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('目录名称') , templet: function (d) { return templet('dir',d.dir,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'menuId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('菜单ID') , templet: function (d) { return templet('menuId',d.menuId,d);}  }
+					,{ field: 'dir', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('目录') , templet: function (d) { return templet('dir',d.dir,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('显示顺序') , templet: function (d) { return templet('sort',d.sort,d);}  }
@@ -133,13 +133,8 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.menuId={ inputType:"button",value: $("#menuId").val()};
-		value.dir={ inputType:"button",value: $("#dir").val()};
-		value.name={ inputType:"button",value: $("#name").val()};
-		value.notes={ inputType:"button",value: $("#notes").val()};
-		value.sort={ inputType:"number_input", value: $("#sort").val() };
-		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.dir={ inputType:"button",value: $("#dir").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -252,7 +247,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
-			admin.putTempData('sys-menu-fork-form-data-form-notExistAction', "create",true);
+			admin.putTempData('sys-menu-fork-form-data-form-action', "create",true);
             showEditForm(data);
         };
 
@@ -305,11 +300,11 @@ function ListPage() {
 				if(!doNext) return;
 			}
 
-			admin.putTempData('sys-menu-fork-form-data-form-notExistAction', "",true);
+			admin.putTempData('sys-menu-fork-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-menu-fork-form-data-form-notExistAction', "edit",true);
+						admin.putTempData('sys-menu-fork-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
 						 fox.showMessage(data);
@@ -318,7 +313,7 @@ function ListPage() {
 			} else if (layEvent === 'view') { // 查看
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-menu-fork-form-data-form-notExistAction', "view",true);
+						admin.putTempData('sys-menu-fork-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
 						fox.showMessage(data);
@@ -362,20 +357,20 @@ function ListPage() {
 			var doNext=window.pageExt.list.beforeEdit(data);
 			if(!doNext) return;
 		}
-		var notExistAction=admin.getTempData('sys-menu-fork-form-data-form-notExistAction');
+		var action=admin.getTempData('sys-menu-fork-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString='id=' + data.id;
 		if(window.pageExt.list.makeFormQueryString) {
-			queryString=window.pageExt.list.makeFormQueryString(data,queryString,notExistAction);
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
 		}
 		admin.putTempData('sys-menu-fork-form-data', data);
 		var area=admin.getTempData('sys-menu-fork-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = fox.translate('菜单功能分版本实现配置');
-		if(notExistAction=="create") title=fox.translate('添加','','cmp:table')+title;
-		else if(notExistAction=="edit") title=fox.translate('修改','','cmp:table')+title;
-		else if(notExistAction=="view") title=fox.translate('查看','','cmp:table')+title;
+		if(action=="create") title=fox.translate('添加','','cmp:table')+title;
+		else if(action=="edit") title=fox.translate('修改','','cmp:table')+title;
+		else if(action=="view") title=fox.translate('查看','','cmp:table')+title;
 
 		admin.popupCenter({
 			title: title,
@@ -386,10 +381,10 @@ function ListPage() {
 			id:"sys-menu-fork-form-data-win",
 			content: '/business/oauth/menu_fork/menu_fork_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				if(notExistAction=="create") {
+				if(action=="create") {
 					refreshTableData();
 				}
-				if(notExistAction=="edit") {
+				if(action=="edit") {
 					false?refreshTableData():refreshRowData(data,true);
 				}
 			}

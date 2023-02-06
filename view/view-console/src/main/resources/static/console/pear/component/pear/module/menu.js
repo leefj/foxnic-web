@@ -99,11 +99,12 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var _this = this;
 		$("body").on("click", "#" + _this.option.elem + " .site-demo-active", function () {
 			var dom = $(this);
-			// debugger
+
 			var menuData=dom.attr("data");
 			if(menuData) {
 				menuData=JSON.parse(menuData);
 			}
+
 			var data = {
 				menuId: dom.attr("menu-id"),
 				menuTitle: dom.attr("menu-title"),

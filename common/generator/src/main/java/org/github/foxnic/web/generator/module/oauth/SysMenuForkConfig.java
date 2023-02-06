@@ -4,10 +4,7 @@ import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU_FORK;
 import org.github.foxnic.web.constants.enums.hrm.ResourceType;
@@ -35,18 +32,33 @@ public class SysMenuForkConfig extends BaseCodeConfig<SYS_MENU_FORK> {
 
     @Override
     public void configFields(ViewOptions view) {
-
-
+        view.field(SYS_MENU_FORK.ID).basic().hidden();
+        view.field(SYS_MENU_FORK.MENU_ID).basic().hidden();
+        view.field(SYS_MENU_FORK.DIR).basic().label("目录").search().fuzzySearch().form().validate().required();
+        view.field(SYS_MENU_FORK.NAME).basic().label("名称").search().fuzzySearch().form().validate().required();
+        view.field(SYS_MENU_FORK.NOTES).search().hidden();
+        view.field(SYS_MENU_FORK.SORT).search().hidden().form().validate().required();
     }
 
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(70);
+        form.columnLayout(new Object[]{
+                SYS_MENU_FORK.NAME,SYS_MENU_FORK.DIR,SYS_MENU_FORK.NOTES,SYS_MENU_FORK.SORT
+        });
     }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         //list.refreshAfterEdit(false);
+//        list.disableMargin();
+    }
+
+    @Override
+    public void configSearch(ViewOptions view, SearchAreaOptions search) {
+        search.inputLayout(new Object[]{
+                SYS_MENU_FORK.NAME,SYS_MENU_FORK.DIR
+        });
     }
 
     @Override

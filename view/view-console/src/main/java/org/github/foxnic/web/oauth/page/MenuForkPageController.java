@@ -13,22 +13,22 @@ import javax.servlet.http.HttpServletRequest;
  * 菜单功能分版本实现配置模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:21
+ * @since 2023-02-06 15:12:53
 */
 
 @Controller("SysMenuForkPageController")
 @RequestMapping(MenuForkPageController.prefix)
 public class MenuForkPageController extends ViewController {
-	
+
 	public static final String prefix="business/oauth/menu_fork";
 
 	private MenuForkServiceProxy proxy;
-	
+
 	/**
-	 * 获得代理对象<br> 
-	 * 1、单体应用时，在应用内部调用；<br> 
-	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
-	 * 3、微服务时，通过feign调用; <br> 
+	 * 获得代理对象<br>
+	 * 1、单体应用时，在应用内部调用；<br>
+	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br>
+	 * 3、微服务时，通过feign调用; <br>
 	 * */
 	public MenuForkServiceProxy proxy() {
 		if(proxy==null) {
@@ -36,13 +36,13 @@ public class MenuForkPageController extends ViewController {
 		}
 		return proxy;
 	}
-	
+
 	/**
 	 * 菜单功能分版本实现配置 功能主页面
 	 */
 	@RequestMapping("/menu_fork_list.html")
 	public String list(Model model,HttpServletRequest request) {
-		return prefix+"/menu_fork_list";
+		return getTemplatePath(prefix,"menu_fork_list");
 	}
 
 	/**
@@ -50,6 +50,6 @@ public class MenuForkPageController extends ViewController {
 	 */
 	@RequestMapping("/menu_fork_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/menu_fork_form";
+		return getTemplatePath(prefix,"menu_fork_form");
 	}
 }

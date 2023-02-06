@@ -1,7 +1,8 @@
 /**
  * 菜单功能分版本实现配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:21
+ * @since 2023-02-06 15:06:14
+ * @version
  */
 
 layui.config({
@@ -28,6 +29,21 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+        },
+        /**
+         * 按事件名称移除表格按钮栏的按钮
+         * */
+        removeOperationButtonByEvent(event) {
+            var template=$("#tableOperationTemplate");
+            var content=template.text();
+            content=content.split("\n");
+            var buttons=[]
+            for (let i = 0; i < content.length ; i++) {
+                if(content[i] && content[i].indexOf("lay-event=\""+event+"\"")==-1) {
+                    buttons.push(content[i]);
+                }
+            }
+            template.text(buttons.join("\n"))
         },
         /**
          * 表格渲染前调用
@@ -78,6 +94,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
+            var menuId=admin.getVar("fork_menu_id");
+            param.menuId=menuId;
             return true;
         },
         /**
@@ -96,7 +114,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单页面打开时，追加更多的参数信息
          * */
-        makeFormQueryString:function(data,queryString,notExistAction) {
+        makeFormQueryString:function(data,queryString,action) {
             return queryString;
         },
         /**
@@ -164,7 +182,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单初始化前调用 , 并传入表单数据
          * */
-        beforeInit:function (notExistAction,data) {
+        beforeInit:function (action,data) {
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
@@ -235,6 +253,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            var menuId=admin.getVar("fork_menu_id");
+            data.menuId=menuId;
             return true;
         },
         /**

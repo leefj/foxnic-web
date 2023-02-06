@@ -73,7 +73,8 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.EXTRA_URL, value = "外部链接", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
     @ApiOperationSupport(order = 1)
@@ -162,7 +163,8 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.EXTRA_URL, value = "外部链接", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 4, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
@@ -194,7 +196,8 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.EXTRA_URL, value = "外部链接", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE, MenuVOMeta.SEARCH_FIELD, MenuVOMeta.SEARCH_VALUE, MenuVOMeta.IDS })
@@ -243,7 +246,8 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.EXTRA_URL, value = "外部链接", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { MenuVOMeta.PAGE_INDEX, MenuVOMeta.PAGE_SIZE })
     @SentinelResource(value = MenuServiceProxy.QUERY_LIST)
@@ -312,7 +316,8 @@ public class MenuController extends SuperController {
 		@ApiImplicitParam(name = MenuVOMeta.SORT, value = "显示顺序", required = true, dataTypeClass = Integer.class, example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LINK_TYPE, value = "连接类型", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = MenuVOMeta.OPEN_TYPE, value = "打开方式", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = MenuVOMeta.EXTRA_URL, value = "外部链接", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = MenuServiceProxy.QUERY_PAGED_LIST)

@@ -67,7 +67,7 @@
     <div class="layui-form-item">
         <div class="layui-form-label"><div th:text="${lang.translate('菜单类型')}">菜单类型</div><div class="layui-required">*</div></div>
         <div class="layui-input-block">
-	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}"  lay-verify="|required" >
+	      <input type="radio" name="type" lay-filter="type"  th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}"  lay-verify="|required" >
         </div>
     </div>
 
@@ -103,7 +103,35 @@
         <div class="layui-input-inline" style="width: 100px;padding-left: 6px">
             <button id="icon-button" type="button" class="layui-btn"><i class="fa fa-briefcase" id="icon-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('请选择图标') }">请选择图标</span></button>
         </div>
+    </div>
 
+
+    <div class="layui-form-item" id="linkTypeItem" style="display: none">
+        <label class="layui-form-label" th:text="${lang.translate('链接类型')}">链接类型</label>
+        <div class="layui-input-block">
+            <input input-type="radio" type="radio" name="linkType" lay-filter="linkType" th:each="e,stat:${enum.toArray('org.github.foxnic.web.domain.oauth.MenuLinkType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='internal' || stat.index==-1)}">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="extraUrlItem" style="display: none">
+        <div class="layui-form-label"><div th:text="${lang.translate('外部链接')}">外部链接</div></div>
+        <div class="layui-input-block">
+            <input lay-filter="extraUrl" id="extraUrl" name="extraUrl" th:placeholder="${ lang.translate('请输入'+'外部链接') }" type="text" class="layui-input"  />
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="forksItem" style="display: none">
+        <label class="layui-form-label" th:text="${lang.translate('功能界面')}">功能界面</label>
+        <div class="layui-input-inline" style="width: 100px;padding-left: 6px">
+            <button id="forks-button" type="button" class="layui-btn"><i class="fa fa-random" id="forks-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('版本管理') }">版本管理</span></button>
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="openTypeItem" style="display: none">
+        <label class="layui-form-label" th:text="${lang.translate('打开方式')}">打开方式</label>
+        <div class="layui-input-block">
+            <input input-type="radio" type="radio" name="openType" lay-filter="openType" th:each="e,stat:${enum.toArray('org.github.foxnic.web.domain.oauth.MenuOpenType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='internal_tab' || stat.index==-1)}">
+        </div>
     </div>
 
     <!--
@@ -114,35 +142,37 @@
         </div>
     </div>
     -->
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('页面路径')}">页面路径</label>
+    <div class="layui-form-item" id="pathResourceIdItem" style="display: none">
+        <label class="layui-form-label" th:text="${lang.translate('页面路径')}" id="pathResourceIdLabel">页面路径</label>
         <div class="layui-input-block">
             <div id="pathResourceId" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
         </div>
     </div>
 
-    <div class="layui-form-item" >
+
+
+    <div class="layui-form-item" id="paramsItem" style="display: none">
         <div class="layui-form-label"><div th:text="${lang.translate('页面参数')}">页面参数</div></div>
         <div class="layui-input-block">
             <input lay-filter="params" id="params" name="params" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('页面参数') }" type="text" class="layui-input"  />
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="urlItem" style="display: none">
         <label class="layui-form-label" th:text="${lang.translate('路由地址')}">路由地址</label>
         <div class="layui-input-block">
             <input id="url" name="url" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('路由地址') }" type="text" class="layui-input"    />
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="resourceIdsItem" style="display: none">
         <label class="layui-form-label" th:text="${lang.translate('资源清单')}">资源清单</label>
         <div class="layui-input-block">
             <div id="resourceIds" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
         </div>
     </div>
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item" id="dynamicHandlerItem">
         <div class="layui-form-label"><div th:text="${lang.translate('动态控制')}">动态控制</div></div>
         <div class="layui-input-block">
             <input lay-filter="dynamicHandler" id="dynamicHandler" name="dynamicHandler" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('动态控制类') }" type="text" class="layui-input"  />

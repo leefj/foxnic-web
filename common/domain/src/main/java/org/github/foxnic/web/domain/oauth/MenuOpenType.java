@@ -14,22 +14,22 @@ public enum MenuOpenType implements CodeTextEnum {
 	/**
 	 * 系统Tab页面
 	*/
-	INTERNAL_TAB("internal_tab" , "系统内Tab页"),
+	INTERNAL_TAB("internal_tab" , "内部Tab页"),
 
 	/**
 	 * 系统内窗口
 	 */
-	INTERNAL_WIN("internal_win" , "系统内窗口"),
+	INTERNAL_WIN("internal_win" , "内部窗口"),
 
 	/**
 	 * 外部页面
 	*/
-	EXTERNAL_TAB("external" , "外部Tab页"),
+	EXTERNAL_TAB("external_tab" , "浏览器Tab页"),
 
 	/**
 	 * 外部窗口
 	 */
-	EXTERNAL_WIN("external" , "外部窗口");
+	EXTERNAL_WIN("external_win" , "浏览器窗口");
 
 
 	private String code;

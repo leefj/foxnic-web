@@ -4,6 +4,7 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.generator.module.system.SystemCodeGenerator;
@@ -241,6 +242,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.getPoClassFile().shadow(SYS_MENU.OPEN_TYPE, MenuOpenType.class);
 		cfg.getPoClassFile().shadow(SYS_MENU.LINK_TYPE, MenuLinkType.class);
+		cfg.getPoClassFile().shadow(SYS_MENU.TYPE, MenuType.class);
 
 
 //		cfg.getPoClassFile().shadow(SYS_MENU.TYPE, MenuType.class,"menuTypeEnum");
@@ -268,6 +270,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_MENU.LABEL).form().validate().required();
 		cfg.view().field(SYS_MENU.TYPE).form().validate().required();
+
+		cfg.view().field(SYS_MENU.LINK_TYPE)
+				.form().radioBox().enumType(MenuLinkType.class).defaultValue(MenuLinkType.INTERNAL)
+				.form().validate().required();
+
+		cfg.view().field(SYS_MENU.OPEN_TYPE)
+				.form().radioBox().enumType(MenuOpenType.class).defaultValue(MenuOpenType.INTERNAL_TAB)
+				.form().validate().required();
+
 
 		//文件生成覆盖模式
 		cfg.overrides()

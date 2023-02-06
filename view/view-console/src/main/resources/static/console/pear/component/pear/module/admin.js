@@ -535,7 +535,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					if(!menus[i].icon) {
 						menus[i].icon="fa fa-circle-o";
 					}
-					menus[i].openType = "_iframe";
+					//menus[i].openType = "_iframe";
 					menus[i].href = menus[i].path;
 
 					if(menus[i].params) {
@@ -700,16 +700,47 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						sideMenu.selectItem(id);
 					})
 
+					// 打开菜单
 					sideMenu.click(function(dom, data) {
-						bodyTab.addTabOnly({
-							id: data.menuId,
-							title: data.menuTitle,
-							url: data.menuUrl,
-							icon: data.menuIcon,
-							close: true,
-							data: data.data
-						}, 300);
-						compatible();
+						debugger;
+						var menu=window.top.foxnic_menu_map[data.menuId];
+						var url=null;
+						if(menu.linkType=="internal") {
+							url = data.menuUrl;
+						} else if(menu.linkType=="external") {
+							url = menu.extraUrl;
+						}
+
+						menu.openType="external_win";
+
+						if(!menu.openType || menu.openType=="internal_tab") {
+							bodyTab.addTabOnly({
+								id: data.menuId,
+								title: data.menuTitle,
+								url: url,
+								icon: data.menuIcon,
+								close: true,
+								data: data.data
+							}, 300);
+							compatible();
+						} else if(menu.openType=="internal_win") {
+
+							admin.popupCenter({
+								title: '<div style="display:inline-block;width: 16px;text-align: center;margin-right: 4px;"><i class="'+menu.icon+'" style="font-size:16px"></i></div><span style="font-weight: bold;font-size: 15px">'+data.menuTitle+"</span>",
+								resize: true,
+								icon: data.menuIcon,
+								offset: 'auto',
+								area: ["85%","85%"],
+								type: 2,
+								id:"win-"+data.menuId,
+								content: url
+							});
+
+						} else if(menu.openType=="external_tab") {
+							window.open(url);
+						} else if(menu.openType=="external_win") {
+							window.open(url,"_blank","alwaysRaised=yes , location=no , width="+window.width+" , height="+window.height);
+						}
 					})
 				} else {
 					debugger

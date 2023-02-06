@@ -44,7 +44,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 菜单功能分版本实现配置接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:21
+ * @since 2023-02-06 15:12:53
 */
 
 @InDoc
@@ -61,12 +61,12 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "添加菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066"),
+		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class , example = "519150902678913024"),
+		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class , example = "advance"),
+		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "高级版本"),
 		@ApiImplicitParam(name = MenuForkVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true , ignorePrimaryKey = true)
 	@ApiOperationSupport(order=1 , author="李方捷 , leefangjie@qq.com")
@@ -84,7 +84,7 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "删除菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066")
 	})
 	@ApiOperationSupport(order=2 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = MenuForkServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -166,12 +166,12 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "更新菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066"),
+		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class , example = "519150902678913024"),
+		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class , example = "advance"),
+		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "高级版本"),
 		@ApiImplicitParam(name = MenuForkVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
 	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { MenuForkVOMeta.PAGE_INDEX , MenuForkVOMeta.PAGE_SIZE , MenuForkVOMeta.SEARCH_FIELD , MenuForkVOMeta.FUZZY_FIELD , MenuForkVOMeta.SEARCH_VALUE , MenuForkVOMeta.DIRTY_FIELDS , MenuForkVOMeta.SORT_FIELD , MenuForkVOMeta.SORT_TYPE , MenuForkVOMeta.DATA_ORIGIN , MenuForkVOMeta.QUERY_LOGIC , MenuForkVOMeta.IDS } )
@@ -188,12 +188,12 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "保存菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066"),
+		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class , example = "519150902678913024"),
+		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class , example = "advance"),
+		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "高级版本"),
 		@ApiImplicitParam(name = MenuForkVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuForkVOMeta.PAGE_INDEX , MenuForkVOMeta.PAGE_SIZE , MenuForkVOMeta.SEARCH_FIELD , MenuForkVOMeta.FUZZY_FIELD , MenuForkVOMeta.SEARCH_VALUE , MenuForkVOMeta.DIRTY_FIELDS , MenuForkVOMeta.SORT_FIELD , MenuForkVOMeta.SORT_TYPE , MenuForkVOMeta.DATA_ORIGIN , MenuForkVOMeta.QUERY_LOGIC , MenuForkVOMeta.IDS } )
@@ -247,12 +247,12 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "查询菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066"),
+		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class , example = "519150902678913024"),
+		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class , example = "advance"),
+		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "高级版本"),
 		@ApiImplicitParam(name = MenuForkVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { MenuForkVOMeta.PAGE_INDEX , MenuForkVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = MenuForkServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -270,12 +270,12 @@ public class MenuForkController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询菜单功能分版本实现配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "519150902678913066"),
+		@ApiImplicitParam(name = MenuForkVOMeta.MENU_ID , value = "菜单ID" , required = false , dataTypeClass=String.class , example = "519150902678913024"),
+		@ApiImplicitParam(name = MenuForkVOMeta.DIR , value = "目录名称" , required = false , dataTypeClass=String.class , example = "advance"),
+		@ApiImplicitParam(name = MenuForkVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "高级版本"),
 		@ApiImplicitParam(name = MenuForkVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = MenuForkVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8 , author="李方捷 , leefangjie@qq.com")
 	@SentinelResource(value = MenuForkServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

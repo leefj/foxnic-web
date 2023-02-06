@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 菜单功能分版本实现配置 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:20
+ * @since 2023-02-06 15:12:52
  */
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = MenuForkServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface MenuForkServiceProxy {

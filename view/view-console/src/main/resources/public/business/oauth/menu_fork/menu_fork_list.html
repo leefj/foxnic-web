@@ -2,7 +2,7 @@
 /**
  * 菜单功能分版本实现配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:11:22
+ * @since 2023-02-06 15:12:54
  */
  -->
  <!DOCTYPE html>
@@ -38,35 +38,19 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 菜单ID , menuId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('菜单ID')}" class="search-label menuId-label">菜单ID</span><span class="search-colon">:</span></div>
-                        <input id="menuId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 目录名称 , dir ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('目录名称')}" class="search-label dir-label">目录名称</span><span class="search-colon">:</span></div>
-                        <input id="dir" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 菜单ID , menuId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 显示顺序 , sort ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 目录 , dir ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('备注')}" class="search-label notes-label">备注</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 显示顺序 , sort ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('显示顺序')}" class="search-label sort-label">显示顺序</span><span class="search-colon">:</span></div>
-                            <input id="sort" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('目录')}" class="search-label dir-label">目录</span><span class="search-colon">:</span></div>
+                        <input id="dir" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

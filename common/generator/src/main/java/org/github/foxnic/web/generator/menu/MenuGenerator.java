@@ -14,12 +14,11 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.docs.page.ApiSourcePageController;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.MenuResource;
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+import org.github.foxnic.web.oauth.page.MenuForkPageController;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
+import org.github.foxnic.web.proxy.oauth.MenuForkServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -58,8 +57,8 @@ public class MenuGenerator {
 //		mg.generate("583014848745439232");
 //		mg.removeByBatchId("620270722337472512");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_API_SOURCE.$TABLE, ApiSourceServiceProxy.class, ApiSourcePageController.class);
-		mg.generate("622447317160558592");
+		mg=new MenuGenerator(FoxnicWeb.SYS_MENU_FORK.$TABLE, MenuForkServiceProxy.class, MenuForkPageController.class);
+		mg.generate("463399148318621696");
 
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);

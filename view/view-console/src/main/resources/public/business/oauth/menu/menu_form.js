@@ -136,6 +136,37 @@ function FormPage() {
 			}
 		});
 
+		form.on('radio(type)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=type]:checked').each(function() {
+				checked.push($(this).val());
+			});
+
+			console.log("type",checked.join(","));
+			updateFormFields(getFormData());
+		});
+
+		form.on('radio(linkType)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=linkType]:checked').each(function() {
+				checked.push($(this).val());
+			});
+
+			console.log("linkType",checked.join(","));
+			updateFormFields(getFormData());
+		});
+
+		form.on('radio(openType)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=openType]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			console.log("openType",checked.join(","));
+			updateFormFields(getFormData());
+		});
+
+		updateFormFields(getFormData());
+
 	}
 
 	/**
@@ -143,8 +174,16 @@ function FormPage() {
       */
 	function fillFormData(formData) {
 		//var formData = admin.getTempData('sys-menu-form-data');
+
+
 		$('#data-form')[0].reset();
 		if (formData) {
+			if(!formData.linkType) {
+				formData.linkType="internal";
+			}
+			if(!formData.openType) {
+				formData.openType="internal_tab";
+			}
 			//debugger
 			if(formData.hidden==1)  formData.hidden=0;
 			else if(formData.hidden==0)  formData.hidden=1;
@@ -170,7 +209,61 @@ function FormPage() {
 			$("#icon-button-el").attr("class",formData.css);
 		}
 		renderFormFields();
+		updateFormFields(formData);
 	}
+
+	function updateFormFields(data) {
+		// debugger
+		var type=data.type;
+
+		$("#linkTypeItem").hide();
+		$("#extraUrlItem").hide();
+		$("#openTypeItem").hide();
+		$("#pathResourceIdItem").hide();
+		$("#forksItem").hide();
+		$("#paramsItem").hide();
+		$("#urlItem").hide();
+		$("#resourceIdsItem").hide();
+
+
+
+		if(type=="folder") {
+
+		} else if(type=="api") {
+			$("#pathResourceIdItem").show();
+			$("#resourceIdsItem").show();
+			$("#pathResourceIdLabel").text(fox.translate("接口地址"))
+		} else if(type=="function") {
+			$("#resourceIdsItem").show();
+		} else if(type=="page") {
+			var linkType=data.linkType;
+
+			$("#linkTypeItem").show();
+			$("#openTypeItem").show();
+
+
+			if(linkType=="internal") {
+
+				$("#pathResourceIdItem").show();
+				$("#resourceIdsItem").show();
+
+				$("#forksItem").show();
+				$("#paramsItem").show();
+				$("#urlItem").show();
+
+			} else if(linkType=="external") {
+				$("#extraUrlItem").show();
+			}
+
+
+			$("#pathResourceIdLabel").text(fox.translate("页面路径"))
+		}
+
+
+
+
+	}
+
 
 
 	function processFormValues(values) {
@@ -192,6 +285,23 @@ function FormPage() {
 		});
 	});
 
+	$("#forks-button").click(function(){
+		var id=getFormData().id;
+		var menuName=getFormData().label;
+		admin.putVar("fork_menu_id",id);
+		admin.popupCenter({
+			title: fox.translate("菜单 "+menuName+" 功能版本管理"),
+			resize: false,
+			offset: 'auto',
+			area: ["80%","80%"],
+			type: 2,
+			id:"sys-menu-fork-list-win",
+			content: '/business/oauth/menu_fork/menu_fork_list.html'
+		});
+	});
+
+
+
 	/**
       * 保存数据，表单提交事件
       */
@@ -206,7 +316,13 @@ function FormPage() {
 
 	function getFormData() {
 		var data=form.val("data-form");
-		return data;
+		if(!data.linkType) {
+			data.linkType="internal";
+		}
+		if(!data.openType) {
+			data.openType="internal_tab";
+		}
+ 		return data;
 	}
 
 	function verifyForm(data) {
@@ -243,17 +359,23 @@ function FormPage() {
 		//校验表单
 		if(!verifyForm(data.field)) return;
 
+		if(data.field.type!="page") {
+			data.field.openType=null;
+			data.field.LinkType=null;
+		}
+
+
 		var api=moduleURL+"/"+(values.id?"update":"insert");
-		layer.load(2);
+		top.layer.load(2);
 		admin.request(api, data.field, function (data) {
-			layer.closeAll('loading');
+			top.layer.closeAll('loading');
 			if (data.success) {
 				if(parent) {
 					parent.chaneNodeName(values.id,values.label,values.type);
 				}
-				layer.msg("菜单配置已保存", {icon: 1, time: 500});
+				top.layer.msg("菜单配置已保存", {icon: 1, time: 500});
 			} else {
-				layer.msg(data.message, {icon: 2, time: 500});
+				top.layer.msg(data.message, {icon: 2, time: 500});
 			}
 		}, "POST");
 	}
