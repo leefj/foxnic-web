@@ -346,6 +346,94 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				$(".layui-logo .title").html(TITLE);
 			}
 
+
+			this.authorities=null;
+			this.initAuthorities = function () {
+				if(this.authorities!=null) {
+					return true;
+				}
+				var usr=this.getUser();
+				if(usr==null) return false;
+				usr=this.getUser().user;
+				if(usr==null) return false;
+				var menus = usr.menus;
+				if(menus==null) return false;
+				if(this.authorities==null) {
+					this.authorities={};
+					for (var i = 0; i < menus.length; i++) {
+						this.authorities[menus[i].authority]=true;
+					}
+				}
+				return true;
+			};
+			this.roles = null;
+			this.initRoles = function () {
+				if(this.roles!=null) {
+					return true;
+				}
+				var usr=this.getUser();
+				if(usr==null) return false;
+				usr=this.getUser().user;
+				if(usr==null) return false;
+				var rs = usr.roles;
+				if(rs==null) return false;
+				if(this.roles==null) {
+					this.roles={};
+					for (var i = 0; i < rs.length; i++) {
+						this.roles[rs[i].code]=true;
+					}
+				}
+				return true;
+			};
+			// 判断是否为指定角色
+			this.checkRole = function (role) {
+				var roles=null;
+				if(top.admin && top.admin.initRoles) {
+					if (top.admin.initRoles() == false) {
+						return false;
+					}
+					roles = top.admin.roles;
+				} else {
+					if (this.initRoles() == false) {
+						return false;
+					}
+					roles = this.roles;
+				}
+
+				for (var i = 0; i < arguments.length; i++) {
+					if(!roles[arguments[i]]) {
+						return false;
+					}
+				}
+				//
+				return true;
+			};
+			// 判断是否有权限
+			this.checkAuth = function (auth) {
+				// debugger
+				var authorities=null;
+				if(top.admin &&  top.admin.initAuthorities) {
+					if( top.admin.initAuthorities()==false) {
+						return false;
+					}
+					authorities=top.admin.authorities;
+				} else {
+					if( this.initAuthorities()==false) {
+						return false;
+					}
+					authorities=this.authorities;
+				}
+
+				for (var i = 0; i < arguments.length; i++) {
+					if(!authorities[arguments[i]]) {
+						return false;
+					}
+				}
+				//
+				return true;
+			};
+
+
 			this.translate = function (defaults, code , context) {
 				return  top.translate(defaults, code , context);
 

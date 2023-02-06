@@ -82,6 +82,8 @@ layui.define(['jquery', 'element'], function(exports) {
 						}
 					}
 				}
+				var hasPerm=window.top.admin.checkAuth("menu:fork-switch");
+				//
 				// 获取当前元素位置
 				var top = e.clientY;
 				var left = e.clientX;
@@ -92,7 +94,7 @@ layui.define(['jquery', 'element'], function(exports) {
 					"<li class='item' id='" + option.elem +"closeThis' style='padding-right: 16px;'>"+window.top.translate("关闭当前",null,'layui')+"</li>" +
 					"<li class='item' id='" + option.elem +"closeOther' style='padding-right: 16px;'>"+window.top.translate("关闭其他",null,'layui')+"</li>" +
 					"<li class='item' id='" + option.elem +"closeAll' style='padding-right: 16px;'>"+window.top.translate("关闭所有",null,'layui')+"</li>" +
-					forksMenu.join("")+
+					(hasPerm?forksMenu.join(""):"") +
 					"</ul>";
 
 				contextTabDOM = $(this);
