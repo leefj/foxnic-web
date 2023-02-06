@@ -1,41 +1,52 @@
 package org.github.foxnic.web.system.controller;
 
-
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.swagger.ApiParamSupport;
-import com.github.foxnic.api.swagger.InDoc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ReferCause;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.system.Dict;
-import org.github.foxnic.web.domain.system.DictVO;
-import org.github.foxnic.web.domain.system.meta.DictMeta;
-import org.github.foxnic.web.domain.system.meta.DictVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import java.util.*;
 import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.system.DictServiceProxy;
-import org.github.foxnic.web.system.service.IDictService;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.api.swagger.InDoc;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
+import org.github.foxnic.web.domain.system.meta.DictVOMeta;
+import org.github.foxnic.web.domain.system.Dict;
+import org.github.foxnic.web.domain.system.DictVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.system.meta.DictMeta;
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.oauth.Menu;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.system.service.IDictService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 数据字典接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:48
+ * @since 2023-02-06 17:24:56
 */
 
 @InDoc
@@ -88,9 +99,9 @@ public class DictController extends SuperController {
 		// 引用校验
 		ReferCause cause =  dictService.hasRefers(id);
 		// 判断是否可以删除
-		this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录:"+cause.message(),false);
+		this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前记录："+cause.message(),false);
 		if(this.validator().failure()) {
-			return this.validator().getFirstResult();
+			return this.validator().getFirstResult().messageLevel4Confirm();
 		}
 		Result result=dictService.deleteByIdLogical(id);
 		return result;
@@ -105,7 +116,7 @@ public class DictController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DictVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 	@SentinelResource(value = DictServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
@@ -117,7 +128,7 @@ public class DictController extends SuperController {
 		}
 
 		// 查询引用
-		Map<String, ReferCause> causeMap =  dictService.hasRefers(ids);
+		Map<String, ReferCause> causeMap = dictService.hasRefers(ids);
 		// 收集可以删除的ID值
 		List<String> canDeleteIds = new ArrayList<>();
 		for (Map.Entry<String, ReferCause> e : causeMap.entrySet()) {
@@ -129,7 +140,9 @@ public class DictController extends SuperController {
 		// 执行删除
 		if (canDeleteIds.isEmpty()) {
 			// 如果没有一行可以被删除
-			return ErrorDesc.failure().message("无法删除您选中的数据行");
+			return ErrorDesc.failure().message("无法删除您选中的数据行：").data(0)
+				.addErrors(CollectorUtil.collectArray(CollectorUtil.filter(causeMap.values(),(e)->{return e.hasRefer();}),ReferCause::message,String.class))
+				.messageLevel4Confirm();
 		} else if (canDeleteIds.size() == ids.size()) {
 			// 如果全部可以删除
 			Result result=dictService.deleteByIdsLogical(canDeleteIds);
@@ -140,7 +153,9 @@ public class DictController extends SuperController {
 			if (result.failure()) {
 				return result;
 			} else {
-				return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除").messageLevel4Confirm();
+				return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除").data(canDeleteIds.size())
+				.addErrors(CollectorUtil.collectArray(CollectorUtil.filter(causeMap.values(),(e)->{return e.hasRefer();}),ReferCause::message,String.class))
+				.messageLevel4Confirm();
 			}
 		} else {
 			// 理论上，这个分支不存在
@@ -161,7 +176,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
-	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.DIRTY_FIELDS , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.DIRTY_FIELDS , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.DATA_ORIGIN , DictVOMeta.QUERY_LOGIC , DictVOMeta.IDS } )
 	@SentinelResource(value = DictServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.UPDATE)
 	public Result update(DictVO dictVO) {
@@ -183,7 +198,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.DIRTY_FIELDS , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.DIRTY_FIELDS , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.DATA_ORIGIN , DictVOMeta.QUERY_LOGIC , DictVOMeta.IDS } )
 	@SentinelResource(value = DictServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.SAVE)
 	public Result save(DictVO dictVO) {
@@ -222,7 +237,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = DictVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 		@SentinelResource(value = DictServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.GET_BY_IDS)
 	public Result<List<Dict>> getByIds(List<String> ids) {

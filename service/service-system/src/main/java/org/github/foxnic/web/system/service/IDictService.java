@@ -1,17 +1,22 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.OrderBy;
-import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.entity.ISuperService;
 import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.DictVO;
-
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import java.io.InputStream;
+import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 import java.util.Map;
 
 /**
@@ -19,7 +24,7 @@ import java.util.Map;
  * 数据字典服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:47
+ * @since 2023-02-06 17:24:56
 */
 
 public interface IDictService extends  ISimpleIdService<Dict,String> {
@@ -49,7 +54,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	Result insertList(List<Dict> dictList);
 
 
-
+		
 	/**
 	 * 按主键删除数据字典
 	 *
@@ -57,7 +62,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-
+	
 	/**
 	 * 按主键删除数据字典
 	 *
@@ -80,7 +85,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-
+		
 	/**
 	 * 按主键更新数据字典
 	 *
@@ -150,7 +155,7 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	 * */
 	boolean checkExists(Dict dict,DBField... field);
 
-
+		
 	/**
 	 * 按主键获取数据字典
 	 *
@@ -158,10 +163,6 @@ public interface IDictService extends  ISimpleIdService<Dict,String> {
 	 * @return Dict 数据对象
 	 */
 	Dict getById(String id);
-
-
-
-
 
 	/**
 	 * 按 id 获取多个对象

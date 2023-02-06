@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 17:24:58
+ * @since 2023-02-06 16:17:43
  */
 
 
@@ -135,9 +135,6 @@ function ListPage() {
 		var value = {};
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.module={ inputType:"select_box", value: getSelectedValue("#module","value") ,fillBy:["moduleInfo"]  , label:getSelectedValue("#module","nameStr") };
-		value.notes={ inputType:"button",value: $("#notes").val()};
-		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -184,32 +181,6 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		//渲染 module 下拉字段
-		fox.renderSelectBox({
-			el: "module",
-			radio: true,
-			size: "small",
-			filterable: false,
-			on: function(data){
-				setTimeout(function () {
-					if(data.change && data.change.length>0) {
-						refreshTableData();
-					}
-					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("module",data.arr,data.change,data.isAdd);
-				},1);
-			},
-			//转换数据
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({data:data[i],name:data[i].label,value:data[i].id});
-				}
-				return opts;
-			}
-		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
@@ -411,7 +382,7 @@ function ListPage() {
 			area: ["500px",height+"px"],
 			type: 2,
 			id:"sys-dict-form-data-win",
-			content: '/business/system/dict/dict_form.html' + (queryString?("?"+queryString):""),
+			content: '/business/system/dict/tree/dict_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				if(action=="create") {
 					refreshTableData();

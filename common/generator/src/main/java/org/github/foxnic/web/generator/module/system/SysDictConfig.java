@@ -25,7 +25,10 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
 
     @Override
     public void configService(ServiceOptions service) {
-
+        //开启多服务实现的支持
+        service.serviceImpl("ForCLPS","实现CLPS客户EAM定制逻辑");
+        service.serviceImpl("ForChinaYIE","实现 ChinaYIE 客户定制逻辑");
+        service.serviceImpl("ForAUX","实现奥克斯 PMS 项目定制逻辑");
     }
 
     @Override

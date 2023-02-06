@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="/assets/libs/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link rel="stylesheet" href="/assets/libs/spliter/jquery.splitter.css" type="text/css">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <style>
         .ztree li span.button.icon_menu_folder_ico_docu{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_menu_folder_ico_close{margin-right:2px; background: url(/assets/icons/folder_16.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
@@ -45,8 +46,8 @@
 <body style="overflow: hidden">
 
 
-<div class="layui-row">
-    <div class="layui-col-md3" style="background-color: #ffffff;border-right:1px #e6e6e6 solid;">
+<div id="widget" style="width: 100%">
+    <div id="left" style="background-color: #ffffff;border-right:1px #e6e6e6 solid;">
         <div class="layui-form toolbar" style="padding:4px;" id="toolbar">
             <table style="width: 100%">
                 <tr>
@@ -66,7 +67,7 @@
         </div>
     </div>
 
-    <div class="layui-col-md9" style="padding-left: 0px;border-left:1px #e6e6e6 none;">
+    <div id="right" style="padding-left: 0px;border-left:1px #e6e6e6 none;">
 <!--        <div class="layui-tab" lay-filter="sourceTab">-->
 <!--            <ul class="layui-tab-title">-->
 <!--                <li id="org-li" lay-id="org-li" class="layui-this">编辑菜单</li>-->
@@ -88,7 +89,7 @@
     <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
     <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
     <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js"></script>
-
+    <script type="text/javascript"src="/assets/libs/spliter/jquery.splitter.js"></script>
     <script src="/business/oauth/menu/menu_list.js"></script>
 
 </body>

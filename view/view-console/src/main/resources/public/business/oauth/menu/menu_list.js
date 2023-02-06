@@ -21,6 +21,8 @@ function ListPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
+		$('#widget').width("100%").height($(window).height()).split({orientation:'vertical', limit:200,position:"300px"});
+
      	var cfgs = {
      		edit: {
 				enable: true

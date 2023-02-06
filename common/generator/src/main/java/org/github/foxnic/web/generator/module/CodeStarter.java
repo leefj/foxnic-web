@@ -15,14 +15,13 @@ import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
 import org.github.foxnic.web.generator.module.oauth.SysMenuForkConfig;
+import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
 import org.github.foxnic.web.generator.module.storage.SysFileConfig;
-import org.github.foxnic.web.generator.module.system.BusiRoleConfig;
-import org.github.foxnic.web.generator.module.system.SysConfigConfig;
-import org.github.foxnic.web.generator.module.system.SysProfileConfig;
+import org.github.foxnic.web.generator.module.system.*;
 
 import java.io.File;
 
@@ -59,8 +58,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
-//        initSystemModules();
+//        initOAuthModules();
+        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
@@ -164,9 +163,9 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initOAuthModules() {
-        this.addConfig(new SysMenuForkConfig());
+//        this.addConfig(new SysMenuForkConfig());
         // this.addConfig(new SysUserConfig());
-        // this.addConfig(new SysResourzeConfig());
+         this.addConfig(new SysResourzeConfig());
 
     }
 
@@ -189,9 +188,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleConfig());
 //        this.addConfig(new BusiRoleMemberConfig());
 //
-//        this.addConfig(new SysDictConfig());
-        this.addConfig(new SysConfigConfig());
-        this.addConfig(new SysProfileConfig());
+        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysDictConfig_Tree());
+//        this.addConfig(new SysConfigConfig());
+//        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new TenantConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());

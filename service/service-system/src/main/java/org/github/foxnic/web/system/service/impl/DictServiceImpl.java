@@ -1,27 +1,38 @@
 package org.github.foxnic.web.system.service.impl;
 
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.MapUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.github.foxnic.dao.entity.ReferCause;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
+
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
+
+
 import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.DictVO;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.IDictService;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.springframework.context.annotation.Primary;
+import org.github.foxnic.web.system.service.IDictService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -29,17 +40,18 @@ import java.util.Map;
  * 数据字典服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:47
+ * @since 2023-02-06 17:24:56
 */
 
 
 @Service("SysDictService")
+@Primary
 public class DictServiceImpl extends SuperService<Dict> implements IDictService {
 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -87,7 +99,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return super.insertList(dictList);
 	}
 
-
+	
 	/**
 	 * 按主键删除数据字典
 	 *
@@ -108,7 +120,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 			return r;
 		}
 	}
-
+	
 	/**
 	 * 按主键删除数据字典
 	 *
@@ -168,7 +180,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return super.updateList(dictList , mode);
 	}
 
-
+	
 	/**
 	 * 按主键更新数据字典
 	 *
@@ -182,7 +194,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return suc>0;
 	}
 
-
+	
 	/**
 	 * 按主键获取数据字典
 	 *
@@ -268,9 +280,6 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return false;
 	}
 
-
-
-
 	/**
 	 * 批量检查引用
 	 * @param ids  检查这些ID是否又被外部表引用
@@ -281,7 +290,6 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return MapUtil.asMap(ids,new ReferCause(false));
 		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
-
 
 
 

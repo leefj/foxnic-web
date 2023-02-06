@@ -1,14 +1,14 @@
 /**
- * 系统资源 列表页 JS 脚本
+ * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 16:43:20
+ * @since 2023-02-06 16:17:44
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
 	
-	const moduleURL="/service-oauth/sys-resourze";
+	const moduleURL="/service-system/sys-dict";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
 	var disableCreateNew=false;
@@ -24,7 +24,7 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload,dropdown=layui.dropdown;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		action=admin.getTempData('sys-resourze-form-data-form-action');
+		action=admin.getTempData('sys-dict-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
@@ -38,7 +38,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit(action,admin.getTempData('sys-resourze-form-data'));
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-dict-form-data'));
 		}
 
 		//渲染表单组件
@@ -90,9 +90,9 @@ function FormPage() {
 				prevBodyHeight = bodyHeight;
 				return;
 			}
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-resourze-form-data-win');
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-dict-form-data-win');
 			if(area==null) return;
-			admin.putTempData('sys-resourze-form-area', area);
+			admin.putTempData('sys-dict-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
@@ -112,26 +112,34 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
-		form.on('radio(type)', function(data){
-			var checked=[];
-			$('input[type=radio][lay-filter=type]:checked').each(function() {
-				checked.push($(this).val());
-			});
-			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("type",data,checked);
-		});
-		form.on('radio(accessType)', function(data){
-			var checked=[];
-			$('input[type=radio][lay-filter=accessType]:checked').each(function() {
-				checked.push($(this).val());
-			});
-			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("accessType",data,checked);
-		});
-		form.on('radio(method)', function(data){
-			var checked=[];
-			$('input[type=radio][lay-filter=method]:checked').each(function() {
-				checked.push($(this).val());
-			});
-			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("method",data,checked);
+		//渲染 module 下拉字段
+		fox.renderSelectBox({
+			el: "module",
+			radio: true,
+			filterable: false,
+			layVerify: 'required',
+			layVerType: 'msg',
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("module",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].label,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
 		});
 	}
 
@@ -164,7 +172,7 @@ function FormPage() {
       */
 	function fillFormData(formData) {
 		if(!formData) {
-			formData = admin.getTempData('sys-resourze-form-data');
+			formData = admin.getTempData('sys-dict-form-data');
 		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
@@ -185,6 +193,8 @@ function FormPage() {
 
 
 
+			//设置  模块 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
 
 			//处理fillBy
 
@@ -236,6 +246,8 @@ function FormPage() {
 
 
 
+		//获取 模块 下拉框的值
+		data["module"]=fox.getSelectedValue("module",false);
 
 		return data;
 	}
@@ -272,7 +284,7 @@ function FormPage() {
 				}
 
 				if(doNext) {
-					admin.finishPopupCenterById('sys-resourze-form-data-win');
+					admin.finishPopupCenterById('sys-dict-form-data-win');
 				}
 
 				// 调整状态为编辑
@@ -304,7 +316,7 @@ function FormPage() {
 
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-resourze-form-data-win',this); });
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-dict-form-data-win',this); });
 
     }
 

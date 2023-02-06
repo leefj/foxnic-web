@@ -702,16 +702,17 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 					// 打开菜单
 					sideMenu.click(function(dom, data) {
-						debugger;
+						// debugger;
 						var menu=window.top.foxnic_menu_map[data.menuId];
 						var url=null;
-						if(menu.linkType=="internal") {
+						if(!menu.linkType || menu.linkType=="internal") {
 							url = data.menuUrl;
 						} else if(menu.linkType=="external") {
 							url = menu.extraUrl;
 						}
 
-						menu.openType="external_win";
+
+						// menu.openType="external_win";
 
 						if(!menu.openType || menu.openType=="internal_tab") {
 							bodyTab.addTabOnly({

@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 17:24:58
+ * @since 2023-02-06 16:17:42
  */
  -->
  <!DOCTYPE html>
@@ -45,20 +45,12 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 模块 , module ,typeName=select_box, isHideInSearch=true -->
+                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
                     <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
                         <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 模块 , module ,typeName=select_box, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('模块')}" class="search-label module-label">模块</span><span class="search-colon">:</span></div>
-                        <div id="module" th:data="${'/service-oauth/sys-menu/query-list?parentId=0'}" style="width:140px" extraParam="{}"></div>
-                    </div>
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('备注')}" class="search-label notes-label">备注</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 
@@ -113,8 +105,8 @@
 
 </script>
 
-<script th:src="'/business/system/dict/dict_ext.js?'+${cacheKey}"></script>
-<script th:src="'/business/system/dict/dict_list.js?'+${cacheKey}"></script>
+<script th:src="'/business/system/dict/tree/dict_ext.js?'+${cacheKey}"></script>
+<script th:src="'/business/system/dict/tree/dict_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

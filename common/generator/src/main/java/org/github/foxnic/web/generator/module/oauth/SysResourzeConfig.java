@@ -21,14 +21,6 @@ public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
         super(PREFIX_OAUTH, SYS_RESOURZE.$TABLE,"sys_", 4);
     }
 
-
-
-    @Override
-    public void configService(ServiceOptions service) {
-        //开启多服务实现的支持
-        service.multiImpl();
-    }
-
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.shadow(SYS_RESOURZE.ACCESS_TYPE, AccessType.class);

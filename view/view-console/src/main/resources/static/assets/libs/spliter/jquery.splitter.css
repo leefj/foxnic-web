@@ -86,3 +86,10 @@
   bottom: 0;
   z-index: 1000;
 }
+
+.splitter_panel .vsplitter {
+    background-color: #e2e2e2;
+    cursor: col-resize;
+    z-index:900;
+    width: 5px;
+}

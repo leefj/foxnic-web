@@ -195,7 +195,7 @@
         </div>
     </div>
 
-    <div class="model-form-footer" style="padding-top: 6px;padding-bottom:2px;margin-bottom:2px;margin-left: 2px;margin-right: 2px">
+    <div class="model-form-footer" style="padding-top: 6px;padding-bottom:2px;margin-bottom:2px;margin-left: 0px;margin-right: 2px">
         <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}" style="margin-right: 16px;margin-bottom: 4px">保存</button>
     </div>
 </form>
@@ -210,8 +210,6 @@
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var VALIDATE_CONFIG={"hidden":{"labelInForm":"是否隐藏","inputType":"number_input","required":true},"label":{"labelInForm":"标签","inputType":"text_input","required":true},"sort":{"labelInForm":"显示顺序","inputType":"number_input","required":false},"type":{"labelInForm":"菜单类型","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_menu";
-
-
 </script>
 
 <script src="/business/oauth/menu/menu_form.js"></script>

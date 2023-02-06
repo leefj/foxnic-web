@@ -1,12 +1,13 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:48
+ * @since 2023-02-06 17:25:00
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
+	
 	const moduleURL="/service-system/sys-dict";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
