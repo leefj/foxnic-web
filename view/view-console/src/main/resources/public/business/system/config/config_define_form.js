@@ -227,7 +227,8 @@ function FormPage() {
 
 		//渐显效果
 		var currProfileId=admin.getVar("currentConfigProfileId");
-		if(formData.profileId==currProfileId) {
+		// debugger
+		if(formData.profileId==currProfileId  || (formData.profileId!=currProfileId && formData.type!="DIR")) {
 			var footer = $(".model-form-footer");
 			footer.css("opacity", "0.0");
 			footer.css("display", "");
@@ -291,6 +292,25 @@ function FormPage() {
 	}
 
 	function saveForm(param,callback) {
+		var currProfileId=admin.getVar("currentConfigProfileId");
+		if(param.profileId!=currProfileId) {
+
+			top.layer.confirm(fox.translate('本操作将在当前 Profile 生成新的配置项，是否继续操作？'), function (i) {
+				top.layer.close(i);
+				param.profileId=currProfileId;
+				param.id=null;
+				debugger
+				saveFormInternal(param,callback);
+			});
+
+
+		} else {
+			saveFormInternal(param,callback);
+		}
+
+	}
+
+	function saveFormInternal(param,callback) {
 
 		if(window.pageExt.form.beforeSubmit) {
 			var doNext=window.pageExt.form.beforeSubmit(param);
@@ -318,7 +338,7 @@ function FormPage() {
 				}
 
 
-				parent.chaneNodeName(param.id,param.name,param.type);
+				parent.chaneNodeName(data.data.id,data.data.name,data.data.type,data.data.profileId);
 				fox.showMessage(data);
 				// if(doNext) {
 				// 	admin.finishPopupCenterById('sys-config-form-data-win');

@@ -82,10 +82,13 @@ public class ConfigController extends SuperController implements ApplicationList
             configVO.setType(SystemConfigType.STRING.code());
         }
         Config parent=configService.getById(configVO.getParentId());
-        if(parent.getCode().equals(IConfigService.TOP_CODE)) {
-            configVO.setCode("C"+System.currentTimeMillis());
-        } else {
-            configVO.setCode(parent.getCode()+".C"+System.currentTimeMillis());
+
+        if(StringUtil.isBlank(configVO.getCode())) {
+            if (parent.getCode().equals(IConfigService.TOP_CODE)) {
+                configVO.setCode("C" + System.currentTimeMillis());
+            } else {
+                configVO.setCode(parent.getCode() + ".C" + System.currentTimeMillis());
+            }
         }
 
 

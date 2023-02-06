@@ -261,14 +261,8 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 				return ErrorDesc.failure().message("保存失败，类型描述错误，当前类型不是 CodeTextEnum 类型。").messageLevel4Confirm();
 			}
 		}
-
-
 		Result r=super.update(config , mode , throwsException);
-
-
-
-
-		return r;
+		return r.data(config);
 	}
 
 	/**

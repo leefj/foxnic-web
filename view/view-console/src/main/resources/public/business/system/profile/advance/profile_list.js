@@ -200,8 +200,12 @@ function ListPage() {
 					admin.toast().success("配置项已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
 					if(treeNode.parentTId) {
+						var parentNode=menuTree.getNodeByTId(treeNode.parentTId);
 						menuTree.selectNode({tId:treeNode.parentTId},false,true)
-						onNodeClick(null,treeId,menuTree.getNodeByTId(treeNode.parentTId));
+						onNodeClick(null,treeId,parentNode);
+						if(parentNode.data.profileId!=currProfileId) {
+							menuTree.reAsyncChildNodes(parentNode, 'refresh');
+						}
 					}
 				} else {
 					// admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
@@ -288,15 +292,25 @@ function ListPage() {
 
 	}
 
-	function chaneNodeName(id,name,type) {
+	function chaneNodeName(id,name,type,profileId) {
 		if(editingNode==null) return;
-		if(editingNode.id!=id) return;
+		//if(editingNode.id!=id) return;
+		editingNode.id=id;
 		editingNode.name=name;
 		editingNode.type=type;
+		editingNode.data.profileId=profileId;
 		if(type=="DIR") {
-			editingNode.iconSkin = "icon_config_dir";
+			if(editingNode.data.profileId==currProfileId) {
+				editingNode.iconSkin = "icon_config_dir";
+			} else {
+				editingNode.iconSkin = "icon_config_dir_opacity";
+			}
 		} else {
-			editingNode.iconSkin = "icon_config_item";
+			if(editingNode.data.profileId==currProfileId) {
+				editingNode.iconSkin = "icon_config_item";
+			} else {
+				editingNode.iconSkin = "icon_config_item_opacity";
+			}
 		}
 		menuTree.updateNode(editingNode);
 	}
