@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('调用统计日志')}">调用统计日志</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
-    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('请求参数')}">请求参数</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -129,7 +129,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('响应数据')}">响应数据</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -138,7 +138,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('开始时间')}">开始时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -146,7 +146,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('结束时间')}">结束时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -154,7 +154,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('异常信息')}">异常信息</div></div>
                     <div class="layui-input-block layui-input-block-c1">

@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('语言条目')}">语言条目</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
-    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -55,7 +55,7 @@
                         <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('编码') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 默认值 ,  defaults -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('默认值')}">默认值</div><div class="layui-required">*</div></div>
@@ -63,7 +63,7 @@
                         <input lay-filter="defaults" id="defaults" name="defaults" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('默认值') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 语境 ,  context -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语境')}">语境</div><div class="layui-required">*</div></div>
@@ -71,7 +71,7 @@
                         <input lay-filter="context" id="context" name="context" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('语境') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 简体中文 ,  zhCn -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简体中文')}">简体中文</div></div>
@@ -79,7 +79,7 @@
                         <input lay-filter="zhCn" id="zhCn" name="zhCn" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简体中文') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 中文(香港) ,  zhHk -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('中文(香港)')}">中文(香港)</div></div>
@@ -87,7 +87,7 @@
                         <input lay-filter="zhHk" id="zhHk" name="zhHk" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('中文(香港)') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 中文(澳门) ,  zhMo -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('中文(澳门)')}">中文(澳门)</div></div>
@@ -95,7 +95,7 @@
                         <input lay-filter="zhMo" id="zhMo" name="zhMo" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('中文(澳门)') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 中文(台湾) ,  zhTw -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('中文(台湾)')}">中文(台湾)</div></div>
@@ -103,7 +103,7 @@
                         <input lay-filter="zhTw" id="zhTw" name="zhTw" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('中文(台湾)') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 英文美国 ,  enUs -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('英文美国')}">英文美国</div></div>
@@ -111,7 +111,7 @@
                         <input lay-filter="enUs" id="enUs" name="enUs" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('英文美国') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 英文英国 ,  enGb -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('英文英国')}">英文英国</div></div>
@@ -119,7 +119,7 @@
                         <input lay-filter="enGb" id="enGb" name="enGb" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('英文英国') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 韩语 ,  koKr -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('韩语')}">韩语</div></div>
@@ -127,7 +127,7 @@
                         <input lay-filter="koKr" id="koKr" name="koKr" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('韩语') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 日语 ,  jaJp -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('日语')}">日语</div></div>
@@ -135,7 +135,7 @@
                         <input lay-filter="jaJp" id="jaJp" name="jaJp" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日语') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 混淆专用 ,  confuse -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('混淆专用')}">混淆专用</div></div>
@@ -143,7 +143,7 @@
                         <input lay-filter="confuse" id="confuse" name="confuse" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('混淆专用') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- logic_switch : 是否有效 ,  valid  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
@@ -151,7 +151,7 @@
                         <input input-type="switch" type="checkbox" checkedid="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
                 </div>
-            
+
                 <!-- number_input : 已翻译 ,  autoTranslated  -->
                 <div class="layui-form-item" style="display: none">
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('已翻译')}">已翻译</div></div>

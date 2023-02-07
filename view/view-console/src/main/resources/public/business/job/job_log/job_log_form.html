@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('定时任务执行日志')}">定时任务执行日志</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
-    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('日志分类')}">日志分类</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('参数')}">参数</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -102,7 +102,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否成功')}">是否成功</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -118,7 +118,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('开始时间')}">开始时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('结束时间')}">结束时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('异常信息')}">异常信息</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -164,7 +164,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('手动')}">手动</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -173,7 +173,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否补执')}">是否补执</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -182,7 +182,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('允许并发')}">允许并发</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -191,7 +191,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('执行策略')}">执行策略</div></div>
                         <div class="layui-input-block layui-input-block-c1">

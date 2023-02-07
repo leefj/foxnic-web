@@ -78,6 +78,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 content: "/business/system/user_tenant/user_tenant_list.html"
             });
         },
+        selectBoxDataTransform:function (id,option,item,all,index) {
+            return option;
+        },
         other:function() {
 
         }
@@ -107,6 +110,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
         onUploadEvent: function(e) {
             console.log("onUploadEvent."+e.event,e);
+        },
+
+        selectBoxDataTransform:function (id,option,item,all,index) {
+            return option;
         },
 
         other:function(){

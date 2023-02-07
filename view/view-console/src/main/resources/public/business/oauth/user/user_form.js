@@ -1,16 +1,21 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-28 14:49:03
+ * @since 2023-02-07 13:16:03
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
 	
+	// 接口地址
 	const moduleURL="/service-oauth/sys-user";
+	const queryURL=moduleURL+"/get-by-id";
+	const insertURL=moduleURL+"/insert";
+	const updateURL=moduleURL+"/update";
+
 	// 表单执行操作类型：view，create，edit
-	var notExistAction=null;
+	var action=null;
 	var disableCreateNew=false;
 	var disableModify=false;
 	var dataBeforeEdit=null;
@@ -24,12 +29,12 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload,dropdown=layui.dropdown;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		notExistAction=admin.getTempData('sys-user-form-data-form-notExistAction');
+		action=admin.getTempData('sys-user-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(notExistAction=="view") {
+		if(action=="view") {
 			disableModify=true;
 		}
 
@@ -38,7 +43,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit(notExistAction,admin.getTempData('sys-user-form-data'));
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-user-form-data'));
 		}
 
 		//渲染表单组件
@@ -60,7 +65,7 @@ function FormPage() {
 	function initContextMenu() {
 
 		var data=[];
-		if(notExistAction=="edit" || notExistAction=="create") {
+		if(action=="edit" || action=="create") {
 			data.push({
 				id:"save",title: fox.translate('保存','','cmp:form'),
 				handler:function (obj, othis) {
@@ -84,7 +89,7 @@ function FormPage() {
 			// templet: '<div><i class="layui-icon layui-icon-refresh"></i>&nbsp;{{d.title}}</div>',
 			handler:function (obj, othis) {
 				var formData=admin.getTempData('sys-user-form-data');
-				admin.post(moduleURL+"/get-by-id", { id : formData.id }, function (r) {
+				admin.post(queryURL, { id : formData.id }, function (r) {
 					if (r.success) {
 						admin.putTempData('sys-user-form-data', r.data);
 						location.reload();
@@ -236,7 +241,7 @@ function FormPage() {
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var defaultValues=[],defaultIndexs=[];
-				if(notExistAction=="create") {
+				if(action=="create") {
 					defaultValues = "".split(",");
 					defaultIndexs = "".split(",");
 				}
@@ -244,7 +249,11 @@ function FormPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({data:data[i],name:data[i].name,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+					if(window.pageExt.form.selectBoxDataTransform) {
+						opts.push(window.pageExt.form.selectBoxDataTransform("roleIds",{data:data[i],name:data[i].name,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)},data[i],data,i));
+					} else {
+						opts.push({data:data[i],name:data[i].name,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+					}
 				}
 				return opts;
 			}
@@ -259,7 +268,7 @@ function FormPage() {
 		if(ids.length==0) return;
 		var id=ids[0];
 		if(!id) return;
-		admin.post(moduleURL+"/get-by-id", { id : id }, function (r) {
+		admin.post(queryURL, { id : id }, function (r) {
 			if (r.success) {
 				fillFormData(r.data)
 			} else {
@@ -380,8 +389,8 @@ function FormPage() {
 		}
 
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
-		var notExistAction=param.id?"edit":"create";
-		var api=moduleURL+"/"+(param.id?"update":"insert");
+		var action=param.id?"edit":"create";
+		var api=param.id?updateURL:insertURL;
 		admin.post(api, param, function (data) {
 			if (data.success) {
 				var doNext=true;
@@ -396,7 +405,7 @@ function FormPage() {
 				}
 
 				if(callback) {
-					doNext = callback(data,notExistAction);
+					doNext = callback(data,action);
 				}
 
 				if(doNext) {
@@ -404,7 +413,7 @@ function FormPage() {
 				}
 
 				// 调整状态为编辑
-				notExistAction="edit";
+				action="edit";
 
 			} else {
 				fox.showMessage(data);
@@ -445,9 +454,9 @@ function FormPage() {
 		fillFormDataByIds:fillFormDataByIds,
 		processFormData4Bpm:processFormData4Bpm,
 		adjustPopup: adjustPopup,
-		notExistAction: notExistAction,
+		action: action,
 		setAction: function (act) {
-			notExistAction = act;
+			action = act;
 		}
 	};
 

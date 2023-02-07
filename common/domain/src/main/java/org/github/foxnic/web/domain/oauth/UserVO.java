@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-28 14:48:58
- * @sign D5C3FC6718B10A99403166DA879E081A
+ * @since 2023-02-07 13:16:03
+ * @sign DC0F8D68468DC49D713DC172DF960279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -82,9 +82,9 @@ public class UserVO extends User {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -92,6 +92,12 @@ public class UserVO extends User {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -262,7 +268,7 @@ public class UserVO extends User {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -295,6 +301,25 @@ public class UserVO extends User {
 	*/
 	public UserVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public UserVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -433,6 +458,7 @@ public class UserVO extends User {
 		inst.setAccount(this.getAccount());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
 			inst.setRoles(this.getRoles());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setActivatedEmployeeId(this.getActivatedEmployeeId());
@@ -532,6 +558,7 @@ public class UserVO extends User {
 			this.setAccount(DataParser.parse(String.class, map.get(UserVOMeta.ACCOUNT)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(UserVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(UserVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(UserVOMeta.FUZZY_FIELD)));
 			this.setActivatedEmployeeId(DataParser.parse(String.class, map.get(UserVOMeta.ACTIVATED_EMPLOYEE_ID)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(UserVOMeta.PAGE_SIZE)));
@@ -567,6 +594,7 @@ public class UserVO extends User {
 				this.setAccount( (String)map.get(UserVOMeta.ACCOUNT));
 				// others
 				this.setSearchField( (String)map.get(UserVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(UserVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(UserVOMeta.FUZZY_FIELD));
 				this.setActivatedEmployeeId( (String)map.get(UserVOMeta.ACTIVATED_EMPLOYEE_ID));
 				this.setPageSize( (Integer)map.get(UserVOMeta.PAGE_SIZE));

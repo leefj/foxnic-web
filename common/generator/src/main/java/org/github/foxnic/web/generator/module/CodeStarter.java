@@ -164,8 +164,8 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initOAuthModules() {
 //        this.addConfig(new SysMenuForkConfig());
-        // this.addConfig(new SysUserConfig());
-         this.addConfig(new SysResourzeConfig());
+         this.addConfig(new SysUserConfig());
+//         this.addConfig(new SysResourzeConfig());
 
     }
 

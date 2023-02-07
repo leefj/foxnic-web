@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('系统资源')}">系统资源</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
-    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -55,7 +55,7 @@
                         <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入'+'ID') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 名称 ,  name -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('名称')}">名称</div><div class="layui-required">*</div></div>
@@ -63,7 +63,7 @@
                         <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入'+'名称') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-            
+
                 <!-- radio_box : 类型 ,  type  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div><div class="layui-required">*</div></div>
@@ -71,7 +71,7 @@
                         <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
-            
+
                 <!-- radio_box : 访问控制 ,  accessType  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('访问控制')}">访问控制</div><div class="layui-required">*</div></div>
@@ -79,7 +79,7 @@
                         <input input-type="radio" type="radio" name="accessType" lay-filter="accessType" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
-            
+
                 <!-- text_input : 地址 ,  url -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('地址')}">地址</div><div class="layui-required">*</div></div>
@@ -87,7 +87,7 @@
                         <input lay-filter="url" id="url" name="url" th:placeholder="${ lang.translate('请输入'+'地址') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-            
+
                 <!-- radio_box : Method ,  method  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('Method')}">Method</div><div class="layui-required">*</div></div>
@@ -95,7 +95,7 @@
                         <input input-type="radio" type="radio" name="method" lay-filter="method" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.HttpMethodType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
-            
+
                 <!-- text_input : 批次号 ,  batchId -->
                 <div class="layui-form-item" style="display: none">
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('批次号')}">批次号</div></div>
@@ -103,7 +103,7 @@
                         <input lay-filter="batchId" id="batchId" name="batchId" th:placeholder="${ lang.translate('请输入'+'批次号') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 数据表 ,  tableName -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据表')}">数据表</div></div>
@@ -111,7 +111,7 @@
                         <input lay-filter="tableName" id="tableName" name="tableName" th:placeholder="${ lang.translate('请输入'+'数据表') }" type="text" class="layui-input"  />
                     </div>
                 </div>
-            
+
                 <!-- text_input : 模块 ,  module -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('模块')}">模块</div></div>
