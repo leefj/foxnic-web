@@ -11,6 +11,10 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT_ITEM;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.system.service.IConfigService;
+import org.github.foxnic.web.system.service.IDictService;
+import org.github.foxnic.web.system.service.ISequenceService;
 
 public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
 
@@ -25,7 +29,9 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
 
     @Override
     public void configService(ServiceOptions service) {
-
+        service.autoware(ISequenceService.class,"序列服务");
+        service.inject(IConfigService.class,"SysConfigService","系统配置服务");
+        service.injectMuliti(IDictService.class,"字典服务");
     }
 
     @Override
@@ -64,7 +70,7 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
     @Override
     public void configOverrides() {
         this.context.overrides()
-            .setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+            .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
             .setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
             .setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
             .setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页

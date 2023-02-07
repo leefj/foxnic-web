@@ -193,7 +193,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new SysConfigConfig());
 //        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new TenantConfig());
-//        this.addConfig(new SysDictItemConfig());
+        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
 //        //
 //        this.addConfig(new SequenceConfig());

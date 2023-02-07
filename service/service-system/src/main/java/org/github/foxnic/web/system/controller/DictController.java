@@ -13,6 +13,7 @@ import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
 
+import org.github.foxnic.web.framework.web.ServiceHub;
 import org.github.foxnic.web.proxy.system.DictServiceProxy;
 import org.github.foxnic.web.domain.system.meta.DictVOMeta;
 import org.github.foxnic.web.domain.system.Dict;
@@ -46,16 +47,13 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据字典接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 17:24:56
+ * @since 2023-02-07 09:28:44
 */
 
 @InDoc
 @Api(tags = "数据字典")
 @RestController("SysDictController")
 public class DictController extends SuperController {
-
-	@Autowired
-	private IDictService dictService;
 
 
 	/**
@@ -75,6 +73,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.INSERT)
 	public Result insert(DictVO dictVO) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result result=dictService.insert(dictVO,false);
 		return result;
 	}
@@ -92,6 +91,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.DELETE)
 	public Result deleteById(String id) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		this.validator().asserts(id).require("缺少id值");
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
@@ -120,7 +120,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		// 参数校验
 		this.validator().asserts(ids).require("缺少ids参数");
 		if(this.validator().failure()) {
@@ -180,6 +180,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.UPDATE)
 	public Result update(DictVO dictVO) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result result=dictService.update(dictVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
@@ -202,6 +203,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.SAVE)
 	public Result save(DictVO dictVO) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result result=dictService.save(dictVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
@@ -218,6 +220,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.GET_BY_ID)
 	public Result<Dict> getById(String id) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result<Dict> result=new Result<>();
 		Dict dict=dictService.getById(id);
 		// join 关联的对象
@@ -241,6 +244,7 @@ public class DictController extends SuperController {
 		@SentinelResource(value = DictServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.GET_BY_IDS)
 	public Result<List<Dict>> getByIds(List<String> ids) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result<List<Dict>> result=new Result<>();
 		List<Dict> list=dictService.queryListByIds(ids);
 		result.success(true).data(list);
@@ -264,6 +268,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.QUERY_LIST)
 	public Result<List<Dict>> queryList(DictVO sample) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result<List<Dict>> result=new Result<>();
 		List<Dict> list=dictService.queryList(sample);
 		result.success(true).data(list);
@@ -287,6 +292,7 @@ public class DictController extends SuperController {
 	@SentinelResource(value = DictServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Dict>> queryPagedList(DictVO sample) {
+		IDictService dictService = ServiceHub.get(IDictService.class);
 		Result<PagedList<Dict>> result=new Result<>();
 		PagedList<Dict> list=dictService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// join 关联的对象
@@ -296,7 +302,6 @@ public class DictController extends SuperController {
 		result.success(true).data(list);
 		return result;
 	}
-
 
 
 

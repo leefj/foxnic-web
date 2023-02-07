@@ -161,7 +161,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configService(ServiceOptions service) {
-        service.autoware(IPersonService.class);
+        service.autoware(IPersonService.class,"人员服务");
     }
 
     @Override

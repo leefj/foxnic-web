@@ -1,52 +1,62 @@
 package org.github.foxnic.web.system.service.impl;
 
-
-import com.github.foxnic.api.cache.Cached;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.MapUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ReferCause;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.Dict;
-import org.github.foxnic.web.domain.system.DictItem;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.IDictItemService;
-import org.github.foxnic.web.system.service.IDictService;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.github.foxnic.dao.entity.ReferCause;
 
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Date;
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
+
+
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.DictItemVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.ISequenceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.github.foxnic.web.system.service.IConfigService;
+import javax.annotation.Resource;
+import org.github.foxnic.web.system.service.IDictService;
+import org.github.foxnic.web.framework.web.ServiceHub;
+import org.github.foxnic.web.system.service.IDictItemService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 import java.util.Map;
 
 /**
  * <p>
- * 数据字典条目 服务实现
+ * 数据字典条目服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 01:06:36
+ * @since 2023-02-07 09:47:42
 */
 
 
 @Service("SysDictItemService")
+
 public class DictItemServiceImpl extends SuperService<DictItem> implements IDictItemService {
 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -54,8 +64,25 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	public DAO dao() { return dao; }
 
-	@Autowired
-	private IDictService dictService;
+	/**
+     * 序列服务
+     */
+	@Autowired 
+	private ISequenceService sequenceService;
+
+	/**
+     * 系统配置服务
+     */
+	@Resource (name="SysConfigService")
+	private IConfigService configService;
+
+	/**
+     * 字典服务
+     */
+	private IDictService dictService() {
+		return ServiceHub.get(IDictService.class);
+	}
+
 
 
 	@Override
@@ -64,15 +91,26 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	}
 
 	/**
-	 * 插入实体
-	 * @param dictItem 实体数据
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param dictItem  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	@Override
+	public Result insert(DictItem dictItem,boolean throwsException) {
+		Result r=super.insert(dictItem,throwsException);
+		return r;
+	}
+
+	/**
+	 * 添加，如果语句错误，则抛出异常
+	 * @param dictItem 数据对象
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insert(DictItem dictItem) {
-		Dict dict=dictService.getById(dictItem.getDictId());
-		dictItem.setDictCode(dict.getCode());
-		return super.insert(dictItem,false);
+		return this.insert(dictItem,true);
 	}
 
 	/**
@@ -85,17 +123,17 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		return super.insertList(dictItemList);
 	}
 
-
+	
 	/**
-	 * 按主键删除 数据字典条目
+	 * 按主键删除数据字典条目
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
 	public Result deleteByIdPhysical(String id) {
+		DictItem dictItem = new DictItem();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		DictItem dictItem = this.getById(id);
-		if(dictItem==null) return ErrorDesc.success();
+		dictItem.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(dictItem);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
@@ -106,19 +144,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 			return r;
 		}
 	}
-
-	@Override
-	public <T> Result deleteByIdsPhysical(List<T> ids) {
-		return super.deleteByIdsPhysical(ids);
-	}
-
-	@Override
-	public <T> Result deleteByIdsLogical(List<T> ids) {
-		return super.deleteByIdsLogical(ids);
-	}
-
+	
 	/**
-	 * 按主键删除 数据字典条目
+	 * 按主键删除数据字典条目
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -142,17 +170,28 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	}
 
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param dictItem 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
 	public Result update(DictItem dictItem , SaveMode mode) {
-		return super.update(dictItem , mode);
+		return this.update(dictItem,mode,true);
 	}
 
-
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param dictItem 数据对象
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	@Override
+	public Result update(DictItem dictItem , SaveMode mode,boolean throwsException) {
+		Result r=super.update(dictItem , mode , throwsException);
+		return r;
+	}
 
 	/**
 	 * 更新实体集，事务内
@@ -165,9 +204,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		return super.updateList(dictItemList , mode);
 	}
 
-
+	
 	/**
-	 * 按主键更新字段 数据字典条目
+	 * 按主键更新数据字典条目
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -179,9 +218,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		return suc>0;
 	}
 
-
+	
 	/**
-	 * 按主键获取 数据字典条目
+	 * 按主键获取数据字典条目
 	 *
 	 * @param id ID
 	 * @return DictItem 数据对象
@@ -193,10 +232,24 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		return dao.queryEntity(sample);
 	}
 
+	/**
+	 * 等价于 queryListByIds
+	 * */
 	@Override
 	public List<DictItem> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<DictItem> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
 	}
+
+	@Override
+	public Map<String, DictItem> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, DictItem::getId);
+	}
+
 
 
 	/**
@@ -206,8 +259,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached(strategies = {"query-list","query-code"})
-	public List<DictItem> queryList(DictItem sample) {
+	public List<DictItem> queryList(DictItemVO sample) {
 		return super.queryList(sample);
 	}
 
@@ -221,7 +273,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<DictItem> queryPagedList(DictItem sample, int pageSize, int pageIndex) {
+	public PagedList<DictItem> queryPagedList(DictItemVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -240,33 +292,22 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param dictItem 数据对象
 	 * @return 判断结果
 	 */
-	public Result<DictItem> checkExists(DictItem dictItem) {
+	public Boolean checkExists(DictItem dictItem) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(dictItem, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(dictItem, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
-	@Override
-	public ExcelWriter exportExcel(DictItem sample) {
-		return super.exportExcel(sample);
-	}
-
-	@Override
-	public ExcelWriter exportExcelTemplate() {
-		return super.exportExcelTemplate();
-	}
-
-	@Override
-	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
-		return super.importExcel(input,sheetIndex,batch);
-	}
-
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
 		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
@@ -274,10 +315,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
-	@Override
-	public ExcelStructure buildExcelStructure(boolean isForExport) {
-		return super.buildExcelStructure(isForExport);
-	}
+
+
 
 
 }
