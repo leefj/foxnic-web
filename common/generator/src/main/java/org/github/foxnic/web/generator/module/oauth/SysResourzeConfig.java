@@ -14,6 +14,7 @@ import org.github.foxnic.web.constants.enums.hrm.ResourceType;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
 
 public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
 
@@ -64,11 +65,15 @@ public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(70);
+//        form.queryAPI(DictServiceProxy.GET_BY_ID);
+//        form.saveAPI(DictServiceProxy.INSERT,DictServiceProxy.UPDATE);
     }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        //list.refreshAfterEdit(false);
+//        list.queryAPI(DictServiceProxy.QUERY_PAGED_LIST);
+//        list.deleteAPI(DictServiceProxy.DELETE);
+//        list.batchDeleteAPI(DictServiceProxy.DELETE_BY_IDS);
     }
 
     @Override

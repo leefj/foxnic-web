@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 系统资源VO类型
  * <p>系统资源 , 数据表 sys_resourze 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 16:42:13
- * @sign 0AC71025CB1A744CC6B393FB3E6665D4
+ * @since 2023-02-07 11:28:57
+ * @sign 768F5AC2EFEF4F1E62EBC71E648200C8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,9 +81,9 @@ public class ResourzeVO extends Resourze {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -91,6 +91,12 @@ public class ResourzeVO extends Resourze {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -255,7 +261,7 @@ public class ResourzeVO extends Resourze {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -288,6 +294,25 @@ public class ResourzeVO extends Resourze {
 	*/
 	public ResourzeVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public ResourzeVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -397,6 +422,7 @@ public class ResourzeVO extends Resourze {
 			inst.setSearchField(this.getSearchField());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
+			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
@@ -485,6 +511,7 @@ public class ResourzeVO extends Resourze {
 			this.setSearchField(DataParser.parse(String.class, map.get(ResourzeVOMeta.SEARCH_FIELD)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.PAGE_INDEX)));
 			this.setSortType(DataParser.parse(String.class, map.get(ResourzeVOMeta.SORT_TYPE)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(ResourzeVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ResourzeVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(ResourzeVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ResourzeVOMeta.PAGE_SIZE)));
@@ -515,6 +542,7 @@ public class ResourzeVO extends Resourze {
 				this.setSearchField( (String)map.get(ResourzeVOMeta.SEARCH_FIELD));
 				this.setPageIndex( (Integer)map.get(ResourzeVOMeta.PAGE_INDEX));
 				this.setSortType( (String)map.get(ResourzeVOMeta.SORT_TYPE));
+				this.setRequestAction( (String)map.get(ResourzeVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(ResourzeVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(ResourzeVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(ResourzeVOMeta.PAGE_SIZE));

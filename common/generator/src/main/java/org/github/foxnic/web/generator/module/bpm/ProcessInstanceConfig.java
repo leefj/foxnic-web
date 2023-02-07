@@ -238,7 +238,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.formWindow().bottomSpace(200);
 
         view.formWindow().width("90%");
-        form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
+        form.saveAPI(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
         //
         form.addGroup("basic","流程信息", new Object[] {
                 BPM_PROCESS_INSTANCE.TITLE,BPM_PROCESS_INSTANCE.PRIORITY,BPM_PROCESS_INSTANCE.DRAFTER_TYPE,BPM_PROCESS_INSTANCE.DRAFTER_ID,

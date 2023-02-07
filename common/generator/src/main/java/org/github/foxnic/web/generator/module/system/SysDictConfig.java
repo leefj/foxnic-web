@@ -3,6 +3,8 @@ package org.github.foxnic.web.generator.module.system;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -14,6 +16,7 @@ import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
 
 public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
 
@@ -72,6 +75,11 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
         list.operationColumn().width(220);
         //表格操作列增加一个按钮，并指定JS函数
         list.operationColumn().addActionButton("条目","openDictItemWindow");
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
+
     }
 
     @Override
