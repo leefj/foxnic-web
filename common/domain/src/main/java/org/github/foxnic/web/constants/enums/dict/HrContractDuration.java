@@ -11,17 +11,27 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum PositionType  implements CodeTextEnum {
+public enum HrContractDuration  implements CodeTextEnum {
 	
 	/**
-	 * 职员
+	 * 3年
 	*/
-	EMPLOYEE("employee" , "职员"),
+	_3YEAR("3year" , "3年"),
+	
+	/**
+	 * 5年
+	*/
+	_5YEAR("5year" , "5年"),
+	
+	/**
+	 * 永久
+	*/
+	PERMANENT("permanent" , "永久"),
 	;
 	
 	private String code;
 	private String text;
-	private PositionType(String code,String text)  {
+	private HrContractDuration(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -37,7 +47,7 @@ public enum PositionType  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static PositionType parseByCode(String code) {
-		return (PositionType) EnumUtil.parseByCode(PositionType.values(),code);
+	public static HrContractDuration parseByCode(String code) {
+		return (HrContractDuration) EnumUtil.parseByCode(HrContractDuration.values(),code);
 	}
 }

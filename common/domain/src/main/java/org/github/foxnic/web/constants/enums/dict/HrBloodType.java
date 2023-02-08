@@ -11,17 +11,22 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum PositionType  implements CodeTextEnum {
+public enum HrBloodType  implements CodeTextEnum {
 	
 	/**
-	 * 职员
+	 * A
 	*/
-	EMPLOYEE("employee" , "职员"),
+	A("A" , "A"),
+	
+	/**
+	 * B
+	*/
+	B("B" , "B"),
 	;
 	
 	private String code;
 	private String text;
-	private PositionType(String code,String text)  {
+	private HrBloodType(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -37,7 +42,7 @@ public enum PositionType  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static PositionType parseByCode(String code) {
-		return (PositionType) EnumUtil.parseByCode(PositionType.values(),code);
+	public static HrBloodType parseByCode(String code) {
+		return (HrBloodType) EnumUtil.parseByCode(HrBloodType.values(),code);
 	}
 }

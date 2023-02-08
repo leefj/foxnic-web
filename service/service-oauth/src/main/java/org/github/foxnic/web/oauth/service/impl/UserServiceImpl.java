@@ -30,6 +30,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.dict.EmployeeStatus;
 import org.github.foxnic.web.constants.enums.system.LoginIdentityType;
+import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
@@ -378,16 +379,22 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 	public List<Menu> makeUserMenus(User user, boolean gerDyMenu) {
 
-		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds());
+		Boolean inRange=null;
+		YesNo ctrl= SystemConfigProxyUtil.getEnum(SystemConfigEnum.MODULES_MENU_CTROL_FOR_INDEX,YesNo.class);
+		if(ctrl!=null && ctrl==YesNo.yes) {
+			inRange=true;
+		}
+
+		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds(),inRange);
 
 		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();
 		List<Menu> dySubMenus=new ArrayList<>();
 		for (int i=0;i<menus.size();i++) {
 			Menu menu = menus.get(i);
-			if(menu.getForks()!=null && menu.getForks().size()>0) {
-				System.out.println();
-			}
+//			if(menu.getForks()!=null && menu.getForks().size()>0) {
+//				System.out.println();
+//			}
 			//
 			if (gerDyMenu && !StringUtil.isBlank(menu.getDynamicHandler())) {
 				//logger.collect("G1-START : "+menu.getDynamicHandler());
@@ -502,6 +509,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				menuIds.addAll(CollectorUtil.collectSet(role.getMenus(),Menu::getId));
 			}
 		}
+
+
+
 		EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
 		user.setMenuIds(new ArrayList<>(menuIds));
 

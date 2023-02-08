@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 13:00:48
- * @sign 62C1BA41F36F7FC06C539457A9E05C97
+ * @since 2023-02-08 09:44:31
+ * @sign 6956A89E69A0FA134D2B6A9C3536C322
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -310,6 +310,16 @@ public class MenuMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Menu> PARENT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT, org.github.foxnic.web.domain.oauth.Menu.class, "上级菜单", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
 	
 	/**
+	 * 是否在已加载模块限定的范围内 , 类型: java.lang.Boolean
+	*/
+	public static final String IS_IN_MODULE_RANGE="isInModuleRange";
+	
+	/**
+	 * 是否在已加载模块限定的范围内 , 类型: java.lang.Boolean
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Boolean> IS_IN_MODULE_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,IS_IN_MODULE_RANGE, java.lang.Boolean.class, "是否在已加载模块限定的范围内", "", java.lang.Boolean.class, null);
+	
+	/**
 	 * 版本实现 , 除了默认以外的实现UI实现 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.MenuFork
 	*/
 	public static final String FORKS="forks";
@@ -352,7 +362,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , LINK_TYPE , OPEN_TYPE , EXTRA_URL , PATH_RESOURCE , RESOURCES , PARENT , FORKS , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , LINK_TYPE , OPEN_TYPE , EXTRA_URL , PATH_RESOURCE , RESOURCES , PARENT , IS_IN_MODULE_RANGE , FORKS , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -682,6 +692,17 @@ public class MenuMeta {
 		}
 		
 		/**
+		 * 设置 是否在已加载模块限定的范围内
+		 * @param isInModuleRange 是否在已加载模块限定的范围内
+		 * @return 当前对象
+		*/
+		public Menu setInModuleRange(Boolean isInModuleRange) {
+			super.change(IS_IN_MODULE_RANGE,super.isInModuleRange(),isInModuleRange);
+			super.setInModuleRange(isInModuleRange);
+			return this;
+		}
+		
+		/**
 		 * 设置 版本实现
 		 * @param forks 版本实现
 		 * @return 当前对象
@@ -770,6 +791,7 @@ public class MenuMeta {
 				inst.setForks(this.getForks());
 				inst.setParent(this.getParent());
 				inst.setPath(this.getPath());
+				inst.setInModuleRange(this.isInModuleRange());
 				inst.setPathResource(this.getPathResource());
 				inst.setResources(this.getResources());
 				inst.setAncestorsNamePath(this.getAncestorsNamePath());

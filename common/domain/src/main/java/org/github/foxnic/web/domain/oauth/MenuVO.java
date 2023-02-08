@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单VO类型
  * <p>菜单 , 数据表 sys_menu 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-31 13:13:59
- * @sign 1AF4E52A2ABBDFC7C6E8A32701747418
+ * @since 2023-02-08 09:44:31
+ * @sign DAE21D06C3DD21FD5D831DD1D01962FB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,9 +81,9 @@ public class MenuVO extends Menu {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -91,6 +91,12 @@ public class MenuVO extends Menu {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -267,7 +273,7 @@ public class MenuVO extends Menu {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -300,6 +306,25 @@ public class MenuVO extends Menu {
 	*/
 	public MenuVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public MenuVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -433,6 +458,7 @@ public class MenuVO extends Menu {
 		inst.setType(this.getType());
 		inst.setOpenType(this.getOpenType());
 		inst.setUpdateBy(this.getUpdateBy());
+		inst.setExtraUrl(this.getExtraUrl());
 		inst.setId(this.getId());
 		inst.setHierarchy(this.getHierarchy());
 		inst.setUpdateTime(this.getUpdateTime());
@@ -455,6 +481,8 @@ public class MenuVO extends Menu {
 			inst.setForks(this.getForks());
 			inst.setParent(this.getParent());
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
+			inst.setInModuleRange(this.isInModuleRange());
 			inst.setRoleId(this.getRoleId());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPathResource(this.getPathResource());
@@ -538,6 +566,7 @@ public class MenuVO extends Menu {
 			this.setType(DataParser.parse(String.class, map.get(MenuVOMeta.TYPE)));
 			this.setOpenType(DataParser.parse(String.class, map.get(MenuVOMeta.OPEN_TYPE)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(MenuVOMeta.UPDATE_BY)));
+			this.setExtraUrl(DataParser.parse(String.class, map.get(MenuVOMeta.EXTRA_URL)));
 			this.setId(DataParser.parse(String.class, map.get(MenuVOMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, map.get(MenuVOMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(MenuVOMeta.UPDATE_TIME)));
@@ -559,6 +588,8 @@ public class MenuVO extends Menu {
 			// others
 			this.setParent(DataParser.parse(Menu.class, map.get(MenuVOMeta.PARENT)));
 			this.setSearchField(DataParser.parse(String.class, map.get(MenuVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(MenuVOMeta.REQUEST_ACTION)));
+			this.setInModuleRange(DataParser.parse(Boolean.class, map.get(MenuVOMeta.IS_IN_MODULE_RANGE)));
 			this.setRoleId(DataParser.parse(String.class, map.get(MenuVOMeta.ROLE_ID)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(MenuVOMeta.FUZZY_FIELD)));
 			this.setPathResource(DataParser.parse(Resourze.class, map.get(MenuVOMeta.PATH_RESOURCE)));
@@ -582,6 +613,7 @@ public class MenuVO extends Menu {
 				this.setType( (String)map.get(MenuVOMeta.TYPE));
 				this.setOpenType( (String)map.get(MenuVOMeta.OPEN_TYPE));
 				this.setUpdateBy( (String)map.get(MenuVOMeta.UPDATE_BY));
+				this.setExtraUrl( (String)map.get(MenuVOMeta.EXTRA_URL));
 				this.setId( (String)map.get(MenuVOMeta.ID));
 				this.setHierarchy( (String)map.get(MenuVOMeta.HIERARCHY));
 				this.setUpdateTime( (Date)map.get(MenuVOMeta.UPDATE_TIME));
@@ -603,6 +635,8 @@ public class MenuVO extends Menu {
 				// others
 				this.setParent( (Menu)map.get(MenuVOMeta.PARENT));
 				this.setSearchField( (String)map.get(MenuVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(MenuVOMeta.REQUEST_ACTION));
+				this.setInModuleRange( (Boolean)map.get(MenuVOMeta.IS_IN_MODULE_RANGE));
 				this.setRoleId( (String)map.get(MenuVOMeta.ROLE_ID));
 				this.setFuzzyField( (String)map.get(MenuVOMeta.FUZZY_FIELD));
 				this.setPathResource( (Resourze)map.get(MenuVOMeta.PATH_RESOURCE));
@@ -639,6 +673,7 @@ public class MenuVO extends Menu {
 			this.setType(DataParser.parse(String.class, r.getValue(MenuVOMeta.TYPE)));
 			this.setOpenType(DataParser.parse(String.class, r.getValue(MenuVOMeta.OPEN_TYPE)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(MenuVOMeta.UPDATE_BY)));
+			this.setExtraUrl(DataParser.parse(String.class, r.getValue(MenuVOMeta.EXTRA_URL)));
 			this.setId(DataParser.parse(String.class, r.getValue(MenuVOMeta.ID)));
 			this.setHierarchy(DataParser.parse(String.class, r.getValue(MenuVOMeta.HIERARCHY)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(MenuVOMeta.UPDATE_TIME)));
@@ -667,6 +702,7 @@ public class MenuVO extends Menu {
 				this.setType( (String)r.getValue(MenuVOMeta.TYPE));
 				this.setOpenType( (String)r.getValue(MenuVOMeta.OPEN_TYPE));
 				this.setUpdateBy( (String)r.getValue(MenuVOMeta.UPDATE_BY));
+				this.setExtraUrl( (String)r.getValue(MenuVOMeta.EXTRA_URL));
 				this.setId( (String)r.getValue(MenuVOMeta.ID));
 				this.setHierarchy( (String)r.getValue(MenuVOMeta.HIERARCHY));
 				this.setUpdateTime( (Date)r.getValue(MenuVOMeta.UPDATE_TIME));

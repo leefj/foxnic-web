@@ -6,6 +6,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
@@ -23,15 +24,20 @@ import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.module.AuthorityMenuManager;
+import org.github.foxnic.web.framework.module.ICachedMenuService;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuResourceService;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IResourzeService;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +57,7 @@ import java.util.*;
 
 
 @Service("SysMenuService")
-public class MenuServiceImpl extends SuperService<Menu> implements IMenuService {
+public class MenuServiceImpl extends SuperService<Menu> implements IMenuService, ICachedMenuService {
 
 
 
@@ -68,6 +74,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Autowired
 	private IMenuResourceService menuResourceService;
+
+	@Autowired
+	private AuthorityMenuManager authorityMenuManager;
 
 
 	private Map<String,Menu>  catchedMenus= new HashMap<>();
@@ -321,7 +330,14 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	private List<ZTreeNode> toZTreeNodeList(RcdSet menus) {
 		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
+		YesNo ctrl= SystemConfigProxyUtil.getEnum(SystemConfigEnum.MODULES_MENU_CTROL_FOR_MENU,YesNo.class);
 		for (Rcd m : menus) {
+			if(ctrl!=null && ctrl==YesNo.yes) {
+				Menu menu = this.catchedMenus.get(m.getString(SYS_MENU.ID));
+				if (!menu.isInModuleRange()) {
+					continue;
+				}
+			}
 			ZTreeNode node=new ZTreeNode();
 			node.setId(m.getString(SYS_MENU.ID));
 			node.setName(m.getString(SYS_MENU.LABEL));
@@ -380,7 +396,12 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 				.putVar("path_resource_ids",pathResourceIds)
 				.putVar("resource_ids",resourceIds);
 		//执行
-		List<Menu> menus=dao().queryEntities(Menu.class,template);
+		List<Menu> menus = null ;
+		try {
+			menus = dao().queryEntities(Menu.class, template);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//关联所有上级菜单
 		joinAncestors(menus);
 		for (Menu menu : menus) {
@@ -399,6 +420,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public int fillHierarchy(boolean reset) {
+		clearNoParentMenus();
 		if(reset) {
 			dao().execute("#reset-menu-hierarchy");
 		}
@@ -409,6 +431,14 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			if(i==0) break;
 		}
 		return total;
+	}
+
+	private void clearNoParentMenus() {
+		String[] ids=dao().query("select id from "+table()+" a where not exists(select 1 from "+table()+" b where a.parent_id=b.id) and a.parent_id!=?",IMenuService.ROOT_ID).getValueArray("id",String.class);
+		if(ids!=null && ids.length>0) {
+			In in = new In("id", ids);
+			dao.execute("delete from "+table()+" "+in.toConditionExpr().startWithWhere().getListParameterSQL(),in.getListParameters());
+		}
 	}
 
 	@Override
@@ -466,10 +496,12 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if (catchedMenus.isEmpty()) {
 			synchronized (catchedMenus) {
 				if (catchedMenus.isEmpty()) {
+					Logger.info("正在初始化菜单数据...");
+					this.fillHierarchy(true);
 					FieldsBuilder menuFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
 							.addAll()
 							.removeDBTreatyFields()
-							.remove(FoxnicWeb.SYS_MENU.BATCH_ID, FoxnicWeb.SYS_MENU.HIERARCHY);
+							.remove(FoxnicWeb.SYS_MENU.BATCH_ID);
 					//
 					List<Menu> all = this.queryList(new Menu(), menuFields);
 					FieldsBuilder resourzeFields = FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
@@ -477,34 +509,66 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 					//
 					this.dao().fill(all).with(MenuMeta.PATH_RESOURCE).with(MenuMeta.RESOURCES).with(MenuMeta.FORKS).fields(resourzeFields).execute();
 
-					for (Menu menu : all) {
+
+//					for (Menu menu : all) {
+//						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
+//						menu.setResources(resourzeService.queryCachedResourzes(ids));
+//						if(menu.getPathResource()!=null) {
+//							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
+//						}
+//						// 打标记
+//						menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
+//						menu.setHierarchy(null);
+//					}
+
+					// 并行处理
+					all.parallelStream().forEach(menu -> {
 						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
 						menu.setResources(resourzeService.queryCachedResourzes(ids));
 						if(menu.getPathResource()!=null) {
 							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
 						}
-					}
+						// 打标记
+						menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
+						menu.setHierarchy(null);
+					});
 
-					//resourzeService.getCachedResourze();
 
 					catchedMenus = CollectorUtil.collectMap(all, Menu::getId, m -> {
 						return m;
 					});
+					Logger.info("菜单数据初始化完毕");
 				}
 			}
 		}
 	}
 
-	public List<Menu> queryCachedMenus(Collection<String> menuIds) {
+	/**
+	 * @param  inRange  null 时返回全部，true 是返回范围内，false 时返回范围外
+	 * */
+	public List<Menu> queryCachedMenus(Collection<String> menuIds,Boolean inRange) {
 
 		initCache();
 
 		List<Menu> menus=new ArrayList<>(menuIds.size());
 
 		for (String menuId : menuIds) {
+//			if(menuId.equals("463397133957988352")) {
+//                System.out.println();
+//            }
 			Menu menu=catchedMenus.get(menuId);
 			if(menu!=null) {
-				menus.add(menu);
+				if(inRange==null) {
+					menus.add(menu);
+				} else if(inRange==true) {
+					if(menu.isInModuleRange()) {
+						menus.add(menu);
+					}
+				} else if(inRange==false) {
+					if(!menu.isInModuleRange()) {
+						menus.add(menu);
+					}
+				}
 			}
 		}
 		return menus;

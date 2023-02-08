@@ -290,5 +290,5 @@ public interface IMenuService extends ISimpleIdService<Menu,String> {
 	 * */
 	List<String> search(String keyword);
 
-	List<Menu> queryCachedMenus(Collection<String> menuIds);
+	List<Menu> queryCachedMenus(Collection<String> menuIds,Boolean inRange);
 }

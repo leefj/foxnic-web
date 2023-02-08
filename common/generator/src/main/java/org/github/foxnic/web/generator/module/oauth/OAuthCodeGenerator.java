@@ -237,6 +237,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getPoClassFile().addSimpleProperty(Resourze.class,"pathResource","路径资源","");
 		cfg.getPoClassFile().addListProperty(Resourze.class,"resources","菜单包含的资源清单","");
 		cfg.getPoClassFile().addSimpleProperty(Menu.class,"parent","上级菜单","");
+		cfg.getPoClassFile().addSimpleProperty(Boolean.class,"isInModuleRange","是否在已加载模块限定的范围内","");
 
 		cfg.getPoClassFile().addListProperty(MenuFork.class,"forks","版本实现","除了默认以外的实现UI实现");
 

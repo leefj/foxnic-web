@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-02 09:18:36
+ * @since 2023-02-08 13:58:44
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -15,14 +15,69 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 public enum SystemConfigEnum implements CodeTextEnum {
 	
 	/**
-	 * 新配置
+	 * 状态
 	*/
-	FOXNIC_WEB_C1675237944888_C1675238247171("foxnic-web.C1675237944888.C1675238247171" , "新配置"),
+	DEMO_STATUS("demo.status" , "状态"),
 	
 	/**
-	 * 用户服务实现配置
+	 * 名称
 	*/
-	SYSTEM_SERVICE_ORG_GITHUB_FOXNIC_WEB_OAUTH_SERVICE_IUSERSERVICE_IMPL_T001("system.service.org.github.foxnic.web.oauth.service.IUserService.Impl@T001" , "用户服务实现配置"),
+	DEMO_NAME("demo.name" , "名称"),
+	
+	/**
+	 * default
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IPROFILESERVICE_IMPL_C1675395268512("modules.org.github.foxnic.web.system.service.IProfileService.impl.C1675395268512" , "default"),
+	
+	/**
+	 * T001
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IPROFILESERVICE_IMPL_TENANT_C1675395334919("modules.org.github.foxnic.web.system.service.IProfileService.impl.tenant.C1675395334919" , "T001"),
+	
+	/**
+	 * T002
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IPROFILESERVICE_IMPL_TENANT_C1675395344550("modules.org.github.foxnic.web.system.service.IProfileService.impl.tenant.C1675395344550" , "T002"),
+	
+	/**
+	 * admin
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IPROFILESERVICE_IMPL_USER_ADMIN("modules.org.github.foxnic.web.system.service.IProfileService.impl.user.admin" , "admin"),
+	
+	/**
+	 * list
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_PAGE_PROFILEPAGECONTROLLER_IMPL_DEFAULT_LIST("modules.org.github.foxnic.web.system.page.ProfilePageController.impl.default.list" , "list"),
+	
+	/**
+	 * form
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_PAGE_PROFILEPAGECONTROLLER_IMPL_DEFAULT_FORM("modules.org.github.foxnic.web.system.page.ProfilePageController.impl.default.form" , "form"),
+	
+	/**
+	 * list
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_PAGE_PROFILEPAGECONTROLLER_IMPL_USER_ADMIN_LIST("modules.org.github.foxnic.web.system.page.ProfilePageController.impl.user.admin.list" , "list"),
+	
+	/**
+	 * form
+	*/
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_PAGE_PROFILEPAGECONTROLLER_IMPL_USER_ADMIN_FORM("modules.org.github.foxnic.web.system.page.ProfilePageController.impl.user.admin.form" , "form"),
+	
+	/**
+	 * 首页按模块控制菜单
+	*/
+	MODULES_MENU_CTROL_FOR_INDEX("modules.menu.ctrol_for_index" , "首页按模块控制菜单"),
+	
+	/**
+	 * 菜单管理按模块控制菜单
+	*/
+	MODULES_MENU_CTROL_FOR_MENU("modules.menu.ctrol_for_menu" , "菜单管理按模块控制菜单"),
+	
+	/**
+	 * 角色管理按模块控制菜单
+	*/
+	MODULES_MENU_CTROL_FOR_ROLE("modules.menu.ctrol_for_role" , "角色管理按模块控制菜单"),
 	
 	/**
 	 * 缓存键
@@ -55,9 +110,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_EXTERNAL_PORTAL_LOGINURL("system.external.portal.loginURL" , "外部门户登录页面地址"),
 	
 	/**
-	 * 网站图标
+	 * 站点图标
 	*/
-	SYSTEM_FAVICO("system.favico" , "网站图标"),
+	SYSTEM_FAVICO("system.favico" , "站点图标"),
 	
 	/**
 	 * 首页右上的logo图片
@@ -125,9 +180,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_INDEX_MODULE_ENABLE("system.index.module_enable" , "首页分模块"),
 	
 	/**
-	 * 系统默认主题
+	 * 系统主题
 	*/
-	SYSTEM_THEME_DEFAULT("system.theme.default" , "系统默认主题"),
+	SYSTEM_THEME_DEFAULT("system.theme.default" , "系统主题"),
 	
 	/**
 	 * 系统主题模版页面
@@ -168,6 +223,16 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * WebFull名称
 	*/
 	WEBFULL_NAME("webfull.name" , "WebFull名称"),
+	
+	/**
+	 * WebFull名称XX
+	*/
+	WEBFULL_NAME_XX("webfull.name.xx" , "WebFull名称XX"),
+	
+	/**
+	 * WebFull名称YY
+	*/
+	WEBFULL_NAME_YY("webfull.name.yy" , "WebFull名称YY"),
 	;
 	
 	private String code;

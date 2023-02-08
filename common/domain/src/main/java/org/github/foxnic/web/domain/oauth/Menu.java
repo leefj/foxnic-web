@@ -29,8 +29,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 菜单
  * <p>菜单 , 数据表 sys_menu 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 13:00:48
- * @sign 62C1BA41F36F7FC06C539457A9E05C97
+ * @since 2023-02-08 09:44:31
+ * @sign 6956A89E69A0FA134D2B6A9C3536C322
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,7 +58,7 @@ public class Menu extends Entity {
 	/**
 	 * 权限：权限标识
 	*/
-	@ApiModelProperty(required = false,value="权限" , notes = "权限标识" , example = "f5-2746f65498-2739")
+	@ApiModelProperty(required = false,value="权限" , notes = "权限标识" , example = "system:mngr")
 	private String authority;
 	
 	/**
@@ -151,7 +151,7 @@ public class Menu extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-11-14 05:07:41")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-02-08 09:04:52")
 	private Date updateTime;
 	
 	/**
@@ -178,7 +178,7 @@ public class Menu extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "61")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "64")
 	private Integer version;
 	
 	/**
@@ -190,7 +190,7 @@ public class Menu extends Entity {
 	/**
 	 * 连接类型：外部链接、内部链接等
 	*/
-	@ApiModelProperty(required = false,value="连接类型" , notes = "外部链接、内部链接等")
+	@ApiModelProperty(required = false,value="连接类型" , notes = "外部链接、内部链接等" , example = "internal")
 	private String linkType;
 	@Transient
 	@EnumFor("linkType")
@@ -228,6 +228,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="上级菜单" , notes = "")
 	private Menu parent;
+	
+	/**
+	 * 是否在已加载模块限定的范围内
+	*/
+	@ApiModelProperty(required = false,value="是否在已加载模块限定的范围内" , notes = "")
+	private Boolean isInModuleRange;
 	
 	/**
 	 * 版本实现：除了默认以外的实现UI实现
@@ -946,6 +952,33 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 是否在已加载模块限定的范围内<br>
+	 * @return 是否在已加载模块限定的范围内
+	*/
+	public Boolean isInModuleRange() {
+		return isInModuleRange;
+	}
+	
+	/**
+	 * 获得 是否在已加载模块限定的范围内<br>
+	 * 等价于 isInModuleRange 方法，为兼容 Swagger 需要
+	 * @return 是否在已加载模块限定的范围内
+	*/
+	public Boolean getIsInModuleRange() {
+		return this.isInModuleRange;
+	}
+	
+	/**
+	 * 设置 是否在已加载模块限定的范围内
+	 * @param isInModuleRange 是否在已加载模块限定的范围内
+	 * @return 当前对象
+	*/
+	public Menu setInModuleRange(Boolean isInModuleRange) {
+		this.isInModuleRange=isInModuleRange;
+		return this;
+	}
+	
+	/**
 	 * 获得 版本实现<br>
 	 * 除了默认以外的实现UI实现
 	 * @return 版本实现
@@ -1115,6 +1148,7 @@ public class Menu extends Entity {
 			inst.setForks(this.getForks());
 			inst.setParent(this.getParent());
 			inst.setPath(this.getPath());
+			inst.setInModuleRange(this.isInModuleRange());
 			inst.setPathResource(this.getPathResource());
 			inst.setResources(this.getResources());
 			inst.setAncestorsNamePath(this.getAncestorsNamePath());
@@ -1207,6 +1241,7 @@ public class Menu extends Entity {
 			// others
 			this.setParent(DataParser.parse(Menu.class, map.get(MenuMeta.PARENT)));
 			this.setPath(DataParser.parse(String.class, map.get(MenuMeta.PATH)));
+			this.setInModuleRange(DataParser.parse(Boolean.class, map.get(MenuMeta.IS_IN_MODULE_RANGE)));
 			this.setPathResource(DataParser.parse(Resourze.class, map.get(MenuMeta.PATH_RESOURCE)));
 			this.setAncestorsNamePath(DataParser.parse(String.class, map.get(MenuMeta.ANCESTORS_NAME_PATH)));
 			return true;
@@ -1241,6 +1276,7 @@ public class Menu extends Entity {
 				// others
 				this.setParent( (Menu)map.get(MenuMeta.PARENT));
 				this.setPath( (String)map.get(MenuMeta.PATH));
+				this.setInModuleRange( (Boolean)map.get(MenuMeta.IS_IN_MODULE_RANGE));
 				this.setPathResource( (Resourze)map.get(MenuMeta.PATH_RESOURCE));
 				this.setAncestorsNamePath( (String)map.get(MenuMeta.ANCESTORS_NAME_PATH));
 				return true;
