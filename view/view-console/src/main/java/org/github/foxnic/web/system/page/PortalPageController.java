@@ -93,6 +93,9 @@ public class PortalPageController extends ViewController  {
 
 
 		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+		 if(theme==null) {
+			 theme=Theme.PEAR;
+		 }
 		JSONObject themeConfig=new JSONObject();
 		if(theme==Theme.PEAR) {
 			DbCacheVO sample=new DbCacheVO();
@@ -133,6 +136,9 @@ public class PortalPageController extends ViewController  {
 	public String login(Model model) {
 		//
 		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+		if(theme==null) {
+			theme=Theme.PEAR;
+		}
 		String bgImage= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_BACKGROUND);
 		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String loginTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_TITLE);
