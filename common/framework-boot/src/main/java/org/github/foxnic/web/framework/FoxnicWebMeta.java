@@ -5,7 +5,7 @@ public class FoxnicWebMeta {
 	/**
 	 * 版本号
 	 * */
-	public static final String VERSION = "1.7.0.RELEASE";
+	public static final String VERSION = "1.7.1.RELEASE";
 
 	/**
 	 *
