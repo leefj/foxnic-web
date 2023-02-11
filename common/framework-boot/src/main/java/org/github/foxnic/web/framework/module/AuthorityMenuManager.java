@@ -4,6 +4,7 @@ import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.springboot.starter.BootArgs;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -22,6 +23,12 @@ public class AuthorityMenuManager {
      * 菜单位置包括：首页、菜单管理、角色授权
      * */
     public boolean isInModuleRange(Menu menu) {
+
+        // 在开发环境下默认全部开启
+        if(BootArgs.isBootInIDE()) {
+            return true;
+        }
+
         initDataIf();
 //        if(menu.getId().equals("489922965769551872")) {
 //            System.out.println();

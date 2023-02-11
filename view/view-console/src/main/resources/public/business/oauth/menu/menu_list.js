@@ -41,13 +41,13 @@ function ListPage() {
 				onDrop : onNodeDrop,
 				onClick: onNodeClick,
 				onAsyncSuccess: function (event, treeId, treeNode, msg) {
-					var data=JSON.parse(msg).data;
-					if(!data || data.length==0) return;
-					var top0=menuTree.getNodeByParam("id",data[0].id);
-					if(top0.parentId=='0') {
-						menuTree.selectNode({tId: top0.tId}, false, true)
-						onNodeClick(event, treeId, top0);
-					}
+					// var data=JSON.parse(msg).data;
+					// if(!data || data.length==0) return;
+					// var top0=menuTree.getNodeByParam("id",data[0].id);
+					// if(top0.parentId=='0') {
+					// 	menuTree.selectNode({tId: top0.tId}, false, true)
+					// 	onNodeClick(event, treeId, top0);
+					// }
 				}
 			},
 			view: {
@@ -276,8 +276,10 @@ function ListPage() {
 		var handled={};
 		$("#search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-
-			admin.request(moduleURL+"/search",{"keyword":$("#search-input").val()},function(r) {
+			var keyword=$("#search-input").val();
+			keyword=keyword.trim();
+			if(!keyword) return;
+			admin.request(moduleURL+"/search",{"keyword":keyword},function(r) {
 				if(r.success) {
 					collectExpandNodeIds(r.data);
 					if(ids.length>0) {
@@ -360,10 +362,10 @@ function ListPage() {
 		admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
 			if(r.success) {
 				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
-				//debugger
+				debugger
 				if(treeNode==null) {
 					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.label});
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.label,type:"folder",iconSkin:"icon_menu_folder"});
 					return;
 				}
 
@@ -393,7 +395,9 @@ function ListPage() {
 	}
 
 	// 添加按钮点击事件
-    $('#btn-add').click(addChild);
+    $('#btn-add').click(function (){
+		addChild(null);
+	});
 
 
     /**

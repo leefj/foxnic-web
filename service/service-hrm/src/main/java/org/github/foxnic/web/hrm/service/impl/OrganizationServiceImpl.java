@@ -94,7 +94,12 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		if(StringUtil.isBlank(organization.getFullName())) {
 			organization.setFullName("新节点");
 		}
+		organization.setId(this.generateId(null).toString());
+		if(StringUtil.isBlank(organization.getCode())) {
+			organization.setCode(organization.getId());
+		}
 		Result r=super.insert(organization);
+
 		this.fillHierarchy(organization.getTenantId(),false);
 		return r;
 	}

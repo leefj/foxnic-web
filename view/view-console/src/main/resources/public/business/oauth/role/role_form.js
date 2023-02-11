@@ -71,6 +71,9 @@ function FormPage() {
       * 填充表单数据
       */
 	function fillFormData() {
+		// 初始清空菜单数据
+		debugger
+		admin.putVar("selected-role-menu-ids",[]);
 		var formData = admin.getTempData('sys-role-form-data');
 		roleId=formData.id;
 		//如果是新建
@@ -114,7 +117,7 @@ function FormPage() {
 	    	//debugger;
 			data.field = form.val("data-form");
 
-			var menuIds=admin.getTempData("selected-role-menu-ids");
+			var menuIds=admin.getVar("selected-role-menu-ids");
 			if(menuIds) {
 				$("#menuIds").val(menuIds.join(","));
 				data.field.menuIds = menuIds.join(",");
@@ -160,7 +163,8 @@ function FormPage() {
 
 		function openMenuDialog(callback) {
 			//debugger;
-			admin.putTempData("selected-role-menu-ids",null);
+			//var menuIds=admin.getTempData("selected-role-menu-ids");
+
 			var menuDialogIndex;
 			var menuDialogId = "menuChooseDialog";
 			admin.putTempData("menuDialogId",menuDialogId);

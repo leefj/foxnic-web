@@ -288,6 +288,8 @@ function FormPage() {
 				// 调整状态为编辑
 				action="edit";
 
+				fox.showMessage(data);
+
 			} else {
 				fox.showMessage(data);
 			}

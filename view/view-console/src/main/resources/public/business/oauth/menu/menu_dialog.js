@@ -13,6 +13,8 @@ function ListPage() {
 
 	var menuTree;
 
+	var selectedMenuIds=null;
+
 	/**
 	 * 入口函数，初始化
 	 */
@@ -21,12 +23,14 @@ function ListPage() {
 		admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
+		selectedMenuIds=admin.getVar("selected-role-menu-ids");
 		var roleId=QueryString.get('roleId');
 		if(!roleId) roleId="";
 
 		//debugger
 		//form.render("check-mode");
 		//form.render('checkbox');
+
 
 		var cfgs = {
 			edit: {
@@ -35,7 +39,7 @@ function ListPage() {
 			check: {
 				enable: true,
 				autoCheckTrigger: true,
-				chkboxType : { "Y" : "ps", "N" : "ps" }
+				chkboxType : { "Y" : "", "N" : "" }
 			},
 			async: {
 				enable: true,
@@ -83,7 +87,7 @@ function ListPage() {
 			el: '#check-mode',
 			radio: true,
 			size: 'small',
-			initValue: [2],
+			initValue: [1],
 			clickClose:true,
 			on: function(data){
 				//arr:  当前多选已选中的数据
@@ -115,7 +119,10 @@ function ListPage() {
 		childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-
+			if(selectedMenuIds!=null && selectedMenuIds.length>0) {
+				childNodes[i].checked=selectedMenuIds.indexOf(childNodes[i].id)!=-1;
+				nodeDatafilter(treeId,childNodes[i],{data:childNodes[i].children})
+			}
 		}
 		return childNodes;
 	}
@@ -127,7 +134,7 @@ function ListPage() {
 		for (let i = 0; i <nodes.length ; i++) {
 			menuIds.push(nodes[i].id);
 		}
-		admin.putTempData("selected-role-menu-ids",menuIds);
+		admin.putVar("selected-role-menu-ids",menuIds);
 		//var menuDialogIndex=admin.getTempData("menuDialogIndex");
 		//admin.closePopupCenter(menuDialogIndex);
 		var menuDialogId=admin.putTempData("menuDialogId");
