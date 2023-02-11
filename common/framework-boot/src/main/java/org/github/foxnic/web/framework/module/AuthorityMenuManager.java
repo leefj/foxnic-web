@@ -23,11 +23,11 @@ public class AuthorityMenuManager {
      * */
     public boolean isInModuleRange(Menu menu) {
         initDataIf();
-//        if(menu.getId().equals("463397133957988352")) {
+//        if(menu.getId().equals("489922965769551872")) {
 //            System.out.println();
 //        }
         for (Map.Entry<String, AuthorityMenu> e : authorityMenuMap.entrySet()) {
-//            if(menu.getId().equals("463397133957988352")) {
+//            if(menu.getId().equals("489922965769551872")) {
 //                System.out.println();
 //            }
             // 当前菜单

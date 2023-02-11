@@ -15,7 +15,11 @@ public class HrmAuthority extends ModuleAuthority {
                 // 组织管理
                 "hrm_organization:mngr",
                 // 员工管理
-                "hrm_employee:mngr"
+                "hrm_employee:mngr",
+                // 岗位管理
+                "hrm_position:mngr",
+                // 人员管理
+                "hrm_person:mngr"
         };
     }
 }
