@@ -36,9 +36,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             parentId=admin.getVar("parentId");
             hierarchy=admin.getVar("hierarchy");
             //debugger
-            if(data && (data.typeDesc==null || data.typeDesc=="")) {
-                $("#typeDesc").parents(".layui-form-item").hide();
-            }
+            // if(data && (data.type!="ENUM"  data.typeDesc=="")) {
+            //     $("#typeDesc").parents(".layui-form-item").hide();
+            // }
 
         },
         /**

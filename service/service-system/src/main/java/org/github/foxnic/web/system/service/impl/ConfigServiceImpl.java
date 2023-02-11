@@ -252,7 +252,8 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 			return ErrorDesc.failure().message("保存失败，配置键 "+localKey+" 格式错误，不允许以数字开头。").messageLevel4Confirm();
 		}
 
-		if(config.getTypeDesc()!=null) {
+
+		if(!StringUtil.isBlank(config.getTypeDesc())) {
 			Class type= ReflectUtil.forName(config.getTypeDesc());
 			if(type==null) {
 				return ErrorDesc.failure().message("保存失败，类型描述错误，类型未定义。").messageLevel4Confirm();

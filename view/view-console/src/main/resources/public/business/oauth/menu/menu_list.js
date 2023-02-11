@@ -42,6 +42,7 @@ function ListPage() {
 				onClick: onNodeClick,
 				onAsyncSuccess: function (event, treeId, treeNode, msg) {
 					var data=JSON.parse(msg).data;
+					if(!data || data.length==0) return;
 					var top0=menuTree.getNodeByParam("id",data[0].id);
 					if(top0.parentId=='0') {
 						menuTree.selectNode({tId: top0.tId}, false, true)
@@ -62,8 +63,8 @@ function ListPage() {
 			var fullHeight=$(window).height();
 			var fullWidth=$(window).width();
 			var treeHeight=fullHeight-toolbarHeight;
-			$("#tree-container").height(treeHeight-1);
-			$("#form-view").height(fullHeight);
+			//$("#tree-container").height(treeHeight-1);
+			//$("#form-view").height(fullHeight);
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
@@ -78,7 +79,9 @@ function ListPage() {
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
-    	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+		if($("#form-view")[0].contentWindow && $("#form-view")[0].contentWindow.loadFormData ) {
+			$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+		}
     }
 
 

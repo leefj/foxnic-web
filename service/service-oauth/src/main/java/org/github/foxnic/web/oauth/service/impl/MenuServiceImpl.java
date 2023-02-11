@@ -334,7 +334,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 		for (Rcd m : menus) {
 			if(ctrl!=null && ctrl==YesNo.yes) {
 				Menu menu = this.catchedMenus.get(m.getString(SYS_MENU.ID));
-				if (!menu.isInModuleRange()) {
+				if (menu!=null && !menu.isInModuleRange()) {
 					continue;
 				}
 			}

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.framework.module;
 
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.Expr;
@@ -50,6 +51,22 @@ public class AuthorityMenuManager {
         for (ModuleAuthority bean : beans) {
             authorities.addAll(Arrays.asList(bean.getAuthorities()));
         }
+
+        String global=SpringUtil.getEnvProperty("foxnic.config.authorities");
+        if(StringUtil.hasContent(global)){
+            String[] cfgAuth=global.split(",");
+            for (String auth : cfgAuth) {
+                if(!authorities.contains(auth.trim())) {
+                   throw new IllegalArgumentException("foxnic.config.authorities 中设置的 "+auth+" 不存在");
+                }
+            }
+            //按配置重置
+            authorities.clear();
+            for (String auth : cfgAuth) {
+                authorities.add(auth.trim());
+            }
+        }
+
         //
         DAO dao = SpringUtil.getBean(DAO.class);
         In in = new In("authority", authorities);
