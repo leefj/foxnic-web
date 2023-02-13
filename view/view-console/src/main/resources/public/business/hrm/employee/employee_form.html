@@ -110,7 +110,7 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主岗')}">主岗</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="primaryPositionId" id="primaryPositionId" name="primaryPositionId"  type="hidden" class="layui-input"    lay-verify="|required"   />
-                        <button id="primaryPositionId-button" type="button" notExistAction-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="primaryPositionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('兼岗')}">兼岗</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="vicePositionIds" id="vicePositionIds" name="vicePositionIds"  type="hidden" class="layui-input"   />
-                        <button id="vicePositionIds-button" type="button" notExistAction-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
             <!--结束：栏次内字段循环-->

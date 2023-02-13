@@ -140,6 +140,8 @@ function ListPage() {
 		var menuDialogId=admin.putTempData("menuDialogId");
 		debugger
 		admin.finishPopupCenterById(menuDialogId,this);
+		var roleMenuDialogCallback=admin.getVar("roleMenuDialogCallback");
+		roleMenuDialogCallback(menuIds);
 	});
 
 };

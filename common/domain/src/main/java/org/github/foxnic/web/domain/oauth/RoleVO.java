@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色VO类型
  * <p>角色 , 数据表 sys_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-30 13:48:15
- * @sign 3727294F2857448DC1DA061AA0060988
+ * @since 2023-02-13 11:28:38
+ * @sign AC44C87602CF3F86BD80193902E6C35C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,9 +81,9 @@ public class RoleVO extends Role {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -91,6 +91,12 @@ public class RoleVO extends Role {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -255,7 +261,7 @@ public class RoleVO extends Role {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -288,6 +294,25 @@ public class RoleVO extends Role {
 	*/
 	public RoleVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public RoleVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -376,20 +401,22 @@ public class RoleVO extends Role {
 	@Transient
 	public RoleVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$();
-		inst.setCreateBy(this.getCreateBy());
 		inst.setCode(this.getCode());
-		inst.setDeleted(this.getDeleted());
 		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setName(this.getName());
 		inst.setDeleteBy(this.getDeleteBy());
-		inst.setUpdateTime(this.getUpdateTime());
 		inst.setId(this.getId());
-		inst.setVersion(this.getVersion());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
 			inst.setUsers(this.getUsers());
@@ -462,20 +489,22 @@ public class RoleVO extends Role {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setCreateBy(DataParser.parse(String.class, map.get(RoleVOMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, map.get(RoleVOMeta.CODE)));
-			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleVOMeta.DELETED)));
 			this.setNotes(DataParser.parse(String.class, map.get(RoleVOMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(RoleVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, map.get(RoleVOMeta.NAME)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleVOMeta.DELETE_BY)));
-			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleVOMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, map.get(RoleVOMeta.ID)));
-			this.setVersion(DataParser.parse(Integer.class, map.get(RoleVOMeta.VERSION)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(RoleVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(RoleVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(RoleVOMeta.FUZZY_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_SIZE)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(RoleVOMeta.PAGE_INDEX)));
@@ -487,20 +516,22 @@ public class RoleVO extends Role {
 			return true;
 		} else {
 			try {
-				this.setCreateBy( (String)map.get(RoleVOMeta.CREATE_BY));
 				this.setCode( (String)map.get(RoleVOMeta.CODE));
-				this.setDeleted( (Integer)map.get(RoleVOMeta.DELETED));
 				this.setNotes( (String)map.get(RoleVOMeta.NOTES));
+				this.setUpdateTime( (Date)map.get(RoleVOMeta.UPDATE_TIME));
+				this.setType( (String)map.get(RoleVOMeta.TYPE));
+				this.setVersion( (Integer)map.get(RoleVOMeta.VERSION));
+				this.setCreateBy( (String)map.get(RoleVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(RoleVOMeta.DELETED));
 				this.setCreateTime( (Date)map.get(RoleVOMeta.CREATE_TIME));
 				this.setUpdateBy( (String)map.get(RoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(RoleVOMeta.DELETE_TIME));
 				this.setName( (String)map.get(RoleVOMeta.NAME));
 				this.setDeleteBy( (String)map.get(RoleVOMeta.DELETE_BY));
-				this.setUpdateTime( (Date)map.get(RoleVOMeta.UPDATE_TIME));
 				this.setId( (String)map.get(RoleVOMeta.ID));
-				this.setVersion( (Integer)map.get(RoleVOMeta.VERSION));
 				// others
 				this.setSearchField( (String)map.get(RoleVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(RoleVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(RoleVOMeta.FUZZY_FIELD));
 				this.setPageSize( (Integer)map.get(RoleVOMeta.PAGE_SIZE));
 				this.setPageIndex( (Integer)map.get(RoleVOMeta.PAGE_INDEX));
@@ -525,33 +556,35 @@ public class RoleVO extends Role {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, r.getValue(RoleVOMeta.CODE)));
-			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.DELETED)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(RoleVOMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(RoleVOMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, r.getValue(RoleVOMeta.NAME)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleVOMeta.DELETE_BY)));
-			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleVOMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, r.getValue(RoleVOMeta.ID)));
-			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleVOMeta.VERSION)));
 			return true;
 		} else {
 			try {
-				this.setCreateBy( (String)r.getValue(RoleVOMeta.CREATE_BY));
 				this.setCode( (String)r.getValue(RoleVOMeta.CODE));
-				this.setDeleted( (Integer)r.getValue(RoleVOMeta.DELETED));
 				this.setNotes( (String)r.getValue(RoleVOMeta.NOTES));
+				this.setUpdateTime( (Date)r.getValue(RoleVOMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(RoleVOMeta.TYPE));
+				this.setVersion( (Integer)r.getValue(RoleVOMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(RoleVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(RoleVOMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(RoleVOMeta.CREATE_TIME));
 				this.setUpdateBy( (String)r.getValue(RoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(RoleVOMeta.DELETE_TIME));
 				this.setName( (String)r.getValue(RoleVOMeta.NAME));
 				this.setDeleteBy( (String)r.getValue(RoleVOMeta.DELETE_BY));
-				this.setUpdateTime( (Date)r.getValue(RoleVOMeta.UPDATE_TIME));
 				this.setId( (String)r.getValue(RoleVOMeta.ID));
-				this.setVersion( (Integer)r.getValue(RoleVOMeta.VERSION));
 				return true;
 			} catch (Exception e) {
 				return false;

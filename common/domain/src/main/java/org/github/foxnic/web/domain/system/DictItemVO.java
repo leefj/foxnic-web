@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 数据字典条目VO类型
  * <p>数据字典条目 , 数据表 sys_dict_item 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 09:26:27
- * @sign BAFD5FA1AC3E1D14632CEE33E93EE045
+ * @since 2023-02-13 11:12:08
+ * @sign C301F283E9EDE4D445507E8C88A58551
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,9 +81,9 @@ public class DictItemVO extends DictItem {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -91,6 +91,12 @@ public class DictItemVO extends DictItem {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -255,7 +261,7 @@ public class DictItemVO extends DictItem {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -288,6 +294,25 @@ public class DictItemVO extends DictItem {
 	*/
 	public DictItemVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public DictItemVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -396,6 +421,7 @@ public class DictItemVO extends DictItem {
 			inst.setSearchField(this.getSearchField());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
+			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
@@ -483,6 +509,7 @@ public class DictItemVO extends DictItem {
 			this.setSearchField(DataParser.parse(String.class, map.get(DictItemVOMeta.SEARCH_FIELD)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(DictItemVOMeta.PAGE_INDEX)));
 			this.setSortType(DataParser.parse(String.class, map.get(DictItemVOMeta.SORT_TYPE)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(DictItemVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(DictItemVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(DictItemVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(DictItemVOMeta.PAGE_SIZE)));
@@ -512,6 +539,7 @@ public class DictItemVO extends DictItem {
 				this.setSearchField( (String)map.get(DictItemVOMeta.SEARCH_FIELD));
 				this.setPageIndex( (Integer)map.get(DictItemVOMeta.PAGE_INDEX));
 				this.setSortType( (String)map.get(DictItemVOMeta.SORT_TYPE));
+				this.setRequestAction( (String)map.get(DictItemVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(DictItemVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(DictItemVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(DictItemVOMeta.PAGE_SIZE));

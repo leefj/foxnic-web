@@ -51,7 +51,7 @@ public class FoxnicWebEnumGenerator  {
 		String dcp=this.configs.getProjectConfigs().getDomainConstantsPackage();
 
 		//系统配置 sys_config
-		EnumConfig info=new EnumConfig(SYS_CONFIG.CODE,SYS_CONFIG.NAME , new ConditionExpr("profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%'"));
+		EnumConfig info=new EnumConfig(SYS_CONFIG.CODE,SYS_CONFIG.NAME , new ConditionExpr("profile_id='default' and type!='DIR' and deleted=0 and (code like 'system.%' or code like 'modules%')"));
 		new EnumClassFile(dao,configs.getDomainProject(),info,dcp,"SystemConfigEnum").save(true);
 
 		//字典 sys_dict

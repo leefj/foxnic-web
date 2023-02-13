@@ -54,6 +54,7 @@ public class CodeTextEnumUtil {
         }
         array = new JSONArray();
         CodeTextEnum[] values = EnumUtil.getValues(enumName);//   (Object[])m.invoke(m, null);
+        if(values==null) return null;
         for (CodeTextEnum e : values) {
             if (!all) {
                 if (!e.display()) continue;

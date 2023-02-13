@@ -1,7 +1,7 @@
 /**
- * 数据字典条目 列表页 JS 脚本
+ * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-13 11:25:17
+ * @since 2023-02-13 11:40:55
  */
 
 function FormPage() {
@@ -9,7 +9,7 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
 	
 	// 接口地址
-	const moduleURL="/service-system/sys-dict-item";
+	const moduleURL="/service-oauth/sys-role";
 	const queryURL=moduleURL+"/get-by-id";
 	const insertURL=moduleURL+"/insert";
 	const updateURL=moduleURL+"/update";
@@ -29,7 +29,7 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload,dropdown=layui.dropdown;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		action=admin.getTempData('sys-dict-item-form-data-form-action');
+		action=admin.getTempData('sys-role-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
@@ -43,7 +43,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit(action,admin.getTempData('sys-dict-item-form-data'));
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-role-form-data'));
 		}
 
 		//渲染表单组件
@@ -95,9 +95,9 @@ function FormPage() {
 				prevBodyHeight = bodyHeight;
 				return;
 			}
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-dict-item-form-data-win');
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-role-form-data-win');
 			if(area==null) return;
-			admin.putTempData('sys-dict-item-form-area', area);
+			admin.putTempData('sys-role-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
@@ -117,6 +117,36 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 type 下拉字段
+		fox.renderSelectBox({
+			el: "type",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					if(window.pageExt.form.selectBoxDataTransform) {
+						opts.push(window.pageExt.form.selectBoxDataTransform("type",{data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)},data[i],data,i));
+					} else {
+						opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+					}
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -148,7 +178,7 @@ function FormPage() {
       */
 	function fillFormData(formData) {
 		if(!formData) {
-			formData = admin.getTempData('sys-dict-item-form-data');
+			formData = admin.getTempData('sys-role-form-data');
 		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
@@ -169,6 +199,8 @@ function FormPage() {
 
 
 
+			//设置  类型 设置下拉框勾选
+			fox.setSelectValue4Dict("#type",formData.type,SELECT_TYPE_DATA);
 
 			//处理fillBy
 
@@ -218,10 +250,10 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
-		//处理 生效 默认值
-		if(!data.valid) data.valid=0;
 
 
+		//获取 类型 下拉框的值
+		data["type"]=fox.getSelectedValue("type",false);
 
 		return data;
 	}
@@ -258,7 +290,7 @@ function FormPage() {
 				}
 
 				if(doNext) {
-					admin.finishPopupCenterById('sys-dict-item-form-data-win');
+					admin.finishPopupCenterById('sys-role-form-data-win');
 				}
 
 				// 调整状态为编辑
@@ -290,7 +322,7 @@ function FormPage() {
 
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-dict-item-form-data-win',this); });
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-role-form-data-win',this); });
 
     }
 

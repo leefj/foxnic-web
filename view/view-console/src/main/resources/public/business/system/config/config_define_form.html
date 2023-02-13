@@ -99,7 +99,7 @@
                     </div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="typeDesc" id="typeDesc" name="typeDesc"
-                               th:placeholder="${ lang.translate('请输入') +''+ lang.translate('类型描述') }" type="text"
+                               th:placeholder="${ lang.translate('请输入枚举类型名或字典代码') }" type="text"
                                class="layui-input" th:value="${config.typeDesc}"/>
                     </div>
                 </div>
@@ -122,6 +122,9 @@
                                    class="layui-input" lay-verify="number" th:value="${config.value}"/>
                             <input th:if="${config.type}=='ENUM'" type="radio" name="value" lay-filter="value"
                                    id="value" th:each="e,stat:${enum.toArray(config.typeDesc,'sys_config')}"
+                                   th:value="${e.code}" th:title="${e.text}">
+                            <input th:if="${config.type}=='DICT'" type="radio" name="value" lay-filter="value"
+                                   id="value" th:each="e,stat:${dict.toArray(config.typeDesc)}"
                                    th:value="${e.code}" th:title="${e.text}">
                         </div>
                         <div th:if="${config}==null">

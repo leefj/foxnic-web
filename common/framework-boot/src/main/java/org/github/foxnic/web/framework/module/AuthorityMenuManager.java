@@ -1,7 +1,9 @@
 package org.github.foxnic.web.framework.module;
 
+import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.starter.BootArgs;
@@ -23,12 +25,6 @@ public class AuthorityMenuManager {
      * 菜单位置包括：首页、菜单管理、角色授权
      * */
     public boolean isInModuleRange(Menu menu) {
-
-        // 在开发环境下默认全部开启
-        if(BootArgs.isBootInIDE()) {
-            return true;
-        }
-
         initDataIf();
 //        if(menu.getId().equals("489922965769551872")) {
 //            System.out.println();
@@ -53,30 +49,36 @@ public class AuthorityMenuManager {
 
     private  synchronized void initDataIf() {
          if (authorityMenuMap != null) return;
-        Set<String> authorities = new HashSet<>();
+        Set<String> mavenAuthorities = new HashSet<>();
         List<ModuleAuthority> beans = SpringUtil.getBeans(ModuleAuthority.class);
         for (ModuleAuthority bean : beans) {
-            authorities.addAll(Arrays.asList(bean.getAuthorities()));
+            mavenAuthorities.addAll(Arrays.asList(bean.getAuthorities()));
         }
 
-        String global=SpringUtil.getEnvProperty("foxnic.config.authorities");
-        if(StringUtil.hasContent(global)){
-            String[] cfgAuth=global.split(",");
+        CodeBuilder moduleAuthInfo=new CodeBuilder();
+        moduleAuthInfo.ln("maven module authorities : "+StringUtil.join(mavenAuthorities));
+
+        String configedAuthorities=SpringUtil.getEnvProperty("foxnic.config.module-authorities.auth-keys");
+        moduleAuthInfo.ln("configed module authorities : "+configedAuthorities);
+        if(StringUtil.hasContent(configedAuthorities)){
+            String[] cfgAuth=configedAuthorities.split(",");
             for (String auth : cfgAuth) {
-                if(!authorities.contains(auth.trim())) {
-                   throw new IllegalArgumentException("foxnic.config.authorities 中设置的 "+auth+" 不存在");
+                if(!mavenAuthorities.contains(auth.trim())) {
+                   throw new IllegalArgumentException("foxnic.config.module-authorities.auth-keys 中设置的 "+auth+" 不存在");
                 }
             }
             //按配置重置
-            authorities.clear();
+            mavenAuthorities.clear();
             for (String auth : cfgAuth) {
-                authorities.add(auth.trim());
+                mavenAuthorities.add(auth.trim());
             }
         }
+        moduleAuthInfo.ln("applied module authorities : "+StringUtil.join(mavenAuthorities));
 
+        Logger.info("\n"+moduleAuthInfo.toString());
         //
         DAO dao = SpringUtil.getBean(DAO.class);
-        In in = new In("authority", authorities);
+        In in = new In("authority", mavenAuthorities);
         Expr select = new Expr("select id,authority,hierarchy from sys_menu where deleted=0 ");
         select.append(in.toConditionExpr().startWithAnd());
         List<AuthorityMenu> authorityMenuList = dao.query(select).toEntityList(AuthorityMenu.class);

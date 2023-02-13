@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-30 13:48:15
- * @sign 01CAB3CFE5B7174249963D38831FB368
+ * @since 2023-02-13 11:28:38
+ * @sign 21D6FE9F055B7A879D15B7AD09C32F31
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -140,6 +140,16 @@ public class RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
+	
+	/**
 	 * 授权的账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String USERS="users";
@@ -172,7 +182,7 @@ public class RoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , USERS , MENUS , MENU_IDS };
+	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , USERS , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -315,6 +325,17 @@ public class RoleMeta {
 		}
 		
 		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public Role setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
+			return this;
+		}
+		
+		/**
 		 * 设置 授权的账户清单
 		 * @param users 授权的账户清单
 		 * @return 当前对象
@@ -362,18 +383,19 @@ public class RoleMeta {
 		@Transient
 		public Role duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
-			inst.setCreateBy(this.getCreateBy());
 			inst.setCode(this.getCode());
-			inst.setDeleted(this.getDeleted());
 			inst.setNotes(this.getNotes());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setType(this.getType());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setName(this.getName());
 			inst.setDeleteBy(this.getDeleteBy());
-			inst.setUpdateTime(this.getUpdateTime());
 			inst.setId(this.getId());
-			inst.setVersion(this.getVersion());
 			if(all) {
 				inst.setMenus(this.getMenus());
 				inst.setMenuIds(this.getMenuIds());

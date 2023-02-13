@@ -15,8 +15,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
+import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
@@ -90,7 +92,6 @@ public class ConfigController extends SuperController implements ApplicationList
                 configVO.setCode(parent.getCode() + ".C" + System.currentTimeMillis());
             }
         }
-
 
         Result result = configService.insert(configVO, false);
         return result;

@@ -17,6 +17,7 @@ import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.relation.cache.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.starter.BootArgs;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.expr.SQLTpl;
@@ -39,6 +40,7 @@ import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -328,11 +330,13 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 		return nodes;
 	}
 
+	@Value("${foxnic.config.module-authorities.apply-menu-tree}")
+	private Boolean ctrlAuthForMenuTree=null;
+
 	private List<ZTreeNode> toZTreeNodeList(RcdSet menus) {
 		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
-		YesNo ctrl= SystemConfigProxyUtil.getEnum(SystemConfigEnum.MODULES_MENU_CTROL_FOR_MENU,YesNo.class);
 		for (Rcd m : menus) {
-			if(ctrl!=null && ctrl==YesNo.yes) {
+			if(ctrlAuthForMenuTree!=null && ctrlAuthForMenuTree==true) {
 				Menu menu = this.catchedMenus.get(m.getString(SYS_MENU.ID));
 				if (menu!=null && !menu.isInModuleRange()) {
 					continue;
@@ -520,7 +524,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 //						menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
 //						menu.setHierarchy(null);
 //					}
-
+					if(BootArgs.isBootInIDE()) {
+						Logger.info("cancel module authority in develop environment, and include all modules");
+					}
 					// 并行处理
 					all.parallelStream().forEach(menu -> {
 						List<String> ids = CollectorUtil.collectList(menu.getResources(), Resourze::getId);
@@ -529,7 +535,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 							menu.setPathResource(resourzeService.queryCachedResourzes(Arrays.asList(menu.getPathResource().getId())).get(0));
 						}
 						// 打标记
-						menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
+						if(BootArgs.isBootInIDE()) {
+							menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
+						}
 						menu.setHierarchy(null);
 					});
 

@@ -59,6 +59,8 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
         view.field(SYS_DICT_ITEM.LABEL)
                 .form().validate().required()
                 .search().fuzzySearch();
+
+        view.field(SYS_DICT_ITEM.NOTES).search().hidden().form().textArea().height(50);
     }
 
     @Override

@@ -26,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色
  * <p>角色 , 数据表 sys_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-30 13:48:15
- * @sign 01CAB3CFE5B7174249963D38831FB368
+ * @since 2023-02-13 11:28:38
+ * @sign 21D6FE9F055B7A879D15B7AD09C32F31
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -114,6 +114,12 @@ public class Role extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
+	
+	/**
+	 * 类型：类型
+	*/
+	@ApiModelProperty(required = false,value="类型" , notes = "类型")
+	private String type;
 	
 	/**
 	 * 授权的账户清单：授权的账户清单
@@ -393,6 +399,25 @@ public class Role extends Entity {
 	}
 	
 	/**
+	 * 获得 类型<br>
+	 * 类型
+	 * @return 类型
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 设置 类型
+	 * @param type 类型
+	 * @return 当前对象
+	*/
+	public Role setType(String type) {
+		this.type=type;
+		return this;
+	}
+	
+	/**
 	 * 获得 授权的账户清单<br>
 	 * 授权的账户清单
 	 * @return 授权的账户清单
@@ -525,18 +550,19 @@ public class Role extends Entity {
 	@Transient
 	public Role duplicate(boolean all) {
 		org.github.foxnic.web.domain.oauth.meta.RoleMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.RoleMeta.$$proxy$$();
-		inst.setCreateBy(this.getCreateBy());
 		inst.setCode(this.getCode());
-		inst.setDeleted(this.getDeleted());
 		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setName(this.getName());
 		inst.setDeleteBy(this.getDeleteBy());
-		inst.setUpdateTime(this.getUpdateTime());
 		inst.setId(this.getId());
-		inst.setVersion(this.getVersion());
 		if(all) {
 			inst.setMenus(this.getMenus());
 			inst.setMenuIds(this.getMenuIds());
@@ -600,34 +626,36 @@ public class Role extends Entity {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, map.get(RoleMeta.CODE)));
-			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMeta.DELETED)));
 			this.setNotes(DataParser.parse(String.class, map.get(RoleMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(RoleMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(RoleMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(RoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(RoleMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, map.get(RoleMeta.NAME)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(RoleMeta.DELETE_BY)));
-			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, map.get(RoleMeta.ID)));
-			this.setVersion(DataParser.parse(Integer.class, map.get(RoleMeta.VERSION)));
 			// others
 			return true;
 		} else {
 			try {
-				this.setCreateBy( (String)map.get(RoleMeta.CREATE_BY));
 				this.setCode( (String)map.get(RoleMeta.CODE));
-				this.setDeleted( (Integer)map.get(RoleMeta.DELETED));
 				this.setNotes( (String)map.get(RoleMeta.NOTES));
+				this.setUpdateTime( (Date)map.get(RoleMeta.UPDATE_TIME));
+				this.setType( (String)map.get(RoleMeta.TYPE));
+				this.setVersion( (Integer)map.get(RoleMeta.VERSION));
+				this.setCreateBy( (String)map.get(RoleMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(RoleMeta.DELETED));
 				this.setCreateTime( (Date)map.get(RoleMeta.CREATE_TIME));
 				this.setUpdateBy( (String)map.get(RoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(RoleMeta.DELETE_TIME));
 				this.setName( (String)map.get(RoleMeta.NAME));
 				this.setDeleteBy( (String)map.get(RoleMeta.DELETE_BY));
-				this.setUpdateTime( (Date)map.get(RoleMeta.UPDATE_TIME));
 				this.setId( (String)map.get(RoleMeta.ID));
-				this.setVersion( (Integer)map.get(RoleMeta.VERSION));
 				// others
 				return true;
 			} catch (Exception e) {
@@ -645,33 +673,35 @@ public class Role extends Entity {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMeta.CREATE_BY)));
 			this.setCode(DataParser.parse(String.class, r.getValue(RoleMeta.CODE)));
-			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMeta.DELETED)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(RoleMeta.NOTES)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.UPDATE_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(RoleMeta.TYPE)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.CREATE_TIME)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(RoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(RoleMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, r.getValue(RoleMeta.NAME)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(RoleMeta.DELETE_BY)));
-			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.UPDATE_TIME)));
 			this.setId(DataParser.parse(String.class, r.getValue(RoleMeta.ID)));
-			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleMeta.VERSION)));
 			return true;
 		} else {
 			try {
-				this.setCreateBy( (String)r.getValue(RoleMeta.CREATE_BY));
 				this.setCode( (String)r.getValue(RoleMeta.CODE));
-				this.setDeleted( (Integer)r.getValue(RoleMeta.DELETED));
 				this.setNotes( (String)r.getValue(RoleMeta.NOTES));
+				this.setUpdateTime( (Date)r.getValue(RoleMeta.UPDATE_TIME));
+				this.setType( (String)r.getValue(RoleMeta.TYPE));
+				this.setVersion( (Integer)r.getValue(RoleMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(RoleMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(RoleMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(RoleMeta.CREATE_TIME));
 				this.setUpdateBy( (String)r.getValue(RoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(RoleMeta.DELETE_TIME));
 				this.setName( (String)r.getValue(RoleMeta.NAME));
 				this.setDeleteBy( (String)r.getValue(RoleMeta.DELETE_BY));
-				this.setUpdateTime( (Date)r.getValue(RoleMeta.UPDATE_TIME));
 				this.setId( (String)r.getValue(RoleMeta.ID));
-				this.setVersion( (Integer)r.getValue(RoleMeta.VERSION));
 				return true;
 			} catch (Exception e) {
 				return false;

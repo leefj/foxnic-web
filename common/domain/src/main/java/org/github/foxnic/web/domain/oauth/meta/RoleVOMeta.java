@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-30 13:48:15
- * @sign 3727294F2857448DC1DA061AA0060988
+ * @since 2023-02-13 11:28:38
+ * @sign AC44C87602CF3F86BD80193902E6C35C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -101,14 +101,14 @@ public class RoleVOMeta extends RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 数据来源 , 前端指定不同的来源，后端按来源执行不同的逻辑 , 类型: java.lang.String
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
 	*/
 	public static final String DATA_ORIGIN="dataOrigin";
 	
 	/**
-	 * 数据来源 , 前端指定不同的来源，后端按来源执行不同的逻辑 , 类型: java.lang.String
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端按来源执行不同的逻辑", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端可按来源执行不同的逻辑", java.lang.String.class, null);
 	
 	/**
 	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
@@ -119,6 +119,16 @@ public class RoleVOMeta extends RoleMeta {
 	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> QUERY_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,QUERY_LOGIC, java.lang.String.class, "查询逻辑", "默认and，可指定 or ", java.lang.String.class, null);
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String REQUEST_ACTION="requestAction";
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> REQUEST_ACTION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,REQUEST_ACTION, java.lang.String.class, "请求动作", "前端指定不同的Action，后端可Action执行不同的逻辑", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -251,6 +261,16 @@ public class RoleVOMeta extends RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
+	
+	/**
 	 * 授权的账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String USERS="users";
@@ -283,7 +303,7 @@ public class RoleVOMeta extends RoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , IDS , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , USERS , MENUS , MENU_IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , USERS , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -400,6 +420,17 @@ public class RoleVOMeta extends RoleMeta {
 		public RoleVO setQueryLogic(String queryLogic) {
 			super.change(QUERY_LOGIC,super.getQueryLogic(),queryLogic);
 			super.setQueryLogic(queryLogic);
+			return this;
+		}
+		
+		/**
+		 * 设置 请求动作
+		 * @param requestAction 请求动作
+		 * @return 当前对象
+		*/
+		public RoleVO setRequestAction(String requestAction) {
+			super.change(REQUEST_ACTION,super.getRequestAction(),requestAction);
+			super.setRequestAction(requestAction);
 			return this;
 		}
 		
@@ -547,6 +578,17 @@ public class RoleVOMeta extends RoleMeta {
 		}
 		
 		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public Role setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
+			return this;
+		}
+		
+		/**
 		 * 设置 授权的账户清单
 		 * @param users 授权的账户清单
 		 * @return 当前对象
@@ -594,20 +636,22 @@ public class RoleVOMeta extends RoleMeta {
 		@Transient
 		public RoleVO duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
-			inst.setCreateBy(this.getCreateBy());
 			inst.setCode(this.getCode());
-			inst.setDeleted(this.getDeleted());
 			inst.setNotes(this.getNotes());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setType(this.getType());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setName(this.getName());
 			inst.setDeleteBy(this.getDeleteBy());
-			inst.setUpdateTime(this.getUpdateTime());
 			inst.setId(this.getId());
-			inst.setVersion(this.getVersion());
 			if(all) {
 				inst.setSearchField(this.getSearchField());
+				inst.setRequestAction(this.getRequestAction());
 				inst.setFuzzyField(this.getFuzzyField());
 				inst.setPageSize(this.getPageSize());
 				inst.setUsers(this.getUsers());

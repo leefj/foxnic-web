@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-08 13:58:44
+ * @since 2023-02-13 11:26:15
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -128,6 +128,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 政治面貌
 	*/
 	HR_POLITIC_COUNTENANCE("hr_politic_countenance" , "政治面貌"),
+	
+	/**
+	 * 角色分类
+	*/
+	ROLE_TYPE("role_type" , "角色分类"),
 	
 	/**
 	 * 系统配置分类

@@ -24,7 +24,7 @@ import java.util.Map;
  * 数据字典条目服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 09:47:41
+ * @since 2023-02-13 11:25:11
 */
 
 public interface IDictItemService extends  ISimpleIdService<DictItem,String> {

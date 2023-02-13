@@ -11,22 +11,27 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum HrMaritalStatus  implements CodeTextEnum {
+public enum RoleType  implements CodeTextEnum {
 	
 	/**
-	 * 已婚
+	 * 基础
 	*/
-	MARRIED("married" , "已婚"),
+	BASIC("basic" , "基础"),
 	
 	/**
-	 * 未婚
+	 * 查询
 	*/
-	UNMARRIED("unmarried" , "未婚"),
+	QUERY("query" , "查询"),
+	
+	/**
+	 * 管理
+	*/
+	ADMIN("admin" , "管理"),
 	;
 	
 	private String code;
 	private String text;
-	private HrMaritalStatus(String code,String text)  {
+	private RoleType(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -42,7 +47,7 @@ public enum HrMaritalStatus  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static HrMaritalStatus parseByCode(String code) {
-		return (HrMaritalStatus) EnumUtil.parseByCode(HrMaritalStatus.values(),code);
+	public static RoleType parseByCode(String code) {
+		return (RoleType) EnumUtil.parseByCode(RoleType.values(),code);
 	}
 }

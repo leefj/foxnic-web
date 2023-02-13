@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:51
- * @sign 1EFDF7AA422B528ADC305CEDBFC401C0
+ * @since 2023-02-13 11:12:55
+ * @sign B318D4A84388296EC62264E3EB9E39B9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -177,9 +177,19 @@ public class DictItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItem,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItem.class ,VALID, java.lang.Integer.class, "有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItem,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItem.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID };
+	public static final String[] $PROPS={ ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID , NOTES };
 	
 	/**
 	 * 代理类
@@ -364,6 +374,17 @@ public class DictItemMeta {
 			super.setValid(valid);
 			return this;
 		}
+		
+		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public DictItem setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -381,6 +402,7 @@ public class DictItemMeta {
 		public DictItem duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setDictId(this.getDictId());
 			inst.setLabel(this.getLabel());

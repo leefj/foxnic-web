@@ -6,6 +6,7 @@ import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.web.Forbidden;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -20,8 +21,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
+import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.RoleVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -65,7 +68,8 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
-		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
     @ApiOperationSupport(order = 1, includeParameters = { RoleVOMeta.CODE, RoleVOMeta.NAME, RoleVOMeta.MENU_IDS })
@@ -87,10 +91,10 @@ public class RoleController extends SuperController {
     @SentinelResource(value = RoleServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.DELETE)
     public Result deleteById(String id) {
-        ReferCause cause =roleService.hasRefers(id);
+        ReferCause cause = roleService.hasRefers(id);
         // 判断是否可以删除
-        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前角色："+cause.message(),false);
-        if(this.validator().failure()) {
+        this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前角色：" + cause.message(), false);
+        if (this.validator().failure()) {
             return this.validator().getFirstResult().messageLevel4Confirm();
         }
         return roleService.deleteByIdLogical(id);
@@ -120,7 +124,8 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
-		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE, RoleVOMeta.SEARCH_FIELD, RoleVOMeta.SEARCH_VALUE, RoleVOMeta.SORT_FIELD, RoleVOMeta.SORT_TYPE, RoleVOMeta.IDS })
     @SentinelResource(value = RoleServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -139,7 +144,8 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
-		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE, RoleVOMeta.SEARCH_FIELD, RoleVOMeta.SEARCH_VALUE, RoleVOMeta.SORT_FIELD, RoleVOMeta.SORT_TYPE, RoleVOMeta.IDS })
     @SentinelResource(value = RoleServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -163,6 +169,9 @@ public class RoleController extends SuperController {
     public Result<Role> getById(String id) {
         Result<Role> result = new Result<>();
         Role role = roleService.getById(id);
+        roleService.join(role, RoleMeta.MENUS);
+        role.setMenuIds(CollectorUtil.collectList(role.getMenus(), Menu::getId));
+        role.setMenus(null);
         result.success(true).data(role);
         return result;
     }
@@ -193,7 +202,8 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
-		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE })
     @SentinelResource(value = RoleServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -213,7 +223,8 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
-		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = RoleServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)

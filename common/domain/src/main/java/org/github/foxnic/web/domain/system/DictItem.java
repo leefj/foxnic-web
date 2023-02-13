@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 数据字典条目
  * <p>数据字典条目 , 数据表 sys_dict_item 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:51
- * @sign 1EFDF7AA422B528ADC305CEDBFC401C0
+ * @since 2023-02-13 11:12:55
+ * @sign B318D4A84388296EC62264E3EB9E39B9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -88,7 +88,7 @@ public class DictItem extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-02-12 12:24:25")
 	private Date createTime;
 	
 	/**
@@ -135,6 +135,12 @@ public class DictItem extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="有效" , notes = "是否有效" , example = "1")
 	private Integer valid;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 获得 ID<br>
@@ -470,6 +476,25 @@ public class DictItem extends Entity {
 		this.valid=valid;
 		return this;
 	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public DictItem setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -516,6 +541,7 @@ public class DictItem extends Entity {
 	public DictItem duplicate(boolean all) {
 		org.github.foxnic.web.domain.system.meta.DictItemMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.DictItemMeta.$$proxy$$();
 		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setDictId(this.getDictId());
 		inst.setLabel(this.getLabel());
@@ -590,6 +616,7 @@ public class DictItem extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(DictItemMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(DictItemMeta.NOTES)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(DictItemMeta.UPDATE_TIME)));
 			this.setDictId(DataParser.parse(String.class, map.get(DictItemMeta.DICT_ID)));
 			this.setLabel(DataParser.parse(String.class, map.get(DictItemMeta.LABEL)));
@@ -610,6 +637,7 @@ public class DictItem extends Entity {
 		} else {
 			try {
 				this.setCode( (String)map.get(DictItemMeta.CODE));
+				this.setNotes( (String)map.get(DictItemMeta.NOTES));
 				this.setUpdateTime( (Date)map.get(DictItemMeta.UPDATE_TIME));
 				this.setDictId( (String)map.get(DictItemMeta.DICT_ID));
 				this.setLabel( (String)map.get(DictItemMeta.LABEL));
@@ -643,6 +671,7 @@ public class DictItem extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(DictItemMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(DictItemMeta.NOTES)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(DictItemMeta.UPDATE_TIME)));
 			this.setDictId(DataParser.parse(String.class, r.getValue(DictItemMeta.DICT_ID)));
 			this.setLabel(DataParser.parse(String.class, r.getValue(DictItemMeta.LABEL)));
@@ -662,6 +691,7 @@ public class DictItem extends Entity {
 		} else {
 			try {
 				this.setCode( (String)r.getValue(DictItemMeta.CODE));
+				this.setNotes( (String)r.getValue(DictItemMeta.NOTES));
 				this.setUpdateTime( (Date)r.getValue(DictItemMeta.UPDATE_TIME));
 				this.setDictId( (String)r.getValue(DictItemMeta.DICT_ID));
 				this.setLabel( (String)r.getValue(DictItemMeta.LABEL));

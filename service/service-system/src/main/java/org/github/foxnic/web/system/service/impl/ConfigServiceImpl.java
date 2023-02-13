@@ -27,13 +27,16 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
+import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import org.github.foxnic.web.domain.system.Profile;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.IProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,12 +214,13 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 			}
 		}
 
+		// 可编辑性校验
 		Config configDB=this.getById(config.getId());
 		if(configDB.getCode().equals(IConfigService.TOP_CODE)) {
 			return ErrorDesc.failure().message("保存失败，当前节点不与许编辑。").messageLevel4Confirm().code(CommonError.PARAM_INVALID);
 		}
 
-
+		// code 规则校验
 		if(!config.getCode().equals(configDB.getCode())) {
 			int count = this.dao().queryInteger("select count(1) from " + table() + " where parent_id=? and deleted=0", config.getId());
 			if (count > 0) {
@@ -229,7 +233,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		if(!IConfigService.TOP_CODE.equals(parent.getCode()) && !config.getCode().startsWith(parent.getCode())) {
 			return ErrorDesc.failure().message("保存失败，配置键格式错误，需要以上级节点配置键开头。").messageLevel4Confirm();
 		}
-		String localKey=localKey=config.getCode();
+		String localKey=config.getCode();
 		if(!IConfigService.TOP_CODE.equals(parent.getCode())) {
 			localKey=config.getCode().substring(parent.getCode().length());
 		}
@@ -252,15 +256,34 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 			return ErrorDesc.failure().message("保存失败，配置键 "+localKey+" 格式错误，不允许以数字开头。").messageLevel4Confirm();
 		}
 
+		SystemConfigType type=SystemConfigType.parseByCode(config.getType());
+
+		// 设置默认值
+		if(StringUtil.isBlank(config.getTypeDesc())) {
+			if (type==SystemConfigType.ENUM) {
+				config.setTypeDesc(YesNo.class.getName());
+			}
+			if (type==SystemConfigType.DICT) {
+				config.setTypeDesc(DictEnum.SEX.code());
+			}
+		}
 
 		if(!StringUtil.isBlank(config.getTypeDesc())) {
-			Class type= ReflectUtil.forName(config.getTypeDesc());
-			if(type==null) {
-				return ErrorDesc.failure().message("保存失败，类型描述错误，类型未定义。").messageLevel4Confirm();
+			if(type==SystemConfigType.ENUM) {
+				Class typeDesc = ReflectUtil.forName(config.getTypeDesc());
+				if (typeDesc == null) {
+					return ErrorDesc.failure().message("保存失败，类型描述错误，类型未定义。").messageLevel4Confirm();
+				}
+				if (!ReflectUtil.isSubType(CodeTextEnum.class, typeDesc)) {
+					return ErrorDesc.failure().message("保存失败，类型描述错误，当前类型不是 CodeTextEnum 类型。").messageLevel4Confirm();
+				}
+			} else if(type==SystemConfigType.DICT) {
+				List list=DictProxyUtil.getList(config.getTypeDesc());
+				if(list==null || list.isEmpty()) {
+					return ErrorDesc.failure().message("保存失败，字典代码 " +config.getTypeDesc()+" 不存在。").messageLevel4Confirm();
+				}
 			}
-			if(!ReflectUtil.isSubType(CodeTextEnum.class,type)) {
-				return ErrorDesc.failure().message("保存失败，类型描述错误，当前类型不是 CodeTextEnum 类型。").messageLevel4Confirm();
-			}
+
 		}
 		Result r=super.update(config , mode , throwsException);
 		return r.data(config);

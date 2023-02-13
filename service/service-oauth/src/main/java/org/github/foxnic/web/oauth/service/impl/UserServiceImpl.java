@@ -377,15 +377,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		}
 	}
 
+	@Value("${foxnic.config.module-authorities.apply-index-page}")
+	private Boolean ctrlAuthForIndexPage=null;
+
 	public List<Menu> makeUserMenus(User user, boolean gerDyMenu) {
 
-		Boolean inRange=null;
-		YesNo ctrl= SystemConfigProxyUtil.getEnum(SystemConfigEnum.MODULES_MENU_CTROL_FOR_INDEX,YesNo.class);
-		if(ctrl!=null && ctrl==YesNo.yes) {
-			inRange=true;
-		}
-
-		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds(),inRange);
+		List<Menu> menus =menuService.queryCachedMenus(user.getMenuIds(),ctrlAuthForIndexPage);
 
 		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();

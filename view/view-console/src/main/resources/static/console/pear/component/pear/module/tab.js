@@ -30,20 +30,21 @@ layui.define(['jquery', 'element'], function(exports) {
 			success: opt.success ? opt.success : function(id) {}
 		}
 
-		if (option.session) {
-			if (sessionStorage.getItem(option.elem + "-pear-tab-data") != null) {
-				tabData = JSON.parse(sessionStorage.getItem(option.elem + "-pear-tab-data"));
-				option.data = JSON.parse(sessionStorage.getItem(option.elem + "-pear-tab-data"));
-				tabDataCurrent = sessionStorage.getItem(option.elem + "-pear-tab-data-current");
-				tabData.forEach(function(item, index) {
-					if (item.id == tabDataCurrent) {
-						option.index = index;
-					}
-				})
-			} else {
-				tabData = opt.data;
-			}
-		}
+		// 不打开上次打开的 tab 页
+		// if (option.session) {
+		// 	if (sessionStorage.getItem(option.elem + "-pear-tab-data") != null) {
+		// 		tabData = JSON.parse(sessionStorage.getItem(option.elem + "-pear-tab-data"));
+		// 		option.data = JSON.parse(sessionStorage.getItem(option.elem + "-pear-tab-data"));
+		// 		tabDataCurrent = sessionStorage.getItem(option.elem + "-pear-tab-data-current");
+		// 		tabData.forEach(function(item, index) {
+		// 			if (item.id == tabDataCurrent) {
+		// 				option.index = index;
+		// 			}
+		// 		})
+		// 	} else {
+		// 		tabData = opt.data;
+		// 	}
+		// }
 
 		var lastIndex;
 		var tab = createTab(option);

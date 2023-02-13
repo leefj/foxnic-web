@@ -65,6 +65,33 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 type 下拉字段
+		fox.renderSelectBox({
+			el: "type",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					// window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				// if(action=="create") {
+				// 	defaultValues = "".split(",");
+				// 	defaultIndexs = "".split(",");
+				// }
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
+
 	}
 
 	/**
@@ -106,6 +133,19 @@ function FormPage() {
             },100);
         },1);
 
+		function roleMenuDialogCallback(menuIds) {
+			$("#menu-button").text(fox.translate("已选择" + menuIds.length + "个权限项"))
+		}
+
+		if(formData.menuIds && formData.menuIds.length>0) {
+			roleMenuDialogCallback(formData.menuIds);
+		}
+
+		//设置  类型 设置下拉框勾选
+		fox.setSelectValue4Dict("#type",formData.type,SELECT_TYPE_DATA);
+
+		admin.putVar("roleMenuDialogCallback",roleMenuDialogCallback);
+
 	}
 
 	/**
@@ -118,12 +158,15 @@ function FormPage() {
 			data.field = form.val("data-form");
 
 			var menuIds=admin.getVar("selected-role-menu-ids");
-			if(menuIds) {
+			if(menuIds && menuIds.length>0) {
 				$("#menuIds").val(menuIds.join(","));
 				data.field.menuIds = menuIds.join(",");
 			} else {
-				data.field.menuIds=[];
+				data.field.menuIds= ["$not_changed"] ;
 			}
+
+			//获取 类型 下拉框的值
+			data.field["type"]=fox.getSelectedValue("type",false);
 
 			//校验表单
 			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;

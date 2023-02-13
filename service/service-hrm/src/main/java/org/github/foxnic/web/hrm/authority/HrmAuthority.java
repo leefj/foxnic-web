@@ -12,14 +12,15 @@ public class HrmAuthority extends ModuleAuthority {
     @Override
     public String[] getAuthorities() {
         return new String[] {
+                "hrm",
                 // 组织管理
-                "hrm_organization:mngr",
+                // "hrm_organization:mngr",
                 // 员工管理
-                "hrm_employee:mngr",
+                // "hrm_employee:mngr",
                 // 岗位管理
-                "hrm_position:mngr",
+                // "hrm_position:mngr",
                 // 人员管理
-                "hrm_person:mngr"
+                // "hrm_person:mngr"
         };
     }
 }

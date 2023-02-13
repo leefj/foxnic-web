@@ -6,23 +6,13 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-08 13:58:44
+ * @since 2023-02-13 11:26:14
  * @author 李方捷 , leefangjie@qq.com
- * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
+ * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and (code like 'system.%' or code like 'modules%') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
 public enum SystemConfigEnum implements CodeTextEnum {
-	
-	/**
-	 * 状态
-	*/
-	DEMO_STATUS("demo.status" , "状态"),
-	
-	/**
-	 * 名称
-	*/
-	DEMO_NAME("demo.name" , "名称"),
 	
 	/**
 	 * default
@@ -65,19 +55,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_PAGE_PROFILEPAGECONTROLLER_IMPL_USER_ADMIN_FORM("modules.org.github.foxnic.web.system.page.ProfilePageController.impl.user.admin.form" , "form"),
 	
 	/**
-	 * 首页按模块控制菜单
+	 * default
 	*/
-	MODULES_MENU_CTROL_FOR_INDEX("modules.menu.ctrol_for_index" , "首页按模块控制菜单"),
-	
-	/**
-	 * 菜单管理按模块控制菜单
-	*/
-	MODULES_MENU_CTROL_FOR_MENU("modules.menu.ctrol_for_menu" , "菜单管理按模块控制菜单"),
-	
-	/**
-	 * 角色管理按模块控制菜单
-	*/
-	MODULES_MENU_CTROL_FOR_ROLE("modules.menu.ctrol_for_role" , "角色管理按模块控制菜单"),
+	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IDICTSERVICE_IMPL_DEFAULT("modules.org.github.foxnic.web.system.service.IDictService.impl.default" , "default"),
 	
 	/**
 	 * 缓存键
@@ -218,21 +198,6 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 版本类型
 	*/
 	SYSTEM_VERSION_TYPE("system.version.type" , "版本类型"),
-	
-	/**
-	 * WebFull名称
-	*/
-	WEBFULL_NAME("webfull.name" , "WebFull名称"),
-	
-	/**
-	 * WebFull名称XX
-	*/
-	WEBFULL_NAME_XX("webfull.name.xx" , "WebFull名称XX"),
-	
-	/**
-	 * WebFull名称YY
-	*/
-	WEBFULL_NAME_YY("webfull.name.yy" , "WebFull名称YY"),
 	;
 	
 	private String code;
