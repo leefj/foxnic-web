@@ -418,17 +418,31 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         setSelectValue4Dict:function (id,value,data){
             if(!value) return;
+
             var me=this;
             function setV() {
                 var inst=xmSelect.get(id,true);
                 if(inst==null) return;
                 var opts=[];
                 if(!Array.isArray(value)){
-                    try{
-                        value=JSON.parse(value);
-                    }catch (e){
-                        value=value.split(",");
+                    if(TypeUtil.isString(value)) {
+                        value = value.trim();
+                        if( (value.startWith("[") && value.endsWith("]")) ||  (value.startWith("{") && value.endsWith("}")) ) {
+                            try{
+                                value=JSON.parse(value);
+                            }catch (e){
+                                value=value.split(",");
+                            }
+                        } else {
+                            value=value.split(",");
+                        }
+                    } else if(TypeUtil.isNumber(value)) {
+                        value=[value];
                     }
+                    else {
+                        throw new Error("类型不支持")
+                    }
+
                 }
                 var opts=[];
                 for (var i = 0; i < value.length; i++) {

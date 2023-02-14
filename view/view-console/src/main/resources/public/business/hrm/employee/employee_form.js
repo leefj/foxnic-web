@@ -7,7 +7,7 @@
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
-	
+
 	const moduleURL="/service-hrm/hrm-employee";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
@@ -203,7 +203,7 @@ function FormPage() {
 
 
 
-
+			debugger
 			//设置  类型 设置下拉框勾选
 			fox.setSelectValue4Dict("#type",formData.type,SELECT_TYPE_DATA);
 
