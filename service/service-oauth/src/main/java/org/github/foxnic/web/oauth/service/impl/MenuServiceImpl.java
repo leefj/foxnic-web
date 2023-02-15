@@ -536,6 +536,8 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 						}
 						// 打标记
 						if(BootArgs.isBootInIDE()) {
+							menu.setInModuleRange(true);
+						} else {
 							menu.setInModuleRange(authorityMenuManager.isInModuleRange(menu));
 						}
 						menu.setHierarchy(null);
