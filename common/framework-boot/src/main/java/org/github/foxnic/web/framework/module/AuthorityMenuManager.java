@@ -12,6 +12,7 @@ import com.github.foxnic.sql.expr.In;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.util.*;
 
@@ -47,8 +48,9 @@ public class AuthorityMenuManager {
         return false;
     }
 
+    @PostConstruct
     private  synchronized void initDataIf() {
-         if (authorityMenuMap != null) return;
+        if (authorityMenuMap != null) return;
         Set<String> mavenAuthorities = new HashSet<>();
         List<ModuleAuthority> beans = SpringUtil.getBeans(ModuleAuthority.class);
         for (ModuleAuthority bean : beans) {

@@ -16,7 +16,7 @@ public class SystemAuthority extends ModuleAuthority {
                 // 系统管理->系统运维
                 "system_ops",
                 // 系统管理->开发工具
-                "develop_tool",
+                "docs",
                 // 系统管理->公共资源
                 "public_resource"
         };
