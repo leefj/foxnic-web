@@ -10,13 +10,18 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import com.github.foxnic.sql.meta.DBType;
+import org.github.foxnic.web.bpm.page.DemoBusinessCasePageController;
+import org.github.foxnic.web.bpm.page.DemoLeavePageController;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.docs.page.ApiSourcePageController;
+import org.github.foxnic.web.domain.bpm.DemoBusinessCase;
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.oauth.page.MenuForkPageController;
+import org.github.foxnic.web.proxy.bpm.DemoBusinessCaseServiceProxy;
+import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
 import org.github.foxnic.web.proxy.oauth.MenuForkServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +41,11 @@ public class MenuGenerator {
 	 * 超级管理员角色ID
 	 * */
 	public static final String SUPER_ADMIN_ROLE_ID="110352963290923110";
+
+	/**
+	 * 流程测试角色
+	 * */
+//	public static final String SUPER_ADMIN_ROLE_ID="631081950060216320";
 
 	public static void main(String[] args) {
 
@@ -57,9 +67,9 @@ public class MenuGenerator {
 //		mg.generate("583014848745439232");
 //		mg.removeByBatchId("620270722337472512");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_MENU_FORK.$TABLE, MenuForkServiceProxy.class, MenuForkPageController.class);
-		mg.generate("463399148318621696");
-
+//		mg=new MenuGenerator(FoxnicWeb.SYS_MENU_FORK.$TABLE, MenuForkServiceProxy.class, MenuForkPageController.class);
+//		mg.generate("578536637818994688");
+//		mg.removeByBatchId("680087208782200832");
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
 //		mg.generate("555766790999773184");
@@ -93,9 +103,9 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.BPM_FORM_DEFINITION.$TABLE, FormDefinitionServiceProxy.class, FormDefinitionPageController.class);
 //		mg.generate("555766790999773184");
 
-//		mg=new MenuGenerator(FoxnicWeb.BPM_DEMO_LEAVE.$TABLE, DemoLeaveServiceProxy.class, DemoLeavePageController.class);
-//		mg.generate("495201409763901440");
-
+		mg=new MenuGenerator(FoxnicWeb.BPM_DEMO_BUSINESS_CASE.$TABLE, DemoBusinessCaseServiceProxy.class, DemoBusinessCasePageController.class);
+		mg.generate("578536637818994688");
+//		mg.removeByBatchId("680087823839133696");
 //		mg = new MenuGenerator(FoxnicWeb.BPM_DEMO_COMMON.$TABLE, DemoCommonServiceProxy.class, DemoCommonPageController.class);
 //		mg.generate("495201409763901440");
 

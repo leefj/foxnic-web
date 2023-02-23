@@ -197,7 +197,7 @@ foxnic:
     enable: true
     debug:
       enable: true
-      process-definition-code-list: foxnic-leave,p-expense-all,a-expense-all,a-expense-any,p-expense-any,fetchback-jump,draft-test
+      process-definition-code-list: foxnic-leave,p-expense-all,a-expense-all,a-expense-any,p-expense-any,fetchback-jump,draft-test,demo-busi-case
   # 设置 Join 的二级缓存
   cache:
     # 默认配置

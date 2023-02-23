@@ -7,13 +7,49 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-02-13 11:16:22
+ * @since 2023-02-20 17:00:07
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public class FoxnicWeb {
+	
+	/**
+	 * 商务来案
+	*/
+	public static class BPM_DEMO_BUSINESS_CASE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_demo_business_case";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 案件情况
+		*/
+		public static final DBField FACT_NOTE = new DBField(DBDataType.STRING , "fact_note","factNote","案件情况","案件情况",false,false,true);
+		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 已交底
+		*/
+		public static final DBField IS_GOT_BASE = new DBField(DBDataType.INTEGER , "is_got_base","isGotBase","已交底","已交底",false,false,true);
+		
+		public BPM_DEMO_BUSINESS_CASE() {
+			this.init($NAME,"商务来案" , ID , FACT_NOTE , STATUS , IS_GOT_BASE);
+		}
+		public static final BPM_DEMO_BUSINESS_CASE $TABLE=new BPM_DEMO_BUSINESS_CASE();
+	}
 	
 	/**
 	 * 通用审批表单

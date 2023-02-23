@@ -78,6 +78,9 @@ public class AuthorityMenuManager {
         moduleAuthInfo.ln("applied module authorities : "+StringUtil.join(mavenAuthorities));
 
         Logger.info("\n"+moduleAuthInfo.toString());
+
+        if(mavenAuthorities.isEmpty()) return;
+
         //
         DAO dao = SpringUtil.getBean(DAO.class);
         In in = new In("authority", mavenAuthorities);

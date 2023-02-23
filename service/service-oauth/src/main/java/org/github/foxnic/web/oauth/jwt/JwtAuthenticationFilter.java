@@ -173,6 +173,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if(StringUtils.hasText(clusterToken)) {
                     ClusterToken token=ClusterToken.fromToken(clusterToken);
                     authenticationClusterTokenHandler(token, chain, request,response);
+                    chain.doFilter(request, response);
+                    return;
                 } else {
                     authenticationEntryPoint.commence(request, response, new AuthenticationCredentialsNotFoundException("调用时带 cluster_key 但缺少 cluster_token"));
                 }
