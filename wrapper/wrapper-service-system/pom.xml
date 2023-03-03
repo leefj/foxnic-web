@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.foxnicweb.web</groupId>
         <artifactId>parent</artifactId>
-        <version>1.7.0.RELEASE</version>
-        <relativePath>../../pom.xml</relativePath>
-        <!-- lookup parent from repository -->
+        <version>1.8.0.RELEASE</version>
+        <relativePath>../../pom.xml</relativePath>  <!-- lookup parent from repository -->
     </parent>
     <artifactId>wrapper-service-system</artifactId>
     <name>wrapper-service-system</name>
@@ -25,8 +24,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <!-- 移除掉默认支持的 Tomcat -->
+            <artifactId>spring-boot-starter-web</artifactId>  <!-- 移除掉默认支持的 Tomcat -->
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -41,8 +39,7 @@
                     <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <!-- 添加 Undertow 容器 -->
+        </dependency>  <!-- 添加 Undertow 容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
@@ -99,8 +96,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <includeScope>runtime</includeScope>
-                            <!--依赖传递 -->
+                            <includeScope>runtime</includeScope>  <!--依赖传递 -->
                             <excludeTransitive>false</excludeTransitive>
                         </configuration>
                     </execution>
