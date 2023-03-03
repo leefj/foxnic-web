@@ -603,8 +603,17 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					// p.type=0;
 					p.url="javascript:;";
 
-
 				}
+
+				// 去除没有子菜单的下级菜单
+				var tmp=[];
+				for (var i = 0; i < topMenus.length; i++) {
+					if(topMenus[i].children && topMenus[i].children.length>0) {
+						tmp.push(topMenus[i]);
+					}
+				}
+				topMenus=tmp;
+
 
 				function setParentLevel(menu,pages) {
 					var p=map[menu.parentId];
