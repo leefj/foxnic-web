@@ -375,7 +375,8 @@ function FormPage() {
 				}
 				top.layer.msg("菜单配置已保存", {icon: 1, time: 500});
 			} else {
-				top.layer.msg(data.message, {icon: 2, time: 500});
+				// top.layer.msg(data.message, {icon: 2, time: 500});
+				fox.showMessage(data);
 			}
 		}, "POST");
 	}

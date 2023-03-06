@@ -176,6 +176,9 @@ function ListPage() {
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
 			//debugger;
+			if(childNodes[i].type=="subsys") {
+				childNodes[i].iconSkin="icon_menu_subsys";
+			}
 			if(childNodes[i].type=="folder") {
 				childNodes[i].iconSkin="icon_menu_folder";
 			}

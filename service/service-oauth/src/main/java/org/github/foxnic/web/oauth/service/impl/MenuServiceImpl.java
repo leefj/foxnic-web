@@ -26,6 +26,7 @@ import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
@@ -186,6 +187,14 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 	@Override
 	@Transactional
 	public Result update(Menu menu , SaveMode mode) {
+
+		Menu menuInDB=this.getById(menu.getId());
+		if(!IMenuService.ROOT_ID.equals(menuInDB.getParentId())) {
+			if(MenuType.subsys.equals(menu.getTypeEnum())) {
+				return ErrorDesc.failure().message("当前节点不允许设置为"+MenuType.subsys.name()).messageLevel4Confirm();
+			}
+		}
+
 		Result r=super.update(menu , mode);
 		if(r.success()) {
 			menuResourceService.saveResourceIds(menu);
