@@ -258,7 +258,7 @@ public class JobWorkerServiceImpl extends SuperService<JobWorker> implements IJo
 
 	@Override
 	public void invalidAll() {
-		dao().execute("update sys_job_worker set valid=0");
+		dao().execute("update sys_job_worker set valid=0 where 1=1");
 	}
 
 	@Override

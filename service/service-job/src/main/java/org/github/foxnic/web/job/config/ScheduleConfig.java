@@ -122,8 +122,22 @@ public class ScheduleConfig
                 SimpleTaskManager.doParallelTask(new Runnable() {
                     @Override
                     public void run() {
-                        saveWorkers();
-                        statJobs(factory);
+                        boolean suc=false;
+                        try {
+                            saveWorkers();
+                            suc=true;
+                        } catch (Throwable throwable) {
+                            Logger.exception("Job 启动，初始化 Worker 失败",throwable);
+                        }
+                        try {
+                            if(suc) {
+                                statJobs(factory);
+                            } else {
+                                Logger.error("Job 启动失败");
+                            }
+                        } catch (Throwable throwable) {
+                            Logger.exception("Job 启动失败",throwable);
+                        }
                     }
                 });
 

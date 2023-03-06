@@ -42,7 +42,7 @@ public class BpmAssistant {
         taskManager.doIntervalTask(new Runnable() {
             @Override
             public void run() {
-                syncWorker.doSync();
+                // syncWorker.doSync();
             }
         },3000);
     }
