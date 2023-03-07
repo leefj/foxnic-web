@@ -66,12 +66,13 @@ public class BPMSyncWorker implements JobExecutor {
     }
 
 
-    public Result doSync4Retry(List<String> processInstanceIds) {
+    public Result doSync4Retry(List<String> camundaInstanceIds) {
 
+        if(bpmConfigs==null) bpmConfigs= SpringUtil.getBean(BpmConfigs.class);
         if(!bpmConfigs.isEnableBpm()) return ErrorDesc.failure().message("未开启 BPM 功能");
 
-        ProcessInstanceServiceProxy.api().syncCamundaProcessInstances(processInstanceIds);
-        ProcessErrorServiceProxy.api().syncCamundaErrors(processInstanceIds);
+        ProcessInstanceServiceProxy.api().syncCamundaProcessInstances(camundaInstanceIds);
+        ProcessErrorServiceProxy.api().syncCamundaErrors(camundaInstanceIds);
 
         // 返回失败，迫使执行
         return ErrorDesc.failure();

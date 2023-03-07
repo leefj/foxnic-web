@@ -42,15 +42,15 @@ public class BpmAssistant {
         taskManager.doIntervalTask(new Runnable() {
             @Override
             public void run() {
-                // syncWorker.doSync();
+                 syncWorker.doSync();
             }
         },3000);
     }
 
-    public static void sync(String processInstanceId) {
+    public static void sync(String camundaInstanceId) {
         SimpleTaskManager.retry(times -> {
-            return syncWorker.doSync4Retry(Arrays.asList(processInstanceId));
-        },500,1000,2000,3000);
+            return syncWorker.doSync4Retry(Arrays.asList(camundaInstanceId));
+        },500,1000,2000,3000,6000,12000,30000,60000);
     }
 
 
