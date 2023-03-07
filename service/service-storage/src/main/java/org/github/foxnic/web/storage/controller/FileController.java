@@ -57,6 +57,7 @@ public class FileController extends SuperController {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         Map<String, MultipartFile> map = request.getFileMap();
+        String dir=request.getParameter("dir");
         if (map == null || map.size() == 0) {
             response.getWriter().write(JSON.toJSONString(ErrorDesc.failure(CommonError.FILE_INVALID)));
             return;
@@ -73,12 +74,12 @@ public class FileController extends SuperController {
             response.getWriter().write(JSON.toJSONString(ErrorDesc.failure(CommonError.FILE_INVALID)));
             return;
         }
-        // 
+        //
         JSONArray list = new JSONArray();
         JSONObject ret = new JSONObject();
         for (String f : map.keySet()) {
             MultipartFile mf = map.get(f);
-            File fileInfo = fileService.uploadFile(mf);
+            File fileInfo = fileService.uploadFile(mf,dir);
             String id = fileInfo.getId();
             ret.put("fileId", id);
             ret.put("fileName", mf.getOriginalFilename());

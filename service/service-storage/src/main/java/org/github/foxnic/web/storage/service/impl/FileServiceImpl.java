@@ -8,6 +8,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.io.FileUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ReferCause;
@@ -151,7 +152,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	}
 
 	@Override
-	public File uploadFile(MultipartFile multipartFile) {
+	public File uploadFile(MultipartFile multipartFile,String dir) {
 		File fileinfo=new File();
 		fileinfo.setDownloads(0);
 		fileinfo.setMediaType(multipartFile.getContentType());
@@ -162,7 +163,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 		fileinfo.setFileName(originalFileName);
 		fileinfo.setFileType(extension);
-		fileinfo=this.getStorageSupport().write(fileinfo,multipartFile);
+		fileinfo=this.getStorageSupport().write(fileinfo,multipartFile,dir);
 		this.insert(fileinfo);
 		return  fileinfo;
 	}
@@ -171,7 +172,6 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	public byte[] getBytes(File fileInfo) {
 		byte[] bytes=null;
 		try {
-			resurgence(fileInfo.getId(),true);
 			bytes=this.getStorageSupport().read(fileInfo);
 		} catch (Exception e) {
 			Logger.error("文件读取失败,fileId="+fileInfo.getId());
@@ -199,7 +199,6 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	public void downloadFile(String id, Boolean inline, HttpServletResponse response, FileCatalog catalog) {
 		File fileInfo=this.getById(id);
 		Result result=null;
-
 		if(fileInfo==null) {
 			Logger.error("文件不存在");
 			result= ErrorDesc.failure(CommonError.DATA_NOT_EXISTS).message("file is not exists");
@@ -207,15 +206,20 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		byte[] bytes=null;
 		try {
 			if(fileInfo!=null) {
-				bytes = this.getBytes(fileInfo);
-				if (bytes == null) {
-					result = ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
+				resurgence(fileInfo.getId(),true);
+				// 如果有下载地址，做一个重定向
+				if(!StringUtil.isBlank(fileInfo.getDownloadUrl())) {
+					response.sendRedirect(fileInfo.getDownloadUrl());
 				} else {
-					DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline? DownloadUtil.DownloadMode.INLINE: DownloadUtil.DownloadMode.ATTACHMENT);
+					bytes = this.getBytes(fileInfo);
+					if (bytes == null) {
+						result = ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
+					} else {
+						DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline ? DownloadUtil.DownloadMode.INLINE : DownloadUtil.DownloadMode.ATTACHMENT);
+					}
 				}
-				return;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			Logger.error("文件下载失败 , fileId="+fileInfo.getId());
 			result= ErrorDesc.failure(CommonError.FILE_INVALID).message(e.getMessage());
 		}

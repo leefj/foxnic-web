@@ -11,7 +11,7 @@ public class MongoDBStorageSupport extends  StorageSupport {
     }
 
     @Override
-    public File write(File fileInfo, MultipartFile mf) {
+    public File write(File fileInfo, MultipartFile mf,String dir) {
         return null;
     }
 

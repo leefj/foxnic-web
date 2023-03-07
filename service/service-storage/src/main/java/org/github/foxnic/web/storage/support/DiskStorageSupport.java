@@ -43,7 +43,7 @@ public class DiskStorageSupport  extends  StorageSupport {
     }
 
     @Override
-    public File write(File fileInfo, MultipartFile file) {
+    public File write(File fileInfo, MultipartFile file,String userDir) {
         String dir=this.getStorageDir();
         byte[] bytes=new byte[0];
         try {

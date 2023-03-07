@@ -46,7 +46,7 @@ public interface IFileService extends ISuperService<File> {
 	/**
 	 * 保存文件
 	 * */
-	File uploadFile(MultipartFile mf);
+	File uploadFile(MultipartFile mf,String dir);
 
 	/**
 	 * 获得文件数据

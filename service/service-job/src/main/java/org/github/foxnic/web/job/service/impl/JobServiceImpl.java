@@ -419,9 +419,9 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 	@Override
 	@Transactional
 	public void fixObjectAlreadyExistsException() {
-		dao.execute("delete from sys_job_cron_triggers");
-		dao.execute("delete from sys_job_triggers");
-		dao.execute("delete from sys_job_job_details");
+		dao.execute("delete from sys_job_cron_triggers where 1=1");
+		dao.execute("delete from sys_job_triggers where 1=1");
+		dao.execute("delete from sys_job_job_details where 1=1");
 	}
 
 	@Override
