@@ -61,9 +61,11 @@ public class JwtTokenTokenReader extends TokenReader {
             throw new AuthenticationCredentialsNotFoundException("access token is not found");
         }
 
-        refreshTokenRaw = refreshTokenRaw.replace(AUTHENTICATION_PREFIX, "");
-        if (StringUtil.isBlank(refreshTokenRaw)) {
-            throw new AuthenticationCredentialsNotFoundException("refresh token is not found");
+        if(!StringUtil.isBlank(refreshTokenRaw)) {
+            refreshTokenRaw = refreshTokenRaw.replace(AUTHENTICATION_PREFIX, "");
+            if (StringUtil.isBlank(refreshTokenRaw)) {
+                throw new AuthenticationCredentialsNotFoundException("refresh token is not found");
+            }
         }
 
         // token 解析
@@ -72,12 +74,12 @@ public class JwtTokenTokenReader extends TokenReader {
         JwtToken accessToken=accessTokenResult.data();
 
         JwtTokenPair jwtTokenPair = null;
-        // 如果 accessToken 无效 ， 校验 refreshToken
-        if(accessTokenResult.failure() || accessToken==null || accessToken.isExpire()) {
+        // 如果 accessToken 无效 ，并且有 refreshTokenRaw ， 校验 refreshToken
+        if(!StringUtil.isBlank(refreshTokenRaw)  && ( accessTokenResult.failure() || accessToken==null || accessToken.isExpire())) {
             // token 解析
             Result<JwtToken> refreshTokenResult = jwtTokenGenerator.decode(refreshTokenRaw);
-            JwtToken refreshToken=refreshTokenResult.data();
-            if(refreshTokenResult.failure() || refreshToken==null || refreshToken.isExpire()) {
+            JwtToken refreshToken = refreshTokenResult.data();
+            if (refreshTokenResult.failure() || refreshToken == null || refreshToken.isExpire()) {
                 throw new IllegalStateException("invalid access token and  refresh token is expired");
             }
             // 从缓存获取 token
