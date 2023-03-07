@@ -520,6 +520,16 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				// 提取页面元素
 				var map={};
 				var pages=[];
+
+				for (var i = 0; i < menus.length; i++) {
+					if(menus[i].title=="测试") {
+						debugger
+					}
+					map[menus[i].id]=menus[i];
+				}
+				// debugger
+				top.foxnic_menu_map=map;
+
 				for (var i = 0; i < menus.length; i++) {
 
 					menus[i].data={forks:menus[i].forks};
@@ -528,9 +538,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 					menus[i].title=menus[i].label;
 					if(menus[i].title==null) menus[i].title="";
-					// if(menus[i].title=="系统管理") {
-					// 	debugger
-					// }
+					if(menus[i].title=="演示系统") {
+						debugger
+					}
 					menus[i].icon=menus[i].css;
 					if(!menus[i].icon) {
 						menus[i].icon="fa fa-circle-o";
@@ -542,8 +552,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						menus[i].href+="?"+menus[i].params;
 					}
 
+					var par=map[menus[i].parentId];
 
-					if(menus[i].parentId=='0') {
+					if(menus[i].parentId=='0' || !par || (par && par.type=='subsys') ) {
 						menus[i].level=0;
 					}
 
@@ -570,11 +581,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 					menus[i].title=this.translate(menus[i].title,null,"menu");
 					pages.push(menus[i]);
-					map[menus[i].id]=menus[i];
 				}
 
-				debugger
-				top.foxnic_menu_map=map;
+
 
 				// 提取顶级菜单，并构建层级关系
 				var topMenus=[];
@@ -582,7 +591,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					// if(pages[i].title=="系统管理") {
 					// 	debugger
 					// }
-					if(pages[i].parentId=='0'){
+					var par=map[pages[i].parentId];
+					if(pages[i].parentId=='0' || !par || (par && par.type=='subsys') ){
 						// pages[i].type=0;
 						topMenus.push(pages[i]);
 
