@@ -6,6 +6,7 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import org.github.foxnic.web.framework.config.ConfigKeys;
 import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,13 +38,13 @@ public abstract class TranslateApi {
      * */
     public String decrypt(String data) {
 
-        String prefix="foxnic.language.translator";
 
-        Boolean enable=getBooleanProperty(prefix,"encrypt.enable",null);
+
+        Boolean enable=getBooleanProperty(ConfigKeys.FOXNIC_LANGUAGE_TRANSLATOR,ConfigKeys.ENCRYPT,null);
         if(enable==null || !enable) return data;
         //
         OSType osType=OSType.getOSType();
-        String file= getProperty(prefix,"encrypt.file."+ osType.name().toLowerCase(),null);
+        String file= getProperty(ConfigKeys.DEVELOP_ENCRYPT_FILE,osType.name().toLowerCase(),null);
         File f=new File(file);
         if(!f.exists()){
             throw new RuntimeException(file+ " 文件不存在");

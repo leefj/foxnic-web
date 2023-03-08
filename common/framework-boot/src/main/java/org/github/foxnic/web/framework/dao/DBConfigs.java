@@ -7,6 +7,7 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import org.github.foxnic.web.framework.config.ConfigKeys;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -33,11 +34,11 @@ public class DBConfigs {
      * */
     public static void reset(DataSource dataSource, String prefix, YMLProperties ymlcfg) {
 
-        Boolean enable=getBooleanProperty(prefix,"encrypt.enable",ymlcfg);
+        Boolean enable=getBooleanProperty(prefix, ConfigKeys.ENCRYPT,ymlcfg);
         if(enable==null || !enable) return;
         //
         OSType osType=OSType.getOSType();
-        String file= getProperty(prefix,"encrypt.file."+ osType.name().toLowerCase(),ymlcfg);
+        String file= getProperty(ConfigKeys.DEVELOP_ENCRYPT_FILE,osType.name().toLowerCase(),ymlcfg);
         File f=new File(file);
         if(!f.exists()){
             throw new RuntimeException(file+ " 文件不存在");

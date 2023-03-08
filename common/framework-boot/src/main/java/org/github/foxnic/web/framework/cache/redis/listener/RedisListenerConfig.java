@@ -21,14 +21,14 @@ public class RedisListenerConfig {
 		RedisUtil redis= SpringUtil.getBean(RedisUtil.class);
 
 		if(redis==null || redis.getConnectionFactory()==null || !redis.isValid()) {
-			Logger.error("redis 配置错误，无法进行 notify 操作");
+			Logger.error("redis 配置错误，无法进行 notify 操作，单节点部署请忽略");
 			return null;
 		}
 
 
 		TreeMap cfg=SpringUtil.getEnvProperties("spring.redis");
 		if(cfg==null || cfg.isEmpty()) {
-			Logger.error("redis 配置错误，无法进行 notify 操作");
+			Logger.error("redis 配置错误，无法进行 notify 操作，单节点部署请忽略");
 			return null;
 		}
 		RedisMessageListenerContainer container=new RedisMessageListenerContainer();

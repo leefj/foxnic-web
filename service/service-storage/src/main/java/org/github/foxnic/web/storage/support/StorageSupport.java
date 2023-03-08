@@ -8,6 +8,7 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.domain.storage.File;
+import org.github.foxnic.web.framework.config.ConfigKeys;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
@@ -43,13 +44,13 @@ public abstract class StorageSupport {
     /**
      * 解密数据库配置信息，并重新设置数据库连接
      * */
-    protected String decrypt(String prefix,String data) {
+    protected String decrypt(String data) {
         if(StringUtil.isBlank(data)) return data;
-        Boolean enable=getBooleanProperty(prefix,"encrypt.enable",null);
+        Boolean enable=getBooleanProperty(ConfigKeys.FOXNIC_STORAGE,ConfigKeys.ENCRYPT,null);
         if(enable==null || !enable) return data;
         //
         OSType osType=OSType.getOSType();
-        String file= getProperty(prefix,"encrypt.file."+ osType.name().toLowerCase(),null);
+        String file= getProperty(ConfigKeys.DEVELOP_ENCRYPT_FILE,osType.name().toLowerCase(),null);
         java.io.File f=new java.io.File(file);
         if(!f.exists()){
             throw new RuntimeException(file+ " 文件不存在");

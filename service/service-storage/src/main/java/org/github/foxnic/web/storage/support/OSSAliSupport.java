@@ -9,7 +9,9 @@ import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.domain.storage.File;
+import org.github.foxnic.web.framework.config.ConfigKeys;
 import org.github.foxnic.web.storage.exception.FileTransferException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -48,14 +50,21 @@ public class OSSAliSupport extends StorageSupport {
     @Value("${foxnic.storage.oss-aliyun.private-bucket}")
     private String privateBucket;
 
+
+
     @PostConstruct
     private void init() {
-        String prefix="foxnic.storage";
-        endpoint=this.decrypt(prefix,endpoint);
-        accessKeyId=this.decrypt(prefix,accessKeyId);
-        accessSecret=this.decrypt(prefix,accessSecret);
-        publicBucket=this.decrypt(prefix,publicBucket);
-        privateBucket=this.decrypt(prefix,privateBucket);
+
+        endpoint = this.decrypt(endpoint);
+        accessKeyId = this.decrypt(accessKeyId);
+        accessSecret = this.decrypt(accessSecret);
+        publicBucket = this.decrypt(publicBucket);
+        privateBucket = this.decrypt(privateBucket);
+        try {
+            initClient();
+        } catch (FileTransferException e) {
+            Logger.info("OSS 客户端初始化错误",e);
+        }
     }
 
     public OSSAliSupport() {
@@ -142,13 +151,14 @@ public class OSSAliSupport extends StorageSupport {
 
             String url=fileInfo.getDownloadUrl();
             String objectName=null;
-            if(StringUtil.isBlank(url)) {
+            if(!StringUtil.isBlank(url)) {
                 int i=url.indexOf("//");
                 if(i<0) return null;
                 i=url.indexOf("/",i+2);
                 if(i<0) return null;
                 objectName=url.substring(i);
             }
+            if(objectName==null) return null;
             // ossObject 包含文件所在的存储空间名称、文件名称、文件元信息以及一个输入流。
             OSSObject ossObject = OSS_CLIENT.getObject(fileInfo.getLocation(), objectName);
             InputStream inputStream=ossObject.getObjectContent();
@@ -166,17 +176,14 @@ public class OSSAliSupport extends StorageSupport {
     private void validate(Object resource,Boolean returnAbsoluteUrl) throws FileTransferException
     {
 
-        initClient();
 
-        if (resource == null)
-        {
+        if (resource == null) {
             throw new FileTransferException("No files!");
         }
 
         String bucket = returnAbsoluteUrl ? publicBucket : privateBucket;
 
-        if (!OSS_CLIENT.doesBucketExist(bucket))
-        {
+        if (!OSS_CLIENT.doesBucketExist(bucket)) {
             Logger.error("Bucket：{} 不存在！", bucket);
             throw new FileTransferException("Bucket：" + bucket + "不存在！");
         }
