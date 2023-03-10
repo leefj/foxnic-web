@@ -172,6 +172,16 @@ foxnic:
   api:
     # 是否开启 API 日志输出
     log-enable: true
+  notify:
+    # 是否加密配置
+    encrypt: true
+    sms:
+      ali:
+      huawei:
+        api-url: u1AODuGqS5LGgy4kvrdcLpxzZE02Z6zBsLF+AOT/KoVcthQFPc1LBvDpSv9WwldZpLWz9TtvPKUETofXYzbtNA==
+        account: NbCXVdz4EltYD6tMNwzoLQ==
+        password: a2ywCXQKqLXGjsmWsuT4VJcb9HFyBWtXZh+1Jd0h/zA=
+        signature: s519aM9RoxdTBq9a+RDAyQ==
   job:
     # 不运行任何 Job 任务( Job 调度还是会启动 )，仅对本节点有效
     enable: false

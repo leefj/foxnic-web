@@ -17,12 +17,15 @@ import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.docs.page.ApiSourcePageController;
 import org.github.foxnic.web.domain.bpm.DemoBusinessCase;
+
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+
 import org.github.foxnic.web.oauth.page.MenuForkPageController;
 import org.github.foxnic.web.proxy.bpm.DemoBusinessCaseServiceProxy;
 import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
+
 import org.github.foxnic.web.proxy.oauth.MenuForkServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -103,8 +106,8 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.BPM_FORM_DEFINITION.$TABLE, FormDefinitionServiceProxy.class, FormDefinitionPageController.class);
 //		mg.generate("555766790999773184");
 
-		mg=new MenuGenerator(FoxnicWeb.BPM_DEMO_BUSINESS_CASE.$TABLE, DemoBusinessCaseServiceProxy.class, DemoBusinessCasePageController.class);
-		mg.generate("578536637818994688");
+//		mg=new MenuGenerator(FoxnicWeb.SYS_SMS_VERIFICATION_CODE.$TABLE, SmsVerificationCodeServiceProxy.class, SmsVerificationCodePageController.class);
+//		mg.generate("686529995333435392");
 //		mg.removeByBatchId("680087823839133696");
 //		mg = new MenuGenerator(FoxnicWeb.BPM_DEMO_COMMON.$TABLE, DemoCommonServiceProxy.class, DemoCommonPageController.class);
 //		mg.generate("495201409763901440");

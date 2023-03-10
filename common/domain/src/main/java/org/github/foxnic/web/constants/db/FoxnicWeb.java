@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-02-20 17:00:07
+ * @since 2023-03-09 17:36:44
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -9045,6 +9045,297 @@ public class FoxnicWeb {
 			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , ACCESS_TOKEN , REFRESH_TOKEN);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
+	}
+	
+	/**
+	 * 短信日志
+	*/
+	public static class SYS_SMS_LOG extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_sms_log";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","id","id",true,false,false);
+		
+		/**
+		 * 模版ID
+		*/
+		public static final DBField TEMPLATE_ID = new DBField(DBDataType.STRING , "template_id","templateId","模版ID","模版ID",false,false,true);
+		
+		/**
+		 * 短信通道
+		*/
+		public static final DBField CHANEL = new DBField(DBDataType.STRING , "chanel","chanel","短信通道","短信通道",false,false,true);
+		
+		/**
+		 * 账户
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户","账户",false,false,true);
+		
+		/**
+		 * 参数
+		*/
+		public static final DBField PARAMS = new DBField(DBDataType.STRING , "params","params","参数","参数",false,false,true);
+		
+		/**
+		 * 手机号
+		*/
+		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号","手机号",false,false,true);
+		
+		/**
+		 * 短信内容
+		*/
+		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","短信内容","短信内容",false,false,true);
+		
+		/**
+		 * 是否成功
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","是否成功",false,false,true);
+		
+		/**
+		 * 相应
+		*/
+		public static final DBField RESPONSE = new DBField(DBDataType.STRING , "response","response","相应","相应",false,false,true);
+		
+		/**
+		 * 异常
+		*/
+		public static final DBField ERROR = new DBField(DBDataType.STRING , "error","error","异常","异常",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_SMS_LOG() {
+			this.init($NAME,"短信日志" , ID , TEMPLATE_ID , CHANEL , USER_ID , PARAMS , PHONE , CONTENT , SUCCESS , RESPONSE , ERROR , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_SMS_LOG $TABLE=new SYS_SMS_LOG();
+	}
+	
+	/**
+	 * 短信模版
+	*/
+	public static class SYS_SMS_TEMPLATE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_sms_template";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
+		
+		/**
+		 * 短信代码
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","短信代码","短信代码",false,false,true);
+		
+		/**
+		 * 短信名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","短信名称","短信名称",false,false,true);
+		
+		/**
+		 * 阿里短信代码
+		*/
+		public static final DBField ALI = new DBField(DBDataType.STRING , "ali","ali","阿里短信代码","阿里短信代码",false,false,true);
+		
+		/**
+		 * 华为短信代码
+		*/
+		public static final DBField HUAWEI = new DBField(DBDataType.STRING , "huawei","huawei","华为短信代码","华为短信代码",false,false,true);
+		
+		/**
+		 * 模版内容
+		*/
+		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","模版内容","模版内容",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_SMS_TEMPLATE() {
+			this.init($NAME,"短信模版" , ID , CODE , NAME , ALI , HUAWEI , CONTENT , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_SMS_TEMPLATE $TABLE=new SYS_SMS_TEMPLATE();
+	}
+	
+	/**
+	 * 短信验证码
+	*/
+	public static class SYS_SMS_VERIFICATION_CODE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_sms_verification_code";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 验证主题
+		*/
+		public static final DBField TOPIC = new DBField(DBDataType.STRING , "topic","topic","验证主题","验证主题",false,false,true);
+		
+		/**
+		 * 短信通道
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","短信通道","短信通道",false,false,true);
+		
+		/**
+		 * 手机号
+		*/
+		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号","手机号",false,false,true);
+		
+		/**
+		 * 短信内容
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","短信内容","短信内容",false,false,true);
+		
+		/**
+		 * 过期时间
+		*/
+		public static final DBField EXPIRE_TIME = new DBField(DBDataType.DATE , "expire_time","expireTime","过期时间","过期时间",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_SMS_VERIFICATION_CODE() {
+			this.init($NAME,"短信验证码" , ID , TOPIC , USER_ID , PHONE , CODE , EXPIRE_TIME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_SMS_VERIFICATION_CODE $TABLE=new SYS_SMS_VERIFICATION_CODE();
 	}
 	
 	/**

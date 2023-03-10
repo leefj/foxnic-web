@@ -112,8 +112,13 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_EXAMPLE_PACKAGE=BASE_PACKAGE+".example";
 
+	/**
+	 * 通知
+	 * */
+	public static final String SERVICE_NOTIFY_PACKAGE=BASE_PACKAGE+".notify";
 
 
 
 
-}
+
+}

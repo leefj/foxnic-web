@@ -12,6 +12,10 @@ public class ConfigKeys {
 
     public static final String FOXNIC_LANGUAGE_TRANSLATOR="foxnic.language.translator";
 
+    public static final String FOXNIC_NOTIFY="foxnic.notify";
+
+    public static final String FOXNIC_NOTIFY_SMS="foxnic.notify.sms";
+
 
 
 

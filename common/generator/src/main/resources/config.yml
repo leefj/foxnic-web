@@ -150,6 +150,17 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/job
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #消息通知
+  service-notify:
+    nacosGroup: service
+    nacosDataId: service-notify.yml
+    serviceProjectPath: /service/service-notify
+    packageName: org.github.foxnic.web.notify
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: NOTIFY
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/notify
+    wrapperProjectPath: /wrapper/wrapper-all-service
   #示例
   service-example:
     # 是否为高级项目

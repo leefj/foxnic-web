@@ -14,6 +14,9 @@ import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
+import org.github.foxnic.web.generator.module.notify.SysSmsLogConfig;
+import org.github.foxnic.web.generator.module.notify.SysSmsTemplateConfig;
+import org.github.foxnic.web.generator.module.notify.SysSmsVerificationCodeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysMenuForkConfig;
 import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
@@ -64,13 +67,15 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-        initBpmModules();
+//        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
 //        initJobModules();
 
 //        initDocsModules();
+
+        initNotifyModules();
 
     }
 
@@ -80,7 +85,11 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ExampleNewsConfig());
     }
 
-
+    private void initNotifyModules() {
+        this.addConfig(new SysSmsTemplateConfig());
+        this.addConfig(new SysSmsLogConfig());
+        this.addConfig(new SysSmsVerificationCodeConfig());
+    }
 
     private void initDocsModules() {
         this.addConfig(new ApiSourceConfig());

@@ -9,6 +9,7 @@ import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.framework.config.ConfigKeys;
+import org.github.foxnic.web.framework.security.ConfigDecryptor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
@@ -42,36 +43,15 @@ public abstract class StorageSupport {
     public abstract Boolean isFileExists(File fileInfo);
 
     /**
-     * 解密数据库配置信息，并重新设置数据库连接
+     * 解密配置信息
      * */
     protected String decrypt(String data) {
         if(StringUtil.isBlank(data)) return data;
-        Boolean enable=getBooleanProperty(ConfigKeys.FOXNIC_STORAGE,ConfigKeys.ENCRYPT,null);
+        Boolean enable= ConfigDecryptor.getBooleanProperty(ConfigKeys.FOXNIC_STORAGE,ConfigKeys.ENCRYPT,null);
         if(enable==null || !enable) return data;
-        //
-        OSType osType=OSType.getOSType();
-        String file= getProperty(ConfigKeys.DEVELOP_ENCRYPT_FILE,osType.name().toLowerCase(),null);
-        java.io.File f=new java.io.File(file);
-        if(!f.exists()){
-            throw new RuntimeException(file+ " 文件不存在");
-        }
-        String passwd= FileUtil.readText(f);
-        //
-        AESUtil aes=new AESUtil(passwd);
-        return aes.decryptData(data);
+        return ConfigDecryptor.decrypt(data);
     }
 
-    protected static String getProperty(String prefix,String suffix, YMLProperties ymlcfg) {
-        String key=prefix+"."+suffix;
-        if(ymlcfg!=null) {
-            return ymlcfg.getProperty(key).stringValue();
-        } else {
-            return SpringUtil.getEnvProperty(key);
-        }
-    }
 
-    protected static Boolean getBooleanProperty(String prefix,String suffix, YMLProperties ymlcfg) {
-        return DataParser.parseBoolean(getProperty(prefix,suffix,ymlcfg));
-    }
 
 }

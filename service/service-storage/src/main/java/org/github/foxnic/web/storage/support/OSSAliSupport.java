@@ -54,7 +54,7 @@ public class OSSAliSupport extends StorageSupport {
 
     @PostConstruct
     private void init() {
-
+        // 配置信息解密
         endpoint = this.decrypt(endpoint);
         accessKeyId = this.decrypt(accessKeyId);
         accessSecret = this.decrypt(accessSecret);

@@ -26,6 +26,7 @@
         <module>./service/service-storage</module>
         <module>./service/service-hrm</module>
         <module>./service/service-job</module>
+        <module>./service/service-notify</module>
         <!-- 高级功能 -->
         <module>../foxnic-web-advance</module>
         <!-- 界面视图 -->

@@ -23,6 +23,10 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_DATA_PERM="service-dataperm";
     public static final String PREFIX_JOB="service-job";
 
+    public static final String PREFIX_NOTIFY="service-notify";
+
+
+
     public static final String PREFIX_DOCS ="service-docs";
 
 

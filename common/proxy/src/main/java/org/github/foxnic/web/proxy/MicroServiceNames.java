@@ -67,10 +67,16 @@ public class MicroServiceNames {
 	public static final String DATA_PERM="service-dataperm";
 
 	/**
-	 *数据权限相关的服务 <br>
+	 *计划任务相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String JOB="service-job";
+
+	/**
+	 *消息通知相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String NOTIFY="service-notify";
 
 	/**
 	 *数据权限相关的服务 <br>
