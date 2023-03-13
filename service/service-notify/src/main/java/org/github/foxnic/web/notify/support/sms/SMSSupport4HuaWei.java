@@ -25,23 +25,23 @@ public class SMSSupport4HuaWei extends SMSSupport {
     /**
      * 接口地址
      * */
-    @Value("${foxnic.notify.sms.api-url}")
+    @Value("${foxnic.notify.sms.huawei.api-url}")
     private String url;
     /**
      * 账号
      * */
-    @Value("${foxnic.notify.sms.account}")
+    @Value("${foxnic.notify.sms.huawei.account}")
     private String account;
     /**
      * 密码
      * */
-    @Value("${foxnic.notify.sms.password}")
+    @Value("${foxnic.notify.sms.huawei.password}")
     private String password;
 
     /**
      * 签名
      * */
-    @Value("${foxnic.notify.sms.signature}")
+    @Value("${foxnic.notify.sms.huawei.signature}")
     private String signature;
 
     @PostConstruct

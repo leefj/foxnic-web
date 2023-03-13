@@ -64,6 +64,11 @@
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
+            <artifactId>service-notify</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.foxnicweb.web</groupId>
             <artifactId>view-console</artifactId>
             <version>${platform.version}</version>
         </dependency>

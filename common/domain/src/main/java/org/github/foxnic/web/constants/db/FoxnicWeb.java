@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-03-09 17:36:44
+ * @since 2023-03-10 11:43:10
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -9172,29 +9172,29 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
 		
 		/**
-		 * 短信代码
+		 * 模版代码
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","短信代码","短信代码",false,false,true);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","模版代码","模版代码",false,false,true);
 		
 		/**
-		 * 短信名称
+		 * 模版名称
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","短信名称","短信名称",false,false,true);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","模版名称","模版名称",false,false,true);
 		
 		/**
-		 * 阿里短信代码
+		 * 短信通道
 		*/
-		public static final DBField ALI = new DBField(DBDataType.STRING , "ali","ali","阿里短信代码","阿里短信代码",false,false,true);
+		public static final DBField CHANEL_TYPE = new DBField(DBDataType.STRING , "chanel_type","chanelType","短信通道","短信通道",false,false,true);
 		
 		/**
-		 * 华为短信代码
+		 * 模版代码
 		*/
-		public static final DBField HUAWEI = new DBField(DBDataType.STRING , "huawei","huawei","华为短信代码","华为短信代码",false,false,true);
+		public static final DBField CHANEL_CODE = new DBField(DBDataType.STRING , "chanel_code","chanelCode","模版代码","模版代码",false,false,true);
 		
 		/**
 		 * 模版内容
 		*/
-		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","模版内容","模版内容",false,false,true);
+		public static final DBField TEMPLATE = new DBField(DBDataType.STRING , "template","template","模版内容","模版内容",false,false,true);
 		
 		/**
 		 * 租户ID
@@ -9242,7 +9242,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_SMS_TEMPLATE() {
-			this.init($NAME,"短信模版" , ID , CODE , NAME , ALI , HUAWEI , CONTENT , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"短信模版" , ID , CODE , NAME , CHANEL_TYPE , CHANEL_CODE , TEMPLATE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_SMS_TEMPLATE $TABLE=new SYS_SMS_TEMPLATE();
 	}
