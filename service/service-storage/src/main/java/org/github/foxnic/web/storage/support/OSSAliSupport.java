@@ -34,20 +34,20 @@ public class OSSAliSupport extends StorageSupport {
 
     private static OSS OSS_CLIENT;
 
-    @Value("${foxnic.storage.oss-aliyun.end-point}")
+    @Value("${foxnic.storage.oss-aliyun.end-point:}")
     private String endpoint;
 
-    @Value("${foxnic.storage.oss-aliyun.access-key-id}")
+    @Value("${foxnic.storage.oss-aliyun.access-key-id:}")
     private String accessKeyId;
 
-    @Value("${foxnic.storage.oss-aliyun.access-secret}")
+    @Value("${foxnic.storage.oss-aliyun.access-secret:}")
     private String accessSecret;
 
     // 公有桶
-    @Value("${foxnic.storage.oss-aliyun.public-bucket}")
+    @Value("${foxnic.storage.oss-aliyun.public-bucket:}")
     private String publicBucket;
     // 私有桶
-    @Value("${foxnic.storage.oss-aliyun.private-bucket}")
+    @Value("${foxnic.storage.oss-aliyun.private-bucket:}")
     private String privateBucket;
 
 
@@ -61,7 +61,9 @@ public class OSSAliSupport extends StorageSupport {
         publicBucket = this.decrypt(publicBucket);
         privateBucket = this.decrypt(privateBucket);
         try {
-            initClient();
+            if(!StringUtil.isBlank(endpoint) && !StringUtil.isBlank(accessKeyId)) {
+                initClient();
+            }
         } catch (FileTransferException e) {
             Logger.info("OSS 客户端初始化错误",e);
         }
