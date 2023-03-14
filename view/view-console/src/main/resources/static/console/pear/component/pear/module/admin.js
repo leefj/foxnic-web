@@ -1341,7 +1341,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				var fullWidth=$(window).width();
 				var  pop=$("#layui-layer"+index);
 				if(pop.offset()==null) {
-					return null;
+					return {};
 				}
 				var title=pop.find(".layui-layer-title");
 				var titleHeight=title.height();
