@@ -48,6 +48,12 @@ public class AuthorityMenuManager {
         return false;
     }
 
+    private Set<String> allAuthorities = new HashSet<>();
+
+    public boolean isModuleAuthKey(String key) {
+        return allAuthorities.contains(key);
+    }
+
     @PostConstruct
     private  synchronized void initDataIf() {
         if (authorityMenuMap != null) return;
@@ -56,6 +62,7 @@ public class AuthorityMenuManager {
         for (ModuleAuthority bean : beans) {
             mavenAuthorities.addAll(Arrays.asList(bean.getAuthorities()));
         }
+        allAuthorities.addAll(mavenAuthorities);
 
         CodeBuilder moduleAuthInfo=new CodeBuilder();
         moduleAuthInfo.ln("maven module authorities : "+StringUtil.join(mavenAuthorities));
@@ -64,6 +71,7 @@ public class AuthorityMenuManager {
         moduleAuthInfo.ln("configed module authorities : "+configedAuthorities);
         if(StringUtil.hasContent(configedAuthorities)){
             String[] cfgAuth=configedAuthorities.split(",");
+            allAuthorities.addAll(Arrays.asList(cfgAuth));
             for (String auth : cfgAuth) {
                 if(!mavenAuthorities.contains(auth.trim())) {
                    throw new IllegalArgumentException("foxnic.config.module-authorities.auth-keys 中设置的 "+auth+" 不存在");

@@ -63,7 +63,8 @@ import java.util.*;
 public class MenuServiceImpl extends SuperService<Menu> implements IMenuService, ICachedMenuService {
 
 
-
+	@Autowired
+	private AuthorityMenuManager authorityMenuManager = null;
 	/**
 	 * 注入DAO对象
 	 * */
@@ -77,10 +78,6 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 
 	@Autowired
 	private IMenuResourceService menuResourceService;
-
-	@Autowired
-	private AuthorityMenuManager authorityMenuManager;
-
 
 	private Map<String,Menu>  catchedMenus= new HashMap<>();
 
@@ -189,6 +186,11 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 	public Result update(Menu menu , SaveMode mode) {
 
 		Menu menuInDB=this.getById(menu.getId());
+
+		if(authorityMenuManager.isModuleAuthKey(menuInDB.getAuthority())) {
+			return ErrorDesc.failure().message("当前节点不允许修改权限Key").messageLevel4Confirm();
+		}
+
 		if(!IMenuService.ROOT_ID.equals(menuInDB.getParentId())) {
 			if(MenuType.subsys.equals(menu.getTypeEnum())) {
 				return ErrorDesc.failure().message("当前节点不允许设置为"+MenuType.subsys.name()).messageLevel4Confirm();
