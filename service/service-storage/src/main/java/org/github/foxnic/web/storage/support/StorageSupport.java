@@ -25,6 +25,10 @@ public abstract class StorageSupport {
 
     private String configKey;
 
+    public String getConfigKey() {
+        return configKey;
+    }
+
     public  StorageSupport(String configKey) {
         this.configKey=configKey;
         SUPPORTS.put(this.configKey,this);

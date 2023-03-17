@@ -50,10 +50,13 @@ public class OSSAliSupport extends StorageSupport {
     @Value("${foxnic.storage.oss-aliyun.private-bucket:}")
     private String privateBucket;
 
-
+    @Value("${foxnic.storage.mode}")
+    private String storageMode;
 
     @PostConstruct
     private void init() {
+        if(storageMode==null) return;
+        if(!storageMode.equals(this.getConfigKey())) return;
         // 配置信息解密
         endpoint = this.decrypt(endpoint);
         accessKeyId = this.decrypt(accessKeyId);
