@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 13:16:03
+ * @since 2023-03-18 09:29:39
  */
  -->
  <!DOCTYPE html>
@@ -57,7 +57,7 @@
                         <input lay-filter="account" id="account" name="account" th:placeholder="${ lang.translate('请输入'+'账户') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-
+            
                 <!-- text_input : 姓名 ,  realName -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('姓名')}">姓名</div><div class="layui-required">*</div></div>
@@ -65,7 +65,7 @@
                         <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入'+'姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
                     </div>
                 </div>
-
+            
                 <!-- text_input : 手机 ,  phone -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
@@ -73,7 +73,7 @@
                         <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入'+'手机') }" type="text" class="layui-input"    lay-verify="|required|phone"  />
                     </div>
                 </div>
-
+            
                 <!-- logic_switch : 是否有效 ,  valid  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
@@ -123,7 +123,7 @@
                             <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${finalLangs}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
-
+            
                 <!-- select_box : 角色 ,  roleIds  -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
@@ -131,7 +131,7 @@
                         <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}" extraParam="{}"></div>
                     </div>
                 </div>
-
+            
                 <!-- text_input : 备注 ,  notes -->
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('备注')}">备注</div></div>

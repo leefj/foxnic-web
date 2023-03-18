@@ -123,7 +123,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.LANGUAGE)
                 .table().useThemeBadgeStyle()
-                .search().triggerOnSelect(true)
+                .search().hidden()
             .form().radioBox().bindVar("finalLangs");
 
 
@@ -153,9 +153,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.CACHE_KEY).search().hidden();
 
+        context.view().field(SYS_USER.NOTES).search().hidden();
+
         context.view().field(SYS_USER.VALID)
                 .table().alignCenter()
-                .search().triggerOnSelect(true)
+                .search().triggerOnSelect(true).label("有效")
                 .form().logicField().on("有效","1").off("无效","0");
 
     }

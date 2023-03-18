@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 13:16:03
+ * @since 2023-03-18 09:29:39
  */
  -->
  <!DOCTYPE html>
@@ -57,25 +57,15 @@
                         <input id="phone" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 头像 , portraitId ,typeName=upload, isHideInSearch=true -->
-                    <!-- 语言 , language ,typeName=radio_box, isHideInSearch=false -->
+                    <!-- 语言 , language ,typeName=radio_box, isHideInSearch=true -->
+                    <!-- 有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('语言')}" class="search-label language-label">语言</span><span class="search-colon">:</span></div>
-
-
-                            <div id="language" th:data="${finalLangs}" style="width:140px"></div>
-                    </div>
-                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('有效')}" class="search-label valid-label">有效</span><span class="search-colon">:</span></div>
                         <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
                     <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=true -->
                     <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=true -->
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('备注')}" class="search-label notes-label">备注</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
                     <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('角色')}" class="search-label roleIds-label">角色</span><span class="search-colon">:</span></div>

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 13:16:03
+ * @since 2023-03-18 09:29:39
  */
 
 
@@ -150,12 +150,10 @@ function ListPage() {
 		var value = {};
 		value.account={ inputType:"button",value: $("#account").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.language={ inputType:"radio_box", value: getSelectedValue("#language","value"), label:getSelectedValue("#language","nameStr") };
 		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
-		value.notes={ inputType:"button",value: $("#notes").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -202,34 +200,6 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		//渲染 language 搜索框
-		fox.renderSelectBox({
-			el: "language",
-			size: "small",
-			radio: true,
-			on: function(data){
-				setTimeout(function () {
-					if(data.change && data.change.length>0) {
-						refreshTableData();
-					}
-					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("language",data.arr,data.change,data.isAdd);
-				},1);
-			},
-			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					if(window.pageExt.list.selectBoxDataTransform) {
-						opts.push(window.pageExt.list.selectBoxDataTransform("language",{data:data[i],name:data[i].text,value:data[i].code},data[i],data,i));
-					} else {
-						opts.push({data:data[i],name:data[i].text,value:data[i].code});
-					}
-				}
-				return opts;
-			}
-		});
 		//渲染 valid 搜索框
 		fox.renderSelectBox({
 			el: "valid",
