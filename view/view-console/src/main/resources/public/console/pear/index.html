@@ -135,8 +135,10 @@
 			localStorage.setItem("theme","[[${theme_code}]]");
 			var THEME_CONFIG="[[${theme_config}]]";
 			THEME_CONFIG=JSON.parse(THEME_CONFIG.replace(/&quot;/g,"\""));
+			var themeKeys=0;
 			for(var key in THEME_CONFIG) {
 				localStorage.setItem(key,THEME_CONFIG[key]);
+				themeKeys++;
 			}
 			var TABLE_PAGE_LEVELS=[[${tablePageLevels}]];
 			localStorage.setItem("ui_table_page_levels", JSON.stringify(TABLE_PAGE_LEVELS));
@@ -158,7 +160,36 @@
 
 				// 消息点击回调
 				admin.message(function(id, title, context, form) {});
-			})
+
+				if(themeKeys==0) {
+					syncTheme();
+				}
+
+			});
+			function syncTheme() {
+				var cfg = {
+					"theme-color": localStorage.getItem("theme-color"),
+					"theme-color-color": localStorage.getItem("theme-color-color"),
+					"theme-color-second": localStorage.getItem("theme-color-second"),
+					"control": localStorage.getItem("control"),
+					"theme-header": localStorage.getItem("theme-header"),
+					"theme-menu":localStorage.getItem("theme-menu"),
+					"theme-banner": localStorage.getItem("theme-banner"),
+					"auto-head": localStorage.getItem("auto-head"),
+					"footer": localStorage.getItem("footer"),
+					"muilt-tab": localStorage.getItem("muilt-tab")
+				};
+
+				admin.request("/service-system/sys-db-cache/save", {
+							value: JSON.stringify(cfg),
+							area: "pear-config",
+							catalog: "theme",
+							ownerType: "user"
+						}, function (data) {
+
+						}
+				);
+			}
 		</script>
 	</body>
 </html>
