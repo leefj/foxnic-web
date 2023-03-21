@@ -86,6 +86,18 @@ public abstract class SessionUser {
 	}
 
 	/**
+	 * 获得当前激活租户对应所在公司
+	 * */
+	public Organization getPrimaryOrganization(){
+		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
+		Employee employee=tenant.getEmployee();
+		if(employee==null) return null;
+		return employee.getPrimaryOrganization();
+	}
+
+	/**
 	 * 获得当前激活租户对应所在公司的组织ID
 	 * */
 	public String getPrimaryOrganizationId(){
@@ -97,6 +109,20 @@ public abstract class SessionUser {
 		Organization organization=employee.getPrimaryOrganization();
 		if(organization==null) return null;
 		return organization.getId();
+	}
+
+	/**
+	 * 获得当前激活租户对应所在公司的组织层级代码
+	 * */
+	public String getPrimaryOrganizationHierarchy(){
+		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
+		Employee employee=tenant.getEmployee();
+		if(employee==null) return null;
+		Organization organization=employee.getPrimaryOrganization();
+		if(organization==null) return null;
+		return organization.getHierarchy();
 	}
 
 	/**

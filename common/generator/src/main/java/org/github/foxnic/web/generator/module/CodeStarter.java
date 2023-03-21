@@ -61,8 +61,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
-//        initSystemModules();
+//        initOAuthModules();
+        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
@@ -196,15 +196,15 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initSystemModules() {
 
-//        this.addConfig(new BusiRoleConfig());
+        this.addConfig(new BusiRoleConfig());
 //        this.addConfig(new BusiRoleMemberConfig());
 //
-        this.addConfig(new SysDictConfig());
-        this.addConfig(new SysDictConfig_Tree());
+//        this.addConfig(new SysDictConfig());
+//        this.addConfig(new SysDictConfig_Tree());
 //        this.addConfig(new SysConfigConfig());
 //        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new TenantConfig());
-        this.addConfig(new SysDictItemConfig());
+//        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
 //        //
 //        this.addConfig(new SequenceConfig());

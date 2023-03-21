@@ -1,13 +1,19 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 17:04:52
+ * @since 2023-03-20 17:36:25
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup,dropdown;
+	
+	// 接口地址
 	const moduleURL="/service-system/sys-busi-role";
+	const queryURL=moduleURL+"/get-by-id";
+	const insertURL=moduleURL+"/insert";
+	const updateURL=moduleURL+"/update";
+
 	// 表单执行操作类型：view，create，edit
 	var action=null;
 	var disableCreateNew=false;
@@ -121,7 +127,7 @@ function FormPage() {
 		if(ids.length==0) return;
 		var id=ids[0];
 		if(!id) return;
-		admin.post(moduleURL+"/get-by-id", { id : id }, function (r) {
+		admin.post(queryURL, { id : id }, function (r) {
 			if (r.success) {
 				fillFormData(r.data)
 			} else {
@@ -233,7 +239,7 @@ function FormPage() {
 
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		var action=param.id?"edit":"create";
-		var api=moduleURL+"/"+(param.id?"update":"insert");
+		var api=param.id?updateURL:insertURL;
 		admin.post(api, param, function (data) {
 			if (data.success) {
 				var doNext=true;

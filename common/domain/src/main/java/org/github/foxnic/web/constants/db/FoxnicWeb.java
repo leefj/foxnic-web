@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-03-10 11:43:10
+ * @since 2023-03-20 17:34:55
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4903,8 +4903,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
 		
+		/**
+		 * 成员路由，Java类型用于检索扩展成员
+		*/
+		public static final DBField MEMBER_ROUTER = new DBField(DBDataType.STRING , "member_router","memberRouter","成员路由","Java类型用于检索扩展成员",false,false,true);
+		
 		public SYS_BUSI_ROLE() {
-			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES);
+			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER);
 		}
 		public static final SYS_BUSI_ROLE $TABLE=new SYS_BUSI_ROLE();
 	}
@@ -9187,9 +9192,9 @@ public class FoxnicWeb {
 		public static final DBField CHANEL_TYPE = new DBField(DBDataType.STRING , "chanel_type","chanelType","短信通道","短信通道",false,false,true);
 		
 		/**
-		 * 模版代码
+		 * 通道代码
 		*/
-		public static final DBField CHANEL_CODE = new DBField(DBDataType.STRING , "chanel_code","chanelCode","模版代码","模版代码",false,false,true);
+		public static final DBField CHANEL_CODE = new DBField(DBDataType.STRING , "chanel_code","chanelCode","通道代码","通道代码",false,false,true);
 		
 		/**
 		 * 模版内容

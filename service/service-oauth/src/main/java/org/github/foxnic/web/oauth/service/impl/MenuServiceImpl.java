@@ -187,7 +187,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 
 		Menu menuInDB=this.getById(menu.getId());
 
-		if(authorityMenuManager.isModuleAuthKey(menuInDB.getAuthority())) {
+		if(authorityMenuManager.isModuleAuthKey(menuInDB.getAuthority()) &&  !menuInDB.getAuthority().equals(menu.getAuthority())) {
 			return ErrorDesc.failure().message("当前节点不允许修改权限Key").messageLevel4Confirm();
 		}
 

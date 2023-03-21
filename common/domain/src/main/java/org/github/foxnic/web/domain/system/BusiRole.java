@@ -27,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色
  * <p>业务角色 , 数据表 sys_busi_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 17:04:47
- * @sign 67512FC75539EBA030762DD78F6EA1E3
+ * @since 2023-03-20 17:36:18
+ * @sign 8EDBFEA26B53C1C6516D7723AF0FEEAD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -127,6 +127,12 @@ public class BusiRole extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
+	
+	/**
+	 * 成员路由：Java类型用于检索扩展成员
+	*/
+	@ApiModelProperty(required = false,value="成员路由" , notes = "Java类型用于检索扩展成员")
+	private String memberRouter;
 	
 	/**
 	 * 关联员工清单：关联员工清单
@@ -432,6 +438,25 @@ public class BusiRole extends Entity {
 	}
 	
 	/**
+	 * 获得 成员路由<br>
+	 * Java类型用于检索扩展成员
+	 * @return 成员路由
+	*/
+	public String getMemberRouter() {
+		return memberRouter;
+	}
+	
+	/**
+	 * 设置 成员路由
+	 * @param memberRouter 成员路由
+	 * @return 当前对象
+	*/
+	public BusiRole setMemberRouter(String memberRouter) {
+		this.memberRouter=memberRouter;
+		return this;
+	}
+	
+	/**
 	 * 获得 关联员工清单<br>
 	 * 关联员工清单
 	 * @return 关联员工清单
@@ -511,6 +536,7 @@ public class BusiRole extends Entity {
 		inst.setVersion(this.getVersion());
 		inst.setOrgId(this.getOrgId());
 		inst.setValid(this.getValid());
+		inst.setMemberRouter(this.getMemberRouter());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
@@ -586,6 +612,7 @@ public class BusiRole extends Entity {
 			this.setVersion(DataParser.parse(Integer.class, map.get(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleMeta.ORG_ID)));
 			this.setValid(DataParser.parse(Integer.class, map.get(BusiRoleMeta.VALID)));
+			this.setMemberRouter(DataParser.parse(String.class, map.get(BusiRoleMeta.MEMBER_ROUTER)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(BusiRoleMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(BusiRoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(BusiRoleMeta.CREATE_TIME)));
@@ -604,6 +631,7 @@ public class BusiRole extends Entity {
 				this.setVersion( (Integer)map.get(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)map.get(BusiRoleMeta.ORG_ID));
 				this.setValid( (Integer)map.get(BusiRoleMeta.VALID));
+				this.setMemberRouter( (String)map.get(BusiRoleMeta.MEMBER_ROUTER));
 				this.setCreateBy( (String)map.get(BusiRoleMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(BusiRoleMeta.DELETED));
 				this.setCreateTime( (Date)map.get(BusiRoleMeta.CREATE_TIME));
@@ -635,6 +663,7 @@ public class BusiRole extends Entity {
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.ORG_ID)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.VALID)));
+			this.setMemberRouter(DataParser.parse(String.class, r.getValue(BusiRoleMeta.MEMBER_ROUTER)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(BusiRoleMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(BusiRoleMeta.CREATE_TIME)));
@@ -652,6 +681,7 @@ public class BusiRole extends Entity {
 				this.setVersion( (Integer)r.getValue(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)r.getValue(BusiRoleMeta.ORG_ID));
 				this.setValid( (Integer)r.getValue(BusiRoleMeta.VALID));
+				this.setMemberRouter( (String)r.getValue(BusiRoleMeta.MEMBER_ROUTER));
 				this.setCreateBy( (String)r.getValue(BusiRoleMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(BusiRoleMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(BusiRoleMeta.CREATE_TIME));

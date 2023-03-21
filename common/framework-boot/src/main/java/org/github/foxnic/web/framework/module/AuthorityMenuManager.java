@@ -71,7 +71,11 @@ public class AuthorityMenuManager {
         moduleAuthInfo.ln("configed module authorities : "+configedAuthorities);
         if(StringUtil.hasContent(configedAuthorities)){
             String[] cfgAuth=configedAuthorities.split(",");
-            allAuthorities.addAll(Arrays.asList(cfgAuth));
+            for (int i = 0; i < cfgAuth.length; i++) {
+                cfgAuth[i] = cfgAuth[i].trim();
+                allAuthorities.add(cfgAuth[i]);
+            }
+
             for (String auth : cfgAuth) {
                 if(!mavenAuthorities.contains(auth.trim())) {
                    throw new IllegalArgumentException("foxnic.config.module-authorities.auth-keys 中设置的 "+auth+" 不存在");

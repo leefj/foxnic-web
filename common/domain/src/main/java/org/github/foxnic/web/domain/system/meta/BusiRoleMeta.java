@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-01 17:04:47
- * @sign 67512FC75539EBA030762DD78F6EA1E3
+ * @since 2023-03-20 17:36:18
+ * @sign 8EDBFEA26B53C1C6516D7723AF0FEEAD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -159,6 +159,16 @@ public class BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 成员路由 , Java类型用于检索扩展成员 , 类型: java.lang.String
+	*/
+	public static final String MEMBER_ROUTER="memberRouter";
+	
+	/**
+	 * 成员路由 , Java类型用于检索扩展成员 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.String> MEMBER_ROUTER_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,MEMBER_ROUTER, java.lang.String.class, "成员路由", "Java类型用于检索扩展成员", java.lang.String.class, null);
+	
+	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -171,7 +181,7 @@ public class BusiRoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , EMPLOYEES };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , EMPLOYEES };
 	
 	/**
 	 * 代理类
@@ -336,6 +346,17 @@ public class BusiRoleMeta {
 		}
 		
 		/**
+		 * 设置 成员路由
+		 * @param memberRouter 成员路由
+		 * @return 当前对象
+		*/
+		public BusiRole setMemberRouter(String memberRouter) {
+			super.change(MEMBER_ROUTER,super.getMemberRouter(),memberRouter);
+			super.setMemberRouter(memberRouter);
+			return this;
+		}
+		
+		/**
 		 * 设置 关联员工清单
 		 * @param employees 关联员工清单
 		 * @return 当前对象
@@ -367,6 +388,7 @@ public class BusiRoleMeta {
 			inst.setVersion(this.getVersion());
 			inst.setOrgId(this.getOrgId());
 			inst.setValid(this.getValid());
+			inst.setMemberRouter(this.getMemberRouter());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
