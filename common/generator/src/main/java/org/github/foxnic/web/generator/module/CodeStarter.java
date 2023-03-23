@@ -113,7 +113,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-//        this.addConfig(new ProcessDefinitionConfig());
+        this.addConfig(new ProcessDefinitionConfig());
 //        this.addConfig(new ProcessDefinitionFileConfig());
 //        this.addConfig(new ProcessDefinitionNodeConfig());
 //        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
@@ -122,7 +122,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        //
 //        this.addConfig(new ProcessInstanceConfig());
 //        //
-//        this.addConfig(new FormDefinitionConfig());
+        this.addConfig(new FormDefinitionConfig());
 //        this.addConfig(new FormInstanceConfig());
 //        this.addConfig(new FormInstanceBillConfig());
 //        this.addConfig(new TaskConfig());

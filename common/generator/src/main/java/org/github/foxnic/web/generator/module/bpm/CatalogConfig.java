@@ -49,6 +49,9 @@ public class CatalogConfig extends BaseCodeConfig<BPM_CATALOG> {
 
         view.field(BPM_CATALOG.NAME).search().fuzzySearch();
 
+        view.field(BPM_CATALOG.NOTES).search().hidden();
+        view.field(BPM_CATALOG.SORT).search().hidden();
+
         view.field(BPM_CATALOG.ICON_FILE_PC).search().hidden().form().upload().acceptSingleImage();
         view.field(BPM_CATALOG.ICON_FILE_MOBILE).search().hidden().form().upload().acceptSingleImage();
 

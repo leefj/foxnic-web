@@ -8,13 +8,16 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.bpm.RejectOption;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.bpm.Catalog;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
+import org.github.foxnic.web.domain.bpm.meta.CatalogMeta;
 import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.bpm.CatalogServiceProxy;
 import org.github.foxnic.web.proxy.bpm.FormDefinitionServiceProxy;
 
 public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION> {
@@ -29,7 +32,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程模型定义","流程模型文件");
         poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
         poType.shadow(BPM_PROCESS_DEFINITION.REJECT_OPTION, RejectOption.class);
-
+        poType.addSimpleProperty(Catalog.class,"catalog","分类对象","分类对象");
 
         voType.addSimpleProperty(String.class,"formDefinitionCode","表单定义代码","表单定义代码");
 
@@ -37,7 +40,13 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-
+        search.inputLayout(new Object[] {
+                BPM_PROCESS_DEFINITION.CATALOG_ID,
+                BPM_PROCESS_DEFINITION.CODE,
+                BPM_PROCESS_DEFINITION.NAME,
+                BPM_PROCESS_DEFINITION.VALID,
+                BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID
+        });
     }
 
     @Override
@@ -48,11 +57,28 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_KEY).basic().hidden();
 
+        view.field(BPM_PROCESS_DEFINITION.SORT).search().hidden();
+
+        view.field(BPM_PROCESS_DEFINITION.ICON_FILE_PC).search().hidden().form().upload().acceptSingleImage();
+        view.field(BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE).search().hidden().form().upload().acceptSingleImage();
+
+        view.field(BPM_PROCESS_DEFINITION.CATALOG_ID).basic().label("分类")
+                .search().triggerOnSelect(true)
+                .table().fillBy(ProcessDefinitionMeta.CATALOG, CatalogMeta.NAME)
+                .form().validate().required()
+                .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false,false)
+                .textField(BPM_CATALOG.NAME).valueField(BPM_CATALOG.ID).fillWith(ProcessDefinitionMeta.CATALOG);
+
+
+        view.field(BPM_PROCESS_DEFINITION.ICON_FILE_PC).search().hidden().form().upload().acceptSingleImage();
+        view.field(BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE).search().hidden().form().upload().acceptSingleImage();
+
+
         view.field(BPM_PROCESS_DEFINITION.ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CODE).basic().label("代码").search().fuzzySearch()
                 .form().validate().required();
         view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
-        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
+        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0).search().triggerOnSelect(true);
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
         view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.REAL_NAME)
                 .form().hidden()
@@ -60,8 +86,10 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
         view.field(BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID).basic().label("表单")
                 .table().fillBy(ProcessDefinitionMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
+                .search().inputWidth(200).triggerOnSelect(true)
                 .form().validate().required()
-                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST+"?isBindProcess=0").paging(true).filter(true).muliti(false,false)
+                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST+"?isBindProcess=0").queryApi4Search(FormDefinitionServiceProxy.QUERY_PAGED_LIST)
+                .paging(true).filter(true).muliti(false,false)
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
 
@@ -77,6 +105,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().hidden().table().hidden();
         ;
 
+
+
+
     }
 
     @Override
@@ -87,6 +118,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         form.columnLayout(new Object[]{
                 BPM_PROCESS_DEFINITION.CODE,
                 BPM_PROCESS_DEFINITION.NAME,
+                BPM_PROCESS_DEFINITION.ICON_FILE_PC,
+                BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE,
+                BPM_PROCESS_DEFINITION.CATALOG_ID,
                 BPM_PROCESS_DEFINITION.VALID,
                 BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
                 BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE,

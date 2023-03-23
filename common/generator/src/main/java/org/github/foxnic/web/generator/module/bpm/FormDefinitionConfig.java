@@ -4,10 +4,16 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_DEFINITION;
 import org.github.foxnic.web.constants.enums.bpm.FormType;
+import org.github.foxnic.web.domain.bpm.Catalog;
+import org.github.foxnic.web.domain.bpm.meta.CatalogMeta;
+import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.bpm.CatalogServiceProxy;
 
 public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
 
@@ -18,6 +24,8 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+        poType.addSimpleProperty(Catalog.class,"catalog","分类对象","分类对象");
+        //
         voType.addSimpleProperty(Integer.class,"isBindProcess","是否已经绑定流程","查询条件，null:不控制;1绑定流程:0:未绑定流程");
     }
 
@@ -32,6 +40,15 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
         view.form().labelWidth(100);
 
         view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
+
+        view.field(FoxnicWeb.BPM_FORM_DEFINITION.CATALOG_ID).basic().label("分类")
+                .search().triggerOnSelect(true)
+                .table().fillBy(FormDefinitionMeta.CATALOG, CatalogMeta.NAME)
+                .form().validate().required()
+                .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false,false)
+                .textField(FoxnicWeb.BPM_CATALOG.NAME).valueField(FoxnicWeb.BPM_CATALOG.ID).fillWith(FormDefinitionMeta.CATALOG);
+
+
         view.field(BPM_FORM_DEFINITION.DRAFT_PAGE_URL)
                 .search().hidden().form().textInput()
                 .form().validate().required();
@@ -39,6 +56,7 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
                 .search().hidden().form().textInput()
                 .form().validate().required();
         view.field(BPM_FORM_DEFINITION.VALID).basic().label("有效")
+                .search().triggerOnSelect(true)
                 .search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
         view.field(BPM_FORM_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
         view.field(BPM_FORM_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
@@ -49,7 +67,9 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
                 .search().hidden().form().textInput()
                 .form().validate().required();
 
-        view.field(BPM_FORM_DEFINITION.MULITI_PROCESS).basic().label("多流程").form().logicField().on("是",1).off("否",0);
+        view.field(BPM_FORM_DEFINITION.MULITI_PROCESS).basic().label("多流程")
+                .search().triggerOnSelect(true)
+                .form().logicField().on("是",1).off("否",0);
 //        view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
 //        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.NAME)
 //                .form().hidden()
@@ -65,6 +85,7 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
         form.columnLayout(new Object[] {
                 BPM_FORM_DEFINITION.CODE,
                 BPM_FORM_DEFINITION.NAME,
+                BPM_FORM_DEFINITION.CATALOG_ID,
                 BPM_FORM_DEFINITION.FORM_TYPE,
                 BPM_FORM_DEFINITION.VALID,
                 BPM_FORM_DEFINITION.MULITI_PROCESS,
