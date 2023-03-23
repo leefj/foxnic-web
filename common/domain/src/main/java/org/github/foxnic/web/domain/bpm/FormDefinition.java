@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_DEFINITION;
@@ -8,22 +9,28 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.domain.oauth.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 表单定义
+ * <p>表单定义 , 数据表 bpm_form_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
- * @sign 6104A255338359211BFF78649DEF6F47
+ * @since 2023-03-23 16:36:38
+ * @sign 89F74816B935EC25BCF68ABA3828AD71
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "bpm_form_definition")
+@ApiModel(description = "表单定义 ; 表单定义 , 数据表 bpm_form_definition 的PO类型")
 public class FormDefinition extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -34,43 +41,43 @@ public class FormDefinition extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "568457112443682816")
 	private String id;
 	
 	/**
 	 * 表单代码：表单代码
 	*/
-	@ApiModelProperty(required = true,value="表单代码" , notes = "表单代码")
+	@ApiModelProperty(required = true,value="表单代码" , notes = "表单代码" , example = "demo-leave")
 	private String code;
 	
 	/**
 	 * 表单名称：表单名称
 	*/
-	@ApiModelProperty(required = false,value="表单名称" , notes = "表单名称")
+	@ApiModelProperty(required = false,value="表单名称" , notes = "表单名称" , example = "请假表单")
 	private String name;
 	
 	/**
 	 * 表单类型：表单类型
 	*/
-	@ApiModelProperty(required = false,value="表单类型" , notes = "表单类型")
+	@ApiModelProperty(required = false,value="表单类型" , notes = "表单类型" , example = "outer")
 	private String formType;
 	
 	/**
 	 * 起草页地址：起草页地址
 	*/
-	@ApiModelProperty(required = false,value="起草页地址" , notes = "起草页地址")
+	@ApiModelProperty(required = false,value="起草页地址" , notes = "起草页地址" , example = "/business/bpm/demo_leave/demo_leave_form.html")
 	private String draftPageUrl;
 	
 	/**
 	 * 审批页地址：审批页地址
 	*/
-	@ApiModelProperty(required = false,value="审批页地址" , notes = "审批页地址")
+	@ApiModelProperty(required = false,value="审批页地址" , notes = "审批页地址" , example = "/business/bpm/demo_leave/demo_leave_form.html")
 	private String approvalPageUrl;
 	
 	/**
 	 * 生效：生效
 	*/
-	@ApiModelProperty(required = false,value="生效" , notes = "生效")
+	@ApiModelProperty(required = false,value="生效" , notes = "生效" , example = "1")
 	private Integer valid;
 	
 	/**
@@ -82,33 +89,34 @@ public class FormDefinition extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2022-04-18 03:25:37")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "581798429840113664")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2022-07-04 04:12:39")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -126,32 +134,44 @@ public class FormDefinition extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "16")
 	private Integer version;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
 	
 	/**
 	 * 回调控制器：完整类名
 	*/
-	@ApiModelProperty(required = false,value="回调控制器" , notes = "完整类名")
+	@ApiModelProperty(required = false,value="回调控制器" , notes = "完整类名" , example = "org.github.foxnic.web.bpm.controller.DemoLeaveController")
 	private String callbackController;
 	
 	/**
 	 * 是否可关联多个流程：是否可关联多个流程
 	*/
-	@ApiModelProperty(required = true,value="是否可关联多个流程" , notes = "是否可关联多个流程")
+	@ApiModelProperty(required = true,value="是否可关联多个流程" , notes = "是否可关联多个流程" , example = "0")
 	private Integer mulitiProcess;
+	
+	/**
+	 * 分类ID：分类ID
+	*/
+	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID")
+	private String catalogId;
 	
 	/**
 	 * 最后修改人：最后修改人
 	*/
 	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
 	private User lastUpdateUser;
+	
+	/**
+	 * 分类对象：分类对象
+	*/
+	@ApiModelProperty(required = false,value="分类对象" , notes = "分类对象")
+	private Catalog catalog;
 	
 	/**
 	 * 获得 主键<br>
@@ -408,6 +428,7 @@ public class FormDefinition extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public FormDefinition setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -545,6 +566,25 @@ public class FormDefinition extends Entity {
 	}
 	
 	/**
+	 * 获得 分类ID<br>
+	 * 分类ID
+	 * @return 分类ID
+	*/
+	public String getCatalogId() {
+		return catalogId;
+	}
+	
+	/**
+	 * 设置 分类ID
+	 * @param catalogId 分类ID
+	 * @return 当前对象
+	*/
+	public FormDefinition setCatalogId(String catalogId) {
+		this.catalogId=catalogId;
+		return this;
+	}
+	
+	/**
 	 * 获得 最后修改人<br>
 	 * 最后修改人
 	 * @return 最后修改人
@@ -560,6 +600,25 @@ public class FormDefinition extends Entity {
 	*/
 	public FormDefinition setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser=lastUpdateUser;
+		return this;
+	}
+	
+	/**
+	 * 获得 分类对象<br>
+	 * 分类对象
+	 * @return 分类对象
+	*/
+	public Catalog getCatalog() {
+		return catalog;
+	}
+	
+	/**
+	 * 设置 分类对象
+	 * @param catalog 分类对象
+	 * @return 当前对象
+	*/
+	public FormDefinition setCatalog(Catalog catalog) {
+		this.catalog=catalog;
 		return this;
 	}
 
@@ -619,6 +678,7 @@ public class FormDefinition extends Entity {
 		inst.setValid(this.getValid());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
+		inst.setCatalogId(this.getCatalogId());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
@@ -627,6 +687,7 @@ public class FormDefinition extends Entity {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		if(all) {
+			inst.setCatalog(this.getCatalog());
 			inst.setLastUpdateUser(this.getLastUpdateUser());
 		}
 		inst.clearModifies();
@@ -649,7 +710,9 @@ public class FormDefinition extends Entity {
 	@Transient
 	public static FormDefinition createFrom(Map<String,Object> formDefinitionMap) {
 		if(formDefinitionMap==null) return null;
-		FormDefinition po = EntityContext.create(FormDefinition.class, formDefinitionMap);
+		FormDefinition po = create();
+		EntityContext.copyProperties(po,formDefinitionMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -661,7 +724,9 @@ public class FormDefinition extends Entity {
 	@Transient
 	public static FormDefinition createFrom(Object pojo) {
 		if(pojo==null) return null;
-		FormDefinition po = EntityContext.create(FormDefinition.class,pojo);
+		FormDefinition po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -671,6 +736,130 @@ public class FormDefinition extends Entity {
 	*/
 	@Transient
 	public static FormDefinition create() {
-		return EntityContext.create(FormDefinition.class);
+		return new org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setApprovalPageUrl(DataParser.parse(String.class, map.get(FormDefinitionMeta.APPROVAL_PAGE_URL)));
+			this.setFormType(DataParser.parse(String.class, map.get(FormDefinitionMeta.FORM_TYPE)));
+			this.setCode(DataParser.parse(String.class, map.get(FormDefinitionMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(FormDefinitionMeta.NOTES)));
+			this.setCallbackController(DataParser.parse(String.class, map.get(FormDefinitionMeta.CALLBACK_CONTROLLER)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FormDefinitionMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FormDefinitionMeta.VERSION)));
+			this.setMulitiProcess(DataParser.parse(Integer.class, map.get(FormDefinitionMeta.MULITI_PROCESS)));
+			this.setDraftPageUrl(DataParser.parse(String.class, map.get(FormDefinitionMeta.DRAFT_PAGE_URL)));
+			this.setValid(DataParser.parse(Integer.class, map.get(FormDefinitionMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FormDefinitionMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FormDefinitionMeta.DELETED)));
+			this.setCatalogId(DataParser.parse(String.class, map.get(FormDefinitionMeta.CATALOG_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FormDefinitionMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FormDefinitionMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FormDefinitionMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(FormDefinitionMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(FormDefinitionMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FormDefinitionMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(FormDefinitionMeta.ID)));
+			// others
+			this.setCatalog(DataParser.parse(Catalog.class, map.get(FormDefinitionMeta.CATALOG)));
+			this.setLastUpdateUser(DataParser.parse(User.class, map.get(FormDefinitionMeta.LAST_UPDATE_USER)));
+			return true;
+		} else {
+			try {
+				this.setApprovalPageUrl( (String)map.get(FormDefinitionMeta.APPROVAL_PAGE_URL));
+				this.setFormType( (String)map.get(FormDefinitionMeta.FORM_TYPE));
+				this.setCode( (String)map.get(FormDefinitionMeta.CODE));
+				this.setNotes( (String)map.get(FormDefinitionMeta.NOTES));
+				this.setCallbackController( (String)map.get(FormDefinitionMeta.CALLBACK_CONTROLLER));
+				this.setUpdateTime( (Date)map.get(FormDefinitionMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(FormDefinitionMeta.VERSION));
+				this.setMulitiProcess( (Integer)map.get(FormDefinitionMeta.MULITI_PROCESS));
+				this.setDraftPageUrl( (String)map.get(FormDefinitionMeta.DRAFT_PAGE_URL));
+				this.setValid( (Integer)map.get(FormDefinitionMeta.VALID));
+				this.setCreateBy( (String)map.get(FormDefinitionMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FormDefinitionMeta.DELETED));
+				this.setCatalogId( (String)map.get(FormDefinitionMeta.CATALOG_ID));
+				this.setCreateTime( (Date)map.get(FormDefinitionMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FormDefinitionMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FormDefinitionMeta.DELETE_TIME));
+				this.setName( (String)map.get(FormDefinitionMeta.NAME));
+				this.setTenantId( (String)map.get(FormDefinitionMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(FormDefinitionMeta.DELETE_BY));
+				this.setId( (String)map.get(FormDefinitionMeta.ID));
+				// others
+				this.setCatalog( (Catalog)map.get(FormDefinitionMeta.CATALOG));
+				this.setLastUpdateUser( (User)map.get(FormDefinitionMeta.LAST_UPDATE_USER));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setApprovalPageUrl(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.APPROVAL_PAGE_URL)));
+			this.setFormType(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.FORM_TYPE)));
+			this.setCode(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.NOTES)));
+			this.setCallbackController(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.CALLBACK_CONTROLLER)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FormDefinitionMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FormDefinitionMeta.VERSION)));
+			this.setMulitiProcess(DataParser.parse(Integer.class, r.getValue(FormDefinitionMeta.MULITI_PROCESS)));
+			this.setDraftPageUrl(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.DRAFT_PAGE_URL)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(FormDefinitionMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FormDefinitionMeta.DELETED)));
+			this.setCatalogId(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.CATALOG_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FormDefinitionMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FormDefinitionMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(FormDefinitionMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setApprovalPageUrl( (String)r.getValue(FormDefinitionMeta.APPROVAL_PAGE_URL));
+				this.setFormType( (String)r.getValue(FormDefinitionMeta.FORM_TYPE));
+				this.setCode( (String)r.getValue(FormDefinitionMeta.CODE));
+				this.setNotes( (String)r.getValue(FormDefinitionMeta.NOTES));
+				this.setCallbackController( (String)r.getValue(FormDefinitionMeta.CALLBACK_CONTROLLER));
+				this.setUpdateTime( (Date)r.getValue(FormDefinitionMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(FormDefinitionMeta.VERSION));
+				this.setMulitiProcess( (Integer)r.getValue(FormDefinitionMeta.MULITI_PROCESS));
+				this.setDraftPageUrl( (String)r.getValue(FormDefinitionMeta.DRAFT_PAGE_URL));
+				this.setValid( (Integer)r.getValue(FormDefinitionMeta.VALID));
+				this.setCreateBy( (String)r.getValue(FormDefinitionMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FormDefinitionMeta.DELETED));
+				this.setCatalogId( (String)r.getValue(FormDefinitionMeta.CATALOG_ID));
+				this.setCreateTime( (Date)r.getValue(FormDefinitionMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FormDefinitionMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FormDefinitionMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(FormDefinitionMeta.NAME));
+				this.setTenantId( (String)r.getValue(FormDefinitionMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(FormDefinitionMeta.DELETE_BY));
+				this.setId( (String)r.getValue(FormDefinitionMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

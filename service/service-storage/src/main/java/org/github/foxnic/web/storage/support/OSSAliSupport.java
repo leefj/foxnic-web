@@ -5,6 +5,8 @@ import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -86,7 +88,9 @@ public class OSSAliSupport extends StorageSupport {
             } catch (Exception e) {
                 Logger.error("文件字节错误",e);
             }
-            upload(fileInfo,fileInfo.getFileName(), bytes, dir, true);
+            String name=FileUtil.getExtName(fileInfo.getFileName());
+            name= IDGenerator.getSnowflakeIdString()+"."+name;
+            upload(fileInfo,name, bytes, dir, true);
             return fileInfo;
         } catch (Exception e) {
             Logger.exception(e);
@@ -126,6 +130,7 @@ public class OSSAliSupport extends StorageSupport {
             validate(content,returnAbsoluteUrl);
             String date = DateUtil.format(new Date(),"yyyyMMdd");
             relativeUrl = StringUtil.joinUrl(dir , date , fileName);
+            relativeUrl = StringUtil.trim(relativeUrl,"/");
             String bucket = returnAbsoluteUrl ? this.publicBucket : this.privateBucket;
             fileInfo.setLocation(bucket);
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, relativeUrl, new ByteArrayInputStream(content));

@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 表单定义表  控制器服务代理
+ * 表单定义 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
+ * @since 2023-03-23 17:07:14
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = FormDefinitionServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface FormDefinitionServiceProxy {

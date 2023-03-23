@@ -6,14 +6,15 @@ import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.Catalog;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:44
- * @sign 2D409DBBBF0ABA4D8818ACDB1853AE11
+ * @since 2023-03-23 16:46:54
+ * @sign DA9043003CE247052661BFDE95B07CE6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -210,6 +211,46 @@ public class ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> CAMUNDA_DEFINITION_KEY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,CAMUNDA_DEFINITION_KEY, java.lang.String.class, "流程Key", "在 camunda 中的流程定义KEY", java.lang.String.class, null);
 	
 	/**
+	 * PC端图标 , 类型: java.lang.String
+	*/
+	public static final String ICON_FILE_PC="iconFilePc";
+	
+	/**
+	 * PC端图标 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ICON_FILE_PC_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ICON_FILE_PC, java.lang.String.class, "PC端图标", "PC端图标", java.lang.String.class, null);
+	
+	/**
+	 * 移动端图标 , 类型: java.lang.String
+	*/
+	public static final String ICON_FILE_MOBILE="iconFileMobile";
+	
+	/**
+	 * 移动端图标 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ICON_FILE_MOBILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ICON_FILE_MOBILE, java.lang.String.class, "移动端图标", "移动端图标", java.lang.String.class, null);
+	
+	/**
+	 * 序号 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 序号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,SORT, java.lang.Integer.class, "序号", "序号", java.lang.Integer.class, null);
+	
+	/**
+	 * 分类ID , 类型: java.lang.String
+	*/
+	public static final String CATALOG_ID="catalogId";
+	
+	/**
+	 * 分类ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> CATALOG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,CATALOG_ID, java.lang.String.class, "分类ID", "分类ID", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -240,9 +281,19 @@ public class ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
 	
 	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,org.github.foxnic.web.domain.bpm.Catalog> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,CATALOG, org.github.foxnic.web.domain.bpm.Catalog.class, "分类对象", "分类对象", org.github.foxnic.web.domain.bpm.Catalog.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
 	
 	/**
 	 * 代理类
@@ -462,6 +513,50 @@ public class ProcessDefinitionMeta {
 		}
 		
 		/**
+		 * 设置 PC端图标
+		 * @param iconFilePc PC端图标
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setIconFilePc(String iconFilePc) {
+			super.change(ICON_FILE_PC,super.getIconFilePc(),iconFilePc);
+			super.setIconFilePc(iconFilePc);
+			return this;
+		}
+		
+		/**
+		 * 设置 移动端图标
+		 * @param iconFileMobile 移动端图标
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setIconFileMobile(String iconFileMobile) {
+			super.change(ICON_FILE_MOBILE,super.getIconFileMobile(),iconFileMobile);
+			super.setIconFileMobile(iconFileMobile);
+			return this;
+		}
+		
+		/**
+		 * 设置 序号
+		 * @param sort 序号
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类ID
+		 * @param catalogId 分类ID
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCatalogId(String catalogId) {
+			super.change(CATALOG_ID,super.getCatalogId(),catalogId);
+			super.setCatalogId(catalogId);
+			return this;
+		}
+		
+		/**
 		 * 设置 最后修改人
 		 * @param lastUpdateUser 最后修改人
 		 * @return 当前对象
@@ -493,6 +588,17 @@ public class ProcessDefinitionMeta {
 			super.setFormDefinition(formDefinition);
 			return this;
 		}
+		
+		/**
+		 * 设置 分类对象
+		 * @param catalog 分类对象
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCatalog(Catalog catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -516,10 +622,13 @@ public class ProcessDefinitionMeta {
 			inst.setNotes(this.getNotes());
 			inst.setCamundaDefinitionId(this.getCamundaDefinitionId());
 			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSort(this.getSort());
 			inst.setVersion(this.getVersion());
+			inst.setIconFileMobile(this.getIconFileMobile());
 			inst.setValid(this.getValid());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
+			inst.setCatalogId(this.getCatalogId());
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
@@ -528,9 +637,11 @@ public class ProcessDefinitionMeta {
 			inst.setFormDefinitionId(this.getFormDefinitionId());
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
+			inst.setIconFilePc(this.getIconFilePc());
 			if(all) {
 				inst.setFormDefinition(this.getFormDefinition());
 				inst.setDefinitionFile(this.getDefinitionFile());
+				inst.setCatalog(this.getCatalog());
 				inst.setLastUpdateUser(this.getLastUpdateUser());
 			}
 			inst.clearModifies();

@@ -4,14 +4,15 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.Catalog;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
- * @sign 6104A255338359211BFF78649DEF6F47
+ * @since 2023-03-23 16:36:38
+ * @sign 89F74816B935EC25BCF68ABA3828AD71
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -208,6 +209,16 @@ public class FormDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,java.lang.Integer> MULITI_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,MULITI_PROCESS, java.lang.Integer.class, "是否可关联多个流程", "是否可关联多个流程", java.lang.Integer.class, null);
 	
 	/**
+	 * 分类ID , 类型: java.lang.String
+	*/
+	public static final String CATALOG_ID="catalogId";
+	
+	/**
+	 * 分类ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,java.lang.String> CATALOG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,CATALOG_ID, java.lang.String.class, "分类ID", "分类ID", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -218,9 +229,19 @@ public class FormDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,org.github.foxnic.web.domain.bpm.Catalog> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,CATALOG, org.github.foxnic.web.domain.bpm.Catalog.class, "分类对象", "分类对象", org.github.foxnic.web.domain.bpm.Catalog.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS , CATALOG_ID , LAST_UPDATE_USER , CATALOG };
 	
 	/**
 	 * 代理类
@@ -440,6 +461,17 @@ public class FormDefinitionMeta {
 		}
 		
 		/**
+		 * 设置 分类ID
+		 * @param catalogId 分类ID
+		 * @return 当前对象
+		*/
+		public FormDefinition setCatalogId(String catalogId) {
+			super.change(CATALOG_ID,super.getCatalogId(),catalogId);
+			super.setCatalogId(catalogId);
+			return this;
+		}
+		
+		/**
 		 * 设置 最后修改人
 		 * @param lastUpdateUser 最后修改人
 		 * @return 当前对象
@@ -447,6 +479,17 @@ public class FormDefinitionMeta {
 		public FormDefinition setLastUpdateUser(User lastUpdateUser) {
 			super.change(LAST_UPDATE_USER,super.getLastUpdateUser(),lastUpdateUser);
 			super.setLastUpdateUser(lastUpdateUser);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类对象
+		 * @param catalog 分类对象
+		 * @return 当前对象
+		*/
+		public FormDefinition setCatalog(Catalog catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
 			return this;
 		}
 
@@ -477,6 +520,7 @@ public class FormDefinitionMeta {
 			inst.setValid(this.getValid());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
+			inst.setCatalogId(this.getCatalogId());
 			inst.setCreateTime(this.getCreateTime());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
@@ -485,6 +529,7 @@ public class FormDefinitionMeta {
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			if(all) {
+				inst.setCatalog(this.getCatalog());
 				inst.setLastUpdateUser(this.getLastUpdateUser());
 			}
 			inst.clearModifies();

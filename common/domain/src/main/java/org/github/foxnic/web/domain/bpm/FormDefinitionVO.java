@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.bpm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,25 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.bpm.meta.FormDefinitionVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 表单定义
+ * 表单定义VO类型
+ * <p>表单定义 , 数据表 bpm_form_definition 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
- * @sign F381079F26C6421D0A4260CB4FDAD5D9
+ * @since 2023-03-23 14:48:00
+ * @sign 83DD7FEBBA994A33EDF0C96F677A4A38
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "表单定义VO类型 ; 表单定义 , 数据表 bpm_form_definition 的通用VO类型" , parent = FormDefinition.class)
 public class FormDefinitionVO extends FormDefinition {
 
 	private static final long serialVersionUID = 1L;
@@ -71,6 +80,24 @@ public class FormDefinitionVO extends FormDefinition {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -240,6 +267,63 @@ public class FormDefinitionVO extends FormDefinition {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public FormDefinitionVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public FormDefinitionVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public FormDefinitionVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -355,6 +439,7 @@ public class FormDefinitionVO extends FormDefinition {
 		inst.setValid(this.getValid());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
+		inst.setCatalogId(this.getCatalogId());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
@@ -364,15 +449,18 @@ public class FormDefinitionVO extends FormDefinition {
 		inst.setId(this.getId());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIsBindProcess(this.getIsBindProcess());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
-			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setLastUpdateUser(this.getLastUpdateUser());
-			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
-			inst.setIsBindProcess(this.getIsBindProcess());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -388,6 +476,20 @@ public class FormDefinitionVO extends FormDefinition {
 	}
 
 	/**
+	 * 将 Map 转换成 FormDefinitionVO
+	 * @param formDefinitionMap 包含实体信息的 Map 对象
+	 * @return FormDefinitionVO , 转换好的的 FormDefinition 对象
+	*/
+	@Transient
+	public static FormDefinitionVO createFrom(Map<String,Object> formDefinitionMap) {
+		if(formDefinitionMap==null) return null;
+		FormDefinitionVO vo = create();
+		EntityContext.copyProperties(vo,formDefinitionMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 FormDefinitionVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return FormDefinitionVO , 转换好的的 FormDefinition 对象
@@ -395,8 +497,10 @@ public class FormDefinitionVO extends FormDefinition {
 	@Transient
 	public static FormDefinitionVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		FormDefinitionVO po = EntityContext.create(FormDefinitionVO.class,pojo);
-		return po;
+		FormDefinitionVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -405,6 +509,150 @@ public class FormDefinitionVO extends FormDefinition {
 	*/
 	@Transient
 	public static FormDefinitionVO create() {
-		return EntityContext.create(FormDefinitionVO.class);
+		return new org.github.foxnic.web.domain.bpm.meta.FormDefinitionVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setApprovalPageUrl(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.APPROVAL_PAGE_URL)));
+			this.setFormType(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.FORM_TYPE)));
+			this.setCode(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.NOTES)));
+			this.setCallbackController(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.CALLBACK_CONTROLLER)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(FormDefinitionVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.VERSION)));
+			this.setMulitiProcess(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.MULITI_PROCESS)));
+			this.setDraftPageUrl(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.DRAFT_PAGE_URL)));
+			this.setValid(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.DELETED)));
+			this.setCatalogId(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.CATALOG_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(FormDefinitionVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(FormDefinitionVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.ID)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.REQUEST_ACTION)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.PAGE_SIZE)));
+			this.setIsBindProcess(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.IS_BIND_PROCESS)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(FormDefinitionVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.SORT_FIELD)));
+			this.setLastUpdateUser(DataParser.parse(User.class, map.get(FormDefinitionVOMeta.LAST_UPDATE_USER)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.QUERY_LOGIC)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(FormDefinitionVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setApprovalPageUrl( (String)map.get(FormDefinitionVOMeta.APPROVAL_PAGE_URL));
+				this.setFormType( (String)map.get(FormDefinitionVOMeta.FORM_TYPE));
+				this.setCode( (String)map.get(FormDefinitionVOMeta.CODE));
+				this.setNotes( (String)map.get(FormDefinitionVOMeta.NOTES));
+				this.setCallbackController( (String)map.get(FormDefinitionVOMeta.CALLBACK_CONTROLLER));
+				this.setUpdateTime( (Date)map.get(FormDefinitionVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(FormDefinitionVOMeta.VERSION));
+				this.setMulitiProcess( (Integer)map.get(FormDefinitionVOMeta.MULITI_PROCESS));
+				this.setDraftPageUrl( (String)map.get(FormDefinitionVOMeta.DRAFT_PAGE_URL));
+				this.setValid( (Integer)map.get(FormDefinitionVOMeta.VALID));
+				this.setCreateBy( (String)map.get(FormDefinitionVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(FormDefinitionVOMeta.DELETED));
+				this.setCatalogId( (String)map.get(FormDefinitionVOMeta.CATALOG_ID));
+				this.setCreateTime( (Date)map.get(FormDefinitionVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(FormDefinitionVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(FormDefinitionVOMeta.DELETE_TIME));
+				this.setName( (String)map.get(FormDefinitionVOMeta.NAME));
+				this.setTenantId( (String)map.get(FormDefinitionVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(FormDefinitionVOMeta.DELETE_BY));
+				this.setId( (String)map.get(FormDefinitionVOMeta.ID));
+				// others
+				this.setSearchField( (String)map.get(FormDefinitionVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(FormDefinitionVOMeta.REQUEST_ACTION));
+				this.setFuzzyField( (String)map.get(FormDefinitionVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(FormDefinitionVOMeta.PAGE_SIZE));
+				this.setIsBindProcess( (Integer)map.get(FormDefinitionVOMeta.IS_BIND_PROCESS));
+				this.setPageIndex( (Integer)map.get(FormDefinitionVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(FormDefinitionVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(FormDefinitionVOMeta.SORT_FIELD));
+				this.setLastUpdateUser( (User)map.get(FormDefinitionVOMeta.LAST_UPDATE_USER));
+				this.setDataOrigin( (String)map.get(FormDefinitionVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(FormDefinitionVOMeta.QUERY_LOGIC));
+				this.setSearchValue( (String)map.get(FormDefinitionVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setApprovalPageUrl(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.APPROVAL_PAGE_URL)));
+			this.setFormType(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.FORM_TYPE)));
+			this.setCode(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.CODE)));
+			this.setNotes(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.NOTES)));
+			this.setCallbackController(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.CALLBACK_CONTROLLER)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(FormDefinitionVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(FormDefinitionVOMeta.VERSION)));
+			this.setMulitiProcess(DataParser.parse(Integer.class, r.getValue(FormDefinitionVOMeta.MULITI_PROCESS)));
+			this.setDraftPageUrl(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.DRAFT_PAGE_URL)));
+			this.setValid(DataParser.parse(Integer.class, r.getValue(FormDefinitionVOMeta.VALID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(FormDefinitionVOMeta.DELETED)));
+			this.setCatalogId(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.CATALOG_ID)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(FormDefinitionVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(FormDefinitionVOMeta.DELETE_TIME)));
+			this.setName(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.NAME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(FormDefinitionVOMeta.ID)));
+			return true;
+		} else {
+			try {
+				this.setApprovalPageUrl( (String)r.getValue(FormDefinitionVOMeta.APPROVAL_PAGE_URL));
+				this.setFormType( (String)r.getValue(FormDefinitionVOMeta.FORM_TYPE));
+				this.setCode( (String)r.getValue(FormDefinitionVOMeta.CODE));
+				this.setNotes( (String)r.getValue(FormDefinitionVOMeta.NOTES));
+				this.setCallbackController( (String)r.getValue(FormDefinitionVOMeta.CALLBACK_CONTROLLER));
+				this.setUpdateTime( (Date)r.getValue(FormDefinitionVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(FormDefinitionVOMeta.VERSION));
+				this.setMulitiProcess( (Integer)r.getValue(FormDefinitionVOMeta.MULITI_PROCESS));
+				this.setDraftPageUrl( (String)r.getValue(FormDefinitionVOMeta.DRAFT_PAGE_URL));
+				this.setValid( (Integer)r.getValue(FormDefinitionVOMeta.VALID));
+				this.setCreateBy( (String)r.getValue(FormDefinitionVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(FormDefinitionVOMeta.DELETED));
+				this.setCatalogId( (String)r.getValue(FormDefinitionVOMeta.CATALOG_ID));
+				this.setCreateTime( (Date)r.getValue(FormDefinitionVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(FormDefinitionVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(FormDefinitionVOMeta.DELETE_TIME));
+				this.setName( (String)r.getValue(FormDefinitionVOMeta.NAME));
+				this.setTenantId( (String)r.getValue(FormDefinitionVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(FormDefinitionVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(FormDefinitionVOMeta.ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

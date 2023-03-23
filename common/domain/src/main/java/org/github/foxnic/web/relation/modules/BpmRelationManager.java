@@ -21,11 +21,18 @@ public class BpmRelationManager extends RelationManager {
 	@Override
 	protected void config() {
 		setupBpmProcessDefinition();
+		setupBpmFormDefinition();
 		setupBpmProcessInstance();
 		setupBpmTask();
 		setupBpmForm();
 		//
 		setupChanges();
+	}
+
+	private void setupBpmFormDefinition() {
+		//表单定义 - 表单分类
+		this.property(FormDefinitionMeta.CATALOG_PROP)
+				.using(FoxnicWeb.BPM_FORM_DEFINITION.CATALOG_ID).join(FoxnicWeb.BPM_CATALOG.ID);
 	}
 
 	protected void setupBpmProcessDefinition() {
@@ -45,6 +52,11 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessDefinitionMeta.DEFINITION_FILE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.PROCESS_DEFINITION_ID)
 				.conditionEquals(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.ACTIVATED,1);
+
+
+		//流程定义 - 流程分类
+		this.property(ProcessDefinitionMeta.CATALOG_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.CATALOG_ID).join(FoxnicWeb.BPM_CATALOG.ID);
 
 
 		//流程定义 - 表单定义
