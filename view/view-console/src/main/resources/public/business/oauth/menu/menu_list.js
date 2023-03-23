@@ -64,7 +64,7 @@ function ListPage() {
 			var fullWidth=$(window).width();
 			var treeHeight=fullHeight-toolbarHeight;
 			//$("#tree-container").height(treeHeight-1);
-			//$("#form-view").height(fullHeight);
+			$("#form-view").height(fullHeight);
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
