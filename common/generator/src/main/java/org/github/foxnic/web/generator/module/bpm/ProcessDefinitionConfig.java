@@ -105,7 +105,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().hidden().table().hidden();
         ;
 
-
+        view.field(BPM_CATALOG.SORT).search().hidden();
 
 
     }
@@ -125,6 +125,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
                 BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE,
                 BPM_PROCESS_DEFINITION.REJECT_OPTION,
+                BPM_PROCESS_DEFINITION.SORT,
                 BPM_PROCESS_DEFINITION.NOTES
         });
     }
