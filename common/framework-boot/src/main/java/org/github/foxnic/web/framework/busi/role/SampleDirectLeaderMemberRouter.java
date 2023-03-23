@@ -13,7 +13,7 @@ import java.util.Map;
 public class SampleDirectLeaderMemberRouter implements BusiRoleMemberRouter {
 
     @Override
-    public List<Employee> getMembers(Map<String, Object> context) {
+    public List<Employee> getMembers(Context context) {
 
         String[] empIds={"586965217661943808","586965315200483328","586966688780517376"};
         int i= (int) (Math.round (  (empIds.length-1) * Math.random())  );
