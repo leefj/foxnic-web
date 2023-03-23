@@ -10,6 +10,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import com.github.foxnic.sql.meta.DBType;
+import org.github.foxnic.web.bpm.page.CatalogPageController;
 import org.github.foxnic.web.bpm.page.DemoBusinessCasePageController;
 import org.github.foxnic.web.bpm.page.DemoLeavePageController;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
@@ -26,6 +27,7 @@ import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.notify.page.SmsLogPageController;
 import org.github.foxnic.web.notify.page.SmsVerificationCodePageController;
 import org.github.foxnic.web.oauth.page.MenuForkPageController;
+import org.github.foxnic.web.proxy.bpm.CatalogServiceProxy;
 import org.github.foxnic.web.proxy.bpm.DemoBusinessCaseServiceProxy;
 import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
@@ -112,8 +114,12 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.BPM_FORM_DEFINITION.$TABLE, FormDefinitionServiceProxy.class, FormDefinitionPageController.class);
 //		mg.generate("555766790999773184");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_SMS_LOG.$TABLE, SmsLogServiceProxy.class, SmsLogPageController.class);
-		 mg.generate("686529995333435392");
+//		mg=new MenuGenerator(FoxnicWeb.SYS_SMS_LOG.$TABLE, SmsLogServiceProxy.class, SmsLogPageController.class);
+//		mg.generate("686529995333435392");
+
+		mg=new MenuGenerator(FoxnicWeb.BPM_CATALOG.$TABLE, CatalogServiceProxy.class, CatalogPageController.class);
+		mg.generate("578497780117409792");
+
 //		mg.removeByBatchId("680087823839133696");
 //		mg = new MenuGenerator(FoxnicWeb.BPM_DEMO_COMMON.$TABLE, DemoCommonServiceProxy.class, DemoCommonPageController.class);
 //		mg.generate("495201409763901440");

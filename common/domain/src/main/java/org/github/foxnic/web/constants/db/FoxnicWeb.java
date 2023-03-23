@@ -7,13 +7,109 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-03-20 17:34:55
+ * @since 2023-03-23 14:45:24
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public class FoxnicWeb {
+	
+	/**
+	 * 流程分类
+	*/
+	public static class BPM_CATALOG extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_catalog";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * PC端图标
+		*/
+		public static final DBField ICON_FILE_PC = new DBField(DBDataType.STRING , "icon_file_pc","iconFilePc","PC端图标","PC端图标",false,false,true);
+		
+		/**
+		 * 移动端图标
+		*/
+		public static final DBField ICON_FILE_MOBILE = new DBField(DBDataType.STRING , "icon_file_mobile","iconFileMobile","移动端图标","移动端图标",false,false,true);
+		
+		/**
+		 * 序号
+		*/
+		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","序号","序号",false,false,true);
+		
+		/**
+		 * 生效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","生效","生效",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		public BPM_CATALOG() {
+			this.init($NAME,"流程分类" , ID , NAME , NOTES , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_CATALOG $TABLE=new BPM_CATALOG();
+	}
 	
 	/**
 	 * 商务来案
@@ -243,8 +339,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField MULITI_PROCESS = new DBField(DBDataType.INTEGER , "muliti_process","mulitiProcess","是否可关联多个流程","是否可关联多个流程",false,false,false);
 		
+		/**
+		 * 分类ID
+		*/
+		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,true);
+		
 		public BPM_FORM_DEFINITION() {
-			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS);
+			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS , CATALOG_ID);
 		}
 		public static final BPM_FORM_DEFINITION $TABLE=new BPM_FORM_DEFINITION();
 	}
@@ -511,8 +612,28 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CAMUNDA_DEFINITION_KEY = new DBField(DBDataType.STRING , "camunda_definition_key","camundaDefinitionKey","流程Key","在 camunda 中的流程定义KEY",false,false,true);
 		
+		/**
+		 * PC端图标
+		*/
+		public static final DBField ICON_FILE_PC = new DBField(DBDataType.STRING , "icon_file_pc","iconFilePc","PC端图标","PC端图标",false,false,true);
+		
+		/**
+		 * 移动端图标
+		*/
+		public static final DBField ICON_FILE_MOBILE = new DBField(DBDataType.STRING , "icon_file_mobile","iconFileMobile","移动端图标","移动端图标",false,false,true);
+		
+		/**
+		 * 序号
+		*/
+		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","序号","序号",false,false,true);
+		
+		/**
+		 * 分类ID
+		*/
+		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY);
+			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}

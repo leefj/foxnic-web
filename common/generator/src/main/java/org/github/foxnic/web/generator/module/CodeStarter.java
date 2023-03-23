@@ -62,12 +62,12 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        initPcmModules();
 //        initOAuthModules();
-        initSystemModules();
+//        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -131,8 +131,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new TaskApprovalConfig());
 //        this.addConfig(new ProcessErrorConfig());
 //
+        this.addConfig(new CatalogConfig());
 //        //
-        this.addConfig(new DemoBusiCaseConfig());
+//        this.addConfig(new DemoBusiCaseConfig());
 
 //        this.addConfig(new DemoLeaveConfig());
 //        this.addConfig(new DemoCommonConfig());
