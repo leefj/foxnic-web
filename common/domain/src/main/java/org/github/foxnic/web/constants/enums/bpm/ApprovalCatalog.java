@@ -5,7 +5,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum ApprovalCatalog implements CodeTextEnum {
 
-	drafted("我起草的流程"),approving("我待批的流程"),approved("我办结的流程");
+	drafting("起草中的流程"),drafted("我起草的流程"),approving("我待批的流程"),approved("我办结的流程");
 
 	private String text;
 	private ApprovalCatalog(String text)  {
