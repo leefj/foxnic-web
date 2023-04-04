@@ -86,6 +86,11 @@
     </div>
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-buildIn">
+    <input type="checkbox" class="switch-buildIn list-checkbox" lay-filter="cell-tpl-buildIn" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.buildIn==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
+
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
     <a th:if="${perm.checkAuth('sys_role:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>

@@ -32,6 +32,7 @@ import org.github.foxnic.web.oauth.service.IRoleService;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,16 +61,20 @@ public class RoleController extends SuperController {
     @Autowired
     private IRoleUserService roleUserService;
 
+    @Value("${security.build-in.display-role}")
+    private Boolean displayBuildIn = true;
+
     /**
      * 添加角色
      */
     @ApiOperation(value = "添加角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
 		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
 	})
     @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
     @ApiOperationSupport(order = 1, includeParameters = { RoleVOMeta.CODE, RoleVOMeta.NAME, RoleVOMeta.MENU_IDS })
@@ -85,7 +90,7 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "按主键删除角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000")
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000")
 	})
     @ApiOperationSupport(order = 2)
     @SentinelResource(value = RoleServiceProxy.DELETE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -112,6 +117,12 @@ public class RoleController extends SuperController {
     @SentinelResource(value = RoleServiceProxy.DELETE_BY_IDS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.DELETE_BY_IDS)
     public Result deleteByIds(List<String> ids) {
+        List<Role> roles=roleService.getByIds(ids);
+        for (Role role : roles) {
+            if(roleService.isBuildIn(role)) {
+                return ErrorDesc.failure().message("不允许删除内置角色");
+            }
+        }
         Result result = roleService.deleteByIdsLogical(ids);
         return result;
     }
@@ -121,11 +132,12 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "更新角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
 		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE, RoleVOMeta.SEARCH_FIELD, RoleVOMeta.SEARCH_VALUE, RoleVOMeta.SORT_FIELD, RoleVOMeta.SORT_TYPE, RoleVOMeta.IDS })
     @SentinelResource(value = RoleServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -141,11 +153,12 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "保存角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
 		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE, RoleVOMeta.SEARCH_FIELD, RoleVOMeta.SEARCH_VALUE, RoleVOMeta.SORT_FIELD, RoleVOMeta.SORT_TYPE, RoleVOMeta.IDS })
     @SentinelResource(value = RoleServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -161,7 +174,7 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "按主键获取角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "1")
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "1")
 	})
     @ApiOperationSupport(order = 6)
     @SentinelResource(value = RoleServiceProxy.GET_BY_ID, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -199,17 +212,23 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "查询角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
 		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { RoleVOMeta.PAGE_INDEX, RoleVOMeta.PAGE_SIZE })
     @SentinelResource(value = RoleServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.QUERY_LIST)
     public Result<List<Role>> queryList(RoleVO sample) {
         Result<List<Role>> result = new Result<>();
+        if(displayBuildIn) {
+            sample.setBuildIn(null);
+        } else {
+            sample.setBuildIn(0);
+        }
         List<Role> list = roleService.queryList(sample);
         result.success(true).data(list);
         return result;
@@ -220,17 +239,23 @@ public class RoleController extends SuperController {
      */
     @ApiOperation(value = "分页查询角色")
     @ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID, value = "ID", required = true, dataTypeClass = String.class, example = "110352463290923000"),
+		@ApiImplicitParam(name = RoleVOMeta.ID, value = "主键", required = true, dataTypeClass = String.class, example = "110352463290923000"),
 		@ApiImplicitParam(name = RoleVOMeta.CODE, value = "代码", required = false, dataTypeClass = String.class, example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME, value = "名称", required = false, dataTypeClass = String.class, example = "业务员"),
 		@ApiImplicitParam(name = RoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = RoleVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = RoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = RoleServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(RoleServiceProxy.QUERY_PAGED_LIST)
     public Result<PagedList<Role>> queryPagedList(RoleVO sample) {
         Result<PagedList<Role>> result = new Result<>();
+        if(displayBuildIn) {
+            sample.setBuildIn(null);
+        } else {
+            sample.setBuildIn(0);
+        }
         PagedList<Role> list = roleService.queryPagedList(sample, sample.getPageSize(), sample.getPageIndex());
         result.success(true).data(list);
         return result;

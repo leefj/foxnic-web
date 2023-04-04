@@ -293,4 +293,6 @@ public interface IRoleService extends ISimpleIdService<Role,String> {
 	 * 获得菜单关联的角色
 	 * */
 	List<Role> getRelatedRoles(List<String> menuIds);
+
+    boolean isBuildIn(Role role);
 }

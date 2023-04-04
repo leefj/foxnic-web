@@ -38,9 +38,9 @@ import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +68,9 @@ public class UserController extends SuperController {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Value("${security.build-in.display-user}")
+    private Boolean displayBuildIn = true;
+
     /**
      * 添加账户
      */
@@ -85,7 +88,8 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME, value = "最后登录时间", required = false, dataTypeClass = Date.class, example = "2021-05-31 03:09:23"),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = UserVOMeta.BUILD_IN, value = "内置账户", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = UserServiceProxy.INSERT)
@@ -126,6 +130,12 @@ public class UserController extends SuperController {
     @SentinelResource(value = UserServiceProxy.BATCH_DELETE)
     @PostMapping(UserServiceProxy.BATCH_DELETE)
     public Result deleteByIds(List<String> ids) {
+        List<User> users = userService.getByIds(ids);
+        for (User user : users) {
+            if(userService.isBuildIn(user)) {
+                return ErrorDesc.failure().message("不允许删除内置账户");
+            }
+        }
         Result result = userService.deleteByIdsLogical(ids);
         return result;
     }
@@ -147,7 +157,8 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME, value = "最后登录时间", required = false, dataTypeClass = Date.class, example = "2021-05-31 03:09:23"),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = UserVOMeta.BUILD_IN, value = "内置账户", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { UserVOMeta.PAGE_INDEX, UserVOMeta.PAGE_SIZE, UserVOMeta.SEARCH_FIELD, UserVOMeta.SEARCH_VALUE, UserVOMeta.IDS })
     @SentinelResource(value = UserServiceProxy.UPDATE)
@@ -182,7 +193,7 @@ public class UserController extends SuperController {
         user.setLanguage(userVO.getLanguage());
         Result result = userService.update(user, SaveMode.DIRTY_FIELDS);
         user.setPasswd("******");
-        Language language=Language.parseByCode(userVO.getLanguage());
+        Language language = Language.parseByCode(userVO.getLanguage());
         LangServiceProxy.api().switchLanguage(language.code());
         return result.data(user);
     }
@@ -204,7 +215,8 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME, value = "最后登录时间", required = false, dataTypeClass = Date.class, example = "2021-05-31 03:09:23"),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = UserVOMeta.BUILD_IN, value = "内置账户", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { UserVOMeta.PAGE_INDEX, UserVOMeta.PAGE_SIZE, UserVOMeta.SEARCH_FIELD, UserVOMeta.SEARCH_VALUE, UserVOMeta.IDS })
     @SentinelResource(value = UserServiceProxy.SAVE)
@@ -300,13 +312,19 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME, value = "最后登录时间", required = false, dataTypeClass = Date.class, example = "2021-05-31 03:09:23"),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = UserVOMeta.BUILD_IN, value = "内置账户", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { UserVOMeta.PAGE_INDEX, UserVOMeta.PAGE_SIZE })
     @SentinelResource(value = UserServiceProxy.QUERY_LIST)
     @PostMapping(UserServiceProxy.QUERY_LIST)
     public Result<List<User>> queryList(UserVO sample) {
         Result<List<User>> result = new Result<>();
+        if(displayBuildIn) {
+            sample.setBuildIn(null);
+        } else {
+            sample.setBuildIn(0);
+        }
         List<User> list = userService.queryList(sample);
         for (User user : list) {
             user.setPasswd("");
@@ -332,7 +350,8 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME, value = "最后登录时间", required = false, dataTypeClass = Date.class, example = "2022-04-19 02:57:10"),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = UserVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = UserVOMeta.BUILD_IN, value = "内置账户", required = false, dataTypeClass = Integer.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = UserServiceProxy.QUERY_PAGED_LIST)
@@ -343,6 +362,13 @@ public class UserController extends SuperController {
         Result<PagedList<User>> result = new Result<>();
         PerformanceLogger pl = new PerformanceLogger(true);
         pl.collect("A");
+
+        if(displayBuildIn) {
+            sample.setBuildIn(null);
+        } else {
+            sample.setBuildIn(0);
+        }
+
         PagedList<User> list = userService.queryPagedList(sample, sample.getPageSize(), sample.getPageIndex());
         pl.collect("B");
         for (User user : list) {

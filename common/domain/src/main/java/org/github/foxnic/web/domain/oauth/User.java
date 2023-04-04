@@ -27,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-28 14:48:58
- * @sign 572EC7F15C59D3657B03269F069A8BB4
+ * @since 2023-04-04 09:42:30
+ * @sign DDA29F1759EE0CEA261F657493A91123
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-01-28 02:29:34")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-04-03 10:54:17")
 	private Date lastLoginTime;
 	
 	/**
@@ -122,7 +122,7 @@ public class User extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-01-28 01:23:42")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-03-27 01:53:18")
 	private Date updateTime;
 	
 	/**
@@ -149,7 +149,7 @@ public class User extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "211")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "213")
 	private Integer version;
 	
 	/**
@@ -157,6 +157,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
+	
+	/**
+	 * 内置账户：系统内置账户
+	*/
+	@ApiModelProperty(required = false,value="内置账户" , notes = "系统内置账户")
+	private Integer buildIn;
 	
 	/**
 	 * 角色清单：当前用户的所有角色清单
@@ -599,6 +605,25 @@ public class User extends Entity {
 	}
 	
 	/**
+	 * 获得 内置账户<br>
+	 * 系统内置账户
+	 * @return 内置账户
+	*/
+	public Integer getBuildIn() {
+		return buildIn;
+	}
+	
+	/**
+	 * 设置 内置账户
+	 * @param buildIn 内置账户
+	 * @return 当前对象
+	*/
+	public User setBuildIn(Integer buildIn) {
+		this.buildIn=buildIn;
+		return this;
+	}
+	
+	/**
 	 * 获得 角色清单<br>
 	 * 当前用户的所有角色清单
 	 * @return 角色清单
@@ -855,6 +880,7 @@ public class User extends Entity {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setValid(this.getValid());
+		inst.setBuildIn(this.getBuildIn());
 		inst.setRealName(this.getRealName());
 		inst.setLastLoginTime(this.getLastLoginTime());
 		inst.setCreateBy(this.getCreateBy());
@@ -942,6 +968,7 @@ public class User extends Entity {
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(UserMeta.VERSION)));
 			this.setValid(DataParser.parse(Integer.class, map.get(UserMeta.VALID)));
+			this.setBuildIn(DataParser.parse(Integer.class, map.get(UserMeta.BUILD_IN)));
 			this.setRealName(DataParser.parse(String.class, map.get(UserMeta.REAL_NAME)));
 			this.setLastLoginTime(DataParser.parse(Date.class, map.get(UserMeta.LAST_LOGIN_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(UserMeta.CREATE_BY)));
@@ -968,6 +995,7 @@ public class User extends Entity {
 				this.setUpdateTime( (Date)map.get(UserMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(UserMeta.VERSION));
 				this.setValid( (Integer)map.get(UserMeta.VALID));
+				this.setBuildIn( (Integer)map.get(UserMeta.BUILD_IN));
 				this.setRealName( (String)map.get(UserMeta.REAL_NAME));
 				this.setLastLoginTime( (Date)map.get(UserMeta.LAST_LOGIN_TIME));
 				this.setCreateBy( (String)map.get(UserMeta.CREATE_BY));
@@ -1007,6 +1035,7 @@ public class User extends Entity {
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserMeta.VERSION)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(UserMeta.VALID)));
+			this.setBuildIn(DataParser.parse(Integer.class, r.getValue(UserMeta.BUILD_IN)));
 			this.setRealName(DataParser.parse(String.class, r.getValue(UserMeta.REAL_NAME)));
 			this.setLastLoginTime(DataParser.parse(Date.class, r.getValue(UserMeta.LAST_LOGIN_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(UserMeta.CREATE_BY)));
@@ -1029,6 +1058,7 @@ public class User extends Entity {
 				this.setUpdateTime( (Date)r.getValue(UserMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(UserMeta.VERSION));
 				this.setValid( (Integer)r.getValue(UserMeta.VALID));
+				this.setBuildIn( (Integer)r.getValue(UserMeta.BUILD_IN));
 				this.setRealName( (String)r.getValue(UserMeta.REAL_NAME));
 				this.setLastLoginTime( (Date)r.getValue(UserMeta.LAST_LOGIN_TIME));
 				this.setCreateBy( (String)r.getValue(UserMeta.CREATE_BY));

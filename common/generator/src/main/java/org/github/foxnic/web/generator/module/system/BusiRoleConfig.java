@@ -7,6 +7,7 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -46,6 +47,11 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 		view.field(SYS_BUSI_ROLE.VALID).basic().label("状态").search().hidden()
 		.form().logicField().on("启用",1).off("停用",0).defaultValue(true)
 		.table().alignCenter();
+
+		view.field(FoxnicWeb.SYS_BUSI_ROLE.BUILD_IN)
+				.table().alignCenter()
+				.search().triggerOnSelect(true).label("内置")
+				.form().logicField().on("是","1").off("否","0");
 
 		view.field(SYS_BUSI_ROLE.CODE).basic().label("代码").search().fuzzySearch()
 		.form().validate().required();

@@ -181,6 +181,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_ROLE.TYPE).form().selectBox().dict(DictEnum.ROLE_TYPE).search().triggerOnSelect(true);
 
+		cfg.view().field(SYS_ROLE.BUILD_IN)
+				.table().alignCenter()
+				.search().triggerOnSelect(true).label("内置")
+				.form().logicField().on("是","1").off("否","0");
+
 		//增加菜单选择
 		cfg.view().field(RoleMeta.MENU_IDS).basic().label("菜单权限")
 				.search().hidden()

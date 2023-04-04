@@ -145,10 +145,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Override
 	@Transactional
 	public Result insert(User user) {
+
+		SessionUser sessionUser=SessionUser.getCurrent();
+
+		// 如果当前登录账户不是内置账户，不允许创建内置账户
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			return ErrorDesc.failure().message("不允许创建内置账户");
+		}
+
 		if(StringUtil.isBlank(user.getPasswd())){
 			String defaultPasswd=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_USER_DEFAULT_PASSWORD);
 			defaultPasswd=getPasswordEncoder().encode(defaultPasswd);
 			user.setPasswd(defaultPasswd);
+		}
+		if(user.getBuildIn()==null) {
+			user.setBuildIn(0);
 		}
 		Result r=super.insert(user,false);
 		if(r.success()) {
@@ -179,6 +190,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public Result deleteByIdPhysical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+
+		User userDb=this.getById(id);
+		if(this.isBuildIn(userDb)) {
+			return ErrorDesc.failure().message("不允许删除内置账户");
+		}
+
 		user.setId(id);
 		boolean suc=dao.deleteEntity(user);
 		return ErrorDesc.create(suc);
@@ -193,6 +210,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public Result deleteByIdLogical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
+
+		User userDb=this.getById(id);
+		if(this.isBuildIn(userDb)) {
+			return ErrorDesc.failure().message("不允许删除内置账户");
+		}
+
 		user.setId(id);
 		user.setDeleted(true);
 		user.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
@@ -210,6 +233,24 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Override
 	@Transactional
 	public Result update(User user , SaveMode mode) {
+
+		SessionUser sessionUser=SessionUser.getCurrent();
+		// 如果当前登录账户不是内置账户，不允许创建内置账户
+		User userInDb=this.getById(user.getId());
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			if(isBuildIn(userInDb)) {
+				return ErrorDesc.failure().message("不允许修改内置账户");
+			}
+			if(user.getBuildIn()!=null && !user.getBuildIn().equals(userInDb.getBuildIn())) {
+				return ErrorDesc.failure().message("当前账户没有权限修改账户的内置属性");
+			}
+		}
+
+		if (IUserService.SYSTEM_ACCOUNT.equals(userInDb.getAccount())) {
+			if(!userInDb.getAccount().equals(user.getAccount())) {
+				return ErrorDesc.failure().message("不允许修改 system 账户名称");
+			}
+		}
 
 		Result r=super.update(user , mode);
 		if(r.success()) {
@@ -627,6 +668,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		}
 
 		return user;
+	}
+
+	/**
+	 * 是否内置账户
+	 * */
+	public boolean isBuildIn(User user) {
+		if(user==null) return false;
+		if(IUserService.SYSTEM_ACCOUNT.equals(user.getAccount())) {
+			return true;
+		}
+		if(user.getBuildIn()==null) return false;
+		return user.getBuildIn()==1;
 	}
 
 	@Override

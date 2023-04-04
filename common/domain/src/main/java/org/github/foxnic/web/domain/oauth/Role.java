@@ -26,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 角色
  * <p>角色 , 数据表 sys_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-13 11:28:38
- * @sign 21D6FE9F055B7A879D15B7AD09C32F31
+ * @since 2023-04-04 09:42:56
+ * @sign 1EC9FD9CDDFB903D9EB923D42CF293D8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,10 +40,10 @@ public class Role extends Entity {
 	public static final DBTable TABLE =SYS_ROLE.$TABLE;
 	
 	/**
-	 * ID：ID
+	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID" , example = "110352963290923110")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "110352963290923110")
 	private String id;
 	
 	/**
@@ -118,8 +118,14 @@ public class Role extends Entity {
 	/**
 	 * 类型：类型
 	*/
-	@ApiModelProperty(required = false,value="类型" , notes = "类型")
+	@ApiModelProperty(required = false,value="类型" , notes = "类型" , example = "admin")
 	private String type;
+	
+	/**
+	 * 内置角色：是否内置角色
+	*/
+	@ApiModelProperty(required = false,value="内置角色" , notes = "是否内置角色")
+	private Integer buildIn;
 	
 	/**
 	 * 授权的账户清单：授权的账户清单
@@ -140,17 +146,17 @@ public class Role extends Entity {
 	private List<String> menuIds;
 	
 	/**
-	 * 获得 ID<br>
-	 * ID
-	 * @return ID
+	 * 获得 主键<br>
+	 * 主键
+	 * @return 主键
 	*/
 	public String getId() {
 		return id;
 	}
 	
 	/**
-	 * 设置 ID
-	 * @param id ID
+	 * 设置 主键
+	 * @param id 主键
 	 * @return 当前对象
 	*/
 	public Role setId(String id) {
@@ -418,6 +424,25 @@ public class Role extends Entity {
 	}
 	
 	/**
+	 * 获得 内置角色<br>
+	 * 是否内置角色
+	 * @return 内置角色
+	*/
+	public Integer getBuildIn() {
+		return buildIn;
+	}
+	
+	/**
+	 * 设置 内置角色
+	 * @param buildIn 内置角色
+	 * @return 当前对象
+	*/
+	public Role setBuildIn(Integer buildIn) {
+		this.buildIn=buildIn;
+		return this;
+	}
+	
+	/**
 	 * 获得 授权的账户清单<br>
 	 * 授权的账户清单
 	 * @return 授权的账户清单
@@ -555,6 +580,7 @@ public class Role extends Entity {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setType(this.getType());
 		inst.setVersion(this.getVersion());
+		inst.setBuildIn(this.getBuildIn());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
@@ -631,6 +657,7 @@ public class Role extends Entity {
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(RoleMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, map.get(RoleMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(RoleMeta.VERSION)));
+			this.setBuildIn(DataParser.parse(Integer.class, map.get(RoleMeta.BUILD_IN)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(RoleMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(RoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(RoleMeta.CREATE_TIME)));
@@ -648,6 +675,7 @@ public class Role extends Entity {
 				this.setUpdateTime( (Date)map.get(RoleMeta.UPDATE_TIME));
 				this.setType( (String)map.get(RoleMeta.TYPE));
 				this.setVersion( (Integer)map.get(RoleMeta.VERSION));
+				this.setBuildIn( (Integer)map.get(RoleMeta.BUILD_IN));
 				this.setCreateBy( (String)map.get(RoleMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(RoleMeta.DELETED));
 				this.setCreateTime( (Date)map.get(RoleMeta.CREATE_TIME));
@@ -678,6 +706,7 @@ public class Role extends Entity {
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, r.getValue(RoleMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(RoleMeta.VERSION)));
+			this.setBuildIn(DataParser.parse(Integer.class, r.getValue(RoleMeta.BUILD_IN)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(RoleMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(RoleMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(RoleMeta.CREATE_TIME)));
@@ -694,6 +723,7 @@ public class Role extends Entity {
 				this.setUpdateTime( (Date)r.getValue(RoleMeta.UPDATE_TIME));
 				this.setType( (String)r.getValue(RoleMeta.TYPE));
 				this.setVersion( (Integer)r.getValue(RoleMeta.VERSION));
+				this.setBuildIn( (Integer)r.getValue(RoleMeta.BUILD_IN));
 				this.setCreateBy( (String)r.getValue(RoleMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(RoleMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(RoleMeta.CREATE_TIME));

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-18 09:29:39
+ * @since 2023-04-04 10:02:48
  */
 
 
@@ -86,7 +86,7 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'account', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('account',d.account,d);}  }
 					,{ field: 'realName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',d.realName,d);}  }
-					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
+					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return  d.portraitId ?  '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />':''; } }
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','#BY-THEME','roleIds'),d);}}
@@ -95,6 +95,7 @@ function ListPage() {
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
+					,{ field: 'buildIn', align:"center",fixed:false,  hide:true, sort: true  , title: fox.translate('内置账户'), templet: '#cell-tpl-buildIn'}
 					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],
@@ -109,6 +110,10 @@ function ListPage() {
 			//绑定 Switch 切换事件
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
+				refreshRowData(data,true);
+			});
+			fox.bindSwitchEvent("cell-tpl-buildIn",moduleURL +'/update','id','buildIn',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("buildIn",result,data,ctx);
 				refreshRowData(data,true);
 			});
 			//绑定排序事件
@@ -154,6 +159,7 @@ function ListPage() {
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.buildIn={ inputType:"logic_switch",value: getSelectedValue("#buildIn","value"), label:getSelectedValue("#buildIn","nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -211,6 +217,20 @@ function ListPage() {
 						refreshTableData();
 					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
+				},1);
+			},
+		});
+		//渲染 buildIn 搜索框
+		fox.renderSelectBox({
+			el: "buildIn",
+			size: "small",
+			radio: true,
+			on: function(data){
+				setTimeout(function () {
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("buildIn",data.arr,data.change,data.isAdd);
 				},1);
 			},
 		});

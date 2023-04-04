@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-03-23 14:47:24
+ * @since 2023-04-04 09:40:45
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -5029,8 +5029,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField MEMBER_ROUTER = new DBField(DBDataType.STRING , "member_router","memberRouter","成员路由","Java类型用于检索扩展成员",false,false,true);
 		
+		/**
+		 * 内置角色，系统内置角色
+		*/
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","系统内置角色",false,false,true);
+		
 		public SYS_BUSI_ROLE() {
-			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER);
+			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN);
 		}
 		public static final SYS_BUSI_ROLE $TABLE=new SYS_BUSI_ROLE();
 	}
@@ -5299,37 +5304,37 @@ public class FoxnicWeb {
 		/**
 		 * 单选框(枚举)
 		*/
-		public static final DBField RADIO_ENUM = new DBField(DBDataType.STRING , "radio_enum","radioEnum","单选框(枚举)","单选框(枚举)",false,false,true);
+		public static final DBField RADIO_ENUM = new DBField(DBDataType.STRING , "radio_enum","radioEnum","单选框","枚举)",false,false,true);
 		
 		/**
 		 * 单选框(字典)
 		*/
-		public static final DBField RADIO_DICT = new DBField(DBDataType.STRING , "radio_dict","radioDict","单选框(字典)","单选框(字典)",false,false,true);
+		public static final DBField RADIO_DICT = new DBField(DBDataType.STRING , "radio_dict","radioDict","单选框","字典)",false,false,true);
 		
 		/**
 		 * 复选框(枚举)
 		*/
-		public static final DBField CHECK_ENUM = new DBField(DBDataType.STRING , "check_enum","checkEnum","复选框(枚举)","复选框(枚举)",false,false,true);
+		public static final DBField CHECK_ENUM = new DBField(DBDataType.STRING , "check_enum","checkEnum","复选框","枚举)",false,false,true);
 		
 		/**
 		 * 复选框(字典)
 		*/
-		public static final DBField CHECK_DICT = new DBField(DBDataType.STRING , "check_dict","checkDict","复选框(字典)","复选框(字典)",false,false,true);
+		public static final DBField CHECK_DICT = new DBField(DBDataType.STRING , "check_dict","checkDict","复选框","字典)",false,false,true);
 		
 		/**
 		 * 选择框(枚举)
 		*/
-		public static final DBField SELECT_ENUM = new DBField(DBDataType.STRING , "select_enum","selectEnum","选择框(枚举)","选择框(枚举)",false,false,true);
+		public static final DBField SELECT_ENUM = new DBField(DBDataType.STRING , "select_enum","selectEnum","选择框","枚举)",false,false,true);
 		
 		/**
 		 * 选择框(字典)
 		*/
-		public static final DBField SELECT_DICT = new DBField(DBDataType.STRING , "select_dict","selectDict","选择框(字典)","选择框(字典)",false,false,true);
+		public static final DBField SELECT_DICT = new DBField(DBDataType.STRING , "select_dict","selectDict","选择框","字典)",false,false,true);
 		
 		/**
 		 * 选择框(查询)
 		*/
-		public static final DBField RESOURCE_ID = new DBField(DBDataType.STRING , "resource_id","resourceId","选择框(查询)","选择框(查询)",false,false,true);
+		public static final DBField RESOURCE_ID = new DBField(DBDataType.STRING , "resource_id","resourceId","选择框","查询)",false,false,true);
 		
 		/**
 		 * 日期
@@ -6238,7 +6243,7 @@ public class FoxnicWeb {
 		/**
 		 * 类型：字典,dict;枚举,enum
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型：字典","dict;枚举,enum",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","字典,dict;枚举,enum",false,false,true);
 		
 		/**
 		 * 来源，如果是字典填写代码，如果枚举则填写类名
@@ -6747,7 +6752,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否并发执行（0允许 1禁止）
 		*/
-		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,false);
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行","0允许 1禁止）",false,false,false);
 		
 		/**
 		 * 遗漏执行的策略
@@ -7151,7 +7156,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否并发执行（0允许 1禁止）
 		*/
-		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,true);
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行","0允许 1禁止）",false,false,true);
 		
 		/**
 		 * 遗漏执行的策略
@@ -7486,17 +7491,17 @@ public class FoxnicWeb {
 		/**
 		 * 中文(香港)
 		*/
-		public static final DBField ZH_HK = new DBField(DBDataType.STRING , "zh_hk","zhHk","中文(香港)","中文(香港)",false,false,true);
+		public static final DBField ZH_HK = new DBField(DBDataType.STRING , "zh_hk","zhHk","中文","香港)",false,false,true);
 		
 		/**
 		 * 中文(澳门)
 		*/
-		public static final DBField ZH_MO = new DBField(DBDataType.STRING , "zh_mo","zhMo","中文(澳门)","中文(澳门)",false,false,true);
+		public static final DBField ZH_MO = new DBField(DBDataType.STRING , "zh_mo","zhMo","中文","澳门)",false,false,true);
 		
 		/**
 		 * 中文(台湾)
 		*/
-		public static final DBField ZH_TW = new DBField(DBDataType.STRING , "zh_tw","zhTw","中文(台湾)","中文(台湾)",false,false,true);
+		public static final DBField ZH_TW = new DBField(DBDataType.STRING , "zh_tw","zhTw","中文","台湾)",false,false,true);
 		
 		/**
 		 * 英文美国
@@ -7698,36 +7703,6 @@ public class FoxnicWeb {
 			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
 		}
 		public static final SYS_LICENCE_FREE_FULL $TABLE=new SYS_LICENCE_FREE_FULL();
-	}
-	
-	/**
-	*/
-	public static class SYS_LICENCE_FREE_STA extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "sys_licence_free_sta";
-		
-		/**
-		 * 键
-		*/
-		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
-		
-		/**
-		 * 值
-		*/
-		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
-		
-		/**
-		 * 导入时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
-		
-		public SYS_LICENCE_FREE_STA() {
-			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
-		}
-		public static final SYS_LICENCE_FREE_STA $TABLE=new SYS_LICENCE_FREE_STA();
 	}
 	
 	/**
@@ -8744,9 +8719,9 @@ public class FoxnicWeb {
 		public static final String $NAME = "sys_role";
 		
 		/**
-		 * ID
+		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 代码
@@ -8808,8 +8783,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","类型",false,false,true);
 		
+		/**
+		 * 内置角色，是否内置角色
+		*/
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","是否内置角色",false,false,true);
+		
 		public SYS_ROLE() {
-			this.init($NAME,"角色表" , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE);
+			this.init($NAME,"角色表" , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , BUILD_IN);
 		}
 		public static final SYS_ROLE $TABLE=new SYS_ROLE();
 	}
@@ -9926,8 +9906,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
 		
+		/**
+		 * 内置账户，系统内置账户
+		*/
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置账户","系统内置账户",false,false,true);
+		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES);
+			this.init($NAME,"账户表" , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , BUILD_IN);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}

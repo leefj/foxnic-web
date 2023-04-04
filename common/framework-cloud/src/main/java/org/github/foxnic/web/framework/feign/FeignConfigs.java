@@ -17,18 +17,18 @@ import feign.codec.Decoder;
 
 @Configuration
 public class FeignConfigs implements RequestInterceptor {
- 
+
 	Logger log=LoggerFactory.getLogger(FeignConfigs.class);
-	
+
 	@Value("${feign.client.config.default.rule:}")
 	private String rule=null;
-	
+
 	@Value("${ribbon.ConnectTimeout:5000}")
 	private Integer connectTimeout=null;
-	
+
 	@Value("${ribbon.ReadTimeout:30000}")
 	private Integer readTimeout=null;
-	 
+
 	/**
 	 * 响应解码器
 	 * */
@@ -36,24 +36,24 @@ public class FeignConfigs implements RequestInterceptor {
     public Decoder feignDecoder() {
         return new FeignResultDecoder();
     }
-	
+
 	/**
 	 *  请求拦截器
 	 * */
     @Override
     public void apply(RequestTemplate requestTemplate) {
     	requestTemplate.header("is-feign","1");
-        requestTemplate.header(com.github.foxnic.commons.log.Logger.TIRACE_ID_KEY, com.github.foxnic.commons.log.Logger.getTID());
+        requestTemplate.header(com.github.foxnic.commons.log.Logger.TRACE_ID_KEY, com.github.foxnic.commons.log.Logger.getTID());
         requestTemplate.header("invoke-from", SpringUtil.getEnvProperty("spring.application.name"));
     }
-	
-	
-	
+
+
+
 //	 @Bean
 //	 public Request.Options options() {
 //		 return new Request.Options(connectTimeout,TimeUnit.SECONDS,readTimeout,TimeUnit.SECONDS,true);
 //	 }
-	
+
 	/**
 	 * 配置 ribbon 负责均衡策略
 	 * */
@@ -64,8 +64,8 @@ public class FeignConfigs implements RequestInterceptor {
 		log.info("user rule "+rule.name()+","+rule.getRule().getClass().getName());
         return rule.getRule();
     }
- 
-	
 
-	 
+
+
+
 }

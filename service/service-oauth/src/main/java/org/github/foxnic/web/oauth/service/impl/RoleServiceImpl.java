@@ -20,6 +20,7 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleMenuService;
 import org.github.foxnic.web.oauth.service.IRoleService;
@@ -75,6 +76,15 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * */
 	@Override
 	public Result insert(Role role) {
+		SessionUser sessionUser=SessionUser.getCurrent();
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			if(this.isBuildIn(role)) {
+				return ErrorDesc.failure().message("当前用户不允许创建内置角色");
+			}
+		}
+		if(role.getBuildIn()==null) {
+			role.setBuildIn(0);
+		}
 		Result result = super.insert(role);
 		if(result.success()) {
 			String userId=SessionUser.getCurrent().getUserId();
@@ -109,6 +119,12 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	public Result deleteByIdPhysical(String id) {
 		Role role = new Role();
 		if(id==null) return ErrorDesc.failure();
+
+		Role roleDb=this.getById(id);
+		if(this.isBuildIn(roleDb)) {
+			return ErrorDesc.failure().message("不允许删除内置角色");
+		}
+
 		role.setId(id);
 		try {
 			boolean suc=dao.deleteEntity(role);
@@ -127,6 +143,12 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	public Result deleteByIdLogical(String id) {
 		Role role = new Role();
 		if(id==null) return ErrorDesc.failure();
+
+		Role roleDb=this.getById(id);
+		if(this.isBuildIn(roleDb)) {
+			return ErrorDesc.failure().message("不允许删除内置角色");
+		}
+
 		role.setId(id);
 		role.setDeleted(true);
 		role.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
@@ -148,6 +170,16 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	@Override
 	@Transactional
 	public Result update(Role role , SaveMode mode) {
+		SessionUser sessionUser=SessionUser.getCurrent();
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			Role roleDb=this.getById(role.getId());
+			if(this.isBuildIn(roleDb)) {
+				return ErrorDesc.failure().message("当前用户不允许修改内置角色");
+			}
+			if(role.getBuildIn()!=null && !role.getBuildIn().equals(roleDb.getBuildIn())) {
+				return ErrorDesc.failure().message("当前账户没有权限修改角色的内置属性");
+			}
+		}
 		Result result=super.update(role , mode);
 		if(result.success()) {
 			String userId=SessionUser.getCurrent().getUserId();
@@ -275,6 +307,12 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	public boolean isBuildIn(Role role) {
+		if(role==null) return false;
+		if(role.getBuildIn()==null) return false;
+		return role.getBuildIn()==1;
 	}
 
 	@Override

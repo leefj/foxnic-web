@@ -18,8 +18,10 @@ import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.service.IBusiRoleService;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +73,15 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	 */
 	@Override
 	public Result insert(BusiRole busiRole,boolean throwsException) {
+		SessionUser sessionUser=SessionUser.getCurrent();
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			if(this.isBuildIn(busiRole)) {
+				return ErrorDesc.failure().message("当前用户不允许创建内置角色");
+			}
+		}
+		if(busiRole.getBuildIn()==null) {
+			busiRole.setBuildIn(0);
+		}
 		Result r=super.insert(busiRole,throwsException);
 		return r;
 	}
@@ -105,6 +116,10 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	public Result deleteByIdPhysical(String id) {
 		BusiRole busiRole = new BusiRole();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+		BusiRole roleDb=this.getById(id);
+		if(this.isBuildIn(roleDb)) {
+			return ErrorDesc.failure().message("不允许删除内置角色");
+		}
 		busiRole.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(busiRole);
@@ -126,6 +141,11 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	public Result deleteByIdLogical(String id) {
 		BusiRole busiRole = new BusiRole();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+
+		BusiRole roleDb=this.getById(id);
+		if(this.isBuildIn(roleDb)) {
+			return ErrorDesc.failure().message("不允许删除内置角色");
+		}
 		busiRole.setId(id);
 		busiRole.setDeleted(true);
 		busiRole.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
@@ -161,6 +181,16 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	 * */
 	@Override
 	public Result update(BusiRole busiRole , SaveMode mode,boolean throwsException) {
+		SessionUser sessionUser=SessionUser.getCurrent();
+		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
+			BusiRole roleDb=this.getById(busiRole.getId());
+			if(this.isBuildIn(roleDb)) {
+				return ErrorDesc.failure().message("当前用户不允许修改内置角色");
+			}
+			if(busiRole.getBuildIn()!=null && !busiRole.getBuildIn().equals(roleDb.getBuildIn())) {
+				return ErrorDesc.failure().message("当前账户没有权限修改角色的内置属性");
+			}
+		}
 		Result r=super.update(busiRole , mode , throwsException);
 		return r;
 	}
@@ -230,7 +260,11 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		return super.queryListByUKeys("id",ids);
 	}
 
-
+	public boolean isBuildIn(BusiRole role) {
+		if(role==null) return false;
+		if(role.getBuildIn()==null) return false;
+		return role.getBuildIn()==1;
+	}
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配

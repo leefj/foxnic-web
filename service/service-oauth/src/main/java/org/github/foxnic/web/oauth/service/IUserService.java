@@ -22,6 +22,8 @@ import java.util.List;
 
 public interface IUserService extends ISimpleIdService<User,String> {
 
+	public static final String SYSTEM_ACCOUNT="system";
+
 	public static final ThreadLocal<List<Menu>> LOGIN_USER_MENUS=new ThreadLocal<>();
 
 	/**
@@ -276,4 +278,6 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	Result resetPasswd(String userId, String adminPwd, String pwd);
 
 	List<Menu> makeUserMenus(User user, boolean gerDyMenu);
+
+	boolean isBuildIn(User user);
 }

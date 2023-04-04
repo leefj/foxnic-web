@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.session;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.session.SessionPermission;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.security.core.CredentialsContainer;
@@ -171,6 +172,17 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 			throw new IllegalArgumentException("缺少 user 对象");
 		}
 		return this.user.getId();
+	}
+
+	@Override
+	public boolean isBuildIn() {
+		User user = this.getUser();
+		if(user==null) return false;
+		if(IUserService.SYSTEM_ACCOUNT.equals(user.getAccount())) {
+			return true;
+		}
+		if(user.getBuildIn()==null) return false;
+		return user.getBuildIn()==1;
 	}
 
 	@Override

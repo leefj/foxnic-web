@@ -83,6 +83,12 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.ID)
                 .basic().hidden(true);
 
+
+        context.view().field(SYS_USER.BUILD_IN)
+                .table().alignCenter()
+                .search().triggerOnSelect(true).label("内置")
+                .form().logicField().on("是","1").off("否","0");
+
         context.view().field(SYS_USER.PASSWD)
                 .basic().hidden(true);
 

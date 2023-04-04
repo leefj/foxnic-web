@@ -323,4 +323,6 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	 * 获取员工对应的业务角色
 	 * */
 	List<BusiRole> getEmployeeRoles(String employeeId);
+
+    boolean isBuildIn(BusiRole role);
 }

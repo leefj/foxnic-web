@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-18 09:29:39
+ * @since 2023-04-04 10:02:47
  */
  -->
  <!DOCTYPE html>
@@ -66,6 +66,11 @@
                     <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=true -->
                     <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=true -->
                     <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 内置 , buildIn ,typeName=logic_switch, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('内置')}" class="search-label buildIn-label">内置</span><span class="search-colon">:</span></div>
+                        <div id="buildIn" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
+                    </div>
                     <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('角色')}" class="search-label roleIds-label">角色</span><span class="search-colon">:</span></div>
@@ -119,6 +124,9 @@
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
     <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
+<script type="text/html" id="cell-tpl-buildIn">
+    <input type="checkbox" class="switch-buildIn list-checkbox" lay-filter="cell-tpl-buildIn" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.buildIn==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

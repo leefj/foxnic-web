@@ -14,8 +14,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-28 14:48:58
- * @sign 572EC7F15C59D3657B03269F069A8BB4
+ * @since 2023-04-04 09:42:30
+ * @sign DDA29F1759EE0CEA261F657493A91123
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -212,6 +212,16 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
+	 * 内置账户 , 系统内置账户 , 类型: java.lang.Integer
+	*/
+	public static final String BUILD_IN="buildIn";
+	
+	/**
+	 * 内置账户 , 系统内置账户 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.Integer> BUILD_IN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,BUILD_IN, java.lang.Integer.class, "内置账户", "系统内置账户", java.lang.Integer.class, null);
+	
+	/**
 	 * 角色清单 , 当前用户的所有角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Role
 	*/
 	public static final String ROLES="roles";
@@ -294,7 +304,7 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
+	public static final String[] $PROPS={ ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , BUILD_IN , ROLES , MENUS , MENU_IDS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
 	
 	/**
 	 * 代理类
@@ -514,6 +524,17 @@ public class UserMeta {
 		}
 		
 		/**
+		 * 设置 内置账户
+		 * @param buildIn 内置账户
+		 * @return 当前对象
+		*/
+		public User setBuildIn(Integer buildIn) {
+			super.change(BUILD_IN,super.getBuildIn(),buildIn);
+			super.setBuildIn(buildIn);
+			return this;
+		}
+		
+		/**
 		 * 设置 角色清单
 		 * @param roles 角色清单
 		 * @return 当前对象
@@ -622,6 +643,7 @@ public class UserMeta {
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());
 			inst.setValid(this.getValid());
+			inst.setBuildIn(this.getBuildIn());
 			inst.setRealName(this.getRealName());
 			inst.setLastLoginTime(this.getLastLoginTime());
 			inst.setCreateBy(this.getCreateBy());

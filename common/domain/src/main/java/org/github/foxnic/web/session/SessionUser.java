@@ -40,6 +40,11 @@ public abstract class SessionUser {
 	public abstract String getUserId();
 
 	/**
+	 * 是否内置账户
+	 * */
+	public abstract boolean isBuildIn();
+
+	/**
 	 * 获得当前激活租户的ID
 	 * */
 	public String getActivatedTenantId(){

@@ -88,6 +88,7 @@ function ListPage() {
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getDictText(SELECT_TYPE_DATA,d.type,'','type'),d);}}
+					,{ field: 'buildIn', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('内置角色'), templet: '#cell-tpl-buildIn'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'menuIds', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('菜单权限') , templet: function (d) { return templet('menuIds',d.menuIds,d);}  }
@@ -105,6 +106,11 @@ function ListPage() {
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.sortField,obj.type);
+			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-buildIn",moduleURL +'/update','id','buildIn',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("buildIn",result,data,ctx);
+				refreshRowData(data,true);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}

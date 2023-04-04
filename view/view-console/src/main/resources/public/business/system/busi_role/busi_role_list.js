@@ -1,7 +1,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-20 17:36:23
+ * @since 2023-04-04 11:51:01
  */
 
 
@@ -92,6 +92,7 @@ function ListPage() {
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'memberRouter', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('成员路由') , templet: function (d) { return templet('memberRouter',d.memberRouter,d);}  }
+					,{ field: 'buildIn', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('内置角色'), templet: '#cell-tpl-buildIn'}
 					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],
@@ -106,6 +107,10 @@ function ListPage() {
 			//绑定 Switch 切换事件
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
+				refreshRowData(data,true);
+			});
+			fox.bindSwitchEvent("cell-tpl-buildIn",moduleURL +'/update','id','buildIn',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("buildIn",result,data,ctx);
 				refreshRowData(data,true);
 			});
 			//绑定排序事件
@@ -149,6 +154,7 @@ function ListPage() {
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		value.memberRouter={ inputType:"button",value: $("#memberRouter").val()};
+		value.buildIn={ inputType:"logic_switch",value: getSelectedValue("#buildIn","value"), label:getSelectedValue("#buildIn","nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -195,6 +201,20 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 buildIn 搜索框
+		fox.renderSelectBox({
+			el: "buildIn",
+			size: "small",
+			radio: true,
+			on: function(data){
+				setTimeout(function () {
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("buildIn",data.arr,data.change,data.isAdd);
+				},1);
+			},
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

@@ -1,7 +1,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-20 17:36:25
+ * @since 2023-04-04 11:51:03
  */
 
 function FormPage() {
@@ -220,6 +220,8 @@ function FormPage() {
 
 		//处理 状态 默认值
 		if(!data.valid) data.valid=0;
+		//处理 内置角色 默认值
+		if(!data.buildIn) data.buildIn=0;
 
 
 

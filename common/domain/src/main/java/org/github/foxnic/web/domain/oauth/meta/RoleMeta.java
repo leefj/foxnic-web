@@ -12,22 +12,22 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-13 11:28:38
- * @sign 21D6FE9F055B7A879D15B7AD09C32F31
+ * @since 2023-04-04 09:42:56
+ * @sign 1EC9FD9CDDFB903D9EB923D42CF293D8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class RoleMeta {
 	
 	/**
-	 * ID , 类型: java.lang.String
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * ID , 类型: java.lang.String
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 代码 , 类型: java.lang.String
@@ -150,6 +150,16 @@ public class RoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
 	
 	/**
+	 * 内置角色 , 是否内置角色 , 类型: java.lang.Integer
+	*/
+	public static final String BUILD_IN="buildIn";
+	
+	/**
+	 * 内置角色 , 是否内置角色 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.Integer> BUILD_IN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,BUILD_IN, java.lang.Integer.class, "内置角色", "是否内置角色", java.lang.Integer.class, null);
+	
+	/**
 	 * 授权的账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String USERS="users";
@@ -182,7 +192,7 @@ public class RoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , USERS , MENUS , MENU_IDS };
+	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , BUILD_IN , USERS , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -193,8 +203,8 @@ public class RoleMeta {
 
 		
 		/**
-		 * 设置 ID
-		 * @param id ID
+		 * 设置 主键
+		 * @param id 主键
 		 * @return 当前对象
 		*/
 		public Role setId(String id) {
@@ -336,6 +346,17 @@ public class RoleMeta {
 		}
 		
 		/**
+		 * 设置 内置角色
+		 * @param buildIn 内置角色
+		 * @return 当前对象
+		*/
+		public Role setBuildIn(Integer buildIn) {
+			super.change(BUILD_IN,super.getBuildIn(),buildIn);
+			super.setBuildIn(buildIn);
+			return this;
+		}
+		
+		/**
 		 * 设置 授权的账户清单
 		 * @param users 授权的账户清单
 		 * @return 当前对象
@@ -388,6 +409,7 @@ public class RoleMeta {
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setType(this.getType());
 			inst.setVersion(this.getVersion());
+			inst.setBuildIn(this.getBuildIn());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());

@@ -2,7 +2,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-20 17:36:22
+ * @since 2023-04-04 11:51:00
  */
  -->
  <!DOCTYPE html>
@@ -58,6 +58,11 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('成员路由')}" class="search-label memberRouter-label">成员路由</span><span class="search-colon">:</span></div>
                         <input id="memberRouter" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 内置 , buildIn ,typeName=logic_switch, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('内置')}" class="search-label buildIn-label">内置</span><span class="search-colon">:</span></div>
+                        <div id="buildIn" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
+                    </div>
 
 
                 </div>
@@ -106,6 +111,9 @@
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
     <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="启用|停用&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
+<script type="text/html" id="cell-tpl-buildIn">
+    <input type="checkbox" class="switch-buildIn list-checkbox" lay-filter="cell-tpl-buildIn" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.buildIn==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">
