@@ -219,7 +219,7 @@ function ListPage() {
 		if(treeNode.type=="pos") {
 			prefix="/service-hrm/hrm-position";
 		}
-		layer.confirm('确定要删除['+treeNode.name+']吗?', function(index,a,c,d) {
+		layer.confirm(fox.quoteDialogText('确定要删除 ['+treeNode.name+'] 吗?'), function(index,a,c,d) {
 			layer.close(index);
 			admin.request(prefix+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {

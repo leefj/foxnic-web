@@ -95,7 +95,7 @@ public class PositionController extends SuperController {
         // 判断是否可以删除
         this.validator().asserts(cause.hasRefer()).requireEqual("不允许删除当前岗位:"+cause.message(), false);
         if (this.validator().failure()) {
-            return this.validator().getFirstResult();
+            return this.validator().getFirstResult().messageLevel4Confirm();
         }
         Result result = positionService.deleteByIdLogical(id);
         return result;

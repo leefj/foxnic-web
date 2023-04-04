@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
+import org.github.foxnic.web.domain.hrm.Position;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色
  * <p>业务角色 , 数据表 sys_busi_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 11:50:57
- * @sign 3181A94140E81FF807CA7F5DDFF8498E
+ * @since 2023-04-04 17:25:39
+ * @sign 87825961170D009F1E08F946FB545755
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -145,6 +146,12 @@ public class BusiRole extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="关联员工清单" , notes = "关联员工清单")
 	private List<Employee> employees;
+	
+	/**
+	 * 关联岗位清单：关联岗位清单
+	*/
+	@ApiModelProperty(required = false,value="关联岗位清单" , notes = "关联岗位清单")
+	private List<Position> positions;
 	
 	/**
 	 * 获得 主键<br>
@@ -510,6 +517,36 @@ public class BusiRole extends Entity {
 		this.employees.addAll(Arrays.asList(employee));
 		return this;
 	}
+	
+	/**
+	 * 获得 关联岗位清单<br>
+	 * 关联岗位清单
+	 * @return 关联岗位清单
+	*/
+	public List<Position> getPositions() {
+		return positions;
+	}
+	
+	/**
+	 * 设置 关联岗位清单
+	 * @param positions 关联岗位清单
+	 * @return 当前对象
+	*/
+	public BusiRole setPositions(List<Position> positions) {
+		this.positions=positions;
+		return this;
+	}
+	
+	/**
+	 * 添加 关联岗位清单
+	 * @param position 关联岗位清单
+	 * @return 当前对象
+	*/
+	public BusiRole addPosition(Position... position) {
+		if(this.positions==null) positions=new ArrayList<>();
+		this.positions.addAll(Arrays.asList(position));
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -572,6 +609,7 @@ public class BusiRole extends Entity {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		if(all) {
+			inst.setPositions(this.getPositions());
 			inst.setEmployees(this.getEmployees());
 		}
 		inst.clearModifies();

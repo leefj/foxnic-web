@@ -2,7 +2,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 11:51:00
+ * @since 2023-04-04 17:25:39
  */
  -->
  <!DOCTYPE html>
@@ -104,6 +104,7 @@
 
     <button th:if="${perm.checkAuth('sys_busi_role:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('删除','','cmp:table.ops')}">删除</span></button>
 
+    <button class="layui-btn layui-btn-xs " lay-event="open-employees" data-id="{{d.id}}"><span th:text="${lang.translate('员工','','cmp:table.ops')}">员工</span></button>
     <button class="layui-btn layui-btn-xs " lay-event="open-employees" data-id="{{d.id}}"><span th:text="${lang.translate('员工','','cmp:table.ops')}">员工</span></button>
 
 </script>

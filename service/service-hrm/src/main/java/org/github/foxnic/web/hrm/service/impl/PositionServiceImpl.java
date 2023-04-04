@@ -7,6 +7,8 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
@@ -14,10 +16,12 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.system.LoginIdentityType;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IPositionService;
@@ -314,18 +318,93 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 	}
 
 
+	private static class PositionReferCauseProcessor implements ReferCauseProcessor<String> {
 
+		private PositionServiceImpl impl;
+		private DBTable table;
+		public PositionReferCauseProcessor(PositionServiceImpl impl,DBTable table) {
+			this.impl=impl;
+			this.table = table;
+		}
+
+		private Map<String,List<Rcd>> getGroupedReferRcds(List<String> referIds) {
+			In in=new In("assignee_id",referIds);
+			String[] query={
+					"select assignee_id,node_name ,d.name process_definition_name from "+table.name()+" a",
+					"join bpm_task t on a.task_id=t.id",
+					"join bpm_process_definition d on t.process_definition_id=d.id",
+					"where assignee_type='"+ UnifiedUserType.position.name()+"'  and a.deleted=0 and d.deleted=0 and d.deleted=0",
+					in.toConditionExpr().startWithAnd().getListParameterSQL()
+			};
+			Expr select = new Expr(SQL.joinSQLs(query),in.getListParameters());
+			RcdSet rs=impl.dao().queryPage(select,10,1);
+			return rs.getGroupedMap("assignee_id",String.class);
+		}
+
+		private Map<String,Position> getLocalMap(List<String> referIds) {
+			List<Position> positions =impl.getByIds(referIds);
+			return CollectorUtil.collectMap(positions,Position::getId,e->{return  e;});
+		}
+
+		private List<String> collectReferItemNames(List<Rcd> rs) {
+			List<String> referItemNames=new ArrayList<>();
+			for (Rcd r : rs) {
+				referItemNames.add(quote(r.getString("process_definition_name")) +" 的 "+quote(r.getString("node_name")));
+				if(referItemNames.size()>=5) break;
+			}
+			return referItemNames;
+		}
+
+		@Override
+		public Map<String, ReferCause> updateCause(List<String> referIds, Map<String, ReferCause> map) {
+			if(referIds.isEmpty()) return map;
+			Map<String,Position> positionMap=getLocalMap(referIds);
+			Map<String,List<Rcd>> groupedReferRcds= getGroupedReferRcds(referIds);
+			for (Map.Entry<String,List<Rcd>> e : groupedReferRcds.entrySet()) {
+				String assigneeId=e.getKey();
+				ReferCause referCause=map.get(assigneeId);
+				Position position=positionMap.get(assigneeId);
+				if(referCause==null || position==null) break;
+				List<Rcd> gRs=e.getValue();
+				List<String> referItemNames=collectReferItemNames(e.getValue());
+				String topic=this.table==FoxnicWeb.BPM_TASK_APPROVAL.$TABLE?"节点的审批历史":"流程审批节点";
+				String msg=makeMessage(position.getFullName(), referItemNames,true,gRs.size(),topic,null);
+				map.put(e.getKey(),new ReferCause(true,msg,null,null));
+			}
+			return map;
+		}
+	}
 
 	/**
 	 * 批量检查引用
 	 * @param ids  检查这些ID是否又被外部表引用
 	 * */
 	@Override
-	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
-		return super.hasRefers(ids,
-				FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID,
-				FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID,FoxnicWeb.BPM_TASK_ASSIGNEE.ASSIGNEE_ID,
-				FoxnicWeb.BPM_TASK_APPROVAL.ASSIGNEE_ID);
+	public <T> Map<T, ReferCause> hasRefers(final List<T> ids) {
+		Map<T, ReferCause> causeMap = null;
+
+		causeMap=super.hasRefers(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID,ids,FoxnicWeb.HRM_EMPLOYEE.$NAME,FoxnicWeb.HRM_EMPLOYEE.BADGE.name());
+		if(!causeMap.isEmpty()) {
+			return causeMap;
+		}
+
+		causeMap=super.hasRefers(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID,ids,FoxnicWeb.SYS_BUSI_ROLE.$NAME,FoxnicWeb.SYS_BUSI_ROLE.NAME.name());
+		if(!causeMap.isEmpty()) {
+			return causeMap;
+		}
+
+		causeMap=super.hasRefers(FoxnicWeb.BPM_TASK_ASSIGNEE.ASSIGNEE_ID,ids,new PositionReferCauseProcessor(this,FoxnicWeb.BPM_TASK_ASSIGNEE.$TABLE));
+		if(!causeMap.isEmpty()) {
+			return causeMap;
+		}
+
+		causeMap=super.hasRefers(FoxnicWeb.BPM_TASK_APPROVAL.ASSIGNEE_ID,ids,new PositionReferCauseProcessor(this,FoxnicWeb.BPM_TASK_APPROVAL.$TABLE));
+		if(!causeMap.isEmpty()) {
+			return causeMap;
+		}
+
+		return new HashMap<>();
+
 	}
 
 }

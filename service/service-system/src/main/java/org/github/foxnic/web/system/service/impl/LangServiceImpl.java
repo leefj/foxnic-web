@@ -131,6 +131,12 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 	@Override
 	public Result insert(org.github.foxnic.web.domain.system.Lang lang) {
 		if(StringUtil.isBlank(lang.getDefaults())) return ErrorDesc.failureMessage("请填写默认值");
+		if(lang.getDefaults().startsWith("执行异常 : ")) {
+			return ErrorDesc.success();
+		}
+		if(lang.getDefaults().length()>512) {
+			return ErrorDesc.failure().message("词条太长，最大 512 字符");
+		}
 		if(StringUtil.isBlank(lang.getContext())) {
 			lang.setContext(DEFAULT_CONTEXT);
 		}

@@ -10,6 +10,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -37,6 +38,7 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
+		poType.addListProperty(Position.class,"positions","关联岗位清单","关联岗位清单");
 	}
 
 	@Override

@@ -5,14 +5,15 @@ import org.github.foxnic.web.domain.system.BusiRole;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
+import org.github.foxnic.web.domain.hrm.Position;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 11:50:58
- * @sign 3181A94140E81FF807CA7F5DDFF8498E
+ * @since 2023-04-04 17:25:39
+ * @sign 87825961170D009F1E08F946FB545755
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -189,9 +190,19 @@ public class BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,EMPLOYEES, java.util.List.class, "关联员工清单", "关联员工清单", org.github.foxnic.web.domain.hrm.Employee.class, null);
 	
 	/**
+	 * 关联岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String POSITIONS="positions";
+	
+	/**
+	 * 关联岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,org.github.foxnic.web.domain.hrm.Position> POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,POSITIONS, java.util.List.class, "关联岗位清单", "关联岗位清单", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , EMPLOYEES };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , EMPLOYEES , POSITIONS };
 	
 	/**
 	 * 代理类
@@ -387,6 +398,17 @@ public class BusiRoleMeta {
 			super.setEmployees(employees);
 			return this;
 		}
+		
+		/**
+		 * 设置 关联岗位清单
+		 * @param positions 关联岗位清单
+		 * @return 当前对象
+		*/
+		public BusiRole setPositions(List<Position> positions) {
+			super.change(POSITIONS,super.getPositions(),positions);
+			super.setPositions(positions);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -420,6 +442,7 @@ public class BusiRoleMeta {
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			if(all) {
+				inst.setPositions(this.getPositions());
 				inst.setEmployees(this.getEmployees());
 			}
 			inst.clearModifies();
