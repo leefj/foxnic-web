@@ -10,8 +10,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 import org.github.foxnic.web.domain.bpm.meta.CatalogMeta;
@@ -23,8 +26,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程分类
  * <p>流程分类 , 数据表 bpm_catalog 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 14:40:57
- * @sign AEFBBE92574A8AF6356F473F5DF924F8
+ * @since 2023-04-06 16:41:13
+ * @sign 0EAE15AA705C561AED85EDAE5103D8B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,73 +43,73 @@ public class Catalog extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "691301431835099136")
 	private String id;
 	
 	/**
 	 * 名称：名称
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="名称" , notes = "名称" , example = "测试")
 	private String name;
 	
 	/**
 	 * 备注：备注
 	*/
-	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	@ApiModelProperty(required = false,value="备注" , notes = "备注" , example = "无")
 	private String notes;
 	
 	/**
 	 * PC端图标：PC端图标
 	*/
-	@ApiModelProperty(required = false,value="PC端图标" , notes = "PC端图标")
+	@ApiModelProperty(required = false,value="PC端图标" , notes = "PC端图标" , example = "691320673397637120")
 	private String iconFilePc;
 	
 	/**
 	 * 移动端图标：移动端图标
 	*/
-	@ApiModelProperty(required = false,value="移动端图标" , notes = "移动端图标")
+	@ApiModelProperty(required = false,value="移动端图标" , notes = "移动端图标" , example = "691320618678747136")
 	private String iconFileMobile;
 	
 	/**
 	 * 序号：序号
 	*/
-	@ApiModelProperty(required = false,value="序号" , notes = "序号")
+	@ApiModelProperty(required = false,value="序号" , notes = "序号" , example = "1")
 	private Integer sort;
 	
 	/**
 	 * 生效：生效
 	*/
-	@ApiModelProperty(required = false,value="生效" , notes = "生效")
+	@ApiModelProperty(required = false,value="生效" , notes = "生效" , example = "1")
 	private Integer valid;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-03-23 03:05:05")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-03-23 04:21:34")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
 	@EnumFor("deleted")
@@ -127,14 +130,20 @@ public class Catalog extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "3")
 	private Integer version;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
+	
+	/**
+	 * 流程定义清单：流程定义清单
+	*/
+	@ApiModelProperty(required = false,value="流程定义清单" , notes = "流程定义清单")
+	private List<ProcessDefinition> processDefinitionList;
 	
 	/**
 	 * 获得 主键<br>
@@ -470,6 +479,36 @@ public class Catalog extends Entity {
 		this.tenantId=tenantId;
 		return this;
 	}
+	
+	/**
+	 * 获得 流程定义清单<br>
+	 * 流程定义清单
+	 * @return 流程定义清单
+	*/
+	public List<ProcessDefinition> getProcessDefinitionList() {
+		return processDefinitionList;
+	}
+	
+	/**
+	 * 设置 流程定义清单
+	 * @param processDefinitionList 流程定义清单
+	 * @return 当前对象
+	*/
+	public Catalog setProcessDefinitionList(List<ProcessDefinition> processDefinitionList) {
+		this.processDefinitionList=processDefinitionList;
+		return this;
+	}
+	
+	/**
+	 * 添加 流程定义清单
+	 * @param processDefinition 流程定义清单
+	 * @return 当前对象
+	*/
+	public Catalog addProcessDefinition(ProcessDefinition... processDefinition) {
+		if(this.processDefinitionList==null) processDefinitionList=new ArrayList<>();
+		this.processDefinitionList.addAll(Arrays.asList(processDefinition));
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -531,6 +570,9 @@ public class Catalog extends Entity {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		inst.setIconFilePc(this.getIconFilePc());
+		if(all) {
+			inst.setProcessDefinitionList(this.getProcessDefinitionList());
+		}
 		inst.clearModifies();
 		return inst;
 	}

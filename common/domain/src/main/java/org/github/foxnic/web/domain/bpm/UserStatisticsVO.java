@@ -11,7 +11,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
-import org.github.foxnic.web.domain.bpm.meta.CatalogVOMeta;
+import org.github.foxnic.web.domain.bpm.meta.UserStatisticsVOMeta;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Date;
 import com.github.foxnic.sql.data.ExprRcd;
@@ -19,16 +19,16 @@ import com.github.foxnic.sql.data.ExprRcd;
 
 
 /**
- * 流程分类VO类型
- * <p>流程分类 , 数据表 bpm_catalog 的通用VO类型</p>
+ * 用户流程统计VO类型
+ * <p>用户流程统计 , 数据表 bpm_user_statistics 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-06 16:41:13
- * @sign FCA63C6EB99156ADF86E6B9318D32A01
+ * @since 2023-04-06 15:12:11
+ * @sign 63021338D124E6AA6021502DFFC479D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@ApiModel(description = "流程分类VO类型 ; 流程分类 , 数据表 bpm_catalog 的通用VO类型" , parent = Catalog.class)
-public class CatalogVO extends Catalog {
+@ApiModel(description = "用户流程统计VO类型 ; 用户流程统计 , 数据表 bpm_user_statistics 的通用VO类型" , parent = UserStatistics.class)
+public class UserStatisticsVO extends UserStatistics {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -117,7 +117,7 @@ public class CatalogVO extends Catalog {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public CatalogVO setPageIndex(Integer pageIndex) {
+	public UserStatisticsVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -135,7 +135,7 @@ public class CatalogVO extends Catalog {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public CatalogVO setPageSize(Integer pageSize) {
+	public UserStatisticsVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -153,7 +153,7 @@ public class CatalogVO extends Catalog {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public CatalogVO setSearchField(String searchField) {
+	public UserStatisticsVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -171,7 +171,7 @@ public class CatalogVO extends Catalog {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public CatalogVO setFuzzyField(String fuzzyField) {
+	public UserStatisticsVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -189,7 +189,7 @@ public class CatalogVO extends Catalog {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public CatalogVO setSearchValue(String searchValue) {
+	public UserStatisticsVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -207,7 +207,7 @@ public class CatalogVO extends Catalog {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public CatalogVO setDirtyFields(List<String> dirtyFields) {
+	public UserStatisticsVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -217,7 +217,7 @@ public class CatalogVO extends Catalog {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public CatalogVO addDirtyField(String... dirtyField) {
+	public UserStatisticsVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
@@ -236,7 +236,7 @@ public class CatalogVO extends Catalog {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public CatalogVO setSortField(String sortField) {
+	public UserStatisticsVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class CatalogVO extends Catalog {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public CatalogVO setSortType(String sortType) {
+	public UserStatisticsVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -273,7 +273,7 @@ public class CatalogVO extends Catalog {
 	 * @param dataOrigin 数据来源
 	 * @return 当前对象
 	*/
-	public CatalogVO setDataOrigin(String dataOrigin) {
+	public UserStatisticsVO setDataOrigin(String dataOrigin) {
 		this.dataOrigin=dataOrigin;
 		return this;
 	}
@@ -292,7 +292,7 @@ public class CatalogVO extends Catalog {
 	 * @param queryLogic 查询逻辑
 	 * @return 当前对象
 	*/
-	public CatalogVO setQueryLogic(String queryLogic) {
+	public UserStatisticsVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
 		return this;
 	}
@@ -311,7 +311,7 @@ public class CatalogVO extends Catalog {
 	 * @param requestAction 请求动作
 	 * @return 当前对象
 	*/
-	public CatalogVO setRequestAction(String requestAction) {
+	public UserStatisticsVO setRequestAction(String requestAction) {
 		this.requestAction=requestAction;
 		return this;
 	}
@@ -330,7 +330,7 @@ public class CatalogVO extends Catalog {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogVO setIds(List<String> ids) {
+	public UserStatisticsVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -340,7 +340,7 @@ public class CatalogVO extends Catalog {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogVO addId(String... id) {
+	public UserStatisticsVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
 		return this;
@@ -360,7 +360,7 @@ public class CatalogVO extends Catalog {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return CatalogVO , 转换好的 CatalogVO 对象
+	 * @return UserStatisticsVO , 转换好的 UserStatisticsVO 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -370,7 +370,7 @@ public class CatalogVO extends Catalog {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return CatalogVO , 转换好的 PoJo 对象
+	 * @return UserStatisticsVO , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -390,7 +390,7 @@ public class CatalogVO extends Catalog {
 	 * 克隆当前对象
 	*/
 	@Transient
-	public CatalogVO clone() {
+	public UserStatisticsVO clone() {
 		return duplicate(true);
 	}
 
@@ -399,28 +399,26 @@ public class CatalogVO extends Catalog {
 	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
 	*/
 	@Transient
-	public CatalogVO duplicate(boolean all) {
-		org.github.foxnic.web.domain.bpm.meta.CatalogVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.CatalogVOMeta.$$proxy$$();
-		inst.setNotes(this.getNotes());
+	public UserStatisticsVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.UserStatisticsVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.UserStatisticsVOMeta.$$proxy$$();
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
 		inst.setUpdateTime(this.getUpdateTime());
-		inst.setSort(this.getSort());
+		inst.setUserId(this.getUserId());
 		inst.setVersion(this.getVersion());
-		inst.setIconFileMobile(this.getIconFileMobile());
-		inst.setValid(this.getValid());
+		inst.setLatestUseTime(this.getLatestUseTime());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
-		inst.setName(this.getName());
 		inst.setTenantId(this.getTenantId());
 		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUsesNumber(this.getUsesNumber());
 		inst.setId(this.getId());
-		inst.setIconFilePc(this.getIconFilePc());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
 			inst.setRequestAction(this.getRequestAction());
-			inst.setProcessDefinitionList(this.getProcessDefinitionList());
+			inst.setProcessDefinition(this.getProcessDefinition());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
 			inst.setPageIndex(this.getPageIndex());
@@ -440,45 +438,45 @@ public class CatalogVO extends Catalog {
 	 * 克隆当前对象
 	*/
 	@Transient
-	public CatalogVO clone(boolean deep) {
-		return EntityContext.clone(CatalogVO.class,this,deep);
+	public UserStatisticsVO clone(boolean deep) {
+		return EntityContext.clone(UserStatisticsVO.class,this,deep);
 	}
 
 	/**
-	 * 将 Map 转换成 CatalogVO
-	 * @param catalogMap 包含实体信息的 Map 对象
-	 * @return CatalogVO , 转换好的的 Catalog 对象
+	 * 将 Map 转换成 UserStatisticsVO
+	 * @param userStatisticsMap 包含实体信息的 Map 对象
+	 * @return UserStatisticsVO , 转换好的的 UserStatistics 对象
 	*/
 	@Transient
-	public static CatalogVO createFrom(Map<String,Object> catalogMap) {
-		if(catalogMap==null) return null;
-		CatalogVO vo = create();
-		EntityContext.copyProperties(vo,catalogMap);
+	public static UserStatisticsVO createFrom(Map<String,Object> userStatisticsMap) {
+		if(userStatisticsMap==null) return null;
+		UserStatisticsVO vo = create();
+		EntityContext.copyProperties(vo,userStatisticsMap);
 		vo.clearModifies();
 		return vo;
 	}
 
 	/**
-	 * 将 Pojo 转换成 CatalogVO
+	 * 将 Pojo 转换成 UserStatisticsVO
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return CatalogVO , 转换好的的 Catalog 对象
+	 * @return UserStatisticsVO , 转换好的的 UserStatistics 对象
 	*/
 	@Transient
-	public static CatalogVO createFrom(Object pojo) {
+	public static UserStatisticsVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		CatalogVO vo = create();
+		UserStatisticsVO vo = create();
 		EntityContext.copyProperties(vo,pojo);
 		vo.clearModifies();
 		return vo;
 	}
 
 	/**
-	 * 创建一个 CatalogVO，等同于 new
-	 * @return CatalogVO 对象
+	 * 创建一个 UserStatisticsVO，等同于 new
+	 * @return UserStatisticsVO 对象
 	*/
 	@Transient
-	public static CatalogVO create() {
-		return new org.github.foxnic.web.domain.bpm.meta.CatalogVOMeta.$$proxy$$();
+	public static UserStatisticsVO create() {
+		return new org.github.foxnic.web.domain.bpm.meta.UserStatisticsVOMeta.$$proxy$$();
 	}
 
 	/**
@@ -490,63 +488,61 @@ public class CatalogVO extends Catalog {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
-			this.setNotes(DataParser.parse(String.class, map.get(CatalogVOMeta.NOTES)));
-			this.setUpdateTime(DataParser.parse(Date.class, map.get(CatalogVOMeta.UPDATE_TIME)));
-			this.setSort(DataParser.parse(Integer.class, map.get(CatalogVOMeta.SORT)));
-			this.setVersion(DataParser.parse(Integer.class, map.get(CatalogVOMeta.VERSION)));
-			this.setIconFileMobile(DataParser.parse(String.class, map.get(CatalogVOMeta.ICON_FILE_MOBILE)));
-			this.setValid(DataParser.parse(Integer.class, map.get(CatalogVOMeta.VALID)));
-			this.setCreateBy(DataParser.parse(String.class, map.get(CatalogVOMeta.CREATE_BY)));
-			this.setDeleted(DataParser.parse(Integer.class, map.get(CatalogVOMeta.DELETED)));
-			this.setCreateTime(DataParser.parse(Date.class, map.get(CatalogVOMeta.CREATE_TIME)));
-			this.setUpdateBy(DataParser.parse(String.class, map.get(CatalogVOMeta.UPDATE_BY)));
-			this.setDeleteTime(DataParser.parse(Date.class, map.get(CatalogVOMeta.DELETE_TIME)));
-			this.setName(DataParser.parse(String.class, map.get(CatalogVOMeta.NAME)));
-			this.setTenantId(DataParser.parse(String.class, map.get(CatalogVOMeta.TENANT_ID)));
-			this.setDeleteBy(DataParser.parse(String.class, map.get(CatalogVOMeta.DELETE_BY)));
-			this.setId(DataParser.parse(String.class, map.get(CatalogVOMeta.ID)));
-			this.setIconFilePc(DataParser.parse(String.class, map.get(CatalogVOMeta.ICON_FILE_PC)));
+			this.setProcessDefinitionId(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.PROCESS_DEFINITION_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserStatisticsVOMeta.UPDATE_TIME)));
+			this.setUserId(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(UserStatisticsVOMeta.VERSION)));
+			this.setLatestUseTime(DataParser.parse(Date.class, map.get(UserStatisticsVOMeta.LATEST_USE_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(UserStatisticsVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(UserStatisticsVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(UserStatisticsVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.DELETE_BY)));
+			this.setUsesNumber(DataParser.parse(Integer.class, map.get(UserStatisticsVOMeta.USES_NUMBER)));
+			this.setId(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.ID)));
 			// others
-			this.setSearchField(DataParser.parse(String.class, map.get(CatalogVOMeta.SEARCH_FIELD)));
-			this.setRequestAction(DataParser.parse(String.class, map.get(CatalogVOMeta.REQUEST_ACTION)));
-			this.setFuzzyField(DataParser.parse(String.class, map.get(CatalogVOMeta.FUZZY_FIELD)));
-			this.setPageSize(DataParser.parse(Integer.class, map.get(CatalogVOMeta.PAGE_SIZE)));
-			this.setPageIndex(DataParser.parse(Integer.class, map.get(CatalogVOMeta.PAGE_INDEX)));
-			this.setSortType(DataParser.parse(String.class, map.get(CatalogVOMeta.SORT_TYPE)));
-			this.setSortField(DataParser.parse(String.class, map.get(CatalogVOMeta.SORT_FIELD)));
-			this.setDataOrigin(DataParser.parse(String.class, map.get(CatalogVOMeta.DATA_ORIGIN)));
-			this.setQueryLogic(DataParser.parse(String.class, map.get(CatalogVOMeta.QUERY_LOGIC)));
-			this.setSearchValue(DataParser.parse(String.class, map.get(CatalogVOMeta.SEARCH_VALUE)));
+			this.setSearchField(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.REQUEST_ACTION)));
+			this.setProcessDefinition(DataParser.parse(ProcessDefinition.class, map.get(UserStatisticsVOMeta.PROCESS_DEFINITION)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(UserStatisticsVOMeta.PAGE_SIZE)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(UserStatisticsVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.SORT_FIELD)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.QUERY_LOGIC)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(UserStatisticsVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
 			try {
-				this.setNotes( (String)map.get(CatalogVOMeta.NOTES));
-				this.setUpdateTime( (Date)map.get(CatalogVOMeta.UPDATE_TIME));
-				this.setSort( (Integer)map.get(CatalogVOMeta.SORT));
-				this.setVersion( (Integer)map.get(CatalogVOMeta.VERSION));
-				this.setIconFileMobile( (String)map.get(CatalogVOMeta.ICON_FILE_MOBILE));
-				this.setValid( (Integer)map.get(CatalogVOMeta.VALID));
-				this.setCreateBy( (String)map.get(CatalogVOMeta.CREATE_BY));
-				this.setDeleted( (Integer)map.get(CatalogVOMeta.DELETED));
-				this.setCreateTime( (Date)map.get(CatalogVOMeta.CREATE_TIME));
-				this.setUpdateBy( (String)map.get(CatalogVOMeta.UPDATE_BY));
-				this.setDeleteTime( (Date)map.get(CatalogVOMeta.DELETE_TIME));
-				this.setName( (String)map.get(CatalogVOMeta.NAME));
-				this.setTenantId( (String)map.get(CatalogVOMeta.TENANT_ID));
-				this.setDeleteBy( (String)map.get(CatalogVOMeta.DELETE_BY));
-				this.setId( (String)map.get(CatalogVOMeta.ID));
-				this.setIconFilePc( (String)map.get(CatalogVOMeta.ICON_FILE_PC));
+				this.setProcessDefinitionId( (String)map.get(UserStatisticsVOMeta.PROCESS_DEFINITION_ID));
+				this.setUpdateTime( (Date)map.get(UserStatisticsVOMeta.UPDATE_TIME));
+				this.setUserId( (String)map.get(UserStatisticsVOMeta.USER_ID));
+				this.setVersion( (Integer)map.get(UserStatisticsVOMeta.VERSION));
+				this.setLatestUseTime( (Date)map.get(UserStatisticsVOMeta.LATEST_USE_TIME));
+				this.setCreateBy( (String)map.get(UserStatisticsVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(UserStatisticsVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(UserStatisticsVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(UserStatisticsVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(UserStatisticsVOMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(UserStatisticsVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(UserStatisticsVOMeta.DELETE_BY));
+				this.setUsesNumber( (Integer)map.get(UserStatisticsVOMeta.USES_NUMBER));
+				this.setId( (String)map.get(UserStatisticsVOMeta.ID));
 				// others
-				this.setSearchField( (String)map.get(CatalogVOMeta.SEARCH_FIELD));
-				this.setRequestAction( (String)map.get(CatalogVOMeta.REQUEST_ACTION));
-				this.setFuzzyField( (String)map.get(CatalogVOMeta.FUZZY_FIELD));
-				this.setPageSize( (Integer)map.get(CatalogVOMeta.PAGE_SIZE));
-				this.setPageIndex( (Integer)map.get(CatalogVOMeta.PAGE_INDEX));
-				this.setSortType( (String)map.get(CatalogVOMeta.SORT_TYPE));
-				this.setSortField( (String)map.get(CatalogVOMeta.SORT_FIELD));
-				this.setDataOrigin( (String)map.get(CatalogVOMeta.DATA_ORIGIN));
-				this.setQueryLogic( (String)map.get(CatalogVOMeta.QUERY_LOGIC));
-				this.setSearchValue( (String)map.get(CatalogVOMeta.SEARCH_VALUE));
+				this.setSearchField( (String)map.get(UserStatisticsVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(UserStatisticsVOMeta.REQUEST_ACTION));
+				this.setProcessDefinition( (ProcessDefinition)map.get(UserStatisticsVOMeta.PROCESS_DEFINITION));
+				this.setFuzzyField( (String)map.get(UserStatisticsVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(UserStatisticsVOMeta.PAGE_SIZE));
+				this.setPageIndex( (Integer)map.get(UserStatisticsVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(UserStatisticsVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(UserStatisticsVOMeta.SORT_FIELD));
+				this.setDataOrigin( (String)map.get(UserStatisticsVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(UserStatisticsVOMeta.QUERY_LOGIC));
+				this.setSearchValue( (String)map.get(UserStatisticsVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {
 				return false;
@@ -563,41 +559,37 @@ public class CatalogVO extends Catalog {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
-			this.setNotes(DataParser.parse(String.class, r.getValue(CatalogVOMeta.NOTES)));
-			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(CatalogVOMeta.UPDATE_TIME)));
-			this.setSort(DataParser.parse(Integer.class, r.getValue(CatalogVOMeta.SORT)));
-			this.setVersion(DataParser.parse(Integer.class, r.getValue(CatalogVOMeta.VERSION)));
-			this.setIconFileMobile(DataParser.parse(String.class, r.getValue(CatalogVOMeta.ICON_FILE_MOBILE)));
-			this.setValid(DataParser.parse(Integer.class, r.getValue(CatalogVOMeta.VALID)));
-			this.setCreateBy(DataParser.parse(String.class, r.getValue(CatalogVOMeta.CREATE_BY)));
-			this.setDeleted(DataParser.parse(Integer.class, r.getValue(CatalogVOMeta.DELETED)));
-			this.setCreateTime(DataParser.parse(Date.class, r.getValue(CatalogVOMeta.CREATE_TIME)));
-			this.setUpdateBy(DataParser.parse(String.class, r.getValue(CatalogVOMeta.UPDATE_BY)));
-			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(CatalogVOMeta.DELETE_TIME)));
-			this.setName(DataParser.parse(String.class, r.getValue(CatalogVOMeta.NAME)));
-			this.setTenantId(DataParser.parse(String.class, r.getValue(CatalogVOMeta.TENANT_ID)));
-			this.setDeleteBy(DataParser.parse(String.class, r.getValue(CatalogVOMeta.DELETE_BY)));
-			this.setId(DataParser.parse(String.class, r.getValue(CatalogVOMeta.ID)));
-			this.setIconFilePc(DataParser.parse(String.class, r.getValue(CatalogVOMeta.ICON_FILE_PC)));
+			this.setProcessDefinitionId(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.PROCESS_DEFINITION_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserStatisticsVOMeta.UPDATE_TIME)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.USER_ID)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserStatisticsVOMeta.VERSION)));
+			this.setLatestUseTime(DataParser.parse(Date.class, r.getValue(UserStatisticsVOMeta.LATEST_USE_TIME)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(UserStatisticsVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(UserStatisticsVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(UserStatisticsVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.DELETE_BY)));
+			this.setUsesNumber(DataParser.parse(Integer.class, r.getValue(UserStatisticsVOMeta.USES_NUMBER)));
+			this.setId(DataParser.parse(String.class, r.getValue(UserStatisticsVOMeta.ID)));
 			return true;
 		} else {
 			try {
-				this.setNotes( (String)r.getValue(CatalogVOMeta.NOTES));
-				this.setUpdateTime( (Date)r.getValue(CatalogVOMeta.UPDATE_TIME));
-				this.setSort( (Integer)r.getValue(CatalogVOMeta.SORT));
-				this.setVersion( (Integer)r.getValue(CatalogVOMeta.VERSION));
-				this.setIconFileMobile( (String)r.getValue(CatalogVOMeta.ICON_FILE_MOBILE));
-				this.setValid( (Integer)r.getValue(CatalogVOMeta.VALID));
-				this.setCreateBy( (String)r.getValue(CatalogVOMeta.CREATE_BY));
-				this.setDeleted( (Integer)r.getValue(CatalogVOMeta.DELETED));
-				this.setCreateTime( (Date)r.getValue(CatalogVOMeta.CREATE_TIME));
-				this.setUpdateBy( (String)r.getValue(CatalogVOMeta.UPDATE_BY));
-				this.setDeleteTime( (Date)r.getValue(CatalogVOMeta.DELETE_TIME));
-				this.setName( (String)r.getValue(CatalogVOMeta.NAME));
-				this.setTenantId( (String)r.getValue(CatalogVOMeta.TENANT_ID));
-				this.setDeleteBy( (String)r.getValue(CatalogVOMeta.DELETE_BY));
-				this.setId( (String)r.getValue(CatalogVOMeta.ID));
-				this.setIconFilePc( (String)r.getValue(CatalogVOMeta.ICON_FILE_PC));
+				this.setProcessDefinitionId( (String)r.getValue(UserStatisticsVOMeta.PROCESS_DEFINITION_ID));
+				this.setUpdateTime( (Date)r.getValue(UserStatisticsVOMeta.UPDATE_TIME));
+				this.setUserId( (String)r.getValue(UserStatisticsVOMeta.USER_ID));
+				this.setVersion( (Integer)r.getValue(UserStatisticsVOMeta.VERSION));
+				this.setLatestUseTime( (Date)r.getValue(UserStatisticsVOMeta.LATEST_USE_TIME));
+				this.setCreateBy( (String)r.getValue(UserStatisticsVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(UserStatisticsVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(UserStatisticsVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(UserStatisticsVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(UserStatisticsVOMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(UserStatisticsVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(UserStatisticsVOMeta.DELETE_BY));
+				this.setUsesNumber( (Integer)r.getValue(UserStatisticsVOMeta.USES_NUMBER));
+				this.setId( (String)r.getValue(UserStatisticsVOMeta.ID));
 				return true;
 			} catch (Exception e) {
 				return false;

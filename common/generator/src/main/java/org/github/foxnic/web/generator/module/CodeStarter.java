@@ -61,13 +61,13 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
-        initSystemModules();
+//        initOAuthModules();
+//        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -113,6 +113,9 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
+        //
+        this.addConfig(new UserStatisticsConfig());
+        //
         this.addConfig(new ProcessDefinitionConfig());
 //        this.addConfig(new ProcessDefinitionFileConfig());
 //        this.addConfig(new ProcessDefinitionNodeConfig());

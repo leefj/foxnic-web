@@ -8,6 +8,7 @@ import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.mvc.Validator;
+import com.github.foxnic.sql.entity.VOUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -145,30 +146,14 @@ public class SuperController {
 	 * 从 VO 提取属性值
 	 * */
 	public <T,V> V getPropertyValue(T vo,String prop,Class<V> type) {
-		Object value= BeanUtil.getFieldValue(vo,prop);
-		if(vo instanceof Entity) {
-			Entity entity = (Entity) vo;
-			CompositeItem drafterNameItem = entity.getCompositeParameter().getItem(prop);
-			if (StringUtil.isBlank(value) && drafterNameItem != null) {
-				value = drafterNameItem.getValue();
-			}
-		}
-		return DataParser.parse(type,value);
+		return VOUtil.getPropertyValue(vo,prop,type);
 	}
 
 	/**
 	 * 设置 VO 的属性值
 	 * */
 	public <T> void setPropertyValue(T vo,String prop,Object value) {
-		// 提取 drafterName 并是参数置空以取消底层的查询
-		BeanUtil.setFieldValue(vo,prop,value);
-		if(vo instanceof Entity) {
-			Entity entity = (Entity) vo;
-			CompositeItem drafterNameItem = entity.getCompositeParameter().getItem(prop);
-			if (drafterNameItem != null) {
-				drafterNameItem.setValue(value);
-			}
-		}
+		VOUtil.setPropertyValue(vo,prop,value);
 	}
 
 }

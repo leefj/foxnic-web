@@ -3,14 +3,16 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.Catalog;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import java.util.List;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 14:40:57
- * @sign AEFBBE92574A8AF6356F473F5DF924F8
+ * @since 2023-04-06 16:41:13
+ * @sign 0EAE15AA705C561AED85EDAE5103D8B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -177,9 +179,19 @@ public class CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Catalog,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Catalog.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 流程定义清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final String PROCESS_DEFINITION_LIST="processDefinitionList";
+	
+	/**
+	 * 流程定义清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Catalog,org.github.foxnic.web.domain.bpm.ProcessDefinition> PROCESS_DEFINITION_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Catalog.class ,PROCESS_DEFINITION_LIST, java.util.List.class, "流程定义清单", "流程定义清单", org.github.foxnic.web.domain.bpm.ProcessDefinition.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , NOTES , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ ID , NAME , NOTES , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION_LIST };
 	
 	/**
 	 * 代理类
@@ -364,6 +376,17 @@ public class CatalogMeta {
 			super.setTenantId(tenantId);
 			return this;
 		}
+		
+		/**
+		 * 设置 流程定义清单
+		 * @param processDefinitionList 流程定义清单
+		 * @return 当前对象
+		*/
+		public Catalog setProcessDefinitionList(List<ProcessDefinition> processDefinitionList) {
+			super.change(PROCESS_DEFINITION_LIST,super.getProcessDefinitionList(),processDefinitionList);
+			super.setProcessDefinitionList(processDefinitionList);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -396,6 +419,9 @@ public class CatalogMeta {
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			inst.setIconFilePc(this.getIconFilePc());
+			if(all) {
+				inst.setProcessDefinitionList(this.getProcessDefinitionList());
+			}
 			inst.clearModifies();
 			return inst;
 		}

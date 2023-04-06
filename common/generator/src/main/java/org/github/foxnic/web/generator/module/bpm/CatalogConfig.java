@@ -7,6 +7,7 @@ import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_CATALOG;
 import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class CatalogConfig extends BaseCodeConfig<BPM_CATALOG> {
@@ -17,6 +18,7 @@ public class CatalogConfig extends BaseCodeConfig<BPM_CATALOG> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addListProperty(ProcessDefinition.class,"processDefinitionList","流程定义清单","流程定义清单");
     }
 
     @Override

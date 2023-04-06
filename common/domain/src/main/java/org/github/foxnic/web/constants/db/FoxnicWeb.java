@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-04 09:40:45
+ * @since 2023-04-06 14:57:47
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1675,6 +1675,91 @@ public class FoxnicWeb {
 			this.init($NAME,"流程任务已阅表" , ID , PROCESS_INSTANCE_ID , TASK_ID , CONFIRM_TIME , COMMENT , STATUS , CREATE_BY , CREATE_TIME , VERSION , TENANT_ID , LATEST_TIME);
 		}
 		public static final BPM_TASK_READ $TABLE=new BPM_TASK_READ();
+	}
+	
+	/**
+	 * 用户流程统计
+	*/
+	public static class BPM_USER_STATISTICS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_user_statistics";
+		
+		/**
+		 * ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * 流程定义ID
+		*/
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		
+		/**
+		 * 账户ID
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,true);
+		
+		/**
+		 * 使用次数
+		*/
+		public static final DBField USES_NUMBER = new DBField(DBDataType.INTEGER , "uses_number","usesNumber","使用次数","使用次数",false,false,false);
+		
+		/**
+		 * 最近使用时间
+		*/
+		public static final DBField LATEST_USE_TIME = new DBField(DBDataType.DATE , "latest_use_time","latestUseTime","最近使用时间","最近使用时间",false,false,false);
+		
+		/**
+		 * 创建人
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人","创建人",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 更新人
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","更新人","更新人",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人","删除人",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
+		
+		public BPM_USER_STATISTICS() {
+			this.init($NAME,"用户流程统计" , ID , PROCESS_DEFINITION_ID , USER_ID , USES_NUMBER , LATEST_USE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_USER_STATISTICS $TABLE=new BPM_USER_STATISTICS();
 	}
 	
 	/**
@@ -5032,7 +5117,7 @@ public class FoxnicWeb {
 		/**
 		 * 内置角色，系统内置角色
 		*/
-		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","系统内置角色",false,false,true);
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","系统内置角色",false,false,false);
 		
 		public SYS_BUSI_ROLE() {
 			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN);
@@ -8786,7 +8871,7 @@ public class FoxnicWeb {
 		/**
 		 * 内置角色，是否内置角色
 		*/
-		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","是否内置角色",false,false,true);
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置角色","是否内置角色",false,false,false);
 		
 		public SYS_ROLE() {
 			this.init($NAME,"角色表" , ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , TYPE , BUILD_IN);
@@ -9909,7 +9994,7 @@ public class FoxnicWeb {
 		/**
 		 * 内置账户，系统内置账户
 		*/
-		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置账户","系统内置账户",false,false,true);
+		public static final DBField BUILD_IN = new DBField(DBDataType.INTEGER , "build_in","buildIn","内置账户","系统内置账户",false,false,false);
 		
 		public SYS_USER() {
 			this.init($NAME,"账户表" , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , BUILD_IN);

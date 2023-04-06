@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.bpm.CatalogVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.Catalog;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 14:40:57
+ * @since 2023-04-06 16:41:13
  * @sign FCA63C6EB99156ADF86E6B9318D32A01
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -299,9 +300,19 @@ public class CatalogVOMeta extends CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.CatalogVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.CatalogVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 流程定义清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final String PROCESS_DEFINITION_LIST="processDefinitionList";
+	
+	/**
+	 * 流程定义清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.CatalogVO,org.github.foxnic.web.domain.bpm.ProcessDefinition> PROCESS_DEFINITION_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.CatalogVO.class ,PROCESS_DEFINITION_LIST, java.util.List.class, "流程定义清单", "流程定义清单", org.github.foxnic.web.domain.bpm.ProcessDefinition.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , NAME , NOTES , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , NAME , NOTES , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION_LIST };
 	
 	/**
 	 * 代理类
@@ -618,6 +629,17 @@ public class CatalogVOMeta extends CatalogMeta {
 			super.setTenantId(tenantId);
 			return this;
 		}
+		
+		/**
+		 * 设置 流程定义清单
+		 * @param processDefinitionList 流程定义清单
+		 * @return 当前对象
+		*/
+		public Catalog setProcessDefinitionList(List<ProcessDefinition> processDefinitionList) {
+			super.change(PROCESS_DEFINITION_LIST,super.getProcessDefinitionList(),processDefinitionList);
+			super.setProcessDefinitionList(processDefinitionList);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -652,13 +674,14 @@ public class CatalogVOMeta extends CatalogMeta {
 			inst.setIconFilePc(this.getIconFilePc());
 			if(all) {
 				inst.setSearchField(this.getSearchField());
+				inst.setRequestAction(this.getRequestAction());
+				inst.setProcessDefinitionList(this.getProcessDefinitionList());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
-				inst.setRequestAction(this.getRequestAction());
-				inst.setFuzzyField(this.getFuzzyField());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
-				inst.setPageSize(this.getPageSize());
 				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
 				inst.setQueryLogic(this.getQueryLogic());

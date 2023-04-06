@@ -25,8 +25,21 @@ public class BpmRelationManager extends RelationManager {
 		setupBpmProcessInstance();
 		setupBpmTask();
 		setupBpmForm();
+		setupBpmUserStatistics();
+		setupBpmCatalog();
 		//
 		setupChanges();
+	}
+
+	private void setupBpmCatalog() {
+		//使用情况统计 - 流程定义
+		this.property(CatalogMeta.PROCESS_DEFINITION_LIST_PROP)
+				.using(FoxnicWeb.BPM_CATALOG.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.CATALOG_ID);
+	}
+	private void setupBpmUserStatistics() {
+		//使用情况统计 - 流程定义
+		this.property(UserStatisticsMeta.PROCESS_DEFINITION_PROP)
+				.using(FoxnicWeb.BPM_USER_STATISTICS.PROCESS_DEFINITION_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.ID);
 	}
 
 	private void setupBpmFormDefinition() {
