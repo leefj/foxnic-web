@@ -47,16 +47,16 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-        List<Resourze> matchs=resourzeService.getMatched(request);
+        List<Resourze> matches=resourzeService.getMatched(request);
 
         String uri=request.getRequestURI();
         String method=request.getMethod();
         Result result=ErrorDesc.failure(CommonError.PERMISSION_REQUIRED);
-        if(matchs.size()==0) {
+        if(matches.size()==0) {
             result.message("资源 "+method+" , "+uri+" 未定义，请联系开发人员");
             result.addSolution("需要开发人员在开发时定义，并与菜单关联");
         } else {
-            List<Menu> menus=menuService.getRelatedMenus(CollectorUtil.collectList(matchs,Resourze::getId));
+            List<Menu> menus=menuService.getRelatedMenus(CollectorUtil.collectList(matches,Resourze::getId));
             if(menus.isEmpty()) {
                 result.message("资源 "+method+" , "+uri+" 未关联到菜单，请联系开发人员");
                 result.addSolution("需要开发人员将资源与菜单关联，或请到菜单管理进行配置");

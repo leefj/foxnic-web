@@ -1,3 +1,6 @@
+:root{
+    --primary-color: #f56c6c;
+}
 .layui-btn { background-color:#f56c6c }
 .batch-delete-button { border: solid 1px #f6ad55;background-color: #f6ad55; }
 .ops-delete-button:not(.layui-btn-disabled) { border: #f6ad55;background-color: #f6ad55; }
@@ -176,4 +179,13 @@ th[data-field]:hover {
 
 .layui-checkbox-disabled {
     background-color: #f0f0f0 !important;
+}
+
+.layui-tab-brief > .layui-tab-title .layui-this {
+    color:#f56c6c;
+}
+.layui-tab-brief > .layui-tab-title .layui-this:after, .layui-tab-brief > .layui-tab-more li.layui-this:after {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #f56c6c;
 }

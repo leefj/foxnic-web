@@ -289,12 +289,14 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	}
 
 	private Map<String,Resourze> cachedResourzes =new HashMap<>();
+	private Map<String,List<Resourze>> cachedResourzeURLMap =new HashMap<>();
 	private Map<String,AccessType> cachedAccessTypes =new HashMap<>();
 
 	private void clearCachedResourzes() {
 		this.cachedResourzes.clear();
 		//this.catchedAntPathRequestMatchers=null;
 		this.cachedAccessTypes.clear();
+		this.cachedResourzeURLMap.clear();
 	}
 
 	public List<Resourze> queryCachedResourzes(Collection<String> resIds) {
@@ -319,12 +321,21 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 
 		initCache();
 
-		PerformanceLogger logger=new PerformanceLogger(false);
+		String key=request.getRequestURI();
+		if(request.getMethod()!=null) {
+			key=key+"@"+request.getMethod().toUpperCase();
+		}
+		List<Resourze> matches=cachedResourzeURLMap.get(key);
+		if(matches!=null) {
+			return matches;
+		}
+
+		PerformanceLogger logger=new PerformanceLogger(true);
 		logger.collect("A");
 		//
 		AntPathRequestMatcher ant = null;
 		RequestMatcher.MatchResult result=null;
-		List<Resourze> matchs=new ArrayList<>();
+		matches=new ArrayList<>();
 		List<Resourze> all=new ArrayList<>();
 		all.addAll(cachedResourzes.values());
 		for (Resourze resourze : all) {
@@ -336,13 +347,13 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			//AntPathRequestMatcher ant=catchedAntPathRequestMatchers.get(i);
 			result=ant.matcher(request);
 			if(result.isMatch()) {
-				matchs.add(resourze);
+				matches.add(resourze);
 			}
 		}
 		logger.collect("B:");
 		logger.info("getMatched");
-
-		return matchs;
+		cachedResourzeURLMap.put(key,matches);
+		return matches;
 	}
 
 	private void initCache() {
