@@ -89,7 +89,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		p.type="folder";
                 p.url="javascript:;";
         	}
-
+            top.foxnic_menu_map=map;
 
             var activedTopMenuIndex=0;
         	//顶部导航按钮

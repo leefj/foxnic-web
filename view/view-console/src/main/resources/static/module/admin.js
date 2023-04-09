@@ -31,6 +31,23 @@ layui.define(['settings', 'layer'], function (exports) {
                 $a.parent('dd').parent('.layui-nav-child').parent('.layui-nav-item').addClass('layui-nav-itemed');
             }
         },
+
+        openInTab : function (menuId) {
+            if(window!=top) {
+                return top.admin.openInTab(menuId);
+            }
+            if(!top.foxnic_menu_map) {
+                top.layer.msg(fox.translate('当前页面环境无法打新的标签页!'));
+                return;
+            }
+            var data=top.foxnic_menu_map[menuId];
+            if(!data) {
+                top.layer.msg(fox.translate('流程ID错误，无法打开页面!'));
+                return;
+            }
+            window.open(data.href);
+        },
+
         openIconDialog:function(callback) {
 
             //拦截，并由顶层弹出窗口

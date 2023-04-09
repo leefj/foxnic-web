@@ -84,6 +84,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				return timeStr;
 			};
 
+
+
 			this.openIconDialog = function(callback) {
 
 				//拦截，并由顶层弹出窗口
@@ -293,6 +295,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				Cookie.remove("JSESSIONID");
 				Cookie.remove("FOXNIC_JSESSIONID");
 			};
+
+
 
 			this.setBaseDir=function (dir) {
 				baseDir=dir;
@@ -675,6 +679,34 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					}
 				});
 			}
+
+			this.openInTab = function (menuId) {
+				if(window!=top) {
+					return top.admin.openInTab(menuId);
+				}
+				if(!top.foxnic_menu_map) {
+					top.layer.msg(fox.translate('当前页面环境无法打新的标签页!'));
+					return;
+				}
+				var data=top.foxnic_menu_map[menuId];
+				if(!data) {
+					top.layer.msg(fox.translate('流程ID错误，无法打开页面!'));
+					return;
+				}
+				if(!bodyTab) {
+					top.layer.msg(fox.translate('当前页面环境无法打新的标签页!'));
+					return;
+				}
+				bodyTab.addTabOnly({
+					id: data.id,
+					title: data.title,
+					url: data.href,
+					icon: data.icon,
+					close: true,
+					data: data
+				}, 300);
+				compatible();
+			};
 
 			this.bodyRender = function(param) {
 
