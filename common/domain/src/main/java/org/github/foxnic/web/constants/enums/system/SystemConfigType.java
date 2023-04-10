@@ -10,7 +10,7 @@ public enum SystemConfigType implements CodeTextEnum {
 	 * */
 	DIR("节点目录"),
 	// 以下为数据类型
-	STRING("字符串"),DATETIME("日期时间"),NUMBER("数字"),DICT("字典"),ENUM("枚举");
+	STRING("字符串"),DATETIME("日期时间"),NUMBER("数字"),DICT("字典"),ENUM("枚举单选"),ENUM_MULTI("枚举多选");
 
 	private String text;
 	private SystemConfigType(String text)  {

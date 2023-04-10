@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色
  * <p>业务角色 , 数据表 sys_busi_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 17:25:39
+ * @since 2023-04-10 16:27:20
  * @sign 87825961170D009F1E08F946FB545755
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

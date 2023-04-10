@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色VO类型
  * <p>业务角色 , 数据表 sys_busi_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-20 17:36:18
+ * @since 2023-04-10 16:27:20
  * @sign EFBD16F23899D35303CCEA8950EA2EDC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -408,6 +408,7 @@ public class BusiRoleVO extends BusiRole {
 		inst.setOrgId(this.getOrgId());
 		inst.setValid(this.getValid());
 		inst.setMemberRouter(this.getMemberRouter());
+		inst.setBuildIn(this.getBuildIn());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
@@ -421,6 +422,7 @@ public class BusiRoleVO extends BusiRole {
 			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
+			inst.setPositions(this.getPositions());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
 			inst.setDirtyFields(this.getDirtyFields());
@@ -496,6 +498,7 @@ public class BusiRoleVO extends BusiRole {
 			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.ORG_ID)));
 			this.setValid(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.VALID)));
 			this.setMemberRouter(DataParser.parse(String.class, map.get(BusiRoleVOMeta.MEMBER_ROUTER)));
+			this.setBuildIn(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.BUILD_IN)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.CREATE_TIME)));
@@ -525,6 +528,7 @@ public class BusiRoleVO extends BusiRole {
 				this.setOrgId( (Integer)map.get(BusiRoleVOMeta.ORG_ID));
 				this.setValid( (Integer)map.get(BusiRoleVOMeta.VALID));
 				this.setMemberRouter( (String)map.get(BusiRoleVOMeta.MEMBER_ROUTER));
+				this.setBuildIn( (Integer)map.get(BusiRoleVOMeta.BUILD_IN));
 				this.setCreateBy( (String)map.get(BusiRoleVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(BusiRoleVOMeta.DELETED));
 				this.setCreateTime( (Date)map.get(BusiRoleVOMeta.CREATE_TIME));
@@ -567,6 +571,7 @@ public class BusiRoleVO extends BusiRole {
 			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.ORG_ID)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.VALID)));
 			this.setMemberRouter(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.MEMBER_ROUTER)));
+			this.setBuildIn(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.BUILD_IN)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.CREATE_TIME)));
@@ -585,6 +590,7 @@ public class BusiRoleVO extends BusiRole {
 				this.setOrgId( (Integer)r.getValue(BusiRoleVOMeta.ORG_ID));
 				this.setValid( (Integer)r.getValue(BusiRoleVOMeta.VALID));
 				this.setMemberRouter( (String)r.getValue(BusiRoleVOMeta.MEMBER_ROUTER));
+				this.setBuildIn( (Integer)r.getValue(BusiRoleVOMeta.BUILD_IN));
 				this.setCreateBy( (String)r.getValue(BusiRoleVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(BusiRoleVOMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(BusiRoleVOMeta.CREATE_TIME));

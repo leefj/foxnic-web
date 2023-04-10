@@ -6,13 +6,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.system.BusiRole;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Position;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-20 17:36:18
+ * @since 2023-04-10 16:27:20
  * @sign EFBD16F23899D35303CCEA8950EA2EDC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -290,6 +291,16 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,java.lang.String> MEMBER_ROUTER_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,MEMBER_ROUTER, java.lang.String.class, "成员路由", "Java类型用于检索扩展成员", java.lang.String.class, null);
 	
 	/**
+	 * 内置角色 , 系统内置角色 , 类型: java.lang.Integer
+	*/
+	public static final String BUILD_IN="buildIn";
+	
+	/**
+	 * 内置角色 , 系统内置角色 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,java.lang.Integer> BUILD_IN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,BUILD_IN, java.lang.Integer.class, "内置角色", "系统内置角色", java.lang.Integer.class, null);
+	
+	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -300,9 +311,19 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,EMPLOYEES, java.util.List.class, "关联员工清单", "关联员工清单", org.github.foxnic.web.domain.hrm.Employee.class, null);
 	
 	/**
+	 * 关联岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String POSITIONS="positions";
+	
+	/**
+	 * 关联岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,org.github.foxnic.web.domain.hrm.Position> POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,POSITIONS, java.util.List.class, "关联岗位清单", "关联岗位清单", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , EMPLOYEES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , EMPLOYEES , POSITIONS };
 	
 	/**
 	 * 代理类
@@ -610,6 +631,17 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 		}
 		
 		/**
+		 * 设置 内置角色
+		 * @param buildIn 内置角色
+		 * @return 当前对象
+		*/
+		public BusiRole setBuildIn(Integer buildIn) {
+			super.change(BUILD_IN,super.getBuildIn(),buildIn);
+			super.setBuildIn(buildIn);
+			return this;
+		}
+		
+		/**
 		 * 设置 关联员工清单
 		 * @param employees 关联员工清单
 		 * @return 当前对象
@@ -617,6 +649,17 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 		public BusiRole setEmployees(List<Employee> employees) {
 			super.change(EMPLOYEES,super.getEmployees(),employees);
 			super.setEmployees(employees);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联岗位清单
+		 * @param positions 关联岗位清单
+		 * @return 当前对象
+		*/
+		public BusiRole setPositions(List<Position> positions) {
+			super.change(POSITIONS,super.getPositions(),positions);
+			super.setPositions(positions);
 			return this;
 		}
 
@@ -642,6 +685,7 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 			inst.setOrgId(this.getOrgId());
 			inst.setValid(this.getValid());
 			inst.setMemberRouter(this.getMemberRouter());
+			inst.setBuildIn(this.getBuildIn());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
@@ -655,6 +699,7 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 				inst.setRequestAction(this.getRequestAction());
 				inst.setFuzzyField(this.getFuzzyField());
 				inst.setPageSize(this.getPageSize());
+				inst.setPositions(this.getPositions());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
 				inst.setDirtyFields(this.getDirtyFields());
