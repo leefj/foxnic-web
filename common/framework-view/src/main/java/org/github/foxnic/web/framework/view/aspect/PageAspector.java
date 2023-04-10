@@ -123,7 +123,7 @@ public class PageAspector {
 		if(this.theme.getValue()==null) {
 			Theme theme = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME_DEFAULT, Theme.class);
 			String ico=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_FAVICO);
-			if (theme == null) theme = Theme.DEFAULT;
+			if (theme == null) theme = Theme.PEAR;
 			JSONObject json=new JSONObject();
 			json.put("css",theme.getCss());
 			json.put("js",theme.getJs());
