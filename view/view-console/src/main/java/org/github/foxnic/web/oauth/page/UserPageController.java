@@ -58,12 +58,16 @@ public class UserPageController {
 		CodeTextEnumUtil enumUtil= AwareHandler.getBean(CodeTextEnumUtil.class);
 		JSONArray langs=enumUtil.toArray(Language.class.getName(),true);
 		JSONArray languageRange = SystemConfigProxyUtil.getJSONArray(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE);
-		JSONArray finalLangs=new JSONArray();
-		for (int i = 0; i < langs.size(); i++) {
-			JSONObject lang=langs.getJSONObject(i);
-			if(languageRange.indexOf(lang.getString("code"))!=-1) {
-				finalLangs.add(lang);
+		JSONArray finalLangs = new JSONArray();
+		if(languageRange!=null) {
+			for (int i = 0; i < langs.size(); i++) {
+				JSONObject lang = langs.getJSONObject(i);
+				if (languageRange.indexOf(lang.getString("code")) != -1) {
+					finalLangs.add(lang);
+				}
 			}
+		} else {
+			finalLangs=langs;
 		}
 		model.addAttribute("finalLangs", finalLangs);
 	}
