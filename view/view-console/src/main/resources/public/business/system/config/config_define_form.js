@@ -316,6 +316,10 @@ function FormPage() {
 			var doNext=window.pageExt.form.beforeSubmit(param);
 			if(!doNext) return ;
 		}
+		debugger
+		if(param.type=="ENUM_MULTI") {
+			param.value = fox.getCheckedValue("value");
+		}
 
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		var notExistAction=param.id?"edit":"create";
