@@ -150,7 +150,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		// 如果当前登录账户不是内置账户，不允许创建内置账户
 		if(sessionUser==null || (sessionUser!=null && !sessionUser.isBuildIn())) {
-			return ErrorDesc.failure().message("不允许创建内置账户");
+			if(isBuildIn(user)) {
+				return ErrorDesc.failure().message("不允许创建内置账户");
+			}
 		}
 
 		if(StringUtil.isBlank(user.getPasswd())){
