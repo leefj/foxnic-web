@@ -109,7 +109,6 @@ layui.config({
     function initLanguageSwitchButton() {
         var items=[];
         var userItem=null;
-        var defaultsItem=null;
         for (var i=0;i<LANGUAGES.length;i++) {
             // if(LANGUAGES[i].code=="confuse") continue;
             if(LANGUAGE_RANGE!=null && LANGUAGE_RANGE.length>0) {
@@ -121,13 +120,10 @@ layui.config({
             } else {
                 items.push({title:LANGUAGES[i].text,code:LANGUAGES[i].code,property:LANGUAGES[i].property});
             }
-            if(LANGUAGES[i].code=="defaults") {
-                defaultsItem=LANGUAGES[i];
-            }
         }
 
         if(userItem==null) {
-            userItem=defaultsItem;
+            userItem=LANGUAGE_DEFAULTS;
         }
 
         $(".layui-card-header").append('<i class="foxnic-lang" style="float:right" update-text="1">'+userItem.text+'</i>');

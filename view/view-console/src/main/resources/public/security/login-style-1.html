@@ -126,6 +126,7 @@
 <script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
 
 <script th:inline="javascript">
+    var LANGUAGE_DEFAULTS=[[${languageDefaults}]];
     var LANGUAGES = [[${enum.toArray('org.github.foxnic.web.language.Language')}]];
     var USER_LANGUAGE_PROP=[[${lang.getUserLanguage().property()}]];
     var USER_LANGUAGE_CODE=[[${lang.getUserLanguage().code()}]];

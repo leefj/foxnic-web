@@ -14,6 +14,7 @@ import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.view.controller.ViewController;
+import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
@@ -165,7 +166,7 @@ public class PortalPageController extends ViewController  {
 
 		JSONArray languageRange = SystemConfigProxyUtil.getJSONArray(SystemConfigEnum.SYSTEM_LANGUAGE_RANGE);
 		model.addAttribute("languageRange", languageRange);
-
+		model.addAttribute("languageDefaults", Language.defaults.toJSONObject());
 
 
 		//

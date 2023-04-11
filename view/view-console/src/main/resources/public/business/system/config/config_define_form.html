@@ -129,6 +129,9 @@
                             <input th:if="${config.type}=='DICT'" type="radio" name="value" lay-filter="value"
                                    id="value" th:each="e,stat:${dict.toArray(config.typeDesc)}"
                                    th:value="${e.code}" th:title="${e.text}">
+                            <input th:if="${config.type}=='DICT_MULTI'" type="checkbox" name="value" lay-filter="value"
+                                   th:each="e,stat:${dict.toArray(config.typeDesc)}"
+                                   th:value="${e.code}" th:title="${e.text}">
                         </div>
                         <div th:if="${config}==null">
                             <input lay-filter="value" id="value" name="value"

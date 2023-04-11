@@ -316,8 +316,8 @@ function FormPage() {
 			var doNext=window.pageExt.form.beforeSubmit(param);
 			if(!doNext) return ;
 		}
-		debugger
-		if(param.type=="ENUM_MULTI") {
+		// debugger
+		if(param.type=="ENUM_MULTI" || param.type=='DICT_MULTI') {
 			param.value = fox.getCheckedValue("value");
 		}
 
