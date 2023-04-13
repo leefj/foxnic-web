@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-12-08 14:47:43
+ * @since 2023-04-14 06:56:14
  */
  -->
  <!DOCTYPE html>
@@ -11,6 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
+    <meta name="referrer" content="no-referrer">
     <title th:text="${lang.translate('员工')}">员工</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <link th:if(theme.ico!="null") rel="icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
@@ -42,21 +43,30 @@
                     <!-- 工号 , badge ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('工号')}" class="search-label badge-label">工号</span><span class="search-colon">:</span></div>
-                        <input id="badge" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="badge" class="layui-input search-input" style="width: 90px" type="text" />
+                    </div>
+                    <!-- 人员ID , personId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- extInfo , extInfo ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 身份证 , identity ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 主岗 , primaryPositionId ,typeName=button, isHideInSearch=true -->
+                    <!-- 部门 , primaryOrganization ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 兼岗 , vicePositionIds ,typeName=button, isHideInSearch=true -->
+                    <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label name-label">姓名</span><span class="search-colon">:</span></div>
+                        <input id="name" class="layui-input search-input" style="width: 90px" type="text" />
                     </div>
                     <!-- 手机号 , phone ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('手机号')}" class="search-label phone-label">手机号</span><span class="search-colon">:</span></div>
-                        <input id="phone" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="phone" class="layui-input search-input" style="width: 90px" type="text" />
                     </div>
-                    <!-- 人员ID , personId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 状态 , status ,typeName=radio_box, isHideInSearch=false -->
+                    <!-- 姓别 , sex ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('状态')}" class="search-label status-label">状态</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓别')}" class="search-label sex-label">姓别</span><span class="search-colon">:</span></div>
 
-                        <div id="status" th:data="${dict.toArray('employee_status')}" style="width:140px"></div>
-
+                        <div id="sex" th:data="${dict.toArray('sex')}" style="width:100px"></div>
 
                     </div>
                     <!-- 类型 , type ,typeName=select_box, isHideInSearch=false -->
@@ -64,24 +74,13 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label type-label">类型</span><span class="search-colon">:</span></div>
                         <div id="type" th:data="${dict.toArray('employee_type')}" style="width:140px" extraParam="{}"></div>
                     </div>
-                    <!-- extInfo , extInfo ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 状态 , status ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label name-label">姓名</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 姓别 , sex ,typeName=radio_box, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓别')}" class="search-label sex-label">姓别</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('状态')}" class="search-label status-label">状态</span><span class="search-colon">:</span></div>
 
-                        <div id="sex" th:data="${dict.toArray('sex')}" style="width:140px"></div>
-
+                        <div id="status" th:data="${dict.toArray('employee_status')}" style="width:100px"></div>
 
                     </div>
-                    <!-- 身份证 , identity ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 主岗 , primaryPositionId ,typeName=button, isHideInSearch=true -->
-                    <!-- 部门 , primaryOrganization ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 兼岗 , vicePositionIds ,typeName=button, isHideInSearch=true -->
 
 
                 </div>

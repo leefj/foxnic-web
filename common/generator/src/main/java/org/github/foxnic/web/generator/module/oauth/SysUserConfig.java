@@ -86,7 +86,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.BUILD_IN)
                 .table().alignCenter()
-                .search().triggerOnSelect(true).label("内置")
+                .search().inputWidth(90).triggerOnSelect(true).label("内置")
                 .form().logicField().on("是","1").off("否","0");
 
         context.view().field(SYS_USER.PASSWD)
@@ -110,12 +110,12 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
 
         context.view().field(SYS_USER.ACCOUNT)
-                .search().fuzzySearch()
+                .search().inputWidth(90).fuzzySearch()
                 .form().validate().required()
         ;
 
         context.view().field(SYS_USER.REAL_NAME).basic().label("姓名")
-                .search().fuzzySearch();
+                .search().inputWidth(90).fuzzySearch();
 
 //                .table().sort(false)
 //                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME).form().hidden()
@@ -124,7 +124,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.PHONE)
                 .basic().label("手机")
-                .search().fuzzySearch()
+                .search().inputWidth(100).fuzzySearch()
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
@@ -163,7 +163,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.VALID)
                 .table().alignCenter()
-                .search().triggerOnSelect(true).label("有效")
+                .search().inputWidth(90).triggerOnSelect(true).label("有效")
                 .form().logicField().on("有效","1").off("无效","0");
 
     }

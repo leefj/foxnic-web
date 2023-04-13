@@ -1,7 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import java.util.Map;
@@ -16,7 +15,7 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * Token模型
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-01-28 14:48:58
+ * @since 2023-04-14 06:21:06
  * @sign 23CDE697EC92B4743B0A12B929D8E1AF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -29,13 +28,11 @@ public class TokenModel {
 	/**
 	 * accessToken
 	*/
-	@ApiModelProperty(required = false,value="accessToken" , notes = "")
 	private String accessToken;
 	
 	/**
 	 * refreshToken
 	*/
-	@ApiModelProperty(required = false,value="refreshToken" , notes = "")
 	private String refreshToken;
 	
 	/**

@@ -52,7 +52,14 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-
+        search.inputLayout(new Object[]{
+                HRM_EMPLOYEE.BADGE,
+                personNameField,
+                HRM_EMPLOYEE.PHONE,
+                personSexField,
+                HRM_EMPLOYEE.TYPE,
+                HRM_EMPLOYEE.STATUS
+        });
     }
 
     private String personNameField="name";
@@ -67,7 +74,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
         view.field(HRM_EMPLOYEE.BADGE)
                 .form().validate()
-                .search().fuzzySearch();
+                .search().inputWidth(90).fuzzySearch();
 
         view.field(HRM_EMPLOYEE.PERSON_ID).basic().hidden();
 
@@ -80,13 +87,14 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 //                .valueField(CompanyMeta.ID).textField(CompanyMeta.NAME).fillBy(EmployeeMeta.COMPANY)
 //                .search().fuzzySearch();
 
-        view.field(HRM_EMPLOYEE.PHONE).form().validate().required().phone();
+        view.field(HRM_EMPLOYEE.PHONE).form().validate().required().phone()
+                .search().inputWidth(90).fuzzySearch();
 
         view.field(personNameField).basic().label("姓名")
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME).sort(true)
                 .form().validate().required()
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME)
-            .search().fuzzySearch();
+            .search().inputWidth(90).fuzzySearch();
 
 
         view.field(personSexField).basic().label("姓别")
@@ -95,7 +103,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .form().validate().required()
                 .form().radioBox().dict(DictEnum.SEX).defaultIndex(0)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX)
-                .search().on(FoxnicWeb.HRM_PERSON.SEX);
+                .search().inputWidth(100).on(FoxnicWeb.HRM_PERSON.SEX);
 
         view.field(PersonMeta.IDENTITY).basic().label("身份证")
                 .search().hidden()
@@ -109,6 +117,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .search().selectMuliti(false).triggerOnSelect(true)
                 .form().radioBox().dict(DictEnum.EMPLOYEE_STATUS).defaultValue(EmployeeStatus.ACTIVE)
                 .form().validate().required()
+                .search().inputWidth(100)
         ;
 
         view.field(HRM_EMPLOYEE.TYPE)
@@ -135,6 +144,8 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
             .search().hidden();
 
     }
+
+
 
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {

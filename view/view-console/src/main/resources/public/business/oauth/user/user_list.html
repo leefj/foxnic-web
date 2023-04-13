@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 10:02:47
+ * @since 2023-04-14 06:21:06
  */
  -->
  <!DOCTYPE html>
@@ -43,25 +43,25 @@
                     <!-- 账户 , account ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('账户')}" class="search-label account-label">账户</span><span class="search-colon">:</span></div>
-                        <input id="account" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="account" class="layui-input search-input" style="width: 90px" type="text" />
                     </div>
                     <!-- 姓名 , realName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label realName-label">姓名</span><span class="search-colon">:</span></div>
-                        <input id="realName" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="realName" class="layui-input search-input" style="width: 90px" type="text" />
                     </div>
                     <!-- 密码 , passwd ,typeName=text_input, isHideInSearch=true -->
                     <!-- 手机 , phone ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('手机')}" class="search-label phone-label">手机</span><span class="search-colon">:</span></div>
-                        <input id="phone" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="phone" class="layui-input search-input" style="width: 100px" type="text" />
                     </div>
                     <!-- 头像 , portraitId ,typeName=upload, isHideInSearch=true -->
                     <!-- 语言 , language ,typeName=radio_box, isHideInSearch=true -->
                     <!-- 有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('有效')}" class="search-label valid-label">有效</span><span class="search-colon">:</span></div>
-                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:90px"></div>
                     </div>
                     <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=true -->
                     <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=true -->
@@ -69,7 +69,7 @@
                     <!-- 内置 , buildIn ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('内置')}" class="search-label buildIn-label">内置</span><span class="search-colon">:</span></div>
-                        <div id="buildIn" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
+                        <div id="buildIn" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:90px"></div>
                     </div>
                     <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">

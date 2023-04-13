@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-07 13:16:03
+ * @since 2023-04-14 06:21:06
  * @sign DC0F8D68468DC49D713DC172DF960279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -443,6 +443,7 @@ public class UserVO extends User {
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setValid(this.getValid());
+		inst.setBuildIn(this.getBuildIn());
 		inst.setRealName(this.getRealName());
 		inst.setLastLoginTime(this.getLastLoginTime());
 		inst.setCreateBy(this.getCreateBy());
@@ -543,6 +544,7 @@ public class UserVO extends User {
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(UserVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(UserVOMeta.VERSION)));
 			this.setValid(DataParser.parse(Integer.class, map.get(UserVOMeta.VALID)));
+			this.setBuildIn(DataParser.parse(Integer.class, map.get(UserVOMeta.BUILD_IN)));
 			this.setRealName(DataParser.parse(String.class, map.get(UserVOMeta.REAL_NAME)));
 			this.setLastLoginTime(DataParser.parse(Date.class, map.get(UserVOMeta.LAST_LOGIN_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(UserVOMeta.CREATE_BY)));
@@ -579,6 +581,7 @@ public class UserVO extends User {
 				this.setUpdateTime( (Date)map.get(UserVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(UserVOMeta.VERSION));
 				this.setValid( (Integer)map.get(UserVOMeta.VALID));
+				this.setBuildIn( (Integer)map.get(UserVOMeta.BUILD_IN));
 				this.setRealName( (String)map.get(UserVOMeta.REAL_NAME));
 				this.setLastLoginTime( (Date)map.get(UserVOMeta.LAST_LOGIN_TIME));
 				this.setCreateBy( (String)map.get(UserVOMeta.CREATE_BY));
@@ -628,6 +631,7 @@ public class UserVO extends User {
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(UserVOMeta.VERSION)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(UserVOMeta.VALID)));
+			this.setBuildIn(DataParser.parse(Integer.class, r.getValue(UserVOMeta.BUILD_IN)));
 			this.setRealName(DataParser.parse(String.class, r.getValue(UserVOMeta.REAL_NAME)));
 			this.setLastLoginTime(DataParser.parse(Date.class, r.getValue(UserVOMeta.LAST_LOGIN_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(UserVOMeta.CREATE_BY)));
@@ -650,6 +654,7 @@ public class UserVO extends User {
 				this.setUpdateTime( (Date)r.getValue(UserVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(UserVOMeta.VERSION));
 				this.setValid( (Integer)r.getValue(UserVOMeta.VALID));
+				this.setBuildIn( (Integer)r.getValue(UserVOMeta.BUILD_IN));
 				this.setRealName( (String)r.getValue(UserVOMeta.REAL_NAME));
 				this.setLastLoginTime( (Date)r.getValue(UserVOMeta.LAST_LOGIN_TIME));
 				this.setCreateBy( (String)r.getValue(UserVOMeta.CREATE_BY));

@@ -27,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-04 09:42:30
- * @sign DDA29F1759EE0CEA261F657493A91123
+ * @since 2023-04-14 06:21:06
+ * @sign F0DB38EEC7CBEA7634A6377A72C0AC33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,13 +74,13 @@ public class User extends Entity {
 	/**
 	 * 头像ID：头像ID
 	*/
-	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID" , example = "671672425238233088")
+	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID" , example = "696352688228532224")
 	private String portraitId;
 	
 	/**
 	 * 语言：语言
 	*/
-	@ApiModelProperty(required = false,value="语言" , notes = "语言" , example = "auto")
+	@ApiModelProperty(required = false,value="语言" , notes = "语言" , example = "zh_cn")
 	private String language;
 	
 	/**
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-04-03 10:54:17")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-04-14 06:16:20")
 	private Date lastLoginTime;
 	
 	/**
@@ -122,7 +122,7 @@ public class User extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-03-27 01:53:18")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-11 09:32:23")
 	private Date updateTime;
 	
 	/**
@@ -149,7 +149,7 @@ public class User extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "213")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "215")
 	private Integer version;
 	
 	/**
@@ -161,7 +161,7 @@ public class User extends Entity {
 	/**
 	 * 内置账户：系统内置账户
 	*/
-	@ApiModelProperty(required = false,value="内置账户" , notes = "系统内置账户")
+	@ApiModelProperty(required = true,value="内置账户" , notes = "系统内置账户" , example = "0")
 	private Integer buildIn;
 	
 	/**

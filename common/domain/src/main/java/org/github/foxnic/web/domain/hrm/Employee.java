@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工
  * <p>员工 , 数据表 hrm_employee 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-12-08 14:47:35
+ * @since 2023-04-14 06:56:11
  * @sign 99A9295203BF852648A2A8A63AB36F44
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
