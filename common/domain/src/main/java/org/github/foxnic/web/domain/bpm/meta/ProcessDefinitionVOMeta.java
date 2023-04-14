@@ -8,13 +8,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.Catalog;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 14:47:50
+ * @since 2023-04-14 07:41:46
  * @sign F1102AEA99CE04092FD9D852373AA545
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -412,9 +413,19 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
 	
 	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 分类对象 , 类型: org.github.foxnic.web.domain.bpm.Catalog
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.bpm.Catalog> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,CATALOG, org.github.foxnic.web.domain.bpm.Catalog.class, "分类对象", "分类对象", org.github.foxnic.web.domain.bpm.Catalog.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , FORM_DEFINITION_CODE , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , FORM_DEFINITION_CODE , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
 	
 	/**
 	 * 代理类
@@ -852,6 +863,17 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 			super.setFormDefinition(formDefinition);
 			return this;
 		}
+		
+		/**
+		 * 设置 分类对象
+		 * @param catalog 分类对象
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCatalog(Catalog catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -895,6 +917,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 				inst.setFormDefinitionCode(this.getFormDefinitionCode());
 				inst.setSearchField(this.getSearchField());
 				inst.setRequestAction(this.getRequestAction());
+				inst.setCatalog(this.getCatalog());
 				inst.setFuzzyField(this.getFuzzyField());
 				inst.setPageSize(this.getPageSize());
 				inst.setFormDefinition(this.getFormDefinition());

@@ -27,7 +27,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义
  * <p>流程定义 , 数据表 bpm_process_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 16:46:54
+ * @since 2023-04-14 07:41:46
  * @sign DA9043003CE247052661BFDE95B07CE6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -113,7 +113,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-03-20 06:07:02")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-10 02:52:05")
 	private Date updateTime;
 	
 	/**
@@ -140,7 +140,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "79")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "80")
 	private Integer version;
 	
 	/**
@@ -164,25 +164,25 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * PC端图标：PC端图标
 	*/
-	@ApiModelProperty(required = false,value="PC端图标" , notes = "PC端图标")
+	@ApiModelProperty(required = false,value="PC端图标" , notes = "PC端图标" , example = "697821094022742016")
 	private String iconFilePc;
 	
 	/**
 	 * 移动端图标：移动端图标
 	*/
-	@ApiModelProperty(required = false,value="移动端图标" , notes = "移动端图标")
+	@ApiModelProperty(required = false,value="移动端图标" , notes = "移动端图标" , example = "697821105645158400")
 	private String iconFileMobile;
 	
 	/**
 	 * 序号：序号
 	*/
-	@ApiModelProperty(required = false,value="序号" , notes = "序号")
+	@ApiModelProperty(required = false,value="序号" , notes = "序号" , example = "0")
 	private Integer sort;
 	
 	/**
 	 * 分类ID：分类ID
 	*/
-	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID")
+	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID" , example = "691301431835099136")
 	private String catalogId;
 	
 	/**

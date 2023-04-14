@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义VO类型
  * <p>流程定义 , 数据表 bpm_process_definition 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-03-23 14:47:50
+ * @since 2023-04-14 07:41:46
  * @sign F1102AEA99CE04092FD9D852373AA545
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -454,6 +454,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			inst.setFormDefinitionCode(this.getFormDefinitionCode());
 			inst.setSearchField(this.getSearchField());
 			inst.setRequestAction(this.getRequestAction());
+			inst.setCatalog(this.getCatalog());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
 			inst.setFormDefinition(this.getFormDefinition());
@@ -553,6 +554,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setFormDefinitionCode(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.FORM_DEFINITION_CODE)));
 			this.setSearchField(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.SEARCH_FIELD)));
 			this.setRequestAction(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.REQUEST_ACTION)));
+			this.setCatalog(DataParser.parse(Catalog.class, map.get(ProcessDefinitionVOMeta.CATALOG)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.FUZZY_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.PAGE_SIZE)));
 			this.setFormDefinition(DataParser.parse(FormDefinition.class, map.get(ProcessDefinitionVOMeta.FORM_DEFINITION)));
@@ -594,6 +596,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setFormDefinitionCode( (String)map.get(ProcessDefinitionVOMeta.FORM_DEFINITION_CODE));
 				this.setSearchField( (String)map.get(ProcessDefinitionVOMeta.SEARCH_FIELD));
 				this.setRequestAction( (String)map.get(ProcessDefinitionVOMeta.REQUEST_ACTION));
+				this.setCatalog( (Catalog)map.get(ProcessDefinitionVOMeta.CATALOG));
 				this.setFuzzyField( (String)map.get(ProcessDefinitionVOMeta.FUZZY_FIELD));
 				this.setPageSize( (Integer)map.get(ProcessDefinitionVOMeta.PAGE_SIZE));
 				this.setFormDefinition( (FormDefinition)map.get(ProcessDefinitionVOMeta.FORM_DEFINITION));
