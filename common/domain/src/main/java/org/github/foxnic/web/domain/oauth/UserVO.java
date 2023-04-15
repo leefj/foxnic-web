@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户VO类型
  * <p>账户 , 数据表 sys_user 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:21:06
+ * @since 2023-04-15 08:23:47
  * @sign DC0F8D68468DC49D713DC172DF960279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

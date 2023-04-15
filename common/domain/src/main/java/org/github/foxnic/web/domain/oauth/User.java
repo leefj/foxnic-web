@@ -27,7 +27,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 账户
  * <p>账户 , 数据表 sys_user 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:21:06
+ * @since 2023-04-15 08:23:47
  * @sign F0DB38EEC7CBEA7634A6377A72C0AC33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -98,7 +98,7 @@ public class User extends Entity {
 	/**
 	 * 最后登录时间：最后登录时间
 	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-04-14 06:16:20")
+	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间" , example = "2023-04-15 08:22:54")
 	private Date lastLoginTime;
 	
 	/**

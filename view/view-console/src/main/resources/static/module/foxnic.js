@@ -1651,13 +1651,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     , value = othis.val()
 
                 othis.removeClass(DANGER) //移除警示样式
-
                 //遍历元素绑定的验证规则
                 layui.each(vers, function (_, thisVer) {
                     var isTrue //是否命中校验
                         , errorText = '' //错误提示文本
                         , isFn = typeof verify[thisVer] === 'function'
-
+                    // debugger
                     //匹配验证规则
                     if (verify[thisVer]) {
                         var isTrue = isFn ? errorText = verify[thisVer](value, item) : !verify[thisVer][0].test(value)
@@ -1727,8 +1726,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             }
 
+
             var message=null;
             layui.each(validateConfig, function (f, cfg) {
+                var input = formElem.find("[name='"+f+"']");
+                if(!input || input.length==0) {
+                    input = input = formElem.find('#'+f);
+                }
+                if(!input || input.length==0) {
+                    return true;
+                }
+                debugger;
                 var v=data[f];
                 if(cfg.required) {
                     if(v==null) {
