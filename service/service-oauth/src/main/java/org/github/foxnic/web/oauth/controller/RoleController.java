@@ -182,6 +182,10 @@ public class RoleController extends SuperController {
     public Result<Role> getById(String id) {
         Result<Role> result = new Result<>();
         Role role = roleService.getById(id);
+        if(role==null) {
+            result.success(false).message("角色不存在");
+            return result;
+        }
         roleService.join(role, RoleMeta.MENUS);
         role.setMenuIds(CollectorUtil.collectList(role.getMenus(), Menu::getId));
         role.setMenus(null);

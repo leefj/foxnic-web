@@ -74,14 +74,8 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		return IDGenerator.getSnowflakeIdString();
 	}
 
-	/**
-	 * 插入实体
-	 * @param organization 实体数据
-	 * @return 插入是否成功
-	 * */
-	@Override
-	public Result insert(Organization organization) {
 
+	private void applyDefaultValues(Organization organization) {
 		if(StringUtil.isBlank(organization.getParentId())) {
 			organization.setParentId(IOrganizationService.ROOT_ID);
 		}
@@ -94,12 +88,34 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		if(StringUtil.isBlank(organization.getFullName())) {
 			organization.setFullName("新节点");
 		}
-		organization.setId(this.generateId(null).toString());
+		if(StringUtil.isBlank(organization.getId())) {
+			organization.setId(this.generateId(null).toString());
+		}
 		if(StringUtil.isBlank(organization.getCode())) {
 			organization.setCode(organization.getId());
 		}
+	}
+	/**
+	 * 插入实体
+	 * @param organization 实体数据
+	 * @return 插入是否成功
+	 * */
+	@Override
+	public Result insert(Organization organization,boolean throwsException) {
+		this.applyDefaultValues(organization);
+		Result r=super.insert(organization,throwsException);
+		this.fillHierarchy(organization.getTenantId(),false);
+		return r;
+	}
+	/**
+	 * 插入实体
+	 * @param organization 实体数据
+	 * @return 插入是否成功
+	 * */
+	@Override
+	public Result insert(Organization organization) {
+		this.applyDefaultValues(organization);
 		Result r=super.insert(organization);
-
 		this.fillHierarchy(organization.getTenantId(),false);
 		return r;
 	}
@@ -160,6 +176,21 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		}
 	}
 
+	private Result applyUpdateRule(Organization organization) {
+		if(StringUtil.isBlank(organization.getCode())) {
+			organization.setCode(null);
+		}
+		//如果上级是部门，那么不允许下级勾选公司
+		Organization org=this.getById(organization.getId());
+		if(org!=null && org.getParentId()!=null) {
+			Organization parent = this.getById(org.getParentId());
+			if (OrgNodeType.COM.code().equals(organization.getType()) && (parent != null && OrgNodeType.DEPT.code().equals(parent.getType()))) {
+				return ErrorDesc.failure().message("部门下不允许设置公司");
+			}
+		}
+		return ErrorDesc.success();
+	}
+
 	/**
 	 * 更新实体
 	 * @param organization 数据对象
@@ -168,19 +199,26 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	 * */
 	@Override
 	public Result update(Organization organization , SaveMode mode) {
-		if(StringUtil.isBlank(organization.getCode())) {
-			organization.setCode(null);
+		Result r=applyUpdateRule(organization);
+		if(r.failure()) {
+			return r;
 		}
-		//如果上级是部门，那么不允许下级勾选公司
-		Organization org=this.getById(organization.getId());
-		if(org.getParentId()!=null) {
-			Organization parent = this.getById(org.getParentId());
-			if (OrgNodeType.COM.code().equals(organization.getType()) && (parent != null && OrgNodeType.DEPT.code().equals(parent.getType()))) {
-				return ErrorDesc.failure().message("部门下不允许设置公司");
-			}
+		return super.update(organization , mode);
+	}
+
+	/**
+	 * 更新实体
+	 * @param organization 数据对象
+	 * @param mode 保存模式
+	 * @return 保存是否成功
+	 * */
+	@Override
+	public Result update(Organization organization , SaveMode mode,boolean throwsException) {
+		Result r=applyUpdateRule(organization);
+		if(r.failure()) {
+			return r;
 		}
-		Result r=super.update(organization , mode);
-		return r;
+		return super.update(organization , mode,throwsException);
 	}
 
 	/**
