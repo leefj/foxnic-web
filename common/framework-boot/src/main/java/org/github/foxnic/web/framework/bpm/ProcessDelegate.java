@@ -1,8 +1,10 @@
 package org.github.foxnic.web.framework.bpm;
 
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
+import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
@@ -11,6 +13,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.bpm.BpmIdentityServiceProxy;
 import org.github.foxnic.web.proxy.bpm.TaskServiceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 
 import java.util.*;
 
@@ -24,11 +27,11 @@ public class ProcessDelegate {
     /**
      * 从已有的流程实例ID，创建 ProcessDelegate
      */
-    public static ProcessDelegate createFromExistsProcess(String processInstanceId, User user) {
+    public static ProcessDelegate createFromExistsProcess(String processInstanceId, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
         try {
-            delegate.user = user;
-            Result<ProcessInstance> result = BpmAssistant.getProcessInstanceById(processInstanceId, user);
+            delegate.user = getUser(account);
+            Result<ProcessInstance> result = BpmAssistant.getProcessInstanceById(processInstanceId, delegate.user);
             if (result.success()) {
                 delegate.processInstance = result.data();
             } else {
@@ -40,31 +43,44 @@ public class ProcessDelegate {
         return delegate;
     }
 
-    public static ProcessDelegate createFromExistsProcess(ProcessInstance processInstance, User user) {
+    public static ProcessDelegate createFromExistsProcess(ProcessInstance processInstance, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
-        delegate.user = user;
+        delegate.user = getUser(account);
         delegate.processInstance = processInstance;
         return delegate;
+    }
+
+    private static User getUser(String account) {
+        Result<User> userResult = UserServiceProxy.api().getByAccount(account);
+        if (userResult.failure() || userResult.data() == null) {
+            throw new RuntimeException("账户不存在");
+        }
+        User user = userResult.data();
+        return user;
     }
 
     /**
      * 创建一个 ProcessDelegate 用于发起新流程
      */
-    public static ProcessDelegate createFromProcessDefinition(String processDefinitionId, String billId, User user) {
+    public static ProcessDelegate createFromProcessDefinition(String processDefinitionCode, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
-        delegate.user = user;
-        delegate.processDefinitionId = processDefinitionId;
-        delegate.billIds = Arrays.asList(billId);
+
+        ProcessDefinition processDefinition = BpmAssistant.getProcessDefinitionByCode(processDefinitionCode);
+        if(processDefinition==null) {
+            throw new RuntimeException("缺少流程定义");
+        }
+        delegate.user = getUser(account);
+        delegate.processDefinitionId = processDefinition.getId();
         return delegate;
     }
 
     /**
      * 从表单与业务单据为已存在的流程实例 创建 ProcessDelegate
      */
-    public static ProcessDelegate createFromExistsBill(String formDefinitionCode, String billId, User user) {
+    public static ProcessDelegate createFromExistsBill(String formDefinitionCode, String billId, String account) {
         ProcessDelegate proxy = new ProcessDelegate();
         try {
-            proxy.user = user;
+            proxy.user = getUser(account);
             Result<List<ProcessInstance>> result = BpmAssistant.getProcessInstanceByBill(formDefinitionCode, Arrays.asList(billId));
             if (result.success()) {
                 List<ProcessInstance> list = result.getData();
@@ -173,6 +189,31 @@ public class ProcessDelegate {
             throw new RuntimeException(result.message());
         }
         return result.data();
+    }
+
+    public Result<ProcessInstance> temporarySave(String title,String billId) {
+        return temporarySave(title,UnifiedUserType.employee,PriorityLevel.normal,billId);
+    }
+
+    public Result<ProcessInstance> temporarySave(String title, UnifiedUserType drafterType,String billId) {
+        return temporarySave(title,drafterType,PriorityLevel.normal,billId);
+    }
+
+    public Result<ProcessInstance> temporarySave(String title, UnifiedUserType drafterType, PriorityLevel priority,String billId) {
+        // 指定起草人并获得其身份，身份类型按实际需求传入，UnifiedUserType 枚举中定义的其中一种
+        List<Assignee> assignees = this.getIdentities(drafterType);
+        if (assignees.isEmpty()) {
+            throw new RuntimeException(this.user.getAccount() + " 身份信息缺失");
+        }
+        this.billIds = Arrays.asList(billId);
+        Assignee assignee = assignees.get(0);
+        ProcessInstanceVO processInstanceVO = new ProcessInstanceVO();
+        processInstanceVO.setTitle(title);
+        processInstanceVO.setDrafterTypeEnum(assignee.getType());
+        processInstanceVO.setDrafterId(assignee.getId());
+        processInstanceVO.setPriority(priority.code());
+        processInstanceVO.setBillIds(this.billIds);
+        return temporarySave(processInstanceVO);
     }
 
     /**

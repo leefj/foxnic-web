@@ -76,8 +76,8 @@ public class BpmAssistant {
         return  ProcessInstanceServiceProxy.api().temporarySave(processInstanceVO);
     }
 
-    public static ProcessDefinition getProcessDefinitionByCode(String processDefinitionCode,User user) {
-        setCallerAccount(user);
+    public static ProcessDefinition getProcessDefinitionByCode(String processDefinitionCode) {
+//        setCallerAccount(user);
         ProcessDefinitionVO sample = new ProcessDefinitionVO();
         sample.setCode(processDefinitionCode);
         Result<List<ProcessDefinition>> result = ProcessDefinitionServiceProxy.api().queryList(sample);

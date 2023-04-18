@@ -6,6 +6,7 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
+import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.dict.LeaveType;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
@@ -68,34 +69,12 @@ public class BPMTestController {
         if (saveResult.failure()) {
             return ErrorDesc.failure().message("保存单据失败");
         }
-        // 第二步：指定起草人并获得其 User 对象作为流程操作人
-        Result<User> userResult = UserServiceProxy.api().getByAccount(DRAFTER);
-        if (userResult.failure() || userResult.data() == null) {
-            return ErrorDesc.failure().message("账户不存在");
-        }
-        User user = userResult.data();
-        ProcessDefinition processDefinition = BpmAssistant.getProcessDefinitionByCode(FORM_DEFINITION_CODE,user);
-        if(processDefinition==null) {
-            return ErrorDesc.failure().message("缺少流程定义");
-        }
-        // 第三步：根据表单定义代码创建流程代理
-        ProcessDelegate process = ProcessDelegate.createFromProcessDefinition(processDefinition.getId(), demoLeave.getId(), user);
-        // 指定起草人并获得其身份，身份类型按实际需求传入，UnifiedUserType 枚举中定义的其中一种
-        List<Assignee> assignees = process.getIdentities(UnifiedUserType.employee);
-        if (assignees.isEmpty()) {
-            return ErrorDesc.failure().message("身份信息缺失");
-        }
-        // 视情况而定，此处示例使用第一个
-        Assignee assignee = assignees.get(0);
-        // 第四步：组装请求 VO，并调用暂存接口
-        ProcessInstanceVO processInstanceVO = new ProcessInstanceVO();
-        processInstanceVO.setTitle(title);
-        processInstanceVO.setDrafterTypeEnum(assignee.getType());
-        processInstanceVO.setDrafterId(assignee.getId());
 
+        // 第三步：根据表单定义代码创建流程代理
+        ProcessDelegate process = ProcessDelegate.createFromProcessDefinition(FORM_DEFINITION_CODE, DRAFTER);
 
         // 流程暂存
-        return process.temporarySave(processInstanceVO);
+        return process.temporarySave(title,billId);
     }
 
     /**
@@ -104,13 +83,7 @@ public class BPMTestController {
     @PostMapping("/service-system/unit-test/bpm/start")
     public Result start(String processInstanceId) {
 
-        Result<User> userResult = UserServiceProxy.api().getByAccount(DRAFTER);
-        if (userResult.failure() || userResult.data() == null) {
-            return ErrorDesc.failure().message("账户不存在");
-        }
-        User user = userResult.data();
-
-        ProcessDelegate process = ProcessDelegate.createFromExistsProcess(processInstanceId, user);
+        ProcessDelegate process = ProcessDelegate.createFromExistsProcess(processInstanceId, DRAFTER);
         process.start();
         return ErrorDesc.success();
     }
