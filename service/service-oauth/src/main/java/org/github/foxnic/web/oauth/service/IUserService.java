@@ -132,6 +132,8 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	 */
 	User getById(String id);
 
+	User getByAccount(String account);
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

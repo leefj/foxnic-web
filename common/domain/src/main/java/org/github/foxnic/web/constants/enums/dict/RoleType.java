@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-13 11:26:15
+ * @since 2023-04-18 09:15:58
  * @author 李方捷 , leefangjie@qq.com
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
@@ -27,6 +27,16 @@ public enum RoleType  implements CodeTextEnum {
 	 * 管理
 	*/
 	ADMIN("admin" , "管理"),
+	
+	/**
+	 * 测试
+	*/
+	TEST("test" , "测试"),
+	
+	/**
+	 * 普通
+	*/
+	NORMAL("normal" , "普通"),
 	;
 	
 	private String code;

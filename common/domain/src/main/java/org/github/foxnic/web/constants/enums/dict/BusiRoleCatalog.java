@@ -11,27 +11,22 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum OrderStatus  implements CodeTextEnum {
+public enum BusiRoleCatalog  implements CodeTextEnum {
 	
 	/**
-	 * 未完成
+	 * 默认
 	*/
-	TODO("todo" , "未完成"),
+	DEFAULTS("defaults" , "默认"),
 	
 	/**
-	 * 已完成
+	 * EAM
 	*/
-	DONE("done" , "已完成"),
-	
-	/**
-	 * 已废弃
-	*/
-	ABADON("abadon" , "已废弃"),
+	EAM("eam" , "EAM"),
 	;
 	
 	private String code;
 	private String text;
-	private OrderStatus(String code,String text)  {
+	private BusiRoleCatalog(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -47,7 +42,7 @@ public enum OrderStatus  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static OrderStatus parseByCode(String code) {
-		return (OrderStatus) EnumUtil.parseByCode(OrderStatus.values(),code);
+	public static BusiRoleCatalog parseByCode(String code) {
+		return (BusiRoleCatalog) EnumUtil.parseByCode(BusiRoleCatalog.values(),code);
 	}
 }

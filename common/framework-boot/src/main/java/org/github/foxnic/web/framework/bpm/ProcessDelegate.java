@@ -1,8 +1,10 @@
 package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.oauth.User;
@@ -48,7 +50,7 @@ public class ProcessDelegate {
     /**
      * 创建一个 ProcessDelegate 用于发起新流程
      */
-    public ProcessDelegate createNewProcess(String processDefinitionId, String billId, User user) {
+    public static ProcessDelegate createFromProcessDefinition(String processDefinitionId, String billId, User user) {
         ProcessDelegate delegate = new ProcessDelegate();
         delegate.user = user;
         delegate.processDefinitionId = processDefinitionId;
@@ -125,6 +127,7 @@ public class ProcessDelegate {
      * 刷新流程实例数据
      */
     public void refresh() {
+        if(this.processInstance==null) return;
         try {
             Result<ProcessInstance> result = BpmAssistant.getProcessInstanceById(processInstance.getId(), this.user);
             if (result.success()) {
@@ -175,15 +178,53 @@ public class ProcessDelegate {
     /**
      * 流程暂存
      */
-    public Result temporarySave(ProcessInstanceVO processInstanceVO) {
-        throw new RuntimeException("待实现");
+    public Result<ProcessInstance> temporarySave(ProcessInstanceVO processInstanceVO) {
+
+        if(StringUtil.isBlank(processInstanceVO.getProcessDefinitionId())) {
+            processInstanceVO.setProcessDefinitionId(this.processDefinitionId);
+        }
+        if(processInstanceVO.getBillIds()==null || processInstanceVO.getBillIds().isEmpty()) {
+            processInstanceVO.setBillIds(this.billIds);
+        }
+
+        if(StringUtil.isBlank(processInstanceVO.getTenantId())) {
+            processInstanceVO.setTenantId(this.user.getActivatedTenant().getOwnerTenantId());
+        }
+
+        if(StringUtil.isBlank(processInstanceVO.getDrafterUserId())) {
+            processInstanceVO.setDrafterUserId(this.user.getId());
+        }
+
+        if(this.processInstance!=null) {
+            this.refresh();
+            if(this.processInstance.getApprovalStatusEnum() != ApprovalStatus.drafting) {
+                throw new RuntimeException("流程实例已存在，且当前状态不允许暂存");
+            }
+        }
+        Result<ProcessInstance> result=BpmAssistant.temporarySave(processInstanceVO,this.user);
+        if(result.success()) {
+            this.processInstance=result.data();
+        }
+        return result;
     }
 
     /**
      * 流程启动
      */
-    public Result start(ProcessStartVO processStartVO) {
-        throw new RuntimeException("待实现");
+    public Result<ProcessInstance> start() {
+        if(this.processInstance==null) {
+            throw new RuntimeException("流程实例不存在，请先暂存流程实例");
+        }
+        refresh();
+        if(this.processInstance.getApprovalStatusEnum()!=ApprovalStatus.drafting) {
+            throw new RuntimeException("当前流程实例已经启动，不允许再次启动流程");
+        }
+        ProcessStartVO processStartVO = new ProcessStartVO();
+//        processStartVO.setDrafterUserId(this.user.getId());
+//        processStartVO.setDrafterId(this.user.getId());
+//        processStartVO.setDrafterType(UnifiedUserType.user.code());
+        processStartVO.setProcessInstanceId(this.processInstance.getId());
+        return BpmAssistant.startProcessInstance(processStartVO,user);
     }
 
     /**

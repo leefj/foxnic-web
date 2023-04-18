@@ -10,8 +10,11 @@ import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.framework.cluster.ClusterToken;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
+import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,19 +57,51 @@ public class BpmAssistant {
         },500,1000,2000,3000,6000,12000,30000,60000);
     }
 
+    private static void setCallerAccount(User user) {
+        ProcessInstanceServiceProxy.api();
+        if(user!=null && user.getAccount()!=null) {
+            ProxyContext.init();
+            ProxyContext.setCallerAccount(user.getAccount());
+            if(APIProxy.getProxyType(ProcessInstanceServiceProxy.class)== APIProxy.ProxyType.LOCAL) {
+                ClusterToken token=new ClusterToken();
+                token.setAccount(user.getAccount());
+                token.setTenantId(user.getActivatedTenant().getOwnerTenantId());
+                ProxyContext.initCallee(token);
+            }
+        }
+    }
+
+    public static Result<ProcessInstance> temporarySave(ProcessInstanceVO processInstanceVO,User user) {
+        setCallerAccount(user);
+        return  ProcessInstanceServiceProxy.api().temporarySave(processInstanceVO);
+    }
+
+    public static ProcessDefinition getProcessDefinitionByCode(String processDefinitionCode,User user) {
+        setCallerAccount(user);
+        ProcessDefinitionVO sample = new ProcessDefinitionVO();
+        sample.setCode(processDefinitionCode);
+        Result<List<ProcessDefinition>> result = ProcessDefinitionServiceProxy.api().queryList(sample);
+        if(result.success() && result.data()!=null && !result.data().isEmpty()) {
+            return result.data().get(0);
+        } else {
+            return null;
+        }
+    }
+
 
     public <T> Map<T,List<ProcessInstance>> getProcessByBillIds(Set<T> billIds) {
         // 待实现
         return null;
     }
 
-
     public static Result<ProcessInstance> getProcessInstanceById(String processInstanceId, User user) {
-        if(user!=null && user.getAccount()!=null) {
-            ProxyContext.init();
-            ProxyContext.setCallerAccount(user.getAccount());
-        }
+        setCallerAccount(user);
         return  ProcessInstanceServiceProxy.api().getById(processInstanceId);
+    }
+
+    public static Result<ProcessInstance> startProcessInstance(ProcessStartVO processStartVO, User user) {
+        setCallerAccount(user);
+        return  ProcessInstanceServiceProxy.api().start(processStartVO);
     }
 
     public static Result<ProcessInstance> getProcessInstanceByCamundaId(String camundaProcessInstanceId) {

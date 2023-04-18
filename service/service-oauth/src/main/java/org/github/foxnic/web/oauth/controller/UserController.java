@@ -257,9 +257,7 @@ public class UserController extends SuperController {
     @PostMapping(UserServiceProxy.GET_BY_ACCOUNT)
     public Result<User> getByAccount(String account) {
         Result<User> result = new Result<>();
-        User user = new User();
-        user.setAccount(account);
-        user = userService.queryEntity(user);
+        User user = userService.getByAccount(account);
         result.success(true).data(user);
         return result;
     }

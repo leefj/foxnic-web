@@ -16,10 +16,22 @@ import java.lang.reflect.Proxy;
  * */
 public class APIProxy {
 
+    public static enum ProxyType {
+        FEIGN,LOCAL,REMOTE;
+    }
 
 
 	 @SuppressWarnings("unchecked")
     private static LocalCache<Class,Object> PROXY_CACHE=new LocalCache<>();
+
+    private static LocalCache<Class,ProxyType> PROXY_TYPE_CACHE=new LocalCache<>();
+
+    /**
+     * 在 proxy 已经存在时，才能获得值
+     * */
+    public  static <T> ProxyType getProxyType(Class<T> intfType) {
+        return PROXY_TYPE_CACHE.get(intfType);
+    }
 
 	public static <T> T get(Class<T> intfType,String controllerName){
 
@@ -34,6 +46,7 @@ public class APIProxy {
         inst=getBean(intfType);
         if(inst!=null) {
             PROXY_CACHE.put(intfType,inst);
+            PROXY_TYPE_CACHE.put(intfType,ProxyType.FEIGN);
             return (T)inst;
         }
 
@@ -60,8 +73,10 @@ public class APIProxy {
         if(ctrlClass==null) {
             //throw new IllegalArgumentException("控制器 "+controllerName+" 不存在");
             invocationHandler = new RemoteMethodProxy();
+            PROXY_TYPE_CACHE.put(intfType,ProxyType.REMOTE);
         } else {
             invocationHandler = new MethodProxy(ctrlClass);
+            PROXY_TYPE_CACHE.put(intfType,ProxyType.LOCAL);
         }
         Object newProxyInstance = Proxy.newProxyInstance(
                 intfType.getClassLoader(),

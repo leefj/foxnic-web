@@ -1,7 +1,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
+ * @since 2023-04-18 09:53:35
  */
 
 function FormPage() {
@@ -117,6 +117,43 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		form.on('radio(memberRule)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=memberRule]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("memberRule",data,checked);
+		});
+		//渲染 catalog 下拉字段
+		fox.renderSelectBox({
+			el: "catalog",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("catalog",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					if(window.pageExt.form.selectBoxDataTransform) {
+						opts.push(window.pageExt.form.selectBoxDataTransform("catalog",{data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)},data[i],data,i));
+					} else {
+						opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+					}
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -169,6 +206,8 @@ function FormPage() {
 
 
 
+			//设置  分类 设置下拉框勾选
+			fox.setSelectValue4Dict("#catalog",formData.catalog,SELECT_CATALOG_DATA);
 
 			//处理fillBy
 
@@ -224,6 +263,8 @@ function FormPage() {
 		if(!data.buildIn) data.buildIn=0;
 
 
+		//获取 分类 下拉框的值
+		data["catalog"]=fox.getSelectedValue("catalog",false);
 
 		return data;
 	}

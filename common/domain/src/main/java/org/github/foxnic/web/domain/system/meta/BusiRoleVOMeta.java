@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
+ * @since 2023-04-18 09:53:35
  * @sign EFBD16F23899D35303CCEA8950EA2EDC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -301,6 +301,26 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,java.lang.Integer> BUILD_IN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,BUILD_IN, java.lang.Integer.class, "内置角色", "系统内置角色", java.lang.Integer.class, null);
 	
 	/**
+	 * 成员路由规则 , 类型: java.lang.String
+	*/
+	public static final String MEMBER_RULE="memberRule";
+	
+	/**
+	 * 成员路由规则 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,java.lang.String> MEMBER_RULE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,MEMBER_RULE, java.lang.String.class, "成员路由规则", "成员路由规则", java.lang.String.class, null);
+	
+	/**
+	 * 分类 , 类型: java.lang.String
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 分类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRoleVO,java.lang.String> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRoleVO.class ,CATALOG, java.lang.String.class, "分类", "分类", java.lang.String.class, null);
+	
+	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -323,7 +343,7 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , EMPLOYEES , POSITIONS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , MEMBER_RULE , CATALOG , EMPLOYEES , POSITIONS };
 	
 	/**
 	 * 代理类
@@ -642,6 +662,28 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 		}
 		
 		/**
+		 * 设置 成员路由规则
+		 * @param memberRule 成员路由规则
+		 * @return 当前对象
+		*/
+		public BusiRole setMemberRule(String memberRule) {
+			super.change(MEMBER_RULE,super.getMemberRule(),memberRule);
+			super.setMemberRule(memberRule);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类
+		 * @param catalog 分类
+		 * @return 当前对象
+		*/
+		public BusiRole setCatalog(String catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
+			return this;
+		}
+		
+		/**
 		 * 设置 关联员工清单
 		 * @param employees 关联员工清单
 		 * @return 当前对象
@@ -680,6 +722,7 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCode(this.getCode());
 			inst.setNotes(this.getNotes());
+			inst.setCatalog(this.getCatalog());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());
 			inst.setOrgId(this.getOrgId());
@@ -692,6 +735,7 @@ public class BusiRoleVOMeta extends BusiRoleMeta {
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setName(this.getName());
+			inst.setMemberRule(this.getMemberRule());
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			if(all) {

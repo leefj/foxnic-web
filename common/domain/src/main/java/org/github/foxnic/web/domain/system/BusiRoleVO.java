@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色VO类型
  * <p>业务角色 , 数据表 sys_busi_role 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
+ * @since 2023-04-18 09:53:34
  * @sign EFBD16F23899D35303CCEA8950EA2EDC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -403,6 +403,7 @@ public class BusiRoleVO extends BusiRole {
 		org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta.$$proxy$$();
 		inst.setCode(this.getCode());
 		inst.setNotes(this.getNotes());
+		inst.setCatalog(this.getCatalog());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setOrgId(this.getOrgId());
@@ -415,6 +416,7 @@ public class BusiRoleVO extends BusiRole {
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setName(this.getName());
+		inst.setMemberRule(this.getMemberRule());
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		if(all) {
@@ -493,6 +495,7 @@ public class BusiRoleVO extends BusiRole {
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(BusiRoleVOMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, map.get(BusiRoleVOMeta.NOTES)));
+			this.setCatalog(DataParser.parse(String.class, map.get(BusiRoleVOMeta.CATALOG)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleVOMeta.ORG_ID)));
@@ -505,6 +508,7 @@ public class BusiRoleVO extends BusiRole {
 			this.setUpdateBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(BusiRoleVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, map.get(BusiRoleVOMeta.NAME)));
+			this.setMemberRule(DataParser.parse(String.class, map.get(BusiRoleVOMeta.MEMBER_RULE)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(BusiRoleVOMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, map.get(BusiRoleVOMeta.ID)));
 			// others
@@ -523,6 +527,7 @@ public class BusiRoleVO extends BusiRole {
 			try {
 				this.setCode( (String)map.get(BusiRoleVOMeta.CODE));
 				this.setNotes( (String)map.get(BusiRoleVOMeta.NOTES));
+				this.setCatalog( (String)map.get(BusiRoleVOMeta.CATALOG));
 				this.setUpdateTime( (Date)map.get(BusiRoleVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(BusiRoleVOMeta.VERSION));
 				this.setOrgId( (Integer)map.get(BusiRoleVOMeta.ORG_ID));
@@ -535,6 +540,7 @@ public class BusiRoleVO extends BusiRole {
 				this.setUpdateBy( (String)map.get(BusiRoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(BusiRoleVOMeta.DELETE_TIME));
 				this.setName( (String)map.get(BusiRoleVOMeta.NAME));
+				this.setMemberRule( (String)map.get(BusiRoleVOMeta.MEMBER_RULE));
 				this.setDeleteBy( (String)map.get(BusiRoleVOMeta.DELETE_BY));
 				this.setId( (String)map.get(BusiRoleVOMeta.ID));
 				// others
@@ -566,6 +572,7 @@ public class BusiRoleVO extends BusiRole {
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.NOTES)));
+			this.setCatalog(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.CATALOG)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleVOMeta.ORG_ID)));
@@ -578,6 +585,7 @@ public class BusiRoleVO extends BusiRole {
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(BusiRoleVOMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.NAME)));
+			this.setMemberRule(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.MEMBER_RULE)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, r.getValue(BusiRoleVOMeta.ID)));
 			return true;
@@ -585,6 +593,7 @@ public class BusiRoleVO extends BusiRole {
 			try {
 				this.setCode( (String)r.getValue(BusiRoleVOMeta.CODE));
 				this.setNotes( (String)r.getValue(BusiRoleVOMeta.NOTES));
+				this.setCatalog( (String)r.getValue(BusiRoleVOMeta.CATALOG));
 				this.setUpdateTime( (Date)r.getValue(BusiRoleVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(BusiRoleVOMeta.VERSION));
 				this.setOrgId( (Integer)r.getValue(BusiRoleVOMeta.ORG_ID));
@@ -597,6 +606,7 @@ public class BusiRoleVO extends BusiRole {
 				this.setUpdateBy( (String)r.getValue(BusiRoleVOMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(BusiRoleVOMeta.DELETE_TIME));
 				this.setName( (String)r.getValue(BusiRoleVOMeta.NAME));
+				this.setMemberRule( (String)r.getValue(BusiRoleVOMeta.MEMBER_RULE));
 				this.setDeleteBy( (String)r.getValue(BusiRoleVOMeta.DELETE_BY));
 				this.setId( (String)r.getValue(BusiRoleVOMeta.ID));
 				return true;

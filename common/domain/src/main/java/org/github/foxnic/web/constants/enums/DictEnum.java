@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-13 11:26:15
+ * @since 2023-04-18 09:15:58
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -133,6 +133,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 角色分类
 	*/
 	ROLE_TYPE("role_type" , "角色分类"),
+	
+	/**
+	 * 业务角色分类
+	*/
+	BUSI_ROLE_CATALOG("busi_role_catalog" , "业务角色分类"),
 	
 	/**
 	 * 系统配置分类

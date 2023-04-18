@@ -10,11 +10,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
+import org.github.foxnic.web.constants.enums.system.BusiRoleRuleType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Position;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -28,8 +31,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色
  * <p>业务角色 , 数据表 sys_busi_role 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
- * @sign 87825961170D009F1E08F946FB545755
+ * @since 2023-04-18 09:53:34
+ * @sign C1978EAF12B607394E6EEB719622EB34
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -140,6 +143,21 @@ public class BusiRole extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="内置角色" , notes = "系统内置角色" , example = "0")
 	private Integer buildIn;
+	
+	/**
+	 * 成员路由规则：成员路由规则
+	*/
+	@ApiModelProperty(required = false,value="成员路由规则" , notes = "成员路由规则" , example = "UNION")
+	private String memberRule;
+	@Transient
+	@EnumFor("memberRule")
+	private BusiRoleRuleType memberRuleEnum;
+	
+	/**
+	 * 分类：分类
+	*/
+	@ApiModelProperty(required = false,value="分类" , notes = "分类")
+	private String catalog;
 	
 	/**
 	 * 关联员工清单：关联员工清单
@@ -489,6 +507,78 @@ public class BusiRole extends Entity {
 	}
 	
 	/**
+	 * 获得 成员路由规则<br>
+	 * 成员路由规则
+	 * @return 成员路由规则
+	*/
+	public String getMemberRule() {
+		return memberRule;
+	}
+	
+	/**
+	 * 获得 成员路由规则 的投影属性<br>
+	 * 等价于 getMemberRule 方法，获得对应的枚举类型
+	 * @return 成员路由规则
+	*/
+	@Transient
+	public BusiRoleRuleType getMemberRuleEnum() {
+		if(this.memberRuleEnum==null) {
+			this.memberRuleEnum = (BusiRoleRuleType) EnumUtil.parseByCode(BusiRoleRuleType.values(),memberRule);
+		}
+		return this.memberRuleEnum ;
+	}
+	
+	/**
+	 * 设置 成员路由规则
+	 * @param memberRule 成员路由规则
+	 * @return 当前对象
+	*/
+	@JsonProperty("memberRule")
+	public BusiRole setMemberRule(String memberRule) {
+		this.memberRule=memberRule;
+		this.memberRuleEnum= (BusiRoleRuleType) EnumUtil.parseByCode(BusiRoleRuleType.values(),memberRule) ;
+		if(StringUtil.hasContent(memberRule) && this.memberRuleEnum==null) {
+			throw new IllegalArgumentException( memberRule + " is not one of BusiRoleRuleType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 成员路由规则的投影属性，等同于设置 成员路由规则
+	 * @param memberRuleEnum 成员路由规则
+	 * @return 当前对象
+	*/
+	@Transient
+	public BusiRole setMemberRuleEnum(BusiRoleRuleType memberRuleEnum) {
+		if(memberRuleEnum==null) {
+			this.setMemberRule(null);
+		} else {
+			this.setMemberRule(memberRuleEnum.code());
+		}
+		this.memberRuleEnum=memberRuleEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 分类<br>
+	 * 分类
+	 * @return 分类
+	*/
+	public String getCatalog() {
+		return catalog;
+	}
+	
+	/**
+	 * 设置 分类
+	 * @param catalog 分类
+	 * @return 当前对象
+	*/
+	public BusiRole setCatalog(String catalog) {
+		this.catalog=catalog;
+		return this;
+	}
+	
+	/**
 	 * 获得 关联员工清单<br>
 	 * 关联员工清单
 	 * @return 关联员工清单
@@ -594,6 +684,7 @@ public class BusiRole extends Entity {
 		org.github.foxnic.web.domain.system.meta.BusiRoleMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.BusiRoleMeta.$$proxy$$();
 		inst.setCode(this.getCode());
 		inst.setNotes(this.getNotes());
+		inst.setCatalog(this.getCatalog());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setOrgId(this.getOrgId());
@@ -606,6 +697,7 @@ public class BusiRole extends Entity {
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setName(this.getName());
+		inst.setMemberRule(this.getMemberRule());
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		if(all) {
@@ -672,6 +764,7 @@ public class BusiRole extends Entity {
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, map.get(BusiRoleMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, map.get(BusiRoleMeta.NOTES)));
+			this.setCatalog(DataParser.parse(String.class, map.get(BusiRoleMeta.CATALOG)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(BusiRoleMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, map.get(BusiRoleMeta.ORG_ID)));
@@ -684,6 +777,7 @@ public class BusiRole extends Entity {
 			this.setUpdateBy(DataParser.parse(String.class, map.get(BusiRoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(BusiRoleMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, map.get(BusiRoleMeta.NAME)));
+			this.setMemberRule(DataParser.parse(String.class, map.get(BusiRoleMeta.MEMBER_RULE)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(BusiRoleMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, map.get(BusiRoleMeta.ID)));
 			// others
@@ -692,6 +786,7 @@ public class BusiRole extends Entity {
 			try {
 				this.setCode( (String)map.get(BusiRoleMeta.CODE));
 				this.setNotes( (String)map.get(BusiRoleMeta.NOTES));
+				this.setCatalog( (String)map.get(BusiRoleMeta.CATALOG));
 				this.setUpdateTime( (Date)map.get(BusiRoleMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)map.get(BusiRoleMeta.ORG_ID));
@@ -704,6 +799,7 @@ public class BusiRole extends Entity {
 				this.setUpdateBy( (String)map.get(BusiRoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)map.get(BusiRoleMeta.DELETE_TIME));
 				this.setName( (String)map.get(BusiRoleMeta.NAME));
+				this.setMemberRule( (String)map.get(BusiRoleMeta.MEMBER_RULE));
 				this.setDeleteBy( (String)map.get(BusiRoleMeta.DELETE_BY));
 				this.setId( (String)map.get(BusiRoleMeta.ID));
 				// others
@@ -725,6 +821,7 @@ public class BusiRole extends Entity {
 		if(cast) {
 			this.setCode(DataParser.parse(String.class, r.getValue(BusiRoleMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(BusiRoleMeta.NOTES)));
+			this.setCatalog(DataParser.parse(String.class, r.getValue(BusiRoleMeta.CATALOG)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(BusiRoleMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.VERSION)));
 			this.setOrgId(DataParser.parse(Integer.class, r.getValue(BusiRoleMeta.ORG_ID)));
@@ -737,6 +834,7 @@ public class BusiRole extends Entity {
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(BusiRoleMeta.UPDATE_BY)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(BusiRoleMeta.DELETE_TIME)));
 			this.setName(DataParser.parse(String.class, r.getValue(BusiRoleMeta.NAME)));
+			this.setMemberRule(DataParser.parse(String.class, r.getValue(BusiRoleMeta.MEMBER_RULE)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(BusiRoleMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, r.getValue(BusiRoleMeta.ID)));
 			return true;
@@ -744,6 +842,7 @@ public class BusiRole extends Entity {
 			try {
 				this.setCode( (String)r.getValue(BusiRoleMeta.CODE));
 				this.setNotes( (String)r.getValue(BusiRoleMeta.NOTES));
+				this.setCatalog( (String)r.getValue(BusiRoleMeta.CATALOG));
 				this.setUpdateTime( (Date)r.getValue(BusiRoleMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(BusiRoleMeta.VERSION));
 				this.setOrgId( (Integer)r.getValue(BusiRoleMeta.ORG_ID));
@@ -756,6 +855,7 @@ public class BusiRole extends Entity {
 				this.setUpdateBy( (String)r.getValue(BusiRoleMeta.UPDATE_BY));
 				this.setDeleteTime( (Date)r.getValue(BusiRoleMeta.DELETE_TIME));
 				this.setName( (String)r.getValue(BusiRoleMeta.NAME));
+				this.setMemberRule( (String)r.getValue(BusiRoleMeta.MEMBER_RULE));
 				this.setDeleteBy( (String)r.getValue(BusiRoleMeta.DELETE_BY));
 				this.setId( (String)r.getValue(BusiRoleMeta.ID));
 				return true;

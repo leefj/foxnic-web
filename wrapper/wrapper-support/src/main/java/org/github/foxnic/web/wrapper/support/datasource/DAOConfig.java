@@ -1,6 +1,7 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.cache.CacheProperties;
 import com.github.foxnic.dao.dataperm.DataPermManager;
@@ -206,21 +207,27 @@ public class DAOConfig {
 			});
 
 			dbTreaty.setLoginUserIdHandler(()->{
-				String userId=null;
+				String userId=ProxyContext.getCalleeId();
+				if(!StringUtil.isBlank(userId)) {
+					return userId;
+				}
 				SessionUser user=SessionUser.getCurrent();
 				if(user!=null) {
 					userId = user.getUserId();
 				} else {
-					userId = ProxyContext.getCalleeId();
+					userId = null;
 				}
 				return userId;
 			});
 
 
 			dbTreaty.setTenantIdHandler(()->{
+				String tenantId=ProxyContext.getCalleeTenantId();
+				if(!StringUtil.isBlank(tenantId)) {
+					return tenantId;
+				}
 				SessionUser user=SessionUser.getCurrent();
-				if(user==null) return ProxyContext.getCalleeTenantId();
-				if(user.getUser()!=null && user.getUser().getActivatedTenant()!=null) {
+				if(user!=null && user.getUser()!=null && user.getUser().getActivatedTenant()!=null) {
 					return user.getActivatedTenantId();
 				}
 				return null;

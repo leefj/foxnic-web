@@ -62,6 +62,7 @@ public class ProxyContext {
      * */
     private String calleeTenantId = null ;
 
+
     /**
      * 是否忽略错误信息，不打印异常或不抛出异常，默认 false
      * */
@@ -107,7 +108,7 @@ public class ProxyContext {
         if(dao==null) {
             dao = SpringUtil.getBean(DAO.class);
         }
-        userId = dao.queryString("select id from sys_user where name=?", account);
+        userId = dao.queryString("select id from sys_user where account=?", account);
         USER_IDS.put(account, userId);
         return userId;
     }

@@ -4,11 +4,12 @@ import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE;
+import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.system.BusiRoleRuleType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -39,6 +40,8 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
 		poType.addListProperty(Position.class,"positions","关联岗位清单","关联岗位清单");
+		//
+		poType.shadow(SYS_BUSI_ROLE.MEMBER_RULE, BusiRoleRuleType.class);
 	}
 
 	@Override
@@ -57,14 +60,49 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 
 		view.field(SYS_BUSI_ROLE.CODE).basic().label("代码").search().fuzzySearch()
 		.form().validate().required();
+
 		view.field(SYS_BUSI_ROLE.NAME).basic().label("名称").search().fuzzySearch()
 		.form().validate().required();
+
+		view.field(SYS_BUSI_ROLE.MEMBER_ROUTER).search().hidden();
+
+		view.field(SYS_BUSI_ROLE.CATALOG).form().selectBox().dict(DictEnum.BUSI_ROLE_CATALOG).search().triggerOnSelect(true);
+
+		view.field(SYS_BUSI_ROLE.MEMBER_RULE).basic().label("成员规则").form().radioBox().enumType(BusiRoleRuleType.class).search().inputWidth(170).triggerOnSelect(true);
 
 		view.field(SYS_BUSI_ROLE.NOTES).search().hidden();
 
 //		view.field(BusiRoleMeta.EMP_COUNT).basic().label("成员数").table().alignRight()
 //		.form().hidden();
 
+	}
+
+	@Override
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
+		form.labelWidth(80);
+		formWindow.width("600px");
+		form.columnLayout(new Object[]{
+				SYS_BUSI_ROLE.CODE,
+				SYS_BUSI_ROLE.NAME,
+				SYS_BUSI_ROLE.CATALOG,
+				SYS_BUSI_ROLE.VALID,
+				SYS_BUSI_ROLE.BUILD_IN,
+				SYS_BUSI_ROLE.MEMBER_ROUTER,
+				SYS_BUSI_ROLE.MEMBER_RULE,
+				SYS_BUSI_ROLE.NOTES
+		});
+
+	}
+
+	@Override
+	public void configSearch(ViewOptions view, SearchAreaOptions search) {
+		search.inputLayout(new Object[]{
+				SYS_BUSI_ROLE.CODE,
+				SYS_BUSI_ROLE.NAME,
+				SYS_BUSI_ROLE.CATALOG,
+				SYS_BUSI_ROLE.BUILD_IN,
+				SYS_BUSI_ROLE.MEMBER_RULE
+		});
 	}
 
 	@Override

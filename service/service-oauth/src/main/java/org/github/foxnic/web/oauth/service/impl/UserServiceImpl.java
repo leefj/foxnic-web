@@ -304,18 +304,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		return suc>0;
 	}
 
-
-	/**
-	 * 按主键获取 账户
-	 *
-	 * @param id ID
-	 * @return User 数据对象
-	 */
-	public User getById(String id) {
-		User sample = new User();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
-		sample.setId(id);
-		User user=dao.queryEntity(sample);
+	private void joinBasicInfo(User user) {
 		this.dao().fill(user)
 //				.with(UserMeta.MENUS)
 //				.with(UserMeta.MENUS, MenuMeta.RESOURCES)
@@ -328,6 +317,34 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 //				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 				.execute();
+	}
+
+	/**
+	 * 按主键获取 账户
+	 *
+	 * @param account ID
+	 * @return User 数据对象
+	 */
+	public User getByAccount(String account) {
+		User user = new User();
+		user.setAccount(account);
+		user = this.queryEntity(user);
+		this.joinBasicInfo(user);
+		return user;
+	}
+
+	/**
+	 * 按主键获取 账户
+	 *
+	 * @param id ID
+	 * @return User 数据对象
+	 */
+	public User getById(String id) {
+		User sample = new User();
+		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+		sample.setId(id);
+		User user=dao.queryEntity(sample);
+		this.joinBasicInfo(user);
 		return user;
 	}
 

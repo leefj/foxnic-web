@@ -7,9 +7,14 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE_MEMBER;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Employee;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 import org.github.foxnic.web.domain.system.meta.BusiRoleMemberMeta;
@@ -22,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 业务角色成员关系
  * <p>业务角色成员关系 , 数据表 sys_busi_role_member 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:47
- * @sign 185405A5FF2D52B26FDC100FB36DCCC0
+ * @since 2023-04-18 09:51:54
+ * @sign EAF84B0F5FF20BA141E29D69007F603D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -39,19 +44,19 @@ public class BusiRoleMember extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "27684550612090880")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "686501321490038784")
 	private String id;
 	
 	/**
 	 * 角色ID：角色ID
 	*/
-	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID" , example = "524224688444936192")
+	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID" , example = "599716089596743680")
 	private String roleId;
 	
 	/**
 	 * 成员ID：成员ID
 	*/
-	@ApiModelProperty(required = false,value="成员ID" , notes = "成员ID" , example = "544487545157713920")
+	@ApiModelProperty(required = false,value="成员ID" , notes = "成员ID" , example = "617107520095256576")
 	private String memberId;
 	
 	/**
@@ -59,17 +64,20 @@ public class BusiRoleMember extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="成员类型" , notes = "UnifiedUserType枚举" , example = "employee")
 	private String memberType;
+	@Transient
+	@EnumFor("memberType")
+	private UnifiedUserType memberTypeEnum;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-03-10 09:11:10")
 	private Date createTime;
 	
 	/**
@@ -145,12 +153,46 @@ public class BusiRoleMember extends Entity {
 	}
 	
 	/**
+	 * 获得 成员类型 的投影属性<br>
+	 * 等价于 getMemberType 方法，获得对应的枚举类型
+	 * @return 成员类型
+	*/
+	@Transient
+	public UnifiedUserType getMemberTypeEnum() {
+		if(this.memberTypeEnum==null) {
+			this.memberTypeEnum = (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),memberType);
+		}
+		return this.memberTypeEnum ;
+	}
+	
+	/**
 	 * 设置 成员类型
 	 * @param memberType 成员类型
 	 * @return 当前对象
 	*/
+	@JsonProperty("memberType")
 	public BusiRoleMember setMemberType(String memberType) {
 		this.memberType=memberType;
+		this.memberTypeEnum= (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),memberType) ;
+		if(StringUtil.hasContent(memberType) && this.memberTypeEnum==null) {
+			throw new IllegalArgumentException( memberType + " is not one of UnifiedUserType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 成员类型的投影属性，等同于设置 成员类型
+	 * @param memberTypeEnum 成员类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public BusiRoleMember setMemberTypeEnum(UnifiedUserType memberTypeEnum) {
+		if(memberTypeEnum==null) {
+			this.setMemberType(null);
+		} else {
+			this.setMemberType(memberTypeEnum.code());
+		}
+		this.memberTypeEnum=memberTypeEnum;
 		return this;
 	}
 	

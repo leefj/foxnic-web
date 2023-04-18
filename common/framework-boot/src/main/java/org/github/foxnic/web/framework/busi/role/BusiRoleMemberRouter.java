@@ -8,6 +8,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.system.BusiRoleMember;
 
 import java.util.List;
 
@@ -37,7 +38,12 @@ public interface BusiRoleMemberRouter {
       /**
        * 在模型中配置的当前节点的所有审批人
        * */
-      List<ProcessDefinitionNodeAssignee> taskAssignees;
+      private List<ProcessDefinitionNodeAssignee> taskAssignees;
+
+      /**
+       * 静态成员
+       * */
+      private List<BusiRoleMember> staticMembers;
       /**
        * 当前审批人
        * */
@@ -90,7 +96,13 @@ public interface BusiRoleMemberRouter {
          this.currentAssignee = currentAssignee;
       }
 
+      public List<BusiRoleMember> getStaticMembers() {
+         return staticMembers;
+      }
 
+      public void setStaticMembers(List<BusiRoleMember> staticMembers) {
+         this.staticMembers = staticMembers;
+      }
    }
 
    public static BusiRoleMemberRouter getByClassName(String name) {

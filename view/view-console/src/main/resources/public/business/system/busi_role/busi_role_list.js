@@ -1,7 +1,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
+ * @since 2023-04-18 09:53:35
  */
 
 
@@ -93,6 +93,8 @@ function ListPage() {
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'memberRouter', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('成员路由') , templet: function (d) { return templet('memberRouter',d.memberRouter,d);}  }
 					,{ field: 'buildIn', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('内置角色'), templet: '#cell-tpl-buildIn'}
+					,{ field: 'memberRule', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('成员规则'), templet:function (d){ return templet('memberRule',fox.getEnumText(RADIO_MEMBERRULE_DATA,d.memberRule,'','memberRule'),d);}}
+					,{ field: 'catalog', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('分类'), templet:function (d){ return templet('catalog',fox.getDictText(SELECT_CATALOG_DATA,d.catalog,'','catalog'),d);}}
 					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],
@@ -152,9 +154,9 @@ function ListPage() {
 		var value = {};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
-		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
-		value.memberRouter={ inputType:"button",value: $("#memberRouter").val()};
 		value.buildIn={ inputType:"logic_switch",value: getSelectedValue("#buildIn","value"), label:getSelectedValue("#buildIn","nameStr") };
+		value.memberRule={ inputType:"radio_box", value: getSelectedValue("#memberRule","value"), label:getSelectedValue("#memberRule","nameStr") };
+		value.catalog={ inputType:"select_box", value: getSelectedValue("#catalog","value"), label:getSelectedValue("#catalog","nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -214,6 +216,63 @@ function ListPage() {
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("buildIn",data.arr,data.change,data.isAdd);
 				},1);
 			},
+		});
+		//渲染 memberRule 搜索框
+		fox.renderSelectBox({
+			el: "memberRule",
+			size: "small",
+			radio: true,
+			on: function(data){
+				setTimeout(function () {
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("memberRule",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(window.pageExt.list.selectBoxDataTransform) {
+						opts.push(window.pageExt.list.selectBoxDataTransform("memberRule",{data:data[i],name:data[i].text,value:data[i].code},data[i],data,i));
+					} else {
+						opts.push({data:data[i],name:data[i].text,value:data[i].code});
+					}
+				}
+				return opts;
+			}
+		});
+		//渲染 catalog 下拉字段
+		fox.renderSelectBox({
+			el: "catalog",
+			radio: true,
+			size: "small",
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("catalog",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					if(window.pageExt.list.selectBoxDataTransform) {
+						opts.push(window.pageExt.list.selectBoxDataTransform("catalog",{data:data[i],name:data[i].text,value:data[i].code},data[i],data,i));
+					} else {
+						opts.push({data:data[i],name:data[i].text,value:data[i].code});
+					}
+				}
+				return opts;
+			}
 		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
@@ -413,7 +472,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["600px",height+"px"],
 			type: 2,
 			id:"sys-busi-role-form-data-win",
 			content: '/business/system/busi_role/busi_role_form.html' + (queryString?("?"+queryString):""),

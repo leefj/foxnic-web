@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-02-13 11:26:14
+ * @since 2023-04-18 09:15:57
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and (code like 'system.%' or code like 'modules%') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -135,9 +135,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_LOGIN_DEFAULT("system.login.default" , "登录信息"),
 	
 	/**
-	 * 登录页抬头
+	 * 登录页Logo图片
 	*/
-	SYSTEM_LOGIN_LOGO("system.login.logo" , "登录页抬头"),
+	SYSTEM_LOGIN_LOGO("system.login.logo" , "登录页Logo图片"),
 	
 	/**
 	 * 登录页抬头

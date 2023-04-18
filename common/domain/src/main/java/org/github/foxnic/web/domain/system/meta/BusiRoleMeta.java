@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
- * @sign 87825961170D009F1E08F946FB545755
+ * @since 2023-04-18 09:53:34
+ * @sign C1978EAF12B607394E6EEB719622EB34
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -180,6 +180,26 @@ public class BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.Integer> BUILD_IN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,BUILD_IN, java.lang.Integer.class, "内置角色", "系统内置角色", java.lang.Integer.class, null);
 	
 	/**
+	 * 成员路由规则 , 类型: java.lang.String
+	*/
+	public static final String MEMBER_RULE="memberRule";
+	
+	/**
+	 * 成员路由规则 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.String> MEMBER_RULE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,MEMBER_RULE, java.lang.String.class, "成员路由规则", "成员路由规则", java.lang.String.class, null);
+	
+	/**
+	 * 分类 , 类型: java.lang.String
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 分类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.String> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,CATALOG, java.lang.String.class, "分类", "分类", java.lang.String.class, null);
+	
+	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -202,7 +222,7 @@ public class BusiRoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , EMPLOYEES , POSITIONS };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , NOTES , MEMBER_ROUTER , BUILD_IN , MEMBER_RULE , CATALOG , EMPLOYEES , POSITIONS };
 	
 	/**
 	 * 代理类
@@ -389,6 +409,28 @@ public class BusiRoleMeta {
 		}
 		
 		/**
+		 * 设置 成员路由规则
+		 * @param memberRule 成员路由规则
+		 * @return 当前对象
+		*/
+		public BusiRole setMemberRule(String memberRule) {
+			super.change(MEMBER_RULE,super.getMemberRule(),memberRule);
+			super.setMemberRule(memberRule);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类
+		 * @param catalog 分类
+		 * @return 当前对象
+		*/
+		public BusiRole setCatalog(String catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
+			return this;
+		}
+		
+		/**
 		 * 设置 关联员工清单
 		 * @param employees 关联员工清单
 		 * @return 当前对象
@@ -427,6 +469,7 @@ public class BusiRoleMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setCode(this.getCode());
 			inst.setNotes(this.getNotes());
+			inst.setCatalog(this.getCatalog());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());
 			inst.setOrgId(this.getOrgId());
@@ -439,6 +482,7 @@ public class BusiRoleMeta {
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setName(this.getName());
+			inst.setMemberRule(this.getMemberRule());
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			if(all) {

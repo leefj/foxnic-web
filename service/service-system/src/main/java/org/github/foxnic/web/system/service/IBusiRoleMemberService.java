@@ -1,17 +1,22 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.dao.entity.ISimpleIdService;
+
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.OrderBy;
-import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.entity.ISuperService;
 import org.github.foxnic.web.domain.system.BusiRoleMember;
 import org.github.foxnic.web.domain.system.BusiRoleMemberVO;
-
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import java.io.InputStream;
+import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 import java.util.Map;
 
 /**
@@ -19,7 +24,7 @@ import java.util.Map;
  * 业务角色成员关系服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:47
+ * @since 2023-04-18 09:51:54
 */
 
 public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember,String> {
@@ -49,7 +54,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	Result insertList(List<BusiRoleMember> busiRoleMemberList);
 
 
-
+		
 	/**
 	 * 按主键删除业务角色成员关系
 	 *
@@ -72,7 +77,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-
+		
 	/**
 	 * 按主键更新业务角色成员关系
 	 *
@@ -142,7 +147,7 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 * */
 	boolean checkExists(BusiRoleMember busiRoleMember,DBField... field);
 
-
+		
 	/**
 	 * 按主键获取业务角色成员关系
 	 *
@@ -150,10 +155,6 @@ public interface IBusiRoleMemberService extends  ISimpleIdService<BusiRoleMember
 	 * @return BusiRoleMember 数据对象
 	 */
 	BusiRoleMember getById(String id);
-
-
-
-
 
 	/**
 	 * 按 id 获取多个对象

@@ -61,8 +61,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
-//        initSystemModules();
+//        initOAuthModules();
+        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
@@ -201,7 +201,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     private void initSystemModules() {
 
         this.addConfig(new BusiRoleConfig());
-//        this.addConfig(new BusiRoleMemberConfig());
+        this.addConfig(new BusiRoleMemberConfig());
 //
 //        this.addConfig(new SysDictConfig());
 //        this.addConfig(new SysDictConfig_Tree());

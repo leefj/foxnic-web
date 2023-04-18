@@ -12,6 +12,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE_MEMBER;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.OrganizationMeta;
@@ -45,6 +46,7 @@ public class BusiRoleMemberConfig extends BaseCodeConfig<SYS_BUSI_ROLE_MEMBER> {
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.addSimpleProperty(Employee.class,"employee","员工","员工");
+		poType.shadow(SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.class);
 	}
 
 	@Override

@@ -2,7 +2,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-10 16:27:20
+ * @since 2023-04-18 09:53:35
  */
  -->
  <!DOCTYPE html>
@@ -46,22 +46,30 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
                         <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 状态 , valid ,typeName=logic_switch, isHideInSearch=true -->
+                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 成员路由 , memberRouter ,typeName=text_input, isHideInSearch=true -->
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 状态 , valid ,typeName=logic_switch, isHideInSearch=true -->
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 成员路由 , memberRouter ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 分类 , catalog ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('成员路由')}" class="search-label memberRouter-label">成员路由</span><span class="search-colon">:</span></div>
-                        <input id="memberRouter" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('分类')}" class="search-label catalog-label">分类</span><span class="search-colon">:</span></div>
+                        <div id="catalog" th:data="${dict.toArray('busi_role_catalog')}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 内置 , buildIn ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('内置')}" class="search-label buildIn-label">内置</span><span class="search-colon">:</span></div>
                         <div id="buildIn" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
+                    </div>
+                    <!-- 成员规则 , memberRule ,typeName=radio_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('成员规则')}" class="search-label memberRule-label">成员规则</span><span class="search-colon">:</span></div>
+
+
+                        <div id="memberRule" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.BusiRoleRuleType')}" style="width:170px"></div>
                     </div>
 
 
@@ -118,6 +126,8 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_MEMBERRULE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.BusiRoleRuleType')}]];
+    var SELECT_CATALOG_DATA = [[${dict.toArray('busi_role_catalog')}]];
     var AUTH_PREFIX="sys_busi_role";
 
 

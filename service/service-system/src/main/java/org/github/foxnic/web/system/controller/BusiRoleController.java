@@ -64,7 +64,9 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_ROUTER, value = "成员路由", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_RULE, value = "成员路由规则", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.CATALOG, value = "分类", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = BusiRoleServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -104,7 +106,7 @@ public class BusiRoleController extends SuperController {
     public Result deleteByIds(List<String> ids) {
         List<BusiRole> roles = busiRoleService.getByIds(ids);
         for (BusiRole role : roles) {
-            if(busiRoleService.isBuildIn(role)) {
+            if (busiRoleService.isBuildIn(role)) {
                 return ErrorDesc.failure().message("不允许删除内置业务角色");
             }
         }
@@ -129,7 +131,9 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_ROUTER, value = "成员路由", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_RULE, value = "成员路由规则", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.CATALOG, value = "分类", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { BusiRoleVOMeta.PAGE_INDEX, BusiRoleVOMeta.PAGE_SIZE, BusiRoleVOMeta.SEARCH_FIELD, BusiRoleVOMeta.FUZZY_FIELD, BusiRoleVOMeta.SEARCH_VALUE, BusiRoleVOMeta.SORT_FIELD, BusiRoleVOMeta.SORT_TYPE, BusiRoleVOMeta.IDS })
     @SentinelResource(value = BusiRoleServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -157,7 +161,9 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_ROUTER, value = "成员路由", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_RULE, value = "成员路由规则", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.CATALOG, value = "分类", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { BusiRoleVOMeta.PAGE_INDEX, BusiRoleVOMeta.PAGE_SIZE, BusiRoleVOMeta.SEARCH_FIELD, BusiRoleVOMeta.FUZZY_FIELD, BusiRoleVOMeta.SEARCH_VALUE, BusiRoleVOMeta.SORT_FIELD, BusiRoleVOMeta.SORT_TYPE, BusiRoleVOMeta.IDS })
     @SentinelResource(value = BusiRoleServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -254,14 +260,16 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_ROUTER, value = "成员路由", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_RULE, value = "成员路由规则", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.CATALOG, value = "分类", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { BusiRoleVOMeta.PAGE_INDEX, BusiRoleVOMeta.PAGE_SIZE })
     @SentinelResource(value = BusiRoleServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(BusiRoleServiceProxy.QUERY_LIST)
     public Result<List<BusiRole>> queryList(BusiRoleVO sample) {
         Result<List<BusiRole>> result = new Result<>();
-        if(displayBuildIn) {
+        if (displayBuildIn) {
             sample.setBuildIn(null);
         } else {
             sample.setBuildIn(0);
@@ -288,14 +296,16 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.NOTES, value = "备注", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_ROUTER, value = "成员路由", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class)
+		@ApiImplicitParam(name = BusiRoleVOMeta.BUILD_IN, value = "内置角色", required = false, dataTypeClass = Integer.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.MEMBER_RULE, value = "成员路由规则", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = BusiRoleVOMeta.CATALOG, value = "分类", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = BusiRoleServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
     @PostMapping(BusiRoleServiceProxy.QUERY_PAGED_LIST)
     public Result<PagedList<BusiRole>> queryPagedList(BusiRoleVO sample) {
         Result<PagedList<BusiRole>> result = new Result<>();
-        if(displayBuildIn) {
+        if (displayBuildIn) {
             sample.setBuildIn(null);
         } else {
             sample.setBuildIn(0);
