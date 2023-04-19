@@ -76,8 +76,8 @@ public class BpmAssistant {
         return  ProcessInstanceServiceProxy.api().temporarySave(processInstanceVO);
     }
 
-    public static ProcessDefinition getProcessDefinitionByCode(String processDefinitionCode) {
-//        setCallerAccount(user);
+    public static ProcessDefinition getProcessDefinitionByCode(String processDefinitionCode,User user) {
+        setCallerAccount(user);
         ProcessDefinitionVO sample = new ProcessDefinitionVO();
         sample.setCode(processDefinitionCode);
         Result<List<ProcessDefinition>> result = ProcessDefinitionServiceProxy.api().queryList(sample);
@@ -118,7 +118,7 @@ public class BpmAssistant {
      * */
     public static <E>  void joinProcess(List<E> billList, String formCode) {
 
-        Map<String,E> map = BeanUtil.toMap(billList,"id");
+        Map<String,E> map = CollectorUtil.collectMap(billList,e->{return BeanUtil.getFieldValue(e,"id",String.class);}, e->{return e;});
         Set<String> billIds= BeanUtil.getFieldValueSet(billList,"id",String.class);
         List<String> billIdList=new ArrayList<>(billIds);
         Result<List<ProcessInstance>> result = BpmAssistant.getProcessInstanceByBill(formCode,billIdList);

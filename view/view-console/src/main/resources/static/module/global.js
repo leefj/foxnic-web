@@ -374,6 +374,9 @@ TypeUtil={
 	},
 	isString:function (data) {
 		return typeof(data)=='string';
+	},
+	isFunction:function (data) {
+		return typeof(data)=='function';
 	}
 
 }
