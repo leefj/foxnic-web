@@ -10,9 +10,13 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
+import org.github.foxnic.web.constants.enums.bpm.RemindStatus;
+import org.github.foxnic.web.constants.enums.bpm.RemindTermUnit;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -26,8 +30,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒
  * <p>流程实例提醒 , 数据表 bpm_process_instance_remind 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 21:00:31
- * @sign 08E364A972733563576C13B3065F05D1
+ * @since 2023-04-20 05:33:06
+ * @sign 40E98B251F2D9B4AE9AB69FB0C5B95BA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -43,19 +47,19 @@ public class ProcessInstanceRemind extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "701180441104744448")
 	private String id;
 	
 	/**
 	 * 流程实例ID：流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
+	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID" , example = "700775539299844096")
 	private String processInstanceId;
 	
 	/**
 	 * 监控的目标节点ID：监控的目标节点ID
 	*/
-	@ApiModelProperty(required = false,value="监控的目标节点ID" , notes = "监控的目标节点ID")
+	@ApiModelProperty(required = false,value="监控的目标节点ID" , notes = "监控的目标节点ID" , example = "690260049188093952")
 	private String targetNodeId;
 	
 	/**
@@ -67,49 +71,49 @@ public class ProcessInstanceRemind extends Entity {
 	/**
 	 * 提醒内容：提醒内容
 	*/
-	@ApiModelProperty(required = false,value="提醒内容" , notes = "提醒内容")
+	@ApiModelProperty(required = false,value="提醒内容" , notes = "提醒内容" , example = "111")
 	private String content;
 	
 	/**
-	 * 提醒日期：提醒日期
+	 * 提醒时间：提醒时间
 	*/
-	@ApiModelProperty(required = false,value="提醒日期" , notes = "提醒日期")
-	private String remindDate;
+	@ApiModelProperty(required = false,value="提醒时间" , notes = "提醒时间" , example = "2023-04-21")
+	private String remindTime;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-04-19 09:20:44")
 	private Date createTime;
 	
 	/**
 	 * 修改人ID：修改人ID
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID" , example = "110588348101165911")
 	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-19 09:23:03")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "1")
 	private Integer deleted;
 	@Transient
 	@EnumFor("deleted")
@@ -118,26 +122,44 @@ public class ProcessInstanceRemind extends Entity {
 	/**
 	 * 删除人ID：删除人ID
 	*/
-	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
+	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID" , example = "110588348101165911")
 	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
 	*/
-	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
+	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间" , example = "2023-04-19 09:23:03")
 	private Date deleteTime;
 	
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "2")
 	private Integer version;
 	
 	/**
-	 * 是否生效：是否生效
+	 * 状态：状态
 	*/
-	@ApiModelProperty(required = false,value="是否生效" , notes = "是否生效")
-	private Integer valid;
+	@ApiModelProperty(required = false,value="状态" , notes = "状态")
+	private String status;
+	@Transient
+	@EnumFor("status")
+	private RemindStatus statusEnum;
+	
+	/**
+	 * 提醒时长：提醒时长
+	*/
+	@ApiModelProperty(required = false,value="提醒时长" , notes = "提醒时长")
+	private Integer remindTerm;
+	
+	/**
+	 * 提醒时长单位：提醒时长单位
+	*/
+	@ApiModelProperty(required = false,value="提醒时长单位" , notes = "提醒时长单位")
+	private String remindTermUnit;
+	@Transient
+	@EnumFor("remindTermUnit")
+	private RemindTermUnit remindTermUnitEnum;
 	
 	/**
 	 * 接收人清单：接收人清单
@@ -247,21 +269,21 @@ public class ProcessInstanceRemind extends Entity {
 	}
 	
 	/**
-	 * 获得 提醒日期<br>
-	 * 提醒日期
-	 * @return 提醒日期
+	 * 获得 提醒时间<br>
+	 * 提醒时间
+	 * @return 提醒时间
 	*/
-	public String getRemindDate() {
-		return remindDate;
+	public String getRemindTime() {
+		return remindTime;
 	}
 	
 	/**
-	 * 设置 提醒日期
-	 * @param remindDate 提醒日期
+	 * 设置 提醒时间
+	 * @param remindTime 提醒时间
 	 * @return 当前对象
 	*/
-	public ProcessInstanceRemind setRemindDate(String remindDate) {
-		this.remindDate=remindDate;
+	public ProcessInstanceRemind setRemindTime(String remindTime) {
+		this.remindTime=remindTime;
 		return this;
 	}
 	
@@ -468,21 +490,127 @@ public class ProcessInstanceRemind extends Entity {
 	}
 	
 	/**
-	 * 获得 是否生效<br>
-	 * 是否生效
-	 * @return 是否生效
+	 * 获得 状态<br>
+	 * 状态
+	 * @return 状态
 	*/
-	public Integer getValid() {
-		return valid;
+	public String getStatus() {
+		return status;
 	}
 	
 	/**
-	 * 设置 是否生效
-	 * @param valid 是否生效
+	 * 获得 状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 状态
+	*/
+	@Transient
+	public RemindStatus getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (RemindStatus) EnumUtil.parseByCode(RemindStatus.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
+	 * 设置 状态
+	 * @param status 状态
 	 * @return 当前对象
 	*/
-	public ProcessInstanceRemind setValid(Integer valid) {
-		this.valid=valid;
+	@JsonProperty("status")
+	public ProcessInstanceRemind setStatus(String status) {
+		this.status=status;
+		this.statusEnum= (RemindStatus) EnumUtil.parseByCode(RemindStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of RemindStatus");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 状态的投影属性，等同于设置 状态
+	 * @param statusEnum 状态
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstanceRemind setStatusEnum(RemindStatus statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 提醒时长<br>
+	 * 提醒时长
+	 * @return 提醒时长
+	*/
+	public Integer getRemindTerm() {
+		return remindTerm;
+	}
+	
+	/**
+	 * 设置 提醒时长
+	 * @param remindTerm 提醒时长
+	 * @return 当前对象
+	*/
+	public ProcessInstanceRemind setRemindTerm(Integer remindTerm) {
+		this.remindTerm=remindTerm;
+		return this;
+	}
+	
+	/**
+	 * 获得 提醒时长单位<br>
+	 * 提醒时长单位
+	 * @return 提醒时长单位
+	*/
+	public String getRemindTermUnit() {
+		return remindTermUnit;
+	}
+	
+	/**
+	 * 获得 提醒时长单位 的投影属性<br>
+	 * 等价于 getRemindTermUnit 方法，获得对应的枚举类型
+	 * @return 提醒时长单位
+	*/
+	@Transient
+	public RemindTermUnit getRemindTermUnitEnum() {
+		if(this.remindTermUnitEnum==null) {
+			this.remindTermUnitEnum = (RemindTermUnit) EnumUtil.parseByCode(RemindTermUnit.values(),remindTermUnit);
+		}
+		return this.remindTermUnitEnum ;
+	}
+	
+	/**
+	 * 设置 提醒时长单位
+	 * @param remindTermUnit 提醒时长单位
+	 * @return 当前对象
+	*/
+	@JsonProperty("remindTermUnit")
+	public ProcessInstanceRemind setRemindTermUnit(String remindTermUnit) {
+		this.remindTermUnit=remindTermUnit;
+		this.remindTermUnitEnum= (RemindTermUnit) EnumUtil.parseByCode(RemindTermUnit.values(),remindTermUnit) ;
+		if(StringUtil.hasContent(remindTermUnit) && this.remindTermUnitEnum==null) {
+			throw new IllegalArgumentException( remindTermUnit + " is not one of RemindTermUnit");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 提醒时长单位的投影属性，等同于设置 提醒时长单位
+	 * @param remindTermUnitEnum 提醒时长单位
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstanceRemind setRemindTermUnitEnum(RemindTermUnit remindTermUnitEnum) {
+		if(remindTermUnitEnum==null) {
+			this.setRemindTermUnit(null);
+		} else {
+			this.setRemindTermUnit(remindTermUnitEnum.code());
+		}
+		this.remindTermUnitEnum=remindTermUnitEnum;
 		return this;
 	}
 	
@@ -580,11 +708,12 @@ public class ProcessInstanceRemind extends Entity {
 	public ProcessInstanceRemind duplicate(boolean all) {
 		org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindMeta.$$proxy$$();
 		inst.setProcessInstanceId(this.getProcessInstanceId());
-		inst.setRemindDate(this.getRemindDate());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
+		inst.setRemindTermUnit(this.getRemindTermUnit());
 		inst.setContent(this.getContent());
-		inst.setValid(this.getValid());
+		inst.setRemindTerm(this.getRemindTerm());
+		inst.setRemindTime(this.getRemindTime());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
@@ -595,6 +724,7 @@ public class ProcessInstanceRemind extends Entity {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		inst.setTargetNodeId(this.getTargetNodeId());
+		inst.setStatus(this.getStatus());
 		if(all) {
 			inst.setReceivers(this.getReceivers());
 			inst.setTargetNode(this.getTargetNode());
@@ -658,11 +788,12 @@ public class ProcessInstanceRemind extends Entity {
 		if(map==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.PROCESS_INSTANCE_ID)));
-			this.setRemindDate(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.REMIND_DATE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindMeta.VERSION)));
+			this.setRemindTermUnit(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.CONTENT)));
-			this.setValid(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindMeta.VALID)));
+			this.setRemindTerm(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindMeta.REMIND_TERM)));
+			this.setRemindTime(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindMeta.CREATE_TIME)));
@@ -673,17 +804,19 @@ public class ProcessInstanceRemind extends Entity {
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.ID)));
 			this.setTargetNodeId(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.TARGET_NODE_ID)));
+			this.setStatus(DataParser.parse(String.class, map.get(ProcessInstanceRemindMeta.STATUS)));
 			// others
 			this.setTargetNode(DataParser.parse(ProcessDefinitionNode.class, map.get(ProcessInstanceRemindMeta.TARGET_NODE)));
 			return true;
 		} else {
 			try {
 				this.setProcessInstanceId( (String)map.get(ProcessInstanceRemindMeta.PROCESS_INSTANCE_ID));
-				this.setRemindDate( (String)map.get(ProcessInstanceRemindMeta.REMIND_DATE));
 				this.setUpdateTime( (Date)map.get(ProcessInstanceRemindMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(ProcessInstanceRemindMeta.VERSION));
+				this.setRemindTermUnit( (String)map.get(ProcessInstanceRemindMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)map.get(ProcessInstanceRemindMeta.CONTENT));
-				this.setValid( (Integer)map.get(ProcessInstanceRemindMeta.VALID));
+				this.setRemindTerm( (Integer)map.get(ProcessInstanceRemindMeta.REMIND_TERM));
+				this.setRemindTime( (String)map.get(ProcessInstanceRemindMeta.REMIND_TIME));
 				this.setCreateBy( (String)map.get(ProcessInstanceRemindMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(ProcessInstanceRemindMeta.DELETED));
 				this.setCreateTime( (Date)map.get(ProcessInstanceRemindMeta.CREATE_TIME));
@@ -694,6 +827,7 @@ public class ProcessInstanceRemind extends Entity {
 				this.setDeleteBy( (String)map.get(ProcessInstanceRemindMeta.DELETE_BY));
 				this.setId( (String)map.get(ProcessInstanceRemindMeta.ID));
 				this.setTargetNodeId( (String)map.get(ProcessInstanceRemindMeta.TARGET_NODE_ID));
+				this.setStatus( (String)map.get(ProcessInstanceRemindMeta.STATUS));
 				// others
 				this.setTargetNode( (ProcessDefinitionNode)map.get(ProcessInstanceRemindMeta.TARGET_NODE));
 				return true;
@@ -713,11 +847,12 @@ public class ProcessInstanceRemind extends Entity {
 		if(r==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.PROCESS_INSTANCE_ID)));
-			this.setRemindDate(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.REMIND_DATE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindMeta.VERSION)));
+			this.setRemindTermUnit(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.CONTENT)));
-			this.setValid(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindMeta.VALID)));
+			this.setRemindTerm(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindMeta.REMIND_TERM)));
+			this.setRemindTime(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindMeta.CREATE_TIME)));
@@ -728,15 +863,17 @@ public class ProcessInstanceRemind extends Entity {
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.ID)));
 			this.setTargetNodeId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.TARGET_NODE_ID)));
+			this.setStatus(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindMeta.STATUS)));
 			return true;
 		} else {
 			try {
 				this.setProcessInstanceId( (String)r.getValue(ProcessInstanceRemindMeta.PROCESS_INSTANCE_ID));
-				this.setRemindDate( (String)r.getValue(ProcessInstanceRemindMeta.REMIND_DATE));
 				this.setUpdateTime( (Date)r.getValue(ProcessInstanceRemindMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(ProcessInstanceRemindMeta.VERSION));
+				this.setRemindTermUnit( (String)r.getValue(ProcessInstanceRemindMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)r.getValue(ProcessInstanceRemindMeta.CONTENT));
-				this.setValid( (Integer)r.getValue(ProcessInstanceRemindMeta.VALID));
+				this.setRemindTerm( (Integer)r.getValue(ProcessInstanceRemindMeta.REMIND_TERM));
+				this.setRemindTime( (String)r.getValue(ProcessInstanceRemindMeta.REMIND_TIME));
 				this.setCreateBy( (String)r.getValue(ProcessInstanceRemindMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(ProcessInstanceRemindMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(ProcessInstanceRemindMeta.CREATE_TIME));
@@ -747,6 +884,7 @@ public class ProcessInstanceRemind extends Entity {
 				this.setDeleteBy( (String)r.getValue(ProcessInstanceRemindMeta.DELETE_BY));
 				this.setId( (String)r.getValue(ProcessInstanceRemindMeta.ID));
 				this.setTargetNodeId( (String)r.getValue(ProcessInstanceRemindMeta.TARGET_NODE_ID));
+				this.setStatus( (String)r.getValue(ProcessInstanceRemindMeta.STATUS));
 				return true;
 			} catch (Exception e) {
 				return false;

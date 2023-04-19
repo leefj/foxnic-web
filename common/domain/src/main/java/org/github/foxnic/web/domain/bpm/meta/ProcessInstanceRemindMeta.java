@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 21:00:31
- * @sign 08E364A972733563576C13B3065F05D1
+ * @since 2023-04-20 05:33:06
+ * @sign 40E98B251F2D9B4AE9AB69FB0C5B95BA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,14 +70,14 @@ public class ProcessInstanceRemindMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.String> CONTENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,CONTENT, java.lang.String.class, "提醒内容", "提醒内容", java.lang.String.class, null);
 	
 	/**
-	 * 提醒日期 , 类型: java.lang.String
+	 * 提醒时间 , 类型: java.lang.String
 	*/
-	public static final String REMIND_DATE="remindDate";
+	public static final String REMIND_TIME="remindTime";
 	
 	/**
-	 * 提醒日期 , 类型: java.lang.String
+	 * 提醒时间 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.String> REMIND_DATE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,REMIND_DATE, java.lang.String.class, "提醒日期", "提醒日期", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.String> REMIND_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,REMIND_TIME, java.lang.String.class, "提醒时间", "提醒时间", java.lang.String.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -170,14 +170,34 @@ public class ProcessInstanceRemindMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 是否生效 , 类型: java.lang.Integer
+	 * 状态 , 类型: java.lang.String
 	*/
-	public static final String VALID="valid";
+	public static final String STATUS="status";
 	
 	/**
-	 * 是否生效 , 类型: java.lang.Integer
+	 * 状态 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,VALID, java.lang.Integer.class, "是否生效", "是否生效", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
+	
+	/**
+	 * 提醒时长 , 类型: java.lang.Integer
+	*/
+	public static final String REMIND_TERM="remindTerm";
+	
+	/**
+	 * 提醒时长 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.Integer> REMIND_TERM_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,REMIND_TERM, java.lang.Integer.class, "提醒时长", "提醒时长", java.lang.Integer.class, null);
+	
+	/**
+	 * 提醒时长单位 , 类型: java.lang.String
+	*/
+	public static final String REMIND_TERM_UNIT="remindTermUnit";
+	
+	/**
+	 * 提醒时长单位 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemind,java.lang.String> REMIND_TERM_UNIT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemind.class ,REMIND_TERM_UNIT, java.lang.String.class, "提醒时长单位", "提醒时长单位", java.lang.String.class, null);
 	
 	/**
 	 * 接收人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiver
@@ -202,7 +222,7 @@ public class ProcessInstanceRemindMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_DATE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID , RECEIVERS , TARGET_NODE };
+	public static final String[] $PROPS={ ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_TIME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , REMIND_TERM , REMIND_TERM_UNIT , RECEIVERS , TARGET_NODE };
 	
 	/**
 	 * 代理类
@@ -268,13 +288,13 @@ public class ProcessInstanceRemindMeta {
 		}
 		
 		/**
-		 * 设置 提醒日期
-		 * @param remindDate 提醒日期
+		 * 设置 提醒时间
+		 * @param remindTime 提醒时间
 		 * @return 当前对象
 		*/
-		public ProcessInstanceRemind setRemindDate(String remindDate) {
-			super.change(REMIND_DATE,super.getRemindDate(),remindDate);
-			super.setRemindDate(remindDate);
+		public ProcessInstanceRemind setRemindTime(String remindTime) {
+			super.change(REMIND_TIME,super.getRemindTime(),remindTime);
+			super.setRemindTime(remindTime);
 			return this;
 		}
 		
@@ -378,13 +398,35 @@ public class ProcessInstanceRemindMeta {
 		}
 		
 		/**
-		 * 设置 是否生效
-		 * @param valid 是否生效
+		 * 设置 状态
+		 * @param status 状态
 		 * @return 当前对象
 		*/
-		public ProcessInstanceRemind setValid(Integer valid) {
-			super.change(VALID,super.getValid(),valid);
-			super.setValid(valid);
+		public ProcessInstanceRemind setStatus(String status) {
+			super.change(STATUS,super.getStatus(),status);
+			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 提醒时长
+		 * @param remindTerm 提醒时长
+		 * @return 当前对象
+		*/
+		public ProcessInstanceRemind setRemindTerm(Integer remindTerm) {
+			super.change(REMIND_TERM,super.getRemindTerm(),remindTerm);
+			super.setRemindTerm(remindTerm);
+			return this;
+		}
+		
+		/**
+		 * 设置 提醒时长单位
+		 * @param remindTermUnit 提醒时长单位
+		 * @return 当前对象
+		*/
+		public ProcessInstanceRemind setRemindTermUnit(String remindTermUnit) {
+			super.change(REMIND_TERM_UNIT,super.getRemindTermUnit(),remindTermUnit);
+			super.setRemindTermUnit(remindTermUnit);
 			return this;
 		}
 		
@@ -426,11 +468,12 @@ public class ProcessInstanceRemindMeta {
 		public ProcessInstanceRemind duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setProcessInstanceId(this.getProcessInstanceId());
-			inst.setRemindDate(this.getRemindDate());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setVersion(this.getVersion());
+			inst.setRemindTermUnit(this.getRemindTermUnit());
 			inst.setContent(this.getContent());
-			inst.setValid(this.getValid());
+			inst.setRemindTerm(this.getRemindTerm());
+			inst.setRemindTime(this.getRemindTime());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());
 			inst.setCreateTime(this.getCreateTime());
@@ -441,6 +484,7 @@ public class ProcessInstanceRemindMeta {
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			inst.setTargetNodeId(this.getTargetNodeId());
+			inst.setStatus(this.getStatus());
 			if(all) {
 				inst.setReceivers(this.getReceivers());
 				inst.setTargetNode(this.getTargetNode());

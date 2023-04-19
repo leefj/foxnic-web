@@ -14,6 +14,7 @@ import java.util.Map;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindReceiverVOMeta;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
 import com.github.foxnic.sql.data.ExprRcd;
 
 
@@ -22,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒人员VO类型
  * <p>流程实例提醒人员 , 数据表 bpm_process_instance_remind_receiver 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 20:30:18
+ * @since 2023-04-20 04:53:05
  * @sign 6BC64F8F8B1CE5E682894CC6558B3B5E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -416,13 +417,16 @@ public class ProcessInstanceRemindReceiverVO extends ProcessInstanceRemindReceiv
 		inst.setId(this.getId());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
-			inst.setPageIndex(this.getPageIndex());
-			inst.setSortType(this.getSortType());
 			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setEmployee(this.getEmployee());
+			inst.setAsignee(this.getAsignee());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setName(this.getName());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
-			inst.setPageSize(this.getPageSize());
 			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
 			inst.setQueryLogic(this.getQueryLogic());
@@ -501,12 +505,15 @@ public class ProcessInstanceRemindReceiverVO extends ProcessInstanceRemindReceiv
 			this.setId(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.ID)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SEARCH_FIELD)));
-			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_INDEX)));
-			this.setSortType(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SORT_TYPE)));
 			this.setRequestAction(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.FUZZY_FIELD)));
-			this.setSortField(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SORT_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_SIZE)));
+			this.setEmployee(DataParser.parse(Employee.class, map.get(ProcessInstanceRemindReceiverVOMeta.EMPLOYEE)));
+			this.setAsignee(DataParser.parse(Assignee.class, map.get(ProcessInstanceRemindReceiverVOMeta.ASIGNEE)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SORT_TYPE)));
+			this.setName(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.NAME)));
+			this.setSortField(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SORT_FIELD)));
 			this.setDataOrigin(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.DATA_ORIGIN)));
 			this.setQueryLogic(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverVOMeta.SEARCH_VALUE)));
@@ -528,12 +535,15 @@ public class ProcessInstanceRemindReceiverVO extends ProcessInstanceRemindReceiv
 				this.setId( (String)map.get(ProcessInstanceRemindReceiverVOMeta.ID));
 				// others
 				this.setSearchField( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SEARCH_FIELD));
-				this.setPageIndex( (Integer)map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_INDEX));
-				this.setSortType( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SORT_TYPE));
 				this.setRequestAction( (String)map.get(ProcessInstanceRemindReceiverVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(ProcessInstanceRemindReceiverVOMeta.FUZZY_FIELD));
-				this.setSortField( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SORT_FIELD));
 				this.setPageSize( (Integer)map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_SIZE));
+				this.setEmployee( (Employee)map.get(ProcessInstanceRemindReceiverVOMeta.EMPLOYEE));
+				this.setAsignee( (Assignee)map.get(ProcessInstanceRemindReceiverVOMeta.ASIGNEE));
+				this.setPageIndex( (Integer)map.get(ProcessInstanceRemindReceiverVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SORT_TYPE));
+				this.setName( (String)map.get(ProcessInstanceRemindReceiverVOMeta.NAME));
+				this.setSortField( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SORT_FIELD));
 				this.setDataOrigin( (String)map.get(ProcessInstanceRemindReceiverVOMeta.DATA_ORIGIN));
 				this.setQueryLogic( (String)map.get(ProcessInstanceRemindReceiverVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(ProcessInstanceRemindReceiverVOMeta.SEARCH_VALUE));

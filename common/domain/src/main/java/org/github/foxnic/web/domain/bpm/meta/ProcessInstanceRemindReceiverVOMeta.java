@@ -5,13 +5,15 @@ import org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiver;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.bpm.Assignee;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 20:30:18
+ * @since 2023-04-20 04:53:05
  * @sign 6BC64F8F8B1CE5E682894CC6558B3B5E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -269,9 +271,39 @@ public class ProcessInstanceRemindReceiverVOMeta extends ProcessInstanceRemindRe
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 关联员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 关联员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "关联员工", "关联员工", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
+	 * 关联代理人 , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	*/
+	public static final String ASIGNEE="asignee";
+	
+	/**
+	 * 关联代理人 , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO,org.github.foxnic.web.domain.bpm.Assignee> ASIGNEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO.class ,ASIGNEE, org.github.foxnic.web.domain.bpm.Assignee.class, "关联代理人", "关联代理人", org.github.foxnic.web.domain.bpm.Assignee.class, null);
+	
+	/**
+	 * 名称 , 类型: java.lang.String
+	*/
+	public static final String NAME="name";
+	
+	/**
+	 * 名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiverVO.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , REMIND_ID , RECEIVER_ID , RECEIVER_TYPE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , REMIND_ID , RECEIVER_ID , RECEIVER_TYPE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EMPLOYEE , ASIGNEE , NAME };
 	
 	/**
 	 * 代理类
@@ -555,6 +587,39 @@ public class ProcessInstanceRemindReceiverVOMeta extends ProcessInstanceRemindRe
 			super.setVersion(version);
 			return this;
 		}
+		
+		/**
+		 * 设置 关联员工
+		 * @param employee 关联员工
+		 * @return 当前对象
+		*/
+		public ProcessInstanceRemindReceiver setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联代理人
+		 * @param asignee 关联代理人
+		 * @return 当前对象
+		*/
+		public ProcessInstanceRemindReceiver setAsignee(Assignee asignee) {
+			super.change(ASIGNEE,super.getAsignee(),asignee);
+			super.setAsignee(asignee);
+			return this;
+		}
+		
+		/**
+		 * 设置 名称
+		 * @param name 名称
+		 * @return 当前对象
+		*/
+		public ProcessInstanceRemindReceiver setName(String name) {
+			super.change(NAME,super.getName(),name);
+			super.setName(name);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -586,13 +651,16 @@ public class ProcessInstanceRemindReceiverVOMeta extends ProcessInstanceRemindRe
 			inst.setId(this.getId());
 			if(all) {
 				inst.setSearchField(this.getSearchField());
-				inst.setPageIndex(this.getPageIndex());
-				inst.setSortType(this.getSortType());
 				inst.setRequestAction(this.getRequestAction());
 				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setEmployee(this.getEmployee());
+				inst.setAsignee(this.getAsignee());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
-				inst.setPageSize(this.getPageSize());
+				inst.setName(this.getName());
 				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
 				inst.setQueryLogic(this.getQueryLogic());

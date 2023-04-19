@@ -9,6 +9,8 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND_RECEIVER;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.bpm.Assignee;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class ProcessInstanceRemindReceiverConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE_REMIND_RECEIVER> {
@@ -19,7 +21,10 @@ public class ProcessInstanceRemindReceiverConfig extends BaseCodeConfig<BPM_PROC
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(Employee.class,"employee","关联员工","关联员工");
         poType.shadow(BPM_PROCESS_INSTANCE_REMIND_RECEIVER.RECEIVER_TYPE, UnifiedUserType.class);
+        poType.addSimpleProperty(Assignee.class,"asignee","关联代理人","关联代理人");
+        poType.addSimpleProperty(String.class,"name","名称","名称");
     }
 
     @Override

@@ -8,10 +8,15 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND;
+import org.github.foxnic.web.constants.enums.bpm.RemindStatus;
+import org.github.foxnic.web.constants.enums.bpm.RemindTermUnit;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 import org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiver;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindReceiverMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionNodeServiceProxy;
 
@@ -26,6 +31,8 @@ public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INST
         voType.addSimpleProperty(String.class,"receiverInfo","接收人参数","接收人参数");
         poType.addListProperty(ProcessInstanceRemindReceiver.class,"receivers","接收人清单","接收人清单");
         poType.addSimpleProperty(ProcessDefinitionNode.class,"targetNode","监控的目标节点","监控的目标节点");
+        poType.shadow(BPM_PROCESS_INSTANCE_REMIND.STATUS, RemindStatus.class);
+        poType.shadow(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM_UNIT, RemindTermUnit.class);
     }
 
     @Override
@@ -62,19 +69,26 @@ public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INST
 
         // 暂时仅支持员工
         view.field("receiverInfo").basic().label("提醒对象")
+                .table().fillBy(ProcessInstanceRemindMeta.RECEIVERS,ProcessInstanceRemindReceiverMeta.NAME)
                 .form().button().chooseEmployee(false);
 
         view.field(BPM_PROCESS_INSTANCE_REMIND.CONTENT).basic().label("提醒内容");
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_DATE).basic().label("提醒日期")
-                .form().dateInput().renderAtTop(true).format("yyyy-MM-dd");
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM_UNIT).basic().label("时长单位")
+                .form().radioBox().enumType(RemindTermUnit.class);
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.VALID).basic().hidden();
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM).basic().label("等待时长");
+
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TIME).basic().hidden();
+
+        view.field(BPM_PROCESS_INSTANCE_REMIND.STATUS).basic().hidden()
+                .table().disable();
+
         view.field(BPM_PROCESS_INSTANCE_REMIND.SOURCE_NODE_ID).basic().hidden();
 
         view.field(BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).basic().label("监控节点")
                 .form().selectBox().queryApi(ProcessDefinitionNodeServiceProxy.QUERY_LIST_BY_PROCESS_INSTANCE_ID)
-                .valueField("id").textField("nodeName").muliti(false,false);
+                .valueField("id").textField("nodeName").muliti(false,false).fillWith(ProcessInstanceRemindMeta.TARGET_NODE);
     }
 
 

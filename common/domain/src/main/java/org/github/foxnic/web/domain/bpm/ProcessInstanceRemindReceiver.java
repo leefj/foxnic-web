@@ -11,6 +11,7 @@ import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -26,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒人员
  * <p>流程实例提醒人员 , 数据表 bpm_process_instance_remind_receiver 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 20:30:18
- * @sign D2F936E0EEFC3E3D0947EF27474D1953
+ * @since 2023-04-20 04:53:05
+ * @sign 2473A8EA6C4D73F0CB15C16E8DC46465
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -43,7 +44,7 @@ public class ProcessInstanceRemindReceiver extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "701180991674253312")
 	private String id;
 	
 	/**
@@ -55,13 +56,13 @@ public class ProcessInstanceRemindReceiver extends Entity {
 	/**
 	 * 需要提醒的接收人ID：需要提醒的接收人ID
 	*/
-	@ApiModelProperty(required = false,value="需要提醒的接收人ID" , notes = "需要提醒的接收人ID")
+	@ApiModelProperty(required = false,value="需要提醒的接收人ID" , notes = "需要提醒的接收人ID" , example = "586966688780517376")
 	private String receiverId;
 	
 	/**
 	 * 接收人类型：接收人类型
 	*/
-	@ApiModelProperty(required = false,value="接收人类型" , notes = "接收人类型")
+	@ApiModelProperty(required = false,value="接收人类型" , notes = "接收人类型" , example = "employee")
 	private String receiverType;
 	@Transient
 	@EnumFor("receiverType")
@@ -70,19 +71,19 @@ public class ProcessInstanceRemindReceiver extends Entity {
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-04-19 09:22:56")
 	private Date createTime;
 	
 	/**
@@ -100,7 +101,7 @@ public class ProcessInstanceRemindReceiver extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
 	@EnumFor("deleted")
@@ -121,8 +122,26 @@ public class ProcessInstanceRemindReceiver extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
+	
+	/**
+	 * 关联员工：关联员工
+	*/
+	@ApiModelProperty(required = false,value="关联员工" , notes = "关联员工")
+	private Employee employee;
+	
+	/**
+	 * 关联代理人：关联代理人
+	*/
+	@ApiModelProperty(required = false,value="关联代理人" , notes = "关联代理人")
+	private Assignee asignee;
+	
+	/**
+	 * 名称：名称
+	*/
+	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	private String name;
 	
 	/**
 	 * 获得 主键<br>
@@ -435,6 +454,63 @@ public class ProcessInstanceRemindReceiver extends Entity {
 		this.version=version;
 		return this;
 	}
+	
+	/**
+	 * 获得 关联员工<br>
+	 * 关联员工
+	 * @return 关联员工
+	*/
+	public Employee getEmployee() {
+		return employee;
+	}
+	
+	/**
+	 * 设置 关联员工
+	 * @param employee 关联员工
+	 * @return 当前对象
+	*/
+	public ProcessInstanceRemindReceiver setEmployee(Employee employee) {
+		this.employee=employee;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联代理人<br>
+	 * 关联代理人
+	 * @return 关联代理人
+	*/
+	public Assignee getAsignee() {
+		return asignee;
+	}
+	
+	/**
+	 * 设置 关联代理人
+	 * @param asignee 关联代理人
+	 * @return 当前对象
+	*/
+	public ProcessInstanceRemindReceiver setAsignee(Assignee asignee) {
+		this.asignee=asignee;
+		return this;
+	}
+	
+	/**
+	 * 获得 名称<br>
+	 * 名称
+	 * @return 名称
+	*/
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * 设置 名称
+	 * @param name 名称
+	 * @return 当前对象
+	*/
+	public ProcessInstanceRemindReceiver setName(String name) {
+		this.name=name;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -493,6 +569,11 @@ public class ProcessInstanceRemindReceiver extends Entity {
 		inst.setTenantId(this.getTenantId());
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
+		if(all) {
+			inst.setName(this.getName());
+			inst.setEmployee(this.getEmployee());
+			inst.setAsignee(this.getAsignee());
+		}
 		inst.clearModifies();
 		return inst;
 	}
@@ -565,6 +646,9 @@ public class ProcessInstanceRemindReceiver extends Entity {
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverMeta.ID)));
 			// others
+			this.setName(DataParser.parse(String.class, map.get(ProcessInstanceRemindReceiverMeta.NAME)));
+			this.setEmployee(DataParser.parse(Employee.class, map.get(ProcessInstanceRemindReceiverMeta.EMPLOYEE)));
+			this.setAsignee(DataParser.parse(Assignee.class, map.get(ProcessInstanceRemindReceiverMeta.ASIGNEE)));
 			return true;
 		} else {
 			try {
@@ -582,6 +666,9 @@ public class ProcessInstanceRemindReceiver extends Entity {
 				this.setDeleteBy( (String)map.get(ProcessInstanceRemindReceiverMeta.DELETE_BY));
 				this.setId( (String)map.get(ProcessInstanceRemindReceiverMeta.ID));
 				// others
+				this.setName( (String)map.get(ProcessInstanceRemindReceiverMeta.NAME));
+				this.setEmployee( (Employee)map.get(ProcessInstanceRemindReceiverMeta.EMPLOYEE));
+				this.setAsignee( (Assignee)map.get(ProcessInstanceRemindReceiverMeta.ASIGNEE));
 				return true;
 			} catch (Exception e) {
 				return false;

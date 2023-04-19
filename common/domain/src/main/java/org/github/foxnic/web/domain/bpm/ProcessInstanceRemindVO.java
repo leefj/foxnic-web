@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒VO类型
  * <p>流程实例提醒 , 数据表 bpm_process_instance_remind 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 21:00:31
+ * @since 2023-04-20 05:33:06
  * @sign 59CE4356DAE7C66615715B0647A7EE65
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -427,11 +427,12 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 	public ProcessInstanceRemindVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindVOMeta.$$proxy$$();
 		inst.setProcessInstanceId(this.getProcessInstanceId());
-		inst.setRemindDate(this.getRemindDate());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
+		inst.setRemindTermUnit(this.getRemindTermUnit());
 		inst.setContent(this.getContent());
-		inst.setValid(this.getValid());
+		inst.setRemindTerm(this.getRemindTerm());
+		inst.setRemindTime(this.getRemindTime());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
 		inst.setCreateTime(this.getCreateTime());
@@ -442,6 +443,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		inst.setTargetNodeId(this.getTargetNodeId());
+		inst.setStatus(this.getStatus());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
 			inst.setRequestAction(this.getRequestAction());
@@ -518,11 +520,12 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		if(map==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID)));
-			this.setRemindDate(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REMIND_DATE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.VERSION)));
+			this.setRemindTermUnit(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.CONTENT)));
-			this.setValid(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.VALID)));
+			this.setRemindTerm(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TERM)));
+			this.setRemindTime(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.CREATE_TIME)));
@@ -533,6 +536,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.ID)));
 			this.setTargetNodeId(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.TARGET_NODE_ID)));
+			this.setStatus(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.STATUS)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.SEARCH_FIELD)));
 			this.setRequestAction(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REQUEST_ACTION)));
@@ -550,11 +554,12 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		} else {
 			try {
 				this.setProcessInstanceId( (String)map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID));
-				this.setRemindDate( (String)map.get(ProcessInstanceRemindVOMeta.REMIND_DATE));
 				this.setUpdateTime( (Date)map.get(ProcessInstanceRemindVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(ProcessInstanceRemindVOMeta.VERSION));
+				this.setRemindTermUnit( (String)map.get(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)map.get(ProcessInstanceRemindVOMeta.CONTENT));
-				this.setValid( (Integer)map.get(ProcessInstanceRemindVOMeta.VALID));
+				this.setRemindTerm( (Integer)map.get(ProcessInstanceRemindVOMeta.REMIND_TERM));
+				this.setRemindTime( (String)map.get(ProcessInstanceRemindVOMeta.REMIND_TIME));
 				this.setCreateBy( (String)map.get(ProcessInstanceRemindVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(ProcessInstanceRemindVOMeta.DELETED));
 				this.setCreateTime( (Date)map.get(ProcessInstanceRemindVOMeta.CREATE_TIME));
@@ -565,6 +570,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 				this.setDeleteBy( (String)map.get(ProcessInstanceRemindVOMeta.DELETE_BY));
 				this.setId( (String)map.get(ProcessInstanceRemindVOMeta.ID));
 				this.setTargetNodeId( (String)map.get(ProcessInstanceRemindVOMeta.TARGET_NODE_ID));
+				this.setStatus( (String)map.get(ProcessInstanceRemindVOMeta.STATUS));
 				// others
 				this.setSearchField( (String)map.get(ProcessInstanceRemindVOMeta.SEARCH_FIELD));
 				this.setRequestAction( (String)map.get(ProcessInstanceRemindVOMeta.REQUEST_ACTION));
@@ -595,11 +601,12 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		if(r==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID)));
-			this.setRemindDate(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_DATE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.VERSION)));
+			this.setRemindTermUnit(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.CONTENT)));
-			this.setValid(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.VALID)));
+			this.setRemindTerm(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM)));
+			this.setRemindTime(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.CREATE_TIME)));
@@ -610,15 +617,17 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.DELETE_BY)));
 			this.setId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.ID)));
 			this.setTargetNodeId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.TARGET_NODE_ID)));
+			this.setStatus(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.STATUS)));
 			return true;
 		} else {
 			try {
 				this.setProcessInstanceId( (String)r.getValue(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID));
-				this.setRemindDate( (String)r.getValue(ProcessInstanceRemindVOMeta.REMIND_DATE));
 				this.setUpdateTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(ProcessInstanceRemindVOMeta.VERSION));
+				this.setRemindTermUnit( (String)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)r.getValue(ProcessInstanceRemindVOMeta.CONTENT));
-				this.setValid( (Integer)r.getValue(ProcessInstanceRemindVOMeta.VALID));
+				this.setRemindTerm( (Integer)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM));
+				this.setRemindTime( (String)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME));
 				this.setCreateBy( (String)r.getValue(ProcessInstanceRemindVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(ProcessInstanceRemindVOMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.CREATE_TIME));
@@ -629,6 +638,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 				this.setDeleteBy( (String)r.getValue(ProcessInstanceRemindVOMeta.DELETE_BY));
 				this.setId( (String)r.getValue(ProcessInstanceRemindVOMeta.ID));
 				this.setTargetNodeId( (String)r.getValue(ProcessInstanceRemindVOMeta.TARGET_NODE_ID));
+				this.setStatus( (String)r.getValue(ProcessInstanceRemindVOMeta.STATUS));
 				return true;
 			} catch (Exception e) {
 				return false;

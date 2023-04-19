@@ -11,6 +11,7 @@ import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.User;
 
 import java.util.ArrayList;
@@ -42,6 +43,11 @@ public class BpmRelationManager extends RelationManager {
 		// 关联监控节点
 		this.property(ProcessInstanceRemindMeta.TARGET_NODE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID);
+
+		// 接收人管理岗位
+		this.property(ProcessInstanceRemindReceiverMeta.EMPLOYEE_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND_RECEIVER.RECEIVER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
+
 	}
 
 	private void setupBpmCatalog() {

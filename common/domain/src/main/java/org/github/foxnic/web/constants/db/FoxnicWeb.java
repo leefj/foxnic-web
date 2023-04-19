@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-19 20:26:14
+ * @since 2023-04-20 04:11:36
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1326,9 +1326,9 @@ public class FoxnicWeb {
 		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
 		
 		/**
-		 * 提醒的目标节点ID
+		 * 监控的目标节点ID
 		*/
-		public static final DBField TARGET_NODE_ID = new DBField(DBDataType.STRING , "target_node_id","targetNodeId","提醒的目标节点ID","提醒的目标节点ID",false,false,true);
+		public static final DBField TARGET_NODE_ID = new DBField(DBDataType.STRING , "target_node_id","targetNodeId","监控的目标节点ID","监控的目标节点ID",false,false,true);
 		
 		/**
 		 * 设置提醒的节点ID
@@ -1341,9 +1341,9 @@ public class FoxnicWeb {
 		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","提醒内容","提醒内容",false,false,true);
 		
 		/**
-		 * 提醒日期
+		 * 提醒时间
 		*/
-		public static final DBField REMIND_DATE = new DBField(DBDataType.STRING , "remind_date","remindDate","提醒日期","提醒日期",false,false,true);
+		public static final DBField REMIND_TIME = new DBField(DBDataType.STRING , "remind_time","remindTime","提醒时间","提醒时间",false,false,true);
 		
 		/**
 		 * 租户ID
@@ -1391,12 +1391,22 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		/**
-		 * 是否生效
+		 * 状态
 		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,true);
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 提醒时长
+		*/
+		public static final DBField REMIND_TERM = new DBField(DBDataType.INTEGER , "remind_term","remindTerm","提醒时长","提醒时长",false,false,true);
+		
+		/**
+		 * 提醒时长单位
+		*/
+		public static final DBField REMIND_TERM_UNIT = new DBField(DBDataType.STRING , "remind_term_unit","remindTermUnit","提醒时长单位","提醒时长单位",false,false,true);
 		
 		public BPM_PROCESS_INSTANCE_REMIND() {
-			this.init($NAME,"流程实例提醒" , ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_DATE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
+			this.init($NAME,"流程实例提醒" , ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_TIME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , REMIND_TERM , REMIND_TERM_UNIT);
 		}
 		public static final BPM_PROCESS_INSTANCE_REMIND $TABLE=new BPM_PROCESS_INSTANCE_REMIND();
 	}
