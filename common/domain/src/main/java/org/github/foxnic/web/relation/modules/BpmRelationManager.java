@@ -6,6 +6,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import org.github.foxnic.web.domain.bpm.ProcessInstanceRemind;
 import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import org.github.foxnic.web.domain.bpm.meta.*;
@@ -29,6 +30,18 @@ public class BpmRelationManager extends RelationManager {
 		setupBpmCatalog();
 		//
 		setupChanges();
+
+		setupBpmRemind();
+	}
+
+	private void setupBpmRemind() {
+		// 关联接收人清单
+		this.property(ProcessInstanceRemindMeta.RECEIVERS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.ID).join(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND_RECEIVER.REMIND_ID);
+
+		// 关联监控节点
+		this.property(ProcessInstanceRemindMeta.TARGET_NODE_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID);
 	}
 
 	private void setupBpmCatalog() {

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-18 09:01:34
+ * @since 2023-04-19 20:26:14
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -454,7 +454,7 @@ public class FoxnicWeb {
 		/**
 		 * 业务单据号
 		*/
-		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","业务单据号","业务单据号",false,false,true);
+		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","业务单据号","业务单据号",false,false,false);
 		
 		/**
 		 * 创建人ID
@@ -1303,6 +1303,183 @@ public class FoxnicWeb {
 			this.init($NAME,"流程实例表" , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME);
 		}
 		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
+	}
+	
+	/**
+	 * 流程实例提醒
+	*/
+	public static class BPM_PROCESS_INSTANCE_REMIND extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_process_instance_remind";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 流程实例ID
+		*/
+		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
+		
+		/**
+		 * 提醒的目标节点ID
+		*/
+		public static final DBField TARGET_NODE_ID = new DBField(DBDataType.STRING , "target_node_id","targetNodeId","提醒的目标节点ID","提醒的目标节点ID",false,false,true);
+		
+		/**
+		 * 设置提醒的节点ID
+		*/
+		public static final DBField SOURCE_NODE_ID = new DBField(DBDataType.STRING , "source_node_id","sourceNodeId","设置提醒的节点ID","设置提醒的节点ID",false,false,true);
+		
+		/**
+		 * 提醒内容
+		*/
+		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","提醒内容","提醒内容",false,false,true);
+		
+		/**
+		 * 提醒日期
+		*/
+		public static final DBField REMIND_DATE = new DBField(DBDataType.STRING , "remind_date","remindDate","提醒日期","提醒日期",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 是否生效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,true);
+		
+		public BPM_PROCESS_INSTANCE_REMIND() {
+			this.init($NAME,"流程实例提醒" , ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_DATE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
+		}
+		public static final BPM_PROCESS_INSTANCE_REMIND $TABLE=new BPM_PROCESS_INSTANCE_REMIND();
+	}
+	
+	/**
+	 * 流程实例提醒人员
+	*/
+	public static class BPM_PROCESS_INSTANCE_REMIND_RECEIVER extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_process_instance_remind_receiver";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 流程实例ID
+		*/
+		public static final DBField REMIND_ID = new DBField(DBDataType.STRING , "remind_id","remindId","流程实例ID","流程实例ID",false,false,true);
+		
+		/**
+		 * 需要提醒的接收人ID
+		*/
+		public static final DBField RECEIVER_ID = new DBField(DBDataType.STRING , "receiver_id","receiverId","需要提醒的接收人ID","需要提醒的接收人ID",false,false,true);
+		
+		/**
+		 * 接收人类型
+		*/
+		public static final DBField RECEIVER_TYPE = new DBField(DBDataType.STRING , "receiver_type","receiverType","接收人类型","接收人类型",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public BPM_PROCESS_INSTANCE_REMIND_RECEIVER() {
+			this.init($NAME,"流程实例提醒人员" , ID , REMIND_ID , RECEIVER_ID , RECEIVER_TYPE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final BPM_PROCESS_INSTANCE_REMIND_RECEIVER $TABLE=new BPM_PROCESS_INSTANCE_REMIND_RECEIVER();
 	}
 	
 	/**

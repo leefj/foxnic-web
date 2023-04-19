@@ -30,7 +30,7 @@ public class ProcessDelegate {
     public static ProcessDelegate createFromExistsProcess(String processInstanceId, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
         try {
-            delegate.user = getUserByAccount(account);
+            delegate.user = BpmAssistant.getUserByAccount(account);
             Result<ProcessInstance> result = BpmAssistant.getProcessInstanceById(processInstanceId, delegate.user);
             if (result.success()) {
                 delegate.processInstance = result.data();
@@ -45,26 +45,19 @@ public class ProcessDelegate {
 
     public static ProcessDelegate createFromExistsProcess(ProcessInstance processInstance, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
-        delegate.user = getUserByAccount(account);
+        delegate.user = BpmAssistant.getUserByAccount(account);
         delegate.processInstance = processInstance;
         return delegate;
     }
 
-    public static User getUserByAccount(String account) {
-        Result<User> userResult = UserServiceProxy.api().getByAccount(account);
-        if (userResult.failure() || userResult.data() == null) {
-            throw new RuntimeException("账户不存在");
-        }
-        User user = userResult.data();
-        return user;
-    }
+
 
     /**
      * 创建一个 ProcessDelegate 用于发起新流程
      */
     public static ProcessDelegate createFromProcessDefinition(String processDefinitionCode, String account) {
         ProcessDelegate delegate = new ProcessDelegate();
-        delegate.user = getUserByAccount(account);
+        delegate.user = BpmAssistant.getUserByAccount(account);
         ProcessDefinition processDefinition = BpmAssistant.getProcessDefinitionByCode(processDefinitionCode,delegate.user);
         if(processDefinition==null) {
             throw new RuntimeException("缺少流程定义");
@@ -79,7 +72,7 @@ public class ProcessDelegate {
     public static ProcessDelegate createFromExistsBill(String formDefinitionCode, String billId, String account) {
         ProcessDelegate proxy = new ProcessDelegate();
         try {
-            proxy.user = getUserByAccount(account);
+            proxy.user = BpmAssistant.getUserByAccount(account);
             Result<List<ProcessInstance>> result = BpmAssistant.getProcessInstanceByBill(formDefinitionCode, Arrays.asList(billId));
             if (result.success()) {
                 List<ProcessInstance> list = result.getData();

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
@@ -80,6 +81,11 @@ public interface ProcessDefinitionNodeServiceProxy {
     public static final String QUERY_LIST = API_PREFIX + "query-list";
 
     /**
+     * 查询流程定义节点
+     */
+    public static final String QUERY_LIST_BY_PROCESS_INSTANCE_ID = API_PREFIX + "query-list-by-process-instance-id";
+
+    /**
      * 分页查询流程定义节点
      */
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
@@ -132,6 +138,8 @@ public interface ProcessDefinitionNodeServiceProxy {
     @RequestMapping(ProcessDefinitionNodeServiceProxy.QUERY_LIST)
     Result<List<ProcessDefinitionNode>> queryList(@RequestParam(name = "sample") ProcessDefinitionNodeVO sample);
 
+    @RequestMapping(ProcessDefinitionNodeServiceProxy.QUERY_LIST_BY_PROCESS_INSTANCE_ID)
+    public Result<List<ProcessDefinitionNode>> queryListByProcessInstanceId(@RequestParam(name = "processInstanceId") String processInstanceId);
     /**
      * 分页查询流程定义节点
      */

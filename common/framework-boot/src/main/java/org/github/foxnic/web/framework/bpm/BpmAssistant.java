@@ -16,6 +16,7 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.Method;
@@ -69,6 +70,15 @@ public class BpmAssistant {
                 ProxyContext.initCallee(token);
             }
         }
+    }
+
+    public static User getUserByAccount(String account) {
+        Result<User> userResult = UserServiceProxy.api().getByAccount(account);
+        if (userResult.failure() || userResult.data() == null) {
+            throw new RuntimeException("账户不存在");
+        }
+        User user = userResult.data();
+        return user;
     }
 
     public static Result<ProcessInstance> temporarySave(ProcessInstanceVO processInstanceVO,User user) {

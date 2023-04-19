@@ -13,12 +13,14 @@ import com.github.foxnic.sql.meta.DBType;
 import org.github.foxnic.web.bpm.page.CatalogPageController;
 import org.github.foxnic.web.bpm.page.DemoBusinessCasePageController;
 import org.github.foxnic.web.bpm.page.DemoLeavePageController;
+import org.github.foxnic.web.bpm.page.ProcessInstanceRemindPageController;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.docs.page.ApiSourcePageController;
 import org.github.foxnic.web.domain.bpm.DemoBusinessCase;
 
+import org.github.foxnic.web.domain.bpm.ProcessInstanceRemind;
 import org.github.foxnic.web.domain.notify.SmsLog;
 import org.github.foxnic.web.domain.notify.SmsTemplate;
 import org.github.foxnic.web.domain.oauth.*;
@@ -30,6 +32,7 @@ import org.github.foxnic.web.oauth.page.MenuForkPageController;
 import org.github.foxnic.web.proxy.bpm.CatalogServiceProxy;
 import org.github.foxnic.web.proxy.bpm.DemoBusinessCaseServiceProxy;
 import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
+import org.github.foxnic.web.proxy.bpm.ProcessInstanceRemindServiceProxy;
 import org.github.foxnic.web.proxy.docs.ApiSourceServiceProxy;
 
 import org.github.foxnic.web.proxy.notify.SmsLogServiceProxy;
@@ -117,8 +120,8 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.SYS_SMS_LOG.$TABLE, SmsLogServiceProxy.class, SmsLogPageController.class);
 //		mg.generate("686529995333435392");
 
-		mg=new MenuGenerator(FoxnicWeb.BPM_CATALOG.$TABLE, CatalogServiceProxy.class, CatalogPageController.class);
-		mg.generate("578497780117409792");
+		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.$TABLE, ProcessInstanceRemindServiceProxy.class, ProcessInstanceRemindPageController.class);
+		mg.generate("684488747294654464");
 
 //		mg.removeByBatchId("680087823839133696");
 //		mg = new MenuGenerator(FoxnicWeb.BPM_DEMO_COMMON.$TABLE, DemoCommonServiceProxy.class, DemoCommonPageController.class);
