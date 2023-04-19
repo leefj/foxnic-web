@@ -213,7 +213,11 @@ public class ProcessDelegate {
         processInstanceVO.setDrafterId(assignee.getId());
         processInstanceVO.setPriority(priority.code());
         processInstanceVO.setBillIds(this.billIds);
-        return temporarySave(processInstanceVO);
+        Result<ProcessInstance> result=temporarySave(processInstanceVO);
+        if(result.success()) {
+               this.processInstance=result.data();
+        }
+        return result;
     }
 
     /**
@@ -261,9 +265,6 @@ public class ProcessDelegate {
             throw new RuntimeException("当前流程实例已经启动，不允许再次启动流程");
         }
         ProcessStartVO processStartVO = new ProcessStartVO();
-//        processStartVO.setDrafterUserId(this.user.getId());
-//        processStartVO.setDrafterId(this.user.getId());
-//        processStartVO.setDrafterType(UnifiedUserType.user.code());
         processStartVO.setProcessInstanceId(this.processInstance.getId());
         return BpmAssistant.startProcessInstance(processStartVO,user);
     }

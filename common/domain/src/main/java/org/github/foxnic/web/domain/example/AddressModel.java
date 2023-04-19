@@ -2,7 +2,6 @@ package org.github.foxnic.web.domain.example;
 
 import com.github.foxnic.dao.entity.Entity;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,7 +15,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * AddressModel 模型
  * <p>用于 AddressModel 的保存</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 13:32:54
+ * @since 2023-04-19 10:15:24
  * @sign A19FA58A64BD91EFF8DF7F6A1D2FD250
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -29,49 +28,41 @@ public class AddressModel extends Entity {
 	/**
 	 * 主键：主键
 	*/
-	@ApiModelProperty(required = false,value="主键" , notes = "主键")
 	private String id;
 	
 	/**
 	 * 收件人姓名：收件人姓名
 	*/
-	@ApiModelProperty(required = false,value="收件人姓名" , notes = "收件人姓名")
 	private String name;
 	
 	/**
 	 * 收件人手机：收件人手机
 	*/
-	@ApiModelProperty(required = false,value="收件人手机" , notes = "收件人手机")
 	private String phoneNumber;
 	
 	/**
 	 * 收件地址：收件地址
 	*/
-	@ApiModelProperty(required = false,value="收件地址" , notes = "收件地址")
 	private String address;
 	
 	/**
 	 * 类型：类型，A:国内；B:国外
 	*/
-	@ApiModelProperty(required = false,value="类型" , notes = "类型，A:国内；B:国外")
 	private String regionType;
 	
 	/**
 	 * 地区位置：地区位置，东北、华北等
 	*/
-	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
 	private String regionLocation;
 	
 	/**
 	 * 其它：其它
 	*/
-	@ApiModelProperty(required = false,value="其它" , notes = "其它")
 	private String other;
 	
 	/**
 	 * 引用2：引用2
 	*/
-	@ApiModelProperty(required = false,value="引用2" , notes = "引用2")
 	private Address addressX;
 	
 	/**

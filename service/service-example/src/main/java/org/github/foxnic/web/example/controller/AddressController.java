@@ -1,50 +1,61 @@
 package org.github.foxnic.web.example.controller;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.swagger.ApiParamSupport;
-import com.github.foxnic.api.swagger.InDoc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.collection.CollectorUtil;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ReferCause;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.example.*;
-import org.github.foxnic.web.domain.example.meta.AddressVOMeta;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.example.service.IAddressService;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import java.util.*;
 import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.example.AddressServiceProxy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.api.swagger.InDoc;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import com.github.foxnic.api.swagger.ApiParamSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+
+
+import org.github.foxnic.web.proxy.example.AddressServiceProxy;
+import org.github.foxnic.web.domain.example.meta.AddressVOMeta;
+import org.github.foxnic.web.domain.example.Address;
+import org.github.foxnic.web.domain.example.AddressVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.example.meta.AddressMeta;
+import java.util.List;
+import org.github.foxnic.web.domain.example.AddressModel;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.example.service.IAddressService;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.example.AddressSubModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.github.foxnic.web.domain.example.AddressPureModel;
+import org.github.foxnic.web.domain.oauth.User;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * <p>
  * 订单地址接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 13:32:56
+ * @since 2023-04-19 10:15:26
 */
 
 @InDoc
@@ -54,7 +65,6 @@ public class AddressController extends SuperController {
 
 	@Autowired
 	private IAddressService addressService;
-
 
 	/**
 	 * 添加订单地址
@@ -73,6 +83,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.INSERT)
 	public Result insert(AddressVO addressVO) {
+		
 		Result result=addressService.insert(addressVO,false);
 		return result;
 	}
@@ -90,6 +101,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE)
 	public Result deleteById(String id) {
+		
 		this.validator().asserts(id).require("缺少id值");
 		if(this.validator().failure()) {
 			return this.validator().getFirstResult();
@@ -114,11 +126,11 @@ public class AddressController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+	@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 	@SentinelResource(value = AddressServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-
+		
 		// 参数校验
 		this.validator().asserts(ids).require("缺少ids参数");
 		if(this.validator().failure()) {
@@ -174,10 +186,11 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
-	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , author="李方捷 , leefangjie@qq.com" ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.DATA_ORIGIN , AddressVOMeta.QUERY_LOGIC , AddressVOMeta.REQUEST_ACTION , AddressVOMeta.IDS } )
 	@SentinelResource(value = AddressServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.UPDATE)
 	public Result update(AddressVO addressVO) {
+		
 		Result result=addressService.update(addressVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
@@ -196,10 +209,11 @@ public class AddressController extends SuperController {
 		@ApiImplicitParam(name = AddressVOMeta.REGION_LOCATION , value = "地区位置" , required = false , dataTypeClass=String.class),
 	})
 	@ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true)
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { AddressVOMeta.PAGE_INDEX , AddressVOMeta.PAGE_SIZE , AddressVOMeta.SEARCH_FIELD , AddressVOMeta.FUZZY_FIELD , AddressVOMeta.SEARCH_VALUE , AddressVOMeta.DIRTY_FIELDS , AddressVOMeta.SORT_FIELD , AddressVOMeta.SORT_TYPE , AddressVOMeta.DATA_ORIGIN , AddressVOMeta.QUERY_LOGIC , AddressVOMeta.REQUEST_ACTION , AddressVOMeta.IDS } )
 	@SentinelResource(value = AddressServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.SAVE)
 	public Result save(AddressVO addressVO) {
+		
 		Result result=addressService.save(addressVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
@@ -216,6 +230,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_ID)
 	public Result<Address> getById(String id) {
+		
 		Result<Address> result=new Result<>();
 		Address address=addressService.getById(id);
 		result.success(true).data(address);
@@ -231,10 +246,11 @@ public class AddressController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = AddressVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com")
+		@ApiOperationSupport(order=3 , author="李方捷 , leefangjie@qq.com") 
 		@SentinelResource(value = AddressServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.GET_BY_IDS)
 	public Result<List<Address>> getByIds(List<String> ids) {
+		
 		Result<List<Address>> result=new Result<>();
 		List<Address> list=addressService.queryListByIds(ids);
 		result.success(true).data(list);
@@ -258,6 +274,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.QUERY_LIST)
 	public Result<List<Address>> queryList(AddressVO sample) {
+		
 		Result<List<Address>> result=new Result<>();
 		List<Address> list=addressService.queryList(sample);
 		result.success(true).data(list);
@@ -281,6 +298,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Address>> queryPagedList(AddressVO sample) {
+		
 		Result<PagedList<Address>> result=new Result<>();
 		PagedList<Address> list=addressService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		result.success(true).data(list);
@@ -296,10 +314,10 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(AddressServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(AddressVO  sample,HttpServletResponse response) throws Exception {
+		
 		try{
 			//生成 Excel 数据
 			ExcelWriter ew=addressService.exportExcel(sample);
-			Thread.sleep(3000);
 			//下载
 			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
 		} catch (Exception e) {
@@ -313,6 +331,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(AddressServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		
 		try{
 			//生成 Excel 模版
 			ExcelWriter ew=addressService.exportExcelTemplate();
@@ -326,7 +345,7 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		
 		//获得上传的文件
 		Map<String, MultipartFile> map = request.getFileMap();
 		InputStream input=null;
@@ -368,7 +387,6 @@ public class AddressController extends SuperController {
 		// TODO 实现 方法描述 逻辑
 		return result;
 	}
-
 	/**
 	  * Post-示例
 	  * <p>方法描述</p>
@@ -391,6 +409,4 @@ public class AddressController extends SuperController {
 		// TODO 实现 方法描述 逻辑
 		return result;
 	}
-
-
 }

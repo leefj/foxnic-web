@@ -5,6 +5,7 @@ import org.github.foxnic.web.domain.example.AddressVO;
 import java.util.List;
 import org.github.foxnic.web.domain.example.Address;
 import java.util.Date;
+import java.util.Map;
 import org.github.foxnic.web.domain.example.AddressModel;
 import javax.persistence.Transient;
 
@@ -12,8 +13,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 13:32:54
- * @sign 2B4438D4C1A72FC9F2BCCD10904593CB
+ * @since 2023-04-19 10:15:24
+ * @sign 8C3BA2859EDCA8E4512300896FCF604B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,6 +99,36 @@ public class AddressVOMeta extends AddressMeta {
 	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String DATA_ORIGIN="dataOrigin";
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端可按来源执行不同的逻辑", java.lang.String.class, null);
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final String QUERY_LOGIC="queryLogic";
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> QUERY_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,QUERY_LOGIC, java.lang.String.class, "查询逻辑", "默认and，可指定 or ", java.lang.String.class, null);
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String REQUEST_ACTION="requestAction";
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.String> REQUEST_ACTION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,REQUEST_ACTION, java.lang.String.class, "请求动作", "前端指定不同的Action，后端可Action执行不同的逻辑", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -250,6 +281,26 @@ public class AddressVOMeta extends AddressMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,VERSION, java.lang.Integer.class, "版本", "版本", java.lang.Integer.class, null);
 	
 	/**
+	 * 订单明细商品 , 集合类型: LIST , 类型: java.util.List
+	*/
+	public static final String MY_LIST="myList";
+	
+	/**
+	 * 订单明细商品 , 集合类型: LIST , 类型: java.util.List
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.util.List> MY_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,MY_LIST, java.util.List.class, "订单明细商品", "订单明细商品", java.util.List.class, null);
+	
+	/**
+	 * 订单明细商品 , 集合类型: MAP , 类型: java.util.List
+	*/
+	public static final String MY_MAP="myMap";
+	
+	/**
+	 * 订单明细商品 , 集合类型: MAP , 类型: java.util.List
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressVO,java.util.List> MY_MAP_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressVO.class ,MY_MAP, java.util.Map.class, "订单明细商品", "订单明细商品", java.util.List.class, java.lang.String.class);
+	
+	/**
 	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
 	*/
 	public static final String MODEL="model";
@@ -262,7 +313,7 @@ public class AddressVOMeta extends AddressMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODEL };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MY_LIST , MY_MAP , MODEL };
 	
 	/**
 	 * 代理类
@@ -357,6 +408,39 @@ public class AddressVOMeta extends AddressMeta {
 		public AddressVO setSortType(String sortType) {
 			super.change(SORT_TYPE,super.getSortType(),sortType);
 			super.setSortType(sortType);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据来源
+		 * @param dataOrigin 数据来源
+		 * @return 当前对象
+		*/
+		public AddressVO setDataOrigin(String dataOrigin) {
+			super.change(DATA_ORIGIN,super.getDataOrigin(),dataOrigin);
+			super.setDataOrigin(dataOrigin);
+			return this;
+		}
+		
+		/**
+		 * 设置 查询逻辑
+		 * @param queryLogic 查询逻辑
+		 * @return 当前对象
+		*/
+		public AddressVO setQueryLogic(String queryLogic) {
+			super.change(QUERY_LOGIC,super.getQueryLogic(),queryLogic);
+			super.setQueryLogic(queryLogic);
+			return this;
+		}
+		
+		/**
+		 * 设置 请求动作
+		 * @param requestAction 请求动作
+		 * @return 当前对象
+		*/
+		public AddressVO setRequestAction(String requestAction) {
+			super.change(REQUEST_ACTION,super.getRequestAction(),requestAction);
+			super.setRequestAction(requestAction);
 			return this;
 		}
 		
@@ -526,6 +610,28 @@ public class AddressVOMeta extends AddressMeta {
 		}
 		
 		/**
+		 * 设置 订单明细商品
+		 * @param myList 订单明细商品
+		 * @return 当前对象
+		*/
+		public Address setMyList(List<List<java.lang.String>> myList) {
+			super.change(MY_LIST,super.getMyList(),myList);
+			super.setMyList(myList);
+			return this;
+		}
+		
+		/**
+		 * 设置 订单明细商品
+		 * @param myMap 订单明细商品
+		 * @return 当前对象
+		*/
+		public Address setMyMap(Map<String,List<org.github.foxnic.web.domain.oauth.User>> myMap) {
+			super.change(MY_MAP,super.getMyMap(),myMap);
+			super.setMyMap(myMap);
+			return this;
+		}
+		
+		/**
 		 * 设置 引用1
 		 * @param model 引用1
 		 * @return 当前对象
@@ -567,13 +673,18 @@ public class AddressVOMeta extends AddressMeta {
 			inst.setId(this.getId());
 			if(all) {
 				inst.setSearchField(this.getSearchField());
+				inst.setRequestAction(this.getRequestAction());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setMyList(this.getMyList());
+				inst.setMyMap(this.getMyMap());
+				inst.setPageSize(this.getPageSize());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
-				inst.setFuzzyField(this.getFuzzyField());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
-				inst.setPageSize(this.getPageSize());
+				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
+				inst.setQueryLogic(this.getQueryLogic());
 				inst.setModel(this.getModel());
 				inst.setSearchValue(this.getSearchValue());
 			}

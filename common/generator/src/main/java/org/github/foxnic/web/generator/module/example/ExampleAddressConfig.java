@@ -6,6 +6,7 @@ import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
+import com.github.foxnic.generator.builder.model.PojoProperty;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
@@ -14,6 +15,8 @@ import org.github.foxnic.web.domain.example.*;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 
 public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
@@ -25,6 +28,12 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	 * */
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
+
+		PojoProperty p=poType.addListProperty(List.class,"myList","订单明细商品","订单明细商品");
+		p.setValueGenericTypes(String.class);
+
+		p=poType.addMapProperty(String.class,List.class,"myMap","订单明细商品","订单明细商品");
+		p.setValueGenericTypes(User.class);
 
 //		poType.addListProperty(Goods.class,"goodsList","订单明细商品","订单明细商品");
 //		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");

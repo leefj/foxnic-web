@@ -3,6 +3,8 @@ package org.github.foxnic.web.domain.example.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.example.Address;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import org.github.foxnic.web.domain.example.AddressModel;
 import javax.persistence.Transient;
 
@@ -10,8 +12,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 13:32:54
- * @sign DC13DD184293CCD592CFDAA93BF3DAC3
+ * @since 2023-04-19 10:15:17
+ * @sign 18502B51F2F1F5EB6E3659A268A61185
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -158,6 +160,26 @@ public class AddressMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.example.Address,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.Address.class ,VERSION, java.lang.Integer.class, "版本", "版本", java.lang.Integer.class, null);
 	
 	/**
+	 * 订单明细商品 , 集合类型: LIST , 类型: java.util.List
+	*/
+	public static final String MY_LIST="myList";
+	
+	/**
+	 * 订单明细商品 , 集合类型: LIST , 类型: java.util.List
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.Address,java.util.List> MY_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.example.Address.class ,MY_LIST, java.util.List.class, "订单明细商品", "订单明细商品", java.util.List.class, null);
+	
+	/**
+	 * 订单明细商品 , 集合类型: MAP , 类型: java.util.List
+	*/
+	public static final String MY_MAP="myMap";
+	
+	/**
+	 * 订单明细商品 , 集合类型: MAP , 类型: java.util.List
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.Address,java.util.List> MY_MAP_PROP = new BeanProperty(org.github.foxnic.web.domain.example.Address.class ,MY_MAP, java.util.Map.class, "订单明细商品", "订单明细商品", java.util.List.class, java.lang.String.class);
+	
+	/**
 	 * 引用1 , 类型: org.github.foxnic.web.domain.example.AddressModel
 	*/
 	public static final String MODEL="model";
@@ -170,7 +192,7 @@ public class AddressMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODEL };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MY_LIST , MY_MAP , MODEL };
 	
 	/**
 	 * 代理类
@@ -335,6 +357,28 @@ public class AddressMeta {
 		}
 		
 		/**
+		 * 设置 订单明细商品
+		 * @param myList 订单明细商品
+		 * @return 当前对象
+		*/
+		public Address setMyList(List<List<java.lang.String>> myList) {
+			super.change(MY_LIST,super.getMyList(),myList);
+			super.setMyList(myList);
+			return this;
+		}
+		
+		/**
+		 * 设置 订单明细商品
+		 * @param myMap 订单明细商品
+		 * @return 当前对象
+		*/
+		public Address setMyMap(Map<String,List<org.github.foxnic.web.domain.oauth.User>> myMap) {
+			super.change(MY_MAP,super.getMyMap(),myMap);
+			super.setMyMap(myMap);
+			return this;
+		}
+		
+		/**
 		 * 设置 引用1
 		 * @param model 引用1
 		 * @return 当前对象
@@ -375,6 +419,8 @@ public class AddressMeta {
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setId(this.getId());
 			if(all) {
+				inst.setMyList(this.getMyList());
+				inst.setMyMap(this.getMyMap());
 				inst.setModel(this.getModel());
 			}
 			inst.clearModifies();

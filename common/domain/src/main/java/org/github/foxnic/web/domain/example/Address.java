@@ -10,9 +10,13 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
 import com.github.foxnic.api.swagger.EnumFor;
+import java.util.List;
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import com.github.foxnic.dao.entity.EntityContext;
 import org.github.foxnic.web.domain.example.meta.AddressMeta;
 import com.github.foxnic.sql.data.ExprRcd;
@@ -23,8 +27,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 订单地址
  * <p>订单地址 , 数据表 example_address 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-11-29 13:32:54
- * @sign DC13DD184293CCD592CFDAA93BF3DAC3
+ * @since 2023-04-19 10:15:17
+ * @sign 18502B51F2F1F5EB6E3659A268A61185
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -123,6 +127,18 @@ public class Address extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="版本" , notes = "版本" , example = "2")
 	private Integer version;
+	
+	/**
+	 * 订单明细商品：订单明细商品
+	*/
+	@ApiModelProperty(required = false,value="订单明细商品" , notes = "订单明细商品")
+	private List<List<java.lang.String>> myList;
+	
+	/**
+	 * 订单明细商品：订单明细商品
+	*/
+	@ApiModelProperty(required = false,value="订单明细商品" , notes = "订单明细商品")
+	private Map<String,List<org.github.foxnic.web.domain.oauth.User>> myMap;
 	
 	/**
 	 * 引用1：引用1
@@ -428,6 +444,67 @@ public class Address extends Entity {
 	}
 	
 	/**
+	 * 获得 订单明细商品<br>
+	 * 订单明细商品
+	 * @return 订单明细商品
+	*/
+	public List<List<java.lang.String>> getMyList() {
+		return myList;
+	}
+	
+	/**
+	 * 设置 订单明细商品
+	 * @param myList 订单明细商品
+	 * @return 当前对象
+	*/
+	public Address setMyList(List<List<java.lang.String>> myList) {
+		this.myList=myList;
+		return this;
+	}
+	
+	/**
+	 * 添加 订单明细商品
+	 * @param my 订单明细商品
+	 * @return 当前对象
+	*/
+	public Address addMy(List<java.lang.String>... my) {
+		if(this.myList==null) myList=new ArrayList<>();
+		this.myList.addAll(Arrays.asList(my));
+		return this;
+	}
+	
+	/**
+	 * 获得 订单明细商品<br>
+	 * 订单明细商品
+	 * @return 订单明细商品
+	*/
+	public Map<String,List<org.github.foxnic.web.domain.oauth.User>> getMyMap() {
+		return myMap;
+	}
+	
+	/**
+	 * 设置 订单明细商品
+	 * @param myMap 订单明细商品
+	 * @return 当前对象
+	*/
+	public Address setMyMap(Map<String,List<org.github.foxnic.web.domain.oauth.User>> myMap) {
+		this.myMap=myMap;
+		return this;
+	}
+	
+	/**
+	 * 添加 订单明细商品
+	 * @param key 键
+	 * @param my 订单明细商品
+	 * @return 当前对象
+	*/
+	public Address putMy(String key,List<org.github.foxnic.web.domain.oauth.User> my) {
+		if(this.myMap==null) this.myMap=new HashMap<>();
+		this.myMap.put(key ,my);
+		return this;
+	}
+	
+	/**
 	 * 获得 引用1<br>
 	 * 引用1
 	 * @return 引用1
@@ -505,6 +582,8 @@ public class Address extends Entity {
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setId(this.getId());
 		if(all) {
+			inst.setMyList(this.getMyList());
+			inst.setMyMap(this.getMyMap());
 			inst.setModel(this.getModel());
 		}
 		inst.clearModifies();
