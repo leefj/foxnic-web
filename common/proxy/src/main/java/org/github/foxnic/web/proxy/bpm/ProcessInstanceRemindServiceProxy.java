@@ -1,5 +1,6 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
@@ -19,7 +20,8 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程实例提醒 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-20 05:33:06
+ * @since 2023-04-20 09:58:19
+ * @version
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessInstanceRemindServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessInstanceRemindServiceProxy {
@@ -84,6 +86,10 @@ public interface ProcessInstanceRemindServiceProxy {
      */
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
+    public static final String PROCESS_NODE_START = API_PREFIX + "process-node-start";
+
+    public static final String PROCESS_NODE_END = API_PREFIX + "process-node-end";
+
     /**
      * 添加流程实例提醒
      */
@@ -137,6 +143,12 @@ public interface ProcessInstanceRemindServiceProxy {
      */
     @RequestMapping(ProcessInstanceRemindServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<ProcessInstanceRemind>> queryPagedList(@RequestParam(name = "sample") ProcessInstanceRemindVO sample);
+
+    @RequestMapping(ProcessInstanceRemindServiceProxy.PROCESS_NODE_START)
+    Result processNodeStart(@RequestParam(name = "processInstanceId") String processInstanceId, @RequestParam(name = "targetNodeId") String targetNodeId);
+
+    @RequestMapping(ProcessInstanceRemindServiceProxy.PROCESS_NODE_END)
+    Result processNodeEnd(@RequestParam(name = "processInstanceId") String processInstanceId, @RequestParam(name = "targetNodeId") String targetNodeId);
 
     /**
      * 控制器类名

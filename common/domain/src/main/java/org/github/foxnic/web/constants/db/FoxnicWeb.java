@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-20 04:11:36
+ * @since 2023-04-20 09:57:54
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1343,7 +1343,7 @@ public class FoxnicWeb {
 		/**
 		 * 提醒时间
 		*/
-		public static final DBField REMIND_TIME = new DBField(DBDataType.STRING , "remind_time","remindTime","提醒时间","提醒时间",false,false,true);
+		public static final DBField REMIND_TIME = new DBField(DBDataType.DATE , "remind_time","remindTime","提醒时间","提醒时间",false,false,true);
 		
 		/**
 		 * 租户ID
@@ -1405,8 +1405,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField REMIND_TERM_UNIT = new DBField(DBDataType.STRING , "remind_term_unit","remindTermUnit","提醒时长单位","提醒时长单位",false,false,true);
 		
+		/**
+		 * 处理时间
+		*/
+		public static final DBField COMPLETE_TIME = new DBField(DBDataType.DATE , "complete_time","completeTime","处理时间","处理时间",false,false,true);
+		
 		public BPM_PROCESS_INSTANCE_REMIND() {
-			this.init($NAME,"流程实例提醒" , ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_TIME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , REMIND_TERM , REMIND_TERM_UNIT);
+			this.init($NAME,"流程实例提醒" , ID , PROCESS_INSTANCE_ID , TARGET_NODE_ID , SOURCE_NODE_ID , CONTENT , REMIND_TIME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , REMIND_TERM , REMIND_TERM_UNIT , COMPLETE_TIME);
 		}
 		public static final BPM_PROCESS_INSTANCE_REMIND $TABLE=new BPM_PROCESS_INSTANCE_REMIND();
 	}

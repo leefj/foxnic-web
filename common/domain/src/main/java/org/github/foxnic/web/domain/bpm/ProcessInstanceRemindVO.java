@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒VO类型
  * <p>流程实例提醒 , 数据表 bpm_process_instance_remind 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-20 05:33:06
+ * @since 2023-04-20 13:29:15
  * @sign 59CE4356DAE7C66615715B0647A7EE65
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -427,6 +427,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 	public ProcessInstanceRemindVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindVOMeta.$$proxy$$();
 		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setCompleteTime(this.getCompleteTime());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setVersion(this.getVersion());
 		inst.setRemindTermUnit(this.getRemindTermUnit());
@@ -449,6 +450,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 			inst.setRequestAction(this.getRequestAction());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setReceiverInfo(this.getReceiverInfo());
+			inst.setProcessInstance(this.getProcessInstance());
 			inst.setPageSize(this.getPageSize());
 			inst.setTargetNode(this.getTargetNode());
 			inst.setReceivers(this.getReceivers());
@@ -520,12 +522,13 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		if(map==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID)));
+			this.setCompleteTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.COMPLETE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.VERSION)));
 			this.setRemindTermUnit(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.CONTENT)));
 			this.setRemindTerm(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TERM)));
-			this.setRemindTime(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TIME)));
+			this.setRemindTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInstanceRemindVOMeta.CREATE_TIME)));
@@ -542,6 +545,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 			this.setRequestAction(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.REQUEST_ACTION)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.FUZZY_FIELD)));
 			this.setReceiverInfo(DataParser.parse(String.class, map.get(ProcessInstanceRemindVOMeta.RECEIVER_INFO)));
+			this.setProcessInstance(DataParser.parse(ProcessInstance.class, map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.PAGE_SIZE)));
 			this.setTargetNode(DataParser.parse(ProcessDefinitionNode.class, map.get(ProcessInstanceRemindVOMeta.TARGET_NODE)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProcessInstanceRemindVOMeta.PAGE_INDEX)));
@@ -554,12 +558,13 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		} else {
 			try {
 				this.setProcessInstanceId( (String)map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID));
+				this.setCompleteTime( (Date)map.get(ProcessInstanceRemindVOMeta.COMPLETE_TIME));
 				this.setUpdateTime( (Date)map.get(ProcessInstanceRemindVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(ProcessInstanceRemindVOMeta.VERSION));
 				this.setRemindTermUnit( (String)map.get(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)map.get(ProcessInstanceRemindVOMeta.CONTENT));
 				this.setRemindTerm( (Integer)map.get(ProcessInstanceRemindVOMeta.REMIND_TERM));
-				this.setRemindTime( (String)map.get(ProcessInstanceRemindVOMeta.REMIND_TIME));
+				this.setRemindTime( (Date)map.get(ProcessInstanceRemindVOMeta.REMIND_TIME));
 				this.setCreateBy( (String)map.get(ProcessInstanceRemindVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(ProcessInstanceRemindVOMeta.DELETED));
 				this.setCreateTime( (Date)map.get(ProcessInstanceRemindVOMeta.CREATE_TIME));
@@ -576,6 +581,7 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 				this.setRequestAction( (String)map.get(ProcessInstanceRemindVOMeta.REQUEST_ACTION));
 				this.setFuzzyField( (String)map.get(ProcessInstanceRemindVOMeta.FUZZY_FIELD));
 				this.setReceiverInfo( (String)map.get(ProcessInstanceRemindVOMeta.RECEIVER_INFO));
+				this.setProcessInstance( (ProcessInstance)map.get(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE));
 				this.setPageSize( (Integer)map.get(ProcessInstanceRemindVOMeta.PAGE_SIZE));
 				this.setTargetNode( (ProcessDefinitionNode)map.get(ProcessInstanceRemindVOMeta.TARGET_NODE));
 				this.setPageIndex( (Integer)map.get(ProcessInstanceRemindVOMeta.PAGE_INDEX));
@@ -601,12 +607,13 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		if(r==null) return false;
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID)));
+			this.setCompleteTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.COMPLETE_TIME)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.VERSION)));
 			this.setRemindTermUnit(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT)));
 			this.setContent(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.CONTENT)));
 			this.setRemindTerm(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM)));
-			this.setRemindTime(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME)));
+			this.setRemindTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInstanceRemindVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInstanceRemindVOMeta.DELETED)));
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceRemindVOMeta.CREATE_TIME)));
@@ -622,12 +629,13 @@ public class ProcessInstanceRemindVO extends ProcessInstanceRemind {
 		} else {
 			try {
 				this.setProcessInstanceId( (String)r.getValue(ProcessInstanceRemindVOMeta.PROCESS_INSTANCE_ID));
+				this.setCompleteTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.COMPLETE_TIME));
 				this.setUpdateTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)r.getValue(ProcessInstanceRemindVOMeta.VERSION));
 				this.setRemindTermUnit( (String)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM_UNIT));
 				this.setContent( (String)r.getValue(ProcessInstanceRemindVOMeta.CONTENT));
 				this.setRemindTerm( (Integer)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TERM));
-				this.setRemindTime( (String)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME));
+				this.setRemindTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.REMIND_TIME));
 				this.setCreateBy( (String)r.getValue(ProcessInstanceRemindVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(ProcessInstanceRemindVOMeta.DELETED));
 				this.setCreateTime( (Date)r.getValue(ProcessInstanceRemindVOMeta.CREATE_TIME));

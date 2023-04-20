@@ -5,7 +5,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum RemindStatus implements CodeTextEnum {
 
-	pending("挂起"),reminding("提醒中"),done("已完毕");
+	pending("待提醒"),reminding("提醒中"),completed("已处理");
 
 	private String text;
 	private RemindStatus(String text)  {

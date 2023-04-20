@@ -44,6 +44,10 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessInstanceRemindMeta.TARGET_NODE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID);
 
+		// 关联流程实例
+		this.property(ProcessInstanceRemindMeta.PROCESS_INSTANCE_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND.PROCESS_INSTANCE_ID).join(FoxnicWeb.BPM_PROCESS_INSTANCE.ID);
+
 		// 接收人管理岗位
 		this.property(ProcessInstanceRemindReceiverMeta.EMPLOYEE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND_RECEIVER.RECEIVER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);

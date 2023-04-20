@@ -1,7 +1,9 @@
 package org.github.foxnic.web.framework.bpm;
 
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.dao.meta.DBTableMeta;
@@ -9,6 +11,7 @@ import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
+import org.github.foxnic.web.proxy.bpm.ProcessInstanceRemindServiceProxy;
 
 public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdService> {
 
@@ -50,7 +53,14 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
 
     public BpmActionResult onProcessCallback(BpmEvent event) {
         BpmEventType eventType = event.getEventType();
-
+        String processInstanceId= null;
+        String noteId = null;
+        if(event.getProcessInstance()!=null) {
+            processInstanceId = event.getProcessInstance().getId();
+        }
+        if(event.getCurrentNode()!=null) {
+            noteId = event.getCurrentNode().getId();
+        }
         if (eventType == BpmEventType.temporary_save_start) {
             return onTemporarySaveStart(event);
         } else if (eventType == BpmEventType.temporary_save_end) {
@@ -64,8 +74,18 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
         } else if (eventType == BpmEventType.task_end) {
             return onTaskEnd(event);
         } else if (eventType == BpmEventType.node_start) {
+            try {
+                ProcessInstanceRemindServiceProxy.api().processNodeStart(processInstanceId,noteId);
+            } catch (Exception e) {
+                Logger.exception(e);
+            }
             return onNodeStart(event);
         } else if (eventType == BpmEventType.node_end) {
+            try {
+                ProcessInstanceRemindServiceProxy.api().processNodeStart(processInstanceId,noteId);
+            } catch (Exception e) {
+                Logger.exception(e);
+            }
             return onNodeEnd(event);
         } else if (eventType == BpmEventType.fetch_back_start) {
             return onFetchBackStart(event);
@@ -200,5 +220,7 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
     protected BpmActionResult onProcessAbandonEnd(BpmEvent event) {
         return event.getActionResult();
     }
+
+
 
 }

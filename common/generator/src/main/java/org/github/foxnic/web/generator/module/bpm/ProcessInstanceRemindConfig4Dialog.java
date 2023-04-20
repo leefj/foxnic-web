@@ -7,22 +7,19 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE_REMIND;
 import org.github.foxnic.web.constants.enums.bpm.RemindStatus;
 import org.github.foxnic.web.constants.enums.bpm.RemindTermUnit;
-import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.ProcessInstanceRemindReceiver;
-import org.github.foxnic.web.domain.bpm.meta.*;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceRemindReceiverMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionNodeServiceProxy;
 
-public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE_REMIND> {
+public class ProcessInstanceRemindConfig4Dialog extends BaseCodeConfig<BPM_PROCESS_INSTANCE_REMIND> {
 
-    public ProcessInstanceRemindConfig() {
+    public ProcessInstanceRemindConfig4Dialog() {
         super(PREFIX_BPM, BPM_PROCESS_INSTANCE_REMIND.$TABLE,"bpm_", 4);
     }
 
@@ -31,7 +28,6 @@ public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INST
         voType.addSimpleProperty(String.class,"receiverInfo","接收人参数","接收人参数");
         poType.addListProperty(ProcessInstanceRemindReceiver.class,"receivers","接收人清单","接收人清单");
         poType.addSimpleProperty(ProcessDefinitionNode.class,"targetNode","监控的目标节点","监控的目标节点");
-        poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
         poType.shadow(BPM_PROCESS_INSTANCE_REMIND.STATUS, RemindStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM_UNIT, RemindTermUnit.class);
     }
@@ -54,7 +50,7 @@ public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INST
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
 
 //        search.disable();
-        search.inputLayout(new Object[]{FoxnicWeb.BPM_PROCESS_DEFINITION.NAME,FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE,BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID});
+        search.inputLayout(new Object[]{BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID});
     }
 
     @Override
@@ -69,57 +65,35 @@ public class ProcessInstanceRemindConfig extends BaseCodeConfig<BPM_PROCESS_INST
         view.field(BPM_PROCESS_INSTANCE_REMIND.ID).basic().hidden();
 
         // 暂时仅支持员工
-        view.field("receiverInfo").basic().label("提醒对象").hidden().table().disable();
-
-
-        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE).basic().label("流程标题")
-                        .table().fillBy(ProcessInstanceRemindMeta.PROCESS_INSTANCE, ProcessInstanceMeta.TITLE)
-                .search().on(FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE).fuzzySearch();
-
-        view.field(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).basic().label("流程类型")
-                .table().fillBy(ProcessInstanceRemindMeta.PROCESS_INSTANCE, ProcessInstanceMeta.PROCESS_DEFINITION, ProcessDefinitionMeta.NAME)
-                .search().on(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).fuzzySearch();
+        view.field("receiverInfo").basic().label("提醒对象")
+                .table().fillBy(ProcessInstanceRemindMeta.RECEIVERS,ProcessInstanceRemindReceiverMeta.NAME)
+                .form().button().chooseEmployee(false).form().validate().required();
 
         view.field(BPM_PROCESS_INSTANCE_REMIND.CONTENT).basic().label("提醒内容").form().validate().required();
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM_UNIT).basic().hidden()
-                .table().disable();
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM_UNIT).basic().label("时长单位")
+                .form().radioBox().enumType(RemindTermUnit.class).form().validate().required();
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.COMPLETE_TIME).basic().hidden()
-                .table().disable();
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM).basic().label("等待时长").form().validate().required();
 
-
-        view.field(BPM_PROCESS_INSTANCE_REMIND.CREATE_TIME).basic().hidden()
-                .table().disable();
-
-        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TERM).basic().label("等待时长").hidden().table().disable();
-
-        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TIME).basic().label("提醒时间");
+        view.field(BPM_PROCESS_INSTANCE_REMIND.REMIND_TIME).basic().hidden();
 
         view.field(BPM_PROCESS_INSTANCE_REMIND.STATUS).basic().hidden()
                 .table().disable();
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.SOURCE_NODE_ID).basic().hidden().table().disable();
+        view.field(BPM_PROCESS_INSTANCE_REMIND.SOURCE_NODE_ID).basic().hidden();
 
-        view.field(BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).basic().label("待审节点")
-                .table().fillBy(ProcessInstanceRemindMeta.TARGET_NODE,ProcessDefinitionNodeMeta.NODE_NAME)
-                .search().on(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.NODE_NAME).fuzzySearch();
-//                .form().selectBox().queryApi(ProcessDefinitionNodeServiceProxy.QUERY_LIST_BY_PROCESS_INSTANCE_ID)
-//                .valueField("id").textField("nodeName").muliti(false,false).fillWith(ProcessInstanceRemindMeta.TARGET_NODE)
-                //.search().inputWidth(200).triggerOnSelect(true)
-                //.form().validate().required();
+        view.field(BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID).basic().label("监控节点")
+                .form().selectBox().queryApi(ProcessDefinitionNodeServiceProxy.QUERY_LIST_BY_PROCESS_INSTANCE_ID)
+                .valueField("id").textField("nodeName").muliti(false,false).fillWith(ProcessInstanceRemindMeta.TARGET_NODE)
+                .search().inputWidth(200).triggerOnSelect(true)
+                .form().validate().required();
     }
 
 
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-
-        list.columnLayout(new Object[]{FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE,FoxnicWeb.BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_INSTANCE_REMIND.TARGET_NODE_ID,BPM_PROCESS_INSTANCE_REMIND.CONTENT,BPM_PROCESS_INSTANCE_REMIND.REMIND_TIME});
-
-        list.disableBatchDelete().disableSingleDelete().disableCreateNew().disableModify().disableFormView();
-
-        list.operationColumn().addActionButton("审批","showApprovalForm");
 //        list.disableMargin();
 //        ActionConfig actio1n = null;
 //        action = list.operationColumn().addActionButton("流程图","showBpmnDiagrams");

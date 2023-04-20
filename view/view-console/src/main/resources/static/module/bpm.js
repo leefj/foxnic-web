@@ -2,6 +2,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
     const admin = layui.admin;
     const settings = layui.settings;
+    const winId = 'bpm-process-instance-form-data-win'
     const  api_definition_get="/service-bpm/bpm-process-definition/get-by-id";
     const  api_process_save="/service-bpm/bpm-process-instance/temporary-save";
     const  api_process_get="/service-bpm/bpm-process-instance/get-by-id";
@@ -146,6 +147,12 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             },{delayLoading:1000,elms:lockEls});
         },
 
+
+        closeProcessView : function () {
+            admin.finishPopupCenterById(winId);
+        },
+
+
         /**
          * 打开流程界面
          * processInstanceId 流程ID
@@ -212,25 +219,30 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             else if(action=="edit") title=fox.translate("流程审批");
             else if(action=="view") title=fox.translate('流程详情');
 
-            var id="bpm-process-instance-form-data-win";
-
             var index=-1;
             admin.putVar("updateProcessViewTitle",function (title) {
                 window.top.layer.title(title, index);
             });
 
+            debugger
             index = admin.popupCenter({
                 title: title,
                 resize: false,
                 // offset: [null,top],
                 area: [(fullwidth-56)+"px",(fullHeight-56)+"px"],
                 type: 2,
-                id:id,
+                id:winId,
                 content: '/business/bpm/process_instance/process_instance_form.html' + (queryString?("?"+queryString):""),
+                success:function () {
+                    // alert(index);
+                    // var win=$("#layui-layer"+index);
+                    // var tools=win.find(".layui-layer-setwin");
+                    // tools.prepend("<a class=\"layui-icon layui-icon-radio\" href=\"javascript:;\" style='font-size: 16px'>设置</a>");
+                },
                 finish: function (ctx) {
                     if(ctx=="close") return;
                     if(action=="create") {
-                        refreshTableData();
+                        refreshTableData && refreshTableData();
                     }
                     if(action=="edit") {
                         // 如果没有 ctx 说明是来自保存按钮
@@ -253,7 +265,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 }
             });
 
-
+            debugger
+            return index;
 
         },
         /**
