@@ -10,6 +10,7 @@ import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,47 @@ public class SystemConfigProxyUtil {
     }
 
     /**
+     * 获取整数型系统配置
+     * */
+    public static Integer getInteger(SystemConfigEnum key) {
+        return DataParser.parseInteger(getString(key.code()));
+    }
+
+    /**
+     * 获取整数型系统配置
+     * */
+    public static Integer getInteger(String key) {
+        return DataParser.parseInteger(getString(key));
+    }
+
+    /**
+     * 获取小数型系统配置
+     * */
+    public static Double getDouble(SystemConfigEnum key) {
+        return DataParser.parseDouble(getString(key.code()));
+    }
+
+    /**
+     * 获取小数型系统配置
+     * */
+    public static Double getDouble(String key) {
+        return DataParser.parseDouble(getString(key));
+    }
+
+
+    /**
+     * 获取指定key的下级节点
+     * */
+    public static List<Config> queryDescendants(String key) {
+        Result<List<Config>> result =ConfigServiceProxy.api().queryDescendants(key);
+       if(result!=null && result.success()) {
+           return result.data();
+       } else {
+           return null;
+       }
+    }
+
+    /**
      * 获取JSONArray型系统配置
      * */
     public static JSONArray getJSONArray(SystemConfigEnum key) {
@@ -52,6 +94,14 @@ public class SystemConfigProxyUtil {
      * 获取 CodeTextEnum 型系统配置
      * */
     public static <T extends CodeTextEnum> T getEnum(SystemConfigEnum key,Class<T> type) {
+        String value=getString(key);
+        return  EnumUtil.parseByCode(type,value);
+    }
+
+    /**
+     * 获取 CodeTextEnum 型系统配置
+     * */
+    public static <T extends CodeTextEnum> T getEnum(String key,Class<T> type) {
         String value=getString(key);
         return  EnumUtil.parseByCode(type,value);
     }
@@ -74,6 +124,13 @@ public class SystemConfigProxyUtil {
      * 获取日期型系统配置
      * */
     public static Date getDate(SystemConfigEnum key) {
+        return DataParser.parseDate(getString(key));
+    }
+
+    /**
+     * 获取日期型系统配置
+     * */
+    public static Date getDate(String key) {
         return DataParser.parseDate(getString(key));
     }
 

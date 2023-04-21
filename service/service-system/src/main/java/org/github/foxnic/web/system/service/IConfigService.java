@@ -1,7 +1,6 @@
 package org.github.foxnic.web.system.service;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -358,4 +357,6 @@ public interface IConfigService extends ISuperService<Config> {
 	List<ZTreeNode> queryChildNodes(String profileId, String parentId);
 
 	List<String> search(String profileId, String keyword);
+
+    List<Config> queryDescendants(String code);
 }

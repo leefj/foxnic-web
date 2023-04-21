@@ -90,6 +90,8 @@ public interface ConfigServiceProxy {
      */
     public static final String QUERY_LIST = API_PREFIX + "query-list";
 
+    public static final String QUERY_DESCENDANTS = API_PREFIX + "query-descendants";
+
     /**
      * 分页查询系统配置
      */
@@ -179,6 +181,9 @@ public interface ConfigServiceProxy {
      */
     @RequestMapping(ConfigServiceProxy.QUERY_LIST)
     Result<List<Config>> queryList(@RequestParam(name = "sample") ConfigVO sample);
+
+    @RequestMapping(ConfigServiceProxy.QUERY_DESCENDANTS)
+    Result<List<Config>> queryDescendants(@RequestParam(name = "code") String code);
 
     /**
      * 分页查询系统配置

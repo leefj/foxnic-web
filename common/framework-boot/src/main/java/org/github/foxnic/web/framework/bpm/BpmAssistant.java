@@ -13,9 +13,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.framework.cluster.ClusterToken;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
-import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
-import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
+import org.github.foxnic.web.proxy.bpm.*;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -96,6 +94,21 @@ public class BpmAssistant {
         } else {
             return null;
         }
+    }
+
+    public static Result<List<ProcessDefinitionNode>> getNodeByCamundaNodeId(String processDefinitionFileId,String camundaNodeId, User user) {
+        setCallerAccount(user);
+        ProcessDefinitionNodeVO sample=new ProcessDefinitionNodeVO();
+        sample.setProcessDefinitionFileId(processDefinitionFileId);
+        sample.setCamundaNodeId(camundaNodeId);
+        return ProcessDefinitionNodeServiceProxy.api().queryList(sample);
+    }
+
+    public static Result addRemind(String processInstanceId,ProcessInstanceRemindVO remind, User user) {
+        setCallerAccount(user);
+        remind.setId(null);
+        remind.setProcessInstanceId(processInstanceId);
+        return ProcessInstanceRemindServiceProxy.api().insert(remind);
     }
 
 

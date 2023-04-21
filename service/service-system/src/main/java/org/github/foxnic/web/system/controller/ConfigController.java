@@ -1,7 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.swagger.ApiParamSupport;
 import com.github.foxnic.api.swagger.InDoc;
 import com.github.foxnic.api.transter.Result;
@@ -15,10 +14,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
-import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
@@ -26,7 +23,6 @@ import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -272,6 +268,23 @@ public class ConfigController extends SuperController implements ApplicationList
     public Result<List<Config>> queryList(ConfigVO sample) {
         Result<List<Config>> result = new Result<>();
         List<Config> list = configService.queryList(sample);
+        result.success(true).data(list);
+        return result;
+    }
+
+    /**
+     * 查询系统配置
+     */
+    @ApiOperation(value = "查询某个Key下的所有子项")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = ConfigVOMeta.CODE, value = "配置键", required = true, dataTypeClass = String.class, example = "eam.assetDirectUpdateMode"),
+    })
+    @ApiOperationSupport(order = 5, ignoreParameters = { ConfigVOMeta.PAGE_INDEX, ConfigVOMeta.PAGE_SIZE })
+    @SentinelResource(value = ConfigServiceProxy.QUERY_DESCENDANTS, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
+    @PostMapping(ConfigServiceProxy.QUERY_DESCENDANTS)
+    public Result<List<Config>> queryDescendants(String code) {
+        Result<List<Config>> result = new Result<>();
+        List<Config> list = configService.queryDescendants(code);
         result.success(true).data(list);
         return result;
     }

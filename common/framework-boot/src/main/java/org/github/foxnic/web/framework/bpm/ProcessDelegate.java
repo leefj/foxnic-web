@@ -11,6 +11,8 @@ import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.bpm.BpmIdentityServiceProxy;
+import org.github.foxnic.web.proxy.bpm.ProcessDefinitionNodeServiceProxy;
+import org.github.foxnic.web.proxy.bpm.ProcessInstanceRemindServiceProxy;
 import org.github.foxnic.web.proxy.bpm.TaskServiceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
@@ -117,6 +119,32 @@ public class ProcessDelegate {
             }
         }
         return false;
+    }
+
+    public ProcessDefinitionNode getNodeByCamundaNodeId(String camundaNodeId) {
+        Result<List<ProcessDefinitionNode>> result  = BpmAssistant.getNodeByCamundaNodeId(this.processInstance.getProcessDefinitionFileId(),camundaNodeId,this.user);
+        if(result.failure() || result.data()==null || result.data().isEmpty()) {
+            return null;
+        } else {
+            return result.data().get(0);
+        }
+    }
+
+    public Result addReminds(List<ProcessInstanceRemindVO> reminds) {
+        Result result = new Result();
+        result.success(true);
+        for (ProcessInstanceRemindVO remind : reminds) {
+            Result sub=addRemind(remind);
+            if(sub.failure()) {
+                result.success(false);
+                result.addError(sub);
+            }
+        }
+        return result;
+    }
+
+    public Result addRemind(ProcessInstanceRemindVO remind) {
+        return BpmAssistant.addRemind(this.processInstance.getId(),remind,this.user);
     }
 
     /**

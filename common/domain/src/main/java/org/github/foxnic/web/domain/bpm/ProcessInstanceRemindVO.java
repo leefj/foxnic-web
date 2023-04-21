@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒VO类型
  * <p>流程实例提醒 , 数据表 bpm_process_instance_remind 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-20 17:25:36
+ * @since 2023-04-21 14:49:09
  * @sign 59CE4356DAE7C66615715B0647A7EE65
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

@@ -666,6 +666,25 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		return parentIds;
 	}
 
+	@Override
+	public List<Config> queryDescendants(String code) {
+		List<Config> parents = this.queryList(new ConditionExpr("code=?",code));
+		Set<String> codes=new HashSet<>();
+		for (Config parent : parents) {
+			List<Rcd> children= this.queryChildConfigs(parent.getProfileId(),parent.getId());
+			for (Rcd config : children) {
+				codes.add(config.getString("code"));
+			}
+		}
+		List<Config> configs=new ArrayList<>();
+		for (String c : codes) {
+			configs.add(this.getByCode(c));
+		}
+		return configs;
+
+
+	}
+
 
 	/**
 	 * 批量检查引用

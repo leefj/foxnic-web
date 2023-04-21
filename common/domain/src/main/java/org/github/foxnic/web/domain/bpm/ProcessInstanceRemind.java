@@ -30,7 +30,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例提醒
  * <p>流程实例提醒 , 数据表 bpm_process_instance_remind 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-20 17:25:35
+ * @since 2023-04-21 14:49:09
  * @sign 1739DD758979580DE91C9FA33AFF8009
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

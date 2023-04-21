@@ -254,7 +254,13 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                                    } else if(refreshLocation=="task") {
                                        refreshRowData(r.data,false);
                                    } else if(refreshLocation=="bill") {
-                                       refreshRowData(r.data,false);
+                                        var ids=r.data.billIds;
+                                        if(ids) {
+                                            for (var i = 0; i < ids.length; i++) {
+                                                refreshRowData({id:ids[i]},true);
+                                            }
+                                        }
+
                                    }
                                } else {
                                    fox.showMessage(r);
