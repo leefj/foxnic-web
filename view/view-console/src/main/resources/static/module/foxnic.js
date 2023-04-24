@@ -945,7 +945,135 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         },
 
+        initInlineInputs() {
+            var items=$(".layui-form-item");
+            var inlineItems=[];
+            // 搜集
+            for (var i = 0; i < items.length; i++) {
+                var item=$(items[i]);
+                var inlines=item.attr("inlines");
+                if(inlines && inlines.length>0) {
+                    inlineItems.push({
+                        item:item,
+                        delta:item.attr("inline-delta"),
+                        inlines:inlines.split(",")
+                    })
+                }
+            }
+            // debugger
+            // 布局
+            for (var i = 0; i < inlineItems.length; i++) {
+                var item=inlineItems[i].item;
+                var div=item.find(".layui-input-block");
+                if(!div || div.length==0) continue;
+                div.removeClass("layui-input-block");
+                div.addClass("layui-input-inline");
+                div.addClass("foxnic-input-inline");
+                div.addClass("foxnic-input-inline-first");
+                var input=div.find("input");
+                var labelWidth=item.find(".layui-form-label ")[0].clientWidth;
+                var itemWidth=item[0].clientWidth;
+                inlineItems[i].inlineDivs=[];
+                var  inlineWidth=0;
+                for (var j = 0; j < inlineItems[i].inlines.length  ; j++) {
+                    var  inlineInput=$("[name="+inlineItems[i].inlines[j]+"]");
+                    if(!inlineInput || inlineInput.length==0) {
+                        inlineInput=$("#"+inlineItems[i].inlines[j]);
+                    }
+                    if(!inlineInput || inlineInput.length==0) {
+                        continue;
+                    }
+                    var inlineDiv=inlineInput.parent();
+                    var invalidItem=inlineDiv.parent();
+                    var inputWidth= parseInt(invalidItem.attr("input-width"));
+                    inlineDiv.removeClass("layui-input-block");
+                    inlineDiv.addClass("layui-input-inline");
+                    inlineDiv.addClass("foxnic-input-inline");
+                    //debugger
+                    if(j==inlineItems[i].inlines.length-1) {
+                        inlineDiv.addClass("foxnic-input-inline-last");
+                    }
+                    if(inputWidth>0) {
+                        inlineDiv.find("input").width(inputWidth);
+                    }
+                    div.parent().append(inlineDiv);
+                    invalidItem.remove();
+                    inlineItems[i].inlineDivs.push(inlineDiv);
+                    inlineWidth+= inlineDiv[0].clientWidth+20;
+                }
+
+                if(inlineItems[i].inlineDivs.length==1) {
+                    inlineWidth=inlineWidth+6;
+                }
+                inlineWidth=inlineWidth+ parseInt(inlineItems[i].delta);
+
+
+                // var input=item.find(".foxnic-input-inline-first").find("input");
+                var inputWidth=itemWidth-inlineWidth-labelWidth;
+                // input[0].style.width=inputWidth+"px";
+                input.width((inputWidth) + "px");
+                //input.addClass("xxx")
+                //debugger
+                //debugger
+
+                // item.find(".foxnic-input-inline").css("opacity",0);
+                // setTimeout(function (){
+                //     item.find(".foxnic-input-inline").animate({
+                //         opacity:'1.0'
+                //     },100,null,function (){
+                //         item.find(".foxnic-input-inline").css("opacity","1.0");});
+                // },200);
+
+            }
+
+        },
+
+        renderInlineInputs(inlineItems,cb) {
+            return
+            function render () {
+                console.log((new Date()).getTime(),"w021")
+                for (var i = 0; i < inlineItems.length; i++) {
+
+                    if(!inlineItems[i].inlineDivs || inlineItems[i].inlineDivs.length==0) continue;
+
+                    var  inlineWidth=0;
+                    var item=inlineItems[i].item;
+                    for (var j = 0; j < inlineItems[i].inlineDivs.length; j++) {
+                        inlineWidth+= inlineItems[i].inlineDivs[j][0].clientWidth+20;
+                    }
+                    //item.find(".foxnic-input-inline-first").css("width","800px");
+                    var itemWidth=item[0].clientWidth;
+                    var labelWidth=item.find(".layui-form-label ")[0].clientWidth;
+                    //var w=item.find(".foxnic-input-inline-first").parent().clientWidth;
+                    var inputWidth=itemWidth-inlineWidth-labelWidth;
+                    console.log((new Date()).getTime(),"w02x",inlineItems[i].inlineDivs)
+
+                    console.log((new Date()).getTime(),"w022")
+                    var input=item.find(".foxnic-input-inline-first").find("input");
+                    //input.width((inputWidth) + "px");
+                    console.log((new Date()).getTime(),"w2",inputWidth)
+                    input[0].style.width=inputWidth+"px";
+                    // input.stop(true,true);
+                    // item.find(".foxnic-input-inline-first").find("input").css("width",(inputWidth) + "px");
+
+
+
+                    // inlineItems[i].input.parent().css("width","calc( 100% - "+inlineWidth+"px ) !important");
+                    //inlineItems[i].input.parent().css("width","100% !important");
+                    //debugger
+                }
+                //debugger
+                cb && cb();
+            }
+            //debugger;
+            console.log((new Date()).getTime(),"w02")
+            render();
+
+            //setTimeout(render,0);
+        },
+
         renderFormInputs:function(form) {
+            this.initInlineInputs();
             this.renderInputs($(".layui-input"));
             form.render();
         },

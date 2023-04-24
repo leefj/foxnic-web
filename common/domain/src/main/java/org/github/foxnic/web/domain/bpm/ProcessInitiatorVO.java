@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.bpm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,17 +10,25 @@ import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInitiatorVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 流程发起人权限
+ * 流程发起人权限VO类型
+ * <p>流程发起人权限 , 数据表 bpm_process_initiator 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:52
- * @sign 00DAEB59D6AAFC93F95C4472C678FDB5
+ * @since 2023-04-23 15:57:21
+ * @sign B06444D2E5B1615D61F93D6ECD7FD2D7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "流程发起人权限VO类型 ; 流程发起人权限 , 数据表 bpm_process_initiator 的通用VO类型" , parent = ProcessInitiator.class)
 public class ProcessInitiatorVO extends ProcessInitiator {
 
 	private static final long serialVersionUID = 1L;
@@ -71,6 +80,24 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -234,6 +261,63 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public ProcessInitiatorVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public ProcessInitiatorVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public ProcessInitiatorVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -333,14 +417,17 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 		inst.setInitiatorType(this.getInitiatorType());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
-			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
 			inst.setLastUpdateUser(this.getLastUpdateUser());
-			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -356,6 +443,20 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 	}
 
 	/**
+	 * 将 Map 转换成 ProcessInitiatorVO
+	 * @param processInitiatorMap 包含实体信息的 Map 对象
+	 * @return ProcessInitiatorVO , 转换好的的 ProcessInitiator 对象
+	*/
+	@Transient
+	public static ProcessInitiatorVO createFrom(Map<String,Object> processInitiatorMap) {
+		if(processInitiatorMap==null) return null;
+		ProcessInitiatorVO vo = create();
+		EntityContext.copyProperties(vo,processInitiatorMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
 	 * 将 Pojo 转换成 ProcessInitiatorVO
 	 * @param pojo 包含实体信息的 Pojo 对象
 	 * @return ProcessInitiatorVO , 转换好的的 ProcessInitiator 对象
@@ -363,8 +464,10 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 	@Transient
 	public static ProcessInitiatorVO createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessInitiatorVO po = EntityContext.create(ProcessInitiatorVO.class,pojo);
-		return po;
+		ProcessInitiatorVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
 	}
 
 	/**
@@ -373,6 +476,120 @@ public class ProcessInitiatorVO extends ProcessInitiator {
 	*/
 	@Transient
 	public static ProcessInitiatorVO create() {
-		return EntityContext.create(ProcessInitiatorVO.class);
+		return new org.github.foxnic.web.domain.bpm.meta.ProcessInitiatorVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setInitiatorId(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.INITIATOR_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInitiatorVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInitiatorVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInitiatorVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInitiatorVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ProcessInitiatorVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.ID)));
+			this.setDefinitionId(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.DEFINITION_ID)));
+			this.setInitiatorType(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.INITIATOR_TYPE)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.REQUEST_ACTION)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(ProcessInitiatorVOMeta.PAGE_SIZE)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(ProcessInitiatorVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.SORT_FIELD)));
+			this.setLastUpdateUser(DataParser.parse(User.class, map.get(ProcessInitiatorVOMeta.LAST_UPDATE_USER)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.QUERY_LOGIC)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(ProcessInitiatorVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setInitiatorId( (String)map.get(ProcessInitiatorVOMeta.INITIATOR_ID));
+				this.setUpdateTime( (Date)map.get(ProcessInitiatorVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(ProcessInitiatorVOMeta.VERSION));
+				this.setCreateBy( (String)map.get(ProcessInitiatorVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ProcessInitiatorVOMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ProcessInitiatorVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ProcessInitiatorVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ProcessInitiatorVOMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(ProcessInitiatorVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(ProcessInitiatorVOMeta.DELETE_BY));
+				this.setId( (String)map.get(ProcessInitiatorVOMeta.ID));
+				this.setDefinitionId( (String)map.get(ProcessInitiatorVOMeta.DEFINITION_ID));
+				this.setInitiatorType( (String)map.get(ProcessInitiatorVOMeta.INITIATOR_TYPE));
+				// others
+				this.setSearchField( (String)map.get(ProcessInitiatorVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(ProcessInitiatorVOMeta.REQUEST_ACTION));
+				this.setFuzzyField( (String)map.get(ProcessInitiatorVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(ProcessInitiatorVOMeta.PAGE_SIZE));
+				this.setPageIndex( (Integer)map.get(ProcessInitiatorVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(ProcessInitiatorVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(ProcessInitiatorVOMeta.SORT_FIELD));
+				this.setLastUpdateUser( (User)map.get(ProcessInitiatorVOMeta.LAST_UPDATE_USER));
+				this.setDataOrigin( (String)map.get(ProcessInitiatorVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(ProcessInitiatorVOMeta.QUERY_LOGIC));
+				this.setSearchValue( (String)map.get(ProcessInitiatorVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setInitiatorId(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.INITIATOR_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorVOMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInitiatorVOMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInitiatorVOMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorVOMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorVOMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.ID)));
+			this.setDefinitionId(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.DEFINITION_ID)));
+			this.setInitiatorType(DataParser.parse(String.class, r.getValue(ProcessInitiatorVOMeta.INITIATOR_TYPE)));
+			return true;
+		} else {
+			try {
+				this.setInitiatorId( (String)r.getValue(ProcessInitiatorVOMeta.INITIATOR_ID));
+				this.setUpdateTime( (Date)r.getValue(ProcessInitiatorVOMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(ProcessInitiatorVOMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(ProcessInitiatorVOMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ProcessInitiatorVOMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ProcessInitiatorVOMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ProcessInitiatorVOMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ProcessInitiatorVOMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(ProcessInitiatorVOMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(ProcessInitiatorVOMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ProcessInitiatorVOMeta.ID));
+				this.setDefinitionId( (String)r.getValue(ProcessInitiatorVOMeta.DEFINITION_ID));
+				this.setInitiatorType( (String)r.getValue(ProcessInitiatorVOMeta.INITIATOR_TYPE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

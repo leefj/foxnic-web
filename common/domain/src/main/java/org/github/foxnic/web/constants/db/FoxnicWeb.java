@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-20 09:57:54
+ * @since 2023-04-23 15:52:42
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -632,8 +632,58 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,true);
 		
+		/**
+		 * 是否允许撤回
+		*/
+		public static final DBField ALLOW_FETCH_BACK = new DBField(DBDataType.INTEGER , "allow_fetch_back","allowFetchBack","是否允许撤回","是否允许撤回",false,false,true);
+		
+		/**
+		 * 是否允许有条件同意
+		*/
+		public static final DBField ALLOW_AGREE_WITH_CONDITION = new DBField(DBDataType.INTEGER , "allow_agree_with_condition","allowAgreeWithCondition","是否允许有条件同意","是否允许有条件同意",false,false,true);
+		
+		/**
+		 * 是否允许驳回
+		*/
+		public static final DBField ALLOW_REJECT = new DBField(DBDataType.INTEGER , "allow_reject","allowReject","是否允许驳回","是否允许驳回",false,false,true);
+		
+		/**
+		 * 是否允许跳过
+		*/
+		public static final DBField ALLOW_SKIP = new DBField(DBDataType.INTEGER , "allow_skip","allowSkip","是否允许跳过","是否允许跳过",false,false,true);
+		
+		/**
+		 * 是否允许废弃
+		*/
+		public static final DBField ALLOW_ABANDON = new DBField(DBDataType.INTEGER , "allow_abandon","allowAbandon","是否允许废弃","是否允许废弃",false,false,true);
+		
+		/**
+		 * 是否允许起草意见
+		*/
+		public static final DBField ALL_DRAFTING_COMMENT = new DBField(DBDataType.INTEGER , "all_drafting_comment","allDraftingComment","是否允许起草意见","是否允许起草意见",false,false,true);
+		
+		/**
+		 * 是否允许审批意见
+		*/
+		public static final DBField ALL_APPROVE_COMMENT = new DBField(DBDataType.INTEGER , "all_approve_comment","allApproveComment","是否允许审批意见","是否允许审批意见",false,false,true);
+		
+		/**
+		 * 是否允许起草附件
+		*/
+		public static final DBField ALL_DRAFTING_ATTACHMENT = new DBField(DBDataType.INTEGER , "all_drafting_attachment","allDraftingAttachment","是否允许起草附件","是否允许起草附件",false,false,true);
+		
+		/**
+		 * 是否允许审批附件
+		*/
+		public static final DBField ALL_APPROVE_ATTACHMENT = new DBField(DBDataType.INTEGER , "all_approve_attachment","allApproveAttachment","是否允许审批附件","是否允许审批附件",false,false,true);
+		
+		/**
+		 * 起草人范围
+		*/
+		public static final DBField DRAFTER_RANGE = new DBField(DBDataType.STRING , "drafter_range","drafterRange","起草人范围","起草人范围",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID);
+			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALL_DRAFTING_COMMENT , ALL_APPROVE_COMMENT , ALL_DRAFTING_ATTACHMENT , ALL_APPROVE_ATTACHMENT , DRAFTER_RANGE);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}
@@ -1717,6 +1767,82 @@ public class FoxnicWeb {
 			this.init($NAME,"流程任务审批结果表" , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS);
 		}
 		public static final BPM_TASK_APPROVAL $TABLE=new BPM_TASK_APPROVAL();
+	}
+	
+	/**
+	 * 流程任务审批附件表
+	*/
+	public static class BPM_TASK_APPROVAL_ATTACHMENT extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_task_approval_attachment";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
+		
+		/**
+		 * 审批ID
+		*/
+		public static final DBField APPROVAL_ID = new DBField(DBDataType.STRING , "approval_id","approvalId","审批ID","审批ID",false,false,true);
+		
+		/**
+		 * 流程实例ID
+		*/
+		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
+		
+		/**
+		 * 附件ID
+		*/
+		public static final DBField FILE_ID = new DBField(DBDataType.STRING , "file_id","fileId","附件ID","附件ID",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","create_by","create_by",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","update_by","update_by",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","delete_by","delete_by",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
+		
+		public BPM_TASK_APPROVAL_ATTACHMENT() {
+			this.init($NAME,"流程任务审批附件表" , ID , APPROVAL_ID , PROCESS_INSTANCE_ID , FILE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_TASK_APPROVAL_ATTACHMENT $TABLE=new BPM_TASK_APPROVAL_ATTACHMENT();
 	}
 	
 	/**

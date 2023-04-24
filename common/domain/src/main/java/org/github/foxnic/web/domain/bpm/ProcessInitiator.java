@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INITIATOR;
@@ -8,22 +9,28 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.domain.oauth.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInitiatorMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 流程发起人权限
+ * <p>流程发起人权限 , 数据表 bpm_process_initiator 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:52
+ * @since 2023-04-23 15:57:21
  * @sign 409AA892F8546EDB115A7C4D5078FE39
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "bpm_process_initiator")
+@ApiModel(description = "流程发起人权限 ; 流程发起人权限 , 数据表 bpm_process_initiator 的PO类型")
 public class ProcessInitiator extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -85,6 +92,7 @@ public class ProcessInitiator extends Entity {
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -296,6 +304,7 @@ public class ProcessInitiator extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public ProcessInitiator setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -493,7 +502,9 @@ public class ProcessInitiator extends Entity {
 	@Transient
 	public static ProcessInitiator createFrom(Map<String,Object> processInitiatorMap) {
 		if(processInitiatorMap==null) return null;
-		ProcessInitiator po = EntityContext.create(ProcessInitiator.class, processInitiatorMap);
+		ProcessInitiator po = create();
+		EntityContext.copyProperties(po,processInitiatorMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -505,7 +516,9 @@ public class ProcessInitiator extends Entity {
 	@Transient
 	public static ProcessInitiator createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessInitiator po = EntityContext.create(ProcessInitiator.class,pojo);
+		ProcessInitiator po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -515,6 +528,100 @@ public class ProcessInitiator extends Entity {
 	*/
 	@Transient
 	public static ProcessInitiator create() {
-		return EntityContext.create(ProcessInitiator.class);
+		return new org.github.foxnic.web.domain.bpm.meta.ProcessInitiatorMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setInitiatorId(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.INITIATOR_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInitiatorMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInitiatorMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInitiatorMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInitiatorMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ProcessInitiatorMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.ID)));
+			this.setDefinitionId(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.DEFINITION_ID)));
+			this.setInitiatorType(DataParser.parse(String.class, map.get(ProcessInitiatorMeta.INITIATOR_TYPE)));
+			// others
+			this.setLastUpdateUser(DataParser.parse(User.class, map.get(ProcessInitiatorMeta.LAST_UPDATE_USER)));
+			return true;
+		} else {
+			try {
+				this.setInitiatorId( (String)map.get(ProcessInitiatorMeta.INITIATOR_ID));
+				this.setUpdateTime( (Date)map.get(ProcessInitiatorMeta.UPDATE_TIME));
+				this.setVersion( (Integer)map.get(ProcessInitiatorMeta.VERSION));
+				this.setCreateBy( (String)map.get(ProcessInitiatorMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ProcessInitiatorMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ProcessInitiatorMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(ProcessInitiatorMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(ProcessInitiatorMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(ProcessInitiatorMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(ProcessInitiatorMeta.DELETE_BY));
+				this.setId( (String)map.get(ProcessInitiatorMeta.ID));
+				this.setDefinitionId( (String)map.get(ProcessInitiatorMeta.DEFINITION_ID));
+				this.setInitiatorType( (String)map.get(ProcessInitiatorMeta.INITIATOR_TYPE));
+				// others
+				this.setLastUpdateUser( (User)map.get(ProcessInitiatorMeta.LAST_UPDATE_USER));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setInitiatorId(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.INITIATOR_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorMeta.UPDATE_TIME)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInitiatorMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInitiatorMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ProcessInitiatorMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.ID)));
+			this.setDefinitionId(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.DEFINITION_ID)));
+			this.setInitiatorType(DataParser.parse(String.class, r.getValue(ProcessInitiatorMeta.INITIATOR_TYPE)));
+			return true;
+		} else {
+			try {
+				this.setInitiatorId( (String)r.getValue(ProcessInitiatorMeta.INITIATOR_ID));
+				this.setUpdateTime( (Date)r.getValue(ProcessInitiatorMeta.UPDATE_TIME));
+				this.setVersion( (Integer)r.getValue(ProcessInitiatorMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(ProcessInitiatorMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ProcessInitiatorMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ProcessInitiatorMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(ProcessInitiatorMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(ProcessInitiatorMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(ProcessInitiatorMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(ProcessInitiatorMeta.DELETE_BY));
+				this.setId( (String)r.getValue(ProcessInitiatorMeta.ID));
+				this.setDefinitionId( (String)r.getValue(ProcessInitiatorMeta.DEFINITION_ID));
+				this.setInitiatorType( (String)r.getValue(ProcessInitiatorMeta.INITIATOR_TYPE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

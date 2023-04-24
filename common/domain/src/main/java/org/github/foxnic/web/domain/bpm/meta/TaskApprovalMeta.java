@@ -5,14 +5,16 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
+import java.util.List;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:57
- * @sign D87EF3A6AF52FE29EC229E67BDA279EC
+ * @since 2023-04-23 16:00:10
+ * @sign A7C71495134B915BABEDBBB1FCF867E1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -249,9 +251,19 @@ public class TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.oauth.User> APPROVAL_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,APPROVAL_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final String ATTACHMENT="attachment";
+	
+	/**
+	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,ATTACHMENT, java.util.List.class, "流程附件", "流程附件", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER };
+	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT };
 	
 	/**
 	 * 代理类
@@ -513,6 +525,17 @@ public class TaskApprovalMeta {
 			super.setApprovalUser(approvalUser);
 			return this;
 		}
+		
+		/**
+		 * 设置 流程附件
+		 * @param attachment 流程附件
+		 * @return 当前对象
+		*/
+		public TaskApproval setAttachment(List<TaskApprovalAttachment> attachment) {
+			super.change(ATTACHMENT,super.getAttachment(),attachment);
+			super.setAttachment(attachment);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -553,6 +576,7 @@ public class TaskApprovalMeta {
 			if(all) {
 				inst.setApprover(this.getApprover());
 				inst.setApprovalUser(this.getApprovalUser());
+				inst.setAttachment(this.getAttachment());
 			}
 			inst.clearModifies();
 			return inst;

@@ -7,14 +7,15 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:57
- * @sign 8AADFC2034A1D7FE4953FB4DB8BCD27E
+ * @since 2023-04-23 16:00:10
+ * @sign 8A28BAE32E4EB1BB97142E5E040A0E0E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -99,6 +100,36 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String DATA_ORIGIN="dataOrigin";
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端可按来源执行不同的逻辑", java.lang.String.class, null);
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final String QUERY_LOGIC="queryLogic";
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,java.lang.String> QUERY_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,QUERY_LOGIC, java.lang.String.class, "查询逻辑", "默认and，可指定 or ", java.lang.String.class, null);
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String REQUEST_ACTION="requestAction";
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,java.lang.String> REQUEST_ACTION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,REQUEST_ACTION, java.lang.String.class, "请求动作", "前端指定不同的Action，后端可Action执行不同的逻辑", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -341,9 +372,19 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,org.github.foxnic.web.domain.oauth.User> APPROVAL_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,APPROVAL_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final String ATTACHMENT="attachment";
+	
+	/**
+	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,ATTACHMENT, java.util.List.class, "流程附件", "流程附件", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT };
 	
 	/**
 	 * 代理类
@@ -438,6 +479,39 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 		public TaskApprovalVO setSortType(String sortType) {
 			super.change(SORT_TYPE,super.getSortType(),sortType);
 			super.setSortType(sortType);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据来源
+		 * @param dataOrigin 数据来源
+		 * @return 当前对象
+		*/
+		public TaskApprovalVO setDataOrigin(String dataOrigin) {
+			super.change(DATA_ORIGIN,super.getDataOrigin(),dataOrigin);
+			super.setDataOrigin(dataOrigin);
+			return this;
+		}
+		
+		/**
+		 * 设置 查询逻辑
+		 * @param queryLogic 查询逻辑
+		 * @return 当前对象
+		*/
+		public TaskApprovalVO setQueryLogic(String queryLogic) {
+			super.change(QUERY_LOGIC,super.getQueryLogic(),queryLogic);
+			super.setQueryLogic(queryLogic);
+			return this;
+		}
+		
+		/**
+		 * 设置 请求动作
+		 * @param requestAction 请求动作
+		 * @return 当前对象
+		*/
+		public TaskApprovalVO setRequestAction(String requestAction) {
+			super.change(REQUEST_ACTION,super.getRequestAction(),requestAction);
+			super.setRequestAction(requestAction);
 			return this;
 		}
 		
@@ -704,6 +778,17 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 			super.setApprovalUser(approvalUser);
 			return this;
 		}
+		
+		/**
+		 * 设置 流程附件
+		 * @param attachment 流程附件
+		 * @return 当前对象
+		*/
+		public TaskApproval setAttachment(List<TaskApprovalAttachment> attachment) {
+			super.change(ATTACHMENT,super.getAttachment(),attachment);
+			super.setAttachment(attachment);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -744,14 +829,18 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 			if(all) {
 				inst.setApprover(this.getApprover());
 				inst.setSearchField(this.getSearchField());
+				inst.setRequestAction(this.getRequestAction());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
 				inst.setApprovalUser(this.getApprovalUser());
+				inst.setAttachment(this.getAttachment());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
-				inst.setFuzzyField(this.getFuzzyField());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
-				inst.setPageSize(this.getPageSize());
+				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
+				inst.setQueryLogic(this.getQueryLogic());
 				inst.setSearchValue(this.getSearchValue());
 			}
 			inst.clearModifies();

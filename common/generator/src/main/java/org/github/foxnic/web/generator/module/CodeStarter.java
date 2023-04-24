@@ -116,14 +116,14 @@ public class CodeStarter extends ModuleCodeGenerator {
         //
 //        this.addConfig(new UserStatisticsConfig());
 
-        this.addConfig(new ProcessInstanceRemindConfig());
-        this.addConfig(new ProcessInstanceRemindReceiverConfig());
+//        this.addConfig(new ProcessInstanceRemindConfig());
+//        this.addConfig(new ProcessInstanceRemindReceiverConfig());
         //
-//        this.addConfig(new ProcessDefinitionConfig());
+        this.addConfig(new ProcessDefinitionConfig());
 //        this.addConfig(new ProcessDefinitionFileConfig());
 //        this.addConfig(new ProcessDefinitionNodeConfig());
 //        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
-//        this.addConfig(new ProcessInitiatorConfig());
+        this.addConfig(new ProcessInitiatorConfig());
 //        this.addConfig(new ProcessDefinitionApplyConfig());
 //        //
 //        this.addConfig(new ProcessInstanceConfig());
@@ -135,6 +135,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new TaskReadConfig());
 //        this.addConfig(new TaskAssigneeConfig());
 //        this.addConfig(new TaskApprovalConfig());
+            this.addConfig(new TaskApprovalAttachmentConfig());
 //        this.addConfig(new ProcessErrorConfig());
 //
 //        this.addConfig(new CatalogConfig());

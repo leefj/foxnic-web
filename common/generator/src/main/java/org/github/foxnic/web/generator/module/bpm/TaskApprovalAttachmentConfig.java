@@ -4,25 +4,23 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL_ATTACHMENT;
 import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.domain.bpm.Assignee;
-import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
+public class TaskApprovalAttachmentConfig extends BaseCodeConfig<BPM_TASK_APPROVAL_ATTACHMENT> {
 
-    public TaskApprovalConfig() {
-        super(PREFIX_BPM, BPM_TASK_APPROVAL.$TABLE,"bpm_", 4);
+    public TaskApprovalAttachmentConfig() {
+        super(PREFIX_BPM, BPM_TASK_APPROVAL_ATTACHMENT.$TABLE,"bpm_", 4);
     }
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        poType.addSimpleProperty(Assignee.class,"approver","审批人身份","审批人身份");
-        poType.addSimpleProperty(User.class,"approvalUser","审批人账户","审批人账户");
-        poType.shadow(BPM_TASK_APPROVAL.APPROVAL_RESULT, ApprovalResult.class);
-        poType.addListProperty(TaskApprovalAttachment.class,"attachment","流程附件","流程附件");
+//        poType.addSimpleProperty(Assignee.class,"approver","审批人身份","审批人身份");
+//        poType.addSimpleProperty(User.class,"approvalUser","审批人账户","审批人账户");
+//        poType.shadow(BPM_TASK_APPROVAL_ATTACHMENT.APPROVAL_RESULT, ApprovalResult.class);
     }
 
     @Override
@@ -72,7 +70,7 @@ public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
     public void configOverrides() {
         this.context.overrides()
             .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
-            .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
+            .setControllerAndAgent(WriteMode.IGNORE) //Rest
             .setPageController(WriteMode.IGNORE) //页面控制器
             .setFormPage(WriteMode.IGNORE) //表单HTML页
             .setListPage(WriteMode.IGNORE) //列表HTML页

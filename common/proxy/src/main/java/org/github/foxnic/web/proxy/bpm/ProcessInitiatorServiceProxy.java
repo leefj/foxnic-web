@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 流程发起人权限表  控制器服务代理
+ * 流程发起人权限 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:52
+ * @since 2023-04-23 15:57:21
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessInitiatorServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessInitiatorServiceProxy {

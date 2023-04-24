@@ -357,3 +357,16 @@ xm-select {
     background-size: 100% auto;
     margin-right: 1px;
 }
+
+.foxnic-input-inline {
+    width: auto !important;
+}
+
+.foxnic-input-inline-last {
+    margin-right: 0px !important;
+}
+
+.foxnic-input-inline-first {
+    margin-left: 4px;
+    margin-right: 10px !important;
+}

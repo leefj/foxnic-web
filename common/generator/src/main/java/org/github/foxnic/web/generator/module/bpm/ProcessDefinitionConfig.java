@@ -6,6 +6,7 @@ import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.bpm.DrafterRangeType;
 import org.github.foxnic.web.constants.enums.bpm.RejectOption;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.Catalog;
@@ -23,24 +24,26 @@ import org.github.foxnic.web.proxy.bpm.FormDefinitionServiceProxy;
 public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION> {
 
     public ProcessDefinitionConfig() {
-        super(PREFIX_BPM, BPM_PROCESS_DEFINITION.$TABLE,"bpm_", 4);
+        super(PREFIX_BPM, BPM_PROCESS_DEFINITION.$TABLE, "bpm_", 4);
     }
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
-        poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程模型定义","流程模型文件");
-        poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
+        poType.addSimpleProperty(User.class, "lastUpdateUser", "最后修改人", "最后修改人");
+        poType.addSimpleProperty(ProcessDefinitionFile.class, "definitionFile", "流程模型定义", "流程模型文件");
+        poType.addSimpleProperty(FormDefinition.class, "formDefinition", "表单定义", "表单定义");
         poType.shadow(BPM_PROCESS_DEFINITION.REJECT_OPTION, RejectOption.class);
-        poType.addSimpleProperty(Catalog.class,"catalog","分类对象","分类对象");
+        poType.addSimpleProperty(Catalog.class, "catalog", "分类对象", "分类对象");
 
-        voType.addSimpleProperty(String.class,"formDefinitionCode","表单定义代码","表单定义代码");
+        poType.shadow(BPM_PROCESS_DEFINITION.DRAFTER_RANGE, DrafterRangeType.class);
+
+        voType.addSimpleProperty(String.class, "formDefinitionCode", "表单定义代码", "表单定义代码");
 
     }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-        search.inputLayout(new Object[] {
+        search.inputLayout(new Object[]{
                 BPM_PROCESS_DEFINITION.CATALOG_ID,
                 BPM_PROCESS_DEFINITION.CODE,
                 BPM_PROCESS_DEFINITION.NAME,
@@ -66,7 +69,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().triggerOnSelect(true)
                 .table().fillBy(ProcessDefinitionMeta.CATALOG, CatalogMeta.NAME)
                 .form().validate().required()
-                .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false,false)
+                .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false, false)
                 .textField(BPM_CATALOG.NAME).valueField(BPM_CATALOG.ID).fillWith(ProcessDefinitionMeta.CATALOG);
 
 
@@ -77,8 +80,13 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CODE).basic().label("代码").search().fuzzySearch()
                 .form().validate().required();
-        view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
-        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0).search().triggerOnSelect(true);
+
+        view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch()
+                .form().inlines(BPM_PROCESS_DEFINITION.SORT,BPM_PROCESS_DEFINITION.VALID).inlineDelta(6)
+                .form().validate().required();
+
+        view.field(BPM_PROCESS_DEFINITION.VALID).form().label("有效").logicField().on("有效", 1).off("无效", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
         view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.REAL_NAME)
                 .form().hidden()
@@ -88,12 +96,16 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .table().fillBy(ProcessDefinitionMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
                 .search().inputWidth(200).triggerOnSelect(true)
                 .form().validate().required()
-                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST+"?isBindProcess=0").queryApi4Search(FormDefinitionServiceProxy.QUERY_PAGED_LIST)
-                .paging(true).filter(true).muliti(false,false)
+                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST + "?isBindProcess=0").queryApi4Search(FormDefinitionServiceProxy.QUERY_PAGED_LIST)
+                .paging(true).filter(true).muliti(false, false)
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
+        view.field(BPM_PROCESS_DEFINITION.DRAFTER_RANGE).basic().label("起草人范围")
+                .form().validate().required()
+                .form().checkBox().enumType(DrafterRangeType.class)
+                .search().hidden().table().hidden();
 
-        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人范围")
+        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人类型")
                 .form().validate().required()
                 .form().checkBox().enumType(UnifiedUserType.class)
                 .search().hidden().table().hidden();
@@ -105,7 +117,13 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().hidden().table().hidden();
         ;
 
-        view.field(BPM_CATALOG.SORT).search().hidden();
+        view.field(BPM_CATALOG.SORT).search().hidden().form().inputWidth(80);
+
+        view.field(BPM_PROCESS_DEFINITION.DRAFTER_RANGE).basic().label("起草人范围")
+                .form().validate().required()
+                .form().checkBox().enumType(DrafterRangeType.class)
+                .search().hidden().table().hidden();
+        ;
 
 
     }
@@ -113,44 +131,69 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
-        view.formWindow().width("650px");
+        view.formWindow().width("1200px");
 
-        form.columnLayout(new Object[]{
-                BPM_PROCESS_DEFINITION.CODE,
-                BPM_PROCESS_DEFINITION.NAME,
-                BPM_PROCESS_DEFINITION.ICON_FILE_PC,
-                BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE,
-                BPM_PROCESS_DEFINITION.CATALOG_ID,
-                BPM_PROCESS_DEFINITION.VALID,
-                BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
-                BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE,
-                BPM_PROCESS_DEFINITION.REJECT_OPTION,
-                BPM_PROCESS_DEFINITION.SORT,
-                BPM_PROCESS_DEFINITION.NOTES
-        });
+        form.addGroup("g1", "",
+
+                new Object[]{BPM_PROCESS_DEFINITION.CODE,
+                        BPM_PROCESS_DEFINITION.NAME,
+
+                        BPM_PROCESS_DEFINITION.VALID,
+                        BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
+
+                        BPM_PROCESS_DEFINITION.REJECT_OPTION,
+
+                }
+
+        );
+
+        form.addGroup("g11", "",
+                new Object[]{BPM_PROCESS_DEFINITION.DRAFTER_RANGE},
+                new Object[]{BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE}
+        );
+
+
+        form.addGroup("g2", "",
+                new Object[]{BPM_PROCESS_DEFINITION.CATALOG_ID},
+                new Object[]{BPM_PROCESS_DEFINITION.SORT}
+        );
+
+        form.addGroup("g6", "",
+                new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_PC},
+                new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE}
+        );
+
+        form.addGroup("g10", "",
+
+                new Object[]{
+                        BPM_PROCESS_DEFINITION.NOTES
+                }
+        );
+
+
     }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         ActionConfig action = null;
-        action = list.operationColumn().addActionButton("模型","showBpmnDiagrams");
+        action = list.operationColumn().addActionButton("模型", "showBpmnDiagrams");
         //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
-        action = list.operationColumn().addActionButton("发起人","showInitiators");
+        action = list.operationColumn().addActionButton("发起人", "showInitiators");
         //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 
-        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");
+        list.columnLayout(BPM_PROCESS_DEFINITION.NAME, BPM_PROCESS_DEFINITION.VALID, BPM_PROCESS_DEFINITION.NOTES, BPM_PROCESS_DEFINITION.CREATE_TIME, BPM_PROCESS_DEFINITION.UPDATE_TIME, "lastUpdateUserName");
 
     }
 
     @Override
     public void configOverrides() {
         this.context.overrides()
-            .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
-            .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
-            .setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
-            .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-            .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
-            .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
+                .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
+                .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
+                .setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
+                .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+                .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
+                .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
 }
