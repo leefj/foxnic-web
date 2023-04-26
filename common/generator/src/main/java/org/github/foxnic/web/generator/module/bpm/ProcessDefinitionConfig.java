@@ -55,7 +55,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(100);
+        view.form().labelWidth(80);
 
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_KEY).basic().hidden();
@@ -68,6 +68,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.CATALOG_ID).basic().label("分类")
                 .search().triggerOnSelect(true)
                 .table().fillBy(ProcessDefinitionMeta.CATALOG, CatalogMeta.NAME)
+                .form().inputWidth(150)
                 .form().validate().required()
                 .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false, false)
                 .textField(BPM_CATALOG.NAME).valueField(BPM_CATALOG.ID).fillWith(ProcessDefinitionMeta.CATALOG);
@@ -82,7 +83,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .form().validate().required();
 
         view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch()
-                .form().inlines(BPM_PROCESS_DEFINITION.SORT,BPM_PROCESS_DEFINITION.VALID).inlineDelta(6)
+                .form().inlines(BPM_PROCESS_DEFINITION.CATALOG_ID,BPM_PROCESS_DEFINITION.VALID).inlineDelta(6)
                 .form().validate().required();
 
         view.field(BPM_PROCESS_DEFINITION.VALID).form().label("有效").logicField().on("有效", 1).off("无效", 0).search().triggerOnSelect(true)
@@ -133,7 +134,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
         view.formWindow().width("1200px");
 
-        form.addGroup("g1", "",
+        form.addGroup("g1", "基本信息",
 
                 new Object[]{BPM_PROCESS_DEFINITION.CODE,
                         BPM_PROCESS_DEFINITION.NAME,
@@ -141,27 +142,31 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                         BPM_PROCESS_DEFINITION.VALID,
                         BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
 
-                        BPM_PROCESS_DEFINITION.REJECT_OPTION,
 
+                        BPM_PROCESS_DEFINITION.SORT,
+                        //
+                        BPM_PROCESS_DEFINITION.CATALOG_ID
                 }
 
-        );
-
-        form.addGroup("g11", "",
-                new Object[]{BPM_PROCESS_DEFINITION.DRAFTER_RANGE},
-                new Object[]{BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE}
-        );
-
-
-        form.addGroup("g2", "",
-                new Object[]{BPM_PROCESS_DEFINITION.CATALOG_ID},
-                new Object[]{BPM_PROCESS_DEFINITION.SORT}
         );
 
         form.addGroup("g6", "",
                 new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_PC},
                 new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE}
         );
+
+        form.addGroup("g11", "人员设置",
+                new Object[]{BPM_PROCESS_DEFINITION.DRAFTER_RANGE},
+                new Object[]{BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE}
+        );
+
+
+        form.addGroup("g2", "流程控制",
+                new Object[]{ BPM_PROCESS_DEFINITION.REJECT_OPTION},
+                new Object[]{}
+        );
+
+
 
         form.addGroup("g10", "",
 

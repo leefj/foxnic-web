@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义
  * <p>流程定义 , 数据表 bpm_process_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-24 15:04:05
+ * @since 2023-04-25 12:00:22
  * @sign 0C3908C8C73F04947F24C0B3E4ECAE2F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

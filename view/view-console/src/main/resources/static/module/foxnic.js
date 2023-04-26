@@ -995,6 +995,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                     if(inputWidth>0) {
                         inlineDiv.find("input").width(inputWidth);
+                        inlineDiv.find("div[input-type=select]").width(inputWidth);
                     }
                     div.parent().append(inlineDiv);
                     invalidItem.remove();
