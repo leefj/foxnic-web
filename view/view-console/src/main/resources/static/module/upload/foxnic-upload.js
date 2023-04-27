@@ -317,17 +317,19 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             this.config.done = function(res,index, upload){
                 //如果上传失败
                 // debugger
-                if(!res.success) {
-                    return layer.msg('上传失败');
-                }
+
 
                 setTimeout(function () {
-                    //debugger;
+
                     $("#"+elId+"-progress-container-"+index).fadeTo("slow", 0.01, function(){
                         //$("#"+elId+"-progress-container-"+index).css("display","none");
                     });
 
                 },500);
+
+                if(!res.success) {
+                    return layer.msg('上传失败');
+                }
 
                 bindData("add",elId,index,res.data[0].fileId);
 
