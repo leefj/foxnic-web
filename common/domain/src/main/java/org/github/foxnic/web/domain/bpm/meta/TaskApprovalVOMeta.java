@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 16:00:10
+ * @since 2023-04-27 17:03:09
  * @sign 8A28BAE32E4EB1BB97142E5E040A0E0E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -372,19 +372,29 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,org.github.foxnic.web.domain.oauth.User> APPROVAL_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,APPROVAL_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
-	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final String ATTACHMENT="attachment";
+	public static final String ATTACHMENT_FILE_IDS="attachmentFileIds";
 	
 	/**
-	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,ATTACHMENT, java.util.List.class, "流程附件", "流程附件", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,java.lang.String> ATTACHMENT_FILE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,ATTACHMENT_FILE_IDS, java.util.List.class, "附件ID清单", "附件ID清单", java.lang.String.class, null);
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final String ATTACHMENTS="attachments";
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalVO,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENTS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalVO.class ,ATTACHMENTS, java.util.List.class, "附件清单", "附件清单", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT_FILE_IDS , ATTACHMENTS };
 	
 	/**
 	 * 代理类
@@ -780,13 +790,24 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 		}
 		
 		/**
-		 * 设置 流程附件
-		 * @param attachment 流程附件
+		 * 设置 附件ID清单
+		 * @param attachmentFileIds 附件ID清单
 		 * @return 当前对象
 		*/
-		public TaskApproval setAttachment(List<TaskApprovalAttachment> attachment) {
-			super.change(ATTACHMENT,super.getAttachment(),attachment);
-			super.setAttachment(attachment);
+		public TaskApproval setAttachmentFileIds(List<String> attachmentFileIds) {
+			super.change(ATTACHMENT_FILE_IDS,super.getAttachmentFileIds(),attachmentFileIds);
+			super.setAttachmentFileIds(attachmentFileIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 附件清单
+		 * @param attachments 附件清单
+		 * @return 当前对象
+		*/
+		public TaskApproval setAttachments(List<TaskApprovalAttachment> attachments) {
+			super.change(ATTACHMENTS,super.getAttachments(),attachments);
+			super.setAttachments(attachments);
 			return this;
 		}
 
@@ -828,12 +849,13 @@ public class TaskApprovalVOMeta extends TaskApprovalMeta {
 			inst.setTaskId(this.getTaskId());
 			if(all) {
 				inst.setApprover(this.getApprover());
+				inst.setAttachments(this.getAttachments());
 				inst.setSearchField(this.getSearchField());
 				inst.setRequestAction(this.getRequestAction());
 				inst.setFuzzyField(this.getFuzzyField());
 				inst.setPageSize(this.getPageSize());
 				inst.setApprovalUser(this.getApprovalUser());
-				inst.setAttachment(this.getAttachment());
+				inst.setAttachmentFileIds(this.getAttachmentFileIds());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
 				inst.setDirtyFields(this.getDirtyFields());

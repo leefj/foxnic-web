@@ -1826,7 +1826,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!input || input.length==0) {
                     return true;
                 }
-                debugger;
+                // debugger;
                 var v=data[f];
                 if(cfg.required) {
                     if(v==null) {

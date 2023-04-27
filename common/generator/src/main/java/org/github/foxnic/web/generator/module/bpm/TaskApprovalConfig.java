@@ -9,6 +9,7 @@ import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
@@ -22,7 +23,9 @@ public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
         poType.addSimpleProperty(Assignee.class,"approver","审批人身份","审批人身份");
         poType.addSimpleProperty(User.class,"approvalUser","审批人账户","审批人账户");
         poType.shadow(BPM_TASK_APPROVAL.APPROVAL_RESULT, ApprovalResult.class);
-        poType.addListProperty(TaskApprovalAttachment.class,"attachment","流程附件","流程附件");
+
+        poType.addListProperty(String.class,"attachmentFileIds","附件ID清单","附件ID清单");
+        poType.addListProperty(TaskApprovalAttachment.class,"attachments","附件清单","附件清单");
     }
 
     @Override

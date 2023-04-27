@@ -15,7 +15,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         '	<img class="layui-upload-img" onclick="window.previewImage(this)" can-preview="{{canPreview}}" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
         '	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
         '	<div class="layui-upload-button-div" style="display:none" id="{{el}}-button-div-{{index}}">',
-        ' 	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger layui-upload-button" id="{{el}}-delete-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;删除</button>',
+        ' 	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger layui-upload-button foxup-delete-button" id="{{el}}-delete-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;删除</button>',
         ' 	<button type="button" class="layui-btn layui-btn-xs layui-upload-button" id="{{el}}-download-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;下载</button>',
         //' 	<button type="button" class="layui-btn layui-btn-xs layui-upload-button" id="{{el}}-view-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;查看</button>',
         '	</div>',
@@ -331,6 +331,13 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         disable:function (elId){
             var cfg=UPLOADS[elId].config;
             cfg.disabled=true;
+            // debugger
+            $("#"+elId+"-button").remove();
+            var fileList=$("#"+elId+"-file-list");
+            fileList.css("margin","0px");
+            var deleteButtons=fileList.find(".foxup-delete-button");
+            deleteButtons.remove();
+
         },
         fill:function (elId,fileIds) {
             //debugger;

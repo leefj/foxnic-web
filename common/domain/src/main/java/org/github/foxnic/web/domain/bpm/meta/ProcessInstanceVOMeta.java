@@ -16,13 +16,14 @@ import org.github.foxnic.web.domain.bpm.ProcessError;
 import org.github.foxnic.web.domain.bpm.TaskRead;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
+import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 11:19:29
+ * @since 2023-04-27 17:03:03
  * @sign C670531B153A1573AE592950BF5EA6AC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -640,9 +641,29 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "已完成的审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
 	
 	/**
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String ATTACHMENT_FILE_IDS="attachmentFileIds";
+	
+	/**
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> ATTACHMENT_FILE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,ATTACHMENT_FILE_IDS, java.util.List.class, "附件ID清单", "附件ID清单", java.lang.String.class, null);
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final String ATTACHMENTS="attachments";
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENTS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,ATTACHMENTS, java.util.List.class, "附件清单", "附件清单", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , APPROVAL_CATALOG , FORCE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , APPROVAL_CATALOG , FORCE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS , ATTACHMENT_FILE_IDS , ATTACHMENTS };
 	
 	/**
 	 * 代理类
@@ -1322,6 +1343,28 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 			super.setTaskApprovals(taskApprovals);
 			return this;
 		}
+		
+		/**
+		 * 设置 附件ID清单
+		 * @param attachmentFileIds 附件ID清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setAttachmentFileIds(List<String> attachmentFileIds) {
+			super.change(ATTACHMENT_FILE_IDS,super.getAttachmentFileIds(),attachmentFileIds);
+			super.setAttachmentFileIds(attachmentFileIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 附件清单
+		 * @param attachments 附件清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setAttachments(List<TaskApprovalAttachment> attachments) {
+			super.change(ATTACHMENTS,super.getAttachments(),attachments);
+			super.setAttachments(attachments);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -1369,6 +1412,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 			if(all) {
 				inst.setBillIds(this.getBillIds());
 				inst.setFormInstance(this.getFormInstance());
+				inst.setAttachments(this.getAttachments());
 				inst.setSearchField(this.getSearchField());
 				inst.setFuzzyField(this.getFuzzyField());
 				inst.setPageSize(this.getPageSize());
@@ -1391,6 +1435,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 				inst.setDrafterUser(this.getDrafterUser());
 				inst.setFormDefinition(this.getFormDefinition());
 				inst.setApprovalCatalog(this.getApprovalCatalog());
+				inst.setAttachmentFileIds(this.getAttachmentFileIds());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
 				inst.setReaders(this.getReaders());

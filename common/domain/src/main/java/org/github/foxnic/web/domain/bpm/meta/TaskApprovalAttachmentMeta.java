@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 15:57:21
- * @sign D175BB9B30BBE9B2617D250918938A80
+ * @since 2023-04-27 16:51:00
+ * @sign 70C3EF6FAA951677CE52629199F4905A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -147,9 +147,19 @@ public class TaskApprovalAttachmentMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalAttachment,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class ,TENANT_ID, java.lang.String.class, "tenant_id", "tenant_id", java.lang.String.class, null);
 	
 	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApprovalAttachment,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class ,SORT, java.lang.Integer.class, "顺序", "顺序", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , APPROVAL_ID , PROCESS_INSTANCE_ID , FILE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ ID , APPROVAL_ID , PROCESS_INSTANCE_ID , FILE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
 	
 	/**
 	 * 代理类
@@ -301,6 +311,17 @@ public class TaskApprovalAttachmentMeta {
 			super.setTenantId(tenantId);
 			return this;
 		}
+		
+		/**
+		 * 设置 顺序
+		 * @param sort 顺序
+		 * @return 当前对象
+		*/
+		public TaskApprovalAttachment setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -319,6 +340,7 @@ public class TaskApprovalAttachmentMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setProcessInstanceId(this.getProcessInstanceId());
 			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSort(this.getSort());
 			inst.setVersion(this.getVersion());
 			inst.setCreateBy(this.getCreateBy());
 			inst.setDeleted(this.getDeleted());

@@ -134,7 +134,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new TaskConfig());
 //        this.addConfig(new TaskReadConfig());
 //        this.addConfig(new TaskAssigneeConfig());
-//        this.addConfig(new TaskApprovalConfig());
+        this.addConfig(new TaskApprovalConfig());
             this.addConfig(new TaskApprovalAttachmentConfig());
 //        this.addConfig(new ProcessErrorConfig());
 //

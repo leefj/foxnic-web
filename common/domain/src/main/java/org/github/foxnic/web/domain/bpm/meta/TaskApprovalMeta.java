@@ -5,16 +5,16 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import java.util.List;
+import org.github.foxnic.web.domain.bpm.TaskApprovalAttachment;
 import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 16:00:10
- * @sign A7C71495134B915BABEDBBB1FCF867E1
+ * @since 2023-04-27 17:03:09
+ * @sign FFA2DA3FD0DB048AC71DA7635833F4E6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -251,19 +251,29 @@ public class TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.oauth.User> APPROVAL_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,APPROVAL_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
-	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final String ATTACHMENT="attachment";
+	public static final String ATTACHMENT_FILE_IDS="attachmentFileIds";
 	
 	/**
-	 * 流程附件 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,ATTACHMENT, java.util.List.class, "流程附件", "流程附件", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,java.lang.String> ATTACHMENT_FILE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,ATTACHMENT_FILE_IDS, java.util.List.class, "附件ID清单", "附件ID清单", java.lang.String.class, null);
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final String ATTACHMENTS="attachments";
+	
+	/**
+	 * 附件清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApprovalAttachment
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.bpm.TaskApprovalAttachment> ATTACHMENTS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,ATTACHMENTS, java.util.List.class, "附件清单", "附件清单", org.github.foxnic.web.domain.bpm.TaskApprovalAttachment.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT };
+	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER , ATTACHMENT_FILE_IDS , ATTACHMENTS };
 	
 	/**
 	 * 代理类
@@ -527,13 +537,24 @@ public class TaskApprovalMeta {
 		}
 		
 		/**
-		 * 设置 流程附件
-		 * @param attachment 流程附件
+		 * 设置 附件ID清单
+		 * @param attachmentFileIds 附件ID清单
 		 * @return 当前对象
 		*/
-		public TaskApproval setAttachment(List<TaskApprovalAttachment> attachment) {
-			super.change(ATTACHMENT,super.getAttachment(),attachment);
-			super.setAttachment(attachment);
+		public TaskApproval setAttachmentFileIds(List<String> attachmentFileIds) {
+			super.change(ATTACHMENT_FILE_IDS,super.getAttachmentFileIds(),attachmentFileIds);
+			super.setAttachmentFileIds(attachmentFileIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 附件清单
+		 * @param attachments 附件清单
+		 * @return 当前对象
+		*/
+		public TaskApproval setAttachments(List<TaskApprovalAttachment> attachments) {
+			super.change(ATTACHMENTS,super.getAttachments(),attachments);
+			super.setAttachments(attachments);
 			return this;
 		}
 
@@ -575,8 +596,9 @@ public class TaskApprovalMeta {
 			inst.setTaskId(this.getTaskId());
 			if(all) {
 				inst.setApprover(this.getApprover());
+				inst.setAttachments(this.getAttachments());
 				inst.setApprovalUser(this.getApprovalUser());
-				inst.setAttachment(this.getAttachment());
+				inst.setAttachmentFileIds(this.getAttachmentFileIds());
 			}
 			inst.clearModifies();
 			return inst;

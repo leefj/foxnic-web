@@ -4,15 +4,14 @@ import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.FormInstanceBill;
-import org.github.foxnic.web.domain.bpm.ProcessInstanceRemind;
-import org.github.foxnic.web.domain.bpm.Task;
-import org.github.foxnic.web.domain.bpm.TaskApproval;
+import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.storage.File;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,10 +177,23 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessInstanceMeta.ERRORS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_PROCESS_ERROR.PROCESS_INSTANCE_ID);
 
-		//任务 - 已读清单
+		//流程实例 - 已读清单
 		this.property(ProcessInstanceMeta.READERS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_READ.PROCESS_INSTANCE_ID)
 				.addOrderBy(FoxnicWeb.BPM_TASK_READ.CREATE_TIME,false,true);
+
+
+		//流程实例 -  附件
+		this.property(ProcessInstanceMeta.ATTACHMENTS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_APPROVAL_ATTACHMENT.PROCESS_INSTANCE_ID)
+				.conditionEquals(FoxnicWeb.BPM_TASK_APPROVAL_ATTACHMENT.APPROVAL_ID, ApprovalAction.draft.code())
+				.after((tag,owner,data,map)->{
+					CollectorUtil.sort(data,TaskApprovalAttachment::getSort,true,true);
+					List<String> ids=CollectorUtil.collectList(data, TaskApprovalAttachment::getFileId);
+					owner.setAttachmentFileIds(ids);
+					return data;
+				})
+				;
 	}
 
 	protected void setupBpmTask() {
@@ -223,6 +235,16 @@ public class BpmRelationManager extends RelationManager {
 					return data;
 				});
 
+
+		//流程实例 -  附件
+		this.property(TaskApprovalMeta.ATTACHMENTS_PROP)
+				.using(FoxnicWeb.BPM_TASK_APPROVAL.ID).join(FoxnicWeb.BPM_TASK_APPROVAL_ATTACHMENT.APPROVAL_ID)
+				.after((tag,owner,data,map)->{
+					CollectorUtil.sort(data,TaskApprovalAttachment::getSort,true,true);
+					List<String> ids=CollectorUtil.collectList(data, TaskApprovalAttachment::getFileId);
+					owner.setAttachmentFileIds(ids);
+					return data;
+				});
 
 		//已读记录 - 账户
 		this.property(TaskReadMeta.READER_PROP)

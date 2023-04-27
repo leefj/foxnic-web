@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例VO类型
  * <p>流程实例 , 数据表 bpm_process_instance 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 11:19:29
+ * @since 2023-04-27 17:03:03
  * @sign C670531B153A1573AE592950BF5EA6AC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -642,6 +642,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 		if(all) {
 			inst.setBillIds(this.getBillIds());
 			inst.setFormInstance(this.getFormInstance());
+			inst.setAttachments(this.getAttachments());
 			inst.setSearchField(this.getSearchField());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
@@ -663,6 +664,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 			inst.setApprovedUserIds(this.getApprovedUserIds());
 			inst.setDrafterUser(this.getDrafterUser());
 			inst.setFormDefinition(this.getFormDefinition());
+			inst.setAttachmentFileIds(this.getAttachmentFileIds());
 			inst.setApprovalCatalog(this.getApprovalCatalog());
 			inst.setReaders(this.getReaders());
 			inst.setPageIndex(this.getPageIndex());

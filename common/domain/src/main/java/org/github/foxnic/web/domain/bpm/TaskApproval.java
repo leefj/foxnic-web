@@ -30,8 +30,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程任务审批结果
  * <p>流程任务审批结果 , 数据表 bpm_task_approval 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 16:00:10
- * @sign A7C71495134B915BABEDBBB1FCF867E1
+ * @since 2023-04-27 17:03:09
+ * @sign FFA2DA3FD0DB048AC71DA7635833F4E6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -167,7 +167,7 @@ public class TaskApproval extends Entity {
 	/**
 	 * CAM结果：Camunda返回的结果
 	*/
-	@ApiModelProperty(required = false,value="CAM结果" , notes = "Camunda返回的结果" , example = "{}")
+	@ApiModelProperty(required = false,value="CAM结果" , notes = "Camunda返回的结果" , example = "")
 	private String camundaResult;
 
 	/**
@@ -189,10 +189,16 @@ public class TaskApproval extends Entity {
 	private User approvalUser;
 
 	/**
-	 * 流程附件：流程附件
+	 * 附件ID清单：附件ID清单
 	*/
-	@ApiModelProperty(required = false,value="流程附件" , notes = "流程附件")
-	private List<TaskApprovalAttachment> attachment;
+	@ApiModelProperty(required = false,value="附件ID清单" , notes = "附件ID清单")
+	private List<String> attachmentFileIds;
+
+	/**
+	 * 附件清单：附件清单
+	*/
+	@ApiModelProperty(required = false,value="附件清单" , notes = "附件清单")
+	private List<TaskApprovalAttachment> attachments;
 
 	/**
 	 * 获得 id<br>
@@ -697,32 +703,62 @@ public class TaskApproval extends Entity {
 	}
 
 	/**
-	 * 获得 流程附件<br>
-	 * 流程附件
-	 * @return 流程附件
+	 * 获得 附件ID清单<br>
+	 * 附件ID清单
+	 * @return 附件ID清单
 	*/
-	public List<TaskApprovalAttachment> getAttachment() {
-		return attachment;
+	public List<String> getAttachmentFileIds() {
+		return attachmentFileIds;
 	}
 
 	/**
-	 * 设置 流程附件
-	 * @param attachment 流程附件
+	 * 设置 附件ID清单
+	 * @param attachmentFileIds 附件ID清单
 	 * @return 当前对象
 	*/
-	public TaskApproval setAttachment(List<TaskApprovalAttachment> attachment) {
-		this.attachment=attachment;
+	public TaskApproval setAttachmentFileIds(List<String> attachmentFileIds) {
+		this.attachmentFileIds=attachmentFileIds;
 		return this;
 	}
 
 	/**
-	 * 添加 流程附件
-	 * @param entity 流程附件
+	 * 添加 附件ID清单
+	 * @param attachmentFileId 附件ID清单
 	 * @return 当前对象
 	*/
-	public TaskApproval addAttachment(TaskApprovalAttachment... entity) {
-		if(this.attachment==null) attachment=new ArrayList<>();
-		this.attachment.addAll(Arrays.asList(entity));
+	public TaskApproval addAttachmentFileId(String... attachmentFileId) {
+		if(this.attachmentFileIds==null) attachmentFileIds=new ArrayList<>();
+		this.attachmentFileIds.addAll(Arrays.asList(attachmentFileId));
+		return this;
+	}
+
+	/**
+	 * 获得 附件清单<br>
+	 * 附件清单
+	 * @return 附件清单
+	*/
+	public List<TaskApprovalAttachment> getAttachments() {
+		return attachments;
+	}
+
+	/**
+	 * 设置 附件清单
+	 * @param attachments 附件清单
+	 * @return 当前对象
+	*/
+	public TaskApproval setAttachments(List<TaskApprovalAttachment> attachments) {
+		this.attachments=attachments;
+		return this;
+	}
+
+	/**
+	 * 添加 附件清单
+	 * @param attachment 附件清单
+	 * @return 当前对象
+	*/
+	public TaskApproval addAttachment(TaskApprovalAttachment... attachment) {
+		if(this.attachments==null) attachments=new ArrayList<>();
+		this.attachments.addAll(Arrays.asList(attachment));
 		return this;
 	}
 
@@ -793,8 +829,9 @@ public class TaskApproval extends Entity {
 		inst.setTaskId(this.getTaskId());
 		if(all) {
 			inst.setApprover(this.getApprover());
+			inst.setAttachments(this.getAttachments());
 			inst.setApprovalUser(this.getApprovalUser());
-			inst.setAttachment(this.getAttachment());
+			inst.setAttachmentFileIds(this.getAttachmentFileIds());
 		}
 		inst.clearModifies();
 		return inst;

@@ -19,6 +19,7 @@ import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
+import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.BpmIdentityServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
@@ -61,6 +62,9 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         voType.addSimpleProperty(String.class,"approvalCatalog","流程审批分类","流程审批分类");
         voType.addSimpleProperty(Boolean.class,"force","是否强制删除","是否强制删除");
         voType.shadow("approvalCatalog", ApprovalCatalog.class);
+
+        poType.addListProperty(String.class,"attachmentFileIds","附件ID清单","附件ID清单");
+        poType.addListProperty(TaskApprovalAttachment.class,"attachments","附件清单","附件清单");
 
 
         //

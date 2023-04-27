@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程任务审批附件
  * <p>流程任务审批附件 , 数据表 bpm_task_approval_attachment 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 15:57:21
- * @sign D175BB9B30BBE9B2617D250918938A80
+ * @since 2023-04-27 16:51:00
+ * @sign 70C3EF6FAA951677CE52629199F4905A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -117,6 +117,12 @@ public class TaskApprovalAttachment extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
+	
+	/**
+	 * 顺序：顺序
+	*/
+	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
+	private Integer sort;
 	
 	/**
 	 * 获得 id<br>
@@ -395,6 +401,25 @@ public class TaskApprovalAttachment extends Entity {
 		this.tenantId=tenantId;
 		return this;
 	}
+	
+	/**
+	 * 获得 顺序<br>
+	 * 顺序
+	 * @return 顺序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 顺序
+	 * @param sort 顺序
+	 * @return 当前对象
+	*/
+	public TaskApprovalAttachment setSort(Integer sort) {
+		this.sort=sort;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -442,6 +467,7 @@ public class TaskApprovalAttachment extends Entity {
 		org.github.foxnic.web.domain.bpm.meta.TaskApprovalAttachmentMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskApprovalAttachmentMeta.$$proxy$$();
 		inst.setProcessInstanceId(this.getProcessInstanceId());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
 		inst.setVersion(this.getVersion());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
@@ -513,6 +539,7 @@ public class TaskApprovalAttachment extends Entity {
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, map.get(TaskApprovalAttachmentMeta.PROCESS_INSTANCE_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(TaskApprovalAttachmentMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentMeta.VERSION)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(TaskApprovalAttachmentMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentMeta.DELETED)));
@@ -530,6 +557,7 @@ public class TaskApprovalAttachment extends Entity {
 			try {
 				this.setProcessInstanceId( (String)map.get(TaskApprovalAttachmentMeta.PROCESS_INSTANCE_ID));
 				this.setUpdateTime( (Date)map.get(TaskApprovalAttachmentMeta.UPDATE_TIME));
+				this.setSort( (Integer)map.get(TaskApprovalAttachmentMeta.SORT));
 				this.setVersion( (Integer)map.get(TaskApprovalAttachmentMeta.VERSION));
 				this.setCreateBy( (String)map.get(TaskApprovalAttachmentMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(TaskApprovalAttachmentMeta.DELETED));
@@ -560,6 +588,7 @@ public class TaskApprovalAttachment extends Entity {
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, r.getValue(TaskApprovalAttachmentMeta.PROCESS_INSTANCE_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TaskApprovalAttachmentMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentMeta.VERSION)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(TaskApprovalAttachmentMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentMeta.DELETED)));
@@ -576,6 +605,7 @@ public class TaskApprovalAttachment extends Entity {
 			try {
 				this.setProcessInstanceId( (String)r.getValue(TaskApprovalAttachmentMeta.PROCESS_INSTANCE_ID));
 				this.setUpdateTime( (Date)r.getValue(TaskApprovalAttachmentMeta.UPDATE_TIME));
+				this.setSort( (Integer)r.getValue(TaskApprovalAttachmentMeta.SORT));
 				this.setVersion( (Integer)r.getValue(TaskApprovalAttachmentMeta.VERSION));
 				this.setCreateBy( (String)r.getValue(TaskApprovalAttachmentMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(TaskApprovalAttachmentMeta.DELETED));

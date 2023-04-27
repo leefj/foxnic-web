@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程任务审批附件VO类型
  * <p>流程任务审批附件 , 数据表 bpm_task_approval_attachment 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-23 15:57:21
+ * @since 2023-04-27 16:51:00
  * @sign D19B1953E40B85EA679F9EFF7B7C1DA7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -403,6 +403,7 @@ public class TaskApprovalAttachmentVO extends TaskApprovalAttachment {
 		org.github.foxnic.web.domain.bpm.meta.TaskApprovalAttachmentVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskApprovalAttachmentVOMeta.$$proxy$$();
 		inst.setProcessInstanceId(this.getProcessInstanceId());
 		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
 		inst.setVersion(this.getVersion());
 		inst.setCreateBy(this.getCreateBy());
 		inst.setDeleted(this.getDeleted());
@@ -488,6 +489,7 @@ public class TaskApprovalAttachmentVO extends TaskApprovalAttachment {
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, map.get(TaskApprovalAttachmentVOMeta.PROCESS_INSTANCE_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(TaskApprovalAttachmentVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentVOMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentVOMeta.VERSION)));
 			this.setCreateBy(DataParser.parse(String.class, map.get(TaskApprovalAttachmentVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, map.get(TaskApprovalAttachmentVOMeta.DELETED)));
@@ -515,6 +517,7 @@ public class TaskApprovalAttachmentVO extends TaskApprovalAttachment {
 			try {
 				this.setProcessInstanceId( (String)map.get(TaskApprovalAttachmentVOMeta.PROCESS_INSTANCE_ID));
 				this.setUpdateTime( (Date)map.get(TaskApprovalAttachmentVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)map.get(TaskApprovalAttachmentVOMeta.SORT));
 				this.setVersion( (Integer)map.get(TaskApprovalAttachmentVOMeta.VERSION));
 				this.setCreateBy( (String)map.get(TaskApprovalAttachmentVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)map.get(TaskApprovalAttachmentVOMeta.DELETED));
@@ -555,6 +558,7 @@ public class TaskApprovalAttachmentVO extends TaskApprovalAttachment {
 		if(cast) {
 			this.setProcessInstanceId(DataParser.parse(String.class, r.getValue(TaskApprovalAttachmentVOMeta.PROCESS_INSTANCE_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(TaskApprovalAttachmentVOMeta.UPDATE_TIME)));
+			this.setSort(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentVOMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentVOMeta.VERSION)));
 			this.setCreateBy(DataParser.parse(String.class, r.getValue(TaskApprovalAttachmentVOMeta.CREATE_BY)));
 			this.setDeleted(DataParser.parse(Integer.class, r.getValue(TaskApprovalAttachmentVOMeta.DELETED)));
@@ -571,6 +575,7 @@ public class TaskApprovalAttachmentVO extends TaskApprovalAttachment {
 			try {
 				this.setProcessInstanceId( (String)r.getValue(TaskApprovalAttachmentVOMeta.PROCESS_INSTANCE_ID));
 				this.setUpdateTime( (Date)r.getValue(TaskApprovalAttachmentVOMeta.UPDATE_TIME));
+				this.setSort( (Integer)r.getValue(TaskApprovalAttachmentVOMeta.SORT));
 				this.setVersion( (Integer)r.getValue(TaskApprovalAttachmentVOMeta.VERSION));
 				this.setCreateBy( (String)r.getValue(TaskApprovalAttachmentVOMeta.CREATE_BY));
 				this.setDeleted( (Integer)r.getValue(TaskApprovalAttachmentVOMeta.DELETED));

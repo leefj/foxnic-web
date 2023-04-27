@@ -16,7 +16,7 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * 流程撤回参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 11:19:29
+ * @since 2023-04-27 17:03:03
  * @sign 35419B72D668F904DEF61EFEDEC3491C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

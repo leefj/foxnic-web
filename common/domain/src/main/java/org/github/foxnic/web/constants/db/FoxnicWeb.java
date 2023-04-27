@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-27 10:08:54
+ * @since 2023-04-27 16:50:30
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1839,8 +1839,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
 		
+		/**
+		 * 顺序
+		*/
+		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","顺序","顺序",false,false,true);
+		
 		public BPM_TASK_APPROVAL_ATTACHMENT() {
-			this.init($NAME,"流程任务审批附件表" , ID , APPROVAL_ID , PROCESS_INSTANCE_ID , FILE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程任务审批附件表" , ID , APPROVAL_ID , PROCESS_INSTANCE_ID , FILE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT);
 		}
 		public static final BPM_TASK_APPROVAL_ATTACHMENT $TABLE=new BPM_TASK_APPROVAL_ATTACHMENT();
 	}

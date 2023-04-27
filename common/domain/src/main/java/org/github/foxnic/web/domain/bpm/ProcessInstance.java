@@ -32,8 +32,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例
  * <p>流程实例 , 数据表 bpm_process_instance 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 11:19:29
- * @sign C652EC0758964AA1DEFE78C5E94AE952
+ * @since 2023-04-27 17:03:03
+ * @sign 6AA55E05D2F84F460C6E34AC122CEFA4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,19 +49,19 @@ public class ProcessInstance extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "681076426912301056")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "703974472239022080")
 	private String id;
 	
 	/**
 	 * 起草人账户ID：起草人账户ID
 	*/
-	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID" , example = "581798649130909696")
+	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID" , example = "110588348101165911")
 	private String drafterUserId;
 	
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
-	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID" , example = "581798649130909696")
+	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID" , example = "110588348101165911")
 	private String drafterId;
 	
 	/**
@@ -76,7 +76,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 表单实例ID：表单实例ID
 	*/
-	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID" , example = "681076427465949184")
+	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID" , example = "703974473648308224")
 	private String formInstanceId;
 	
 	/**
@@ -88,7 +88,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 流程定义文件ID：流程定义文件ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID" , example = "680090593438728192")
+	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID" , example = "703974333449502720")
 	private String processDefinitionFileId;
 	
 	/**
@@ -100,7 +100,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 流程标题：流程标题
 	*/
-	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题" , example = "这是默认标题")
+	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题" , example = "1")
 	private String title;
 	
 	/**
@@ -121,7 +121,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 审批状态：审批状态
 	*/
-	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态" , example = "approving")
+	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态" , example = "drafting")
 	private String approvalStatus;
 	@Transient
 	@EnumFor("approvalStatus")
@@ -130,13 +130,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * camunda流程实例ID：camunda流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID" , example = "056c2442-b31d-11ed-acb0-1268e6e59107")
+	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID" , example = "fd9a5961-e4c3-11ed-85e5-1268e6e59107")
 	private String camundaInstanceId;
 	
 	/**
 	 * 提交时间：提交时间
 	*/
-	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间" , example = "2023-02-23 09:54:35")
+	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间" , example = "2023-04-27 02:23:15")
 	private Date commitTime;
 	
 	/**
@@ -154,13 +154,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "581798649130909696")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "110588348101165911")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-02-23 09:54:34")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-04-27 02:23:13")
 	private Date createTime;
 	
 	/**
@@ -172,7 +172,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-02-23 10:37:31")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-27 02:36:37")
 	private Date updateTime;
 	
 	/**
@@ -199,7 +199,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "428")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "45")
 	private Integer version;
 	
 	/**
@@ -223,7 +223,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 状态同步时间：状态同步时间
 	*/
-	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间" , example = "2023-02-23 10:37:31")
+	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间" , example = "2023-04-27 02:36:37")
 	private Date syncTime;
 	
 	/**
@@ -321,6 +321,18 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批动作清单" , notes = "已完成的审批动作清单")
 	private List<TaskApproval> taskApprovals;
+	
+	/**
+	 * 附件ID清单：附件ID清单
+	*/
+	@ApiModelProperty(required = false,value="附件ID清单" , notes = "附件ID清单")
+	private List<String> attachmentFileIds;
+	
+	/**
+	 * 附件清单：附件清单
+	*/
+	@ApiModelProperty(required = false,value="附件清单" , notes = "附件清单")
+	private List<TaskApprovalAttachment> attachments;
 	
 	/**
 	 * 获得 主键<br>
@@ -1378,6 +1390,66 @@ public class ProcessInstance extends Entity {
 		this.taskApprovals.addAll(Arrays.asList(taskApproval));
 		return this;
 	}
+	
+	/**
+	 * 获得 附件ID清单<br>
+	 * 附件ID清单
+	 * @return 附件ID清单
+	*/
+	public List<String> getAttachmentFileIds() {
+		return attachmentFileIds;
+	}
+	
+	/**
+	 * 设置 附件ID清单
+	 * @param attachmentFileIds 附件ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setAttachmentFileIds(List<String> attachmentFileIds) {
+		this.attachmentFileIds=attachmentFileIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 附件ID清单
+	 * @param attachmentFileId 附件ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addAttachmentFileId(String... attachmentFileId) {
+		if(this.attachmentFileIds==null) attachmentFileIds=new ArrayList<>();
+		this.attachmentFileIds.addAll(Arrays.asList(attachmentFileId));
+		return this;
+	}
+	
+	/**
+	 * 获得 附件清单<br>
+	 * 附件清单
+	 * @return 附件清单
+	*/
+	public List<TaskApprovalAttachment> getAttachments() {
+		return attachments;
+	}
+	
+	/**
+	 * 设置 附件清单
+	 * @param attachments 附件清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setAttachments(List<TaskApprovalAttachment> attachments) {
+		this.attachments=attachments;
+		return this;
+	}
+	
+	/**
+	 * 添加 附件清单
+	 * @param attachment 附件清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addAttachment(TaskApprovalAttachment... attachment) {
+		if(this.attachments==null) attachments=new ArrayList<>();
+		this.attachments.addAll(Arrays.asList(attachment));
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -1455,11 +1527,13 @@ public class ProcessInstance extends Entity {
 			inst.setBillIds(this.getBillIds());
 			inst.setFormInstance(this.getFormInstance());
 			inst.setTodoTasks(this.getTodoTasks());
+			inst.setAttachments(this.getAttachments());
 			inst.setProcessDefinition(this.getProcessDefinition());
 			inst.setDrafter(this.getDrafter());
 			inst.setApprovalStatusName(this.getApprovalStatusName());
 			inst.setDrafterUser(this.getDrafterUser());
 			inst.setFormDefinition(this.getFormDefinition());
+			inst.setAttachmentFileIds(this.getAttachmentFileIds());
 			inst.setReaders(this.getReaders());
 			inst.setUserTasks(this.getUserTasks());
 			inst.setBills(this.getBills());
