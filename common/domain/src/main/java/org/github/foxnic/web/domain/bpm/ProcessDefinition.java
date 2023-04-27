@@ -28,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义
  * <p>流程定义 , 数据表 bpm_process_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-25 12:00:22
- * @sign 0C3908C8C73F04947F24C0B3E4ECAE2F
+ * @since 2023-04-27 11:51:22
+ * @sign A074FEA18731622BB601B1133EB58F27
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -189,61 +189,61 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 是否允许撤回：是否允许撤回
 	*/
-	@ApiModelProperty(required = false,value="是否允许撤回" , notes = "是否允许撤回")
+	@ApiModelProperty(required = false,value="是否允许撤回" , notes = "是否允许撤回" , example = "1")
 	private Integer allowFetchBack;
 	
 	/**
 	 * 是否允许有条件同意：是否允许有条件同意
 	*/
-	@ApiModelProperty(required = false,value="是否允许有条件同意" , notes = "是否允许有条件同意")
+	@ApiModelProperty(required = false,value="是否允许有条件同意" , notes = "是否允许有条件同意" , example = "0")
 	private Integer allowAgreeWithCondition;
 	
 	/**
 	 * 是否允许驳回：是否允许驳回
 	*/
-	@ApiModelProperty(required = false,value="是否允许驳回" , notes = "是否允许驳回")
+	@ApiModelProperty(required = false,value="是否允许驳回" , notes = "是否允许驳回" , example = "1")
 	private Integer allowReject;
 	
 	/**
 	 * 是否允许跳过：是否允许跳过
 	*/
-	@ApiModelProperty(required = false,value="是否允许跳过" , notes = "是否允许跳过")
+	@ApiModelProperty(required = false,value="是否允许跳过" , notes = "是否允许跳过" , example = "1")
 	private Integer allowSkip;
 	
 	/**
 	 * 是否允许废弃：是否允许废弃
 	*/
-	@ApiModelProperty(required = false,value="是否允许废弃" , notes = "是否允许废弃")
+	@ApiModelProperty(required = false,value="是否允许废弃" , notes = "是否允许废弃" , example = "1")
 	private Integer allowAbandon;
 	
 	/**
 	 * 是否允许起草意见：是否允许起草意见
 	*/
-	@ApiModelProperty(required = false,value="是否允许起草意见" , notes = "是否允许起草意见")
-	private Integer allDraftingComment;
+	@ApiModelProperty(required = false,value="是否允许起草意见" , notes = "是否允许起草意见" , example = "1")
+	private Integer allowDraftingComment;
 	
 	/**
 	 * 是否允许审批意见：是否允许审批意见
 	*/
-	@ApiModelProperty(required = false,value="是否允许审批意见" , notes = "是否允许审批意见")
-	private Integer allApproveComment;
+	@ApiModelProperty(required = false,value="是否允许审批意见" , notes = "是否允许审批意见" , example = "1")
+	private Integer allowApproveComment;
 	
 	/**
 	 * 是否允许起草附件：是否允许起草附件
 	*/
-	@ApiModelProperty(required = false,value="是否允许起草附件" , notes = "是否允许起草附件")
-	private Integer allDraftingAttachment;
+	@ApiModelProperty(required = false,value="是否允许起草附件" , notes = "是否允许起草附件" , example = "1")
+	private Integer allowDraftingAttachment;
 	
 	/**
 	 * 是否允许审批附件：是否允许审批附件
 	*/
-	@ApiModelProperty(required = false,value="是否允许审批附件" , notes = "是否允许审批附件")
-	private Integer allApproveAttachment;
+	@ApiModelProperty(required = false,value="是否允许审批附件" , notes = "是否允许审批附件" , example = "1")
+	private Integer allowApproveAttachment;
 	
 	/**
 	 * 起草人范围：起草人范围
 	*/
-	@ApiModelProperty(required = false,value="起草人范围" , notes = "起草人范围")
+	@ApiModelProperty(required = false,value="起草人范围" , notes = "起草人范围" , example = "any")
 	private String drafterRange;
 	@Transient
 	@EnumFor("drafterRange")
@@ -875,17 +875,17 @@ public class ProcessDefinition extends Entity {
 	 * 是否允许起草意见
 	 * @return 是否允许起草意见
 	*/
-	public Integer getAllDraftingComment() {
-		return allDraftingComment;
+	public Integer getAllowDraftingComment() {
+		return allowDraftingComment;
 	}
 	
 	/**
 	 * 设置 是否允许起草意见
-	 * @param allDraftingComment 是否允许起草意见
+	 * @param allowDraftingComment 是否允许起草意见
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setAllDraftingComment(Integer allDraftingComment) {
-		this.allDraftingComment=allDraftingComment;
+	public ProcessDefinition setAllowDraftingComment(Integer allowDraftingComment) {
+		this.allowDraftingComment=allowDraftingComment;
 		return this;
 	}
 	
@@ -894,17 +894,17 @@ public class ProcessDefinition extends Entity {
 	 * 是否允许审批意见
 	 * @return 是否允许审批意见
 	*/
-	public Integer getAllApproveComment() {
-		return allApproveComment;
+	public Integer getAllowApproveComment() {
+		return allowApproveComment;
 	}
 	
 	/**
 	 * 设置 是否允许审批意见
-	 * @param allApproveComment 是否允许审批意见
+	 * @param allowApproveComment 是否允许审批意见
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setAllApproveComment(Integer allApproveComment) {
-		this.allApproveComment=allApproveComment;
+	public ProcessDefinition setAllowApproveComment(Integer allowApproveComment) {
+		this.allowApproveComment=allowApproveComment;
 		return this;
 	}
 	
@@ -913,17 +913,17 @@ public class ProcessDefinition extends Entity {
 	 * 是否允许起草附件
 	 * @return 是否允许起草附件
 	*/
-	public Integer getAllDraftingAttachment() {
-		return allDraftingAttachment;
+	public Integer getAllowDraftingAttachment() {
+		return allowDraftingAttachment;
 	}
 	
 	/**
 	 * 设置 是否允许起草附件
-	 * @param allDraftingAttachment 是否允许起草附件
+	 * @param allowDraftingAttachment 是否允许起草附件
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setAllDraftingAttachment(Integer allDraftingAttachment) {
-		this.allDraftingAttachment=allDraftingAttachment;
+	public ProcessDefinition setAllowDraftingAttachment(Integer allowDraftingAttachment) {
+		this.allowDraftingAttachment=allowDraftingAttachment;
 		return this;
 	}
 	
@@ -932,17 +932,17 @@ public class ProcessDefinition extends Entity {
 	 * 是否允许审批附件
 	 * @return 是否允许审批附件
 	*/
-	public Integer getAllApproveAttachment() {
-		return allApproveAttachment;
+	public Integer getAllowApproveAttachment() {
+		return allowApproveAttachment;
 	}
 	
 	/**
 	 * 设置 是否允许审批附件
-	 * @param allApproveAttachment 是否允许审批附件
+	 * @param allowApproveAttachment 是否允许审批附件
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setAllApproveAttachment(Integer allApproveAttachment) {
-		this.allApproveAttachment=allApproveAttachment;
+	public ProcessDefinition setAllowApproveAttachment(Integer allowApproveAttachment) {
+		this.allowApproveAttachment=allowApproveAttachment;
 		return this;
 	}
 	
@@ -1123,18 +1123,17 @@ public class ProcessDefinition extends Entity {
 		inst.setCode(this.getCode());
 		inst.setNotes(this.getNotes());
 		inst.setAllowSkip(this.getAllowSkip());
-		inst.setAllApproveAttachment(this.getAllApproveAttachment());
 		inst.setCamundaDefinitionId(this.getCamundaDefinitionId());
 		inst.setIconFileMobile(this.getIconFileMobile());
 		inst.setAllowFetchBack(this.getAllowFetchBack());
-		inst.setAllDraftingComment(this.getAllDraftingComment());
 		inst.setValid(this.getValid());
 		inst.setAllowReject(this.getAllowReject());
-		inst.setAllApproveComment(this.getAllApproveComment());
 		inst.setCatalogId(this.getCatalogId());
+		inst.setAllowApproveAttachment(this.getAllowApproveAttachment());
 		inst.setUpdateBy(this.getUpdateBy());
 		inst.setFormDefinitionId(this.getFormDefinitionId());
 		inst.setId(this.getId());
+		inst.setAllowDraftingAttachment(this.getAllowDraftingAttachment());
 		inst.setRejectOption(this.getRejectOption());
 		inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
 		inst.setDrafterRange(this.getDrafterRange());
@@ -1147,9 +1146,10 @@ public class ProcessDefinition extends Entity {
 		inst.setCreateTime(this.getCreateTime());
 		inst.setDeleteTime(this.getDeleteTime());
 		inst.setAllowAbandon(this.getAllowAbandon());
-		inst.setAllDraftingAttachment(this.getAllDraftingAttachment());
+		inst.setAllowApproveComment(this.getAllowApproveComment());
 		inst.setName(this.getName());
 		inst.setTenantId(this.getTenantId());
+		inst.setAllowDraftingComment(this.getAllowDraftingComment());
 		inst.setDeleteBy(this.getDeleteBy());
 		inst.setIconFilePc(this.getIconFilePc());
 		if(all) {
@@ -1220,18 +1220,17 @@ public class ProcessDefinition extends Entity {
 			this.setCode(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.NOTES)));
 			this.setAllowSkip(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_SKIP)));
-			this.setAllApproveAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALL_APPROVE_ATTACHMENT)));
 			this.setCamundaDefinitionId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_ID)));
 			this.setIconFileMobile(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.ICON_FILE_MOBILE)));
 			this.setAllowFetchBack(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_FETCH_BACK)));
-			this.setAllDraftingComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALL_DRAFTING_COMMENT)));
 			this.setValid(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_REJECT)));
-			this.setAllApproveComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALL_APPROVE_COMMENT)));
 			this.setCatalogId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CATALOG_ID)));
+			this.setAllowApproveAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.UPDATE_BY)));
 			this.setFormDefinitionId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.FORM_DEFINITION_ID)));
 			this.setId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.ID)));
+			this.setAllowDraftingAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_ATTACHMENT)));
 			this.setRejectOption(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.DRAFTER_RANGE)));
@@ -1244,9 +1243,10 @@ public class ProcessDefinition extends Entity {
 			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessDefinitionMeta.CREATE_TIME)));
 			this.setDeleteTime(DataParser.parse(Date.class, map.get(ProcessDefinitionMeta.DELETE_TIME)));
 			this.setAllowAbandon(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_ABANDON)));
-			this.setAllDraftingAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALL_DRAFTING_ATTACHMENT)));
+			this.setAllowApproveComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_APPROVE_COMMENT)));
 			this.setName(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.NAME)));
 			this.setTenantId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.TENANT_ID)));
+			this.setAllowDraftingComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.DELETE_BY)));
 			this.setIconFilePc(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.ICON_FILE_PC)));
 			// others
@@ -1261,18 +1261,17 @@ public class ProcessDefinition extends Entity {
 				this.setCode( (String)map.get(ProcessDefinitionMeta.CODE));
 				this.setNotes( (String)map.get(ProcessDefinitionMeta.NOTES));
 				this.setAllowSkip( (Integer)map.get(ProcessDefinitionMeta.ALLOW_SKIP));
-				this.setAllApproveAttachment( (Integer)map.get(ProcessDefinitionMeta.ALL_APPROVE_ATTACHMENT));
 				this.setCamundaDefinitionId( (String)map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_ID));
 				this.setIconFileMobile( (String)map.get(ProcessDefinitionMeta.ICON_FILE_MOBILE));
 				this.setAllowFetchBack( (Integer)map.get(ProcessDefinitionMeta.ALLOW_FETCH_BACK));
-				this.setAllDraftingComment( (Integer)map.get(ProcessDefinitionMeta.ALL_DRAFTING_COMMENT));
 				this.setValid( (Integer)map.get(ProcessDefinitionMeta.VALID));
 				this.setAllowReject( (Integer)map.get(ProcessDefinitionMeta.ALLOW_REJECT));
-				this.setAllApproveComment( (Integer)map.get(ProcessDefinitionMeta.ALL_APPROVE_COMMENT));
 				this.setCatalogId( (String)map.get(ProcessDefinitionMeta.CATALOG_ID));
+				this.setAllowApproveAttachment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)map.get(ProcessDefinitionMeta.UPDATE_BY));
 				this.setFormDefinitionId( (String)map.get(ProcessDefinitionMeta.FORM_DEFINITION_ID));
 				this.setId( (String)map.get(ProcessDefinitionMeta.ID));
+				this.setAllowDraftingAttachment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_ATTACHMENT));
 				this.setRejectOption( (String)map.get(ProcessDefinitionMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)map.get(ProcessDefinitionMeta.DRAFTER_RANGE));
@@ -1285,9 +1284,10 @@ public class ProcessDefinition extends Entity {
 				this.setCreateTime( (Date)map.get(ProcessDefinitionMeta.CREATE_TIME));
 				this.setDeleteTime( (Date)map.get(ProcessDefinitionMeta.DELETE_TIME));
 				this.setAllowAbandon( (Integer)map.get(ProcessDefinitionMeta.ALLOW_ABANDON));
-				this.setAllDraftingAttachment( (Integer)map.get(ProcessDefinitionMeta.ALL_DRAFTING_ATTACHMENT));
+				this.setAllowApproveComment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_APPROVE_COMMENT));
 				this.setName( (String)map.get(ProcessDefinitionMeta.NAME));
 				this.setTenantId( (String)map.get(ProcessDefinitionMeta.TENANT_ID));
+				this.setAllowDraftingComment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)map.get(ProcessDefinitionMeta.DELETE_BY));
 				this.setIconFilePc( (String)map.get(ProcessDefinitionMeta.ICON_FILE_PC));
 				// others
@@ -1315,18 +1315,17 @@ public class ProcessDefinition extends Entity {
 			this.setCode(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CODE)));
 			this.setNotes(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.NOTES)));
 			this.setAllowSkip(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_SKIP)));
-			this.setAllApproveAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALL_APPROVE_ATTACHMENT)));
 			this.setCamundaDefinitionId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_ID)));
 			this.setIconFileMobile(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.ICON_FILE_MOBILE)));
 			this.setAllowFetchBack(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_FETCH_BACK)));
-			this.setAllDraftingComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALL_DRAFTING_COMMENT)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_REJECT)));
-			this.setAllApproveComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALL_APPROVE_COMMENT)));
 			this.setCatalogId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CATALOG_ID)));
+			this.setAllowApproveAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.UPDATE_BY)));
 			this.setFormDefinitionId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.FORM_DEFINITION_ID)));
 			this.setId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.ID)));
+			this.setAllowDraftingAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_ATTACHMENT)));
 			this.setRejectOption(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.DRAFTER_RANGE)));
@@ -1339,9 +1338,10 @@ public class ProcessDefinition extends Entity {
 			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessDefinitionMeta.CREATE_TIME)));
 			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ProcessDefinitionMeta.DELETE_TIME)));
 			this.setAllowAbandon(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_ABANDON)));
-			this.setAllDraftingAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALL_DRAFTING_ATTACHMENT)));
+			this.setAllowApproveComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_COMMENT)));
 			this.setName(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.NAME)));
 			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.TENANT_ID)));
+			this.setAllowDraftingComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.DELETE_BY)));
 			this.setIconFilePc(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.ICON_FILE_PC)));
 			return true;
@@ -1351,18 +1351,17 @@ public class ProcessDefinition extends Entity {
 				this.setCode( (String)r.getValue(ProcessDefinitionMeta.CODE));
 				this.setNotes( (String)r.getValue(ProcessDefinitionMeta.NOTES));
 				this.setAllowSkip( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_SKIP));
-				this.setAllApproveAttachment( (Integer)r.getValue(ProcessDefinitionMeta.ALL_APPROVE_ATTACHMENT));
 				this.setCamundaDefinitionId( (String)r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_ID));
 				this.setIconFileMobile( (String)r.getValue(ProcessDefinitionMeta.ICON_FILE_MOBILE));
 				this.setAllowFetchBack( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_FETCH_BACK));
-				this.setAllDraftingComment( (Integer)r.getValue(ProcessDefinitionMeta.ALL_DRAFTING_COMMENT));
 				this.setValid( (Integer)r.getValue(ProcessDefinitionMeta.VALID));
 				this.setAllowReject( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_REJECT));
-				this.setAllApproveComment( (Integer)r.getValue(ProcessDefinitionMeta.ALL_APPROVE_COMMENT));
 				this.setCatalogId( (String)r.getValue(ProcessDefinitionMeta.CATALOG_ID));
+				this.setAllowApproveAttachment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)r.getValue(ProcessDefinitionMeta.UPDATE_BY));
 				this.setFormDefinitionId( (String)r.getValue(ProcessDefinitionMeta.FORM_DEFINITION_ID));
 				this.setId( (String)r.getValue(ProcessDefinitionMeta.ID));
+				this.setAllowDraftingAttachment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_ATTACHMENT));
 				this.setRejectOption( (String)r.getValue(ProcessDefinitionMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)r.getValue(ProcessDefinitionMeta.DRAFTER_RANGE));
@@ -1375,9 +1374,10 @@ public class ProcessDefinition extends Entity {
 				this.setCreateTime( (Date)r.getValue(ProcessDefinitionMeta.CREATE_TIME));
 				this.setDeleteTime( (Date)r.getValue(ProcessDefinitionMeta.DELETE_TIME));
 				this.setAllowAbandon( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_ABANDON));
-				this.setAllDraftingAttachment( (Integer)r.getValue(ProcessDefinitionMeta.ALL_DRAFTING_ATTACHMENT));
+				this.setAllowApproveComment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_COMMENT));
 				this.setName( (String)r.getValue(ProcessDefinitionMeta.NAME));
 				this.setTenantId( (String)r.getValue(ProcessDefinitionMeta.TENANT_ID));
+				this.setAllowDraftingComment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)r.getValue(ProcessDefinitionMeta.DELETE_BY));
 				this.setIconFilePc( (String)r.getValue(ProcessDefinitionMeta.ICON_FILE_PC));
 				return true;

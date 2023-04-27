@@ -59,7 +59,10 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
         voType.addSimpleProperty(Boolean.class,"mine","是否我的流程","是否我的流程");
         voType.addSimpleProperty(String.class,"approvalCatalog","流程审批分类","流程审批分类");
+        voType.addSimpleProperty(Boolean.class,"force","是否强制删除","是否强制删除");
         voType.shadow("approvalCatalog", ApprovalCatalog.class);
+
+
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);

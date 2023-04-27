@@ -1,23 +1,27 @@
 package org.github.foxnic.web.domain.bpm;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import java.util.Map;
 import java.util.HashMap;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import org.github.foxnic.web.domain.bpm.meta.ProcessJumpVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 流程跳转参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
+ * @since 2023-04-27 11:19:29
  * @sign AE731B1B6094140F17A3062CDA8E9D95
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel()
 public class ProcessJumpVO {
 
 	private static final long serialVersionUID = 1L;
@@ -25,25 +29,21 @@ public class ProcessJumpVO {
 	/**
 	 * 流程实例ID：流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
 	private String processInstanceId;
 	
 	/**
 	 * 目标节点ID：目标节点ID,CamundaNodeId
 	*/
-	@ApiModelProperty(required = false,value="目标节点ID" , notes = "目标节点ID,CamundaNodeId")
 	private String jumpToNodeId;
 	
 	/**
 	 * 跳转原因：跳转原因
 	*/
-	@ApiModelProperty(required = false,value="跳转原因" , notes = "跳转原因")
 	private String reason;
 	
 	/**
 	 * 流程参数：流程参数
 	*/
-	@ApiModelProperty(required = false,value="流程参数" , notes = "流程参数")
 	private Map<String,Object> variables;
 	
 	/**
@@ -170,6 +170,21 @@ public class ProcessJumpVO {
 	}
 
 	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessJumpVO duplicate(boolean all) {
+		ProcessJumpVO inst = new ProcessJumpVO();
+		// others
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setReason(this.getReason());
+			inst.setVariables(this.getVariables());
+			inst.setJumpToNodeId(this.getJumpToNodeId());
+		return inst;
+	}
+
+	/**
 	 * 克隆当前对象
 	*/
 	@Transient
@@ -201,6 +216,52 @@ public class ProcessJumpVO {
 			return pojo;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			// others
+			this.setProcessInstanceId(DataParser.parse(String.class, map.get(ProcessJumpVOMeta.PROCESS_INSTANCE_ID)));
+			this.setReason(DataParser.parse(String.class, map.get(ProcessJumpVOMeta.REASON)));
+			this.setJumpToNodeId(DataParser.parse(String.class, map.get(ProcessJumpVOMeta.JUMP_TO_NODE_ID)));
+			return true;
+		} else {
+			try {
+				// others
+				this.setProcessInstanceId( (String)map.get(ProcessJumpVOMeta.PROCESS_INSTANCE_ID));
+				this.setReason( (String)map.get(ProcessJumpVOMeta.REASON));
+				this.setJumpToNodeId( (String)map.get(ProcessJumpVOMeta.JUMP_TO_NODE_ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			return true;
+		} else {
+			try {
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 }

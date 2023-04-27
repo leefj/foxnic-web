@@ -27,7 +27,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 数据字典
  * <p>数据字典 , 数据表 sys_dict 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:38:47
+ * @since 2023-04-27 09:39:12
  * @sign 5D7BBBCC1F54C8563F918409E82934F5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -86,7 +86,7 @@ public class Dict extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-02-18 09:26:52")
 	private Date createTime;
 	
 	/**

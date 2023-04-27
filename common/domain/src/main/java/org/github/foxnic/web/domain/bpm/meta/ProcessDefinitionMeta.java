@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-25 12:00:22
- * @sign 0C3908C8C73F04947F24C0B3E4ECAE2F
+ * @since 2023-04-27 11:51:22
+ * @sign A074FEA18731622BB601B1133EB58F27
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -303,42 +303,42 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 是否允许起草意见 , 类型: java.lang.Integer
 	*/
-	public static final String ALL_DRAFTING_COMMENT="allDraftingComment";
+	public static final String ALLOW_DRAFTING_COMMENT="allowDraftingComment";
 	
 	/**
 	 * 是否允许起草意见 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALL_DRAFTING_COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALL_DRAFTING_COMMENT, java.lang.Integer.class, "是否允许起草意见", "是否允许起草意见", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALLOW_DRAFTING_COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALLOW_DRAFTING_COMMENT, java.lang.Integer.class, "是否允许起草意见", "是否允许起草意见", java.lang.Integer.class, null);
 	
 	/**
 	 * 是否允许审批意见 , 类型: java.lang.Integer
 	*/
-	public static final String ALL_APPROVE_COMMENT="allApproveComment";
+	public static final String ALLOW_APPROVE_COMMENT="allowApproveComment";
 	
 	/**
 	 * 是否允许审批意见 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALL_APPROVE_COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALL_APPROVE_COMMENT, java.lang.Integer.class, "是否允许审批意见", "是否允许审批意见", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALLOW_APPROVE_COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALLOW_APPROVE_COMMENT, java.lang.Integer.class, "是否允许审批意见", "是否允许审批意见", java.lang.Integer.class, null);
 	
 	/**
 	 * 是否允许起草附件 , 类型: java.lang.Integer
 	*/
-	public static final String ALL_DRAFTING_ATTACHMENT="allDraftingAttachment";
+	public static final String ALLOW_DRAFTING_ATTACHMENT="allowDraftingAttachment";
 	
 	/**
 	 * 是否允许起草附件 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALL_DRAFTING_ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALL_DRAFTING_ATTACHMENT, java.lang.Integer.class, "是否允许起草附件", "是否允许起草附件", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALLOW_DRAFTING_ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALLOW_DRAFTING_ATTACHMENT, java.lang.Integer.class, "是否允许起草附件", "是否允许起草附件", java.lang.Integer.class, null);
 	
 	/**
 	 * 是否允许审批附件 , 类型: java.lang.Integer
 	*/
-	public static final String ALL_APPROVE_ATTACHMENT="allApproveAttachment";
+	public static final String ALLOW_APPROVE_ATTACHMENT="allowApproveAttachment";
 	
 	/**
 	 * 是否允许审批附件 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALL_APPROVE_ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALL_APPROVE_ATTACHMENT, java.lang.Integer.class, "是否允许审批附件", "是否允许审批附件", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ALLOW_APPROVE_ATTACHMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ALLOW_APPROVE_ATTACHMENT, java.lang.Integer.class, "是否允许审批附件", "是否允许审批附件", java.lang.Integer.class, null);
 	
 	/**
 	 * 起草人范围 , 类型: java.lang.String
@@ -393,7 +393,7 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALL_DRAFTING_COMMENT , ALL_APPROVE_COMMENT , ALL_DRAFTING_ATTACHMENT , ALL_APPROVE_ATTACHMENT , DRAFTER_RANGE , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
+	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALLOW_DRAFTING_COMMENT , ALLOW_APPROVE_COMMENT , ALLOW_DRAFTING_ATTACHMENT , ALLOW_APPROVE_ATTACHMENT , DRAFTER_RANGE , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
 	
 	/**
 	 * 代理类
@@ -713,45 +713,45 @@ public class ProcessDefinitionMeta {
 		
 		/**
 		 * 设置 是否允许起草意见
-		 * @param allDraftingComment 是否允许起草意见
+		 * @param allowDraftingComment 是否允许起草意见
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setAllDraftingComment(Integer allDraftingComment) {
-			super.change(ALL_DRAFTING_COMMENT,super.getAllDraftingComment(),allDraftingComment);
-			super.setAllDraftingComment(allDraftingComment);
+		public ProcessDefinition setAllowDraftingComment(Integer allowDraftingComment) {
+			super.change(ALLOW_DRAFTING_COMMENT,super.getAllowDraftingComment(),allowDraftingComment);
+			super.setAllowDraftingComment(allowDraftingComment);
 			return this;
 		}
 		
 		/**
 		 * 设置 是否允许审批意见
-		 * @param allApproveComment 是否允许审批意见
+		 * @param allowApproveComment 是否允许审批意见
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setAllApproveComment(Integer allApproveComment) {
-			super.change(ALL_APPROVE_COMMENT,super.getAllApproveComment(),allApproveComment);
-			super.setAllApproveComment(allApproveComment);
+		public ProcessDefinition setAllowApproveComment(Integer allowApproveComment) {
+			super.change(ALLOW_APPROVE_COMMENT,super.getAllowApproveComment(),allowApproveComment);
+			super.setAllowApproveComment(allowApproveComment);
 			return this;
 		}
 		
 		/**
 		 * 设置 是否允许起草附件
-		 * @param allDraftingAttachment 是否允许起草附件
+		 * @param allowDraftingAttachment 是否允许起草附件
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setAllDraftingAttachment(Integer allDraftingAttachment) {
-			super.change(ALL_DRAFTING_ATTACHMENT,super.getAllDraftingAttachment(),allDraftingAttachment);
-			super.setAllDraftingAttachment(allDraftingAttachment);
+		public ProcessDefinition setAllowDraftingAttachment(Integer allowDraftingAttachment) {
+			super.change(ALLOW_DRAFTING_ATTACHMENT,super.getAllowDraftingAttachment(),allowDraftingAttachment);
+			super.setAllowDraftingAttachment(allowDraftingAttachment);
 			return this;
 		}
 		
 		/**
 		 * 设置 是否允许审批附件
-		 * @param allApproveAttachment 是否允许审批附件
+		 * @param allowApproveAttachment 是否允许审批附件
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setAllApproveAttachment(Integer allApproveAttachment) {
-			super.change(ALL_APPROVE_ATTACHMENT,super.getAllApproveAttachment(),allApproveAttachment);
-			super.setAllApproveAttachment(allApproveAttachment);
+		public ProcessDefinition setAllowApproveAttachment(Integer allowApproveAttachment) {
+			super.change(ALLOW_APPROVE_ATTACHMENT,super.getAllowApproveAttachment(),allowApproveAttachment);
+			super.setAllowApproveAttachment(allowApproveAttachment);
 			return this;
 		}
 		
@@ -829,18 +829,17 @@ public class ProcessDefinitionMeta {
 			inst.setCode(this.getCode());
 			inst.setNotes(this.getNotes());
 			inst.setAllowSkip(this.getAllowSkip());
-			inst.setAllApproveAttachment(this.getAllApproveAttachment());
 			inst.setCamundaDefinitionId(this.getCamundaDefinitionId());
 			inst.setIconFileMobile(this.getIconFileMobile());
 			inst.setAllowFetchBack(this.getAllowFetchBack());
-			inst.setAllDraftingComment(this.getAllDraftingComment());
 			inst.setValid(this.getValid());
 			inst.setAllowReject(this.getAllowReject());
-			inst.setAllApproveComment(this.getAllApproveComment());
 			inst.setCatalogId(this.getCatalogId());
+			inst.setAllowApproveAttachment(this.getAllowApproveAttachment());
 			inst.setUpdateBy(this.getUpdateBy());
 			inst.setFormDefinitionId(this.getFormDefinitionId());
 			inst.setId(this.getId());
+			inst.setAllowDraftingAttachment(this.getAllowDraftingAttachment());
 			inst.setRejectOption(this.getRejectOption());
 			inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
 			inst.setDrafterRange(this.getDrafterRange());
@@ -853,9 +852,10 @@ public class ProcessDefinitionMeta {
 			inst.setCreateTime(this.getCreateTime());
 			inst.setDeleteTime(this.getDeleteTime());
 			inst.setAllowAbandon(this.getAllowAbandon());
-			inst.setAllDraftingAttachment(this.getAllDraftingAttachment());
+			inst.setAllowApproveComment(this.getAllowApproveComment());
 			inst.setName(this.getName());
 			inst.setTenantId(this.getTenantId());
+			inst.setAllowDraftingComment(this.getAllowDraftingComment());
 			inst.setDeleteBy(this.getDeleteBy());
 			inst.setIconFilePc(this.getIconFilePc());
 			if(all) {

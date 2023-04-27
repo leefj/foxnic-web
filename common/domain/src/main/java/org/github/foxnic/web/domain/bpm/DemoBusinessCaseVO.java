@@ -21,7 +21,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 商务来案VO类型
  * <p>商务来案 , 数据表 bpm_demo_business_case 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-20 16:20:01
+ * @since 2023-04-27 11:44:46
  * @sign 47404F62921804F4A66CD92343B091DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -402,6 +402,7 @@ public class DemoBusinessCaseVO extends DemoBusinessCase {
 		org.github.foxnic.web.domain.bpm.meta.DemoBusinessCaseVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.DemoBusinessCaseVOMeta.$$proxy$$();
 		inst.setFactNote(this.getFactNote());
 		inst.setId(this.getId());
+		inst.setIsGotBase(this.getIsGotBase());
 		inst.setStatus(this.getStatus());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
@@ -480,6 +481,7 @@ public class DemoBusinessCaseVO extends DemoBusinessCase {
 		if(cast) {
 			this.setFactNote(DataParser.parse(String.class, map.get(DemoBusinessCaseVOMeta.FACT_NOTE)));
 			this.setId(DataParser.parse(String.class, map.get(DemoBusinessCaseVOMeta.ID)));
+			this.setIsGotBase(DataParser.parse(Integer.class, map.get(DemoBusinessCaseVOMeta.IS_GOT_BASE)));
 			this.setStatus(DataParser.parse(String.class, map.get(DemoBusinessCaseVOMeta.STATUS)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(DemoBusinessCaseVOMeta.SEARCH_FIELD)));
@@ -498,6 +500,7 @@ public class DemoBusinessCaseVO extends DemoBusinessCase {
 			try {
 				this.setFactNote( (String)map.get(DemoBusinessCaseVOMeta.FACT_NOTE));
 				this.setId( (String)map.get(DemoBusinessCaseVOMeta.ID));
+				this.setIsGotBase( (Integer)map.get(DemoBusinessCaseVOMeta.IS_GOT_BASE));
 				this.setStatus( (String)map.get(DemoBusinessCaseVOMeta.STATUS));
 				// others
 				this.setSearchField( (String)map.get(DemoBusinessCaseVOMeta.SEARCH_FIELD));
@@ -529,12 +532,14 @@ public class DemoBusinessCaseVO extends DemoBusinessCase {
 		if(cast) {
 			this.setFactNote(DataParser.parse(String.class, r.getValue(DemoBusinessCaseVOMeta.FACT_NOTE)));
 			this.setId(DataParser.parse(String.class, r.getValue(DemoBusinessCaseVOMeta.ID)));
+			this.setIsGotBase(DataParser.parse(Integer.class, r.getValue(DemoBusinessCaseVOMeta.IS_GOT_BASE)));
 			this.setStatus(DataParser.parse(String.class, r.getValue(DemoBusinessCaseVOMeta.STATUS)));
 			return true;
 		} else {
 			try {
 				this.setFactNote( (String)r.getValue(DemoBusinessCaseVOMeta.FACT_NOTE));
 				this.setId( (String)r.getValue(DemoBusinessCaseVOMeta.ID));
+				this.setIsGotBase( (Integer)r.getValue(DemoBusinessCaseVOMeta.IS_GOT_BASE));
 				this.setStatus( (String)r.getValue(DemoBusinessCaseVOMeta.STATUS));
 				return true;
 			} catch (Exception e) {

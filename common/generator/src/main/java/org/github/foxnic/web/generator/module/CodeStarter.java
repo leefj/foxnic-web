@@ -126,7 +126,7 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ProcessInitiatorConfig());
 //        this.addConfig(new ProcessDefinitionApplyConfig());
 //        //
-//        this.addConfig(new ProcessInstanceConfig());
+        this.addConfig(new ProcessInstanceConfig());
 //        //
 //        this.addConfig(new FormDefinitionConfig());
 //        this.addConfig(new FormInstanceConfig());
@@ -140,7 +140,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //
 //        this.addConfig(new CatalogConfig());
 //        //
-//        this.addConfig(new DemoBusiCaseConfig());
+        this.addConfig(new DemoBusiCaseConfig());
 
 //        this.addConfig(new DemoLeaveConfig());
 //        this.addConfig(new DemoCommonConfig());
@@ -204,10 +204,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initSystemModules() {
 
-        this.addConfig(new BusiRoleConfig());
-        this.addConfig(new BusiRoleMemberConfig());
+//        this.addConfig(new BusiRoleConfig());
+//        this.addConfig(new BusiRoleMemberConfig());
 //
-//        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysDictConfig());
 //        this.addConfig(new SysDictConfig_Tree());
 //        this.addConfig(new SysConfigConfig());
 //        this.addConfig(new SysProfileConfig());

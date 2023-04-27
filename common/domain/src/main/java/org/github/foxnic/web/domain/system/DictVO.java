@@ -23,8 +23,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 数据字典VO类型
  * <p>数据字典 , 数据表 sys_dict 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-06 16:05:34
- * @sign E6311C8AC293F8AE0B6EF761FC6C1589
+ * @since 2023-04-27 09:39:12
+ * @sign EB2BF959F1E27055B1F8AEAE3EFA06B5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -82,9 +82,9 @@ public class DictVO extends Dict {
 	private String sortType;
 	
 	/**
-	 * 数据来源：前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
 	*/
-	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端按来源执行不同的逻辑")
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
 	private String dataOrigin;
 	
 	/**
@@ -92,6 +92,12 @@ public class DictVO extends Dict {
 	*/
 	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
 	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -256,7 +262,7 @@ public class DictVO extends Dict {
 	
 	/**
 	 * 获得 数据来源<br>
-	 * 前端指定不同的来源，后端按来源执行不同的逻辑
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
 	 * @return 数据来源
 	*/
 	public String getDataOrigin() {
@@ -289,6 +295,25 @@ public class DictVO extends Dict {
 	*/
 	public DictVO setQueryLogic(String queryLogic) {
 		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public DictVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
 		return this;
 	}
 	
@@ -393,6 +418,7 @@ public class DictVO extends Dict {
 		inst.setId(this.getId());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
 			inst.setModuleInfo(this.getModuleInfo());
 			inst.setFuzzyField(this.getFuzzyField());
 			inst.setPageSize(this.getPageSize());
@@ -480,6 +506,7 @@ public class DictVO extends Dict {
 			this.setId(DataParser.parse(String.class, map.get(DictVOMeta.ID)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(DictVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(DictVOMeta.REQUEST_ACTION)));
 			this.setModuleInfo(DataParser.parse(Menu.class, map.get(DictVOMeta.MODULE_INFO)));
 			this.setFuzzyField(DataParser.parse(String.class, map.get(DictVOMeta.FUZZY_FIELD)));
 			this.setPageSize(DataParser.parse(Integer.class, map.get(DictVOMeta.PAGE_SIZE)));
@@ -508,6 +535,7 @@ public class DictVO extends Dict {
 				this.setId( (String)map.get(DictVOMeta.ID));
 				// others
 				this.setSearchField( (String)map.get(DictVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(DictVOMeta.REQUEST_ACTION));
 				this.setModuleInfo( (Menu)map.get(DictVOMeta.MODULE_INFO));
 				this.setFuzzyField( (String)map.get(DictVOMeta.FUZZY_FIELD));
 				this.setPageSize( (Integer)map.get(DictVOMeta.PAGE_SIZE));

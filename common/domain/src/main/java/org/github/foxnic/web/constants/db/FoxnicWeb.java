@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-23 15:52:42
+ * @since 2023-04-27 10:08:54
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -660,22 +660,22 @@ public class FoxnicWeb {
 		/**
 		 * 是否允许起草意见
 		*/
-		public static final DBField ALL_DRAFTING_COMMENT = new DBField(DBDataType.INTEGER , "all_drafting_comment","allDraftingComment","是否允许起草意见","是否允许起草意见",false,false,true);
+		public static final DBField ALLOW_DRAFTING_COMMENT = new DBField(DBDataType.INTEGER , "allow_drafting_comment","allowDraftingComment","是否允许起草意见","是否允许起草意见",false,false,true);
 		
 		/**
 		 * 是否允许审批意见
 		*/
-		public static final DBField ALL_APPROVE_COMMENT = new DBField(DBDataType.INTEGER , "all_approve_comment","allApproveComment","是否允许审批意见","是否允许审批意见",false,false,true);
+		public static final DBField ALLOW_APPROVE_COMMENT = new DBField(DBDataType.INTEGER , "allow_approve_comment","allowApproveComment","是否允许审批意见","是否允许审批意见",false,false,true);
 		
 		/**
 		 * 是否允许起草附件
 		*/
-		public static final DBField ALL_DRAFTING_ATTACHMENT = new DBField(DBDataType.INTEGER , "all_drafting_attachment","allDraftingAttachment","是否允许起草附件","是否允许起草附件",false,false,true);
+		public static final DBField ALLOW_DRAFTING_ATTACHMENT = new DBField(DBDataType.INTEGER , "allow_drafting_attachment","allowDraftingAttachment","是否允许起草附件","是否允许起草附件",false,false,true);
 		
 		/**
 		 * 是否允许审批附件
 		*/
-		public static final DBField ALL_APPROVE_ATTACHMENT = new DBField(DBDataType.INTEGER , "all_approve_attachment","allApproveAttachment","是否允许审批附件","是否允许审批附件",false,false,true);
+		public static final DBField ALLOW_APPROVE_ATTACHMENT = new DBField(DBDataType.INTEGER , "allow_approve_attachment","allowApproveAttachment","是否允许审批附件","是否允许审批附件",false,false,true);
 		
 		/**
 		 * 起草人范围
@@ -683,7 +683,7 @@ public class FoxnicWeb {
 		public static final DBField DRAFTER_RANGE = new DBField(DBDataType.STRING , "drafter_range","drafterRange","起草人范围","起草人范围",false,false,true);
 		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALL_DRAFTING_COMMENT , ALL_APPROVE_COMMENT , ALL_DRAFTING_ATTACHMENT , ALL_APPROVE_ATTACHMENT , DRAFTER_RANGE);
+			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALLOW_DRAFTING_COMMENT , ALLOW_APPROVE_COMMENT , ALLOW_DRAFTING_ATTACHMENT , ALLOW_APPROVE_ATTACHMENT , DRAFTER_RANGE);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}

@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 商务来案
  * <p>商务来案 , 数据表 bpm_demo_business_case 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-23 09:37:24
+ * @since 2023-04-27 11:44:46
  * @sign C13DA9E088B96752C98AC55E9564FE7C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

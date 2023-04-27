@@ -22,7 +22,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 商务来案 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-23 09:50:22
+ * @since 2023-04-27 11:44:46
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoBusinessCaseServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface DemoBusinessCaseServiceProxy extends BpmCallbackController {

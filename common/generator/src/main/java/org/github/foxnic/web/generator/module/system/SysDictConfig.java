@@ -60,6 +60,8 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
                 .search().fuzzySearch()
         ;
 
+        view.field(SYS_DICT.NOTES).search().fuzzySearch();
+
         view.field(FoxnicWeb.SYS_DICT.NAME)
                 .basic().label("名称")
                 .form().validate().required()

@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-02-20 16:20:01
+ * @since 2023-04-27 11:44:46
  * @sign 47404F62921804F4A66CD92343B091DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -169,6 +169,16 @@ public class DemoBusinessCaseVOMeta extends DemoBusinessCaseMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoBusinessCaseVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoBusinessCaseVO.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
 	
 	/**
+	 * 已交底 , 类型: java.lang.Integer
+	*/
+	public static final String IS_GOT_BASE="isGotBase";
+	
+	/**
+	 * 已交底 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoBusinessCaseVO,java.lang.Integer> IS_GOT_BASE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoBusinessCaseVO.class ,IS_GOT_BASE, java.lang.Integer.class, "已交底", "已交底", java.lang.Integer.class, null);
+	
+	/**
 	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
 	*/
 	public static final String HISTORIC_PROCESS_LIST="historicProcessList";
@@ -201,7 +211,7 @@ public class DemoBusinessCaseVOMeta extends DemoBusinessCaseMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , FACT_NOTE , STATUS , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , FACT_NOTE , STATUS , IS_GOT_BASE , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
 	
 	/**
 	 * 代理类
@@ -377,6 +387,17 @@ public class DemoBusinessCaseVOMeta extends DemoBusinessCaseMeta {
 		}
 		
 		/**
+		 * 设置 已交底
+		 * @param isGotBase 已交底
+		 * @return 当前对象
+		*/
+		public DemoBusinessCase setIsGotBase(Integer isGotBase) {
+			super.change(IS_GOT_BASE,super.getIsGotBase(),isGotBase);
+			super.setIsGotBase(isGotBase);
+			return this;
+		}
+		
+		/**
 		 * 设置 历史流程清单
 		 * @param historicProcessList 历史流程清单
 		 * @return 当前对象
@@ -426,6 +447,7 @@ public class DemoBusinessCaseVOMeta extends DemoBusinessCaseMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setFactNote(this.getFactNote());
 			inst.setId(this.getId());
+			inst.setIsGotBase(this.getIsGotBase());
 			inst.setStatus(this.getStatus());
 			if(all) {
 				inst.setSearchField(this.getSearchField());

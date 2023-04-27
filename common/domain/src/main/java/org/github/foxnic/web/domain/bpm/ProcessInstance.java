@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
@@ -8,11 +9,13 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
@@ -20,18 +23,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 流程实例
+ * <p>流程实例 , 数据表 bpm_process_instance 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:56
+ * @since 2023-04-27 11:19:29
  * @sign C652EC0758964AA1DEFE78C5E94AE952
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "bpm_process_instance")
+@ApiModel(description = "流程实例 ; 流程实例 , 数据表 bpm_process_instance 的PO类型")
 public class ProcessInstance extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -42,65 +49,67 @@ public class ProcessInstance extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "681076426912301056")
 	private String id;
 	
 	/**
 	 * 起草人账户ID：起草人账户ID
 	*/
-	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID")
+	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID" , example = "581798649130909696")
 	private String drafterUserId;
 	
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
-	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
+	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID" , example = "581798649130909696")
 	private String drafterId;
 	
 	/**
 	 * 起草人类型：起草人类型
 	*/
-	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型")
+	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型" , example = "user")
 	private String drafterType;
 	@Transient
+	@EnumFor("drafterType")
 	private UnifiedUserType drafterTypeEnum;
 	
 	/**
 	 * 表单实例ID：表单实例ID
 	*/
-	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID")
+	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID" , example = "681076427465949184")
 	private String formInstanceId;
 	
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID" , example = "680090042923745280")
 	private String processDefinitionId;
 	
 	/**
 	 * 流程定义文件ID：流程定义文件ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID")
+	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID" , example = "680090593438728192")
 	private String processDefinitionFileId;
 	
 	/**
 	 * 表单定义ID：表单定义ID
 	*/
-	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID")
+	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID" , example = "680090456226267136")
 	private String formDefinitionId;
 	
 	/**
 	 * 流程标题：流程标题
 	*/
-	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题")
+	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题" , example = "这是默认标题")
 	private String title;
 	
 	/**
 	 * 紧急程度：紧急程度
 	*/
-	@ApiModelProperty(required = false,value="紧急程度" , notes = "紧急程度")
+	@ApiModelProperty(required = false,value="紧急程度" , notes = "紧急程度" , example = "normal")
 	private String priority;
 	@Transient
+	@EnumFor("priority")
 	private PriorityLevel priorityEnum;
 	
 	/**
@@ -112,21 +121,22 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 审批状态：审批状态
 	*/
-	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态")
+	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态" , example = "approving")
 	private String approvalStatus;
 	@Transient
+	@EnumFor("approvalStatus")
 	private ApprovalStatus approvalStatusEnum;
 	
 	/**
 	 * camunda流程实例ID：camunda流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID")
+	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID" , example = "056c2442-b31d-11ed-acb0-1268e6e59107")
 	private String camundaInstanceId;
 	
 	/**
 	 * 提交时间：提交时间
 	*/
-	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间")
+	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间" , example = "2023-02-23 09:54:35")
 	private Date commitTime;
 	
 	/**
@@ -144,13 +154,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 创建人ID：创建人ID
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID" , example = "581798649130909696")
 	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-02-23 09:54:34")
 	private Date createTime;
 	
 	/**
@@ -162,15 +172,16 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-02-23 10:37:31")
 	private Date updateTime;
 	
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
 	@Transient
+	@EnumFor("deleted")
 	private Boolean deletedBool;
 	
 	/**
@@ -188,13 +199,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "428")
 	private Integer version;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID" , example = "T001")
 	private String tenantId;
 	
 	/**
@@ -206,13 +217,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 是否需要同步：是否需要同步
 	*/
-	@ApiModelProperty(required = false,value="是否需要同步" , notes = "是否需要同步")
+	@ApiModelProperty(required = false,value="是否需要同步" , notes = "是否需要同步" , example = "0")
 	private Integer needSync;
 	
 	/**
 	 * 状态同步时间：状态同步时间
 	*/
-	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间")
+	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间" , example = "2023-02-23 10:37:31")
 	private Date syncTime;
 	
 	/**
@@ -395,6 +406,7 @@ public class ProcessInstance extends Entity {
 	 * @param drafterType 起草人类型
 	 * @return 当前对象
 	*/
+	@JsonProperty("drafterType")
 	public ProcessInstance setDrafterType(String drafterType) {
 		this.drafterType=drafterType;
 		this.drafterTypeEnum= (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),drafterType) ;
@@ -542,6 +554,7 @@ public class ProcessInstance extends Entity {
 	 * @param priority 紧急程度
 	 * @return 当前对象
 	*/
+	@JsonProperty("priority")
 	public ProcessInstance setPriority(String priority) {
 		this.priority=priority;
 		this.priorityEnum= (PriorityLevel) EnumUtil.parseByCode(PriorityLevel.values(),priority) ;
@@ -613,6 +626,7 @@ public class ProcessInstance extends Entity {
 	 * @param approvalStatus 审批状态
 	 * @return 当前对象
 	*/
+	@JsonProperty("approvalStatus")
 	public ProcessInstance setApprovalStatus(String approvalStatus) {
 		this.approvalStatus=approvalStatus;
 		this.approvalStatusEnum= (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),approvalStatus) ;
@@ -817,6 +831,7 @@ public class ProcessInstance extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public ProcessInstance setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
@@ -1474,7 +1489,9 @@ public class ProcessInstance extends Entity {
 	@Transient
 	public static ProcessInstance createFrom(Map<String,Object> processInstanceMap) {
 		if(processInstanceMap==null) return null;
-		ProcessInstance po = EntityContext.create(ProcessInstance.class, processInstanceMap);
+		ProcessInstance po = create();
+		EntityContext.copyProperties(po,processInstanceMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -1486,7 +1503,9 @@ public class ProcessInstance extends Entity {
 	@Transient
 	public static ProcessInstance createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessInstance po = EntityContext.create(ProcessInstance.class,pojo);
+		ProcessInstance po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -1496,6 +1515,174 @@ public class ProcessInstance extends Entity {
 	*/
 	@Transient
 	public static ProcessInstance create() {
-		return EntityContext.create(ProcessInstance.class);
+		return new org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setSyncTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.SYNC_TIME)));
+			this.setNeedSync(DataParser.parse(Integer.class, map.get(ProcessInstanceMeta.NEED_SYNC)));
+			this.setFormInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.FORM_INSTANCE_ID)));
+			this.setTitle(DataParser.parse(String.class, map.get(ProcessInstanceMeta.TITLE)));
+			this.setDrafterUserId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.DRAFTER_USER_ID)));
+			this.setCommitTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.COMMIT_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessInstanceMeta.UPDATE_BY)));
+			this.setDrafterId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.DRAFTER_ID)));
+			this.setFormDefinitionId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.FORM_DEFINITION_ID)));
+			this.setId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.ID)));
+			this.setApprovalStatus(DataParser.parse(String.class, map.get(ProcessInstanceMeta.APPROVAL_STATUS)));
+			this.setProcessDefinitionId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.PROCESS_DEFINITION_ID)));
+			this.setAbandonTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.ABANDON_TIME)));
+			this.setDrafterType(DataParser.parse(String.class, map.get(ProcessInstanceMeta.DRAFTER_TYPE)));
+			this.setAbandonUserId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.ABANDON_USER_ID)));
+			this.setProcessDefinitionFileId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.PROCESS_DEFINITION_FILE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.UPDATE_TIME)));
+			this.setPriority(DataParser.parse(String.class, map.get(ProcessInstanceMeta.PRIORITY)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessInstanceMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(ProcessInstanceMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(ProcessInstanceMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.CREATE_TIME)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessInstanceMeta.DELETE_BY)));
+			this.setComment(DataParser.parse(String.class, map.get(ProcessInstanceMeta.COMMENT)));
+			this.setCamundaInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID)));
+			this.setEndTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.END_TIME)));
+			// others
+			this.setFormInstance(DataParser.parse(FormInstance.class, map.get(ProcessInstanceMeta.FORM_INSTANCE)));
+			this.setProcessDefinition(DataParser.parse(ProcessDefinition.class, map.get(ProcessInstanceMeta.PROCESS_DEFINITION)));
+			this.setDrafter(DataParser.parse(Assignee.class, map.get(ProcessInstanceMeta.DRAFTER)));
+			this.setApprovalStatusName(DataParser.parse(String.class, map.get(ProcessInstanceMeta.APPROVAL_STATUS_NAME)));
+			this.setDrafterUser(DataParser.parse(User.class, map.get(ProcessInstanceMeta.DRAFTER_USER)));
+			this.setFormDefinition(DataParser.parse(FormDefinition.class, map.get(ProcessInstanceMeta.FORM_DEFINITION)));
+			this.setProcessDefinitionFile(DataParser.parse(ProcessDefinitionFile.class, map.get(ProcessInstanceMeta.PROCESS_DEFINITION_FILE)));
+			this.setDrafterName(DataParser.parse(String.class, map.get(ProcessInstanceMeta.DRAFTER_NAME)));
+			return true;
+		} else {
+			try {
+				this.setSyncTime( (Date)map.get(ProcessInstanceMeta.SYNC_TIME));
+				this.setNeedSync( (Integer)map.get(ProcessInstanceMeta.NEED_SYNC));
+				this.setFormInstanceId( (String)map.get(ProcessInstanceMeta.FORM_INSTANCE_ID));
+				this.setTitle( (String)map.get(ProcessInstanceMeta.TITLE));
+				this.setDrafterUserId( (String)map.get(ProcessInstanceMeta.DRAFTER_USER_ID));
+				this.setCommitTime( (Date)map.get(ProcessInstanceMeta.COMMIT_TIME));
+				this.setUpdateBy( (String)map.get(ProcessInstanceMeta.UPDATE_BY));
+				this.setDrafterId( (String)map.get(ProcessInstanceMeta.DRAFTER_ID));
+				this.setFormDefinitionId( (String)map.get(ProcessInstanceMeta.FORM_DEFINITION_ID));
+				this.setId( (String)map.get(ProcessInstanceMeta.ID));
+				this.setApprovalStatus( (String)map.get(ProcessInstanceMeta.APPROVAL_STATUS));
+				this.setProcessDefinitionId( (String)map.get(ProcessInstanceMeta.PROCESS_DEFINITION_ID));
+				this.setAbandonTime( (Date)map.get(ProcessInstanceMeta.ABANDON_TIME));
+				this.setDrafterType( (String)map.get(ProcessInstanceMeta.DRAFTER_TYPE));
+				this.setAbandonUserId( (String)map.get(ProcessInstanceMeta.ABANDON_USER_ID));
+				this.setProcessDefinitionFileId( (String)map.get(ProcessInstanceMeta.PROCESS_DEFINITION_FILE_ID));
+				this.setUpdateTime( (Date)map.get(ProcessInstanceMeta.UPDATE_TIME));
+				this.setPriority( (String)map.get(ProcessInstanceMeta.PRIORITY));
+				this.setVersion( (Integer)map.get(ProcessInstanceMeta.VERSION));
+				this.setCreateBy( (String)map.get(ProcessInstanceMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(ProcessInstanceMeta.DELETED));
+				this.setCreateTime( (Date)map.get(ProcessInstanceMeta.CREATE_TIME));
+				this.setDeleteTime( (Date)map.get(ProcessInstanceMeta.DELETE_TIME));
+				this.setTenantId( (String)map.get(ProcessInstanceMeta.TENANT_ID));
+				this.setDeleteBy( (String)map.get(ProcessInstanceMeta.DELETE_BY));
+				this.setComment( (String)map.get(ProcessInstanceMeta.COMMENT));
+				this.setCamundaInstanceId( (String)map.get(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID));
+				this.setEndTime( (Date)map.get(ProcessInstanceMeta.END_TIME));
+				// others
+				this.setFormInstance( (FormInstance)map.get(ProcessInstanceMeta.FORM_INSTANCE));
+				this.setProcessDefinition( (ProcessDefinition)map.get(ProcessInstanceMeta.PROCESS_DEFINITION));
+				this.setDrafter( (Assignee)map.get(ProcessInstanceMeta.DRAFTER));
+				this.setApprovalStatusName( (String)map.get(ProcessInstanceMeta.APPROVAL_STATUS_NAME));
+				this.setDrafterUser( (User)map.get(ProcessInstanceMeta.DRAFTER_USER));
+				this.setFormDefinition( (FormDefinition)map.get(ProcessInstanceMeta.FORM_DEFINITION));
+				this.setProcessDefinitionFile( (ProcessDefinitionFile)map.get(ProcessInstanceMeta.PROCESS_DEFINITION_FILE));
+				this.setDrafterName( (String)map.get(ProcessInstanceMeta.DRAFTER_NAME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setSyncTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.SYNC_TIME)));
+			this.setNeedSync(DataParser.parse(Integer.class, r.getValue(ProcessInstanceMeta.NEED_SYNC)));
+			this.setFormInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.FORM_INSTANCE_ID)));
+			this.setTitle(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.TITLE)));
+			this.setDrafterUserId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.DRAFTER_USER_ID)));
+			this.setCommitTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.COMMIT_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.UPDATE_BY)));
+			this.setDrafterId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.DRAFTER_ID)));
+			this.setFormDefinitionId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.FORM_DEFINITION_ID)));
+			this.setId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.ID)));
+			this.setApprovalStatus(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.APPROVAL_STATUS)));
+			this.setProcessDefinitionId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.PROCESS_DEFINITION_ID)));
+			this.setAbandonTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.ABANDON_TIME)));
+			this.setDrafterType(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.DRAFTER_TYPE)));
+			this.setAbandonUserId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.ABANDON_USER_ID)));
+			this.setProcessDefinitionFileId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.PROCESS_DEFINITION_FILE_ID)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.UPDATE_TIME)));
+			this.setPriority(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.PRIORITY)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessInstanceMeta.VERSION)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(ProcessInstanceMeta.DELETED)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.CREATE_TIME)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.DELETE_TIME)));
+			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.TENANT_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.DELETE_BY)));
+			this.setComment(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.COMMENT)));
+			this.setCamundaInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID)));
+			this.setEndTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.END_TIME)));
+			return true;
+		} else {
+			try {
+				this.setSyncTime( (Date)r.getValue(ProcessInstanceMeta.SYNC_TIME));
+				this.setNeedSync( (Integer)r.getValue(ProcessInstanceMeta.NEED_SYNC));
+				this.setFormInstanceId( (String)r.getValue(ProcessInstanceMeta.FORM_INSTANCE_ID));
+				this.setTitle( (String)r.getValue(ProcessInstanceMeta.TITLE));
+				this.setDrafterUserId( (String)r.getValue(ProcessInstanceMeta.DRAFTER_USER_ID));
+				this.setCommitTime( (Date)r.getValue(ProcessInstanceMeta.COMMIT_TIME));
+				this.setUpdateBy( (String)r.getValue(ProcessInstanceMeta.UPDATE_BY));
+				this.setDrafterId( (String)r.getValue(ProcessInstanceMeta.DRAFTER_ID));
+				this.setFormDefinitionId( (String)r.getValue(ProcessInstanceMeta.FORM_DEFINITION_ID));
+				this.setId( (String)r.getValue(ProcessInstanceMeta.ID));
+				this.setApprovalStatus( (String)r.getValue(ProcessInstanceMeta.APPROVAL_STATUS));
+				this.setProcessDefinitionId( (String)r.getValue(ProcessInstanceMeta.PROCESS_DEFINITION_ID));
+				this.setAbandonTime( (Date)r.getValue(ProcessInstanceMeta.ABANDON_TIME));
+				this.setDrafterType( (String)r.getValue(ProcessInstanceMeta.DRAFTER_TYPE));
+				this.setAbandonUserId( (String)r.getValue(ProcessInstanceMeta.ABANDON_USER_ID));
+				this.setProcessDefinitionFileId( (String)r.getValue(ProcessInstanceMeta.PROCESS_DEFINITION_FILE_ID));
+				this.setUpdateTime( (Date)r.getValue(ProcessInstanceMeta.UPDATE_TIME));
+				this.setPriority( (String)r.getValue(ProcessInstanceMeta.PRIORITY));
+				this.setVersion( (Integer)r.getValue(ProcessInstanceMeta.VERSION));
+				this.setCreateBy( (String)r.getValue(ProcessInstanceMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(ProcessInstanceMeta.DELETED));
+				this.setCreateTime( (Date)r.getValue(ProcessInstanceMeta.CREATE_TIME));
+				this.setDeleteTime( (Date)r.getValue(ProcessInstanceMeta.DELETE_TIME));
+				this.setTenantId( (String)r.getValue(ProcessInstanceMeta.TENANT_ID));
+				this.setDeleteBy( (String)r.getValue(ProcessInstanceMeta.DELETE_BY));
+				this.setComment( (String)r.getValue(ProcessInstanceMeta.COMMENT));
+				this.setCamundaInstanceId( (String)r.getValue(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID));
+				this.setEndTime( (Date)r.getValue(ProcessInstanceMeta.END_TIME));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

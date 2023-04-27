@@ -83,11 +83,12 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .form().validate().required();
 
         view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch()
-                .form().inlines(BPM_PROCESS_DEFINITION.CATALOG_ID,BPM_PROCESS_DEFINITION.VALID).inlineDelta(6)
+                .form().inlines(BPM_PROCESS_DEFINITION.CATALOG_ID,BPM_PROCESS_DEFINITION.VALID).inlineDelta(20)
                 .form().validate().required();
 
         view.field(BPM_PROCESS_DEFINITION.VALID).form().label("有效").logicField().on("有效", 1).off("无效", 0).search().triggerOnSelect(true)
                 .table().logicFieldReadonly();
+
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
         view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.REAL_NAME)
                 .form().hidden()
@@ -101,12 +102,12 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .paging(true).filter(true).muliti(false, false)
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
-        view.field(BPM_PROCESS_DEFINITION.DRAFTER_RANGE).basic().label("起草人范围")
+        view.field(BPM_PROCESS_DEFINITION.DRAFTER_RANGE).basic().label("起草人")
                 .form().validate().required()
                 .form().checkBox().enumType(DrafterRangeType.class)
                 .search().hidden().table().hidden();
 
-        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人类型")
+        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人")
                 .form().validate().required()
                 .form().checkBox().enumType(UnifiedUserType.class)
                 .search().hidden().table().hidden();
@@ -120,12 +121,35 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
         view.field(BPM_CATALOG.SORT).search().hidden().form().inputWidth(80);
 
-        view.field(BPM_PROCESS_DEFINITION.DRAFTER_RANGE).basic().label("起草人范围")
-                .form().validate().required()
-                .form().checkBox().enumType(DrafterRangeType.class)
-                .search().hidden().table().hidden();
-        ;
 
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_FETCH_BACK).form().label("撤回流程").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly().table().disable();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_ABANDON).form().label("废弃流程").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly().table().disable();
+
+
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_AGREE_WITH_CONDITION).form().label("有条件同意").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_REJECT).form().label("审批驳回").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_SKIP).form().label("审批跳过").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_COMMENT).form().label("起草意见").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_APPROVE_COMMENT).form().label("审批意见").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_ATTACHMENT).form().label("起草附件").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_APPROVE_ATTACHMENT).form().label("审批附件").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
 
     }
 
@@ -134,7 +158,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
         view.formWindow().width("1200px");
 
-        form.addGroup("g1", "基本信息",
+        form.addGroup("basic", "基本信息",
 
                 new Object[]{BPM_PROCESS_DEFINITION.CODE,
                         BPM_PROCESS_DEFINITION.NAME,
@@ -150,20 +174,34 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
 
         );
 
-        form.addGroup("g6", "",
+        form.addGroup("icon", "",
                 new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_PC},
                 new Object[]{BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE}
         );
 
-        form.addGroup("g11", "人员设置",
+
+
+        form.addGroup("member", "人员设置",
                 new Object[]{BPM_PROCESS_DEFINITION.DRAFTER_RANGE},
                 new Object[]{BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE}
         );
 
 
-        form.addGroup("g2", "流程控制",
-                new Object[]{ BPM_PROCESS_DEFINITION.REJECT_OPTION},
-                new Object[]{}
+        form.addGroup("process", "流程控制",
+                new Object[]{
+                        BPM_PROCESS_DEFINITION.REJECT_OPTION,
+                        BPM_PROCESS_DEFINITION.ALLOW_FETCH_BACK
+                }, new Object[]{BPM_PROCESS_DEFINITION.ALLOW_ABANDON}
+        );
+
+        form.addGroup("approval", "审批控制",
+                new Object[]{ BPM_PROCESS_DEFINITION.ALLOW_AGREE_WITH_CONDITION,BPM_PROCESS_DEFINITION.ALLOW_SKIP},
+                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_REJECT}
+        );
+
+        form.addGroup("content", "内容控制",
+                new Object[]{ BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_ATTACHMENT},
+                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_APPROVE_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_APPROVE_ATTACHMENT}
         );
 
 
