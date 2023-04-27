@@ -12,11 +12,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     };
     var template=[
         '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}" style="{{el-height}}">',
+        '<div id="{{el}}-file-unit-content-{{index}}">',
         '	<img class="layui-upload-img" onclick="window.previewImage(this)" can-preview="{{canPreview}}" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
         '	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
         '	<div class="layui-upload-button-div" style="display:none" id="{{el}}-button-div-{{index}}">',
         ' 	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger layui-upload-button foxup-delete-button" id="{{el}}-delete-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;删除</button>',
-        ' 	<button type="button" class="layui-btn layui-btn-xs layui-upload-button" id="{{el}}-download-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;下载</button>',
+        ' 	<button type="button" class="layui-btn layui-btn-xs layui-upload-button" id="{{el}}-download-button-{{index}}" style="margin-left:0px"><i class="fa fa-download"></i>&nbsp;下载</button>',
         //' 	<button type="button" class="layui-btn layui-btn-xs layui-upload-button" id="{{el}}-view-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;查看</button>',
         '	</div>',
         '	<div class="layui-upload-progress" id="{{el}}-progress-container-{{index}}">',
@@ -24,6 +25,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         '			<div class="layui-progress-bar" lay-percent="10%"></div>',
         '		<div>',
         '	<div>',
+        '</div>',
         '<div>'
     ];
     var UPLOADS={};
@@ -160,25 +162,33 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     function bindImageAction(elId,index,preview){
         var actionTaskId;
         var img=preview.find("#"+elId+"-image-"+index);
-        img.on("mouseenter",function (){
+        var buttonDiv=$("#"+elId+"-button-div-"+index);
+        var contentDiv=$("#"+elId+"-file-unit-content-"+index);
+        contentDiv.on("mouseenter",function (){
+            // 当鼠标进入图片
             var cfg=UPLOADS[elId].config;
             //if(cfg.disabled) return;
+            clearTimeout(actionTaskId);
+            $("#"+elId+"-button-div-"+index).stop();
             $("#"+elId+"-button-div-"+index).fadeTo("fast", 1.0, function(){});
             // 无论是否被 disable 下载始终是被允许的
             $("#"+elId+"-download-button-"+index).removeAttr("disabled");
             $("#"+elId+"-download-button-"+index).removeClass("layui-btn-disabled");
         }).on("mouseleave",function (){
             var cfg=UPLOADS[elId].config;
-            if(cfg.disabled) return;
+            //if(cfg.disabled) return;
+            $("#"+elId+"-button-div-"+index).stop();
             actionTaskId=setTimeout(function (){
                 $("#"+elId+"-button-div-"+index).fadeTo("fast", 0.0, function(){
                     $("#"+elId+"-button-div-"+index).css("display","none");
                 });
-            },1000);
+            },100);
         });
-        $("#"+elId+"-button-div-"+index).on("mouseenter",function (){
-            clearTimeout(actionTaskId);
-        });
+
+        // buttonDiv.on("mouseenter",function (){
+        //     //$("#"+elId+"-button-div-"+index).stop(true,true);
+        //     clearTimeout(actionTaskId);
+        // });
 
         $("#"+elId+"-download-button-"+index).click(function() {
             //debugger
@@ -265,6 +275,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             this.config.multiple=true;
             //
             var before=this.config.before;
+
+            if(this.config.disable) {
+                $(this.config.elem).remove();
+            }
+
             this.config.before=function (obj){
 
                 obj.preview(function(index, file, result) {
@@ -327,6 +342,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             //
             var inst = upload.render(this.config);
             UPLOADS[elId]=inst;
+
+            if(this.config.disable) {
+               this.disable(elId);
+            }
+
         },
         disable:function (elId){
             var cfg=UPLOADS[elId].config;
@@ -337,7 +357,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             fileList.css("margin","0px");
             var deleteButtons=fileList.find(".foxup-delete-button");
             deleteButtons.remove();
-
+            var buttonDivs=fileList.find(".layui-upload-button-div");
+            buttonDivs.css("margin-top","-58px");
         },
         fill:function (elId,fileIds) {
             //debugger;
