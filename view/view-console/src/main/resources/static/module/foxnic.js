@@ -306,6 +306,23 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 el.removeClass("layui-btn-disabled").attr("disabled",false);
             }
         },
+        disableInput(input,disable) {
+            if(disable) {
+                input.attr("placeholder", "");
+                input.attr("readonly", "yes");
+                input.addClass("layui-input-read-only");
+            } else {
+                input.removeAttr("readonly");
+                input.removeClass("layui-input-read-only");
+            }
+        },
+        disableRadio(input,disable) {
+            input.attr("disabled", "yes");
+            input.attr("style","border-color:#a0a0a0 !important");
+            input.prev().find("i").addClass("layui-form-chcekbox-disabled")
+            input.prev().find("i").attr("style","background-color:transparent !important");
+
+        },
         lockForm:function(fm,lock) {
             // debugger;
             var me=this;
@@ -317,7 +334,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         i++;
                         fn();
                         if(i>t) clearInterval(t);
-                        logger.info("hha","hhaha")
+                        // logger.info("hha","hhaha")
                     },1);
                 }
                 fm.find("input").attr("placeholder", "");

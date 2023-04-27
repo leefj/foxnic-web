@@ -224,7 +224,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 window.top.layer.title(title, index);
             });
 
-            debugger
+            //debugger
             index = admin.popupCenter({
                 title: title,
                 resize: false,
@@ -271,7 +271,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 }
             });
 
-            debugger
+            // debugger
             return index;
 
         },
