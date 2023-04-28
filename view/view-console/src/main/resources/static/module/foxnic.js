@@ -1513,7 +1513,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(data==null) return "";
             if(start==null) start=0;
             var prop,value=data;
-
+            //debugger
             if(styles) {
                 //debugger
                 styles=this.parseBadgeLabelStyle(styles);
@@ -1540,14 +1540,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             for (let k = 0; k < ret.length; k++) {
                                 var text=ret[k];
                                 if(styles) {
-                                    rets.push("<span class='" + this.getBadgeLabelStyle(styles,text,text,field) + "'>" + text + "</span>");
+                                    if(text.startWith("<span ") && text.endWith("</span>") ) {
+                                        rets.push(text);
+                                    } else {
+                                        rets.push("<span class='" + this.getBadgeLabelStyle(styles, text, text, field) + "'>" + text + "</span>");
+                                    }
                                 } else {
                                     rets.push(text);
                                 }
                             }
                         } else {
                             if(styles) {
-                                rets.push("<span class='" + this.getBadgeLabelStyle(styles,ret,ret,field) + "'>" + ret + "</span>");
+                                if(ret.startWith("<span ") && ret.endWith("</span>") ) {
+                                    rets.push(ret);
+                                } else {
+                                    rets.push("<span class='" + this.getBadgeLabelStyle(styles, ret, ret, field) + "'>" + ret + "</span>");
+                                }
                             } else {
                                 rets.push(ret);
                             }
@@ -1561,7 +1569,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     return value;
                 } else {
                     if(styles && !TypeUtil.isObject(value) && !TypeUtil.isArray(value)) {
-                        value = "<span class='" + this.getBadgeLabelStyle(styles, value, value,field) + "'>" + value + "</span>";
+                        if(value.startWith("<span ") && value.endWith("</span>") ) {
+                            value=value;
+                        } else {
+                            value = "<span class='" + this.getBadgeLabelStyle(styles, value, value, field) + "'>" + value + "</span>";
+                        }
                     }
                 }
             }

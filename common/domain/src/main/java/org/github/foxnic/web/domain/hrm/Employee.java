@@ -28,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工
  * <p>员工 , 数据表 hrm_employee 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:56:11
- * @sign 99A9295203BF852648A2A8A63AB36F44
+ * @since 2023-04-28 13:56:33
+ * @sign 7580AAE6B21C4CFC8528920D8C954D35
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -142,6 +142,12 @@ public class Employee extends Person {
 	private String type;
 	
 	/**
+	 * 直属领导ID：员工ID
+	*/
+	@ApiModelProperty(required = false,value="直属领导ID" , notes = "员工ID")
+	private String directLeaderId;
+	
+	/**
 	 * 对应的人员信息：对应的人员信息
 	*/
 	@ApiModelProperty(required = false,value="对应的人员信息" , notes = "对应的人员信息")
@@ -212,6 +218,12 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="扩展信息" , notes = "员工扩展信息")
 	private Map<String,Object> extInfo;
+	
+	/**
+	 * 直属领导：直属领导
+	*/
+	@ApiModelProperty(required = false,value="直属领导" , notes = "直属领导")
+	private Employee directLeader;
 	
 	/**
 	 * 获得 ID<br>
@@ -549,6 +561,25 @@ public class Employee extends Person {
 	}
 	
 	/**
+	 * 获得 直属领导ID<br>
+	 * 员工ID
+	 * @return 直属领导ID
+	*/
+	public String getDirectLeaderId() {
+		return directLeaderId;
+	}
+	
+	/**
+	 * 设置 直属领导ID
+	 * @param directLeaderId 直属领导ID
+	 * @return 当前对象
+	*/
+	public Employee setDirectLeaderId(String directLeaderId) {
+		this.directLeaderId=directLeaderId;
+		return this;
+	}
+	
+	/**
 	 * 获得 对应的人员信息<br>
 	 * 对应的人员信息
 	 * @return 对应的人员信息
@@ -842,6 +873,25 @@ public class Employee extends Person {
 		this.extInfo.put(key ,extInfo);
 		return this;
 	}
+	
+	/**
+	 * 获得 直属领导<br>
+	 * 直属领导
+	 * @return 直属领导
+	*/
+	public Employee getDirectLeader() {
+		return directLeader;
+	}
+	
+	/**
+	 * 设置 直属领导
+	 * @param directLeader 直属领导
+	 * @return 当前对象
+	*/
+	public Employee setDirectLeader(Employee directLeader) {
+		this.directLeader=directLeader;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -887,6 +937,7 @@ public class Employee extends Person {
 	@Transient
 	public Employee duplicate(boolean all) {
 		org.github.foxnic.web.domain.hrm.meta.EmployeeMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.EmployeeMeta.$$proxy$$();
+		inst.setDirectLeaderId(this.getDirectLeaderId());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setType(this.getType());
 		inst.setVersion(this.getVersion());
@@ -913,6 +964,7 @@ public class Employee extends Person {
 			inst.setCompany(this.getCompany());
 			inst.setId(this.getId());
 			inst.setSex(this.getSex());
+			inst.setDirectLeader(this.getDirectLeader());
 			inst.setPrimaryPositionId(this.getPrimaryPositionId());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setPositions(this.getPositions());
@@ -988,6 +1040,7 @@ public class Employee extends Person {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
+			this.setDirectLeaderId(DataParser.parse(String.class, map.get(EmployeeMeta.DIRECT_LEADER_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, map.get(EmployeeMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeMeta.VERSION)));
@@ -1012,6 +1065,7 @@ public class Employee extends Person {
 			this.setCompany(DataParser.parse(Company.class, map.get(EmployeeMeta.COMPANY)));
 			this.setId(DataParser.parse(String.class, map.get(EmployeeMeta.ID)));
 			this.setSex(DataParser.parse(String.class, map.get(EmployeeMeta.SEX)));
+			this.setDirectLeader(DataParser.parse(Employee.class, map.get(EmployeeMeta.DIRECT_LEADER)));
 			this.setPrimaryPositionId(DataParser.parse(String.class, map.get(EmployeeMeta.PRIMARY_POSITION_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeMeta.VERSION)));
@@ -1027,6 +1081,7 @@ public class Employee extends Person {
 			return true;
 		} else {
 			try {
+				this.setDirectLeaderId( (String)map.get(EmployeeMeta.DIRECT_LEADER_ID));
 				this.setUpdateTime( (Date)map.get(EmployeeMeta.UPDATE_TIME));
 				this.setType( (String)map.get(EmployeeMeta.TYPE));
 				this.setVersion( (Integer)map.get(EmployeeMeta.VERSION));
@@ -1051,6 +1106,7 @@ public class Employee extends Person {
 				this.setCompany( (Company)map.get(EmployeeMeta.COMPANY));
 				this.setId( (String)map.get(EmployeeMeta.ID));
 				this.setSex( (String)map.get(EmployeeMeta.SEX));
+				this.setDirectLeader( (Employee)map.get(EmployeeMeta.DIRECT_LEADER));
 				this.setPrimaryPositionId( (String)map.get(EmployeeMeta.PRIMARY_POSITION_ID));
 				this.setUpdateTime( (Date)map.get(EmployeeMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(EmployeeMeta.VERSION));
@@ -1079,6 +1135,7 @@ public class Employee extends Person {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
+			this.setDirectLeaderId(DataParser.parse(String.class, r.getValue(EmployeeMeta.DIRECT_LEADER_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(EmployeeMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, r.getValue(EmployeeMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(EmployeeMeta.VERSION)));
@@ -1098,6 +1155,7 @@ public class Employee extends Person {
 			return true;
 		} else {
 			try {
+				this.setDirectLeaderId( (String)r.getValue(EmployeeMeta.DIRECT_LEADER_ID));
 				this.setUpdateTime( (Date)r.getValue(EmployeeMeta.UPDATE_TIME));
 				this.setType( (String)r.getValue(EmployeeMeta.TYPE));
 				this.setVersion( (Integer)r.getValue(EmployeeMeta.VERSION));

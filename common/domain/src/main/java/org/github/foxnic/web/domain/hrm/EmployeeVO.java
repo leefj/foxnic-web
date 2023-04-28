@@ -22,7 +22,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 员工VO类型
  * <p>员工 , 数据表 hrm_employee 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:56:11
+ * @since 2023-04-28 13:56:33
  * @sign BA9BEE8F3845A306E7D3EE965A8DA70A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -449,6 +449,7 @@ public class EmployeeVO extends Employee {
 	@Transient
 	public EmployeeVO duplicate(boolean all) {
 		org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta.$$proxy$$();
+		inst.setDirectLeaderId(this.getDirectLeaderId());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setType(this.getType());
 		inst.setVersion(this.getVersion());
@@ -484,6 +485,7 @@ public class EmployeeVO extends Employee {
 			inst.setId(this.getId());
 			inst.setRequestAction(this.getRequestAction());
 			inst.setSex(this.getSex());
+			inst.setDirectLeader(this.getDirectLeader());
 			inst.setPrimaryPositionId(this.getPrimaryPositionId());
 			inst.setPositions(this.getPositions());
 			inst.setUpdateTime(this.getUpdateTime());
@@ -564,6 +566,7 @@ public class EmployeeVO extends Employee {
 	public boolean read(Map<String, Object> map,boolean cast) {
 		if(map==null) return false;
 		if(cast) {
+			this.setDirectLeaderId(DataParser.parse(String.class, map.get(EmployeeVOMeta.DIRECT_LEADER_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeVOMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, map.get(EmployeeVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeVOMeta.VERSION)));
@@ -596,6 +599,7 @@ public class EmployeeVO extends Employee {
 			this.setId(DataParser.parse(String.class, map.get(EmployeeVOMeta.ID)));
 			this.setRequestAction(DataParser.parse(String.class, map.get(EmployeeVOMeta.REQUEST_ACTION)));
 			this.setSex(DataParser.parse(String.class, map.get(EmployeeVOMeta.SEX)));
+			this.setDirectLeader(DataParser.parse(Employee.class, map.get(EmployeeVOMeta.DIRECT_LEADER)));
 			this.setPrimaryPositionId(DataParser.parse(String.class, map.get(EmployeeVOMeta.PRIMARY_POSITION_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(EmployeeVOMeta.UPDATE_TIME)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(EmployeeVOMeta.VERSION)));
@@ -615,6 +619,7 @@ public class EmployeeVO extends Employee {
 			return true;
 		} else {
 			try {
+				this.setDirectLeaderId( (String)map.get(EmployeeVOMeta.DIRECT_LEADER_ID));
 				this.setUpdateTime( (Date)map.get(EmployeeVOMeta.UPDATE_TIME));
 				this.setType( (String)map.get(EmployeeVOMeta.TYPE));
 				this.setVersion( (Integer)map.get(EmployeeVOMeta.VERSION));
@@ -647,6 +652,7 @@ public class EmployeeVO extends Employee {
 				this.setId( (String)map.get(EmployeeVOMeta.ID));
 				this.setRequestAction( (String)map.get(EmployeeVOMeta.REQUEST_ACTION));
 				this.setSex( (String)map.get(EmployeeVOMeta.SEX));
+				this.setDirectLeader( (Employee)map.get(EmployeeVOMeta.DIRECT_LEADER));
 				this.setPrimaryPositionId( (String)map.get(EmployeeVOMeta.PRIMARY_POSITION_ID));
 				this.setUpdateTime( (Date)map.get(EmployeeVOMeta.UPDATE_TIME));
 				this.setVersion( (Integer)map.get(EmployeeVOMeta.VERSION));
@@ -679,6 +685,7 @@ public class EmployeeVO extends Employee {
 	public boolean read(ExprRcd r,boolean cast) {
 		if(r==null) return false;
 		if(cast) {
+			this.setDirectLeaderId(DataParser.parse(String.class, r.getValue(EmployeeVOMeta.DIRECT_LEADER_ID)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(EmployeeVOMeta.UPDATE_TIME)));
 			this.setType(DataParser.parse(String.class, r.getValue(EmployeeVOMeta.TYPE)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(EmployeeVOMeta.VERSION)));
@@ -698,6 +705,7 @@ public class EmployeeVO extends Employee {
 			return true;
 		} else {
 			try {
+				this.setDirectLeaderId( (String)r.getValue(EmployeeVOMeta.DIRECT_LEADER_ID));
 				this.setUpdateTime( (Date)r.getValue(EmployeeVOMeta.UPDATE_TIME));
 				this.setType( (String)r.getValue(EmployeeVOMeta.TYPE));
 				this.setVersion( (Integer)r.getValue(EmployeeVOMeta.VERSION));

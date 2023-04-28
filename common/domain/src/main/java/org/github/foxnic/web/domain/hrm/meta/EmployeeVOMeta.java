@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:56:11
+ * @since 2023-04-28 13:56:33
  * @sign BA9BEE8F3845A306E7D3EE965A8DA70A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -325,6 +325,16 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,TYPE, java.lang.String.class, "类型", "字典代码：employee_code", java.lang.String.class, null);
 	
 	/**
+	 * 直属领导ID , 员工ID , 类型: java.lang.String
+	*/
+	public static final String DIRECT_LEADER_ID="directLeaderId";
+	
+	/**
+	 * 直属领导ID , 员工ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> DIRECT_LEADER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,DIRECT_LEADER_ID, java.lang.String.class, "直属领导ID", "员工ID", java.lang.String.class, null);
+	
+	/**
 	 * 对应的人员信息 , 类型: org.github.foxnic.web.domain.hrm.Person
 	*/
 	public static final String PERSON="person";
@@ -445,6 +455,16 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.Object> EXT_INFO_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,EXT_INFO, java.util.Map.class, "扩展信息", "员工扩展信息", java.lang.Object.class, java.lang.String.class);
 	
 	/**
+	 * 直属领导 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String DIRECT_LEADER="directLeader";
+	
+	/**
+	 * 直属领导 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,org.github.foxnic.web.domain.hrm.Employee> DIRECT_LEADER_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,DIRECT_LEADER, org.github.foxnic.web.domain.hrm.Employee.class, "直属领导", "直属领导", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * name , 类型: java.lang.String
 	*/
 	public static final String NAME="name";
@@ -487,7 +507,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , NAME , SEX , SOURCE , IDENTITY };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , DIRECT_LEADER_ID , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , EXT_INFO , DIRECT_LEADER , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -828,6 +848,17 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		}
 		
 		/**
+		 * 设置 直属领导ID
+		 * @param directLeaderId 直属领导ID
+		 * @return 当前对象
+		*/
+		public Employee setDirectLeaderId(String directLeaderId) {
+			super.change(DIRECT_LEADER_ID,super.getDirectLeaderId(),directLeaderId);
+			super.setDirectLeaderId(directLeaderId);
+			return this;
+		}
+		
+		/**
 		 * 设置 对应的人员信息
 		 * @param person 对应的人员信息
 		 * @return 当前对象
@@ -960,6 +991,17 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		}
 		
 		/**
+		 * 设置 直属领导
+		 * @param directLeader 直属领导
+		 * @return 当前对象
+		*/
+		public Employee setDirectLeader(Employee directLeader) {
+			super.change(DIRECT_LEADER,super.getDirectLeader(),directLeader);
+			super.setDirectLeader(directLeader);
+			return this;
+		}
+		
+		/**
 		 * 设置 name
 		 * @param name name
 		 * @return 当前对象
@@ -1018,6 +1060,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		@Transient
 		public EmployeeVO duplicate(boolean all) {
 			$$proxy$$ inst=new $$proxy$$();
+			inst.setDirectLeaderId(this.getDirectLeaderId());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setType(this.getType());
 			inst.setVersion(this.getVersion());
@@ -1051,6 +1094,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 				inst.setCompany(this.getCompany());
 				inst.setRequestAction(this.getRequestAction());
 				inst.setSex(this.getSex());
+				inst.setDirectLeader(this.getDirectLeader());
 				inst.setPrimaryPositionId(this.getPrimaryPositionId());
 				inst.setPositions(this.getPositions());
 				inst.setVicePositionIds(this.getVicePositionIds());

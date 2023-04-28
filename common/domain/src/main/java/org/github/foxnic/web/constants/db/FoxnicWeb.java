@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2023-04-27 16:50:30
+ * @since 2023-04-28 11:25:29
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3777,8 +3777,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","字典代码：employee_code",false,false,true);
 		
+		/**
+		 * 直属领导ID，员工ID
+		*/
+		public static final DBField DIRECT_LEADER_ID = new DBField(DBDataType.STRING , "direct_leader_id","directLeaderId","直属领导ID","员工ID",false,false,true);
+		
 		public HRM_EMPLOYEE() {
-			this.init($NAME,"员工表" , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE);
+			this.init($NAME,"员工表" , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , DIRECT_LEADER_ID);
 		}
 		public static final HRM_EMPLOYEE $TABLE=new HRM_EMPLOYEE();
 	}

@@ -1538,6 +1538,7 @@
       elem.on(options.trigger, function(){
         bind && (that.bindElem = this);
         // 李方捷处理的逻辑
+        debugger
         if (options.renderAtTop && top.laydate) {
           var offset= $(options.elem).offset();
           var win=window;

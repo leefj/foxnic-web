@@ -60,6 +60,8 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
         view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.APPLICANT_ID).basic().hidden();
 
+        view.field(BPM_DEMO_LEAVE.STATUS).search().hidden().form().readOnly();
+
 
        // 流程字段：仅支持显示，不支持搜索
 

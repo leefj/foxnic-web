@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-14 06:56:15
+ * @since 2023-04-28 13:56:39
  */
 
 
@@ -96,13 +96,17 @@ function ListPage() {
 					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('人员ID') , templet: function (d) { return templet('personId',d.personId,d);}  }
 					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status,'','status'),d);}}
 					,{ field: 'type', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('类型'), templet:function (d){ return templet('type',fox.getDictText(SELECT_TYPE_DATA,d.type,'','type'),d);}}
+					,{ field: 'directLeaderId', align:"left",fixed:false,  hide:true, sort: false  , title: fox.translate('直属领导') , templet: function (d) { return templet('directLeaderId',fox.getProperty(d,["directLeader","name"],0,'','directLeaderId'),d);} }
 					,{ field: 'extInfo', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('extInfo') , templet: function (d) { return templet('extInfo',d.extInfo,d);}  }
 					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true  , title: fox.translate('身份证') , templet: function (d) { return templet('identity',fox.getProperty(d,["person","identity"],0,'','identity'),d);} }
 					,{ field: 'vicePositionIds', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('兼岗') , templet: function (d) { return templet('vicePositionIds',fox.getProperty(d,["vicePositions","fullName"],0,'','vicePositionIds'),d);} }
 					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],
-				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
+				done: function (data) {
+					lockSwitchInputs();
+					window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data);
+				},
 				footer : {
 					exportExcel : false ,
 					importExcel : false 
@@ -131,6 +135,8 @@ function ListPage() {
 					data = r.data;
 					context.update(data);
 					fox.renderFormInputs(form);
+					lockSwitchInputs();
+					window.pageExt.list.afterRefreshRowData && window.pageExt.list.afterRefreshRowData(data,remote,context);
 				} else {
 					fox.showMessage(data);
 				}
@@ -138,7 +144,24 @@ function ListPage() {
 		} else {
 			context.update(data);
 			fox.renderFormInputs(form);
+			lockSwitchInputs();
+			window.pageExt.list.afterRefreshRowData && window.pageExt.list.afterRefreshRowData(data,remote,context);
 		}
+	}
+
+
+
+	function lockSwitchInputs() {
+	}
+
+	function lockSwitchInput(field) {
+		var inputs=$("[lay-id=data-table]").find("td[data-field='"+field+"']").find("input");
+		var switchs=$("[lay-id=data-table]").find("td[data-field='"+field+"']").find(".layui-form-switch");
+		inputs.attr("readonly", "yes");
+		inputs.attr("disabled", "yes");
+		switchs.addClass("layui-disabled");
+		switchs.addClass("layui-checkbox-disabled");
+		switchs.addClass("layui-form-switch-disabled");
 	}
 
 	/**
@@ -479,7 +502,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["800px",height+"px"],
 			type: 2,
 			id:"hrm-employee-form-data-win",
 			content: '/business/hrm/employee/employee_form.html' + (queryString?("?"+queryString):""),

@@ -167,7 +167,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     label: fox.translate(attr.shortName),
                     placeholder:fox.translate("请输入"+attr.shortName),
                 }, function(result){
-                     $(".form-column").append(result);
+                    var els=$(".form-column");
+                    //debugger
+                    for (var j = 0; j < els.length ; j++) {
+                        var el=$(els[j]);
+                        if(i%els.length==j) {
+                            el.append(result);
+                        }
+                    }
                 });
                 // debugger
             }

@@ -58,7 +58,8 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID, value = "人员ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID, value = "公司ID", required = false, dataTypeClass = String.class, example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = EmployeeVOMeta.DIRECT_LEADER_ID, value = "直属领导ID", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 1)
     @SentinelResource(value = EmployeeServiceProxy.INSERT, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -154,7 +155,8 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID, value = "人员ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID, value = "公司ID", required = false, dataTypeClass = String.class, example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = EmployeeVOMeta.DIRECT_LEADER_ID, value = "直属领导ID", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 4, ignoreParameters = { EmployeeVOMeta.PAGE_INDEX, EmployeeVOMeta.PAGE_SIZE, EmployeeVOMeta.SEARCH_FIELD, EmployeeVOMeta.FUZZY_FIELD, EmployeeVOMeta.SEARCH_VALUE, EmployeeVOMeta.SORT_FIELD, EmployeeVOMeta.SORT_TYPE, EmployeeVOMeta.IDS, EmployeeVOMeta.ORG_ID, EmployeeVOMeta.POSITION_ID })
     @SentinelResource(value = EmployeeServiceProxy.UPDATE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -176,7 +178,8 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID, value = "人员ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID, value = "公司ID", required = false, dataTypeClass = String.class, example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = EmployeeVOMeta.DIRECT_LEADER_ID, value = "直属领导ID", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { EmployeeVOMeta.PAGE_INDEX, EmployeeVOMeta.PAGE_SIZE, EmployeeVOMeta.SEARCH_FIELD, EmployeeVOMeta.FUZZY_FIELD, EmployeeVOMeta.SEARCH_VALUE, EmployeeVOMeta.SORT_FIELD, EmployeeVOMeta.SORT_TYPE, EmployeeVOMeta.IDS, EmployeeVOMeta.ORG_ID, EmployeeVOMeta.POSITION_ID })
     @SentinelResource(value = EmployeeServiceProxy.SAVE, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -201,7 +204,7 @@ public class EmployeeController extends SuperController {
         Result<Employee> result = new Result<>();
         Employee employee = employeeService.getById(id);
         // 关联出 姓名 数据
-        employeeService.dao().fill(employee).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).execute();
+        employeeService.dao().fill(employee).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).with(EmployeeMeta.DIRECT_LEADER).execute();
         // 按主岗设置主部门
         if (employee.getPrimaryPosition() != null) {
             employee.setPrimaryOrganization(employee.getPrimaryPosition().getOrganization());
@@ -279,7 +282,8 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID, value = "人员ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID, value = "公司ID", required = false, dataTypeClass = String.class, example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = EmployeeVOMeta.DIRECT_LEADER_ID, value = "直属领导ID", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 5, ignoreParameters = { EmployeeVOMeta.PAGE_INDEX, EmployeeVOMeta.PAGE_SIZE })
     @SentinelResource(value = EmployeeServiceProxy.QUERY_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -302,7 +306,8 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID, value = "人员ID", required = false, dataTypeClass = String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID, value = "公司ID", required = false, dataTypeClass = String.class, example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS, value = "状态", required = false, dataTypeClass = String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class)
+		@ApiImplicitParam(name = EmployeeVOMeta.TYPE, value = "类型", required = false, dataTypeClass = String.class),
+		@ApiImplicitParam(name = EmployeeVOMeta.DIRECT_LEADER_ID, value = "直属领导ID", required = false, dataTypeClass = String.class)
 	})
     @ApiOperationSupport(order = 8)
     @SentinelResource(value = EmployeeServiceProxy.QUERY_PAGED_LIST, blockHandlerClass = { SentinelExceptionUtil.class }, blockHandler = SentinelExceptionUtil.HANDLER)
@@ -311,7 +316,7 @@ public class EmployeeController extends SuperController {
         Result<PagedList<Employee>> result = new Result<>();
         PagedList<Employee> list = employeeService.queryPagedList(sample, sample.getPageSize(), sample.getPageIndex());
         // 关联出 姓名 数据
-        employeeService.dao().fill(list).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).execute();
+        employeeService.dao().fill(list).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).with(EmployeeMeta.DIRECT_LEADER,EmployeeMeta.PERSON).execute();
         // 按主岗设置主部门
         for (Employee employee : list) {
             if (employee.getPrimaryPosition() != null) {

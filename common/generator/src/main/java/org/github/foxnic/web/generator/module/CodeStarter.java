@@ -63,11 +63,11 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
-//        initHrmModules();
+        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-        initBpmModules();
+//        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -131,7 +131,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new FormDefinitionConfig());
 //        this.addConfig(new FormInstanceConfig());
 //        this.addConfig(new FormInstanceBillConfig());
-//        this.addConfig(new TaskConfig());
+        this.addConfig(new TaskConfig());
 //        this.addConfig(new TaskReadConfig());
 //        this.addConfig(new TaskAssigneeConfig());
         this.addConfig(new TaskApprovalConfig());
@@ -142,7 +142,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        //
         this.addConfig(new DemoBusiCaseConfig());
 
-//        this.addConfig(new DemoLeaveConfig());
+        this.addConfig(new DemoLeaveConfig());
 //        this.addConfig(new DemoCommonConfig());
     }
 

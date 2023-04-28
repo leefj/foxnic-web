@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:57
- * @sign DDAB7CADC05BB718E29B37B04518B42C
+ * @since 2023-04-28 09:04:33
+ * @sign 245E321AD9764F8350A13981A29B4E8D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -104,7 +104,17 @@ public class TaskProcessVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> JUMP_TO_NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,JUMP_TO_NODE_ID, java.lang.String.class, "流程跳转的目标节点ID", "流程跳转的目标节点ID", java.lang.String.class, null);
 	
 	/**
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String ATTACHMENT_FILE_IDS="attachmentFileIds";
+	
+	/**
+	 * 附件ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ATTACHMENT_FILE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ATTACHMENT_FILE_IDS, java.util.List.class, "附件ID清单", "附件ID清单", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , RESULT , COMMENT , VARIABLES , TENANT_ID , JUMP_TO_NODE_ID };
+	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , RESULT , COMMENT , VARIABLES , TENANT_ID , JUMP_TO_NODE_ID , ATTACHMENT_FILE_IDS };
 }

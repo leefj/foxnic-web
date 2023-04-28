@@ -9,10 +9,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.dict.EmployeeStatus;
-import org.github.foxnic.web.domain.hrm.Company;
-import org.github.foxnic.web.domain.hrm.Organization;
-import org.github.foxnic.web.domain.hrm.Person;
-import org.github.foxnic.web.domain.hrm.Position;
+import org.github.foxnic.web.domain.hrm.*;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
@@ -42,6 +39,8 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addListProperty(String.class, "vicePositionIds","兼岗ID","多个用逗号隔开");
         poType.addListProperty( Position.class, "vicePositions","兼岗", "作为员工时，所属的兼岗");
         poType.addMapProperty(String.class,Object.class,"extInfo","扩展信息","员工扩展信息");
+
+        poType.addSimpleProperty( Employee.class, "directLeader","直属领导", "直属领导");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");
@@ -73,7 +72,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         view.field(EmployeeMeta.EXT_INFO).basic().hidden();
 
         view.field(HRM_EMPLOYEE.BADGE)
-                .form().validate()
+                .form().validate().required()
                 .search().inputWidth(90).fuzzySearch();
 
         view.field(HRM_EMPLOYEE.PERSON_ID).basic().hidden();
@@ -125,6 +124,13 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .form().selectBox().dict(DictEnum.EMPLOYEE_TYPE)
         ;
 
+        view.field(HRM_EMPLOYEE.DIRECT_LEADER_ID).basic().label("直属领导")
+                .form().validate().required()
+                .form().button().chooseEmployee(true)
+                .table().sort(false)
+                .table().fillBy(EmployeeMeta.DIRECT_LEADER, EmployeeMeta.NAME)
+                .search().hidden();
+
 
         view.field(EmployeeVOMeta.PRIMARY_POSITION_ID).basic().label("主岗")
         .form().validate().required()
@@ -151,15 +157,21 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.addJsVariable("extInfoAttrs","[[${extInfoAttrs}]]","员工扩展信息");
         form.labelWidth(80);
+
+        formWindow.width("800px");
+
         form.columnLayout(new Object[] {
                 PersonMeta.NAME,
-                personSexField,
-                HRM_EMPLOYEE.BADGE,
-                HRM_EMPLOYEE.STATUS,
                 HRM_EMPLOYEE.TYPE,
                 HRM_EMPLOYEE.PHONE,
                 PersonMeta.IDENTITY,
                 EmployeeVOMeta.PRIMARY_POSITION_ID,
+
+        },new Object[] {
+                HRM_EMPLOYEE.BADGE,
+                personSexField,
+                HRM_EMPLOYEE.STATUS,
+                HRM_EMPLOYEE.DIRECT_LEADER_ID,
                 EmployeeVOMeta.VICE_POSITION_IDS
         });
     }

@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.bpm.DemoLeave;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 17:04:49
- * @sign 02B50B896D552B83DCA23CBBD8F40313
+ * @since 2023-04-28 13:42:57
+ * @sign 436F0D583935E8FAFFCF1852DD2A2055
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -239,5 +240,37 @@ public class DemoLeaveMeta {
 			super.setDefaultProcess(defaultProcess);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public DemoLeave clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public DemoLeave duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setReason(this.getReason());
+			inst.setId(this.getId());
+			inst.setBeginTime(this.getBeginTime());
+			inst.setEndTime(this.getEndTime());
+			inst.setType(this.getType());
+			inst.setApplicantId(this.getApplicantId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setHistoricProcessList(this.getHistoricProcessList());
+				inst.setCurrentProcessList(this.getCurrentProcessList());
+				inst.setDefaultProcess(this.getDefaultProcess());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -1,5 +1,5 @@
 
-layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','loading','toast'],
+layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','loading','toast','laydate'],
 	function(exports) {
 		"use strict";
 
@@ -15,7 +15,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			message = layui.message,
 			loading=layui.loading;
 
-
+		window.laydate=layui.laydate;
 
 		var codeLangs = null;
 		var defaultsLangs = null;

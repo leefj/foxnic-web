@@ -44,6 +44,10 @@ public class HrmRelationManager extends RelationManager {
 		this.property(EmployeeMeta.COMPANY_PROP)
 				.using(FoxnicWeb.HRM_EMPLOYEE.COMPANY_ID).join(FoxnicWeb.HRM_COMPANY.ID).cache(true);
 
+		//员工 - 直属领导关系
+		this.property(EmployeeMeta.DIRECT_LEADER_PROP)
+				.using(FoxnicWeb.HRM_EMPLOYEE.DIRECT_LEADER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
+
 
 		//员工 - 岗位关联关系
 		this.property(EmployeeMeta.POSITIONS_PROP)

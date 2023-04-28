@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
@@ -9,25 +10,32 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 请假流程示例
+ * <p>请假流程示例 , 数据表 bpm_demo_leave 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 17:04:49
- * @sign 02B50B896D552B83DCA23CBBD8F40313
+ * @since 2023-04-28 13:42:57
+ * @sign 436F0D583935E8FAFFCF1852DD2A2055
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "bpm_demo_leave")
+@ApiModel(description = "请假流程示例 ; 请假流程示例 , 数据表 bpm_demo_leave 的PO类型")
 public class DemoLeave extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -77,6 +85,7 @@ public class DemoLeave extends Entity {
 	@ApiModelProperty(required = false,value="状态" , notes = "状态")
 	private String status;
 	@Transient
+	@EnumFor("status")
 	private DemoStatus statusEnum;
 	
 	/**
@@ -238,6 +247,7 @@ public class DemoLeave extends Entity {
 	 * @param status 状态
 	 * @return 当前对象
 	*/
+	@JsonProperty("status")
 	public DemoLeave setStatus(String status) {
 		this.status=status;
 		this.statusEnum= (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status) ;
@@ -372,6 +382,45 @@ public class DemoLeave extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoLeave clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public DemoLeave duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta.$$proxy$$();
+		inst.setReason(this.getReason());
+		inst.setId(this.getId());
+		inst.setBeginTime(this.getBeginTime());
+		inst.setEndTime(this.getEndTime());
+		inst.setType(this.getType());
+		inst.setApplicantId(this.getApplicantId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setHistoricProcessList(this.getHistoricProcessList());
+			inst.setCurrentProcessList(this.getCurrentProcessList());
+			inst.setDefaultProcess(this.getDefaultProcess());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoLeave clone(boolean deep) {
+		return EntityContext.clone(DemoLeave.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 DemoLeave
 	 * @param demoLeaveMap 包含实体信息的 Map 对象
 	 * @return DemoLeave , 转换好的的 DemoLeave 对象
@@ -379,7 +428,9 @@ public class DemoLeave extends Entity {
 	@Transient
 	public static DemoLeave createFrom(Map<String,Object> demoLeaveMap) {
 		if(demoLeaveMap==null) return null;
-		DemoLeave po = EntityContext.create(DemoLeave.class, demoLeaveMap);
+		DemoLeave po = create();
+		EntityContext.copyProperties(po,demoLeaveMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -391,7 +442,9 @@ public class DemoLeave extends Entity {
 	@Transient
 	public static DemoLeave createFrom(Object pojo) {
 		if(pojo==null) return null;
-		DemoLeave po = EntityContext.create(DemoLeave.class,pojo);
+		DemoLeave po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -401,6 +454,76 @@ public class DemoLeave extends Entity {
 	*/
 	@Transient
 	public static DemoLeave create() {
-		return EntityContext.create(DemoLeave.class);
+		return new org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setReason(DataParser.parse(String.class, map.get(DemoLeaveMeta.REASON)));
+			this.setId(DataParser.parse(String.class, map.get(DemoLeaveMeta.ID)));
+			this.setBeginTime(DataParser.parse(Date.class, map.get(DemoLeaveMeta.BEGIN_TIME)));
+			this.setEndTime(DataParser.parse(Date.class, map.get(DemoLeaveMeta.END_TIME)));
+			this.setType(DataParser.parse(String.class, map.get(DemoLeaveMeta.TYPE)));
+			this.setApplicantId(DataParser.parse(String.class, map.get(DemoLeaveMeta.APPLICANT_ID)));
+			this.setStatus(DataParser.parse(String.class, map.get(DemoLeaveMeta.STATUS)));
+			// others
+			this.setDefaultProcess(DataParser.parse(ProcessInstance.class, map.get(DemoLeaveMeta.DEFAULT_PROCESS)));
+			return true;
+		} else {
+			try {
+				this.setReason( (String)map.get(DemoLeaveMeta.REASON));
+				this.setId( (String)map.get(DemoLeaveMeta.ID));
+				this.setBeginTime( (Date)map.get(DemoLeaveMeta.BEGIN_TIME));
+				this.setEndTime( (Date)map.get(DemoLeaveMeta.END_TIME));
+				this.setType( (String)map.get(DemoLeaveMeta.TYPE));
+				this.setApplicantId( (String)map.get(DemoLeaveMeta.APPLICANT_ID));
+				this.setStatus( (String)map.get(DemoLeaveMeta.STATUS));
+				// others
+				this.setDefaultProcess( (ProcessInstance)map.get(DemoLeaveMeta.DEFAULT_PROCESS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setReason(DataParser.parse(String.class, r.getValue(DemoLeaveMeta.REASON)));
+			this.setId(DataParser.parse(String.class, r.getValue(DemoLeaveMeta.ID)));
+			this.setBeginTime(DataParser.parse(Date.class, r.getValue(DemoLeaveMeta.BEGIN_TIME)));
+			this.setEndTime(DataParser.parse(Date.class, r.getValue(DemoLeaveMeta.END_TIME)));
+			this.setType(DataParser.parse(String.class, r.getValue(DemoLeaveMeta.TYPE)));
+			this.setApplicantId(DataParser.parse(String.class, r.getValue(DemoLeaveMeta.APPLICANT_ID)));
+			this.setStatus(DataParser.parse(String.class, r.getValue(DemoLeaveMeta.STATUS)));
+			return true;
+		} else {
+			try {
+				this.setReason( (String)r.getValue(DemoLeaveMeta.REASON));
+				this.setId( (String)r.getValue(DemoLeaveMeta.ID));
+				this.setBeginTime( (Date)r.getValue(DemoLeaveMeta.BEGIN_TIME));
+				this.setEndTime( (Date)r.getValue(DemoLeaveMeta.END_TIME));
+				this.setType( (String)r.getValue(DemoLeaveMeta.TYPE));
+				this.setApplicantId( (String)r.getValue(DemoLeaveMeta.APPLICANT_ID));
+				this.setStatus( (String)r.getValue(DemoLeaveMeta.STATUS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

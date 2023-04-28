@@ -1,26 +1,35 @@
 package org.github.foxnic.web.domain.bpm;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.Map;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import org.github.foxnic.web.domain.bpm.meta.TaskProcessVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:57
- * @sign DDAB7CADC05BB718E29B37B04518B42C
+ * @since 2023-04-28 09:04:33
+ * @sign 245E321AD9764F8350A13981A29B4E8D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel()
 public class TaskProcessVO {
 
 	private static final long serialVersionUID = 1L;
@@ -28,58 +37,55 @@ public class TaskProcessVO {
 	/**
 	 * 任务ID：任务ID
 	*/
-	@ApiModelProperty(required = false,value="任务ID" , notes = "任务ID")
 	private String taskId;
 	
 	/**
 	 * 审批人账户ID：审批人账户
 	*/
-	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "审批人账户")
 	private String assigneeUserId;
 	
 	/**
 	 * 审批人身份类型：审批人身份类型
 	*/
-	@ApiModelProperty(required = false,value="审批人身份类型" , notes = "审批人身份类型")
 	private String assigneeType;
 	
 	/**
 	 * 审批人身份ID：审批人身份ID
 	*/
-	@ApiModelProperty(required = false,value="审批人身份ID" , notes = "审批人身份ID")
 	private String assigneeId;
 	
 	/**
 	 * 审批结果：审批结果
 	*/
-	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String result;
 	@Transient
+	@EnumFor("result")
 	private ApprovalResult resultEnum;
 	
 	/**
 	 * 审批意见：审批意见
 	*/
-	@ApiModelProperty(required = false,value="审批意见" , notes = "审批意见")
 	private String comment;
 	
 	/**
 	 * 流程参数：流程参数
 	*/
-	@ApiModelProperty(required = false,value="流程参数" , notes = "流程参数")
 	private Map<String,Object> variables;
 	
 	/**
 	 * 租户ID：租户ID
 	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
 	private String tenantId;
 	
 	/**
 	 * 流程跳转的目标节点ID：流程跳转的目标节点ID
 	*/
-	@ApiModelProperty(required = false,value="流程跳转的目标节点ID" , notes = "流程跳转的目标节点ID")
 	private String jumpToNodeId;
+	
+	/**
+	 * 附件ID清单：附件ID清单
+	*/
+	private List<String> attachmentFileIds;
 	
 	/**
 	 * 获得 任务ID<br>
@@ -184,6 +190,7 @@ public class TaskProcessVO {
 	 * @param result 审批结果
 	 * @return 当前对象
 	*/
+	@JsonProperty("result")
 	public TaskProcessVO setResult(String result) {
 		this.result=result;
 		this.resultEnum= (ApprovalResult) EnumUtil.parseByCode(ApprovalResult.values(),result) ;
@@ -296,6 +303,36 @@ public class TaskProcessVO {
 		this.jumpToNodeId=jumpToNodeId;
 		return this;
 	}
+	
+	/**
+	 * 获得 附件ID清单<br>
+	 * 附件ID清单
+	 * @return 附件ID清单
+	*/
+	public List<String> getAttachmentFileIds() {
+		return attachmentFileIds;
+	}
+	
+	/**
+	 * 设置 附件ID清单
+	 * @param attachmentFileIds 附件ID清单
+	 * @return 当前对象
+	*/
+	public TaskProcessVO setAttachmentFileIds(List<String> attachmentFileIds) {
+		this.attachmentFileIds=attachmentFileIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 附件ID清单
+	 * @param attachmentFileId 附件ID清单
+	 * @return 当前对象
+	*/
+	public TaskProcessVO addAttachmentFileId(String... attachmentFileId) {
+		if(this.attachmentFileIds==null) attachmentFileIds=new ArrayList<>();
+		this.attachmentFileIds.addAll(Arrays.asList(attachmentFileId));
+		return this;
+	}
 
 	/**
 	 * 创建一个 TaskProcessVO，等同于 new
@@ -333,6 +370,27 @@ public class TaskProcessVO {
 	}
 
 	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TaskProcessVO duplicate(boolean all) {
+		TaskProcessVO inst = new TaskProcessVO();
+		// others
+			inst.setResult(this.getResult());
+			inst.setVariables(this.getVariables());
+			inst.setJumpToNodeId(this.getJumpToNodeId());
+			inst.setAttachmentFileIds(this.getAttachmentFileIds());
+			inst.setAssigneeUserId(this.getAssigneeUserId());
+			inst.setTenantId(this.getTenantId());
+			inst.setComment(this.getComment());
+			inst.setAssigneeType(this.getAssigneeType());
+			inst.setAssigneeId(this.getAssigneeId());
+			inst.setTaskId(this.getTaskId());
+		return inst;
+	}
+
+	/**
 	 * 克隆当前对象
 	*/
 	@Transient
@@ -364,6 +422,62 @@ public class TaskProcessVO {
 			return pojo;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			// others
+			this.setResult(DataParser.parse(String.class, map.get(TaskProcessVOMeta.RESULT)));
+			this.setJumpToNodeId(DataParser.parse(String.class, map.get(TaskProcessVOMeta.JUMP_TO_NODE_ID)));
+			this.setAssigneeUserId(DataParser.parse(String.class, map.get(TaskProcessVOMeta.ASSIGNEE_USER_ID)));
+			this.setTenantId(DataParser.parse(String.class, map.get(TaskProcessVOMeta.TENANT_ID)));
+			this.setComment(DataParser.parse(String.class, map.get(TaskProcessVOMeta.COMMENT)));
+			this.setAssigneeType(DataParser.parse(String.class, map.get(TaskProcessVOMeta.ASSIGNEE_TYPE)));
+			this.setAssigneeId(DataParser.parse(String.class, map.get(TaskProcessVOMeta.ASSIGNEE_ID)));
+			this.setTaskId(DataParser.parse(String.class, map.get(TaskProcessVOMeta.TASK_ID)));
+			return true;
+		} else {
+			try {
+				// others
+				this.setResult( (String)map.get(TaskProcessVOMeta.RESULT));
+				this.setJumpToNodeId( (String)map.get(TaskProcessVOMeta.JUMP_TO_NODE_ID));
+				this.setAssigneeUserId( (String)map.get(TaskProcessVOMeta.ASSIGNEE_USER_ID));
+				this.setTenantId( (String)map.get(TaskProcessVOMeta.TENANT_ID));
+				this.setComment( (String)map.get(TaskProcessVOMeta.COMMENT));
+				this.setAssigneeType( (String)map.get(TaskProcessVOMeta.ASSIGNEE_TYPE));
+				this.setAssigneeId( (String)map.get(TaskProcessVOMeta.ASSIGNEE_ID));
+				this.setTaskId( (String)map.get(TaskProcessVOMeta.TASK_ID));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			return true;
+		} else {
+			try {
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 }

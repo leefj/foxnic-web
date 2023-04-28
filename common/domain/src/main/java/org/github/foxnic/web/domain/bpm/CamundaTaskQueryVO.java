@@ -1,22 +1,26 @@
 package org.github.foxnic.web.domain.bpm;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.Entity;
+import org.github.foxnic.web.domain.bpm.meta.CamundaTaskQueryVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 任务查询参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-09-02 16:42:57
+ * @since 2023-04-28 09:04:33
  * @sign EC59EB2536FBEF14E94455AFB8D5F356
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel()
 public class CamundaTaskQueryVO {
 
 	private static final long serialVersionUID = 1L;
@@ -24,25 +28,21 @@ public class CamundaTaskQueryVO {
 	/**
 	 * 流程实例ID：流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
 	private String processInstanceId;
 	
 	/**
 	 * 委托人、审批人账户ID：委托人、审批人账户
 	*/
-	@ApiModelProperty(required = false,value="委托人、审批人账户ID" , notes = "委托人、审批人账户")
 	private String assigneeUserId;
 	
 	/**
 	 * 分页大小：分页大小
 	*/
-	@ApiModelProperty(required = false,value="分页大小" , notes = "分页大小")
 	private Integer pageSize;
 	
 	/**
 	 * 页码：页码
 	*/
-	@ApiModelProperty(required = false,value="页码" , notes = "页码")
 	private Integer pageIndex;
 	
 	/**
@@ -157,6 +157,21 @@ public class CamundaTaskQueryVO {
 	}
 
 	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CamundaTaskQueryVO duplicate(boolean all) {
+		CamundaTaskQueryVO inst = new CamundaTaskQueryVO();
+		// others
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setAssigneeUserId(this.getAssigneeUserId());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setPageSize(this.getPageSize());
+		return inst;
+	}
+
+	/**
 	 * 克隆当前对象
 	*/
 	@Transient
@@ -188,6 +203,54 @@ public class CamundaTaskQueryVO {
 			return pojo;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			// others
+			this.setProcessInstanceId(DataParser.parse(String.class, map.get(CamundaTaskQueryVOMeta.PROCESS_INSTANCE_ID)));
+			this.setAssigneeUserId(DataParser.parse(String.class, map.get(CamundaTaskQueryVOMeta.ASSIGNEE_USER_ID)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(CamundaTaskQueryVOMeta.PAGE_INDEX)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(CamundaTaskQueryVOMeta.PAGE_SIZE)));
+			return true;
+		} else {
+			try {
+				// others
+				this.setProcessInstanceId( (String)map.get(CamundaTaskQueryVOMeta.PROCESS_INSTANCE_ID));
+				this.setAssigneeUserId( (String)map.get(CamundaTaskQueryVOMeta.ASSIGNEE_USER_ID));
+				this.setPageIndex( (Integer)map.get(CamundaTaskQueryVOMeta.PAGE_INDEX));
+				this.setPageSize( (Integer)map.get(CamundaTaskQueryVOMeta.PAGE_SIZE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			return true;
+		} else {
+			try {
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
 	}
 }
