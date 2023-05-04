@@ -90,7 +90,7 @@ public class RequestListener  implements ServletRequestListener {
 	@Override
 	public void requestDestroyed(ServletRequestEvent e) {
 		HttpServletRequest request=(HttpServletRequest)e.getServletRequest();
-		if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
+		if(securityProperties.getSecurityMode()==SecurityMode.SESSION || securityProperties.getSecurityMode()==SecurityMode.BOTH) {
 			try {
 				this.putInteract(request.getRequestURI());
 			} catch (Exception ex) {
@@ -103,10 +103,14 @@ public class RequestListener  implements ServletRequestListener {
 	public void requestInitialized(ServletRequestEvent e) {
 		HttpServletRequest request=(HttpServletRequest)e.getServletRequest();
 		HttpSession session=request.getSession();
-		if(session==null) {
-			session=request.getSession(true);
-		}
 		String initId=(String)session.getAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY);
+		if(initId.startsWith("SESSION-")) {
+			initId=initId.substring("SESSION-".length());
+
+		} else {
+			initId=session.getId();
+		}
+		session.setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY,initId);
 		request.setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY, initId);
 		sessionOnlineId.set(initId);
 	}

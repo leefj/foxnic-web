@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -23,11 +24,14 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	private static final long serialVersionUID = 1L;
 	private User user;
 	private String sessionOnlineId;
+
+	private Date createTime;
 	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
 
 	private transient SessionPermissionImpl permission = null;
 	public SessionUserImpl(User user) {
 		this.user=user;
+		this.createTime=new Date();
 	}
 	@Override
 	public void eraseCredentials() {
@@ -193,4 +197,7 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return this.user.getLanguage();
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
 }

@@ -7,6 +7,8 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.UserTenant;
 
+import java.util.Date;
+
 public abstract class SessionUser {
 
 
@@ -38,6 +40,8 @@ public abstract class SessionUser {
 	 * 账户ID
 	 * */
 	public abstract String getUserId();
+
+	public abstract Date getCreateTime();
 
 	/**
 	 * 是否内置账户

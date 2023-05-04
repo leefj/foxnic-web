@@ -181,6 +181,13 @@ public class SecurityConfiguration {
 		protected void configure(HttpSecurity http) throws Exception {
 
 			SessionUser.configGetInService(()->{
+
+				ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+				String sessionId = null;
+				if(attributes!=null) {
+					sessionId = attributes.getRequest().getSession().getId();
+				}
+
 				SecurityContext context = SecurityContextHolder.getContext();
 				Authentication authentication=context.getAuthentication();
 				// 经过 SpringSecurity 过滤器的地址
@@ -188,17 +195,28 @@ public class SecurityConfiguration {
 					if (authentication == null || !authentication.isAuthenticated()) return null;
 					Object principal = authentication.getPrincipal();
 					if (principal instanceof SessionUser) {
-						return (SessionUser) principal;
+						SessionUser user=(SessionUser) principal;
+						//将对象放入当前 SESSION
+						if(attributes!=null) {
+							attributes.getRequest().getSession().setAttribute("$SESSION_USER", user);
+						}
+						sessionCache.put(sessionId,user);
+						return user;
 					} else {
 						return null;
 					}
 				}
 				// 未经过 SpringSecurity 过滤器的地址
 				else {
-					ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-					if(attributes==null)  return null;
-					String sessionId = attributes.getRequest().getSession().getId();
-					return sessionCache.get(sessionId);
+					SessionUser user = null;
+					if(attributes!=null) {
+						//优先从当前 SESSION 取 SessionUser
+						user = (SessionUser) attributes.getRequest().getSession().getAttribute("$SESSION_USER");
+					}
+					if(user==null) {
+						user=sessionCache.get(sessionId);
+					}
+					return user;
 				}
 			});
 

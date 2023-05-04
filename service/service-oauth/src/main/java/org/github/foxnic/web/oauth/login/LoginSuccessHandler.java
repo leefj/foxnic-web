@@ -9,6 +9,7 @@ import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import io.undertow.servlet.spec.HttpSessionImpl;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
@@ -72,13 +73,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 										   Authentication authentication) throws IOException, ServletException {
 
 
-//		if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
-//			handleTokenMode(response, authentication);
-//		} else if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
-//			handleSessionMode(request,response, authentication);
-//		} else if(securityProperties.getSecurityMode()==SecurityMode.BOTH) {
-//			System.out.println();
-//		}
 
 		SessionUserImpl securityUser = ((SessionUserImpl) authentication.getPrincipal());
 		//初始化权限
@@ -93,7 +87,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		securityUser.setSessionOnlineId(initId);
 
 
-
+//		HttpSessionImpl
 		SessionOnline online=onlineService.getById(initId);
 		if(online==null) {
 			online=new SessionOnline();

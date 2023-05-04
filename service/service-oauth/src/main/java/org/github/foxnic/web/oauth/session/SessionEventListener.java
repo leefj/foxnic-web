@@ -4,6 +4,7 @@ package org.github.foxnic.web.oauth.session;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
@@ -25,7 +26,9 @@ public class SessionEventListener implements  HttpSessionListener  {
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSessionListener.super.sessionCreated(event);
-		event.getSession().setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY, event.getSession().getId());
+		String initId="SESSION-"+event.getSession().getId();
+		event.getSession().setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY, initId);
+
 	}
 
 
