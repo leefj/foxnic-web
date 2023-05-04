@@ -221,7 +221,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         ActionConfig action = null;
         action = list.operationColumn().addActionButton("模型", "showBpmnDiagrams");
         //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
-        action = list.operationColumn().addActionButton("发起人", "showInitiators");
+//        action = list.operationColumn().addActionButton("发起人", "showInitiators");
         //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 
         list.columnLayout(BPM_PROCESS_DEFINITION.NAME, BPM_PROCESS_DEFINITION.VALID, BPM_PROCESS_DEFINITION.NOTES, BPM_PROCESS_DEFINITION.CREATE_TIME, BPM_PROCESS_DEFINITION.UPDATE_TIME, "lastUpdateUserName");

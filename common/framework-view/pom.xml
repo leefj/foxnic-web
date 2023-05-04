@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.foxnicweb.web</groupId>
         <artifactId>parent</artifactId>
-        <version>1.8.0.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../../pom.xml</relativePath>  <!-- lookup parent from repository -->
     </parent>
     <artifactId>framework-view</artifactId>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>proxy</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.bitwalker</groupId>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>domain</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.github.xiaoymin</groupId>

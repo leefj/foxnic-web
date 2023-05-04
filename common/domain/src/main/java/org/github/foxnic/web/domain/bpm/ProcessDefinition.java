@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义
  * <p>流程定义 , 数据表 bpm_process_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 09:04:22
+ * @since 2023-05-04 17:13:59
  * @sign A074FEA18731622BB601B1133EB58F27
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -114,7 +114,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-10 02:52:05")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-28 01:14:28")
 	private Date updateTime;
 	
 	/**
@@ -141,7 +141,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "80")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "81")
 	private Integer version;
 	
 	/**
@@ -153,7 +153,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 流程ID：在 camunda 中的流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程ID" , notes = "在 camunda 中的流程定义ID" , example = "foxnic-leave:13:f551c044-c706-11ed-86f9-1268e6e59107")
+	@ApiModelProperty(required = false,value="流程ID" , notes = "在 camunda 中的流程定义ID" , example = "foxnic-leave:1:8c1d7320-e583-11ed-b4fc-1268e6e59107")
 	private String camundaDefinitionId;
 	
 	/**

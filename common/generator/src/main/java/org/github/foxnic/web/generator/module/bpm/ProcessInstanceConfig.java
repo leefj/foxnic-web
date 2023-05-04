@@ -111,17 +111,18 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
         search.inputLayout(new Object[]{
                 BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID,
-                BPM_PROCESS_INSTANCE.TITLE,
+                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
                 BPM_PROCESS_INSTANCE.PRIORITY,
                 BPM_PROCESS_INSTANCE.COMMIT_TIME,
         },new Object[]{
-                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
+                BPM_PROCESS_INSTANCE.TITLE,
                 ProcessInstanceMeta.DRAFTER_USER,
                 "APPROVED_USER_IDS",
                 "APPROVING_USER_IDS"
         });
 
         search.rowsDisplay(4);
+        search.inputWidth(1,200);
         //设置各个列的搜索输入框的标签宽度
         search.labelWidth(1,80);
         search.labelWidth(2,80);
@@ -185,7 +186,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
                 .form().hidden()
                 .search().triggerOnSelect(true);
 
-        view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型")
+        view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程名称")
                 .form().validate().required()
                 .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).size(1022).muliti(false).toolbar(false).filter(true)
                 .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)

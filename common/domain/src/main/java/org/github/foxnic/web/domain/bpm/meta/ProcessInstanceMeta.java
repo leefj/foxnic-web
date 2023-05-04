@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 17:03:03
+ * @since 2023-05-04 17:32:26
  * @sign 6AA55E05D2F84F460C6E34AC122CEFA4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

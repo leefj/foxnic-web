@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.foxnicweb.web</groupId>
         <artifactId>parent</artifactId>
-        <version>1.8.0.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../../pom.xml</relativePath>  <!-- lookup parent from repository -->
     </parent>
     <artifactId>wrapper-all-service</artifactId>
@@ -15,17 +15,17 @@
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-storage</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-system</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-oauth</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

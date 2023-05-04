@@ -204,7 +204,7 @@ public class EmployeeController extends SuperController {
         Result<Employee> result = new Result<>();
         Employee employee = employeeService.getById(id);
         // 关联出 姓名 数据
-        employeeService.dao().fill(employee).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).with(EmployeeMeta.DIRECT_LEADER).execute();
+        employeeService.dao().fill(employee).with(EmployeeMeta.PERSON).with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION).with(EmployeeMeta.DIRECT_LEADER,EmployeeMeta.PERSON).execute();
         // 按主岗设置主部门
         if (employee.getPrimaryPosition() != null) {
             employee.setPrimaryOrganization(employee.getPrimaryPosition().getOrganization());

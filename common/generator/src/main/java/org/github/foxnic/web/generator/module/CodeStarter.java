@@ -63,11 +63,11 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
-        initHrmModules();
+//        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();

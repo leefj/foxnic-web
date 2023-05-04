@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.foxnicweb.web</groupId>
         <artifactId>parent</artifactId>
-        <version>1.8.0.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../../pom.xml</relativePath>  <!-- lookup parent from repository -->
     </parent>
     <artifactId>generator</artifactId>
@@ -15,17 +15,17 @@
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>framework-boot</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>framework-cloud</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>proxy</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb</groupId>
@@ -35,82 +35,82 @@
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-system</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-oauth</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-storage</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-job</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-hrm</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-pcm</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-changes</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-bpm</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-dataperm</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>view-console</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-docs</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>view-docs</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>wrapper-support</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>service-example</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>view-example</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.foxnicweb.web</groupId>
             <artifactId>view-bpm</artifactId>
-            <version>${platform.version}</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

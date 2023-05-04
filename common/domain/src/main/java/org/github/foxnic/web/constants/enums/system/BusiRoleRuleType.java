@@ -8,8 +8,8 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * */
 public enum BusiRoleRuleType implements CodeTextEnum {
 
-	MEMBER("静态成员优先"),
-	ROUTER("动态路由优先"),
+	MEMBER("静态成员"),
+	ROUTER("动态路由"),
 	UNION("成员合并");
 
 	private String text;
