@@ -1,12 +1,12 @@
 server:
   session:
-    timeout: 28800s
+    timeout: 300s
   servlet:
     session:
       secure: true
       http-only: true
       # 会话超时时间，如 30s , 20m 等
-      timeout: 28800s
+      timeout: 300s
       cookie:
         name: FOXNIC_JSESSIONID
   port: 1899
