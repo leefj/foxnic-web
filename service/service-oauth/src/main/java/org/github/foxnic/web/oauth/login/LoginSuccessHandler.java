@@ -8,14 +8,13 @@ import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
+import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.springboot.spring.SpringUtil;
-import io.undertow.servlet.spec.HttpSessionImpl;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.TokenModel;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.framework.sso.TokenReader;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -23,6 +22,7 @@ import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
 import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionContext;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.github.foxnic.web.session.SessionUser;
@@ -64,8 +64,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
 	private LanguageService languageService;
 
-	@Autowired
-	private SessionCache sessionCache;
+
 
 
 
@@ -83,38 +82,30 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		userDetailsService.update(SYS_USER.LAST_LOGIN_TIME, new Date(), securityUser.getUser().getId());
 		//
-		String initId=(String)request.getAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY);
+		String initId= SessionContext.getCurrentOnlineSessionId();
 		securityUser.setSessionOnlineId(initId);
 
 
-//		HttpSessionImpl
 		SessionOnline online=onlineService.getById(initId);
 		if(online==null) {
-			online=new SessionOnline();
+			online=SessionOnline.create();
 			online.setId(initId);
-			online.setUserId(securityUser.getUser().getId());
-			online.setOnline(1);
-			online.setLoginTime(new Date());
-			online.setInteractTime(new Date());
-			online.setSessionId(request.getSession().getId());
-			online.setSessionTime(request.getSession().getMaxInactiveInterval());
-			online.setHostId(Machine.getIdentity());
-			online.setNodeId(SpringUtil.getNodeInstanceId());
-			List<Menu> menus=user.getMenus();
-
-			//登录成功后翻译菜单标签
-//	        for (Menu menu : menus) {
-//	        	if(StringUtil.isBlank(menu.getType())) continue;
-//	        	if(menu.getType().equalsIgnoreCase(MenuType.api.name())) continue;
-//	        	if(menu.getType().equalsIgnoreCase(MenuType.function.name())) continue;
-//	        	menu.setLabel(languageService.translate(menu.getLabel()));
-//			}
-
-			onlineService.insert(online);
 		}
+		online.setUserId(securityUser.getUser().getId());
+		online.setOnline(1);
+		online.setLoginTime(new Date());
+		online.setInteractTime(new Date());
+		online.setSessionId(request.getSession().getId());
+		online.setSessionTime(request.getSession().getMaxInactiveInterval());
+		online.setHostId(Machine.getIdentity());
+		online.setNodeId(SpringUtil.getNodeInstanceId());
+
+		onlineService.save(online, SaveMode.ALL_FIELDS);
+
 
 		//放入缓存
-		sessionCache.put(online.getSessionId(),securityUser);
+		SessionContext.setCurrentSessionUser(securityUser);
+
 		return  securityUser;
 
 	}

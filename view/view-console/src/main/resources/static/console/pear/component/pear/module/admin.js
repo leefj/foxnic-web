@@ -298,6 +298,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 
 
+
 			this.setBaseDir=function (dir) {
 				baseDir=dir;
 			};
@@ -1030,7 +1031,6 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					function logoutInternal() {
 						debugger
 						let token = me.getToken();
-						me.removeToken();
 						//let isExistsToken = false;
 						// debugger
 						if (token) {
@@ -1041,6 +1041,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							//    isExistsToken = true;
 							me.request('/security/logout', {token:token}, function (data) {
 								if (data.success) {
+									me.removeToken();
 									// debugger;
 									location.replace(loginPageURL);
 									//let loginPageUrl = window.location.protocol + '//' + window.location.host + '/login.html';

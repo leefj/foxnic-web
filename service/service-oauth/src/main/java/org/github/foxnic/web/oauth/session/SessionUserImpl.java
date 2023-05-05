@@ -26,7 +26,7 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	private String sessionOnlineId;
 
 	private Date createTime;
-	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
+
 
 	private transient SessionPermissionImpl permission = null;
 	public SessionUserImpl(User user) {

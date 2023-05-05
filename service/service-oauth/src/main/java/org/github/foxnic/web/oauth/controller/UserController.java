@@ -11,7 +11,6 @@ import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.FieldsBuilder;
-import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -27,12 +26,10 @@ import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
-import org.github.foxnic.web.framework.web.ServiceHub;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.language.Language;
-import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
-import org.github.foxnic.web.oauth.login.SessionCache;
+import org.github.foxnic.web.oauth.session.SessionContext;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
@@ -41,7 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import javax.annotation.Resource;
+
 import java.util.Date;
 import java.util.List;
 
@@ -61,9 +58,6 @@ public class UserController extends SuperController {
 
     @Autowired
     private IUserService userService;
-
-    @Autowired
-    private SessionCache sessionCache;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -288,7 +282,7 @@ public class UserController extends SuperController {
     @PostMapping(UserServiceProxy.GET_SESSION_USER_URI)
     public Result<SessionUser> getSessionUser(String sessionId) {
         Result<SessionUser> result = new Result<>();
-        SessionUser user = sessionCache.get(sessionId);
+        SessionUser user = SessionContext.getSessionUser(sessionId);
         result.data(user);
         return result;
     }

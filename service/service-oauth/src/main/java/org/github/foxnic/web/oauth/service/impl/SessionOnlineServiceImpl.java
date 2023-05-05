@@ -7,11 +7,13 @@ import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.DateUtil;
+import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
@@ -19,8 +21,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.starter.StartupRegister;
-import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
+import org.github.foxnic.web.oauth.session.SessionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -48,10 +51,6 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-
-
-	@Autowired
-	private SessionCache sessionCache;
 
 	/**
 	 * 获得 DAO 对象
@@ -253,10 +252,46 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	}
 
 	@Override
-	public void offline(String sessionId) {
+	public void offline(String onlineSessionId,HttpSession session) {
+
+		if(session!=null) {
+			SessionContext.remove(session.getId());
+		}
+
 		dao.pausePrintThreadSQL();
-		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
-		sessionCache.remove(sessionId);
+		if(onlineSessionId!=null) {
+			dao.execute("update " + this.table() + " set online=0 , logout_time=? where id=?", new Date(),onlineSessionId);
+		} else {
+			dao.execute("update " + this.table() + " set online=0 , logout_time=? where session_id=?", new Date(),session.getId());
+		}
+
+	}
+
+	@Override
+	public void onlineAnon(HttpSession session) {
+
+		SessionOnline sessionOnline  = new SessionOnline();
+		sessionOnline.setId(session.getId()).setSessionId(session.getId()).setOnline(1).setSessionTime(session.getMaxInactiveInterval());
+		sessionOnline.setHostId(Machine.getIdentity());
+		sessionOnline.setNodeId(SpringUtil.getNodeInstanceId());
+		this.insert(sessionOnline);
+
+
+
+	}
+
+	@Override
+	public void changeSessionId(String oldSessionId, HttpSession session) {
+
+		SessionContext.changeSessionId(oldSessionId,session);
+
+		SessionOnline sessionOnline=this.getById(SessionContext.getCurrentOnlineSessionId());
+		if(sessionOnline==null) {
+			throw new RuntimeException("缺少会话记录");
+		}
+		sessionOnline.setSessionId(session.getId());
+		this.updateDirtyFields(sessionOnline);
+
 	}
 
 	@Override

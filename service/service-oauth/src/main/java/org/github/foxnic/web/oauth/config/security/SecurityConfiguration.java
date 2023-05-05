@@ -8,7 +8,7 @@ import org.github.foxnic.web.oauth.exception.RequestDeniedHandler;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.jwt.JwtAuthenticationFilter;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
-import org.github.foxnic.web.oauth.login.SessionCache;
+import org.github.foxnic.web.oauth.session.SessionContext;
 import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
 import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
@@ -146,10 +146,6 @@ public class SecurityConfiguration {
         @Autowired
         private CaptchaAuthenticationFilter captchaAuthenticationFilter;
 
-		@Autowired
-		private SessionCache sessionCache;
-
-
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			super.configure(auth);
@@ -196,11 +192,9 @@ public class SecurityConfiguration {
 					Object principal = authentication.getPrincipal();
 					if (principal instanceof SessionUser) {
 						SessionUser user=(SessionUser) principal;
-						//将对象放入当前 SESSION
-						if(attributes!=null) {
-							attributes.getRequest().getSession().setAttribute("$SESSION_USER", user);
+						if(user==null) {
+							user = SessionContext.getCurrentSessionUser();
 						}
-						sessionCache.put(sessionId,user);
 						return user;
 					} else {
 						return null;
@@ -208,15 +202,7 @@ public class SecurityConfiguration {
 				}
 				// 未经过 SpringSecurity 过滤器的地址
 				else {
-					SessionUser user = null;
-					if(attributes!=null) {
-						//优先从当前 SESSION 取 SessionUser
-						user = (SessionUser) attributes.getRequest().getSession().getAttribute("$SESSION_USER");
-					}
-					if(user==null) {
-						user=sessionCache.get(sessionId);
-					}
-					return user;
+					return SessionContext.getCurrentSessionUser();
 				}
 			});
 

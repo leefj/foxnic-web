@@ -453,12 +453,13 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     // let isExistsToken = false;
                     if (token) {
                         //let accessToken = token.access_token;
-                        config.removeToken();
+
 
                         //if (accessToken) {
                         //    isExistsToken = true;
                             admin.request('/security/logout', {token:token}, function (data) {
                                 if (data.success) {
+                                    config.removeToken();
                                 	//debugger;
                                     location.replace('login.html');
                                     //let loginPageUrl = window.location.protocol + '//' + window.location.host + '/login.html';
