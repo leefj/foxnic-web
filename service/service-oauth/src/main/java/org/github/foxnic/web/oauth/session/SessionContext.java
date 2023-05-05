@@ -82,13 +82,13 @@ public class SessionContext {
     }
 
     public static void setCurrentSessionUser(SessionUser user) {
-        SessionUser exUser=getCurrentSessionUser();
-        if(exUser==null) {
+//        SessionUser exUser=getCurrentSessionUser();
+//        if(exUser==null) {
             HttpSession session = getCurrent();
             session.setAttribute(SESSION_USER_KEY,user);
-        } else {
-            throw new RuntimeException("不允许重复设置 SessionUser");
-        }
+//        } else {
+//            throw new RuntimeException("不允许重复设置 SessionUser");
+//        }
     }
 
     public static void remove(String sessionId) {
