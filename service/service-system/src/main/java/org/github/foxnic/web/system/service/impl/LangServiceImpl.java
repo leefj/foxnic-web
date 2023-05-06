@@ -29,10 +29,13 @@ import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.Language;
 import org.github.foxnic.web.language.LanguageService;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.api.baidu.BaiDuTranslateApi;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -82,6 +85,8 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 
 	@Autowired
 	private BaiDuTranslateApi translateApi;
+
+
 
 
 	@PostConstruct
@@ -474,14 +479,14 @@ public class LangServiceImpl extends SuperService<org.github.foxnic.web.domain.s
 			}
 		}
 
-		// 自动识别语言
-		if(userLanguage==null || userLanguage==Language.auto) {
-			userLanguage = getAutoLanguage();
-		}
-
 		// 按 profile 配置获取语言
 		if (userLanguage==null) {
 			userLanguage=Language.parseByCode(configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE_DEFAULT).getValue());
+		}
+
+		// 自动识别语言
+		if(userLanguage==null || userLanguage==Language.auto) {
+			userLanguage = getAutoLanguage();
 		}
 
 		// 如果指定开发模式的语言，用开发模式的语言覆盖

@@ -98,9 +98,10 @@ public class BootApplication {
 	@ComponentScan(basePackages = {FoxnicWebMeta.JMS_PACKAGE})
 	@EnableAutoConfiguration(exclude = { JmsAutoConfiguration.class, ActiveMQAutoConfiguration.class})
 	private static class JmsApplicationFeature {
-		private static final String TYPE="org.github.foxnic.web.jms.activemq.starter.ActiveMQBeanStarter";
+		private static final String TYPE_ACTIVE_MQ="org.github.foxnic.web.jms.activemq.starter.ActiveMQBeanStarter";
+		private static final String TYPE_ROCKET_MQ="org.github.foxnic.web.jms.rocketmq.starter.RocketMQBeanStarter";
 		public static boolean support() {
-			return ReflectUtil.forName(TYPE) != null;
+			return ReflectUtil.forName(TYPE_ACTIVE_MQ) != null || ReflectUtil.forName(TYPE_ROCKET_MQ) != null;
 		}
 	}
 

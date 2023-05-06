@@ -62,9 +62,21 @@ public enum Language implements CodeTextEnum {
 	 * */
 	public static Language parseByGlobalLanguage(GlobalLanguage globalLanguage) {
 		Language language = null;
+		// 完全匹配
 		try {
 			language = Language.valueOf(globalLanguage.name());
 		} catch (Exception e) {}
+		if(language!=null) {
+			return language;
+		}
+		// 按名称前缀匹配
+		for (Language value : Language.values()) {
+			if(value.code().toLowerCase().startsWith(globalLanguage.name())) {
+				language=value;
+				break;
+			}
+		}
+
 		return language;
 	}
 
