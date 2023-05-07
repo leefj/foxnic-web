@@ -269,6 +269,10 @@ function FormPage() {
 			if(!doNext) return ;
 		}
 
+		if(param.type=="ENUM_MULTI" || param.type=='DICT_MULTI') {
+			param.value = fox.getCheckedValue("value");
+		}
+
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		var action=param.id?"edit":"create";
 		var api=moduleURL+"/"+(param.id?"update":"insert");

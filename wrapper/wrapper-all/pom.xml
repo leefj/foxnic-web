@@ -109,11 +109,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.foxnicweb.web</groupId>
-            <artifactId>jms-rocketmq</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.foxnicweb.web</groupId>-->
+<!--            <artifactId>jms-rocketmq</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
