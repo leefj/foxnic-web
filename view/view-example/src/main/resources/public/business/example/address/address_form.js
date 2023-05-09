@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-19 14:40:34
+ * @since 2023-05-09 17:40:24
  */
 
 function FormPage() {
@@ -14,6 +14,7 @@ function FormPage() {
 	const insertURL=moduleURL+"/insert";
 	const updateURL=moduleURL+"/update";
 
+	var rawFormData=null;
 	// 表单执行操作类型：view，create，edit
 	var action=null;
 	var disableCreateNew=false;
@@ -117,6 +118,101 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		laydate.render({
+			elem: '#dateDemo1',
+			type:"year",
+			format:"yyyy",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo1",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo2',
+			type:"month",
+			format:"yyyy-M",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo2",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo3',
+			type:"date",
+			format:"yyyy-MM-dd",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo3",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo4',
+			type:"time",
+			format:"HH:mm:ss",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo4",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo5',
+			type:"datetime",
+			format:"yyyy-MM-dd HH:mm:ss",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo5",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo11',
+			type:"year",
+			format:"yyyy",
+			range:true,
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo11",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo22',
+			type:"month",
+			format:"yyyy-M",
+			range:true,
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo22",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo33',
+			type:"date",
+			format:"yyyy-MM-dd",
+			range:true,
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo33",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo44',
+			type:"time",
+			format:"HH:mm:ss",
+			range:true,
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo44",value, date, endDate);
+			}
+		});
+		laydate.render({
+			elem: '#dateDemo55',
+			type:"datetime",
+			format:"yyyy-MM-dd HH:mm:ss",
+			range:true,
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo55",value, date, endDate);
+			}
+		});
 	}
 
 	/**
@@ -150,6 +246,7 @@ function FormPage() {
 		if(!formData) {
 			formData = admin.getTempData('example-address-form-data');
 		}
+		rawFormData=formData;
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
@@ -167,6 +264,46 @@ function FormPage() {
 
 
 
+			//设置 年份 显示复选框勾选
+			if(formData["dateDemo1"]) {
+				$("#dateDemo1").val(fox.dateFormat(formData["dateDemo1"],"yyyy"));
+			}
+			//设置 月份 显示复选框勾选
+			if(formData["dateDemo2"]) {
+				$("#dateDemo2").val(fox.dateFormat(formData["dateDemo2"],"yyyy-M"));
+			}
+			//设置 日期 显示复选框勾选
+			if(formData["dateDemo3"]) {
+				$("#dateDemo3").val(fox.dateFormat(formData["dateDemo3"],"yyyy-MM-dd"));
+			}
+			//设置 时间 显示复选框勾选
+			if(formData["dateDemo4"]) {
+				$("#dateDemo4").val(fox.dateFormat(formData["dateDemo4"],"HH:mm:ss"));
+			}
+			//设置 日期时间 显示复选框勾选
+			if(formData["dateDemo5"]) {
+				$("#dateDemo5").val(fox.dateFormat(formData["dateDemo5"],"yyyy-MM-dd HH:mm:ss"));
+			}
+			//设置 年份范围 显示复选框勾选
+			if(formData["dateDemo11"]) {
+				$("#dateDemo11").val(fox.dateFormat(formData["dateDemo11"],"yyyy"));
+			}
+			//设置 月份范围 显示复选框勾选
+			if(formData["dateDemo22"]) {
+				$("#dateDemo22").val(fox.dateFormat(formData["dateDemo22"],"yyyy-M"));
+			}
+			//设置 日期范围 显示复选框勾选
+			if(formData["dateDemo33"]) {
+				$("#dateDemo33").val(fox.dateFormat(formData["dateDemo33"],"yyyy-MM-dd"));
+			}
+			//设置 时间范围 显示复选框勾选
+			if(formData["dateDemo44"]) {
+				$("#dateDemo44").val(fox.dateFormat(formData["dateDemo44"],"HH:mm:ss"));
+			}
+			//设置 日期时间范围 显示复选框勾选
+			if(formData["dateDemo55"]) {
+				$("#dateDemo55").val(fox.dateFormat(formData["dateDemo55"],"yyyy-MM-dd HH:mm:ss"));
+			}
 
 
 
@@ -184,12 +321,13 @@ function FormPage() {
 		//渐显效果
 		fm.css("opacity","0.0");
         fm.css("display","");
-        setTimeout(function (){
-            fm.animate({
-                opacity:'1.0'
-            },100,null,function (){
+		setTimeout(function (){
+			fm.animate({
+				opacity:'1.0'
+			},100,null,function (){
 				fm.css("opacity","1.0");});
-        },1);
+		},1);
+
 
         //禁用编辑
 		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {
@@ -213,6 +351,16 @@ function FormPage() {
 
 		dataBeforeEdit=getFormData();
 
+	}
+
+	/**
+	 * 获得从服务器请求的原始表单数据
+	 * */
+	function getRawFormData() {
+		if(!rawFormData) {
+			rawFormData = admin.getTempData('example-address-form-data');
+		}
+		return rawFormData;
 	}
 
 	function getFormData() {
@@ -296,7 +444,9 @@ function FormPage() {
 		getFormData: getFormData,
 		verifyForm: verifyForm,
 		saveForm: saveForm,
+		getRawFormData:getRawFormData,
 		verifyAndSaveForm:verifyAndSaveForm,
+		renderFormFields:renderFormFields,
 		fillFormData: fillFormData,
 		fillFormDataByIds:fillFormDataByIds,
 		processFormData4Bpm:processFormData4Bpm,

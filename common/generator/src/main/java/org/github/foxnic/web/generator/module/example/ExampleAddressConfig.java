@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.PojoProperty;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.config.DatePickerType;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
@@ -81,6 +82,18 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 		view.field(EXAMPLE_ADDRESS.CREATE_TIME).search().hidden(false);
 
+		view.field("dateDemo1").basic().label("年份").search().hidden().table().disable().form().dateInput().type(DatePickerType.year);
+		view.field("dateDemo2").basic().label("月份").search().hidden().table().disable().form().dateInput().type(DatePickerType.month);
+		view.field("dateDemo3").basic().label("日期").search().hidden().table().disable().form().dateInput().type(DatePickerType.date);
+		view.field("dateDemo4").basic().label("时间").search().hidden().table().disable().form().dateInput().type(DatePickerType.time);
+		view.field("dateDemo5").basic().label("日期时间").search().hidden().table().disable().form().dateInput().type(DatePickerType.datetime);
+
+		view.field("dateDemo11").basic().label("年份范围").search().hidden().table().disable().form().dateInput().type(DatePickerType.year).range(true);
+		view.field("dateDemo22").basic().label("月份范围").search().hidden().table().disable().form().dateInput().type(DatePickerType.month).range(true);
+		view.field("dateDemo33").basic().label("日期范围").search().hidden().table().disable().form().dateInput().type(DatePickerType.date).range(true);
+		view.field("dateDemo44").basic().label("时间范围").search().hidden().table().disable().form().dateInput().type(DatePickerType.time).range(true);
+		view.field("dateDemo55").basic().label("日期时间范围").search().hidden().table().disable().form().dateInput().type(DatePickerType.datetime).range(true);
+
 	}
 
 	@Override
@@ -145,6 +158,9 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 	}
 
+
+
+
 	/**
 	 * 配置服务代码
 	 * */
@@ -172,7 +188,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	@Override
 	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
-//		form.
+		form.labelWidth(100);
+		formWindow.width("80%");
 
 //		form.columnLayout(new Object[]{
 //				EXAMPLE_NEWS.TITLE,
