@@ -3,6 +3,7 @@ package org.github.foxnic.web.system.page;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.environment.BrowserType;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
@@ -148,6 +149,11 @@ public class PortalPageController extends ViewController  {
 
 		String loginDefault= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_DEFAULT);
 		JSONObject loginDefaultJson=JSONObject.parseObject(loginDefault);
+
+		String[] bgImages=bgImage.split("\\|");
+		bgImage=bgImages[0];
+
+
 
 		model.addAttribute("theme_code", theme.code());
 		model.addAttribute("bgImage", bgImage);

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
     <link rel="stylesheet" href="/assets/css/login.css" th:href="'/assets/css/login.css?'+${cacheKey}" media="all">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
+    <link rel="stylesheet" href="/assets/css/login-ext.css" th:href="'/assets/css/login-ext.css?'+${cacheKey}">
     <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
@@ -69,7 +70,7 @@
     </style>
 </head>
 
-<body th:style="'background-image:url('+${bgImage}+');background-repeat:no-repeat;background-size:cover;'">
+<body class="body-background">
 
 <div class="login-body">
     <div id="login-panel" class="layui-form-pane">
