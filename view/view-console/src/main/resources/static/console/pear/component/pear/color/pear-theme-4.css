@@ -189,3 +189,10 @@ th[data-field]:hover {
     border-radius: 0;
     border-bottom: 2px solid #f56c6c;
 }
+
+
+.layui-bg-0 {background-color: #f56c6c !important; color: #fff !important;}
+.layui-bg-1 {background-color: #0074C1 !important; color: #fff !important;}
+.layui-bg-2 {background-color: #36b368 !important; color: #fff !important;}
+.layui-bg-3 {background-color: #FF4747 !important; color: #fff !important;}
+.layui-bg-4 {background-color: #D3883E !important; color: #fff !important;}

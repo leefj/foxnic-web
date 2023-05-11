@@ -443,7 +443,7 @@ var Theme={
 		//顶部菜单文本颜色
 		headerMenuDropDownTextColor:"#333333"
 	},
-	badgeStyles:["layui-badge foxnic-table-badge","layui-badge layui-bg-green foxnic-table-badge","layui-badge layui-bg-cyan foxnic-table-badge","layui-badge layui-bg-blue foxnic-table-badge"]
+	badgeStyles:["layui-badge layui-bg-0 foxnic-table-badge","layui-badge layui-bg-1 foxnic-table-badge","layui-badge layui-bg-2 foxnic-table-badge","layui-badge layui-bg-3 foxnic-table-badge","layui-badge layui-bg-4 foxnic-table-badge"]
 };
 
 

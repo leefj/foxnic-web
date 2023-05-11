@@ -673,6 +673,39 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // alert("div出发了change事件");
                     console.log('div出发了change事件')
                 });
+
+                updateOpsColumnWidth();
+
+                function updateOpsColumnWidth() {
+                    var cells=$("#"+tableId).parent().find(".layui-table-body table td[data-field=row-ops] div");
+                    var maxWidth=0;
+                    for (var i = 0; i < cells.length; i++) {
+                        var cw =0;
+                        var cell=$(cells[i]);
+                        for (let j = 0; j < cell.children().length; j++) {
+                            var  e=cell.children()[j];
+                            cw+=e.clientWidth+8;
+                        }
+                        if(cw>maxWidth) maxWidth=cw;
+                    }
+
+                    var doReload=false;
+                    for (var i = 0; i < cfg.cols[0].length; i++) {
+                        var clum=cfg.cols[0][i];
+                        if(clum.field=="row-ops") {
+                            doReload=true;
+                            clum.width=maxWidth+32;
+                        }
+                    }
+                    if(doReload) {
+                        inst.reload(tableId, cfg);
+                    }
+                }
+
+                $("#"+tableId).parent().find(".layui-table-header table th").click(function (){
+                    // updateOpsColumnWidth();
+                });
+
             }
 
             // 当选择列之后，触发状态保存
