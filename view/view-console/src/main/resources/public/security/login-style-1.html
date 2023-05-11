@@ -71,7 +71,9 @@
 </head>
 
 <body class="body-background">
-
+<div style="display: none">
+    <img th:each="e,stat:${bgImages}" th:src="${e}">
+</div>
 <div class="login-body">
     <div id="login-panel" class="layui-form-pane">
         <img class="logo" th:src="${loginLogo}">

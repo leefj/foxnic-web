@@ -157,6 +157,7 @@ public class PortalPageController extends ViewController  {
 
 		model.addAttribute("theme_code", theme.code());
 		model.addAttribute("bgImage", bgImage);
+		model.addAttribute("bgImages", bgImages);
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);
 		model.addAttribute("loginTitle", loginTitle);

@@ -59,7 +59,7 @@ public class PearThemeSupport extends ViewController {
         String[] bgImages=bgImage.split("\\|");
         bgImage=bgImages[0];
 
-        int interval=12;
+        int interval=5*bgImages.length;
         int span=100/bgImages.length;
 
         List<String> frames=new ArrayList<>();
@@ -67,32 +67,40 @@ public class PearThemeSupport extends ViewController {
         for (String image : bgImages) {
             if(StringUtil.isBlank(image)) continue;
 
-            percent+=span * 0.2;
-            frames.add(percent+"% { background:url("+image+") }");
-            percent+=span * 0.6;
-            frames.add(percent+"% { background:url("+image+") }");
-            percent+=span * 0.2;
-            frames.add(percent+"% { background:url("+image+") }");
-
+            percent+=span * 0.4;
+            frames.add(percent+"% {background:url("+image+");background-repeat:no-repeat;background-size:cover;}");
+            percent+=span * 0.17;
+            frames.add(percent+"% {background:url("+image+");background-repeat:no-repeat;background-size:cover;}");
+            percent+=span * 0.4;
+            frames.add(percent+"% {background:url("+image+");background-repeat:no-repeat;background-size:cover;}");
         }
+        frames.add("100% {background:url("+bgImage+");background-repeat:no-repeat;background-size:cover;}");
 
         BrowserType browserType=BrowserType.parseByRequest(request);
-        if(browserType==BrowserType.FIREFOX) {
-
-        } else {
-
-        }
 
         CodeBuilder css=new CodeBuilder();
 
         css.ln(".body-background {");
         css.ln(1,"background-image:url('"+bgImage+"');background-repeat:no-repeat;background-size:cover;");
-
-        css.ln(1,"animation:bg-frames "+interval+"s ease 1s infinite;");
-        css.ln(1,"-webkit-animation:bg-frames "+interval+"s ease 1s infinite");
+        if(browserType!=BrowserType.FIREFOX) {
+            css.ln(1, "animation:bg-frames " + interval + "s ease-in-out 4s infinite;");
+            css.ln(1, "-webkit-animation:bg-frames " + interval + "s ease-in-out 2s infinite;");
+        }
         css.ln("}");
 
         css.ln("@keyframes bg-frames {");
+        for (String frame : frames) {
+            css.ln(1,frame);
+        }
+        css.ln("}");
+
+        css.ln("@-webkit-keyframes bg-frames {");
+        for (String frame : frames) {
+            css.ln(1,frame);
+        }
+        css.ln("}");
+
+        css.ln("@-moz-keyframes bg-frames {");
         for (String frame : frames) {
             css.ln(1,frame);
         }
