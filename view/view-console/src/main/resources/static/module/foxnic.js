@@ -677,6 +677,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 updateOpsColumnWidth();
 
                 function updateOpsColumnWidth() {
+                    //debugger
                     var cells=$("#"+tableId).parent().find(".layui-table-body table td[data-field=row-ops] div");
                     var maxWidth=0;
                     for (var i = 0; i < cells.length; i++) {
@@ -687,6 +688,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             cw+=e.clientWidth+5*2;
                         }
                         if(cw>maxWidth) maxWidth=cw;
+                    }
+
+                    if(maxWidth==0) {
+                        return;
                     }
 
                     var doReload=false;
@@ -702,6 +707,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             }
                         }
                     }
+
+
 
 
 
