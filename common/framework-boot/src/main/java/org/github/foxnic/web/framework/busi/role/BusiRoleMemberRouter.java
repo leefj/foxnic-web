@@ -8,6 +8,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.domain.system.BusiRoleMember;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public interface BusiRoleMemberRouter {
        * 表单定义
        * */
       private FormDefinition formDefinition;
+
+      /**
+       * 当前业务角色
+       * */
+      private BusiRole busiRole;
       /**
        * 在模型中配置的当前节点的所有审批人
        * */
@@ -103,6 +109,14 @@ public interface BusiRoleMemberRouter {
       public void setStaticMembers(List<BusiRoleMember> staticMembers) {
          this.staticMembers = staticMembers;
       }
+
+      public BusiRole getBusiRole() {
+         return busiRole;
+      }
+
+      public void setBusiRole(BusiRole busiRole) {
+         this.busiRole = busiRole;
+      }
    }
 
    public static BusiRoleMemberRouter getByClassName(String name) {
@@ -113,4 +127,5 @@ public interface BusiRoleMemberRouter {
    }
 
    List<Employee> getMembers(Context context);
+
 }
