@@ -5,6 +5,7 @@ import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.environment.BrowserType;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
@@ -28,6 +29,7 @@ public class PearThemeSupport extends ViewController {
 
     @GetMapping("/console/pear/component/pear/css/pear-support.js")
     public void pearJs(HttpServletResponse response) throws Exception {
+
         CodeBuilder js = new CodeBuilder();
 //        js.ln("alert('pear')");
         response.getWriter().print(js.toString());
@@ -35,6 +37,7 @@ public class PearThemeSupport extends ViewController {
 
     @GetMapping("/console/pear/component/pear/css/pear-support.css")
     public void pearCss(HttpServletResponse response) throws Exception {
+
         if(this.getCurrentUer()==null) return;
         DbCacheVO sample=new DbCacheVO();
         sample.setCatalog("theme");
@@ -54,6 +57,11 @@ public class PearThemeSupport extends ViewController {
 
     @GetMapping("/assets/css/login-ext.css")
     public void loginCss(HttpServletResponse response,HttpServletRequest request) throws Exception {
+
+        if(response.isCommitted()) {
+            Logger.info("Response Is Committed");
+            return;
+        }
 
         String bgImage= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_BACKGROUND);
         String[] bgImages=bgImage.split("\\|");
@@ -83,7 +91,7 @@ public class PearThemeSupport extends ViewController {
         css.ln(".body-background {");
         css.ln(1,"background-image:url('"+bgImage+"');background-repeat:no-repeat;background-size:cover;");
         if(browserType!=BrowserType.FIREFOX) {
-            css.ln(1, "animation:bg-frames " + interval + "s ease-in-out 4s infinite;");
+            css.ln(1, "animation:bg-frames " + interval + "s ease-in-out 2s infinite;");
             css.ln(1, "-webkit-animation:bg-frames " + interval + "s ease-in-out 2s infinite;");
         }
         css.ln("}");

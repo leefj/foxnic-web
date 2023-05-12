@@ -684,7 +684,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         var cell=$(cells[i]);
                         for (let j = 0; j < cell.children().length; j++) {
                             var  e=cell.children()[j];
-                            cw+=e.clientWidth+8;
+                            cw+=e.clientWidth+5*2;
                         }
                         if(cw>maxWidth) maxWidth=cw;
                     }
@@ -693,12 +693,24 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     for (var i = 0; i < cfg.cols[0].length; i++) {
                         var clum=cfg.cols[0][i];
                         if(clum.field=="row-ops") {
-                            doReload=true;
-                            clum.width=maxWidth+32;
+                            //console.log("before "+clum.width);
+                            var after=maxWidth+15*2;
+                            if(after!=clum.width) {
+                                clum.width = after
+                                //console.log("after " + clum.width);
+                                doReload=true;
+                            }
                         }
                     }
+
+
+
                     if(doReload) {
                         inst.reload(tableId, cfg);
+                        setTimeout(function (){
+                            var ths = $("th .layui-table-cell");
+                            saveTableSettings4UI(tableId,ths,cfg.cols[0],false);
+                        },1000);
                     }
                 }
 
@@ -2490,7 +2502,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     });
 
-    function saveTableSettings4UI(tableId,ths,cols) {
+    function saveTableSettings4UI(tableId,ths,cols,doNotify) {
         //
         var ws = {};
         for (var i = 0; i < ths.length; i++) {
@@ -2510,10 +2522,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         }
 
-        saveTableSettings(tableId,ws);
+        saveTableSettings(tableId,ws,doNotify);
     }
 
-    function saveTableSettings(tableId,ws) {
+    function saveTableSettings(tableId,ws,doNotify) {
+        if(doNotify==null || doNotify==undefined) {
+            doNotify=true;
+        }
         var loc = location.href;
         loc = loc.substr(loc.indexOf("//") + 2);
         loc = loc.substr(loc.indexOf("/"));
@@ -2527,7 +2542,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             catalog: "layui-table-column-width",
             ownerType: "user"
         }, function (data) {
-            if(admin.toast()) {
+            if(admin.toast() && doNotify) {
                 admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom",title:"提示"});
             }
         });

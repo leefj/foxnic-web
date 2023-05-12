@@ -70,7 +70,7 @@
     </style>
 </head>
 
-<body class="body-background">
+<body class="body-background" th:style="'background-image:url('+${bgImage}+');background-repeat:no-repeat;background-size:cover;'">
 <div style="display: none">
     <img th:each="e,stat:${bgImages}" th:src="${e}">
 </div>

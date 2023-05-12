@@ -1,0 +1,1 @@
+java -noverify -Dfile.encoding=UTF-8  -Dloader.path=/Users/LeeFJ/git/eam-cust-clps/clps-project/wrapper/wrapper-all/target/lib -Xmx1024m -jar /Users/LeeFJ/git/eam-cust-clps/clps-project/wrapper/wrapper-all/target/clps-wrapper-all-1.0.0.jar
