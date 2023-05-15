@@ -307,6 +307,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         },
         disableInput(input,disable) {
+            if(TypeUtil.isString(input)) {
+                input=$(input);
+            }
             if(disable) {
                 input.attr("placeholder", "");
                 input.attr("readonly", "yes");
@@ -321,7 +324,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             input.attr("style","border-color:#a0a0a0 !important");
             input.prev().find("i").addClass("layui-form-chcekbox-disabled")
             input.prev().find("i").attr("style","background-color:transparent !important");
-
         },
         lockForm:function(fm,lock) {
             // debugger;
