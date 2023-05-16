@@ -16,7 +16,7 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * 流程废弃参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:32:26
+ * @since 2023-05-16 13:08:20
  * @sign 6B3AFF228474C4681624D93928824C03
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

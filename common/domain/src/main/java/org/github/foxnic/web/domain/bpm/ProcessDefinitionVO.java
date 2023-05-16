@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义VO类型
  * <p>流程定义 , 数据表 bpm_process_definition 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:13:59
+ * @since 2023-05-16 13:08:07
  * @sign F1102AEA99CE04092FD9D852373AA545
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -436,6 +436,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 		inst.setAllowFetchBack(this.getAllowFetchBack());
 		inst.setValid(this.getValid());
 		inst.setAllowReject(this.getAllowReject());
+		inst.setAllowPriority(this.getAllowPriority());
 		inst.setCatalogId(this.getCatalogId());
 		inst.setAllowApproveAttachment(this.getAllowApproveAttachment());
 		inst.setUpdateBy(this.getUpdateBy());
@@ -445,6 +446,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 		inst.setRejectOption(this.getRejectOption());
 		inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
 		inst.setDrafterRange(this.getDrafterRange());
+		inst.setAllowTitle(this.getAllowTitle());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setSort(this.getSort());
 		inst.setVersion(this.getVersion());
@@ -459,7 +461,9 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 		inst.setTenantId(this.getTenantId());
 		inst.setAllowDraftingComment(this.getAllowDraftingComment());
 		inst.setDeleteBy(this.getDeleteBy());
+		inst.setAllowTransfer(this.getAllowTransfer());
 		inst.setIconFilePc(this.getIconFilePc());
+		inst.setSkipForSameApprover(this.getSkipForSameApprover());
 		if(all) {
 			inst.setFormDefinitionCode(this.getFormDefinitionCode());
 			inst.setSearchField(this.getSearchField());
@@ -546,6 +550,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setAllowFetchBack(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_FETCH_BACK)));
 			this.setValid(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_REJECT)));
+			this.setAllowPriority(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_PRIORITY)));
 			this.setCatalogId(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.CATALOG_ID)));
 			this.setAllowApproveAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.UPDATE_BY)));
@@ -555,6 +560,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setRejectOption(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.DRAFTER_RANGE)));
+			this.setAllowTitle(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_TITLE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessDefinitionVOMeta.UPDATE_TIME)));
 			this.setSort(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.VERSION)));
@@ -569,7 +575,9 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setTenantId(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.TENANT_ID)));
 			this.setAllowDraftingComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.DELETE_BY)));
+			this.setAllowTransfer(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.ALLOW_TRANSFER)));
 			this.setIconFilePc(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.ICON_FILE_PC)));
+			this.setSkipForSameApprover(DataParser.parse(Integer.class, map.get(ProcessDefinitionVOMeta.SKIP_FOR_SAME_APPROVER)));
 			// others
 			this.setFormDefinitionCode(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.FORM_DEFINITION_CODE)));
 			this.setSearchField(DataParser.parse(String.class, map.get(ProcessDefinitionVOMeta.SEARCH_FIELD)));
@@ -598,6 +606,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setAllowFetchBack( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_FETCH_BACK));
 				this.setValid( (Integer)map.get(ProcessDefinitionVOMeta.VALID));
 				this.setAllowReject( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_REJECT));
+				this.setAllowPriority( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_PRIORITY));
 				this.setCatalogId( (String)map.get(ProcessDefinitionVOMeta.CATALOG_ID));
 				this.setAllowApproveAttachment( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)map.get(ProcessDefinitionVOMeta.UPDATE_BY));
@@ -607,6 +616,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setRejectOption( (String)map.get(ProcessDefinitionVOMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)map.get(ProcessDefinitionVOMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)map.get(ProcessDefinitionVOMeta.DRAFTER_RANGE));
+				this.setAllowTitle( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_TITLE));
 				this.setUpdateTime( (Date)map.get(ProcessDefinitionVOMeta.UPDATE_TIME));
 				this.setSort( (Integer)map.get(ProcessDefinitionVOMeta.SORT));
 				this.setVersion( (Integer)map.get(ProcessDefinitionVOMeta.VERSION));
@@ -621,7 +631,9 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setTenantId( (String)map.get(ProcessDefinitionVOMeta.TENANT_ID));
 				this.setAllowDraftingComment( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)map.get(ProcessDefinitionVOMeta.DELETE_BY));
+				this.setAllowTransfer( (Integer)map.get(ProcessDefinitionVOMeta.ALLOW_TRANSFER));
 				this.setIconFilePc( (String)map.get(ProcessDefinitionVOMeta.ICON_FILE_PC));
+				this.setSkipForSameApprover( (Integer)map.get(ProcessDefinitionVOMeta.SKIP_FOR_SAME_APPROVER));
 				// others
 				this.setFormDefinitionCode( (String)map.get(ProcessDefinitionVOMeta.FORM_DEFINITION_CODE));
 				this.setSearchField( (String)map.get(ProcessDefinitionVOMeta.SEARCH_FIELD));
@@ -663,6 +675,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setAllowFetchBack(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_FETCH_BACK)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_REJECT)));
+			this.setAllowPriority(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_PRIORITY)));
 			this.setCatalogId(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.CATALOG_ID)));
 			this.setAllowApproveAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.UPDATE_BY)));
@@ -672,6 +685,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setRejectOption(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.DRAFTER_RANGE)));
+			this.setAllowTitle(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_TITLE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessDefinitionVOMeta.UPDATE_TIME)));
 			this.setSort(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.VERSION)));
@@ -686,7 +700,9 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.TENANT_ID)));
 			this.setAllowDraftingComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.DELETE_BY)));
+			this.setAllowTransfer(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.ALLOW_TRANSFER)));
 			this.setIconFilePc(DataParser.parse(String.class, r.getValue(ProcessDefinitionVOMeta.ICON_FILE_PC)));
+			this.setSkipForSameApprover(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionVOMeta.SKIP_FOR_SAME_APPROVER)));
 			return true;
 		} else {
 			try {
@@ -699,6 +715,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setAllowFetchBack( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_FETCH_BACK));
 				this.setValid( (Integer)r.getValue(ProcessDefinitionVOMeta.VALID));
 				this.setAllowReject( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_REJECT));
+				this.setAllowPriority( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_PRIORITY));
 				this.setCatalogId( (String)r.getValue(ProcessDefinitionVOMeta.CATALOG_ID));
 				this.setAllowApproveAttachment( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)r.getValue(ProcessDefinitionVOMeta.UPDATE_BY));
@@ -708,6 +725,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setRejectOption( (String)r.getValue(ProcessDefinitionVOMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)r.getValue(ProcessDefinitionVOMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)r.getValue(ProcessDefinitionVOMeta.DRAFTER_RANGE));
+				this.setAllowTitle( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_TITLE));
 				this.setUpdateTime( (Date)r.getValue(ProcessDefinitionVOMeta.UPDATE_TIME));
 				this.setSort( (Integer)r.getValue(ProcessDefinitionVOMeta.SORT));
 				this.setVersion( (Integer)r.getValue(ProcessDefinitionVOMeta.VERSION));
@@ -722,7 +740,9 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 				this.setTenantId( (String)r.getValue(ProcessDefinitionVOMeta.TENANT_ID));
 				this.setAllowDraftingComment( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)r.getValue(ProcessDefinitionVOMeta.DELETE_BY));
+				this.setAllowTransfer( (Integer)r.getValue(ProcessDefinitionVOMeta.ALLOW_TRANSFER));
 				this.setIconFilePc( (String)r.getValue(ProcessDefinitionVOMeta.ICON_FILE_PC));
+				this.setSkipForSameApprover( (Integer)r.getValue(ProcessDefinitionVOMeta.SKIP_FOR_SAME_APPROVER));
 				return true;
 			} catch (Exception e) {
 				return false;

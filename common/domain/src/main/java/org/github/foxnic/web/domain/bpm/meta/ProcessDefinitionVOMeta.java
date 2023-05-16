@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:13:59
+ * @since 2023-05-16 13:08:07
  * @sign F1102AEA99CE04092FD9D852373AA545
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -483,6 +483,46 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> DRAFTER_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,DRAFTER_RANGE, java.lang.String.class, "起草人范围", "起草人范围", java.lang.String.class, null);
 	
 	/**
+	 * 是否允许流程标题 , 类型: java.lang.Integer
+	*/
+	public static final String ALLOW_TITLE="allowTitle";
+	
+	/**
+	 * 是否允许流程标题 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> ALLOW_TITLE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ALLOW_TITLE, java.lang.Integer.class, "是否允许流程标题", "是否允许流程标题", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否允许流程优先级 , 类型: java.lang.Integer
+	*/
+	public static final String ALLOW_PRIORITY="allowPriority";
+	
+	/**
+	 * 是否允许流程优先级 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> ALLOW_PRIORITY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ALLOW_PRIORITY, java.lang.Integer.class, "是否允许流程优先级", "是否允许流程优先级", java.lang.Integer.class, null);
+	
+	/**
+	 * 相邻节点同一审批人跳过 , 类型: java.lang.Integer
+	*/
+	public static final String SKIP_FOR_SAME_APPROVER="skipForSameApprover";
+	
+	/**
+	 * 相邻节点同一审批人跳过 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> SKIP_FOR_SAME_APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,SKIP_FOR_SAME_APPROVER, java.lang.Integer.class, "相邻节点同一审批人跳过", "相邻节点同一审批人跳过", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否允许流程转办 , 类型: java.lang.Integer
+	*/
+	public static final String ALLOW_TRANSFER="allowTransfer";
+	
+	/**
+	 * 是否允许流程转办 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> ALLOW_TRANSFER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ALLOW_TRANSFER, java.lang.Integer.class, "是否允许流程转办", "是否允许流程转办", java.lang.Integer.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -525,7 +565,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , FORM_DEFINITION_CODE , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALLOW_DRAFTING_COMMENT , ALLOW_APPROVE_COMMENT , ALLOW_DRAFTING_ATTACHMENT , ALLOW_APPROVE_ATTACHMENT , DRAFTER_RANGE , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , FORM_DEFINITION_CODE , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , ICON_FILE_PC , ICON_FILE_MOBILE , SORT , CATALOG_ID , ALLOW_FETCH_BACK , ALLOW_AGREE_WITH_CONDITION , ALLOW_REJECT , ALLOW_SKIP , ALLOW_ABANDON , ALLOW_DRAFTING_COMMENT , ALLOW_APPROVE_COMMENT , ALLOW_DRAFTING_ATTACHMENT , ALLOW_APPROVE_ATTACHMENT , DRAFTER_RANGE , ALLOW_TITLE , ALLOW_PRIORITY , SKIP_FOR_SAME_APPROVER , ALLOW_TRANSFER , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION , CATALOG };
 	
 	/**
 	 * 代理类
@@ -1042,6 +1082,50 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		}
 		
 		/**
+		 * 设置 是否允许流程标题
+		 * @param allowTitle 是否允许流程标题
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setAllowTitle(Integer allowTitle) {
+			super.change(ALLOW_TITLE,super.getAllowTitle(),allowTitle);
+			super.setAllowTitle(allowTitle);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否允许流程优先级
+		 * @param allowPriority 是否允许流程优先级
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setAllowPriority(Integer allowPriority) {
+			super.change(ALLOW_PRIORITY,super.getAllowPriority(),allowPriority);
+			super.setAllowPriority(allowPriority);
+			return this;
+		}
+		
+		/**
+		 * 设置 相邻节点同一审批人跳过
+		 * @param skipForSameApprover 相邻节点同一审批人跳过
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setSkipForSameApprover(Integer skipForSameApprover) {
+			super.change(SKIP_FOR_SAME_APPROVER,super.getSkipForSameApprover(),skipForSameApprover);
+			super.setSkipForSameApprover(skipForSameApprover);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否允许流程转办
+		 * @param allowTransfer 是否允许流程转办
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setAllowTransfer(Integer allowTransfer) {
+			super.change(ALLOW_TRANSFER,super.getAllowTransfer(),allowTransfer);
+			super.setAllowTransfer(allowTransfer);
+			return this;
+		}
+		
+		/**
 		 * 设置 最后修改人
 		 * @param lastUpdateUser 最后修改人
 		 * @return 当前对象
@@ -1109,6 +1193,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 			inst.setAllowFetchBack(this.getAllowFetchBack());
 			inst.setValid(this.getValid());
 			inst.setAllowReject(this.getAllowReject());
+			inst.setAllowPriority(this.getAllowPriority());
 			inst.setCatalogId(this.getCatalogId());
 			inst.setAllowApproveAttachment(this.getAllowApproveAttachment());
 			inst.setUpdateBy(this.getUpdateBy());
@@ -1118,6 +1203,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 			inst.setRejectOption(this.getRejectOption());
 			inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
 			inst.setDrafterRange(this.getDrafterRange());
+			inst.setAllowTitle(this.getAllowTitle());
 			inst.setUpdateTime(this.getUpdateTime());
 			inst.setSort(this.getSort());
 			inst.setVersion(this.getVersion());
@@ -1132,7 +1218,9 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 			inst.setTenantId(this.getTenantId());
 			inst.setAllowDraftingComment(this.getAllowDraftingComment());
 			inst.setDeleteBy(this.getDeleteBy());
+			inst.setAllowTransfer(this.getAllowTransfer());
 			inst.setIconFilePc(this.getIconFilePc());
+			inst.setSkipForSameApprover(this.getSkipForSameApprover());
 			if(all) {
 				inst.setFormDefinitionCode(this.getFormDefinitionCode());
 				inst.setSearchField(this.getSearchField());

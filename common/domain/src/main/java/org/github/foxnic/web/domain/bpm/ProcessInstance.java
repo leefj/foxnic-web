@@ -32,8 +32,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例
  * <p>流程实例 , 数据表 bpm_process_instance 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:32:26
- * @sign 6AA55E05D2F84F460C6E34AC122CEFA4
+ * @since 2023-05-16 13:08:20
+ * @sign B7F6F376B8A2065798237B7904E2C617
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,7 +49,7 @@ public class ProcessInstance extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "703974472239022080")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "708715722301243392")
 	private String id;
 	
 	/**
@@ -61,13 +61,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
-	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID" , example = "110588348101165911")
+	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID" , example = "E001")
 	private String drafterId;
 	
 	/**
 	 * 起草人类型：起草人类型
 	*/
-	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型" , example = "user")
+	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型" , example = "employee")
 	private String drafterType;
 	@Transient
 	@EnumFor("drafterType")
@@ -76,31 +76,31 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 表单实例ID：表单实例ID
 	*/
-	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID" , example = "703974473648308224")
+	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID" , example = "708715724696190976")
 	private String formInstanceId;
 	
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID" , example = "680090042923745280")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID" , example = "594979254974816256")
 	private String processDefinitionId;
 	
 	/**
 	 * 流程定义文件ID：流程定义文件ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID" , example = "703974333449502720")
+	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID" , example = "703993531739406336")
 	private String processDefinitionFileId;
 	
 	/**
 	 * 表单定义ID：表单定义ID
 	*/
-	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID" , example = "680090456226267136")
+	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID" , example = "594970787358703616")
 	private String formDefinitionId;
 	
 	/**
 	 * 流程标题：流程标题
 	*/
-	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题" , example = "1")
+	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题" , example = "资产领用申请")
 	private String title;
 	
 	/**
@@ -121,7 +121,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 审批状态：审批状态
 	*/
-	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态" , example = "drafting")
+	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态" , example = "completed")
 	private String approvalStatus;
 	@Transient
 	@EnumFor("approvalStatus")
@@ -130,13 +130,13 @@ public class ProcessInstance extends Entity {
 	/**
 	 * camunda流程实例ID：camunda流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID" , example = "fd9a5961-e4c3-11ed-85e5-1268e6e59107")
+	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID" , example = "ea4f5674-ef0b-11ed-b86f-a2cc740bf173")
 	private String camundaInstanceId;
 	
 	/**
 	 * 提交时间：提交时间
 	*/
-	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间" , example = "2023-04-27 02:23:15")
+	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间" , example = "2023-05-10 04:23:20")
 	private Date commitTime;
 	
 	/**
@@ -160,7 +160,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-04-27 02:23:13")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间" , example = "2023-05-10 04:23:15")
 	private Date createTime;
 	
 	/**
@@ -172,7 +172,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-27 02:36:37")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-05-10 04:26:41")
 	private Date updateTime;
 	
 	/**
@@ -199,7 +199,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "45")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "87")
 	private Integer version;
 	
 	/**
@@ -211,7 +211,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 流程完成时间：流程完成时间
 	*/
-	@ApiModelProperty(required = false,value="流程完成时间" , notes = "流程完成时间")
+	@ApiModelProperty(required = false,value="流程完成时间" , notes = "流程完成时间" , example = "2023-05-10 04:25:39")
 	private Date endTime;
 	
 	/**
@@ -223,8 +223,14 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 状态同步时间：状态同步时间
 	*/
-	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间" , example = "2023-04-27 02:36:37")
+	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间" , example = "2023-05-10 04:26:41")
 	private Date syncTime;
+	
+	/**
+	 * 最近一次审批时间：最近一次审批时间
+	*/
+	@ApiModelProperty(required = false,value="最近一次审批时间" , notes = "最近一次审批时间")
+	private Date latestAppralTime;
 	
 	/**
 	 * 流程定义：流程定义
@@ -1000,6 +1006,25 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 最近一次审批时间<br>
+	 * 最近一次审批时间
+	 * @return 最近一次审批时间
+	*/
+	public Date getLatestAppralTime() {
+		return latestAppralTime;
+	}
+	
+	/**
+	 * 设置 最近一次审批时间
+	 * @param latestAppralTime 最近一次审批时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setLatestAppralTime(Date latestAppralTime) {
+		this.latestAppralTime=latestAppralTime;
+		return this;
+	}
+	
+	/**
 	 * 获得 流程定义<br>
 	 * 流程定义
 	 * @return 流程定义
@@ -1523,6 +1548,7 @@ public class ProcessInstance extends Entity {
 		inst.setComment(this.getComment());
 		inst.setCamundaInstanceId(this.getCamundaInstanceId());
 		inst.setEndTime(this.getEndTime());
+		inst.setLatestAppralTime(this.getLatestAppralTime());
 		if(all) {
 			inst.setBillIds(this.getBillIds());
 			inst.setFormInstance(this.getFormInstance());
@@ -1629,6 +1655,7 @@ public class ProcessInstance extends Entity {
 			this.setComment(DataParser.parse(String.class, map.get(ProcessInstanceMeta.COMMENT)));
 			this.setCamundaInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID)));
 			this.setEndTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.END_TIME)));
+			this.setLatestAppralTime(DataParser.parse(Date.class, map.get(ProcessInstanceMeta.LATEST_APPRAL_TIME)));
 			// others
 			this.setFormInstance(DataParser.parse(FormInstance.class, map.get(ProcessInstanceMeta.FORM_INSTANCE)));
 			this.setProcessDefinition(DataParser.parse(ProcessDefinition.class, map.get(ProcessInstanceMeta.PROCESS_DEFINITION)));
@@ -1669,6 +1696,7 @@ public class ProcessInstance extends Entity {
 				this.setComment( (String)map.get(ProcessInstanceMeta.COMMENT));
 				this.setCamundaInstanceId( (String)map.get(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID));
 				this.setEndTime( (Date)map.get(ProcessInstanceMeta.END_TIME));
+				this.setLatestAppralTime( (Date)map.get(ProcessInstanceMeta.LATEST_APPRAL_TIME));
 				// others
 				this.setFormInstance( (FormInstance)map.get(ProcessInstanceMeta.FORM_INSTANCE));
 				this.setProcessDefinition( (ProcessDefinition)map.get(ProcessInstanceMeta.PROCESS_DEFINITION));
@@ -1722,6 +1750,7 @@ public class ProcessInstance extends Entity {
 			this.setComment(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.COMMENT)));
 			this.setCamundaInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID)));
 			this.setEndTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.END_TIME)));
+			this.setLatestAppralTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceMeta.LATEST_APPRAL_TIME)));
 			return true;
 		} else {
 			try {
@@ -1753,6 +1782,7 @@ public class ProcessInstance extends Entity {
 				this.setComment( (String)r.getValue(ProcessInstanceMeta.COMMENT));
 				this.setCamundaInstanceId( (String)r.getValue(ProcessInstanceMeta.CAMUNDA_INSTANCE_ID));
 				this.setEndTime( (Date)r.getValue(ProcessInstanceMeta.END_TIME));
+				this.setLatestAppralTime( (Date)r.getValue(ProcessInstanceMeta.LATEST_APPRAL_TIME));
 				return true;
 			} catch (Exception e) {
 				return false;

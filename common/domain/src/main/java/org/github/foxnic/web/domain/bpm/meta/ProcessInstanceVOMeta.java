@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:32:26
+ * @since 2023-05-16 13:08:20
  * @sign C670531B153A1573AE592950BF5EA6AC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -481,6 +481,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.util.Date> SYNC_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,SYNC_TIME, java.util.Date.class, "状态同步时间", "状态同步时间", java.util.Date.class, null);
 	
 	/**
+	 * 最近一次审批时间 , 类型: java.util.Date
+	*/
+	public static final String LATEST_APPRAL_TIME="latestAppralTime";
+	
+	/**
+	 * 最近一次审批时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.util.Date> LATEST_APPRAL_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,LATEST_APPRAL_TIME, java.util.Date.class, "最近一次审批时间", "最近一次审批时间", java.util.Date.class, null);
+	
+	/**
 	 * 流程定义 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
 	*/
 	public static final String PROCESS_DEFINITION="processDefinition";
@@ -663,7 +673,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , APPROVAL_CATALOG , FORCE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS , ATTACHMENT_FILE_IDS , ATTACHMENTS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , APPROVAL_CATALOG , FORCE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , LATEST_APPRAL_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS , ATTACHMENT_FILE_IDS , ATTACHMENTS };
 	
 	/**
 	 * 代理类
@@ -1169,6 +1179,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 最近一次审批时间
+		 * @param latestAppralTime 最近一次审批时间
+		 * @return 当前对象
+		*/
+		public ProcessInstance setLatestAppralTime(Date latestAppralTime) {
+			super.change(LATEST_APPRAL_TIME,super.getLatestAppralTime(),latestAppralTime);
+			super.setLatestAppralTime(latestAppralTime);
+			return this;
+		}
+		
+		/**
 		 * 设置 流程定义
 		 * @param processDefinition 流程定义
 		 * @return 当前对象
@@ -1409,6 +1430,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 			inst.setComment(this.getComment());
 			inst.setCamundaInstanceId(this.getCamundaInstanceId());
 			inst.setEndTime(this.getEndTime());
+			inst.setLatestAppralTime(this.getLatestAppralTime());
 			if(all) {
 				inst.setBillIds(this.getBillIds());
 				inst.setFormInstance(this.getFormInstance());

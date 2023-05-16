@@ -28,7 +28,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例VO类型
  * <p>流程实例 , 数据表 bpm_process_instance 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:32:26
+ * @since 2023-05-16 13:08:20
  * @sign C670531B153A1573AE592950BF5EA6AC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -639,6 +639,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 		inst.setComment(this.getComment());
 		inst.setCamundaInstanceId(this.getCamundaInstanceId());
 		inst.setEndTime(this.getEndTime());
+		inst.setLatestAppralTime(this.getLatestAppralTime());
 		if(all) {
 			inst.setBillIds(this.getBillIds());
 			inst.setFormInstance(this.getFormInstance());
@@ -762,6 +763,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 			this.setComment(DataParser.parse(String.class, map.get(ProcessInstanceVOMeta.COMMENT)));
 			this.setCamundaInstanceId(DataParser.parse(String.class, map.get(ProcessInstanceVOMeta.CAMUNDA_INSTANCE_ID)));
 			this.setEndTime(DataParser.parse(Date.class, map.get(ProcessInstanceVOMeta.END_TIME)));
+			this.setLatestAppralTime(DataParser.parse(Date.class, map.get(ProcessInstanceVOMeta.LATEST_APPRAL_TIME)));
 			// others
 			this.setFormInstance(DataParser.parse(FormInstance.class, map.get(ProcessInstanceVOMeta.FORM_INSTANCE)));
 			this.setSearchField(DataParser.parse(String.class, map.get(ProcessInstanceVOMeta.SEARCH_FIELD)));
@@ -815,6 +817,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 				this.setComment( (String)map.get(ProcessInstanceVOMeta.COMMENT));
 				this.setCamundaInstanceId( (String)map.get(ProcessInstanceVOMeta.CAMUNDA_INSTANCE_ID));
 				this.setEndTime( (Date)map.get(ProcessInstanceVOMeta.END_TIME));
+				this.setLatestAppralTime( (Date)map.get(ProcessInstanceVOMeta.LATEST_APPRAL_TIME));
 				// others
 				this.setFormInstance( (FormInstance)map.get(ProcessInstanceVOMeta.FORM_INSTANCE));
 				this.setSearchField( (String)map.get(ProcessInstanceVOMeta.SEARCH_FIELD));
@@ -881,6 +884,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 			this.setComment(DataParser.parse(String.class, r.getValue(ProcessInstanceVOMeta.COMMENT)));
 			this.setCamundaInstanceId(DataParser.parse(String.class, r.getValue(ProcessInstanceVOMeta.CAMUNDA_INSTANCE_ID)));
 			this.setEndTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceVOMeta.END_TIME)));
+			this.setLatestAppralTime(DataParser.parse(Date.class, r.getValue(ProcessInstanceVOMeta.LATEST_APPRAL_TIME)));
 			return true;
 		} else {
 			try {
@@ -912,6 +916,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 				this.setComment( (String)r.getValue(ProcessInstanceVOMeta.COMMENT));
 				this.setCamundaInstanceId( (String)r.getValue(ProcessInstanceVOMeta.CAMUNDA_INSTANCE_ID));
 				this.setEndTime( (Date)r.getValue(ProcessInstanceVOMeta.END_TIME));
+				this.setLatestAppralTime( (Date)r.getValue(ProcessInstanceVOMeta.LATEST_APPRAL_TIME));
 				return true;
 			} catch (Exception e) {
 				return false;

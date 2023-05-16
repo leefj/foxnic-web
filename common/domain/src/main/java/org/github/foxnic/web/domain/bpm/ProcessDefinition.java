@@ -28,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程定义
  * <p>流程定义 , 数据表 bpm_process_definition 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-04 17:13:59
- * @sign A074FEA18731622BB601B1133EB58F27
+ * @since 2023-05-16 13:08:07
+ * @sign 9601CA45D4785719EB3D752286AA00BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -114,7 +114,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-04-28 01:14:28")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-05-15 05:47:17")
 	private Date updateTime;
 	
 	/**
@@ -141,7 +141,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "81")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "82")
 	private Integer version;
 	
 	/**
@@ -153,7 +153,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 流程ID：在 camunda 中的流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程ID" , notes = "在 camunda 中的流程定义ID" , example = "foxnic-leave:1:8c1d7320-e583-11ed-b4fc-1268e6e59107")
+	@ApiModelProperty(required = false,value="流程ID" , notes = "在 camunda 中的流程定义ID" , example = "foxnic-leave:2:foxnic-leave:2:7a4261b1-f305-11ed-af76-1268e6e59107")
 	private String camundaDefinitionId;
 	
 	/**
@@ -248,6 +248,30 @@ public class ProcessDefinition extends Entity {
 	@Transient
 	@EnumFor("drafterRange")
 	private DrafterRangeType drafterRangeEnum;
+	
+	/**
+	 * 是否允许流程标题：是否允许流程标题
+	*/
+	@ApiModelProperty(required = false,value="是否允许流程标题" , notes = "是否允许流程标题" , example = "1")
+	private Integer allowTitle;
+	
+	/**
+	 * 是否允许流程优先级：是否允许流程优先级
+	*/
+	@ApiModelProperty(required = false,value="是否允许流程优先级" , notes = "是否允许流程优先级" , example = "1")
+	private Integer allowPriority;
+	
+	/**
+	 * 相邻节点同一审批人跳过：相邻节点同一审批人跳过
+	*/
+	@ApiModelProperty(required = false,value="相邻节点同一审批人跳过" , notes = "相邻节点同一审批人跳过" , example = "0")
+	private Integer skipForSameApprover;
+	
+	/**
+	 * 是否允许流程转办：是否允许流程转办
+	*/
+	@ApiModelProperty(required = false,value="是否允许流程转办" , notes = "是否允许流程转办" , example = "1")
+	private Integer allowTransfer;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -1000,6 +1024,82 @@ public class ProcessDefinition extends Entity {
 	}
 	
 	/**
+	 * 获得 是否允许流程标题<br>
+	 * 是否允许流程标题
+	 * @return 是否允许流程标题
+	*/
+	public Integer getAllowTitle() {
+		return allowTitle;
+	}
+	
+	/**
+	 * 设置 是否允许流程标题
+	 * @param allowTitle 是否允许流程标题
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setAllowTitle(Integer allowTitle) {
+		this.allowTitle=allowTitle;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否允许流程优先级<br>
+	 * 是否允许流程优先级
+	 * @return 是否允许流程优先级
+	*/
+	public Integer getAllowPriority() {
+		return allowPriority;
+	}
+	
+	/**
+	 * 设置 是否允许流程优先级
+	 * @param allowPriority 是否允许流程优先级
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setAllowPriority(Integer allowPriority) {
+		this.allowPriority=allowPriority;
+		return this;
+	}
+	
+	/**
+	 * 获得 相邻节点同一审批人跳过<br>
+	 * 相邻节点同一审批人跳过
+	 * @return 相邻节点同一审批人跳过
+	*/
+	public Integer getSkipForSameApprover() {
+		return skipForSameApprover;
+	}
+	
+	/**
+	 * 设置 相邻节点同一审批人跳过
+	 * @param skipForSameApprover 相邻节点同一审批人跳过
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setSkipForSameApprover(Integer skipForSameApprover) {
+		this.skipForSameApprover=skipForSameApprover;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否允许流程转办<br>
+	 * 是否允许流程转办
+	 * @return 是否允许流程转办
+	*/
+	public Integer getAllowTransfer() {
+		return allowTransfer;
+	}
+	
+	/**
+	 * 设置 是否允许流程转办
+	 * @param allowTransfer 是否允许流程转办
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setAllowTransfer(Integer allowTransfer) {
+		this.allowTransfer=allowTransfer;
+		return this;
+	}
+	
+	/**
 	 * 获得 最后修改人<br>
 	 * 最后修改人
 	 * @return 最后修改人
@@ -1128,6 +1228,7 @@ public class ProcessDefinition extends Entity {
 		inst.setAllowFetchBack(this.getAllowFetchBack());
 		inst.setValid(this.getValid());
 		inst.setAllowReject(this.getAllowReject());
+		inst.setAllowPriority(this.getAllowPriority());
 		inst.setCatalogId(this.getCatalogId());
 		inst.setAllowApproveAttachment(this.getAllowApproveAttachment());
 		inst.setUpdateBy(this.getUpdateBy());
@@ -1137,6 +1238,7 @@ public class ProcessDefinition extends Entity {
 		inst.setRejectOption(this.getRejectOption());
 		inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
 		inst.setDrafterRange(this.getDrafterRange());
+		inst.setAllowTitle(this.getAllowTitle());
 		inst.setUpdateTime(this.getUpdateTime());
 		inst.setSort(this.getSort());
 		inst.setVersion(this.getVersion());
@@ -1151,7 +1253,9 @@ public class ProcessDefinition extends Entity {
 		inst.setTenantId(this.getTenantId());
 		inst.setAllowDraftingComment(this.getAllowDraftingComment());
 		inst.setDeleteBy(this.getDeleteBy());
+		inst.setAllowTransfer(this.getAllowTransfer());
 		inst.setIconFilePc(this.getIconFilePc());
+		inst.setSkipForSameApprover(this.getSkipForSameApprover());
 		if(all) {
 			inst.setFormDefinition(this.getFormDefinition());
 			inst.setDefinitionFile(this.getDefinitionFile());
@@ -1225,6 +1329,7 @@ public class ProcessDefinition extends Entity {
 			this.setAllowFetchBack(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_FETCH_BACK)));
 			this.setValid(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_REJECT)));
+			this.setAllowPriority(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_PRIORITY)));
 			this.setCatalogId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CATALOG_ID)));
 			this.setAllowApproveAttachment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.UPDATE_BY)));
@@ -1234,6 +1339,7 @@ public class ProcessDefinition extends Entity {
 			this.setRejectOption(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.DRAFTER_RANGE)));
+			this.setAllowTitle(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_TITLE)));
 			this.setUpdateTime(DataParser.parse(Date.class, map.get(ProcessDefinitionMeta.UPDATE_TIME)));
 			this.setSort(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.VERSION)));
@@ -1248,7 +1354,9 @@ public class ProcessDefinition extends Entity {
 			this.setTenantId(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.TENANT_ID)));
 			this.setAllowDraftingComment(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.DELETE_BY)));
+			this.setAllowTransfer(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.ALLOW_TRANSFER)));
 			this.setIconFilePc(DataParser.parse(String.class, map.get(ProcessDefinitionMeta.ICON_FILE_PC)));
+			this.setSkipForSameApprover(DataParser.parse(Integer.class, map.get(ProcessDefinitionMeta.SKIP_FOR_SAME_APPROVER)));
 			// others
 			this.setFormDefinition(DataParser.parse(FormDefinition.class, map.get(ProcessDefinitionMeta.FORM_DEFINITION)));
 			this.setDefinitionFile(DataParser.parse(ProcessDefinitionFile.class, map.get(ProcessDefinitionMeta.DEFINITION_FILE)));
@@ -1266,6 +1374,7 @@ public class ProcessDefinition extends Entity {
 				this.setAllowFetchBack( (Integer)map.get(ProcessDefinitionMeta.ALLOW_FETCH_BACK));
 				this.setValid( (Integer)map.get(ProcessDefinitionMeta.VALID));
 				this.setAllowReject( (Integer)map.get(ProcessDefinitionMeta.ALLOW_REJECT));
+				this.setAllowPriority( (Integer)map.get(ProcessDefinitionMeta.ALLOW_PRIORITY));
 				this.setCatalogId( (String)map.get(ProcessDefinitionMeta.CATALOG_ID));
 				this.setAllowApproveAttachment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)map.get(ProcessDefinitionMeta.UPDATE_BY));
@@ -1275,6 +1384,7 @@ public class ProcessDefinition extends Entity {
 				this.setRejectOption( (String)map.get(ProcessDefinitionMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)map.get(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)map.get(ProcessDefinitionMeta.DRAFTER_RANGE));
+				this.setAllowTitle( (Integer)map.get(ProcessDefinitionMeta.ALLOW_TITLE));
 				this.setUpdateTime( (Date)map.get(ProcessDefinitionMeta.UPDATE_TIME));
 				this.setSort( (Integer)map.get(ProcessDefinitionMeta.SORT));
 				this.setVersion( (Integer)map.get(ProcessDefinitionMeta.VERSION));
@@ -1289,7 +1399,9 @@ public class ProcessDefinition extends Entity {
 				this.setTenantId( (String)map.get(ProcessDefinitionMeta.TENANT_ID));
 				this.setAllowDraftingComment( (Integer)map.get(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)map.get(ProcessDefinitionMeta.DELETE_BY));
+				this.setAllowTransfer( (Integer)map.get(ProcessDefinitionMeta.ALLOW_TRANSFER));
 				this.setIconFilePc( (String)map.get(ProcessDefinitionMeta.ICON_FILE_PC));
+				this.setSkipForSameApprover( (Integer)map.get(ProcessDefinitionMeta.SKIP_FOR_SAME_APPROVER));
 				// others
 				this.setFormDefinition( (FormDefinition)map.get(ProcessDefinitionMeta.FORM_DEFINITION));
 				this.setDefinitionFile( (ProcessDefinitionFile)map.get(ProcessDefinitionMeta.DEFINITION_FILE));
@@ -1320,6 +1432,7 @@ public class ProcessDefinition extends Entity {
 			this.setAllowFetchBack(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_FETCH_BACK)));
 			this.setValid(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.VALID)));
 			this.setAllowReject(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_REJECT)));
+			this.setAllowPriority(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_PRIORITY)));
 			this.setCatalogId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CATALOG_ID)));
 			this.setAllowApproveAttachment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT)));
 			this.setUpdateBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.UPDATE_BY)));
@@ -1329,6 +1442,7 @@ public class ProcessDefinition extends Entity {
 			this.setRejectOption(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.REJECT_OPTION)));
 			this.setCamundaDefinitionKey(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY)));
 			this.setDrafterRange(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.DRAFTER_RANGE)));
+			this.setAllowTitle(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_TITLE)));
 			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(ProcessDefinitionMeta.UPDATE_TIME)));
 			this.setSort(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.SORT)));
 			this.setVersion(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.VERSION)));
@@ -1343,7 +1457,9 @@ public class ProcessDefinition extends Entity {
 			this.setTenantId(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.TENANT_ID)));
 			this.setAllowDraftingComment(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT)));
 			this.setDeleteBy(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.DELETE_BY)));
+			this.setAllowTransfer(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.ALLOW_TRANSFER)));
 			this.setIconFilePc(DataParser.parse(String.class, r.getValue(ProcessDefinitionMeta.ICON_FILE_PC)));
+			this.setSkipForSameApprover(DataParser.parse(Integer.class, r.getValue(ProcessDefinitionMeta.SKIP_FOR_SAME_APPROVER)));
 			return true;
 		} else {
 			try {
@@ -1356,6 +1472,7 @@ public class ProcessDefinition extends Entity {
 				this.setAllowFetchBack( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_FETCH_BACK));
 				this.setValid( (Integer)r.getValue(ProcessDefinitionMeta.VALID));
 				this.setAllowReject( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_REJECT));
+				this.setAllowPriority( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_PRIORITY));
 				this.setCatalogId( (String)r.getValue(ProcessDefinitionMeta.CATALOG_ID));
 				this.setAllowApproveAttachment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_APPROVE_ATTACHMENT));
 				this.setUpdateBy( (String)r.getValue(ProcessDefinitionMeta.UPDATE_BY));
@@ -1365,6 +1482,7 @@ public class ProcessDefinition extends Entity {
 				this.setRejectOption( (String)r.getValue(ProcessDefinitionMeta.REJECT_OPTION));
 				this.setCamundaDefinitionKey( (String)r.getValue(ProcessDefinitionMeta.CAMUNDA_DEFINITION_KEY));
 				this.setDrafterRange( (String)r.getValue(ProcessDefinitionMeta.DRAFTER_RANGE));
+				this.setAllowTitle( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_TITLE));
 				this.setUpdateTime( (Date)r.getValue(ProcessDefinitionMeta.UPDATE_TIME));
 				this.setSort( (Integer)r.getValue(ProcessDefinitionMeta.SORT));
 				this.setVersion( (Integer)r.getValue(ProcessDefinitionMeta.VERSION));
@@ -1379,7 +1497,9 @@ public class ProcessDefinition extends Entity {
 				this.setTenantId( (String)r.getValue(ProcessDefinitionMeta.TENANT_ID));
 				this.setAllowDraftingComment( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_DRAFTING_COMMENT));
 				this.setDeleteBy( (String)r.getValue(ProcessDefinitionMeta.DELETE_BY));
+				this.setAllowTransfer( (Integer)r.getValue(ProcessDefinitionMeta.ALLOW_TRANSFER));
 				this.setIconFilePc( (String)r.getValue(ProcessDefinitionMeta.ICON_FILE_PC));
+				this.setSkipForSameApprover( (Integer)r.getValue(ProcessDefinitionMeta.SKIP_FOR_SAME_APPROVER));
 				return true;
 			} catch (Exception e) {
 				return false;
