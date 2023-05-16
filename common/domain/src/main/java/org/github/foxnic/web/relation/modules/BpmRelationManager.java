@@ -56,7 +56,7 @@ public class BpmRelationManager extends RelationManager {
 	private void setupBpmCatalog() {
 		//使用情况统计 - 流程定义
 		this.property(CatalogMeta.PROCESS_DEFINITION_LIST_PROP)
-				.using(FoxnicWeb.BPM_CATALOG.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.CATALOG_ID);
+				.using(FoxnicWeb.BPM_CATALOG.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.CATALOG_ID).conditionEquals(FoxnicWeb.BPM_PROCESS_DEFINITION.VALID,1);
 	}
 	private void setupBpmUserStatistics() {
 		//使用情况统计 - 流程定义
