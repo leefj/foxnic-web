@@ -1551,7 +1551,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
                 if(texts.length>0) {
-                    return texts.join(",");
+                    if(styles) {
+                        return texts.join(" ");
+                    } else {
+                        return texts.join(",");
+                    }
                 } else {
                     return "";
                 }

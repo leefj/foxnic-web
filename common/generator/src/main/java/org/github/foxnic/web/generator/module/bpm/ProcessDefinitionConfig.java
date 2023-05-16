@@ -108,6 +108,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().hidden().table().hidden();
 
         view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人")
+                .table().useThemeBadgeStyle()
                 .form().validate().required()
                 .form().checkBox().enumType(UnifiedUserType.class)
                 .search().hidden().table().hidden();
@@ -139,6 +140,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.ALLOW_SKIP).form().label("审批跳过").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
                 .table().logicFieldReadonly();
 
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_TRANSFER).form().label("审批转办").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
         view.field(BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_COMMENT).form().label("起草意见").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
                 .table().logicFieldReadonly();
 
@@ -149,6 +153,15 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .table().logicFieldReadonly();
 
         view.field(BPM_PROCESS_DEFINITION.ALLOW_APPROVE_ATTACHMENT).form().label("审批附件").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_TITLE).form().label("流程标题").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.ALLOW_PRIORITY).form().label("优先级").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
+                .table().logicFieldReadonly();
+
+        view.field(BPM_PROCESS_DEFINITION.SKIP_FOR_SAME_APPROVER).form().label("相同审批人").logicField().on("跳过", 1).off("审批", 0).search().triggerOnSelect(true)
                 .table().logicFieldReadonly();
 
     }
@@ -191,17 +204,20 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 new Object[]{
                         BPM_PROCESS_DEFINITION.REJECT_OPTION,
                         BPM_PROCESS_DEFINITION.ALLOW_FETCH_BACK
-                }, new Object[]{BPM_PROCESS_DEFINITION.ALLOW_ABANDON}
+                }, new Object[]{
+                        BPM_PROCESS_DEFINITION.ALLOW_ABANDON,
+                        BPM_PROCESS_DEFINITION.ALLOW_TRANSFER
+                }
         );
 
         form.addGroup("approval", "审批控制",
                 new Object[]{ BPM_PROCESS_DEFINITION.ALLOW_AGREE_WITH_CONDITION,BPM_PROCESS_DEFINITION.ALLOW_SKIP},
-                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_REJECT}
+                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_REJECT,BPM_PROCESS_DEFINITION.SKIP_FOR_SAME_APPROVER}
         );
 
         form.addGroup("content", "内容控制",
-                new Object[]{ BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_ATTACHMENT},
-                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_APPROVE_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_APPROVE_ATTACHMENT}
+                new Object[]{ BPM_PROCESS_DEFINITION.ALLOW_TITLE,BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_DRAFTING_ATTACHMENT},
+                new Object[]{BPM_PROCESS_DEFINITION.ALLOW_PRIORITY, BPM_PROCESS_DEFINITION.ALLOW_APPROVE_COMMENT,BPM_PROCESS_DEFINITION.ALLOW_APPROVE_ATTACHMENT}
         );
 
 
