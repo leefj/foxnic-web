@@ -96,6 +96,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.addSimpleProperty(String.class,"reason","撤回原因","撤回原因");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
+
         pojo=context.createPojo("ProcessJumpVO");
         pojo.setSuperType(null);
         pojo.setDoc("流程跳转参数");
@@ -217,10 +218,11 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         list.pageTitle("流程中心");
 
         ActionConfig action = null;
-        action = list.operationColumn().addActionButton("作废","abandonProcess");
+
 //        action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
         list.configCreateNewButton("发起流程","showApprovalForm","");
         list.operationColumn().addActionButton("打开","showApprovalForm");
+        action = list.operationColumn().addActionButton("作废","abandonProcess");
 //        action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 
 //        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");

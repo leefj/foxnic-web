@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 09:04:33
- * @sign 245E321AD9764F8350A13981A29B4E8D
+ * @since 2023-05-16 15:57:41
+ * @sign F8E4341433D6AFEAAC598139A999A1FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -114,7 +114,17 @@ public class TaskProcessVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ATTACHMENT_FILE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ATTACHMENT_FILE_IDS, java.util.List.class, "附件ID清单", "附件ID清单", java.lang.String.class, null);
 	
 	/**
+	 * 转办人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	*/
+	public static final String TRANSFER_TO="transferTo";
+	
+	/**
+	 * 转办人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,org.github.foxnic.web.domain.bpm.Assignee> TRANSFER_TO_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,TRANSFER_TO, java.util.List.class, "转办人清单", "转办人清单", org.github.foxnic.web.domain.bpm.Assignee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , RESULT , COMMENT , VARIABLES , TENANT_ID , JUMP_TO_NODE_ID , ATTACHMENT_FILE_IDS };
+	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , RESULT , COMMENT , VARIABLES , TENANT_ID , JUMP_TO_NODE_ID , ATTACHMENT_FILE_IDS , TRANSFER_TO };
 }

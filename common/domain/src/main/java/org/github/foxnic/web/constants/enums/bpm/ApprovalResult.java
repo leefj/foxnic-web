@@ -16,6 +16,10 @@ public enum ApprovalResult implements CodeTextEnum {
 	 * */
 	skip("跳过",true),
 	fetch_back("撤回",true),
+	/**
+	 * 流程转办
+	 * */
+	transfer("转办",true),
 
 	resubmit("再次提交",false),
 	abandon("废弃",false),

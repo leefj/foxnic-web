@@ -1302,6 +1302,24 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 				if(index) {
+					// 强力修复窗口无法关闭的问题
+					var lay=$("#layui-layer"+index);
+					if(lay==null || lay.length==0) {
+						lay=$(".layui-layer");
+						var maxZIdx=-1;
+						var currLayerIndex=-1;
+						for (var zi = 0; zi < lay.length; zi++) {
+							var la=$(lay[zi]);
+							var z=parseInt(la.css("z-index"));
+							if(z>maxZIdx) {
+								maxZIdx=z;
+								currLayerIndex=zi+1;
+							}
+						}
+						if(currLayerIndex!=-1 && index!=currLayerIndex) {
+							index=currLayerIndex;
+						}
+					}
 					layer.close(index);
 					popupCenterParam=popupCenterParamMap[index];
 				} else {

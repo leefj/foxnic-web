@@ -24,8 +24,8 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 09:04:33
- * @sign 245E321AD9764F8350A13981A29B4E8D
+ * @since 2023-05-16 15:57:41
+ * @sign F8E4341433D6AFEAAC598139A999A1FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -86,6 +86,11 @@ public class TaskProcessVO {
 	 * 附件ID清单：附件ID清单
 	*/
 	private List<String> attachmentFileIds;
+	
+	/**
+	 * 转办人清单：转办人清单
+	*/
+	private List<Assignee> transferTo;
 	
 	/**
 	 * 获得 任务ID<br>
@@ -333,6 +338,36 @@ public class TaskProcessVO {
 		this.attachmentFileIds.addAll(Arrays.asList(attachmentFileId));
 		return this;
 	}
+	
+	/**
+	 * 获得 转办人清单<br>
+	 * 转办人清单
+	 * @return 转办人清单
+	*/
+	public List<Assignee> getTransferTo() {
+		return transferTo;
+	}
+	
+	/**
+	 * 设置 转办人清单
+	 * @param transferTo 转办人清单
+	 * @return 当前对象
+	*/
+	public TaskProcessVO setTransferTo(List<Assignee> transferTo) {
+		this.transferTo=transferTo;
+		return this;
+	}
+	
+	/**
+	 * 添加 转办人清单
+	 * @param entity 转办人清单
+	 * @return 当前对象
+	*/
+	public TaskProcessVO addTransferTo(Assignee... entity) {
+		if(this.transferTo==null) transferTo=new ArrayList<>();
+		this.transferTo.addAll(Arrays.asList(entity));
+		return this;
+	}
 
 	/**
 	 * 创建一个 TaskProcessVO，等同于 new
@@ -385,6 +420,7 @@ public class TaskProcessVO {
 			inst.setTenantId(this.getTenantId());
 			inst.setComment(this.getComment());
 			inst.setAssigneeType(this.getAssigneeType());
+			inst.setTransferTo(this.getTransferTo());
 			inst.setAssigneeId(this.getAssigneeId());
 			inst.setTaskId(this.getTaskId());
 		return inst;

@@ -110,6 +110,11 @@ public interface TaskServiceProxy {
 
     public static final String PROCESS_TASK = API_PREFIX + "process-task";
 
+    public static final String TRANSFER_TASK = API_PREFIX + "transfer-task";
+
+
+
+
     public static final String CANCEL_TASK = API_PREFIX + "cancel-task";
 
 
