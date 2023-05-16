@@ -29,7 +29,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 请假流程示例
  * <p>请假流程示例 , 数据表 bpm_demo_leave 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 13:42:57
+ * @since 2023-05-16 11:38:39
  * @sign 436F0D583935E8FAFFCF1852DD2A2055
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -46,31 +46,31 @@ public class DemoLeave extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "704326903833559040")
 	private String id;
 	
 	/**
 	 * 请假类型：请假类型
 	*/
-	@ApiModelProperty(required = false,value="请假类型" , notes = "请假类型")
+	@ApiModelProperty(required = false,value="请假类型" , notes = "请假类型" , example = "L01")
 	private String type;
 	
 	/**
 	 * 开始时间：开始时间
 	*/
-	@ApiModelProperty(required = false,value="开始时间" , notes = "开始时间")
+	@ApiModelProperty(required = false,value="开始时间" , notes = "开始时间" , example = "2023-04-28 12:00:00")
 	private Date beginTime;
 	
 	/**
 	 * 结束时间：结束时间
 	*/
-	@ApiModelProperty(required = false,value="结束时间" , notes = "结束时间")
+	@ApiModelProperty(required = false,value="结束时间" , notes = "结束时间" , example = "2023-04-29 12:00:00")
 	private Date endTime;
 	
 	/**
 	 * 请假事由：请假事由
 	*/
-	@ApiModelProperty(required = false,value="请假事由" , notes = "请假事由")
+	@ApiModelProperty(required = false,value="请假事由" , notes = "请假事由" , example = "打架")
 	private String reason;
 	
 	/**

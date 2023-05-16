@@ -14,6 +14,7 @@ import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import org.github.foxnic.web.constants.enums.bpm.FormType;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
+import org.github.foxnic.web.constants.enums.dict.LeaveType;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
@@ -51,13 +52,14 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 //     view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
         view.field(BPM_DEMO_LEAVE.TYPE).search().hidden()
                 .form().validate().required()
-                .form().selectBox().dict(DictEnum.LEAVE_TYPE).table().useThemeBadgeStyle();
+                .form().selectBox().dict(DictEnum.LEAVE_TYPE).defaultValue(LeaveType.L02).defaultIndex(1).table().useThemeBadgeStyle();
         view.field(BPM_DEMO_LEAVE.BEGIN_TIME).search().hidden().form().validate().required()
-                .form().dateInput().renderAtTop(true);
+                .form().dateInput().defaultNow().renderAtTop(true);
         view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required()
-                .form().dateInput().renderAtTop(true);
+                .form().dateInput().defaultNow().renderAtTop(true);
 
-        view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().validate().required();
+        view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().textInput().defaultText("家里有事，需要请假")
+                .form().validate().required();
         view.field(BPM_DEMO_LEAVE.APPLICANT_ID).basic().hidden();
 
         view.field(BPM_DEMO_LEAVE.STATUS).search().hidden().form().readOnly();
