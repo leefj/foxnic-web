@@ -7,6 +7,7 @@ import com.github.foxnic.commons.concurrent.task.QuartzTaskManager;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.ReflectUtil;
+import com.github.foxnic.sql.expr.Select;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.oauth.User;
@@ -51,10 +52,17 @@ public class BpmAssistant {
     }
 
     public static void sync(String camundaInstanceId) {
+        sync(camundaInstanceId,null);
+    }
+
+    public static void sync(String camundaInstanceId,long... delayRetrys) {
+        if(delayRetrys==null || delayRetrys.length==0) delayRetrys= new long[] {500,1000,2000,3000,6000,12000,30000,60000};
         SimpleTaskManager.retry(times -> {
             return syncWorker.doSync4Retry(Arrays.asList(camundaInstanceId));
-        },500,1000,2000,3000,6000,12000,30000,60000);
+        },delayRetrys);
     }
+
+
 
     private static void setCallerAccount(User user) {
         ProcessInstanceServiceProxy.api();
@@ -275,4 +283,13 @@ public class BpmAssistant {
         return proxyClass;
 
     }
+
+    /**
+     * 获得审批过流程的SQL语句
+     * */
+    public static Select getQueryStatementForApprovedUser(String billTable) {
+        return null;
+    }
+
+
 }

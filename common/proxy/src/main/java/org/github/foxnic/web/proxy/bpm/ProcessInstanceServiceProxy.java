@@ -184,7 +184,7 @@ public interface ProcessInstanceServiceProxy {
      * 同步流程任务
      * */
     @RequestMapping(ProcessInstanceServiceProxy.SYNC_CAMUNDA_PROCESS_INSTANCE)
-    public Result syncCamundaProcessInstances(@RequestParam(name = "processInstanceIds") List<String> processInstanceIds);
+    public Result<SyncInfo> syncCamundaProcessInstances(@RequestParam(name = "processInstanceIds") List<String> processInstanceIds);
 
 
     /**
