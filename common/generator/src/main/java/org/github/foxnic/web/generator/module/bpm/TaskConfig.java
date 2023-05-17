@@ -77,7 +77,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
         pojo.addSimpleProperty(String.class,"jumpToNodeId","流程跳转的目标节点ID","流程跳转的目标节点ID");
         pojo.addListProperty(String.class,"attachmentFileIds","附件ID清单","附件ID清单");
-        pojo.addListProperty(Assignee.class,"transferTo","转办人清单","转办人清单");
+        pojo.addListProperty(String.class,"transferToEmployeeIds","转办人ID清单","转办人ID清单");
 
 
 

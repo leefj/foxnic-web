@@ -24,8 +24,8 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-16 15:57:41
- * @sign F8E4341433D6AFEAAC598139A999A1FE
+ * @since 2023-05-17 17:16:54
+ * @sign 89D0F3EEB6028DDC6CD6DD184CC90DAB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -88,9 +88,9 @@ public class TaskProcessVO {
 	private List<String> attachmentFileIds;
 	
 	/**
-	 * 转办人清单：转办人清单
+	 * 转办人ID清单：转办人ID清单
 	*/
-	private List<Assignee> transferTo;
+	private List<String> transferToEmployeeIds;
 	
 	/**
 	 * 获得 任务ID<br>
@@ -340,32 +340,32 @@ public class TaskProcessVO {
 	}
 	
 	/**
-	 * 获得 转办人清单<br>
-	 * 转办人清单
-	 * @return 转办人清单
+	 * 获得 转办人ID清单<br>
+	 * 转办人ID清单
+	 * @return 转办人ID清单
 	*/
-	public List<Assignee> getTransferTo() {
-		return transferTo;
+	public List<String> getTransferToEmployeeIds() {
+		return transferToEmployeeIds;
 	}
 	
 	/**
-	 * 设置 转办人清单
-	 * @param transferTo 转办人清单
+	 * 设置 转办人ID清单
+	 * @param transferToEmployeeIds 转办人ID清单
 	 * @return 当前对象
 	*/
-	public TaskProcessVO setTransferTo(List<Assignee> transferTo) {
-		this.transferTo=transferTo;
+	public TaskProcessVO setTransferToEmployeeIds(List<String> transferToEmployeeIds) {
+		this.transferToEmployeeIds=transferToEmployeeIds;
 		return this;
 	}
 	
 	/**
-	 * 添加 转办人清单
-	 * @param entity 转办人清单
+	 * 添加 转办人ID清单
+	 * @param transferToEmployeeId 转办人ID清单
 	 * @return 当前对象
 	*/
-	public TaskProcessVO addTransferTo(Assignee... entity) {
-		if(this.transferTo==null) transferTo=new ArrayList<>();
-		this.transferTo.addAll(Arrays.asList(entity));
+	public TaskProcessVO addTransferToEmployeeId(String... transferToEmployeeId) {
+		if(this.transferToEmployeeIds==null) transferToEmployeeIds=new ArrayList<>();
+		this.transferToEmployeeIds.addAll(Arrays.asList(transferToEmployeeId));
 		return this;
 	}
 
@@ -420,9 +420,9 @@ public class TaskProcessVO {
 			inst.setTenantId(this.getTenantId());
 			inst.setComment(this.getComment());
 			inst.setAssigneeType(this.getAssigneeType());
-			inst.setTransferTo(this.getTransferTo());
 			inst.setAssigneeId(this.getAssigneeId());
 			inst.setTaskId(this.getTaskId());
+			inst.setTransferToEmployeeIds(this.getTransferToEmployeeIds());
 		return inst;
 	}
 

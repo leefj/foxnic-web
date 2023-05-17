@@ -19,7 +19,7 @@ import com.github.foxnic.sql.data.ExprRcd;
 /**
  * 任务查询对象
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-16 15:57:41
+ * @since 2023-05-17 17:16:54
  * @sign 262FEC1D2243F4F0A869401B7EDD19FD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
