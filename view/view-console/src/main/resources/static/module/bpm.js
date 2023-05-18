@@ -328,7 +328,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                         } else {
                             param.buttonEl.css("width", cw + "px");
                             param.buttonEl.css("text-overflow", "");
-                            param.buttonEl.css("overflow", "auto");
+                            param.buttonEl.css("overflow", "hidden");
                         }
                     }, 0);
                 }

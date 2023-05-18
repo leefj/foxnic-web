@@ -1999,8 +1999,28 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //     }, 5000 );
             // }
         },
+        autoWidthDialogButton:function (param) {
+            var auto=param.buttonEl.attr("autoWidth");
+            if(auto!="true") return;
+            setTimeout(function () {
+                var mx = param.buttonEl.parent().width();
+                var iw = param.buttonEl.parent().find("i").width();
+                var cw = param.buttonEl.find("span").width();
+                cw = cw + iw + 18 * 2;
+                if (cw > mx) {
+                    param.buttonEl.css("width", "calc( 100% - 16px )");
+                    param.buttonEl.css("text-overflow", "ellipsis");
+                    param.buttonEl.css("overflow", "hidden");
+                } else {
+                    param.buttonEl.css("width", cw + "px");
+                    param.buttonEl.css("text-overflow", "");
+                    param.buttonEl.css("overflow", "hidden");
+                }
+            }, 0);
+        },
         chooseOrgNode:function (param){
             //fromData,inputEl,buttonEl
+            var me=this;
             if(param.prepose){
                 param=param.prepose(param);
                 if(!param) return;
@@ -2024,9 +2044,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     param.buttonEl.find("span").text(names.join(","));
                 } else {
                     param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                    param.buttonEl.css("width",param.buttonEl.attr("default-width"));
                 }
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
+                }
+                // 如果自动宽度
+                if(param.autoWidth) {
+                    me.autoWidthDialogButton(param);
                 }
             }
             admin.putTempData("org-dialog-value",value,true);
@@ -2044,6 +2069,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         chooseEmployee:function (param){
             //fromData,inputEl,buttonEl
+            var me=this;
             if(param.prepose){
                 param=param.prepose(param);
                 if(!param) return;
@@ -2077,6 +2103,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 } else {
                     if(param.buttonEl) {
                         param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                        param.buttonEl.css("width",param.buttonEl.attr("default-width"));
                     }
                 }
                 if(param.callback) {
@@ -2085,21 +2112,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                 // 如果自动宽度
                 if(param.autoWidth) {
-                    setTimeout(function () {
-                        var mx = param.buttonEl.parent().width();
-                        var iw = param.buttonEl.parent().find("i").width();
-                        var cw = param.buttonEl.find("span").width();
-                        cw = cw + iw + 18 * 2;
-                        if (cw > mx) {
-                            param.buttonEl.css("width", "calc( 100% - 16px )");
-                            param.buttonEl.css("text-overflow", "ellipsis");
-                            param.buttonEl.css("overflow", "hidden");
-                        } else {
-                            param.buttonEl.css("width", cw + "px");
-                            param.buttonEl.css("text-overflow", "");
-                            param.buttonEl.css("overflow", "auto");
-                        }
-                    }, 0);
+                    me.autoWidthDialogButton(param);
                 }
 
             }
@@ -2131,6 +2144,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         fillEmployeeDialogButtons:function () {
             // debugger
+            var me=this;
             var orgEls=$("button[action-type='emp-dialog']");
             if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
@@ -2178,13 +2192,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     for(var id in r.data) {
                         $("#"+id+"-button").find("span").text(r.data[id].join(","));
                     }
+
                 }
                 orgEls.find("i").animate({opacity:1.0},300,"swing");  //.css("opacity",0.0);
                 orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
+                for(var id in map) {
+                    me.autoWidthDialogButton({buttonEl: $("#" + id + "-button")});
+                }
             },"post",true);
 
         },
         fillOrgOrPosDialogButtons:function (type) {
+            var me=this;
             var orgEls=$("button[action-type='"+type+"-dialog']");
             if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
@@ -2253,6 +2272,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 orgEls.find("i").animate({opacity:1.0},300,"swing");  //.css("opacity",0.0);
                 orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
+                // debugger
+                for(var id in map) {
+                    me.autoWidthDialogButton({buttonEl:$("#"+id+"-button")});
+                }
             },"post",true);
         },
         compareDirtyFields(before,after) {

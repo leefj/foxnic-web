@@ -1,48 +1,55 @@
 package org.github.foxnic.web.system.service.impl;
 
-
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.MapUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.github.foxnic.dao.entity.ReferCause;
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
+
+
+import org.github.foxnic.web.domain.system.CodeExampleCar;
+import org.github.foxnic.web.domain.system.CodeExampleCarVO;
+import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.CodeExampleCar;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.ICodeExampleCarService;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import java.io.InputStream;
-import java.lang.reflect.Field;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.ICodeExampleCarService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- * 代码生成拥有的车辆 服务实现
+ * 代码生成拥有的车辆服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-02-07 09:03:10
+ * @since 2023-05-18 16:40:48
 */
 
 
 @Service("SysCodeExampleCarService")
+
 public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> implements ICodeExampleCarService {
 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -90,9 +97,9 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		return super.insertList(codeExampleCarList);
 	}
 
-
+	
 	/**
-	 * 按主键删除 代码生成拥有的车辆
+	 * 按主键删除代码生成拥有的车辆
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -111,9 +118,9 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 			return r;
 		}
 	}
-
+	
 	/**
-	 * 按主键删除 代码生成拥有的车辆
+	 * 按主键删除代码生成拥有的车辆
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -122,7 +129,7 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		CodeExampleCar codeExampleCar = new CodeExampleCar();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		codeExampleCar.setId(id);
-		codeExampleCar.setDeleted(dao.getDBTreaty().getTrueValue());
+		codeExampleCar.setDeleted(true);
 		codeExampleCar.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		codeExampleCar.setDeleteTime(new Date());
 		try {
@@ -171,9 +178,9 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		return super.updateList(codeExampleCarList , mode);
 	}
 
-
+	
 	/**
-	 * 按主键更新字段 代码生成拥有的车辆
+	 * 按主键更新代码生成拥有的车辆
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -185,9 +192,9 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		return suc>0;
 	}
 
-
+	
 	/**
-	 * 按主键获取 代码生成拥有的车辆
+	 * 按主键获取代码生成拥有的车辆
 	 *
 	 * @param id 主键
 	 * @return CodeExampleCar 数据对象
@@ -199,9 +206,22 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		return dao.queryEntity(sample);
 	}
 
+	/**
+	 * 等价于 queryListByIds
+	 * */
 	@Override
 	public List<CodeExampleCar> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<CodeExampleCar> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, CodeExampleCar> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, CodeExampleCar::getId);
 	}
 
 
@@ -213,7 +233,7 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<CodeExampleCar> queryList(CodeExampleCar sample) {
+	public List<CodeExampleCar> queryList(CodeExampleCarVO sample) {
 		return super.queryList(sample);
 	}
 
@@ -227,7 +247,7 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<CodeExampleCar> queryPagedList(CodeExampleCar sample, int pageSize, int pageIndex) {
+	public PagedList<CodeExampleCar> queryPagedList(CodeExampleCarVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -258,21 +278,10 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		return false;
 	}
 
-	@Override
-	public ExcelWriter exportExcel(CodeExampleCar sample) {
-		return super.exportExcel(sample);
-	}
-
-	@Override
-	public ExcelWriter exportExcelTemplate() {
-		return super.exportExcelTemplate();
-	}
-
-	@Override
-	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
-		return super.importExcel(input,sheetIndex,batch);
-	}
-
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
 	@Override
 	public <T> Map<T, ReferCause> hasRefers(List<T> ids) {
 		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
@@ -280,10 +289,8 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
-	@Override
-	public ExcelStructure buildExcelStructure(boolean isForExport) {
-		return super.buildExcelStructure(isForExport);
-	}
+
+
 
 
 }

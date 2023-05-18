@@ -6,13 +6,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.Employee;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-02-07 09:03:10
- * @sign 200EBBE1F5C5228B9E91FB19A6ABC9B1
+ * @since 2023-05-18 16:40:48
+ * @sign 634301F9789E71FEAFD95F27C5E46B67
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -597,5 +598,54 @@ public class CodeExampleCarMeta {
 			super.setEmployee(employee);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public CodeExampleCar clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public CodeExampleCar duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setEmpId(this.getEmpId());
+			inst.setPositionIds(this.getPositionIds());
+			inst.setSelectEmpId(this.getSelectEmpId());
+			inst.setExampleId(this.getExampleId());
+			inst.setColor(this.getColor());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setPlateNumber(this.getPlateNumber());
+			inst.setVersion(this.getVersion());
+			inst.setOrgId(this.getOrgId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setPositionId(this.getPositionId());
+			inst.setOrgIds(this.getOrgIds());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setSubOrgId(this.getSubOrgId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setComId(this.getComId());
+			inst.setDeptIds(this.getDeptIds());
+			inst.setEmpIds(this.getEmpIds());
+			if(all) {
+				inst.setSubOrganization(this.getSubOrganization());
+				inst.setOrganization(this.getOrganization());
+				inst.setCompany(this.getCompany());
+				inst.setPosition(this.getPosition());
+				inst.setEmployee(this.getEmployee());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -1,30 +1,38 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_CAR;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.Employee;
-import javax.persistence.Transient;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 代码生成拥有的车辆
+ * <p>代码生成拥有的车辆 , 数据表 sys_code_example_car 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-02-07 09:03:10
- * @sign 200EBBE1F5C5228B9E91FB19A6ABC9B1
+ * @since 2023-05-18 16:40:47
+ * @sign 634301F9789E71FEAFD95F27C5E46B67
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "sys_code_example_car")
+@ApiModel(description = "代码生成拥有的车辆 ; 代码生成拥有的车辆 , 数据表 sys_code_example_car 的PO类型")
 public class CodeExampleCar extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -35,19 +43,19 @@ public class CodeExampleCar extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "476464971060871168")
 	private String id;
 	
 	/**
 	 * 属主ID：属主ID
 	*/
-	@ApiModelProperty(required = false,value="属主ID" , notes = "属主ID")
+	@ApiModelProperty(required = false,value="属主ID" , notes = "属主ID" , example = "476069797533057024")
 	private String exampleId;
 	
 	/**
 	 * 车牌号：车牌号
 	*/
-	@ApiModelProperty(required = false,value="车牌号" , notes = "车牌号")
+	@ApiModelProperty(required = false,value="车牌号" , notes = "车牌号" , example = "110352963290923110")
 	private String plateNumber;
 	
 	/**
@@ -59,7 +67,7 @@ public class CodeExampleCar extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "1")
 	private Integer version;
 	
 	/**
@@ -89,8 +97,11 @@ public class CodeExampleCar extends Entity {
 	/**
 	 * 是否已删除：是否已删除
 	*/
-	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除" , example = "0")
 	private Integer deleted;
+	@Transient
+	@EnumFor("deleted")
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -375,12 +386,43 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public CodeExampleCar setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public CodeExampleCar setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -737,6 +779,62 @@ public class CodeExampleCar extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CodeExampleCar clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CodeExampleCar duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta.$$proxy$$();
+		inst.setEmpId(this.getEmpId());
+		inst.setPositionIds(this.getPositionIds());
+		inst.setSelectEmpId(this.getSelectEmpId());
+		inst.setExampleId(this.getExampleId());
+		inst.setColor(this.getColor());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setPlateNumber(this.getPlateNumber());
+		inst.setVersion(this.getVersion());
+		inst.setOrgId(this.getOrgId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setPositionId(this.getPositionId());
+		inst.setOrgIds(this.getOrgIds());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setSubOrgId(this.getSubOrgId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setComId(this.getComId());
+		inst.setDeptIds(this.getDeptIds());
+		inst.setEmpIds(this.getEmpIds());
+		if(all) {
+			inst.setSubOrganization(this.getSubOrganization());
+			inst.setOrganization(this.getOrganization());
+			inst.setCompany(this.getCompany());
+			inst.setPosition(this.getPosition());
+			inst.setEmployee(this.getEmployee());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CodeExampleCar clone(boolean deep) {
+		return EntityContext.clone(CodeExampleCar.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 CodeExampleCar
 	 * @param codeExampleCarMap 包含实体信息的 Map 对象
 	 * @return CodeExampleCar , 转换好的的 CodeExampleCar 对象
@@ -744,7 +842,9 @@ public class CodeExampleCar extends Entity {
 	@Transient
 	public static CodeExampleCar createFrom(Map<String,Object> codeExampleCarMap) {
 		if(codeExampleCarMap==null) return null;
-		CodeExampleCar po = EntityContext.create(CodeExampleCar.class, codeExampleCarMap);
+		CodeExampleCar po = create();
+		EntityContext.copyProperties(po,codeExampleCarMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -756,7 +856,9 @@ public class CodeExampleCar extends Entity {
 	@Transient
 	public static CodeExampleCar createFrom(Object pojo) {
 		if(pojo==null) return null;
-		CodeExampleCar po = EntityContext.create(CodeExampleCar.class,pojo);
+		CodeExampleCar po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -766,6 +868,144 @@ public class CodeExampleCar extends Entity {
 	*/
 	@Transient
 	public static CodeExampleCar create() {
-		return EntityContext.create(CodeExampleCar.class);
+		return new org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setEmpId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.EMP_ID)));
+			this.setPositionIds(DataParser.parse(String.class, map.get(CodeExampleCarMeta.POSITION_IDS)));
+			this.setSelectEmpId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.SELECT_EMP_ID)));
+			this.setExampleId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.EXAMPLE_ID)));
+			this.setColor(DataParser.parse(String.class, map.get(CodeExampleCarMeta.COLOR)));
+			this.setUpdateTime(DataParser.parse(Date.class, map.get(CodeExampleCarMeta.UPDATE_TIME)));
+			this.setPlateNumber(DataParser.parse(String.class, map.get(CodeExampleCarMeta.PLATE_NUMBER)));
+			this.setVersion(DataParser.parse(Integer.class, map.get(CodeExampleCarMeta.VERSION)));
+			this.setOrgId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.ORG_ID)));
+			this.setCreateBy(DataParser.parse(String.class, map.get(CodeExampleCarMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, map.get(CodeExampleCarMeta.DELETED)));
+			this.setPositionId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.POSITION_ID)));
+			this.setOrgIds(DataParser.parse(String.class, map.get(CodeExampleCarMeta.ORG_IDS)));
+			this.setCreateTime(DataParser.parse(Date.class, map.get(CodeExampleCarMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, map.get(CodeExampleCarMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, map.get(CodeExampleCarMeta.DELETE_TIME)));
+			this.setSubOrgId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.SUB_ORG_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, map.get(CodeExampleCarMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.ID)));
+			this.setComId(DataParser.parse(String.class, map.get(CodeExampleCarMeta.COM_ID)));
+			this.setDeptIds(DataParser.parse(String.class, map.get(CodeExampleCarMeta.DEPT_IDS)));
+			this.setEmpIds(DataParser.parse(String.class, map.get(CodeExampleCarMeta.EMP_IDS)));
+			// others
+			this.setSubOrganization(DataParser.parse(Organization.class, map.get(CodeExampleCarMeta.SUB_ORGANIZATION)));
+			this.setOrganization(DataParser.parse(Organization.class, map.get(CodeExampleCarMeta.ORGANIZATION)));
+			this.setCompany(DataParser.parse(Organization.class, map.get(CodeExampleCarMeta.COMPANY)));
+			this.setPosition(DataParser.parse(Position.class, map.get(CodeExampleCarMeta.POSITION)));
+			this.setEmployee(DataParser.parse(Employee.class, map.get(CodeExampleCarMeta.EMPLOYEE)));
+			return true;
+		} else {
+			try {
+				this.setEmpId( (String)map.get(CodeExampleCarMeta.EMP_ID));
+				this.setPositionIds( (String)map.get(CodeExampleCarMeta.POSITION_IDS));
+				this.setSelectEmpId( (String)map.get(CodeExampleCarMeta.SELECT_EMP_ID));
+				this.setExampleId( (String)map.get(CodeExampleCarMeta.EXAMPLE_ID));
+				this.setColor( (String)map.get(CodeExampleCarMeta.COLOR));
+				this.setUpdateTime( (Date)map.get(CodeExampleCarMeta.UPDATE_TIME));
+				this.setPlateNumber( (String)map.get(CodeExampleCarMeta.PLATE_NUMBER));
+				this.setVersion( (Integer)map.get(CodeExampleCarMeta.VERSION));
+				this.setOrgId( (String)map.get(CodeExampleCarMeta.ORG_ID));
+				this.setCreateBy( (String)map.get(CodeExampleCarMeta.CREATE_BY));
+				this.setDeleted( (Integer)map.get(CodeExampleCarMeta.DELETED));
+				this.setPositionId( (String)map.get(CodeExampleCarMeta.POSITION_ID));
+				this.setOrgIds( (String)map.get(CodeExampleCarMeta.ORG_IDS));
+				this.setCreateTime( (Date)map.get(CodeExampleCarMeta.CREATE_TIME));
+				this.setUpdateBy( (String)map.get(CodeExampleCarMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)map.get(CodeExampleCarMeta.DELETE_TIME));
+				this.setSubOrgId( (String)map.get(CodeExampleCarMeta.SUB_ORG_ID));
+				this.setDeleteBy( (String)map.get(CodeExampleCarMeta.DELETE_BY));
+				this.setId( (String)map.get(CodeExampleCarMeta.ID));
+				this.setComId( (String)map.get(CodeExampleCarMeta.COM_ID));
+				this.setDeptIds( (String)map.get(CodeExampleCarMeta.DEPT_IDS));
+				this.setEmpIds( (String)map.get(CodeExampleCarMeta.EMP_IDS));
+				// others
+				this.setSubOrganization( (Organization)map.get(CodeExampleCarMeta.SUB_ORGANIZATION));
+				this.setOrganization( (Organization)map.get(CodeExampleCarMeta.ORGANIZATION));
+				this.setCompany( (Organization)map.get(CodeExampleCarMeta.COMPANY));
+				this.setPosition( (Position)map.get(CodeExampleCarMeta.POSITION));
+				this.setEmployee( (Employee)map.get(CodeExampleCarMeta.EMPLOYEE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setEmpId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.EMP_ID)));
+			this.setPositionIds(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.POSITION_IDS)));
+			this.setSelectEmpId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.SELECT_EMP_ID)));
+			this.setExampleId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.EXAMPLE_ID)));
+			this.setColor(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.COLOR)));
+			this.setUpdateTime(DataParser.parse(Date.class, r.getValue(CodeExampleCarMeta.UPDATE_TIME)));
+			this.setPlateNumber(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.PLATE_NUMBER)));
+			this.setVersion(DataParser.parse(Integer.class, r.getValue(CodeExampleCarMeta.VERSION)));
+			this.setOrgId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.ORG_ID)));
+			this.setCreateBy(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.CREATE_BY)));
+			this.setDeleted(DataParser.parse(Integer.class, r.getValue(CodeExampleCarMeta.DELETED)));
+			this.setPositionId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.POSITION_ID)));
+			this.setOrgIds(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.ORG_IDS)));
+			this.setCreateTime(DataParser.parse(Date.class, r.getValue(CodeExampleCarMeta.CREATE_TIME)));
+			this.setUpdateBy(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.UPDATE_BY)));
+			this.setDeleteTime(DataParser.parse(Date.class, r.getValue(CodeExampleCarMeta.DELETE_TIME)));
+			this.setSubOrgId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.SUB_ORG_ID)));
+			this.setDeleteBy(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.DELETE_BY)));
+			this.setId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.ID)));
+			this.setComId(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.COM_ID)));
+			this.setDeptIds(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.DEPT_IDS)));
+			this.setEmpIds(DataParser.parse(String.class, r.getValue(CodeExampleCarMeta.EMP_IDS)));
+			return true;
+		} else {
+			try {
+				this.setEmpId( (String)r.getValue(CodeExampleCarMeta.EMP_ID));
+				this.setPositionIds( (String)r.getValue(CodeExampleCarMeta.POSITION_IDS));
+				this.setSelectEmpId( (String)r.getValue(CodeExampleCarMeta.SELECT_EMP_ID));
+				this.setExampleId( (String)r.getValue(CodeExampleCarMeta.EXAMPLE_ID));
+				this.setColor( (String)r.getValue(CodeExampleCarMeta.COLOR));
+				this.setUpdateTime( (Date)r.getValue(CodeExampleCarMeta.UPDATE_TIME));
+				this.setPlateNumber( (String)r.getValue(CodeExampleCarMeta.PLATE_NUMBER));
+				this.setVersion( (Integer)r.getValue(CodeExampleCarMeta.VERSION));
+				this.setOrgId( (String)r.getValue(CodeExampleCarMeta.ORG_ID));
+				this.setCreateBy( (String)r.getValue(CodeExampleCarMeta.CREATE_BY));
+				this.setDeleted( (Integer)r.getValue(CodeExampleCarMeta.DELETED));
+				this.setPositionId( (String)r.getValue(CodeExampleCarMeta.POSITION_ID));
+				this.setOrgIds( (String)r.getValue(CodeExampleCarMeta.ORG_IDS));
+				this.setCreateTime( (Date)r.getValue(CodeExampleCarMeta.CREATE_TIME));
+				this.setUpdateBy( (String)r.getValue(CodeExampleCarMeta.UPDATE_BY));
+				this.setDeleteTime( (Date)r.getValue(CodeExampleCarMeta.DELETE_TIME));
+				this.setSubOrgId( (String)r.getValue(CodeExampleCarMeta.SUB_ORG_ID));
+				this.setDeleteBy( (String)r.getValue(CodeExampleCarMeta.DELETE_BY));
+				this.setId( (String)r.getValue(CodeExampleCarMeta.ID));
+				this.setComId( (String)r.getValue(CodeExampleCarMeta.COM_ID));
+				this.setDeptIds( (String)r.getValue(CodeExampleCarMeta.DEPT_IDS));
+				this.setEmpIds( (String)r.getValue(CodeExampleCarMeta.EMP_IDS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }
