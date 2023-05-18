@@ -23,7 +23,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 商务来案
  * <p>商务来案 , 数据表 bpm_demo_business_case 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-27 11:44:46
+ * @since 2023-05-18 15:47:22
  * @sign C13DA9E088B96752C98AC55E9564FE7C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -40,19 +40,19 @@ public class DemoBusinessCase extends Entity {
 	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "680098446354415616")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键" , example = "711508487120617472")
 	private String id;
 	
 	/**
 	 * 案件情况：案件情况
 	*/
-	@ApiModelProperty(required = false,value="案件情况" , notes = "案件情况" , example = "来案-1，很好！")
+	@ApiModelProperty(required = false,value="案件情况" , notes = "案件情况" , example = "2342343")
 	private String factNote;
 	
 	/**
 	 * 状态：状态
 	*/
-	@ApiModelProperty(required = false,value="状态" , notes = "状态")
+	@ApiModelProperty(required = false,value="状态" , notes = "状态" , example = "N1 : 商务来案")
 	private String status;
 	
 	/**

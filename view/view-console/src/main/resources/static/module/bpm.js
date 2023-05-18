@@ -152,7 +152,6 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             admin.finishPopupCenterById(winId);
         },
 
-
         /**
          * 打开流程界面
          * processInstanceId 流程ID

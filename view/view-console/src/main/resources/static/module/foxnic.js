@@ -2082,26 +2082,29 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
+
+                // 如果自动宽度
+                if(param.autoWidth) {
+                    setTimeout(function () {
+                        var mx = param.buttonEl.parent().width();
+                        var iw = param.buttonEl.parent().find("i").width();
+                        var cw = param.buttonEl.find("span").width();
+                        cw = cw + iw + 18 * 2;
+                        if (cw > mx) {
+                            param.buttonEl.css("width", "calc( 100% - 16px )");
+                            param.buttonEl.css("text-overflow", "ellipsis");
+                            param.buttonEl.css("overflow", "hidden");
+                        } else {
+                            param.buttonEl.css("width", cw + "px");
+                            param.buttonEl.css("text-overflow", "");
+                            param.buttonEl.css("overflow", "auto");
+                        }
+                    }, 0);
+                }
+
             }
 
-            // 如果自动宽度
-            if(param.autoWidth) {
-                setTimeout(function () {
-                    var mx = param.buttonEl.parent().width();
-                    var iw = param.buttonEl.parent().find("i").width();
-                    var cw = param.buttonEl.find("span").width();
-                    cw = cw + iw + 18 * 2;
-                    if (cw > mx) {
-                        param.buttonEl.css("width", "calc( 100% - 16px )");
-                        param.buttonEl.css("text-overflow", "ellipsis");
-                        param.buttonEl.css("overflow", "hidden");
-                    } else {
-                        param.buttonEl.css("width", cw + "px");
-                        param.buttonEl.css("text-overflow", "");
-                        param.buttonEl.css("overflow", "auto");
-                    }
-                }, 0);
-            }
+
 
             //debugger
             admin.putTempData("employee-dialog-value",value,true);
