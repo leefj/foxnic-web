@@ -182,7 +182,11 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 		}
 		Result result=super.update(role , mode);
 		if(result.success()) {
-			String userId=SessionUser.getCurrent().getUserId();
+			String userId= null;
+			SessionUser user=SessionUser.getCurrent();
+			if(user!=null) {
+				userId=user.getUserId();
+			}
 			if (role instanceof RoleVO) {
 				RoleVO vo = (RoleVO) role;
 				if(vo.getMenuIds()!=null && vo.getMenuIds().size()==1 && "$not_changed".equals(vo.getMenuIds().get(0))) {

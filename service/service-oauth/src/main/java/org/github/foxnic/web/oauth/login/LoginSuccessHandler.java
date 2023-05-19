@@ -99,6 +99,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		online.setSessionTime(request.getSession().getMaxInactiveInterval());
 		online.setHostId(Machine.getIdentity());
 		online.setNodeId(SpringUtil.getNodeInstanceId());
+		online.setDeleted(0);
+		online.setVersion(0);
 
 		onlineService.save(online, SaveMode.ALL_FIELDS);
 
