@@ -40,7 +40,7 @@ public class BpmConfigs {
     /**
      * 是否在调试范围内
      * */
-    public boolean isInRange(String processDefinitionCode) {
+    public boolean isInRangeX(String processDefinitionCode) {
         // 如果未开启调试，全部在范围内
         if(!isEnableBpmDebug()) return true;
         if(StringUtil.isBlank(processDefinitionCodeList)) return true;

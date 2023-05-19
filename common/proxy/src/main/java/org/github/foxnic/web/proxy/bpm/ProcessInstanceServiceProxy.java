@@ -135,7 +135,7 @@ public interface ProcessInstanceServiceProxy {
 
 
     @RequestMapping(ProcessInstanceServiceProxy.UPDATE_SYNC_STATUS)
-    Result updateSyncStatus(@RequestParam(name = "processInstanceId") String processInstanceId);
+    Result updateSyncStatus(@RequestParam(name = "model") ProcessSyncModel model);
     /**
      * 删除流程实例
      */
