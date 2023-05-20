@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.spring.SpringUtil;
@@ -21,6 +22,7 @@ import org.github.foxnic.web.oauth.config.user.SessionUserDetailsManager;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.jwt.reader.TokenReaderManager;
 import org.github.foxnic.web.oauth.login.LoginSuccessHandler;
+import org.github.foxnic.web.oauth.session.SessionContext;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
@@ -317,10 +319,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Logger.error("Jwt Token 认证失败",e);
         }
 
-
-
     }
 
+    private static LocalCache<String,UserDetails> USER_DETAILS_CACHE = new LocalCache<>(1000 * 30 );
     /**
      * 具体的认证方法  匿名访问不要携带token
      * 有些逻辑自己补充 这里只做基本功能的实现
@@ -330,7 +331,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     private void authenticationClusterTokenHandler(ClusterToken token, FilterChain chain, HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-            UserDetails user=sessionUserDetailsManager.loadUserByUsername(token.getAccount());
+
+            UserDetails user=USER_DETAILS_CACHE.get(token.getAccount());
+            if(user==null) {
+                user = sessionUserDetailsManager.loadUserByUsername(token.getAccount());
+                USER_DETAILS_CACHE.put(token.getAccount(),user);
+            }
             SessionUserImpl sessionUser=(SessionUserImpl)user;
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, sessionUser.getAuthorities());
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

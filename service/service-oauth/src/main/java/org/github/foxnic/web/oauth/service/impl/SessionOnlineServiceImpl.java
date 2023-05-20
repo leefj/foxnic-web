@@ -270,13 +270,14 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	@Override
 	public void onlineAnon(HttpSession session) {
 
-		SessionOnline sessionOnline  = new SessionOnline();
+		SessionOnline sessionOnline  = this.getById(session.getId());
+		if(sessionOnline==null) {
+			sessionOnline=SessionOnline.create();
+		}
 		sessionOnline.setId(session.getId()).setSessionId(session.getId()).setOnline(1).setSessionTime(session.getMaxInactiveInterval());
 		sessionOnline.setHostId(Machine.getIdentity());
 		sessionOnline.setNodeId(SpringUtil.getNodeInstanceId());
-		this.insert(sessionOnline);
-
-
+		this.save(sessionOnline,SaveMode.DIRTY_FIELDS);
 
 	}
 
