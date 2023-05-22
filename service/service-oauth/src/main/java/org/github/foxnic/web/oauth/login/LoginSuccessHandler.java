@@ -87,9 +87,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
 		SessionOnline online=onlineService.getById(initId);
+		boolean doUpdate=true;
 		if(online==null) {
 			online=SessionOnline.create();
 			online.setId(initId);
+			doUpdate=false;
 		}
 		online.setUserId(securityUser.getUser().getId());
 		online.setOnline(1);
@@ -101,8 +103,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		online.setNodeId(SpringUtil.getNodeInstanceId());
 		online.setDeleted(0);
 		online.setVersion(0);
+		if(doUpdate) {
+			onlineService.update(online, SaveMode.ALL_FIELDS);
+		} else {
+			onlineService.insert(online);
+		}
 
-		onlineService.save(online, SaveMode.ALL_FIELDS);
 
 
 		//放入缓存

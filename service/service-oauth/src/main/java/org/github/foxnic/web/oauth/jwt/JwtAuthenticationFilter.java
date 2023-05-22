@@ -302,7 +302,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String key="userId:"+userId.value();
         UserDetails user=USER_DETAILS_CACHE.get(key);
         if(user==null) {
-            user = sessionUserDetailsManager.loadUserByUsername(key);
+            user = sessionUserDetailsManager.loadUserByUsername(userId.value());
             USER_DETAILS_CACHE.put(key,user);
         }
         SessionUserImpl sessionUser=(SessionUserImpl)user;
@@ -339,7 +339,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String key="account:"+token.getAccount();
             UserDetails user=USER_DETAILS_CACHE.get(key);
             if(user==null) {
-                user = sessionUserDetailsManager.loadUserByUsername(key);
+                user = sessionUserDetailsManager.loadUserByUsername(token.getAccount());
                 USER_DETAILS_CACHE.put(key,user);
             }
             SessionUserImpl sessionUser=(SessionUserImpl)user;
