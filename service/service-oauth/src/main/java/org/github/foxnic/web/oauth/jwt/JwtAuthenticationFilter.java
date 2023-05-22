@@ -299,7 +299,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     private void authenticationJwtTokenHandler(TokenReader.UserId userId, HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-        UserDetails user=sessionUserDetailsManager.loadUserByUsername(userId.value());
+        String key="userId:"+userId.value();
+        UserDetails user=USER_DETAILS_CACHE.get(key);
+        if(user==null) {
+            user = sessionUserDetailsManager.loadUserByUsername(key);
+            USER_DETAILS_CACHE.put(key,user);
+        }
         SessionUserImpl sessionUser=(SessionUserImpl)user;
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, sessionUser.getAuthorities());
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -321,7 +326,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     }
 
-    private static LocalCache<String,UserDetails> USER_DETAILS_CACHE = new LocalCache<>(1000 * 30 );
+    private static LocalCache<String,UserDetails> USER_DETAILS_CACHE = new LocalCache<>(1000 * 60 * 5 );
     /**
      * 具体的认证方法  匿名访问不要携带token
      * 有些逻辑自己补充 这里只做基本功能的实现
@@ -331,11 +336,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     private void authenticationClusterTokenHandler(ClusterToken token, FilterChain chain, HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-
-            UserDetails user=USER_DETAILS_CACHE.get(token.getAccount());
+            String key="account:"+token.getAccount();
+            UserDetails user=USER_DETAILS_CACHE.get(key);
             if(user==null) {
-                user = sessionUserDetailsManager.loadUserByUsername(token.getAccount());
-                USER_DETAILS_CACHE.put(token.getAccount(),user);
+                user = sessionUserDetailsManager.loadUserByUsername(key);
+                USER_DETAILS_CACHE.put(key,user);
             }
             SessionUserImpl sessionUser=(SessionUserImpl)user;
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, sessionUser.getAuthorities());
