@@ -26,7 +26,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程分类
  * <p>流程分类 , 数据表 bpm_catalog 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-06 16:41:13
+ * @since 2023-05-23 14:15:40
  * @sign 0EAE15AA705C561AED85EDAE5103D8B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -55,7 +55,7 @@ public class Catalog extends Entity {
 	/**
 	 * 备注：备注
 	*/
-	@ApiModelProperty(required = false,value="备注" , notes = "备注" , example = "无")
+	@ApiModelProperty(required = false,value="备注" , notes = "备注" , example = "测试")
 	private String notes;
 	
 	/**
@@ -73,13 +73,13 @@ public class Catalog extends Entity {
 	/**
 	 * 序号：序号
 	*/
-	@ApiModelProperty(required = false,value="序号" , notes = "序号" , example = "1")
+	@ApiModelProperty(required = false,value="序号" , notes = "序号" , example = "5")
 	private Integer sort;
 	
 	/**
 	 * 生效：生效
 	*/
-	@ApiModelProperty(required = false,value="生效" , notes = "生效" , example = "1")
+	@ApiModelProperty(required = false,value="生效" , notes = "生效" , example = "0")
 	private Integer valid;
 	
 	/**
@@ -103,7 +103,7 @@ public class Catalog extends Entity {
 	/**
 	 * 修改时间：修改时间
 	*/
-	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-03-23 04:21:34")
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间" , example = "2023-05-16 02:30:58")
 	private Date updateTime;
 	
 	/**
@@ -130,7 +130,7 @@ public class Catalog extends Entity {
 	/**
 	 * 数据版本号：数据版本号
 	*/
-	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "3")
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号" , example = "7")
 	private Integer version;
 	
 	/**

@@ -98,4 +98,9 @@ public class CatalogConfig extends BaseCodeConfig<BPM_CATALOG> {
                 .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
+
+    public static void main(String[] args) {
+        execute();
+    }
+
 }

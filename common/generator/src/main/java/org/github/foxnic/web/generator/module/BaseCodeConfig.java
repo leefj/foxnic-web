@@ -80,6 +80,9 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
         //设置微服务命名常量
         mdu.setMicroServiceNameConst(MicroServiceNames.class.getName()+"."+procfg.getAppMicroServiceNameConst());
 
+        //
+        CodeStarter.copyTemplateFiles();
+
         return mdu;
 
     }
