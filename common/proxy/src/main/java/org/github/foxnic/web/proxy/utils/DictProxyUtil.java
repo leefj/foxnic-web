@@ -56,6 +56,9 @@ public class DictProxyUtil {
 
     public JSONArray toArray(String dictCode) {
         JSONArray array=new JSONArray();
+        if(StringUtil.isBlank(dictCode)) {
+            return array;
+        }
         List<DictItem> list=getList(dictCode);
         for (DictItem e : list) {
             JSONObject item=new JSONObject();

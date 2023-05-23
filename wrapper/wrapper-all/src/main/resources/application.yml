@@ -93,7 +93,7 @@ spring:
         # 是否使用简单模式输出日志
         printSQLSimple: false
         # 是否输出调用栈
-        printSQLCallstack: true
+        printSQLCallstack: false
 
   thymeleaf:
     prefix: classpath:/public/
