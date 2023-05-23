@@ -7,10 +7,7 @@ import com.github.foxnic.commons.environment.BrowserType;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.SSOConstants;
-import org.github.foxnic.web.constants.enums.system.SSOResponseFormat;
-import org.github.foxnic.web.constants.enums.system.Theme;
-import org.github.foxnic.web.constants.enums.system.VersionType;
+import org.github.foxnic.web.constants.enums.system.*;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.domain.system.LangVO;
@@ -147,15 +144,25 @@ public class PortalPageController extends ViewController  {
 			fullTitle+="("+versionName+"_"+versionCode+")";
 		}
 
-		String loginDefault= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_DEFAULT);
+		Align loginAlign= SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_LOGIN_ALIGN, Align.class);
+		if(loginAlign==null) {
+			loginAlign=Align.CENTER;
+		}
+		String loginMargin= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_MARGIN);
+		if(StringUtil.isBlank(loginMargin)) {
+			loginMargin="0px";
+		}
+
+ 		String loginDefault= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_DEFAULT);
 		JSONObject loginDefaultJson=JSONObject.parseObject(loginDefault);
 
 		String[] bgImages=bgImage.split("\\|");
 		bgImage=bgImages[0];
 
+		model.addAttribute("loginAlign", loginAlign.code());
+		model.addAttribute("loginMargin", loginMargin);
 
-
-		model.addAttribute("theme_code", theme.code());
+		model.addAttribute("themeCode", theme.code());
 		model.addAttribute("bgImage", bgImage);
 		model.addAttribute("bgImages", bgImages);
 		model.addAttribute("shortTitle", shortTitle);

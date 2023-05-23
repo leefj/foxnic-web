@@ -3,10 +3,12 @@ package org.github.foxnic.web.system.theme;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.environment.BrowserType;
+import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.framework.view.controller.ViewController;
@@ -15,11 +17,13 @@ import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +31,21 @@ import java.util.List;
 public class PearThemeSupport extends ViewController {
 
 
-    @GetMapping("/console/pear/component/pear/css/pear-support.js")
-    public void pearJs(HttpServletResponse response) throws Exception {
+    public static final String PEAR_SUPPORT_JS = "/console/pear/component/pear/css/pear-support.js";
+    public static final String SUPPORT_CSS = "/console/pear/component/pear/css/pear-support.css";
 
+    public static final String PEAR_THEME_PREFIX = "/console/pear/component/pear/color/pear-theme-";
+
+    public static final String PEAR_THEME_RESOURCE_PREFIX = "/static/console/pear/component/pear/color/pear-theme-";
+    public static final String TABLE_NO_SPLIT_LINE_RESOURCE_CSS = "/static/console/pear/component/pear/color/table-no-split-line.css";
+
+    @GetMapping(PEAR_SUPPORT_JS)
+    public void pearJs(HttpServletResponse response) throws Exception {
         CodeBuilder js = new CodeBuilder();
-//        js.ln("alert('pear')");
         response.getWriter().print(js.toString());
     }
 
-    @GetMapping("/console/pear/component/pear/css/pear-support.css")
+    @GetMapping(SUPPORT_CSS)
     public void pearCss(HttpServletResponse response) throws Exception {
 
         if(this.getCurrentUer()==null) return;
@@ -51,7 +61,26 @@ public class PearThemeSupport extends ViewController {
         if(StringUtil.isBlank(cfg)) return;
         JSONObject json= JSONUtil.parseJSONObject(cfg);
         Integer id=json.getInteger("theme-color");
-        response.sendRedirect("/console/pear/component/pear/color/pear-theme-"+id+".css");
+        response.sendRedirect(PEAR_THEME_PREFIX +id+".css");
+
+    }
+
+    @GetMapping(PEAR_THEME_PREFIX+"{index}.css")
+    public void pearThemeCss(HttpServletResponse response,HttpServletRequest request,@PathVariable String index) throws Exception {
+        String path=PEAR_THEME_RESOURCE_PREFIX+index+".css";
+        InputStream inputStream = this.getClass().getResourceAsStream(path);
+        String css=StreamUtil.input2string(inputStream,"UTF-8");
+        inputStream.close();
+        response.getWriter().print(css);
+        YesNo tableSplitLine=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_UI_TABLE_SPLIT_LINE,YesNo.class);
+        if(tableSplitLine==null) {
+            tableSplitLine=YesNo.no;
+        }
+        if(tableSplitLine==YesNo.no) {
+            inputStream = this.getClass().getResourceAsStream(TABLE_NO_SPLIT_LINE_RESOURCE_CSS);
+            css=StreamUtil.input2string(inputStream,"UTF-8");
+            response.getWriter().print(css);
+        }
 
     }
 

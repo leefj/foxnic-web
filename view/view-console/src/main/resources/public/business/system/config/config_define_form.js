@@ -348,10 +348,10 @@ function FormPage() {
 				// 	admin.finishPopupCenterById('sys-config-form-data-win');
 				// }
 				// debugger;
-				if(dataBeforeEdit.type!=param.type || dataBeforeEdit.typeDesc!=param.typeDesc) {
+				//if(dataBeforeEdit.type!=param.type || dataBeforeEdit.typeDesc!=param.typeDesc) {
 					location.reload();
 					return;
-				}
+				//}
 
 				// 调整状态为编辑
 				notExistAction="edit";

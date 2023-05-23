@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-04-18 09:15:57
+ * @since 2023-05-23 17:01:22
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE profile_id='default' and type!='DIR' and deleted=0 and (code like 'system.%' or code like 'modules%') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -58,6 +58,21 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * default
 	*/
 	MODULES_ORG_GITHUB_FOXNIC_WEB_SYSTEM_SERVICE_IDICTSERVICE_IMPL_DEFAULT("modules.org.github.foxnic.web.system.service.IDictService.impl.default" , "default"),
+	
+	/**
+	 * 登录框位置
+	*/
+	SYSTEM_LOGIN_ALIGN("system.login.align" , "登录框位置"),
+	
+	/**
+	 * 登录框相对边距
+	*/
+	SYSTEM_LOGIN_MARGIN("system.login.margin" , "登录框相对边距"),
+	
+	/**
+	 * 竖向分割线
+	*/
+	SYSTEM_UI_TABLE_SPLIT_LINE("system.ui.table.split-line" , "竖向分割线"),
 	
 	/**
 	 * 缓存键
@@ -180,9 +195,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_TOOL_MYSQLDUMP("system.tool.mysqldump" , "mysqldump"),
 	
 	/**
-	 * 表格分页档位
+	 * 分页档位
 	*/
-	SYSTEM_UI_TABLE_PAGELEVELS("system.ui.table.pageLevels" , "表格分页档位"),
+	SYSTEM_UI_TABLE_PAGELEVELS("system.ui.table.pageLevels" , "分页档位"),
 	
 	/**
 	 * 版本代码

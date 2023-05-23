@@ -134,9 +134,11 @@
     var USER_LANGUAGE_PROP=[[${lang.getUserLanguage().property()}]];
     var USER_LANGUAGE_CODE=[[${lang.getUserLanguage().code()}]];
     var LANGUAGE_RANGE = [[${languageRange}]];
+    var FORM_ALIGN = [[${loginAlign}]];
+    var FORM_MARGIN = [[${loginMargin}]];
 </script>
 <script>
-    localStorage.setItem("theme","[[${theme_code}]]");
+    localStorage.setItem("theme","[[${themeCode}]]");
     if(window!=top) top.location="/login.html"
     layui.config({
         base: 'module/'
@@ -149,8 +151,23 @@
             var formWidth = $("#login-panel").width();
             var formTop = (fullHeight - formHeight) * 0.4;
             var formLeft = (fullWidth - formWidth) / 2;
+            var margin=FORM_MARGIN.trim();
+            if(margin.endWith("%")) {
+                margin=margin.substring(0,margin.length);
+                margin=parseInt(margin);
+                margin=(fullWidth * margin ) /100;
+            }
             $("#login-panel").css("top", formTop + "px");
-            $("#login-panel").css("left", formLeft + "px");
+            if(FORM_ALIGN=="CENTER") {
+                $("#login-panel").css("left", formLeft + "px");
+            } else if(FORM_ALIGN=="LEFT") {
+                $("#login-panel").css("left", margin+"px");
+            } else if(FORM_ALIGN=="RIGHT") {
+                margin=fullWidth-margin-formWidth;
+                $("#login-panel").css("left", margin+"px");
+            }
+
+
             console.log("resize:"+formTop+","+formLeft);
         }
         updatePosition();

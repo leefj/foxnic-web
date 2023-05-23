@@ -6,12 +6,17 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2023-04-18 09:15:58
+ * @since 2023-05-23 17:01:23
  * @author 李方捷 , leefangjie@qq.com
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public enum HrContractYear  implements CodeTextEnum {
+	
+	/**
+	 * 2021年
+	*/
+	_2021("2021" , "2021年"),
 	
 	/**
 	 * 2022年
@@ -62,11 +67,6 @@ public enum HrContractYear  implements CodeTextEnum {
 	 * 2018年
 	*/
 	_2018("2018" , "2018年"),
-	
-	/**
-	 * 2021年
-	*/
-	_2021("2021" , "2021年"),
 	
 	/**
 	 * 2019年

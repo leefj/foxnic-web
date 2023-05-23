@@ -345,6 +345,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		if(StringUtil.isBlank(code)) return null;
 		Config sample=new Config();
 		sample.setCode(code);
+		sample.setValid(1);
 		Config cata = null;
 		for (String appliedProfileId : appliedProfileIds) {
 			// if(IConfigService.DEFAULT_PROFILE_ID.equals(appliedProfileId)) continue;

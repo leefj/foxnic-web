@@ -86,33 +86,6 @@ button[action-type] {
     color: #f56c6c;
 }
 
-.layui-table-view .layui-table th, .layui-table-view .layui-table td {
-    padding: 5px 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-td[data-field] {
-    border-right: solid #fff 1px;
-}
-
-.layui-table[lay-even] tr:nth-child(even) td[data-field] {
-    border-right: solid #FAFAFA 1px;
-}
-
-td[data-field=row-ops] {
-    border-right: solid #eee 1px !important;
-}
-
-th[data-field] {
-    border-right: solid #fafafa 1px !important;
-}
-
-th[data-field]:hover {
-    border-right: solid #eee 1px !important;
-}
-
 .version-no {
     border-color: #f56c6c;
     background: #f56c6c;
