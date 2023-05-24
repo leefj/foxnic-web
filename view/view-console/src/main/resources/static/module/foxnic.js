@@ -1825,6 +1825,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         if (thisVer === 'required') {
                             errorText = othis.attr('lay-reqText') || errorText
                         }
+                        if(!othis.attr('lay-reqText') && othis.parents('.layui-form-item').find(".layui-form-label").length>0) {
+                            var label=othis.parents('.layui-form-item').find(".layui-form-label").text();
+                            if(label) {
+                                label=label.replace("*","");
+                            }
+                            errorText = "请填写"+label;
+                        }
 
                         //如果是必填项或者非空命中校验，则阻止提交，弹出提示
                         if (isTrue) {

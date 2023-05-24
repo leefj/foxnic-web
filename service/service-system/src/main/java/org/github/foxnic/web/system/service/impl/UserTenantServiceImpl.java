@@ -55,10 +55,6 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	 * */
 	public DAO dao() { return dao; }
 
-
-
-
-
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
