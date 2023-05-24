@@ -93,4 +93,8 @@ public class DemoBusiCaseConfig extends BaseCodeConfig<BPM_DEMO_BUSINESS_CASE> {
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
+    public static void main(String[] args) {
+        execute();
+    }
+
 }
