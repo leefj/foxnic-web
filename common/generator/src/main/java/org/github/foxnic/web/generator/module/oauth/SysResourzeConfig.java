@@ -1,7 +1,6 @@
 package org.github.foxnic.web.generator.module.oauth;
 
 import com.github.foxnic.generator.builder.business.option.ControllerOptions;
-import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
@@ -10,11 +9,10 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.constants.enums.hrm.ResourceType;
+import org.github.foxnic.web.constants.enums.system.ResourceType;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
-import org.github.foxnic.web.proxy.system.DictServiceProxy;
 
 public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
 

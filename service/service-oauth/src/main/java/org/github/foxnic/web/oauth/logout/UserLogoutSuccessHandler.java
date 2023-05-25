@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.springboot.mvc.InvokeLogService;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.session.SessionContext;
@@ -28,12 +30,18 @@ import com.github.foxnic.api.error.ErrorDesc;
 public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
 
 
+	private InvokeLogService invokeLogService;
 	private ISessionOnlineService service;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-		if(service==null) service= SpringUtil.getBean(ISessionOnlineService.class);
+		if(invokeLogService==null) {
+			invokeLogService= SpringUtil.getBean(InvokeLogService.class);
+		}
+		if(service==null) {
+			service= SpringUtil.getBean(ISessionOnlineService.class);
+		}
 
 		if(service!=null) {
 			service.offline(SessionContext.getCurrentOnlineSessionId(),request.getSession());
@@ -54,7 +62,10 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
         String username = user.getUsername();
         Logger.info("username: {}  is offline now", username);
 
-        ResponseUtil.writeOK(response,ErrorDesc.success());
+		Result result =ErrorDesc.success();
+		invokeLogService.response(result);
+
+        ResponseUtil.writeOK(response,result);
     }
 
 

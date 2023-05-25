@@ -9,8 +9,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:52
- * @sign 1001880D3A20913EBC4BB6DA9DB43CF2
+ * @since 2023-05-25 15:55:57
+ * @sign C7EA5F85D0CCB4DA2E84D54F2AFCA1F8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +47,16 @@ public class InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> HOST_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,HOST_NAME, java.lang.String.class, "主机名称", "主机名称", java.lang.String.class, null);
 	
 	/**
+	 * 目标名称 , 类型: java.lang.String
+	*/
+	public static final String SUBJECT="subject";
+	
+	/**
+	 * 目标名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> SUBJECT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,SUBJECT, java.lang.String.class, "目标名称", "目标名称", java.lang.String.class, null);
+	
+	/**
 	 * 请求的URI , 类型: java.lang.String
 	*/
 	public static final String URI="uri";
@@ -55,6 +65,16 @@ public class InvokeLogMeta {
 	 * 请求的URI , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> URI_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,URI, java.lang.String.class, "请求的URI", "请求的URI", java.lang.String.class, null);
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
 	
 	/**
 	 * UserAgent , 类型: java.lang.String
@@ -97,14 +117,14 @@ public class InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> SESSION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,SESSION_ID, java.lang.String.class, "会话ID", "会话ID", java.lang.String.class, null);
 	
 	/**
-	 * 用户ID , 类型: java.lang.Long
+	 * 用户ID , 类型: java.lang.String
 	*/
 	public static final String USER_ID="userId";
 	
 	/**
-	 * 用户ID , 类型: java.lang.Long
+	 * 用户ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.Long> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,USER_ID, java.lang.Long.class, "用户ID", "用户ID", java.lang.Long.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,USER_ID, java.lang.String.class, "用户ID", "用户ID", java.lang.String.class, null);
 	
 	/**
 	 * 用户姓名 , 类型: java.lang.String
@@ -177,9 +197,29 @@ public class InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> EXCEPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,EXCEPTION, java.lang.String.class, "异常信息", "异常信息", java.lang.String.class, null);
 	
 	/**
+	 * 请求类型 , 类型: java.lang.String
+	*/
+	public static final String HTTP_METHOD="httpMethod";
+	
+	/**
+	 * 请求类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.String> HTTP_METHOD_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,HTTP_METHOD, java.lang.String.class, "请求类型", "请求类型", java.lang.String.class, null);
+	
+	/**
+	 * 写入进度 , 类型: java.lang.Integer
+	*/
+	public static final String STEP="step";
+	
+	/**
+	 * 写入进度 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLog,java.lang.Integer> STEP_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLog.class ,STEP, java.lang.Integer.class, "写入进度", "写入进度", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , APPLICATION , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION };
+	public static final String[] $PROPS={ ID , APPLICATION , HOST_NAME , SUBJECT , URI , TYPE , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION , HTTP_METHOD , STEP };
 	
 	/**
 	 * 代理类
@@ -223,6 +263,17 @@ public class InvokeLogMeta {
 		}
 		
 		/**
+		 * 设置 目标名称
+		 * @param subject 目标名称
+		 * @return 当前对象
+		*/
+		public InvokeLog setSubject(String subject) {
+			super.change(SUBJECT,super.getSubject(),subject);
+			super.setSubject(subject);
+			return this;
+		}
+		
+		/**
 		 * 设置 请求的URI
 		 * @param uri 请求的URI
 		 * @return 当前对象
@@ -230,6 +281,17 @@ public class InvokeLogMeta {
 		public InvokeLog setUri(String uri) {
 			super.change(URI,super.getUri(),uri);
 			super.setUri(uri);
+			return this;
+		}
+		
+		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public InvokeLog setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 		
@@ -282,7 +344,7 @@ public class InvokeLogMeta {
 		 * @param userId 用户ID
 		 * @return 当前对象
 		*/
-		public InvokeLog setUserId(Long userId) {
+		public InvokeLog setUserId(String userId) {
 			super.change(USER_ID,super.getUserId(),userId);
 			super.setUserId(userId);
 			return this;
@@ -364,6 +426,28 @@ public class InvokeLogMeta {
 			super.setException(exception);
 			return this;
 		}
+		
+		/**
+		 * 设置 请求类型
+		 * @param httpMethod 请求类型
+		 * @return 当前对象
+		*/
+		public InvokeLog setHttpMethod(String httpMethod) {
+			super.change(HTTP_METHOD,super.getHttpMethod(),httpMethod);
+			super.setHttpMethod(httpMethod);
+			return this;
+		}
+		
+		/**
+		 * 设置 写入进度
+		 * @param step 写入进度
+		 * @return 当前对象
+		*/
+		public InvokeLog setStep(Integer step) {
+			super.change(STEP,super.getStep(),step);
+			super.setStep(step);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -382,9 +466,12 @@ public class InvokeLogMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setException(this.getException());
 			inst.setHostName(this.getHostName());
+			inst.setSubject(this.getSubject());
 			inst.setUserAgent(this.getUserAgent());
 			inst.setSessionId(this.getSessionId());
+			inst.setType(this.getType());
 			inst.setUserName(this.getUserName());
+			inst.setHttpMethod(this.getHttpMethod());
 			inst.setUri(this.getUri());
 			inst.setUserId(this.getUserId());
 			inst.setTid(this.getTid());
@@ -396,6 +483,9 @@ public class InvokeLogMeta {
 			inst.setStartTime(this.getStartTime());
 			inst.setId(this.getId());
 			inst.setEndTime(this.getEndTime());
+			if(all) {
+				inst.setStep(this.getStep());
+			}
 			inst.clearModifies();
 			return inst;
 		}

@@ -2,7 +2,6 @@ package org.github.foxnic.web.constants.enums.system;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
-import org.github.foxnic.web.constants.enums.hrm.ResourceType;
 
 public enum HttpMethodType implements CodeTextEnum {
 	GET("向特定的资源发出请求。"),
@@ -21,7 +20,7 @@ public enum HttpMethodType implements CodeTextEnum {
 	public String code() {
 		return this.name();
 	}
-	
+
 	public String text() {
 		return this.name();
 	}

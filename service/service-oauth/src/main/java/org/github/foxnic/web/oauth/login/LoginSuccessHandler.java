@@ -9,6 +9,7 @@ import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.springboot.mvc.InvokeLogService;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -63,6 +64,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
 	private LanguageService languageService;
+
+	@Autowired
+	private InvokeLogService invokeLogService;
 
 
 
@@ -154,6 +158,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		JSONObject ret=makeLoginResponseJSON(request,response,authentication);
         Result r=ErrorDesc.success().message("登录成功").data(ret);
+		invokeLogService.response(r);
         ResponseUtil.writeOK(response, r);
 	}
 

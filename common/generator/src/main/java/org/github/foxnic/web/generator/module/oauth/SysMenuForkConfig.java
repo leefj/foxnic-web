@@ -7,9 +7,6 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU_FORK;
-import org.github.foxnic.web.constants.enums.hrm.ResourceType;
-import org.github.foxnic.web.constants.enums.system.AccessType;
-import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class SysMenuForkConfig extends BaseCodeConfig<SYS_MENU_FORK> {

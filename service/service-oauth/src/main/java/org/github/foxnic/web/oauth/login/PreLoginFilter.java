@@ -4,6 +4,7 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.proxy.InvokeSource;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.springboot.mvc.InvokeLogService;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.web.WebContext;
@@ -46,10 +47,13 @@ public class PreLoginFilter extends GenericFilterBean {
 
     private WebContext webContext;
 
+    private InvokeLogService invokeLogService;
+
     public PreLoginFilter(String loginProcessingUrl) {
         authenticationRequestMatcher = new AntPathRequestMatcher(loginProcessingUrl, "POST");
         captchaService=SpringUtil.getBean(ICaptchaService.class);
         webContext=SpringUtil.getBean(WebContext.class);
+        invokeLogService=SpringUtil.getBean(InvokeLogService.class);
     }
 
 
@@ -58,6 +62,7 @@ public class PreLoginFilter extends GenericFilterBean {
     	RequestParameter parameter=RequestParameter.get();
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
 
+        invokeLogService.start(parameter,null,((HttpServletRequest)request).getRequestURI(),((HttpServletRequest)request).getRequestURL().toString(),parameter.getRequestBody());
         // 检查接口禁用
         Boolean forbidden=webContext.isForbidden((HttpServletRequest)request);
         if(forbidden) {

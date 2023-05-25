@@ -22,8 +22,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 调用统计日志VO类型
  * <p>调用统计日志 , 数据表 sys_invoke_log 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:52
- * @sign B8DB3DC49B7EB1FEC08D22C688A9C8E6
+ * @since 2023-05-25 15:55:57
+ * @sign FD1A033162DE3433E30EA820DDB67269
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,24 @@ public class InvokeLogVO extends InvokeLog {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -242,6 +260,63 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public InvokeLogVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public InvokeLogVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public InvokeLogVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -328,9 +403,12 @@ public class InvokeLogVO extends InvokeLog {
 		org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.InvokeLogVOMeta.$$proxy$$();
 		inst.setException(this.getException());
 		inst.setHostName(this.getHostName());
+		inst.setSubject(this.getSubject());
 		inst.setUserAgent(this.getUserAgent());
 		inst.setSessionId(this.getSessionId());
+		inst.setType(this.getType());
 		inst.setUserName(this.getUserName());
+		inst.setHttpMethod(this.getHttpMethod());
 		inst.setUri(this.getUri());
 		inst.setUserId(this.getUserId());
 		inst.setTid(this.getTid());
@@ -344,13 +422,17 @@ public class InvokeLogVO extends InvokeLog {
 		inst.setEndTime(this.getEndTime());
 		if(all) {
 			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
 			inst.setPageIndex(this.getPageIndex());
 			inst.setSortType(this.getSortType());
-			inst.setFuzzyField(this.getFuzzyField());
 			inst.setDirtyFields(this.getDirtyFields());
 			inst.setSortField(this.getSortField());
-			inst.setPageSize(this.getPageSize());
+			inst.setDataOrigin(this.getDataOrigin());
 			inst.setIds(this.getIds());
+			inst.setStep(this.getStep());
+			inst.setQueryLogic(this.getQueryLogic());
 			inst.setSearchValue(this.getSearchValue());
 		}
 		inst.clearModifies();
@@ -413,11 +495,14 @@ public class InvokeLogVO extends InvokeLog {
 		if(cast) {
 			this.setException(DataParser.parse(String.class, map.get(InvokeLogVOMeta.EXCEPTION)));
 			this.setHostName(DataParser.parse(String.class, map.get(InvokeLogVOMeta.HOST_NAME)));
+			this.setSubject(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SUBJECT)));
 			this.setUserAgent(DataParser.parse(String.class, map.get(InvokeLogVOMeta.USER_AGENT)));
 			this.setSessionId(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SESSION_ID)));
+			this.setType(DataParser.parse(String.class, map.get(InvokeLogVOMeta.TYPE)));
 			this.setUserName(DataParser.parse(String.class, map.get(InvokeLogVOMeta.USER_NAME)));
+			this.setHttpMethod(DataParser.parse(String.class, map.get(InvokeLogVOMeta.HTTP_METHOD)));
 			this.setUri(DataParser.parse(String.class, map.get(InvokeLogVOMeta.URI)));
-			this.setUserId(DataParser.parse(Long.class, map.get(InvokeLogVOMeta.USER_ID)));
+			this.setUserId(DataParser.parse(String.class, map.get(InvokeLogVOMeta.USER_ID)));
 			this.setTid(DataParser.parse(String.class, map.get(InvokeLogVOMeta.TID)));
 			this.setToken(DataParser.parse(String.class, map.get(InvokeLogVOMeta.TOKEN)));
 			this.setApplication(DataParser.parse(String.class, map.get(InvokeLogVOMeta.APPLICATION)));
@@ -429,22 +514,29 @@ public class InvokeLogVO extends InvokeLog {
 			this.setEndTime(DataParser.parse(Timestamp.class, map.get(InvokeLogVOMeta.END_TIME)));
 			// others
 			this.setSearchField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(InvokeLogVOMeta.REQUEST_ACTION)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.PAGE_SIZE)));
 			this.setPageIndex(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.PAGE_INDEX)));
 			this.setSortType(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SORT_TYPE)));
-			this.setFuzzyField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.FUZZY_FIELD)));
 			this.setSortField(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SORT_FIELD)));
-			this.setPageSize(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.PAGE_SIZE)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(InvokeLogVOMeta.DATA_ORIGIN)));
+			this.setStep(DataParser.parse(Integer.class, map.get(InvokeLogVOMeta.STEP)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(InvokeLogVOMeta.QUERY_LOGIC)));
 			this.setSearchValue(DataParser.parse(String.class, map.get(InvokeLogVOMeta.SEARCH_VALUE)));
 			return true;
 		} else {
 			try {
 				this.setException( (String)map.get(InvokeLogVOMeta.EXCEPTION));
 				this.setHostName( (String)map.get(InvokeLogVOMeta.HOST_NAME));
+				this.setSubject( (String)map.get(InvokeLogVOMeta.SUBJECT));
 				this.setUserAgent( (String)map.get(InvokeLogVOMeta.USER_AGENT));
 				this.setSessionId( (String)map.get(InvokeLogVOMeta.SESSION_ID));
+				this.setType( (String)map.get(InvokeLogVOMeta.TYPE));
 				this.setUserName( (String)map.get(InvokeLogVOMeta.USER_NAME));
+				this.setHttpMethod( (String)map.get(InvokeLogVOMeta.HTTP_METHOD));
 				this.setUri( (String)map.get(InvokeLogVOMeta.URI));
-				this.setUserId( (Long)map.get(InvokeLogVOMeta.USER_ID));
+				this.setUserId( (String)map.get(InvokeLogVOMeta.USER_ID));
 				this.setTid( (String)map.get(InvokeLogVOMeta.TID));
 				this.setToken( (String)map.get(InvokeLogVOMeta.TOKEN));
 				this.setApplication( (String)map.get(InvokeLogVOMeta.APPLICATION));
@@ -456,11 +548,15 @@ public class InvokeLogVO extends InvokeLog {
 				this.setEndTime( (Timestamp)map.get(InvokeLogVOMeta.END_TIME));
 				// others
 				this.setSearchField( (String)map.get(InvokeLogVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(InvokeLogVOMeta.REQUEST_ACTION));
+				this.setFuzzyField( (String)map.get(InvokeLogVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(InvokeLogVOMeta.PAGE_SIZE));
 				this.setPageIndex( (Integer)map.get(InvokeLogVOMeta.PAGE_INDEX));
 				this.setSortType( (String)map.get(InvokeLogVOMeta.SORT_TYPE));
-				this.setFuzzyField( (String)map.get(InvokeLogVOMeta.FUZZY_FIELD));
 				this.setSortField( (String)map.get(InvokeLogVOMeta.SORT_FIELD));
-				this.setPageSize( (Integer)map.get(InvokeLogVOMeta.PAGE_SIZE));
+				this.setDataOrigin( (String)map.get(InvokeLogVOMeta.DATA_ORIGIN));
+				this.setStep( (Integer)map.get(InvokeLogVOMeta.STEP));
+				this.setQueryLogic( (String)map.get(InvokeLogVOMeta.QUERY_LOGIC));
 				this.setSearchValue( (String)map.get(InvokeLogVOMeta.SEARCH_VALUE));
 				return true;
 			} catch (Exception e) {
@@ -480,11 +576,14 @@ public class InvokeLogVO extends InvokeLog {
 		if(cast) {
 			this.setException(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.EXCEPTION)));
 			this.setHostName(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.HOST_NAME)));
+			this.setSubject(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.SUBJECT)));
 			this.setUserAgent(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.USER_AGENT)));
 			this.setSessionId(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.SESSION_ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.TYPE)));
 			this.setUserName(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.USER_NAME)));
+			this.setHttpMethod(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.HTTP_METHOD)));
 			this.setUri(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.URI)));
-			this.setUserId(DataParser.parse(Long.class, r.getValue(InvokeLogVOMeta.USER_ID)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.USER_ID)));
 			this.setTid(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.TID)));
 			this.setToken(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.TOKEN)));
 			this.setApplication(DataParser.parse(String.class, r.getValue(InvokeLogVOMeta.APPLICATION)));
@@ -499,11 +598,14 @@ public class InvokeLogVO extends InvokeLog {
 			try {
 				this.setException( (String)r.getValue(InvokeLogVOMeta.EXCEPTION));
 				this.setHostName( (String)r.getValue(InvokeLogVOMeta.HOST_NAME));
+				this.setSubject( (String)r.getValue(InvokeLogVOMeta.SUBJECT));
 				this.setUserAgent( (String)r.getValue(InvokeLogVOMeta.USER_AGENT));
 				this.setSessionId( (String)r.getValue(InvokeLogVOMeta.SESSION_ID));
+				this.setType( (String)r.getValue(InvokeLogVOMeta.TYPE));
 				this.setUserName( (String)r.getValue(InvokeLogVOMeta.USER_NAME));
+				this.setHttpMethod( (String)r.getValue(InvokeLogVOMeta.HTTP_METHOD));
 				this.setUri( (String)r.getValue(InvokeLogVOMeta.URI));
-				this.setUserId( (Long)r.getValue(InvokeLogVOMeta.USER_ID));
+				this.setUserId( (String)r.getValue(InvokeLogVOMeta.USER_ID));
 				this.setTid( (String)r.getValue(InvokeLogVOMeta.TID));
 				this.setToken( (String)r.getValue(InvokeLogVOMeta.TOKEN));
 				this.setApplication( (String)r.getValue(InvokeLogVOMeta.APPLICATION));

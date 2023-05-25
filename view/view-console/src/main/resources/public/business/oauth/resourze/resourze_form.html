@@ -143,7 +143,7 @@
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.ResourceType')}]];
     var RADIO_ACCESSTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}]];
     var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.HttpMethodType')}]];
     var VALIDATE_CONFIG={"accessType":{"labelInForm":"访问控制","inputType":"radio_box","required":true},"method":{"labelInForm":"Method","inputType":"radio_box","required":true},"name":{"labelInForm":"名称","inputType":"text_input","required":true},"type":{"labelInForm":"类型","inputType":"radio_box","required":true},"url":{"labelInForm":"地址","inputType":"text_input","required":true}};

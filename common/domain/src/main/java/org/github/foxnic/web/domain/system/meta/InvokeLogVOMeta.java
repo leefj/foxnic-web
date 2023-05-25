@@ -11,8 +11,8 @@ import javax.persistence.Transient;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:52
- * @sign B8DB3DC49B7EB1FEC08D22C688A9C8E6
+ * @since 2023-05-25 15:55:57
+ * @sign FD1A033162DE3433E30EA820DDB67269
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -99,6 +99,36 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String DATA_ORIGIN="dataOrigin";
+	
+	/**
+	 * 数据来源 , 前端指定不同的来源，后端可按来源执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> DATA_ORIGIN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,DATA_ORIGIN, java.lang.String.class, "数据来源", "前端指定不同的来源，后端可按来源执行不同的逻辑", java.lang.String.class, null);
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final String QUERY_LOGIC="queryLogic";
+	
+	/**
+	 * 查询逻辑 , 默认and，可指定 or  , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> QUERY_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,QUERY_LOGIC, java.lang.String.class, "查询逻辑", "默认and，可指定 or ", java.lang.String.class, null);
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final String REQUEST_ACTION="requestAction";
+	
+	/**
+	 * 请求动作 , 前端指定不同的Action，后端可Action执行不同的逻辑 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> REQUEST_ACTION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,REQUEST_ACTION, java.lang.String.class, "请求动作", "前端指定不同的Action，后端可Action执行不同的逻辑", java.lang.String.class, null);
+	
+	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Long
 	*/
 	public static final String IDS="ids";
@@ -139,6 +169,16 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> HOST_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,HOST_NAME, java.lang.String.class, "主机名称", "主机名称", java.lang.String.class, null);
 	
 	/**
+	 * 目标名称 , 类型: java.lang.String
+	*/
+	public static final String SUBJECT="subject";
+	
+	/**
+	 * 目标名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> SUBJECT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,SUBJECT, java.lang.String.class, "目标名称", "目标名称", java.lang.String.class, null);
+	
+	/**
 	 * 请求的URI , 类型: java.lang.String
 	*/
 	public static final String URI="uri";
@@ -147,6 +187,16 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 	 * 请求的URI , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> URI_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,URI, java.lang.String.class, "请求的URI", "请求的URI", java.lang.String.class, null);
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
 	
 	/**
 	 * UserAgent , 类型: java.lang.String
@@ -189,14 +239,14 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> SESSION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,SESSION_ID, java.lang.String.class, "会话ID", "会话ID", java.lang.String.class, null);
 	
 	/**
-	 * 用户ID , 类型: java.lang.Long
+	 * 用户ID , 类型: java.lang.String
 	*/
 	public static final String USER_ID="userId";
 	
 	/**
-	 * 用户ID , 类型: java.lang.Long
+	 * 用户ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.Long> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,USER_ID, java.lang.Long.class, "用户ID", "用户ID", java.lang.Long.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,USER_ID, java.lang.String.class, "用户ID", "用户ID", java.lang.String.class, null);
 	
 	/**
 	 * 用户姓名 , 类型: java.lang.String
@@ -269,9 +319,29 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> EXCEPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,EXCEPTION, java.lang.String.class, "异常信息", "异常信息", java.lang.String.class, null);
 	
 	/**
+	 * 请求类型 , 类型: java.lang.String
+	*/
+	public static final String HTTP_METHOD="httpMethod";
+	
+	/**
+	 * 请求类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.String> HTTP_METHOD_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,HTTP_METHOD, java.lang.String.class, "请求类型", "请求类型", java.lang.String.class, null);
+	
+	/**
+	 * 写入进度 , 类型: java.lang.Integer
+	*/
+	public static final String STEP="step";
+	
+	/**
+	 * 写入进度 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.InvokeLogVO,java.lang.Integer> STEP_PROP = new BeanProperty(org.github.foxnic.web.domain.system.InvokeLogVO.class ,STEP, java.lang.Integer.class, "写入进度", "写入进度", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , APPLICATION , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , DATA_ORIGIN , QUERY_LOGIC , REQUEST_ACTION , IDS , ID , APPLICATION , HOST_NAME , SUBJECT , URI , TYPE , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION , HTTP_METHOD , STEP };
 	
 	/**
 	 * 代理类
@@ -370,6 +440,39 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 		}
 		
 		/**
+		 * 设置 数据来源
+		 * @param dataOrigin 数据来源
+		 * @return 当前对象
+		*/
+		public InvokeLogVO setDataOrigin(String dataOrigin) {
+			super.change(DATA_ORIGIN,super.getDataOrigin(),dataOrigin);
+			super.setDataOrigin(dataOrigin);
+			return this;
+		}
+		
+		/**
+		 * 设置 查询逻辑
+		 * @param queryLogic 查询逻辑
+		 * @return 当前对象
+		*/
+		public InvokeLogVO setQueryLogic(String queryLogic) {
+			super.change(QUERY_LOGIC,super.getQueryLogic(),queryLogic);
+			super.setQueryLogic(queryLogic);
+			return this;
+		}
+		
+		/**
+		 * 设置 请求动作
+		 * @param requestAction 请求动作
+		 * @return 当前对象
+		*/
+		public InvokeLogVO setRequestAction(String requestAction) {
+			super.change(REQUEST_ACTION,super.getRequestAction(),requestAction);
+			super.setRequestAction(requestAction);
+			return this;
+		}
+		
+		/**
 		 * 设置 主键清单
 		 * @param ids 主键清单
 		 * @return 当前对象
@@ -414,6 +517,17 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 		}
 		
 		/**
+		 * 设置 目标名称
+		 * @param subject 目标名称
+		 * @return 当前对象
+		*/
+		public InvokeLog setSubject(String subject) {
+			super.change(SUBJECT,super.getSubject(),subject);
+			super.setSubject(subject);
+			return this;
+		}
+		
+		/**
 		 * 设置 请求的URI
 		 * @param uri 请求的URI
 		 * @return 当前对象
@@ -421,6 +535,17 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 		public InvokeLog setUri(String uri) {
 			super.change(URI,super.getUri(),uri);
 			super.setUri(uri);
+			return this;
+		}
+		
+		/**
+		 * 设置 类型
+		 * @param type 类型
+		 * @return 当前对象
+		*/
+		public InvokeLog setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 		
@@ -473,7 +598,7 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 		 * @param userId 用户ID
 		 * @return 当前对象
 		*/
-		public InvokeLog setUserId(Long userId) {
+		public InvokeLog setUserId(String userId) {
 			super.change(USER_ID,super.getUserId(),userId);
 			super.setUserId(userId);
 			return this;
@@ -555,6 +680,28 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 			super.setException(exception);
 			return this;
 		}
+		
+		/**
+		 * 设置 请求类型
+		 * @param httpMethod 请求类型
+		 * @return 当前对象
+		*/
+		public InvokeLog setHttpMethod(String httpMethod) {
+			super.change(HTTP_METHOD,super.getHttpMethod(),httpMethod);
+			super.setHttpMethod(httpMethod);
+			return this;
+		}
+		
+		/**
+		 * 设置 写入进度
+		 * @param step 写入进度
+		 * @return 当前对象
+		*/
+		public InvokeLog setStep(Integer step) {
+			super.change(STEP,super.getStep(),step);
+			super.setStep(step);
+			return this;
+		}
 
 		/**
 		 * 克隆当前对象
@@ -573,9 +720,12 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 			$$proxy$$ inst=new $$proxy$$();
 			inst.setException(this.getException());
 			inst.setHostName(this.getHostName());
+			inst.setSubject(this.getSubject());
 			inst.setUserAgent(this.getUserAgent());
 			inst.setSessionId(this.getSessionId());
+			inst.setType(this.getType());
 			inst.setUserName(this.getUserName());
+			inst.setHttpMethod(this.getHttpMethod());
 			inst.setUri(this.getUri());
 			inst.setUserId(this.getUserId());
 			inst.setTid(this.getTid());
@@ -589,13 +739,17 @@ public class InvokeLogVOMeta extends InvokeLogMeta {
 			inst.setEndTime(this.getEndTime());
 			if(all) {
 				inst.setSearchField(this.getSearchField());
+				inst.setRequestAction(this.getRequestAction());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
 				inst.setPageIndex(this.getPageIndex());
 				inst.setSortType(this.getSortType());
-				inst.setFuzzyField(this.getFuzzyField());
 				inst.setDirtyFields(this.getDirtyFields());
 				inst.setSortField(this.getSortField());
-				inst.setPageSize(this.getPageSize());
+				inst.setDataOrigin(this.getDataOrigin());
 				inst.setIds(this.getIds());
+				inst.setQueryLogic(this.getQueryLogic());
+				inst.setStep(this.getStep());
 				inst.setSearchValue(this.getSearchValue());
 			}
 			inst.clearModifies();

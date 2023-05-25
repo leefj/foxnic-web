@@ -9,6 +9,7 @@ import com.github.foxnic.dao.entity.ReferCause;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.mvc.ResourceMatchService;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
@@ -31,7 +32,7 @@ import java.util.Map;
  * @version
 */
 
-public interface IResourzeService extends ISuperService<Resourze> {
+public interface IResourzeService extends ISuperService<Resourze>, ResourceMatchService<Resourze> {
 
 	public static class AccessableAntPathRequestMatcher  {
 

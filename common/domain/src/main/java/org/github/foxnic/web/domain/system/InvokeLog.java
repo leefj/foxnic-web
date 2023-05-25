@@ -9,8 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import io.swagger.annotations.ApiModelProperty;
-import java.sql.Timestamp;
+import org.github.foxnic.web.constants.enums.system.ResourceType;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
+import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 import org.github.foxnic.web.domain.system.meta.InvokeLogMeta;
@@ -23,8 +28,8 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 调用统计日志
  * <p>调用统计日志 , 数据表 sys_invoke_log 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-10-28 14:42:52
- * @sign 1001880D3A20913EBC4BB6DA9DB43CF2
+ * @since 2023-05-25 15:55:57
+ * @sign C7EA5F85D0CCB4DA2E84D54F2AFCA1F8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -57,10 +62,25 @@ public class InvokeLog extends Entity {
 	private String hostName;
 	
 	/**
+	 * 目标名称：目标名称
+	*/
+	@ApiModelProperty(required = false,value="目标名称" , notes = "目标名称")
+	private String subject;
+	
+	/**
 	 * 请求的URI：请求的URI
 	*/
 	@ApiModelProperty(required = false,value="请求的URI" , notes = "请求的URI" , example = "1")
 	private String uri;
+	
+	/**
+	 * 类型：类型
+	*/
+	@ApiModelProperty(required = false,value="类型" , notes = "类型")
+	private String type;
+	@Transient
+	@EnumFor("type")
+	private ResourceType typeEnum;
 	
 	/**
 	 * UserAgent：UserAgent
@@ -90,7 +110,7 @@ public class InvokeLog extends Entity {
 	 * 用户ID：用户ID
 	*/
 	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID" , example = "1")
-	private Long userId;
+	private String userId;
 	
 	/**
 	 * 用户姓名：用户姓名
@@ -133,6 +153,18 @@ public class InvokeLog extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="异常信息" , notes = "异常信息")
 	private String exception;
+	
+	/**
+	 * 请求类型：请求类型
+	*/
+	@ApiModelProperty(required = false,value="请求类型" , notes = "请求类型")
+	private String httpMethod;
+	
+	/**
+	 * 写入进度：写入进度
+	*/
+	@ApiModelProperty(required = false,value="写入进度" , notes = "写入进度")
+	private Integer step;
 	
 	/**
 	 * 获得 ID<br>
@@ -192,6 +224,25 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
+	 * 获得 目标名称<br>
+	 * 目标名称
+	 * @return 目标名称
+	*/
+	public String getSubject() {
+		return subject;
+	}
+	
+	/**
+	 * 设置 目标名称
+	 * @param subject 目标名称
+	 * @return 当前对象
+	*/
+	public InvokeLog setSubject(String subject) {
+		this.subject=subject;
+		return this;
+	}
+	
+	/**
 	 * 获得 请求的URI<br>
 	 * 请求的URI
 	 * @return 请求的URI
@@ -207,6 +258,59 @@ public class InvokeLog extends Entity {
 	*/
 	public InvokeLog setUri(String uri) {
 		this.uri=uri;
+		return this;
+	}
+	
+	/**
+	 * 获得 类型<br>
+	 * 类型
+	 * @return 类型
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 获得 类型 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 类型
+	*/
+	@Transient
+	public ResourceType getTypeEnum() {
+		if(this.typeEnum==null) {
+			this.typeEnum = (ResourceType) EnumUtil.parseByCode(ResourceType.values(),type);
+		}
+		return this.typeEnum ;
+	}
+	
+	/**
+	 * 设置 类型
+	 * @param type 类型
+	 * @return 当前对象
+	*/
+	@JsonProperty("type")
+	public InvokeLog setType(String type) {
+		this.type=type;
+		this.typeEnum= (ResourceType) EnumUtil.parseByCode(ResourceType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of ResourceType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 类型的投影属性，等同于设置 类型
+	 * @param typeEnum 类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public InvokeLog setTypeEnum(ResourceType typeEnum) {
+		if(typeEnum==null) {
+			this.setType(null);
+		} else {
+			this.setType(typeEnum.code());
+		}
+		this.typeEnum=typeEnum;
 		return this;
 	}
 	
@@ -291,7 +395,7 @@ public class InvokeLog extends Entity {
 	 * 用户ID
 	 * @return 用户ID
 	*/
-	public Long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 	
@@ -300,7 +404,7 @@ public class InvokeLog extends Entity {
 	 * @param userId 用户ID
 	 * @return 当前对象
 	*/
-	public InvokeLog setUserId(Long userId) {
+	public InvokeLog setUserId(String userId) {
 		this.userId=userId;
 		return this;
 	}
@@ -437,6 +541,44 @@ public class InvokeLog extends Entity {
 		this.exception=exception;
 		return this;
 	}
+	
+	/**
+	 * 获得 请求类型<br>
+	 * 请求类型
+	 * @return 请求类型
+	*/
+	public String getHttpMethod() {
+		return httpMethod;
+	}
+	
+	/**
+	 * 设置 请求类型
+	 * @param httpMethod 请求类型
+	 * @return 当前对象
+	*/
+	public InvokeLog setHttpMethod(String httpMethod) {
+		this.httpMethod=httpMethod;
+		return this;
+	}
+	
+	/**
+	 * 获得 写入进度<br>
+	 * 写入进度
+	 * @return 写入进度
+	*/
+	public Integer getStep() {
+		return step;
+	}
+	
+	/**
+	 * 设置 写入进度
+	 * @param step 写入进度
+	 * @return 当前对象
+	*/
+	public InvokeLog setStep(Integer step) {
+		this.step=step;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -484,9 +626,12 @@ public class InvokeLog extends Entity {
 		org.github.foxnic.web.domain.system.meta.InvokeLogMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.InvokeLogMeta.$$proxy$$();
 		inst.setException(this.getException());
 		inst.setHostName(this.getHostName());
+		inst.setSubject(this.getSubject());
 		inst.setUserAgent(this.getUserAgent());
 		inst.setSessionId(this.getSessionId());
+		inst.setType(this.getType());
 		inst.setUserName(this.getUserName());
+		inst.setHttpMethod(this.getHttpMethod());
 		inst.setUri(this.getUri());
 		inst.setUserId(this.getUserId());
 		inst.setTid(this.getTid());
@@ -498,6 +643,9 @@ public class InvokeLog extends Entity {
 		inst.setStartTime(this.getStartTime());
 		inst.setId(this.getId());
 		inst.setEndTime(this.getEndTime());
+		if(all) {
+			inst.setStep(this.getStep());
+		}
 		inst.clearModifies();
 		return inst;
 	}
@@ -558,11 +706,14 @@ public class InvokeLog extends Entity {
 		if(cast) {
 			this.setException(DataParser.parse(String.class, map.get(InvokeLogMeta.EXCEPTION)));
 			this.setHostName(DataParser.parse(String.class, map.get(InvokeLogMeta.HOST_NAME)));
+			this.setSubject(DataParser.parse(String.class, map.get(InvokeLogMeta.SUBJECT)));
 			this.setUserAgent(DataParser.parse(String.class, map.get(InvokeLogMeta.USER_AGENT)));
 			this.setSessionId(DataParser.parse(String.class, map.get(InvokeLogMeta.SESSION_ID)));
+			this.setType(DataParser.parse(String.class, map.get(InvokeLogMeta.TYPE)));
 			this.setUserName(DataParser.parse(String.class, map.get(InvokeLogMeta.USER_NAME)));
+			this.setHttpMethod(DataParser.parse(String.class, map.get(InvokeLogMeta.HTTP_METHOD)));
 			this.setUri(DataParser.parse(String.class, map.get(InvokeLogMeta.URI)));
-			this.setUserId(DataParser.parse(Long.class, map.get(InvokeLogMeta.USER_ID)));
+			this.setUserId(DataParser.parse(String.class, map.get(InvokeLogMeta.USER_ID)));
 			this.setTid(DataParser.parse(String.class, map.get(InvokeLogMeta.TID)));
 			this.setToken(DataParser.parse(String.class, map.get(InvokeLogMeta.TOKEN)));
 			this.setApplication(DataParser.parse(String.class, map.get(InvokeLogMeta.APPLICATION)));
@@ -573,16 +724,20 @@ public class InvokeLog extends Entity {
 			this.setId(DataParser.parse(Long.class, map.get(InvokeLogMeta.ID)));
 			this.setEndTime(DataParser.parse(Timestamp.class, map.get(InvokeLogMeta.END_TIME)));
 			// others
+			this.setStep(DataParser.parse(Integer.class, map.get(InvokeLogMeta.STEP)));
 			return true;
 		} else {
 			try {
 				this.setException( (String)map.get(InvokeLogMeta.EXCEPTION));
 				this.setHostName( (String)map.get(InvokeLogMeta.HOST_NAME));
+				this.setSubject( (String)map.get(InvokeLogMeta.SUBJECT));
 				this.setUserAgent( (String)map.get(InvokeLogMeta.USER_AGENT));
 				this.setSessionId( (String)map.get(InvokeLogMeta.SESSION_ID));
+				this.setType( (String)map.get(InvokeLogMeta.TYPE));
 				this.setUserName( (String)map.get(InvokeLogMeta.USER_NAME));
+				this.setHttpMethod( (String)map.get(InvokeLogMeta.HTTP_METHOD));
 				this.setUri( (String)map.get(InvokeLogMeta.URI));
-				this.setUserId( (Long)map.get(InvokeLogMeta.USER_ID));
+				this.setUserId( (String)map.get(InvokeLogMeta.USER_ID));
 				this.setTid( (String)map.get(InvokeLogMeta.TID));
 				this.setToken( (String)map.get(InvokeLogMeta.TOKEN));
 				this.setApplication( (String)map.get(InvokeLogMeta.APPLICATION));
@@ -593,6 +748,7 @@ public class InvokeLog extends Entity {
 				this.setId( (Long)map.get(InvokeLogMeta.ID));
 				this.setEndTime( (Timestamp)map.get(InvokeLogMeta.END_TIME));
 				// others
+				this.setStep( (Integer)map.get(InvokeLogMeta.STEP));
 				return true;
 			} catch (Exception e) {
 				return false;
@@ -611,11 +767,14 @@ public class InvokeLog extends Entity {
 		if(cast) {
 			this.setException(DataParser.parse(String.class, r.getValue(InvokeLogMeta.EXCEPTION)));
 			this.setHostName(DataParser.parse(String.class, r.getValue(InvokeLogMeta.HOST_NAME)));
+			this.setSubject(DataParser.parse(String.class, r.getValue(InvokeLogMeta.SUBJECT)));
 			this.setUserAgent(DataParser.parse(String.class, r.getValue(InvokeLogMeta.USER_AGENT)));
 			this.setSessionId(DataParser.parse(String.class, r.getValue(InvokeLogMeta.SESSION_ID)));
+			this.setType(DataParser.parse(String.class, r.getValue(InvokeLogMeta.TYPE)));
 			this.setUserName(DataParser.parse(String.class, r.getValue(InvokeLogMeta.USER_NAME)));
+			this.setHttpMethod(DataParser.parse(String.class, r.getValue(InvokeLogMeta.HTTP_METHOD)));
 			this.setUri(DataParser.parse(String.class, r.getValue(InvokeLogMeta.URI)));
-			this.setUserId(DataParser.parse(Long.class, r.getValue(InvokeLogMeta.USER_ID)));
+			this.setUserId(DataParser.parse(String.class, r.getValue(InvokeLogMeta.USER_ID)));
 			this.setTid(DataParser.parse(String.class, r.getValue(InvokeLogMeta.TID)));
 			this.setToken(DataParser.parse(String.class, r.getValue(InvokeLogMeta.TOKEN)));
 			this.setApplication(DataParser.parse(String.class, r.getValue(InvokeLogMeta.APPLICATION)));
@@ -630,11 +789,14 @@ public class InvokeLog extends Entity {
 			try {
 				this.setException( (String)r.getValue(InvokeLogMeta.EXCEPTION));
 				this.setHostName( (String)r.getValue(InvokeLogMeta.HOST_NAME));
+				this.setSubject( (String)r.getValue(InvokeLogMeta.SUBJECT));
 				this.setUserAgent( (String)r.getValue(InvokeLogMeta.USER_AGENT));
 				this.setSessionId( (String)r.getValue(InvokeLogMeta.SESSION_ID));
+				this.setType( (String)r.getValue(InvokeLogMeta.TYPE));
 				this.setUserName( (String)r.getValue(InvokeLogMeta.USER_NAME));
+				this.setHttpMethod( (String)r.getValue(InvokeLogMeta.HTTP_METHOD));
 				this.setUri( (String)r.getValue(InvokeLogMeta.URI));
-				this.setUserId( (Long)r.getValue(InvokeLogMeta.USER_ID));
+				this.setUserId( (String)r.getValue(InvokeLogMeta.USER_ID));
 				this.setTid( (String)r.getValue(InvokeLogMeta.TID));
 				this.setToken( (String)r.getValue(InvokeLogMeta.TOKEN));
 				this.setApplication( (String)r.getValue(InvokeLogMeta.APPLICATION));

@@ -330,6 +330,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			return matches;
 		}
 
+
+
+
 		PerformanceLogger logger=new PerformanceLogger(true);
 		logger.collect("A");
 		//
@@ -362,7 +365,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 				if(cachedResourzes.isEmpty()) {
 					//载入所有资源
 					FieldsBuilder fields = this.createFieldsBuilder();
-					fields.removeAll().add(FoxnicWeb.SYS_RESOURZE.ID, FoxnicWeb.SYS_RESOURZE.URL, FoxnicWeb.SYS_RESOURZE.METHOD, FoxnicWeb.SYS_RESOURZE.ACCESS_TYPE, FoxnicWeb.SYS_RESOURZE.TYPE);
+					fields.removeAll().add(FoxnicWeb.SYS_RESOURZE.ID, FoxnicWeb.SYS_RESOURZE.NAME,FoxnicWeb.SYS_RESOURZE.URL, FoxnicWeb.SYS_RESOURZE.METHOD, FoxnicWeb.SYS_RESOURZE.ACCESS_TYPE, FoxnicWeb.SYS_RESOURZE.TYPE);
 					List<Resourze> list = this.queryList(fields, new ConditionExpr("length(url)>0"));
 					cachedResourzes = CollectorUtil.collectMap(list, Resourze::getId, r -> {
 						if(r.getAccessTypeEnum()==null) {

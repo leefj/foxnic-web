@@ -12,7 +12,7 @@ import com.github.foxnic.sql.meta.DBTable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
-import org.github.foxnic.web.constants.enums.hrm.ResourceType;
+import org.github.foxnic.web.constants.enums.system.ResourceType;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
