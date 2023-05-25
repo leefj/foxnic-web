@@ -50,7 +50,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 });
 
             }
-            debugger
+            // debugger
         },
         /**
          * 查询前调用

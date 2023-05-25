@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 13:56:40
+ * @since 2023-05-25 13:54:46
  */
 
 function FormPage() {
@@ -245,7 +245,7 @@ function FormPage() {
 
 
         //禁用编辑
-		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {
+	if((action=="edit" && hasData && disableModify) || (action=="create" && !hasData &&disableCreateNew)) {
 			fox.lockForm($("#data-form"),true);
 			$("#submit-button").hide();
 			$("#cancel-button").css("margin-right","15px")
@@ -359,6 +359,7 @@ function FormPage() {
 				inputEl:$("#directLeaderId"),
 				buttonEl:$(this),
 				single:true,
+				autoWidth:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"emp",
@@ -375,6 +376,7 @@ function FormPage() {
 				inputEl:$("#primaryPositionId"),
 				buttonEl:$(this),
 				single:true,
+				autoWidth:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",
@@ -391,6 +393,7 @@ function FormPage() {
 				inputEl:$("#vicePositionIds"),
 				buttonEl:$(this),
 				single:false,
+				autoWidth:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",

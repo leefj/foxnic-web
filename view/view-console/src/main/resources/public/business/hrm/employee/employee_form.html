@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 13:56:39
+ * @since 2023-05-25 13:54:45
  */
  -->
  <!DOCTYPE html>
@@ -44,7 +44,7 @@
          <!--开始：group 循环-->
 
 
-        <div class="layui-row form-row" id="random-0981-content">
+        <div class="layui-row form-row" id="random-5300-content">
 
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
@@ -87,7 +87,7 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主岗')}">主岗</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="primaryPositionId" id="primaryPositionId" name="primaryPositionId"  type="hidden" class="layui-input"    lay-verify="|required"   />
-                        <button id="primaryPositionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="primaryPositionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%" default-width="100%" auto-width="false"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
             <!--结束：栏次内字段循环-->
@@ -122,10 +122,10 @@
             
                 <!-- button : 直属领导 ,  directLeaderId  -->
                 <div class="layui-form-item" inlines=""  inline-delta="0" input-width="">
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('直属领导')}">直属领导</div><div class="layui-required">*</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('直属领导')}">直属领导</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="directLeaderId" id="directLeaderId" name="directLeaderId"  type="hidden" class="layui-input"    lay-verify="|required"   />
-                        <button id="directLeaderId-button" type="button" action-type="emp-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择人员')}" th:default-label="${lang.translate('请选择人员')}">按钮文本</span></button>
+                        <input lay-filter="directLeaderId" id="directLeaderId" name="directLeaderId"  type="hidden" class="layui-input"   />
+                        <button id="directLeaderId-button" type="button" action-type="emp-dialog" class="layui-btn   " style="width: 100%" default-width="100%" auto-width="false"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择人员')}" th:default-label="${lang.translate('请选择人员')}">按钮文本</span></button>
                     </div>
                 </div>
             
@@ -134,7 +134,7 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('兼岗')}">兼岗</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input lay-filter="vicePositionIds" id="vicePositionIds" name="vicePositionIds"  type="hidden" class="layui-input"   />
-                        <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%" default-width="100%" auto-width="false"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                     </div>
                 </div>
             <!--结束：栏次内字段循环-->
@@ -164,7 +164,7 @@
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
     var SELECT_TYPE_DATA = [[${dict.toArray('employee_type')}]];
     var RADIO_SEX_DATA = [[${dict.toArray('sex')}]];
-    var VALIDATE_CONFIG={"badge":{"labelInForm":"工号","inputType":"text_input","required":true},"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"sex":{"labelInForm":"姓别","inputType":"radio_box","required":true},"directLeaderId":{"labelInForm":"直属领导","inputType":"button","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"primaryPositionId":{"labelInForm":"主岗","inputType":"button","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
+    var VALIDATE_CONFIG={"badge":{"labelInForm":"工号","inputType":"text_input","required":true},"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"sex":{"labelInForm":"姓别","inputType":"radio_box","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"primaryPositionId":{"labelInForm":"主岗","inputType":"button","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
     var AUTH_PREFIX="hrm_employee";
 
     // 员工扩展信息

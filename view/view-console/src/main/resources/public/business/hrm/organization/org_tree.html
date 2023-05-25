@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/libs/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css">
+    <link rel="stylesheet" href="/assets/libs/spliter/jquery.splitter.css" type="text/css">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="/assets/libs/material-design-webfont/css/material-design-icons-min.css" rel="stylesheet">
@@ -74,7 +75,9 @@
        	<ul id="menu-tree" class="ztree"></ul>
        </div>
    </div>
-   <div class="right-tab" style="margin-left: 8px;margin-right: 8px">
+
+
+   <div class="right-tab" style="margin-left: 8px;margin-right: 8px;padding-left: 0px;border-left:1px #e6e6e6 none;overflow:hidden;">
 
        <div class="layui-tab" lay-filter="rightTab" style="margin-top:6px;">
            <ul class="layui-tab-title">
@@ -105,6 +108,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js" th:src="'/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js?'+${cacheKey}"></script>
+ <script type="text/javascript"src="/assets/libs/spliter/jquery.splitter.js"></script>
 
 <script src="/business/hrm/organization/org_tree.js" th:src="'/business/hrm/organization/org_tree.js?'+${cacheKey}"></script>
 

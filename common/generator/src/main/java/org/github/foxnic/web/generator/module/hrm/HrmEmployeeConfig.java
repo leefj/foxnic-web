@@ -97,11 +97,11 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
 
         view.field(personSexField).basic().label("姓别")
-                .search().selectMuliti(false).triggerOnSelect(true)
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX).sort(true).alignCenter()
                 .form().validate().required()
                 .form().radioBox().dict(DictEnum.SEX).defaultIndex(0)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX)
+                .search().selectMuliti(false).triggerOnSelect(true)
                 .search().inputWidth(100).on(FoxnicWeb.HRM_PERSON.SEX);
 
         view.field(PersonMeta.IDENTITY).basic().label("身份证")
@@ -113,19 +113,19 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         ;
 
         view.field(HRM_EMPLOYEE.STATUS)
-                .search().selectMuliti(false).triggerOnSelect(true)
                 .form().radioBox().dict(DictEnum.EMPLOYEE_STATUS).defaultValue(EmployeeStatus.ACTIVE)
+                .search().selectMuliti(false).triggerOnSelect(true)
                 .form().validate().required()
                 .search().inputWidth(100)
         ;
 
         view.field(HRM_EMPLOYEE.TYPE)
-                .search().selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().dict(DictEnum.EMPLOYEE_TYPE)
+                .search().selectMuliti(false).triggerOnSelect(true)
         ;
 
         view.field(HRM_EMPLOYEE.DIRECT_LEADER_ID).basic().label("直属领导")
-                .form().validate().required()
+                .form()
                 .form().button().chooseEmployee(true)
                 .table().sort(false)
                 .table().fillBy(EmployeeMeta.DIRECT_LEADER, EmployeeMeta.NAME)
@@ -196,6 +196,10 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
             .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
             .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
+    }
+
+    public static void main(String[] args) {
+        execute();
     }
 
 }

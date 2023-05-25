@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-04-28 13:56:39
+ * @since 2023-05-25 13:54:45
  */
 
 
@@ -91,7 +91,7 @@ function ListPage() {
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机号') , templet: function (d) { return templet('phone',d.phone,d);}  }
 					,{ field: 'primaryOrganization', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('部门') , templet: function (d) { return templet('primaryOrganization',fox.getProperty(d,["primaryOrganization","fullName"],0,'','primaryOrganization'),d);} }
 					,{ field: 'primaryPositionId', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('主岗') , templet: function (d) { return templet('primaryPositionId',fox.getProperty(d,["primaryPosition","fullName"],0,'','primaryPositionId'),d);} }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd"),d); }  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('人员ID') , templet: function (d) { return templet('personId',d.personId,d);}  }
 					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status,'','status'),d);}}
