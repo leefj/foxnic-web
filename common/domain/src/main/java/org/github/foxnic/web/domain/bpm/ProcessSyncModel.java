@@ -11,8 +11,8 @@ public class ProcessSyncModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public String getProcessInstanceId() {
-        if(processInstance==null) return null;
-        return processInstance.getId();
+        if(callback==null) return null;
+        return callback.getBpmProcessInstanceId();
     }
 
     private ProcessInstance processInstance;
