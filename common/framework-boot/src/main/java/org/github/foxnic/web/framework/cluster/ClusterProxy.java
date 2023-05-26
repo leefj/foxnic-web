@@ -219,7 +219,7 @@ public class ClusterProxy {
             }
 
             // 读取相应报文
-            if (response.getStatusLine().getStatusCode() == 200) {  // 如果请求成功
+//            if (response.getStatusLine().getStatusCode() == 200 || response.getStatusLine().getStatusCode() == 500) {  // 如果请求成功
                 try (BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()))) {
                     String result = "";
@@ -229,10 +229,10 @@ public class ClusterProxy {
                     }
                     return result;
                 }
-            } else {
-                Result result = ErrorDesc.failure().message("Cluster 请求错误");
-                return  JSON.toJSONString(result);
-            }
+//            } else {
+//                Result result = ErrorDesc.failure().message("Cluster 请求错误");
+//                return  JSON.toJSONString(result);
+//            }
 
         } catch (HttpHostConnectException e) {
             if(!ProxyContext.isIgnoreCallError()) {

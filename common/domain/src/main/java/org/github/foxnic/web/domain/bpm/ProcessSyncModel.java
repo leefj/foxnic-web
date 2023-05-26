@@ -15,7 +15,14 @@ public class ProcessSyncModel implements Serializable {
         return callback.getBpmProcessInstanceId();
     }
 
-    private ProcessInstance processInstance;
+    public String getCamundaProcessInstanceId() {
+        if(callback==null) return null;
+        return callback.getCamundaProcessInstanceId();
+    }
+
+
+
+    //private ProcessInstance processInstance;
 
     private EventCallback callback;
     private List<Task> tasks;
@@ -28,13 +35,13 @@ public class ProcessSyncModel implements Serializable {
         this.tasks = tasks;
     }
 
-    public ProcessInstance getProcessInstance() {
-        return processInstance;
-    }
-
-    public void setProcessInstance(ProcessInstance processInstance) {
-        this.processInstance = processInstance;
-    }
+//    public ProcessInstance getProcessInstance() {
+//        return processInstance;
+//    }
+//
+//    public void setProcessInstance(ProcessInstance processInstance) {
+//        this.processInstance = processInstance;
+//    }
 
     public void setCallback(EventCallback callback) {
         this.callback = callback;

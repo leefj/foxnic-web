@@ -33,6 +33,11 @@ public class BPMErrors extends ErrorDefinition {
      */
     public static final String  PROCESS_INSTANCE_NOT_READY_FOR_START = PREFIX + "04";
 
+    /**
+     * 流程不在调试范围内
+     */
+    public static final String  PROCESS_INSTANCE_NOT_IN_DEBUG_RANGE = PREFIX + "99";
+
 //    /**
 //     * 流程定义文件读取失败
 //     */
@@ -59,6 +64,7 @@ public class BPMErrors extends ErrorDefinition {
             new ErrorDesc(this,PROCESS_INSTANCE_STATUS_CAN_NOT_START, "当前流程状态不允许启动");
             new ErrorDesc(this,PROCESS_INSTANCE_NOT_EXISTS, "流程实例不存在");
             new ErrorDesc(this,PROCESS_INSTANCE_NOT_READY_FOR_START, "流程数据错误");
+            new ErrorDesc(this,PROCESS_INSTANCE_NOT_IN_DEBUG_RANGE, "流程不在调试范围内");
         } catch (Exception e) {}
     }
 }

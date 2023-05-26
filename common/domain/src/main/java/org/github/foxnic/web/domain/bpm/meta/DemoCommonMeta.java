@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.DemoCommon;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 11:53:44
- * @sign 1422044F0495F7639912E1936E6DA565
+ * @since 2023-05-26 15:02:02
+ * @sign 4EEF0FBF52A47EC750EA2D80EADF39C9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -175,5 +176,34 @@ public class DemoCommonMeta {
 			super.setDefaultProcess(defaultProcess);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public DemoCommon clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public DemoCommon duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setSubject(this.getSubject());
+			inst.setId(this.getId());
+			inst.setContent(this.getContent());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setHistoricProcessList(this.getHistoricProcessList());
+				inst.setCurrentProcessList(this.getCurrentProcessList());
+				inst.setDefaultProcess(this.getDefaultProcess());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

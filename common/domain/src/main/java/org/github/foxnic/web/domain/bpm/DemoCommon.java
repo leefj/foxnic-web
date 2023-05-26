@@ -1,6 +1,7 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
+import io.swagger.annotations.ApiModel;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_COMMON;
@@ -8,25 +9,32 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import javax.persistence.Transient;
+import com.github.foxnic.api.swagger.EnumFor;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import org.github.foxnic.web.domain.bpm.meta.DemoCommonMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
  * 通用审批表单
+ * <p>通用审批表单 , 数据表 bpm_demo_common 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 11:53:44
- * @sign 1422044F0495F7639912E1936E6DA565
+ * @since 2023-05-26 15:02:01
+ * @sign 4EEF0FBF52A47EC750EA2D80EADF39C9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 @Table(name = "bpm_demo_common")
+@ApiModel(description = "通用审批表单 ; 通用审批表单 , 数据表 bpm_demo_common 的PO类型")
 public class DemoCommon extends Entity {
 
 	private static final long serialVersionUID = 1L;
@@ -58,6 +66,7 @@ public class DemoCommon extends Entity {
 	@ApiModelProperty(required = false,value="状态" , notes = "状态")
 	private String status;
 	@Transient
+	@EnumFor("status")
 	private DemoStatus statusEnum;
 	
 	/**
@@ -162,6 +171,7 @@ public class DemoCommon extends Entity {
 	 * @param status 状态
 	 * @return 当前对象
 	*/
+	@JsonProperty("status")
 	public DemoCommon setStatus(String status) {
 		this.status=status;
 		this.statusEnum= (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status) ;
@@ -296,6 +306,42 @@ public class DemoCommon extends Entity {
 	}
 
 	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoCommon clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public DemoCommon duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.DemoCommonMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.DemoCommonMeta.$$proxy$$();
+		inst.setSubject(this.getSubject());
+		inst.setId(this.getId());
+		inst.setContent(this.getContent());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setHistoricProcessList(this.getHistoricProcessList());
+			inst.setCurrentProcessList(this.getCurrentProcessList());
+			inst.setDefaultProcess(this.getDefaultProcess());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoCommon clone(boolean deep) {
+		return EntityContext.clone(DemoCommon.class,this,deep);
+	}
+
+	/**
 	 * 将 Map 转换成 DemoCommon
 	 * @param demoCommonMap 包含实体信息的 Map 对象
 	 * @return DemoCommon , 转换好的的 DemoCommon 对象
@@ -303,7 +349,9 @@ public class DemoCommon extends Entity {
 	@Transient
 	public static DemoCommon createFrom(Map<String,Object> demoCommonMap) {
 		if(demoCommonMap==null) return null;
-		DemoCommon po = EntityContext.create(DemoCommon.class, demoCommonMap);
+		DemoCommon po = create();
+		EntityContext.copyProperties(po,demoCommonMap);
+		po.clearModifies();
 		return po;
 	}
 
@@ -315,7 +363,9 @@ public class DemoCommon extends Entity {
 	@Transient
 	public static DemoCommon createFrom(Object pojo) {
 		if(pojo==null) return null;
-		DemoCommon po = EntityContext.create(DemoCommon.class,pojo);
+		DemoCommon po = create();
+		EntityContext.copyProperties(po,pojo);
+		po.clearModifies();
 		return po;
 	}
 
@@ -325,6 +375,64 @@ public class DemoCommon extends Entity {
 	*/
 	@Transient
 	public static DemoCommon create() {
-		return EntityContext.create(DemoCommon.class);
+		return new org.github.foxnic.web.domain.bpm.meta.DemoCommonMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setSubject(DataParser.parse(String.class, map.get(DemoCommonMeta.SUBJECT)));
+			this.setId(DataParser.parse(String.class, map.get(DemoCommonMeta.ID)));
+			this.setContent(DataParser.parse(String.class, map.get(DemoCommonMeta.CONTENT)));
+			this.setStatus(DataParser.parse(String.class, map.get(DemoCommonMeta.STATUS)));
+			// others
+			this.setDefaultProcess(DataParser.parse(ProcessInstance.class, map.get(DemoCommonMeta.DEFAULT_PROCESS)));
+			return true;
+		} else {
+			try {
+				this.setSubject( (String)map.get(DemoCommonMeta.SUBJECT));
+				this.setId( (String)map.get(DemoCommonMeta.ID));
+				this.setContent( (String)map.get(DemoCommonMeta.CONTENT));
+				this.setStatus( (String)map.get(DemoCommonMeta.STATUS));
+				// others
+				this.setDefaultProcess( (ProcessInstance)map.get(DemoCommonMeta.DEFAULT_PROCESS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setSubject(DataParser.parse(String.class, r.getValue(DemoCommonMeta.SUBJECT)));
+			this.setId(DataParser.parse(String.class, r.getValue(DemoCommonMeta.ID)));
+			this.setContent(DataParser.parse(String.class, r.getValue(DemoCommonMeta.CONTENT)));
+			this.setStatus(DataParser.parse(String.class, r.getValue(DemoCommonMeta.STATUS)));
+			return true;
+		} else {
+			try {
+				this.setSubject( (String)r.getValue(DemoCommonMeta.SUBJECT));
+				this.setId( (String)r.getValue(DemoCommonMeta.ID));
+				this.setContent( (String)r.getValue(DemoCommonMeta.CONTENT));
+				this.setStatus( (String)r.getValue(DemoCommonMeta.STATUS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

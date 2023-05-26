@@ -213,6 +213,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	}
 
 
-
+	public static void main(String[] args) {
+		execute();
+	}
 
 }

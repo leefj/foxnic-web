@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-09 17:40:24
+ * @since 2023-05-26 14:57:47
  */
 
 
@@ -93,7 +93,7 @@ function ListPage() {
 					,{ field: 'address', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件地址',null,languageContext) , templet: function (d) { return templet('address',d.address,d);}  }
 					,{ field: 'regionType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型',null,languageContext) , templet: function (d) { return templet('regionType',d.regionType,d);}  }
 					,{ field: 'regionLocation', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地区位置',null,languageContext) , templet: function (d) { return templet('regionLocation',d.regionLocation,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间',null,languageContext) ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd"),d); }  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间',null,languageContext) ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列','','cmp:table'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作','','cmp:table'), width: 160 }
 				]],

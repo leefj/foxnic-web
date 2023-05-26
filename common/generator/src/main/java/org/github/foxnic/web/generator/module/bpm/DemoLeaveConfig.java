@@ -109,4 +109,8 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
+    public static void main(String[] args) {
+        execute();
+    }
+
 }

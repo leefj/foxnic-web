@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-09 17:40:24
+ * @since 2023-05-26 14:57:49
  */
 
 function FormPage() {
@@ -121,7 +121,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo1',
 			type:"year",
-			format:"yyyy",
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click",
 			done: function(value, date, endDate){
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo1",value, date, endDate);
@@ -130,7 +130,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo2',
 			type:"month",
-			format:"yyyy-M",
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click",
 			done: function(value, date, endDate){
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo2",value, date, endDate);
@@ -139,7 +139,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo3',
 			type:"date",
-			format:"yyyy-MM-dd",
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click",
 			done: function(value, date, endDate){
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo3",value, date, endDate);
@@ -148,7 +148,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo4',
 			type:"time",
-			format:"HH:mm:ss",
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click",
 			done: function(value, date, endDate){
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("dateDemo4",value, date, endDate);
@@ -166,7 +166,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo11',
 			type:"year",
-			format:"yyyy",
+			format:"yyyy-MM-dd HH:mm:ss",
 			range:true,
 			trigger:"click",
 			done: function(value, date, endDate){
@@ -176,7 +176,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo22',
 			type:"month",
-			format:"yyyy-M",
+			format:"yyyy-MM-dd HH:mm:ss",
 			range:true,
 			trigger:"click",
 			done: function(value, date, endDate){
@@ -186,7 +186,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo33',
 			type:"date",
-			format:"yyyy-MM-dd",
+			format:"yyyy-MM-dd HH:mm:ss",
 			range:true,
 			trigger:"click",
 			done: function(value, date, endDate){
@@ -196,7 +196,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#dateDemo44',
 			type:"time",
-			format:"HH:mm:ss",
+			format:"yyyy-MM-dd HH:mm:ss",
 			range:true,
 			trigger:"click",
 			done: function(value, date, endDate){
@@ -266,19 +266,19 @@ function FormPage() {
 
 			//设置 年份 显示复选框勾选
 			if(formData["dateDemo1"]) {
-				$("#dateDemo1").val(fox.dateFormat(formData["dateDemo1"],"yyyy"));
+				$("#dateDemo1").val(fox.dateFormat(formData["dateDemo1"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 月份 显示复选框勾选
 			if(formData["dateDemo2"]) {
-				$("#dateDemo2").val(fox.dateFormat(formData["dateDemo2"],"yyyy-M"));
+				$("#dateDemo2").val(fox.dateFormat(formData["dateDemo2"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 日期 显示复选框勾选
 			if(formData["dateDemo3"]) {
-				$("#dateDemo3").val(fox.dateFormat(formData["dateDemo3"],"yyyy-MM-dd"));
+				$("#dateDemo3").val(fox.dateFormat(formData["dateDemo3"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 时间 显示复选框勾选
 			if(formData["dateDemo4"]) {
-				$("#dateDemo4").val(fox.dateFormat(formData["dateDemo4"],"HH:mm:ss"));
+				$("#dateDemo4").val(fox.dateFormat(formData["dateDemo4"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 日期时间 显示复选框勾选
 			if(formData["dateDemo5"]) {
@@ -286,19 +286,19 @@ function FormPage() {
 			}
 			//设置 年份范围 显示复选框勾选
 			if(formData["dateDemo11"]) {
-				$("#dateDemo11").val(fox.dateFormat(formData["dateDemo11"],"yyyy"));
+				$("#dateDemo11").val(fox.dateFormat(formData["dateDemo11"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 月份范围 显示复选框勾选
 			if(formData["dateDemo22"]) {
-				$("#dateDemo22").val(fox.dateFormat(formData["dateDemo22"],"yyyy-M"));
+				$("#dateDemo22").val(fox.dateFormat(formData["dateDemo22"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 日期范围 显示复选框勾选
 			if(formData["dateDemo33"]) {
-				$("#dateDemo33").val(fox.dateFormat(formData["dateDemo33"],"yyyy-MM-dd"));
+				$("#dateDemo33").val(fox.dateFormat(formData["dateDemo33"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 时间范围 显示复选框勾选
 			if(formData["dateDemo44"]) {
-				$("#dateDemo44").val(fox.dateFormat(formData["dateDemo44"],"HH:mm:ss"));
+				$("#dateDemo44").val(fox.dateFormat(formData["dateDemo44"],"yyyy-MM-dd HH:mm:ss"));
 			}
 			//设置 日期时间范围 显示复选框勾选
 			if(formData["dateDemo55"]) {
@@ -330,7 +330,7 @@ function FormPage() {
 
 
         //禁用编辑
-		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {
+	if((action=="edit" && hasData && disableModify) || (action=="create" && !hasData &&disableCreateNew)) {
 			fox.lockForm($("#data-form"),true);
 			$("#submit-button").hide();
 			$("#cancel-button").css("margin-right","15px")

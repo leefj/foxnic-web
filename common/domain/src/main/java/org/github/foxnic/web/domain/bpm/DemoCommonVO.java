@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.bpm;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,17 +8,25 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
+import java.util.Map;
+import org.github.foxnic.web.domain.bpm.meta.DemoCommonVOMeta;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.sql.data.ExprRcd;
 
 
 
 /**
- * 通用审批表单
+ * 通用审批表单VO类型
+ * <p>通用审批表单 , 数据表 bpm_demo_common 的通用VO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 11:53:44
- * @sign FF027A6A7C2A7FA980160448107A36C3
+ * @since 2023-05-26 15:02:02
+ * @sign E464C199AAFEED44656CD5240EE08C85
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
+@ApiModel(description = "通用审批表单VO类型 ; 通用审批表单 , 数据表 bpm_demo_common 的通用VO类型" , parent = DemoCommon.class)
 public class DemoCommonVO extends DemoCommon {
 
 	private static final long serialVersionUID = 1L;
@@ -69,6 +78,24 @@ public class DemoCommonVO extends DemoCommon {
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
+	
+	/**
+	 * 数据来源：前端指定不同的来源，后端可按来源执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="数据来源" , notes = "前端指定不同的来源，后端可按来源执行不同的逻辑")
+	private String dataOrigin;
+	
+	/**
+	 * 查询逻辑：默认and，可指定 or 
+	*/
+	@ApiModelProperty(required = false,value="查询逻辑" , notes = "默认and，可指定 or ")
+	private String queryLogic;
+	
+	/**
+	 * 请求动作：前端指定不同的Action，后端可Action执行不同的逻辑
+	*/
+	@ApiModelProperty(required = false,value="请求动作" , notes = "前端指定不同的Action，后端可Action执行不同的逻辑")
+	private String requestAction;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -232,6 +259,63 @@ public class DemoCommonVO extends DemoCommon {
 	}
 	
 	/**
+	 * 获得 数据来源<br>
+	 * 前端指定不同的来源，后端可按来源执行不同的逻辑
+	 * @return 数据来源
+	*/
+	public String getDataOrigin() {
+		return dataOrigin;
+	}
+	
+	/**
+	 * 设置 数据来源
+	 * @param dataOrigin 数据来源
+	 * @return 当前对象
+	*/
+	public DemoCommonVO setDataOrigin(String dataOrigin) {
+		this.dataOrigin=dataOrigin;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询逻辑<br>
+	 * 默认and，可指定 or 
+	 * @return 查询逻辑
+	*/
+	public String getQueryLogic() {
+		return queryLogic;
+	}
+	
+	/**
+	 * 设置 查询逻辑
+	 * @param queryLogic 查询逻辑
+	 * @return 当前对象
+	*/
+	public DemoCommonVO setQueryLogic(String queryLogic) {
+		this.queryLogic=queryLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求动作<br>
+	 * 前端指定不同的Action，后端可Action执行不同的逻辑
+	 * @return 请求动作
+	*/
+	public String getRequestAction() {
+		return requestAction;
+	}
+	
+	/**
+	 * 设置 请求动作
+	 * @param requestAction 请求动作
+	 * @return 当前对象
+	*/
+	public DemoCommonVO setRequestAction(String requestAction) {
+		this.requestAction=requestAction;
+		return this;
+	}
+	
+	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
 	 * @return 主键清单
@@ -261,7 +345,7 @@ public class DemoCommonVO extends DemoCommon {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +354,197 @@ public class DemoCommonVO extends DemoCommon {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return DemoCommonVO , 转换好的 DemoCommonVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return DemoCommonVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoCommonVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public DemoCommonVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.DemoCommonVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.DemoCommonVOMeta.$$proxy$$();
+		inst.setSubject(this.getSubject());
+		inst.setId(this.getId());
+		inst.setContent(this.getContent());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setRequestAction(this.getRequestAction());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setHistoricProcessList(this.getHistoricProcessList());
+			inst.setCurrentProcessList(this.getCurrentProcessList());
+			inst.setDefaultProcess(this.getDefaultProcess());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setDataOrigin(this.getDataOrigin());
+			inst.setIds(this.getIds());
+			inst.setQueryLogic(this.getQueryLogic());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DemoCommonVO clone(boolean deep) {
+		return EntityContext.clone(DemoCommonVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Map 转换成 DemoCommonVO
+	 * @param demoCommonMap 包含实体信息的 Map 对象
+	 * @return DemoCommonVO , 转换好的的 DemoCommon 对象
+	*/
+	@Transient
+	public static DemoCommonVO createFrom(Map<String,Object> demoCommonMap) {
+		if(demoCommonMap==null) return null;
+		DemoCommonVO vo = create();
+		EntityContext.copyProperties(vo,demoCommonMap);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 将 Pojo 转换成 DemoCommonVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return DemoCommonVO , 转换好的的 DemoCommon 对象
+	*/
+	@Transient
+	public static DemoCommonVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		DemoCommonVO vo = create();
+		EntityContext.copyProperties(vo,pojo);
+		vo.clearModifies();
+		return vo;
+	}
+
+	/**
+	 * 创建一个 DemoCommonVO，等同于 new
+	 * @return DemoCommonVO 对象
+	*/
+	@Transient
+	public static DemoCommonVO create() {
+		return new org.github.foxnic.web.domain.bpm.meta.DemoCommonVOMeta.$$proxy$$();
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param map 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(Map<String, Object> map,boolean cast) {
+		if(map==null) return false;
+		if(cast) {
+			this.setSubject(DataParser.parse(String.class, map.get(DemoCommonVOMeta.SUBJECT)));
+			this.setId(DataParser.parse(String.class, map.get(DemoCommonVOMeta.ID)));
+			this.setContent(DataParser.parse(String.class, map.get(DemoCommonVOMeta.CONTENT)));
+			this.setStatus(DataParser.parse(String.class, map.get(DemoCommonVOMeta.STATUS)));
+			// others
+			this.setSearchField(DataParser.parse(String.class, map.get(DemoCommonVOMeta.SEARCH_FIELD)));
+			this.setRequestAction(DataParser.parse(String.class, map.get(DemoCommonVOMeta.REQUEST_ACTION)));
+			this.setFuzzyField(DataParser.parse(String.class, map.get(DemoCommonVOMeta.FUZZY_FIELD)));
+			this.setPageSize(DataParser.parse(Integer.class, map.get(DemoCommonVOMeta.PAGE_SIZE)));
+			this.setDefaultProcess(DataParser.parse(ProcessInstance.class, map.get(DemoCommonVOMeta.DEFAULT_PROCESS)));
+			this.setPageIndex(DataParser.parse(Integer.class, map.get(DemoCommonVOMeta.PAGE_INDEX)));
+			this.setSortType(DataParser.parse(String.class, map.get(DemoCommonVOMeta.SORT_TYPE)));
+			this.setSortField(DataParser.parse(String.class, map.get(DemoCommonVOMeta.SORT_FIELD)));
+			this.setDataOrigin(DataParser.parse(String.class, map.get(DemoCommonVOMeta.DATA_ORIGIN)));
+			this.setQueryLogic(DataParser.parse(String.class, map.get(DemoCommonVOMeta.QUERY_LOGIC)));
+			this.setSearchValue(DataParser.parse(String.class, map.get(DemoCommonVOMeta.SEARCH_VALUE)));
+			return true;
+		} else {
+			try {
+				this.setSubject( (String)map.get(DemoCommonVOMeta.SUBJECT));
+				this.setId( (String)map.get(DemoCommonVOMeta.ID));
+				this.setContent( (String)map.get(DemoCommonVOMeta.CONTENT));
+				this.setStatus( (String)map.get(DemoCommonVOMeta.STATUS));
+				// others
+				this.setSearchField( (String)map.get(DemoCommonVOMeta.SEARCH_FIELD));
+				this.setRequestAction( (String)map.get(DemoCommonVOMeta.REQUEST_ACTION));
+				this.setFuzzyField( (String)map.get(DemoCommonVOMeta.FUZZY_FIELD));
+				this.setPageSize( (Integer)map.get(DemoCommonVOMeta.PAGE_SIZE));
+				this.setDefaultProcess( (ProcessInstance)map.get(DemoCommonVOMeta.DEFAULT_PROCESS));
+				this.setPageIndex( (Integer)map.get(DemoCommonVOMeta.PAGE_INDEX));
+				this.setSortType( (String)map.get(DemoCommonVOMeta.SORT_TYPE));
+				this.setSortField( (String)map.get(DemoCommonVOMeta.SORT_FIELD));
+				this.setDataOrigin( (String)map.get(DemoCommonVOMeta.DATA_ORIGIN));
+				this.setQueryLogic( (String)map.get(DemoCommonVOMeta.QUERY_LOGIC));
+				this.setSearchValue( (String)map.get(DemoCommonVOMeta.SEARCH_VALUE));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * 从 Map 读取
+	 * @param r 记录数据
+	 * @param cast 是否用 DataParser 进行类型转换
+	 * @return  是否读取成功
+	*/
+	public boolean read(ExprRcd r,boolean cast) {
+		if(r==null) return false;
+		if(cast) {
+			this.setSubject(DataParser.parse(String.class, r.getValue(DemoCommonVOMeta.SUBJECT)));
+			this.setId(DataParser.parse(String.class, r.getValue(DemoCommonVOMeta.ID)));
+			this.setContent(DataParser.parse(String.class, r.getValue(DemoCommonVOMeta.CONTENT)));
+			this.setStatus(DataParser.parse(String.class, r.getValue(DemoCommonVOMeta.STATUS)));
+			return true;
+		} else {
+			try {
+				this.setSubject( (String)r.getValue(DemoCommonVOMeta.SUBJECT));
+				this.setId( (String)r.getValue(DemoCommonVOMeta.ID));
+				this.setContent( (String)r.getValue(DemoCommonVOMeta.CONTENT));
+				this.setStatus( (String)r.getValue(DemoCommonVOMeta.STATUS));
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

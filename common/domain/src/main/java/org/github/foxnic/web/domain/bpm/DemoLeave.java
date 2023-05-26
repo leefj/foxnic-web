@@ -29,7 +29,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 请假流程示例
  * <p>请假流程示例 , 数据表 bpm_demo_leave 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-16 11:38:39
+ * @since 2023-05-26 15:02:18
  * @sign 436F0D583935E8FAFFCF1852DD2A2055
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

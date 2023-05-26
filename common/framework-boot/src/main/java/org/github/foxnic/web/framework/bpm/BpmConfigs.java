@@ -18,7 +18,7 @@ public class BpmConfigs {
     @Value("${foxnic.bpm.debug.enable:false}")
     private Boolean enableDebug;
 
-    @Value("${foxnic.bpm.debug.process-definition-code-list}")
+    @Value("${foxnic.bpm.debug.process-definition-code-list:}")
     private String processDefinitionCodeList=null;
 
     /**

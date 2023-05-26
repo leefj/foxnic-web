@@ -142,17 +142,31 @@ public class InvokeLogServiceImpl implements InvokeLogService , ApplicationReady
 	}
 
 	public void exception(Throwable error) {
-		InvokeLog invokeLog=cache.get(logId.get());
-		if(invokeLog==null) return;
-		invokeLog.setEndTime(new Timestamp(System.currentTimeMillis()));
-		invokeLog.setException(StringUtil.toString(error));
+		try {
+			if(logId.get()==null) return;
+			InvokeLog invokeLog=cache.get(logId.get());
+			if(invokeLog==null) return;
+			invokeLog.setEndTime(new Timestamp(System.currentTimeMillis()));
+			invokeLog.setException(StringUtil.toString(error));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void response(Object response) {
-		InvokeLog invokeLog=cache.get(logId.get());
-		if(invokeLog==null) return;
-		invokeLog.setEndTime(new Timestamp(System.currentTimeMillis()));
-		invokeLog.setResponse(JSON.toJSONString(response));
+		try {
+			if(logId.get()==null) return;
+			InvokeLog invokeLog=cache.get(logId.get());
+			if(invokeLog==null) return;
+			invokeLog.setEndTime(new Timestamp(System.currentTimeMillis()));
+			if(response!=null) {
+				invokeLog.setResponse(JSON.toJSONString(response));
+			} else {
+				invokeLog.setResponse("<NULL>");
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 

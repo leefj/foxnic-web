@@ -93,4 +93,8 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
                 .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
+    public static void main(String[] args) {
+        execute();
+    }
+
 }

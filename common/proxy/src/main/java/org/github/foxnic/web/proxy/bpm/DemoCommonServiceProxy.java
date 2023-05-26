@@ -19,10 +19,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 通用审批表单  控制器服务代理
+ * 通用审批表单 控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 11:53:45
+ * @since 2023-05-26 15:02:02
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoCommonServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface DemoCommonServiceProxy extends BpmCallbackController {
