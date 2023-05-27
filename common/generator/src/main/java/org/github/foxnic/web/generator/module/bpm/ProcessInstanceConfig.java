@@ -137,6 +137,13 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.form().labelWidth(120);
 
         view.field(BPM_PROCESS_INSTANCE.ID).basic().hidden();
+
+        view.field(BPM_PROCESS_INSTANCE.NEED_SYNC).basic().hidden()
+                .table().disable();
+
+        view.field(BPM_PROCESS_INSTANCE.LATEST_APPRAL_TIME).basic().label("最近审批")
+                .table().disable();
+
         view.field(BPM_PROCESS_INSTANCE.TITLE).search().fuzzySearch().form().validate().required();
         view.field(BPM_PROCESS_INSTANCE.COMMENT).search().label("审批意见").hidden();
         view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度")
@@ -275,6 +282,10 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
             .setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页
             .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
+    }
+
+    public static void main(String[] args) {
+        execute();
     }
 
 }

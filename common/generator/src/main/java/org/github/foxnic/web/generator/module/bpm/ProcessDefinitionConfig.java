@@ -66,12 +66,12 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.ICON_FILE_MOBILE).search().hidden().form().upload().acceptSingleImage();
 
         view.field(BPM_PROCESS_DEFINITION.CATALOG_ID).basic().label("分类")
-                .search().triggerOnSelect(true)
                 .table().fillBy(ProcessDefinitionMeta.CATALOG, CatalogMeta.NAME)
                 .form().inputWidth(150)
                 .form().validate().required()
                 .form().selectBox().queryApi(CatalogServiceProxy.QUERY_LIST).paging(false).filter(false).muliti(false, false)
-                .textField(BPM_CATALOG.NAME).valueField(BPM_CATALOG.ID).fillWith(ProcessDefinitionMeta.CATALOG);
+                .textField(BPM_CATALOG.NAME).valueField(BPM_CATALOG.ID).fillWith(ProcessDefinitionMeta.CATALOG)
+                .search().triggerOnSelect(true);
 
 
         view.field(BPM_PROCESS_DEFINITION.ICON_FILE_PC).search().hidden().form().upload().acceptSingleImage();
@@ -120,7 +120,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .search().hidden().table().hidden();
         ;
 
-        view.field(BPM_CATALOG.SORT).search().hidden().form().inputWidth(80);
+        view.field(BPM_CATALOG.SORT).search().hidden()
+                .triggerOnSelect(true)
+                .form().inputWidth(80);
 
 
         view.field(BPM_PROCESS_DEFINITION.ALLOW_FETCH_BACK).form().label("撤回流程").logicField().on("允许", 1).off("禁止", 0).search().triggerOnSelect(true)
@@ -253,6 +255,10 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
                 .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
                 .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
+    }
+
+    public static void main(String[] args) {
+        execute();
     }
 
 }

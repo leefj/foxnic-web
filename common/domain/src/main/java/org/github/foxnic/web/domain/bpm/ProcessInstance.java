@@ -32,7 +32,7 @@ import com.github.foxnic.sql.data.ExprRcd;
  * 流程实例
  * <p>流程实例 , 数据表 bpm_process_instance 的PO类型</p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2023-05-16 16:41:04
+ * @since 2023-05-28 06:37:34
  * @sign B7F6F376B8A2065798237B7904E2C617
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

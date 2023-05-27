@@ -193,4 +193,8 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }
 
+    public static void main(String[] args) {
+        execute();
+    }
+
 }
