@@ -121,7 +121,7 @@ public class InvokeLogServiceImpl implements InvokeLogService , ApplicationReady
 		invokeLog.setClientIp(httpServletRequest.getRemoteHost());
 		invokeLog.setHttpMethod(httpServletRequest.getMethod());
 
-		invokeLog.setToken(request.getHeader().get("Authorization"));
+		//invokeLog.setToken(request.getHeader().get("Authorization"));
 
 		if(RequestParameter.getSession(false)!=null) {
 			invokeLog.setSessionId(RequestParameter.getSession(false).getId());
@@ -135,7 +135,7 @@ public class InvokeLogServiceImpl implements InvokeLogService , ApplicationReady
 		if(StringUtil.isBlank(body)) {
 			body=request.getQueryString();
 		}
-		invokeLog.setParameter(body);
+		//invokeLog.setParameter(body);
 		invokeLog.setStartTime(new Timestamp(System.currentTimeMillis()));
 		cache.put(id,invokeLog);
 
@@ -160,7 +160,7 @@ public class InvokeLogServiceImpl implements InvokeLogService , ApplicationReady
 			if(invokeLog==null) return;
 			invokeLog.setEndTime(new Timestamp(System.currentTimeMillis()));
 			if(response!=null) {
-				invokeLog.setResponse(JSON.toJSONString(response));
+				// invokeLog.setResponse(JSON.toJSONString(response));
 			} else {
 				invokeLog.setResponse("<NULL>");
 			}
