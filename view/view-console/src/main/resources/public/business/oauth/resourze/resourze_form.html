@@ -68,7 +68,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
+                        <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.ResourceType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
 
