@@ -34,6 +34,8 @@ import java.util.Date;
 @Component
 public class OSSAliSupport extends StorageSupport {
 
+
+
     private static OSS OSS_CLIENT;
 
     @Value("${foxnic.storage.oss-aliyun.end-point:}")
