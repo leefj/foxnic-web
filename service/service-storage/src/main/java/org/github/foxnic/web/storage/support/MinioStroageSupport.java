@@ -158,7 +158,6 @@ public class MinioStroageSupport extends StorageSupport {
 
 
     public InputStream readStream(File fileInfo) {
-
         InputStream stream=null;
         Boolean isFileExists=isFileExists(fileInfo);
         if(!isFileExists){
@@ -166,7 +165,6 @@ public class MinioStroageSupport extends StorageSupport {
         }
         try {
             stream=client.getObject(GetObjectArgs.builder().bucket(bucket).object(fileInfo.getLocation()).build());
-            ByteArrayOutputStream bos=new ByteArrayOutputStream();
         } catch (ErrorResponseException e) {
             e.printStackTrace();
         } catch (InsufficientDataException e) {
