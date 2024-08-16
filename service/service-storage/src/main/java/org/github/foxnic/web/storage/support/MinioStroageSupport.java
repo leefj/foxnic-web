@@ -116,15 +116,11 @@ public class MinioStroageSupport extends StorageSupport {
     public File write(File fileInfo, MultipartFile file,String dir) {
         try {
             String filename = getFileName(file.getOriginalFilename());
-            Logger.info("originalFilename:"+  file.getOriginalFilename());
-            Logger.info("oss filename:"+  filename);
-            Logger.info("fileSize:"+  file.getSize());
-            Logger.info("bucket:"+  bucket);
-            Logger.info("contentType:"+  file.getContentType());
             fileInfo.setLocation(filename);
             if(!client.bucketExists(BucketExistsArgs.builder().bucket(bucket).build())){
                 client.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
             }
+            fileInfo.setSize(file.getSize());
             ObjectWriteResponse response = client.putObject(PutObjectArgs.builder()
                     .bucket(bucket)
                     .object(filename)
