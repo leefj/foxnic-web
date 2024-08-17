@@ -93,8 +93,10 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 	private IResourzeService resourzeService;
 
 
-	private void clearMenuCache() {
+
+	public Result clearMenuCache() {
 		catchedMenus.clear();
+		return ErrorDesc.success();
 	}
 
 	/**

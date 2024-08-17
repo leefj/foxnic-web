@@ -26,6 +26,7 @@ public interface IMenuService extends ISimpleIdService<Menu,String> {
 
 	public static final String ROOT_ID="0";
 
+	Result clearMenuCache();
 	/**
 	 * 插入实体
 	 * @param menu 实体数据

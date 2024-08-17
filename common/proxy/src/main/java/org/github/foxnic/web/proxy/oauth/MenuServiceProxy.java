@@ -104,6 +104,15 @@ public interface MenuServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
+     * 导入菜单数据(Excel)
+     */
+    public static final String CLEAR_CACHE = API_PREFIX + "clear-cache";
+
+
+    @RequestMapping(MenuServiceProxy.CLEAR_CACHE)
+    Result clearCache();
+
+    /**
      * 添加菜单
      */
     @RequestMapping(MenuServiceProxy.INSERT)

@@ -97,6 +97,15 @@ public class MenuController extends SuperController {
         return result;
     }
 
+    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
+    @ApiOperationSupport(order = 1)
+    @SentinelResource(value = MenuServiceProxy.CLEAR_CACHE)
+    @PostMapping(MenuServiceProxy.CLEAR_CACHE)
+    public Result clearCache() {
+        return menuService.clearMenuCache();
+    }
+
+
     /**
      * 删除菜单
      */
