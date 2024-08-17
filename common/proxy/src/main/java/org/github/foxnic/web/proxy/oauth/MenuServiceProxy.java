@@ -104,13 +104,14 @@ public interface MenuServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
-     * 导入菜单数据(Excel)
+     * 清除数据
      */
-    public static final String CLEAR_CACHE = API_PREFIX + "clear-cache";
+    public static final String CLEAR_MENU_CACHE = API_PREFIX + "clear-menu-cache";
+   // public static final String CLEAR_MENU_CACHE = API_PREFIX + "clear-menu-cache";
 
 
-    @RequestMapping(MenuServiceProxy.CLEAR_CACHE)
-    Result clearCache();
+    @RequestMapping(MenuServiceProxy.CLEAR_MENU_CACHE)
+    Result clearMenuCache();
 
     /**
      * 添加菜单

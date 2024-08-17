@@ -94,10 +94,6 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 
 
 
-	public Result clearMenuCache() {
-		catchedMenus.clear();
-		return ErrorDesc.success();
-	}
 
 	/**
 	 * 插入实体
@@ -116,6 +112,18 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 		}
 		return result;
 	}
+
+//	public void clearMenuCache() {
+//		catchedMenus.clear();
+//	}
+//
+//
+	@Override
+	public Result clearMenuCache() {
+		catchedMenus.clear();
+		return ErrorDesc.success();
+	}
+
 
 	/**
 	 * 批量插入实体，事务内

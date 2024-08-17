@@ -97,13 +97,26 @@ public class MenuController extends SuperController {
         return result;
     }
 
-    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
-    @ApiOperationSupport(order = 1)
-    @SentinelResource(value = MenuServiceProxy.CLEAR_CACHE)
-    @PostMapping(MenuServiceProxy.CLEAR_CACHE)
-    public Result clearCache() {
+
+    /**
+     * 清理缓存 <br>
+     */
+    @ApiOperation(value = "清理缓存")
+    @ApiOperationSupport(order = 3)
+    @SentinelResource(value = "/service-oauth/sys-menu/clear-menu-cache")
+    @PostMapping("/service-oauth/sys-menu/clear-menu-cache")
+    public Result clearMenuCache() {
         return menuService.clearMenuCache();
     }
+
+
+//    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
+//    @ApiOperationSupport(order = 1)
+//    @SentinelResource(value = MenuServiceProxy.CLEAR_CACHE)
+//    @PostMapping(MenuServiceProxy.CLEAR_CACHE)
+//    public Result clearCache() {
+//        return menuService.clearMenuCache();
+//    }
 
 
     /**
