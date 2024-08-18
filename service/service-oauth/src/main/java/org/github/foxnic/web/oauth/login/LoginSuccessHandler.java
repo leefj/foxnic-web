@@ -177,14 +177,45 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			menu.remove("batchId");
 			menu.remove("hierarchy");
 			menu.remove("pathResource");
+			menu.remove("typeEnum");
+			menu.remove("notes");
+
 			if(StringUtil.isBlank(menu.getString("url"))) {
 				menu.remove("url");
 			}
+
 			if(StringUtil.isBlank(menu.getString("css"))) {
 				menu.remove("css");
 			}
 			if(StringUtil.isBlank(menu.getString("params"))) {
 				menu.remove("params");
+			}
+
+
+			//删除,多余的数据，修改by lank
+			if("function".equals(menu.getString("type"))){
+				if(!StringUtil.isBlank(menu.getString("label"))) {
+					menu.remove("label");
+					menu.remove("sort");
+				}
+			}
+
+		}
+		//删除,多余的数据，修改by lank
+		JSONArray roles=jsonUser.getJSONArray("roles");
+		if(roles!=null) {
+			for (int i = 0; i < roles.size(); i++) {
+				JSONObject role=roles.getJSONObject(i);
+				if(role==null) continue;
+				if(!StringUtil.isBlank(role.getString("notes"))) {
+					role.remove("notes");
+				}
+				if(!StringUtil.isBlank(role.getString("name"))) {
+					role.remove("name");
+				}
+				if(!StringUtil.isBlank(role.getString("type"))) {
+					role.remove("type");
+				}
 			}
 		}
 		return jsonUser;
