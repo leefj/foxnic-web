@@ -120,6 +120,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 //
 	@Override
 	public Result clearMenuCache() {
+		Logger.info("clearMenuCache");
 		catchedMenus.clear();
 		return ErrorDesc.success();
 	}
@@ -407,6 +408,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService,
 			this.dao().getDataCacheManager().dispatchJoinCacheInvalidEvent(CacheInvalidEventType.UPDATE,this.dao().getDataCacheManager(),table(),entry.getValue(),(Entity) entity);
 		}
 
+		this.clearMenuCache();
 		return true;
 	}
 

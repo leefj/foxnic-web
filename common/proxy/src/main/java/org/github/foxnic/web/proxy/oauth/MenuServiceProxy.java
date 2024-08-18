@@ -107,7 +107,7 @@ public interface MenuServiceProxy {
      * 清除数据
      */
     public static final String CLEAR_MENU_CACHE = API_PREFIX + "clear-menu-cache";
-   // public static final String CLEAR_MENU_CACHE = API_PREFIX + "clear-menu-cache";
+ 
 
 
     @RequestMapping(MenuServiceProxy.CLEAR_MENU_CACHE)
