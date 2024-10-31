@@ -171,6 +171,7 @@ public interface UserServiceProxy {
     @RequestMapping(UserServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<User>> queryPagedList(@RequestParam(name = "sample") UserVO sample);
 
+
     /**
      * 获得会话信息
      */

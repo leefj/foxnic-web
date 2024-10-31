@@ -112,7 +112,7 @@ public class MenuController extends SuperController {
 
 //    @ApiParamSupport(ignoreDBTreatyProperties = true, ignoreDefaultVoProperties = true, ignorePrimaryKey = true)
 //    @ApiOperationSupport(order = 1)
-//    @SentinelResource(value = MenuServiceProxy.CLEAR_CACHE)
+//    @SentinelResource(value = MenuServiceProxy.CLEAR_MENU_CACHE)
 //    @PostMapping(MenuServiceProxy.CLEAR_CACHE)
 //    public Result clearCache() {
 //        return menuService.clearMenuCache();
